@@ -1,0 +1,14 @@
+schema_version: yxj-paper-os/state/v1
+paper_slug: example-paper
+current_phase: intake
+active_gate: none_readonly_or_planning
+active_run_id: null
+blockers: []
+next_safe_action: build_source_map
+ledgers:
+  task_ledger: .omx/state/yxj-paper-os/task-ledger.yaml
+  artifact_ledger: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  decision_ledger: .omx/state/yxj-paper-os/decision-ledger.yaml
+  evidence_ledger: .omx/state/yxj-paper-os/evidence-ledger.yaml
+  review_ledger: .omx/state/yxj-paper-os/review-ledger.yaml
+  export_ledger: .omx/state/yxj-paper-os/export-ledger.yaml

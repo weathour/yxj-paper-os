@@ -1,0 +1,9 @@
+target_root: /home/weathour/文档/CPS-Papers/shared/paper-writing-tools-lab/plugin-scaffolds/yxj-paper-os-v2
+file_count: 266
+skill_count: 13
+template_count: 12
+invalid_fixture_count: 16
+valid_fixture_count: 1
+validator_script_count: 4
+doc_count: 6
+report_dir: /home/weathour/文档/CPS-Papers/shared/paper-writing-tools-lab/plugin-scaffolds/yxj-paper-os-v2/verification/20260622T114732Z

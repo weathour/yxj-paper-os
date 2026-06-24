@@ -1,0 +1,7 @@
+valid_check_exit: 0
+yxj-paper-os ledger guard: PASS
+wrong_stage_exit: 1
+ERROR: T-ledger: complete requires pipeline_stage=state_transition and state_transition.from, state_transition.to=complete, state_transition.at
+wrong_transition_target_exit: 1
+ERROR: T-ledger: complete requires pipeline_stage=state_transition and state_transition.from, state_transition.to=complete, state_transition.at
+MUTATION_LEDGER_GUARD_TRANSITION_SEMANTICS_PASS

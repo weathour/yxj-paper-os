@@ -1,0 +1,3 @@
+fixture_id: invalid-shallow-rationale-matrix
+expected_failures:
+- validate_rationale_matrix

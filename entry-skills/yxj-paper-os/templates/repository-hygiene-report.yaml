@@ -1,0 +1,46 @@
+schema_version: yxj-paper-os/repository-hygiene-report/v1
+report_id: repo-hygiene-<paper-slug>-<UTC>
+status: draft
+scope:
+  paper_root: /path/to/paper-root
+  git_root: /path/to/git-root
+  captured_at: <UTC>
+  commands:
+  - git status --short --untracked-files=all
+  non_git_workspace_reason: null
+worktree:
+  status: clean # clean | dirty_allowed | dirty_blocked | owner_gated
+  total_dirty_entries: 0
+  current_paper_dirty_entries: 0
+  sibling_or_parent_dirty_entries: 0
+  modified_entries: []
+  deleted_entries: []
+  untracked_entries: []
+  generated_or_ephemeral_entries: []
+  allowed_dirty_patterns: []
+  disallowed_dirty_entries: []
+sibling_or_parent_contamination:
+  status: none # none | present_blocked | accepted_with_owner_decision
+  entries: []
+  owner_decision_id: null
+snapshot_freshness:
+  status: not_required # pass | fail | not_required
+  command: null
+  evidence_path: null
+export_manifest_hashes:
+  status: not_required # pass | fail | not_required
+  manifest_path: null
+  checked_files: []
+external_submission:
+  status: not_performed_requires_explicit_confirmation
+  owner_confirmation_id: null
+delivery_cleanliness_gate:
+  status: blocked # pass | blocked | owner_gated
+  reason: ''
+  required_before:
+  - author_handoff
+  - external_submission_upload
+  cleanup_actions: []
+owner_decisions_required: []
+validator_refs:
+- validate_repository_hygiene_report

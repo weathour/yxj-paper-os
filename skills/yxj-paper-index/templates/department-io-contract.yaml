@@ -1,0 +1,121 @@
+schema_version: yxj-paper-os/department-io-contract/v2
+contract_id: department-io-<paper-slug>-<UTC>
+status: draft
+scope:
+  paper_root: /path/to/paper-root
+  source_only: true
+completion_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+departments:
+- department_id: pmo
+  display_name: PMO / Paper Management
+  owns:
+  - routing
+  - task_ledger
+  - decision_queue
+  - manager_handoff
+  - repository_hygiene
+  - delivery_cleanliness
+  consumes: []
+  produces:
+  - TaskPacketV2
+  - ManagerHandoffReportV2
+  - RepositoryHygieneReport
+  owner_lanes:
+  - state-steward
+  - execution-coordinator
+  - final-verifier
+  - repository-hygiene-owner
+  validators:
+  - validate_department_io_contract
+  - validate_repository_hygiene_report
+- department_id: paper_architecture_and_narrative
+  display_name: Paper Architecture & Narrative
+  owns:
+  - reader_spine
+  - object_representation
+  - section_function_budget
+  consumes:
+  - TemplateQuantProfile
+  - evidence_pack
+  produces:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  - SectionFunctionBudget
+  owner_lanes:
+  - paper-architect
+  - exemplar-learner
+  - style-auditor
+  validators:
+  - validate_reader_spine_brief
+  - validate_object_representation_matrix
+- department_id: evidence_and_method
+  display_name: Evidence & Method
+  owns:
+  - claim_support
+  - method_contract
+  - experiment_contract
+  consumes:
+  - source_map
+  - ReaderSpineBrief
+  produces:
+  - evidence_pack
+  - method_contract
+  - experiment_contract
+  - baseline_ablation_rationale
+  owner_lanes:
+  - evidence-curator
+  - method-verifier
+  - citation-banker
+  validators:
+  - validate_claim_support
+  - validate_task_material_io
+- department_id: manuscript_and_figure_production
+  display_name: Manuscript & Figure Production
+  owns:
+  - manuscript_sections
+  - visual_formal_package
+  consumes:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  - SectionFunctionBudget
+  - evidence_pack
+  produces:
+  - manuscript_section_output
+  - figure_table_algorithm_formula_package
+  owner_lanes:
+  - manuscript-owner
+  - figure-owner
+  - export-owner
+  validators:
+  - validate_section_function_budget
+  - validate_visual_budget
+- department_id: review_and_governance
+  display_name: Review & Governance
+  owns:
+  - hostile_review
+  - reader_experience_review
+  - narrative_backflow
+  - final_handoff_cleanliness_gate
+  consumes:
+  - all_produced_material_objects
+  - RepositoryHygieneReport
+  produces:
+  - ReaderExperienceReviewReport
+  - NarrativeBackflowTask
+  owner_lanes:
+  - review-director
+  - verifier
+  - final-verifier
+  validators:
+  - validate_reader_experience_review_gate
+  - validate_narrative_backflow
+  - validate_repository_hygiene_report
+hard_gates:
+- live_install
+- publish_or_marketplace
+- external_submission_or_upload
+- credentialed_service
+- destructive_action
+- private_raw_copy
+- cross_paper_root_mixing
+- paper_owner_semantic_decision

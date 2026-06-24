@@ -1,0 +1,2 @@
+### ast_syntax_check
+ast syntax check PASS

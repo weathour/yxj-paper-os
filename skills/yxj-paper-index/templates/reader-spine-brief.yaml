@@ -1,0 +1,30 @@
+schema_version: yxj-paper-os/reader-spine-brief/v2
+artifact_id: reader-spine-<paper-slug>
+status: draft
+owner_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+target_reader:
+  venue: null
+  reader_profile: null
+paper_spine:
+  one_sentence: null
+  problem_tension: null
+  contribution_path: []
+section_question_sequence:
+- section_id: abstract
+  reader_question: null
+  answer_commitment: null
+- section_id: introduction
+  reader_question: null
+  answer_commitment: null
+claim_visibility:
+- claim_id: C001
+  first_visible_in: introduction
+  evidence_boundary: null
+reviewer_expectations:
+- objection_id: R001
+  expected_objection: null
+  planned_response_section: null
+owner_gated_decisions: []
+validator_refs:
+- validate_reader_spine_brief

@@ -1,0 +1,2 @@
+validate_pua_telemetry_return: False
+MUTATION_L2_PUA_REPORT_MISMATCH_FAILS_PASS

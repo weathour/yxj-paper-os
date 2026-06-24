@@ -1,0 +1,2 @@
+failures: ['validate_dispatch_not_complete', 'validate_state_machine', 'validate_task_status_transitions']
+MUTATION_COMPLETE_WRONG_PIPELINE_STAGE_FAILS_PASS

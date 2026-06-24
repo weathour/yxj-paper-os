@@ -1,0 +1,46 @@
+schema_version: yxj-paper-os/repository-hygiene-report/v1
+report_id: repo-hygiene-fixture
+status: validated
+scope:
+  paper_root: .
+  git_root: .
+  captured_at: fixture-time
+  commands:
+  - git status --short --untracked-files=all
+  non_git_workspace_reason: null
+worktree:
+  status: clean
+  total_dirty_entries: 0
+  current_paper_dirty_entries: 0
+  sibling_or_parent_dirty_entries: 0
+  modified_entries: []
+  deleted_entries: []
+  untracked_entries: []
+  generated_or_ephemeral_entries: []
+  allowed_dirty_patterns: []
+  disallowed_dirty_entries: []
+sibling_or_parent_contamination:
+  status: none
+  entries: []
+  owner_decision_id: null
+snapshot_freshness:
+  status: pass
+  command: ledger_guard check --require-snapshot-fresh
+  evidence_path: validator-report.yaml
+export_manifest_hashes:
+  status: not_required
+  manifest_path: null
+  checked_files: []
+external_submission:
+  status: not_performed_requires_explicit_confirmation
+  owner_confirmation_id: null
+delivery_cleanliness_gate:
+  status: pass
+  reason: fixture clean handoff
+  required_before:
+  - author_handoff
+  - external_submission_upload
+  cleanup_actions: []
+owner_decisions_required: []
+validator_refs:
+- validate_repository_hygiene_report

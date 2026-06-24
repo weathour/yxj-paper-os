@@ -1,0 +1,8 @@
+schema_version: yxj-paper-os/validator-report/v1
+report_id: vr-001
+status: pass
+validators_run: []
+artifacts_checked:
+- task-ledger.yaml
+failures: []
+next_route: state_ingest

@@ -1,0 +1,143 @@
+### run_fixture_suite
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "valid": {
+      "minimal-valid": []
+    },
+    "invalid": {
+      "invalid-collected-without-validator": {
+        "expected": [
+          "validate_subagent_output",
+          "validate_task_status_transitions"
+        ],
+        "got": [
+          "validate_subagent_output",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-dispatch-as-complete": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-dispatched-timeout-without-output": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-export-without-validation": {
+        "expected": [
+          "validate_export_manifest"
+        ],
+        "got": [
+          "validate_export_manifest"
+        ]
+      },
+      "invalid-missing-agent-type": {
+        "expected": [
+          "validate_task_packet"
+        ],
+        "got": [
+          "validate_task_packet"
+        ]
+      },
+      "invalid-missing-source-map": {
+        "expected": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ],
+        "got": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ]
+      },
+      "invalid-missing-validator-definition": {
+        "expected": [
+          "validate_validator_reference_closure"
+        ],
+        "got": [
+          "validate_validator_reference_closure"
+        ]
+      },
+      "invalid-private-raw-leak": {
+        "expected": [
+          "validate_privacy_boundaries"
+        ],
+        "got": [
+          "validate_privacy_boundaries"
+        ]
+      },
+      "invalid-shallow-rationale-matrix": {
+        "expected": [
+          "validate_rationale_matrix"
+        ],
+        "got": [
+          "validate_rationale_matrix"
+        ]
+      },
+      "invalid-unconfirmed-motivation": {
+        "expected": [
+          "validate_motivation_confirmation"
+        ],
+        "got": [
+          "validate_motivation_confirmation"
+        ]
+      },
+      "invalid-unknown-owner-lane": {
+        "expected": [
+          "validate_owner_lane_closure"
+        ],
+        "got": [
+          "validate_owner_lane_closure"
+        ]
+      },
+      "invalid-unresolved-source-locator": {
+        "expected": [
+          "validate_source_locator_resolution"
+        ],
+        "got": [
+          "validate_source_locator_resolution"
+        ]
+      },
+      "invalid-unrouted-review-finding": {
+        "expected": [
+          "validate_review_backflow"
+        ],
+        "got": [
+          "validate_review_backflow"
+        ]
+      },
+      "invalid-unsupported-claim": {
+        "expected": [
+          "validate_claim_support"
+        ],
+        "got": [
+          "validate_claim_support"
+        ]
+      },
+      "invalid-validated-without-ingest": {
+        "expected": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "got": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      }
+    }
+  }
+}

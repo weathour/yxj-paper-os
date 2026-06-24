@@ -1,0 +1,7 @@
+schema_version: yxj-paper-os/motivation/v1
+motivation_id: mot-001
+confirmation_status: draft
+confirmed_by: paper_owner
+statement: A source-grounded confirmed motivation.
+source_refs:
+- src-001

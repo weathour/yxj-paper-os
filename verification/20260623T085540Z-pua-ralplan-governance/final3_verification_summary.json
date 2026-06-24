@@ -1,0 +1,64 @@
+{
+  "ok": true,
+  "summary": {
+    "final3_source_validate_scaffold.json": {
+      "ok": true
+    },
+    "final3_source_run_fixture_suite.json": {
+      "ok": true,
+      "valid_count": 1,
+      "invalid_count": 25
+    },
+    "final3_source_validate_scaffold_core.json": {
+      "ok": true
+    },
+    "final3_source_validate_fixtures_core.json": {
+      "ok": true,
+      "valid_count": 1,
+      "invalid_count": 25
+    },
+    "final3_cache_validate_scaffold.json": {
+      "ok": true
+    },
+    "final3_cache_run_fixture_suite.json": {
+      "ok": true,
+      "valid_count": 1,
+      "invalid_count": 25
+    },
+    "final3_cache_validate_scaffold_core.json": {
+      "ok": true
+    },
+    "final3_cache_validate_fixtures_core.json": {
+      "ok": true,
+      "valid_count": 1,
+      "invalid_count": 25
+    },
+    "mutation-check-l2-pua-report-mismatch-fails.txt": {
+      "marker": "MUTATION_L2_PUA_REPORT_MISMATCH_FAILS_PASS"
+    },
+    "mutation-check-complete-wrong-transition-target-fails.txt": {
+      "marker": "MUTATION_COMPLETE_WRONG_TRANSITION_TARGET_FAILS_PASS"
+    },
+    "mutation-check-complete-wrong-pipeline-stage-fails.txt": {
+      "marker": "MUTATION_COMPLETE_WRONG_PIPELINE_STAGE_FAILS_PASS"
+    },
+    "mutation-check-ledger-guard-transition-semantics.txt": {
+      "marker": "MUTATION_LEDGER_GUARD_TRANSITION_SEMANTICS_PASS"
+    },
+    "mutation-check-ledger-guard-stamp-complete-transition.txt": {
+      "marker": "MUTATION_LEDGER_GUARD_STAMP_COMPLETE_TRANSITION_PASS"
+    },
+    "mutation-check-l2-bool-failure-count-fails.txt": {
+      "marker": "MUTATION_BOOL_FAILURE_COUNT_FAILS_PASS"
+    },
+    "mutation-check-complete-without-state-transition-fails.txt": {
+      "marker": "MUTATION_COMPLETE_WITHOUT_STATE_TRANSITION_FAILS_PASS"
+    },
+    "static_marker_check_final3.txt": {
+      "marker": "STATIC_MARKER_CHECK_FINAL3_PASS"
+    },
+    "final3_source_cache_drift_check.txt": {
+      "marker": "FINAL3_SOURCE_CACHE_DRIFT_CHECK_PASS"
+    }
+  }
+}

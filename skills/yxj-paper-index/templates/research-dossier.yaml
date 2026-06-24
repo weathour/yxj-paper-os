@@ -1,0 +1,17 @@
+schema_version: yxj-paper-os/research-dossier/v1
+dossier_id: research-dossier-001
+paper_slug: example-paper
+lanes:
+  scene_analyst:
+    status: collected
+    findings: []
+  exemplar_learner:
+    status: collected
+    findings: []
+  sota_mapper:
+    status: collected
+    findings: []
+source_refs: [src-001]
+validator_refs:
+  - validate_research_dossier
+  - validate_research_triplet_collection

@@ -1,0 +1,9 @@
+stamp_exit: 0
+yxj-paper-os ledger guard: PASS
+stamped_pipeline_stage: state_transition
+stamped_transition_to: complete
+post_stamp_check_exit: 0
+yxj-paper-os ledger guard: PASS
+bad_stamp_exit: 1
+ERROR: --status complete requires --transition-to complete
+MUTATION_LEDGER_GUARD_STAMP_COMPLETE_TRANSITION_PASS

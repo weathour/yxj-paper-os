@@ -1,0 +1,15 @@
+schema_version: yxj-paper-os/section-function-budget/v2
+artifact_id: section-function-budget-<paper-slug>
+status: draft
+owner_department: paper_architecture_and_narrative
+sections:
+- section_id: introduction
+  rhetorical_function: motivate_gap_and_contribution
+  target_volume: null
+  required_material_objects:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  required_visual_formal_objects: []
+  validation_rule: section answers declared reader question and introduces claims within evidence boundary
+validator_refs:
+- validate_section_function_budget

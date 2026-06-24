@@ -1,0 +1,1 @@
+skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:183:        for field in ['context_scope', 'expected_output_artifacts', 'validator_refs', 'fallback_policy']:

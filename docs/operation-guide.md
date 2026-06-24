@@ -1,0 +1,228 @@
+# Operation guide
+
+## Safe use
+
+Use the installed `yxj-paper-os` public entry from a permitted Codex/OMX runtime.
+For local validation of this installed source, run:
+
+```bash
+python3 skills/yxj-paper-index/scripts/validate_scaffold.py .
+python3 skills/yxj-paper-index/scripts/run_fixture_suite.py .
+python3 skills/yxj-paper-index/scripts/ledger_guard.py check --root <paper-root>
+```
+
+## Orchestrator activation pattern
+
+Use the single public `yxj-paper-os` entry as the canonical yxj Paper
+Orchestrator / 论文经理 / 论文统筹 handoff point. The public plugin skill path
+contains only `entry-skills/yxj-paper-os`; the `skills/yxj-paper-*` directories
+are internal departments. Do not ask the paper owner to invoke those departments
+directly. A separate `yxj-paper-orchestrator` skill is not required; add only a
+thin alias later if smoke prompts show the single public entry does not activate
+reliably.
+
+When the user asks a broad question such as "看一下这篇论文整体推进情况" or
+"推进这篇论文", the orchestrator should not ask the user to choose a low-level
+module first. It should:
+
+1. detect the paper root;
+2. read `.omx/state/yxj-paper-os/state.yaml` and relevant ledgers;
+3. use `notes/yxj-paper-os/ledger-snapshot/` when the tracked mirror is needed;
+4. report by workstream/department and, for v2-managed tasks, by material object:
+   - experiments and empirical evidence;
+   - references and citation support;
+   - template/exemplar research, `TemplateQuantProfile`, and writing inputs;
+   - writing story / PaperSpine / section design, `ReaderSpineBrief`, and `ObjectRepresentationMatrix`;
+   - method and experiment design ownership;
+   - review findings and backflow fixes;
+   - terminology and nomenclature consistency;
+   - figures and export readiness;
+5. for every reported department, include:
+   - current concrete situation with artifact/ledger evidence and owner lane;
+   - current problems, risks, blockers, weak evidence, or "none recorded";
+   - exact files, sections, figures, claims, or semantic/venue choices the paper
+   owner should inspect or decide;
+   - impact on the final paper, reviewer risk, evidence strength, or export
+     readiness;
+6. end broad reports with a separate "Needs paper-owner attention" block;
+7. choose or recommend the next safe workflow route;
+8. report validation, ledger, and residual-risk evidence for any work performed.
+
+## Paper-owner handoff mode
+
+For broad handoffs, pre-author-review closure, post-execution summaries, or
+managerial status reports, use:
+
+**Gate-based Manager Report + Department Table + Decision Queue + Verification
+Appendix**.
+
+Recommended shape:
+
+1. **30-second manager summary**: state, gate, route, last verified task,
+   machine blockers, owner-gated decisions, external-gated actions, and the next
+   safe route.
+2. **Department Table**: department/internal owner module, owner lane/agent type,
+   material inputs consumed, material outputs produced, narrative/template refs,
+   evidence/artifacts, closure state, risk/blocker, owner attention, and
+   final-paper impact.
+3. **Decision Queue**: decision id, owner question, options, recommended option,
+   no-decision consequence, blocked/enabled actions, and trigger/deadline.
+4. **Verification Appendix**: commands, validator outcomes, fixture matrix
+   status, ledger guard, snapshot freshness, changed files, commit hash when
+   available, and unverified gaps.
+
+Use `validated`, `ingested`, `recommended`, `blocked`, `owner-gated`, and
+`external-gated` precisely. Split next steps into `auto-continuable`,
+`requires paper-owner decision`, and `hard-gated/prohibited until explicit
+authorization`. Never replace this with a vague "done" paragraph, raw logs, or
+PUA rhetoric without validator and ledger evidence.
+
+
+## v2 governance references
+
+For v2 work, the manager must connect task routing to material objects:
+
+- `entry-skills/yxj-paper-os/references/department-io-contract.md` defines the
+  PMO + department model, mandatory task-packet bindings, material-object
+  lifecycle, handoff fields, and hard boundaries.
+- `entry-skills/yxj-paper-os/references/reader-narrative-governance.md` defines
+  ReaderSpineBrief, ObjectRepresentationMatrix, TemplateQuantProfile,
+  SectionFunctionBudget, VisualTableAlgorithmFormulaBudget,
+  ReaderExperienceReviewReport, and NarrativeBackflowTask expectations.
+
+A writing, review, figure, evidence, method, or export task that affects the
+reader-facing paper should not be reported complete unless it declares the
+relevant narrative/template object refs or records a validator-accepted
+not-applicable reason.
+
+
+## V2 department/material execution pattern
+
+For a v2-managed task, compile a task packet from the lane registry and the
+material objects, not from a generic prompt. The packet must contain:
+
+- `owner_department`, `owner_lane`, and `agent_type`;
+- `input_materials` and `expected_output_materials` with artifact ids/types and
+  paths where outputs are expected;
+- `narrative_object_refs` when the lane affects reader-facing problem, method,
+  contribution, scenario, experiment, baseline, ablation, result, figure,
+  table, algorithm, formula, review, or export representation;
+- `template_object_refs` when target venue or exemplar form constrains output;
+- `backflow_route`, `state_ingestion`, `state_transition`, and `pua_telemetry`;
+- v2 validator refs required by the lane.
+
+A manager handoff must consume these same objects. The department table should
+show what each department consumed and produced, who owned the lane, what
+validator evidence closed it, what owner decisions remain, and how the output
+changes the final paper. Do not translate task logs directly into a final paper
+report; translate them into reader-facing function, representation, evidence,
+and reviewer-risk terms.
+
+## V2 validation commands
+
+Run all three checks from the plugin scaffold root:
+
+```bash
+python3 entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py scaffold .
+python3 entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py fixtures .
+python3 entry-skills/yxj-paper-os/scripts/run_fixture_suite.py .
+```
+
+The fixture suite must report a non-empty matrix with both valid and invalid
+fixtures. Passing with zero valid or zero invalid fixtures is a failure through
+`validate_fixture_matrix_nonempty`.
+
+Binding exceptions must be independently accepted in `validator-report.yaml`; a task-local `narrative_binding_exception` or `template_binding_exception` cannot self-attest non-applicability. Declared material outputs must appear in `collected_outputs` or `artifact-ledger` and the referenced file must exist; raw file existence alone is not closure.
+
+## Task-autonomy boundary
+
+For scoped paper-progress requests, the orchestrator may automatically run
+RALPLAN, prepare task packets, dispatch direct native subagents, update relevant
+notes/ledgers, run validators, refresh snapshots, and report closure evidence.
+
+The orchestrator must still ask before:
+
+- Team launch;
+- external submission/upload or credentialed services;
+- destructive actions;
+- active install, old-plugin uninstall, publishing, or marketplace update;
+- paper-owner semantic decisions such as motivation, venue, contribution spine,
+  claim scope beyond evidence, or private/raw source copying policy;
+- mixing multiple plausible paper roots.
+
+## Direct execution pattern
+
+1. Build or load a `task-packet.yaml`.
+2. Confirm `agent_type`, scoped context, expected outputs, collection path, state-ledger path, and `validator_refs`.
+3. Launch the declared native subagent only inside an installed, permitted runtime.
+4. Collect outputs.
+5. Run validators.
+6. Ingest state.
+7. Stamp the ledger closure with `ledger_guard.py stamp` or an equivalent explicit ledger update.
+8. Refresh the tracked snapshot when the paper repository ignores `.omx`: `ledger_guard.py snapshot --root <paper-root>`.
+9. Run `ledger_guard.py check --root <paper-root> --require-snapshot-fresh` before claiming completion.
+10. Mark complete only after state transition and a passing guard check.
+
+## Team pattern
+
+Team is not launched automatically. Use Team only after RALPLAN and explicit
+current-story approval. Team workers return evidence; the leader owns
+Ultragoal/state checkpoints.
+
+## Registry-backed execution
+
+Before launching a native subagent, resolve the task owner lane in
+`skills/yxj-paper-execute/references/agent-lane-registry.yaml`. If the
+recommended agent type is unavailable, mark blocked with evidence rather than
+substituting silently.
+
+## Ledger closure guard
+
+`skills/yxj-paper-index/scripts/ledger_guard.py` is the canonical lightweight guard for final ledger closure:
+
+- `check --root <paper-root>` validates required ledgers and rejects false
+  completion, including complete tasks without collected outputs, passing
+  validator evidence, `state_ingestion`, or `state_transition`.
+- `stamp --root <paper-root> ...` upserts a completed task row, validator
+  evidence, state ingestion, state transition, and optional artifact-ledger rows.
+- `snapshot --root <paper-root>` mirrors `.omx/state/yxj-paper-os/` into
+  `notes/yxj-paper-os/ledger-snapshot/` for repositories that ignore `.omx`.
+
+Every yxj-paper-os operation that changes manuscript state, evidence, review,
+figures, export, or planning must end with either an explicit ledger edit plus
+`check`, or a `stamp`/`snapshot`/`check` sequence. A final answer should not
+claim completion while `ledger_guard.py check` fails.
+
+## PUA/RALPLAN governance operations
+
+The yxj Paper Orchestrator is a single-entry PMO. The paper owner hands work to
+this manager; departments and LLM agents are internal routing. For every bounded
+execution, the manager adds `[PUA-DIAGNOSIS]`, owner-four-questions, and
+`pua_telemetry` to the task packet or collected control artifact.
+
+Escalation rules:
+
+- L0: normal execution.
+- L1: second failure or same-approach loop; switch to a fundamentally different approach.
+- L2: guessing/no-search/passive wait; read state/source/original material and return `[PUA-REPORT]`.
+- L3: poor-quality or repeated non-closure; complete the seven-item checklist.
+- L4: isolate with minimal PoC, change lane, or mark blocked with evidence.
+
+`pua_telemetry` is not a substitute for validator evidence. The manager must
+still run validators, ingest state, and preserve `compile -> execute -> collect -> validate -> ingest -> state_transition`.
+RALPLAN remains mandatory for architecture, route, tradeoff, or test-shape
+uncertainty. Team remains gated by RALPLAN plus explicit current-story approval.
+
+
+### PUA report semantic checks
+
+At L2+ `pua_report.present:true` is mandatory and must exactly mirror failure count, failure mode, attempts, excluded causes, next hypothesis, and manager action from top-level `pua_telemetry`. At L3+ all seven checklist booleans must be true. L4 requires `failure_count >= 5`. These semantics are enforced by `validate_pua_telemetry` and covered by invalid fixtures.
+
+
+### Explicit state transition fixture rule
+
+Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` must include collected outputs, validator evidence, state ingestion, `pipeline_stage: state_transition`, and an explicit `state_transition` object with `from`, `to: complete`, and `at`. `pipeline_stage: state_transition` alone is not enough, and a `complete` task with another pipeline stage or non-complete transition target is invalid.
+
+## Repository hygiene / delivery cleanliness gate
+
+Before claiming pre-author-review, export readiness, or final handoff, run/read a `RepositoryHygieneReport`. The report must classify dirty entries by active paper, parent/shared, and sibling paper scope; name generated/ephemeral files; list disallowed entries; check ledger snapshot freshness and export-manifest hashes; and state the external-submission boundary. If the gate is not `pass`, report the paper as content-validated but delivery-dirty, blocked, or owner-gated.

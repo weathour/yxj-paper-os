@@ -1,0 +1,4 @@
+fixture_id: invalid-missing-source-map
+expected_failures:
+- validate_source_map
+- validate_research_triplet_collection

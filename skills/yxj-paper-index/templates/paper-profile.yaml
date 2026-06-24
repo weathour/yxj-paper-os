@@ -1,0 +1,23 @@
+schema_version: yxj-paper-os/paper-profile/v1
+paper_slug: example-paper
+project_root: /path/to/paper-root
+paper_type: research-article
+target_venue:
+  name: undecided
+  status: draft
+field: cyber-physical-systems
+language: en
+profile_version: 0.1.0
+modules_enabled:
+  research: true
+  novelty: true
+  evidence: true
+  paperspine: true
+  review: true
+  figures: true
+  export: true
+privacy_policy:
+  raw_private_material: locator_only
+  licensed_pdfs: locator_hash_summary_only
+validators:
+  - validate_profile_schema

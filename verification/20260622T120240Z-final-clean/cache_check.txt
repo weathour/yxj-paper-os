@@ -1,0 +1,2 @@
+### cache_check
+No .ruff_cache, __pycache__, or .pyc files in scaffold.

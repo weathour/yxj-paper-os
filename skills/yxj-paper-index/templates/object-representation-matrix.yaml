@@ -1,0 +1,39 @@
+schema_version: yxj-paper-os/object-representation-matrix/v2
+artifact_id: object-representation-<paper-slug>
+status: draft
+owner_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+objects:
+- object_id: scenario
+  label: Scenario
+  section_representations:
+  - section_id: abstract
+    form: phrase
+    granularity: motivation_intuition
+    evidence_refs: []
+  - section_id: problem_setup
+    form: definition
+    granularity: problem_contract
+    evidence_refs: []
+- object_id: method
+  label: Method
+  section_representations:
+  - section_id: introduction
+    form: contribution_sentence
+    granularity: intuition
+    evidence_refs: []
+  - section_id: method
+    form: mechanism
+    granularity: method_mechanism
+    evidence_refs: []
+required_object_ids:
+- scenario
+- problem
+- method
+- contribution
+- baseline
+- ablation
+- result
+- limitation
+validator_refs:
+- validate_object_representation_matrix

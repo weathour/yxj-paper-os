@@ -1,0 +1,30 @@
+schema_version: yxj-paper-os/validator-report/v1
+report_id: vr-t104
+status: pass
+validators_run:
+- validator: validate_task_packet
+  status: pass
+- validator: validate_subagent_output
+  status: pass
+- validator: validate_task_status_transitions
+  status: pass
+- validator: validate_pua_telemetry
+  status: pass
+- validator: validate_agent_lane_department_binding
+  status: pass
+- validator: validate_task_material_io
+  status: pass
+- validator: validate_narrative_object_binding
+  status: pass
+- validator: validate_template_object_binding
+  status: pass
+- validator: validate_section_blueprints
+  status: pass
+artifacts_checked:
+- task-ledger.yaml
+- artifact-ledger.yaml
+failures: []
+next_route: state_ingest
+pua_telemetry_checked:
+  status: pass
+  evidence: fixture task-ledger pua_telemetry parsed

@@ -1,0 +1,11 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: repo-hygiene-001
+  artifact_type: repository-hygiene-report
+  path: collected/T002/repository-hygiene-report.yaml
+  owner_lane: repository-hygiene-owner
+  owner_department: pmo
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_repository_hygiene_report

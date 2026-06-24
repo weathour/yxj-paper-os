@@ -1,0 +1,29 @@
+schema_version: yxj-paper-os/reader-experience-review-report/v2
+artifact_id: reader-experience-review-<task-id>
+status: draft
+owner_department: review_and_governance
+owner_lane: review-director
+review_scope:
+  manuscript_paths: []
+  material_objects: []
+checks:
+  lab_notebook_smell:
+    status: unchecked
+    evidence: []
+  reader_question_flow:
+    status: unchecked
+    evidence: []
+  object_granularity_progression:
+    status: unchecked
+    evidence: []
+  template_fit:
+    status: unchecked
+    evidence: []
+findings:
+- finding_id: RX001
+  severity: null
+  accepted: false
+  evidence_status: null
+  required_backflow_task: null
+validator_refs:
+- validate_reader_experience_review_gate

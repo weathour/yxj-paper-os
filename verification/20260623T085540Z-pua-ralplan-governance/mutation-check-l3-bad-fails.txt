@@ -1,0 +1,13 @@
+Mutation check: copied valid fixture, changed pua_telemetry to L3/failure_count=4 with pua_report present but all seven_item_checklist booleans false.
+Expected: validate_fixture.py must fail with validate_pua_telemetry.
+Observed:
+{
+  "ok": false,
+  "failures": [
+    "validate_pua_telemetry"
+  ],
+  "detail": {
+    "fixture": "/tmp/tmp.MmOALwAn4z/l3-bad"
+  }
+}
+MUTATION_CHECK_L3_BAD_FAILS_PASS

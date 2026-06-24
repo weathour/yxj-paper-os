@@ -1,0 +1,8 @@
+fixture_id: invalid-complete-wrong-state-transition-target
+validity: invalid
+purpose: wrong_to
+expected_failures:
+- validate_dispatch_not_complete
+- validate_state_machine
+- validate_task_status_transitions
+allowed_extra_failures: []

@@ -1,0 +1,179 @@
+{
+  "schema_version": "yxj-paper-os/pua-ralplan-quality-gate/v1",
+  "created_at": "2026-06-23T09:43:04.359785Z",
+  "status": "passed",
+  "goal_id": "G001-implement-the-approved-yxj-paper-os",
+  "verification_dir": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance",
+  "aiSlopCleaner": {
+    "status": "passed",
+    "report": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-ai-slop-cleanup-report.md",
+    "result": "no broad refactor needed; generated caches removed; reviewer blockers converted into semantic validator/fixture/ledger_guard hardening",
+    "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-ai-slop-cleanup-report.md"
+  },
+  "verification": {
+    "status": "passed",
+    "summary": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_verification_summary.json",
+    "source_scaffold": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_validate_scaffold.json",
+    "source_fixture_suite": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json",
+    "source_core_scaffold": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_validate_scaffold_core.json",
+    "source_core_fixtures": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_validate_fixtures_core.json",
+    "cache_scaffold": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_cache_validate_scaffold.json",
+    "cache_fixture_suite": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_cache_run_fixture_suite.json",
+    "cache_core_scaffold": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_cache_validate_scaffold_core.json",
+    "cache_core_fixtures": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_cache_validate_fixtures_core.json",
+    "source_cache_drift": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_cache_drift_check.txt",
+    "static_markers": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/static_marker_check_final3.txt",
+    "mutation_checks": [
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l2-pua-report-mismatch-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-wrong-transition-target-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-wrong-pipeline-stage-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-transition-semantics.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-stamp-complete-transition.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l2-bool-failure-count-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l3-bad-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-without-state-transition-fails.txt"
+    ],
+    "commands": [
+      "python3 -m py_compile skills/yxj-paper-index/scripts/*.py",
+      "python3 skills/yxj-paper-index/scripts/validate_scaffold.py .",
+      "python3 skills/yxj-paper-index/scripts/run_fixture_suite.py .",
+      "python3 skills/yxj-paper-index/scripts/validate_yxj_paper_os.py scaffold .",
+      "python3 skills/yxj-paper-index/scripts/validate_yxj_paper_os.py fixtures .",
+      "diff -qr source/docs cache/docs; diff -qr source/fixtures cache/fixtures; diff -qr source/skills cache/skills; diff -qr source/.codex-plugin cache/.codex-plugin",
+      "mutation-check-l2-pua-report-mismatch-fails",
+      "mutation-check-complete-wrong-transition-target-fails",
+      "mutation-check-complete-wrong-pipeline-stage-fails",
+      "mutation-check-ledger-guard-transition-semantics",
+      "mutation-check-ledger-guard-stamp-complete-transition"
+    ],
+    "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_verification_summary.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_cache_run_fixture_suite.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_cache_drift_check.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/static_marker_check_final3.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-transition-semantics.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-stamp-complete-transition.txt",
+    "evidenceFiles": [
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_verification_summary.json",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_cache_run_fixture_suite.json",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_cache_drift_check.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/static_marker_check_final3.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l2-pua-report-mismatch-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-wrong-transition-target-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-wrong-pipeline-stage-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-transition-semantics.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-stamp-complete-transition.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l2-bool-failure-count-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l3-bad-fails.txt",
+      "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-without-state-transition-fails.txt"
+    ]
+  },
+  "codeReview": {
+    "recommendation": "APPROVE",
+    "architectStatus": "CLEAR",
+    "evidence": "code-reviewer APPROVE: /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-code-reviewer-verdict.md; architect CLEAR: /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-architect-verdict.md",
+    "independentReview": {
+      "codeReviewer": {
+        "agentRole": "code-reviewer",
+        "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-code-reviewer-verdict.md"
+      },
+      "architect": {
+        "agentRole": "architect",
+        "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-architect-verdict.md"
+      }
+    }
+  },
+  "architectureInvariantGate": {
+    "status": "passed",
+    "sourceArtifacts": [
+      ".omx/ultragoal/brief.md",
+      ".omx/ultragoal/goals.json",
+      ".omx/plans/prd-yxj-paper-os-pua-ralplan-governance-20260623T083026Z.md",
+      ".omx/plans/architect-review-yxj-paper-os-pua-ralplan-governance-20260623T083026Z.md",
+      ".omx/plans/critic-review-yxj-paper-os-pua-ralplan-governance-20260623T083026Z.md"
+    ],
+    "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/architecture-invariant-audit.json",
+    "invariants": [
+      {
+        "invariant": "Single user-facing entry remains yxj-paper-index / yxj Paper Orchestrator; departments are internal routing.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "yxj-paper-index and orchestrator-contract preserve one Paper Orchestrator identity and internal routing; no public PUA skill fan-out is introduced.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/static_marker_check_final3.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "PUA is operational telemetry and failure escalation, not rhetoric.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "validate_pua_telemetry enforces L0-L4 thresholds, L2+ pua_report, L3 checklist, L4 count, and strict int failure_count.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_validate_fixtures_core.json",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "L2+ pua_report exactly mirrors top-level telemetry.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "validate_pua_telemetry compares report failure_count, failure_mode, attempts, excluded, next_hypothesis, and manager_action against top-level telemetry.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l2-pua-report-mismatch-fails.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "PUA semantic failures are locked by invalid fixtures and mutation checks.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "Invalid fixtures cover missing telemetry, L2 missing report, L2 mismatched report, L3 incomplete checklist, L4 inconsistent count, and bool failure_count mutation.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l2-bool-failure-count-fails.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-l3-bad-fails.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "PUA telemetry never replaces validator evidence or completion closure.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "runtime/state contracts keep pua_telemetry as audit/control state only while validator_evidence remains mandatory.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "Team and paper-owner semantic gates remain explicit; paper-owner-gate is user_gate, not native subagent.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "agent-contract markers keep paper-owner-gate as user_gate and Team gated after RALPLAN plus current-story approval.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/static_marker_check_final3.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "Exact completion invariant remains: compile -> execute -> collect -> validate -> ingest -> state_transition.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "runtime/state contracts document the exact path; fixture validator and ledger_guard both require explicit valid state_transition for complete tasks.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_run_fixture_suite.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-without-state-transition-fails.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-transition-semantics.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "Complete task cannot pass with missing/wrong state_transition or wrong pipeline_stage in fixture or ledger_guard paths.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "task_has_state_transition and task_has_complete_transition require pipeline_stage: state_transition, state_transition.from, state_transition.to: complete, and state_transition.at.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_validate_fixtures_core.json; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-without-state-transition-fails.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-wrong-transition-target-fails.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-complete-wrong-pipeline-stage-fails.txt; /home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-transition-semantics.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "ledger_guard stamp emits only compliant complete state transitions by default and rejects non-complete transition targets.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "stamp writes pipeline_stage: state_transition, defaults --transition-to complete, and rejects --status complete with another transition target.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/mutation-check-ledger-guard-stamp-complete-transition.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      },
+      {
+        "invariant": "Source plugin and active installed cache are synchronized for changed plugin areas.",
+        "source": ".omx/ultragoal/brief.md",
+        "status": "proved",
+        "implementationEvidence": "source/cache docs, fixtures, skills, and .codex-plugin drift check passed after final ledger_guard fixes.",
+        "testEvidence": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3_source_cache_drift_check.txt",
+        "reviewEvidence": "final3 code-reviewer APPROVE and architect CLEAR"
+      }
+    ],
+    "verdict": "/home/weathour/plugins/yxj-paper-os/verification/20260623T085540Z-pua-ralplan-governance/final3-architect-verdict.md"
+  },
+  "residualRisks": [
+    "Source plugin root is not a git repository; source/cache sync is validated by direct file diffs/hash-equivalent review rather than git status.",
+    "External install/publish/submission was intentionally not performed."
+  ]
+}

@@ -1,0 +1,13 @@
+schema_version: yxj-paper-os/evidence-bank/v1
+bank_id: evbank-001
+claims:
+- claim_id: claim-001
+  text: Supported fixture claim.
+  support_status: unsupported
+  evidence_refs: []
+  citation_refs: []
+evidence:
+- evidence_id: ev-001
+  kind: local-source
+  locator: evidence/table.csv
+  locator_status: resolved

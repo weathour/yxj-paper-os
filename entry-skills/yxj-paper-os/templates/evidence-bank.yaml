@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/evidence-bank/v1
+bank_id: evidence-bank-001
+claims:
+  - claim_id: claim-001
+    text: Example supported claim.
+    support_status: supported
+    evidence_refs: [ev-001]
+    citation_refs: [cite-001]
+evidence:
+  - evidence_id: ev-001
+    kind: local-source
+    locator: evidence/example.csv
+    locator_status: resolved
+validators:
+  - validate_evidence_bank
+  - validate_claim_support

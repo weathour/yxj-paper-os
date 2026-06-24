@@ -1,0 +1,4 @@
+fixture_id: invalid-v2-missing-owner-department
+expected_failures:
+- validate_agent_lane_department_binding
+allowed_extra_failures: []

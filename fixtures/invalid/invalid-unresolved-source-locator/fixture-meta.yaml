@@ -1,0 +1,3 @@
+fixture_id: invalid-unresolved-source-locator
+expected_failures:
+- validate_source_locator_resolution

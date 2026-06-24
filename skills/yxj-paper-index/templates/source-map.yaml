@@ -1,0 +1,15 @@
+schema_version: yxj-paper-os/source-map/v1
+paper_slug: example-paper
+sources:
+  - source_id: src-001
+    kind: local-note
+    locator: notes/problem-statement.md
+    locator_status: resolved
+    privacy: tracked_summary
+    allowed_uses: [motivation, related_work]
+    hash: sha256:example
+unresolved_locators: []
+validators:
+  - validate_source_map
+  - validate_privacy_boundaries
+  - validate_source_locator_resolution

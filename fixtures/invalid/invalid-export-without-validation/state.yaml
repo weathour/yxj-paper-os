@@ -1,0 +1,6 @@
+schema_version: yxj-paper-os/state/v1
+paper_slug: fixture-paper
+current_phase: research
+active_gate: none_readonly_or_planning
+blockers: []
+next_safe_action: state_transition

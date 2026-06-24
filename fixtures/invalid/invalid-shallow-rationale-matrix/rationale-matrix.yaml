@@ -1,0 +1,8 @@
+schema_version: yxj-paper-os/rationale-matrix/v1
+matrix_id: rat-001
+rows:
+- row_id: r1
+  section: intro
+  rhetorical_purpose: improve clarity
+  evidence_anchors: []
+  citation_anchors: []

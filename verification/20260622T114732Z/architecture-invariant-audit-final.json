@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "sourceArtifacts": [
+    ".omx/ultragoal/brief.md",
+    ".omx/ultragoal/goals.json",
+    ".omx/incubator-packages/20260622T102727Z-yxj-paper-os-v2/",
+    ".omx/plans/ralplan-final-yxj-paper-os-v2-20260622T104732Z.md",
+    ".omx/plans/ralplan-handoff-yxj-paper-os-v2-20260622T104732Z.yaml",
+    "/home/weathour/文档/CPS-Papers/shared/paper-writing-tools-lab/plugin-scaffolds/yxj-paper-os-v2"
+  ],
+  "verificationReportDir": "/home/weathour/文档/CPS-Papers/shared/paper-writing-tools-lab/plugin-scaffolds/yxj-paper-os-v2/verification/20260622T114732Z",
+  "invariants": [
+    {
+      "invariant": "Non-live source only; no active install, old-plugin uninstall, marketplace publish, external service call, or Codex/OMX core modification.",
+      "source": ".omx/ultragoal/brief.md and ralplan-final-yxj-paper-os-v2-20260622T104732Z.md",
+      "status": "proved",
+      "implementationEvidence": "Target path is ../shared/paper-writing-tools-lab/plugin-scaffolds/yxj-paper-os-v2; manifest omits marketplace hooks/mcp/apps and no files were written to active ~/.codex plugin paths.",
+      "testEvidence": "validate_plugin.py and validate_scaffold.py passed in verification/20260622T114732Z.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "dispatched != complete.",
+      "source": ".omx/ultragoal/brief.md critical runtime invariant",
+      "status": "proved",
+      "implementationEvidence": "state-contract.md and runtime-execution-contract.md state dispatched/executing/collected/validated are not complete; validator rejects complete without collected+validated+ingested.",
+      "testEvidence": "invalid-dispatch-as-complete and invalid-dispatched-timeout-without-output fail expected validators with explicit allowed extras.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "Preserve compile -> execute -> collect -> validate -> ingest -> state_transition.",
+      "source": ".omx/ultragoal/brief.md and runtime execution contract",
+      "status": "proved",
+      "implementationEvidence": "runtime-execution-contract.md defines all six stages; task-packet template includes routing, collection, validator, and state-ledger fields.",
+      "testEvidence": "direct_execution_invariant_audit.json ok=true.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "Every direct subagent task declares agent_type, scoped context, expected outputs, collection path, state-ledger path, and validator_refs.",
+      "source": ".omx/ultragoal/brief.md direct execution adapter bullets",
+      "status": "proved",
+      "implementationEvidence": "task-packet template and valid fixture include all fields; validate_task_packet enforces them.",
+      "testEvidence": "invalid-missing-agent-type fails; direct_execution_invariant_audit checks all required fields.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "Owner-lane/agent closure is registry-backed and covers approved paper lanes.",
+      "source": "target-scaffold-checklist.yaml ref-agent-contract and domain-spec agent_model",
+      "status": "proved",
+      "implementationEvidence": "agent-lane-registry.yaml defines 30+ lanes including scene-analyst, exemplar-learner, sota-mapper, citation-banker, paper-owner-gate, method-verifier, style-auditor, verifier; agent-contract.md provides lane-to-agent/fallback table; validator derives allowed owner lanes from registry.",
+      "testEvidence": "validate_scaffold.py checks required registry lanes and agent-contract coverage; direct_execution_invariant_audit missing=[] for approved lanes.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "validators vs validator_refs naming is normalized and validator evidence covers every validator_ref.",
+      "source": "RALPLAN watch item and runtime validation contract",
+      "status": "proved",
+      "implementationEvidence": "state-contract.md documents validator_refs canonical alias; validate_yxj_paper_os.py normalizes alias and requires every validator_ref to have passing task/report evidence.",
+      "testEvidence": "invalid-missing-validator-definition and invalid-partial-validator-evidence fail; valid fixture proves all refs are covered.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "PaperSpine and Sisyphus patterns are adapted, not blindly vendored.",
+      "source": "domain-spec source_influences and RALPLAN principles",
+      "status": "proved",
+      "implementationEvidence": "source-influences.md maps PaperSpine triplet/citation/motivation/rationale and Sisyphus novelty/reviewer/verifier patterns to yxj-paper-os workspaces and validators.",
+      "testEvidence": "validate_scaffold.py resolves local source influence paths ../../tools/PaperSpine and ../../tools/sisyphus-academica.",
+      "reviewEvidence": "pending clean re-review lanes."
+    },
+    {
+      "invariant": "Validators catch the requested false-completion and paper-quality failure modes.",
+      "source": "validator-plan.yaml and user Prompt 2",
+      "status": "proved",
+      "implementationEvidence": "fixtures/invalid contains 16 invalid fixtures with expected_failures and explicit allowed_extra_failures where cascades are intentional.",
+      "testEvidence": "run_fixture_suite.py ok=true; unexpected extra failures would fail the suite.",
+      "reviewEvidence": "pending clean re-review lanes."
+    }
+  ]
+}

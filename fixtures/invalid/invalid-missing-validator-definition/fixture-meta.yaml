@@ -1,0 +1,9 @@
+fixture_id: invalid-missing-validator-definition
+expected_failures:
+- validate_validator_reference_closure
+allowed_extra_failures:
+- validate_dispatch_not_complete
+- validate_state_machine
+- validate_subagent_output
+- validate_task_status_transitions
+- validate_validator_report

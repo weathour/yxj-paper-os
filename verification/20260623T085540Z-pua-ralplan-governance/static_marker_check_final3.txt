@@ -1,0 +1,21 @@
+single_entry_orchestrator: PASS :: skills/yxj-paper-index/SKILL.md :: single yxj Paper Orchestrator
+pua_diagnosis_marker: PASS :: skills/yxj-paper-index/references/orchestrator-contract.md :: [PUA-DIAGNOSIS]
+pua_report_marker: PASS :: skills/yxj-paper-index/references/orchestrator-contract.md :: [PUA-REPORT]
+ralplan_gate: PASS :: skills/yxj-paper-index/references/orchestrator-contract.md :: RALPLAN is the consensus gate
+team_after_ralplan: PASS :: skills/yxj-paper-execute/references/agent-contract.md :: Team only after RALPLAN
+paper_owner_user_gate: PASS :: skills/yxj-paper-execute/references/agent-contract.md :: paper-owner-gate remains a user_gate
+completion_invariant: PASS :: skills/yxj-paper-execute/references/runtime-execution-contract.md :: compile -> execute -> collect -> validate -> ingest -> state_transition
+telemetry_not_evidence: PASS :: skills/yxj-paper-state/references/state-contract.md :: never replaces validator evidence
+report_exact_mirror_doc: PASS :: skills/yxj-paper-state/references/state-contract.md :: must exactly mirror
+complete_requires_stage_and_to_complete: PASS :: skills/yxj-paper-state/references/state-contract.md :: to: complete
+task_template_pua: PASS :: skills/yxj-paper-index/templates/task-packet.yaml :: pua_telemetry:
+validator_template_pua: PASS :: skills/yxj-paper-index/templates/validator-report.yaml :: validate_pua_telemetry
+validator_function_pua: PASS :: skills/yxj-paper-index/scripts/validate_yxj_paper_os.py :: def validate_pua_telemetry
+validator_function_state_transition: PASS :: skills/yxj-paper-index/scripts/validate_yxj_paper_os.py :: def task_has_state_transition
+ledger_guard_complete_transition_function: PASS :: skills/yxj-paper-index/scripts/ledger_guard.py :: def task_has_complete_transition
+ledger_guard_transition_to_complete_default: PASS :: skills/yxj-paper-index/scripts/ledger_guard.py :: default=TERMINAL_SUCCESS
+ledger_guard_stamp_pipeline_stage: PASS :: skills/yxj-paper-index/scripts/ledger_guard.py :: "pipeline_stage": "state_transition"
+invalid_report_mismatch_fixture: PASS :: fixtures/invalid/invalid-l2-pua-report-mismatch/task-ledger.yaml :: different attempt summary
+invalid_wrong_target_fixture: PASS :: fixtures/invalid/invalid-complete-wrong-state-transition-target/task-ledger.yaml :: to: failed
+invalid_wrong_stage_fixture: PASS :: fixtures/invalid/invalid-complete-wrong-pipeline-stage/task-ledger.yaml :: pipeline_stage: compile
+STATIC_MARKER_CHECK_FINAL3_PASS

@@ -1,0 +1,20 @@
+schema_version: yxj-paper-os/narrative-backflow-task/v2
+artifact_id: narrative-backflow-<finding-id>
+status: planned
+source_review_artifact: null
+source_finding_id: null
+owner_department: null
+owner_lane: null
+agent_type: null
+problem_statement: null
+input_materials: []
+expected_output_materials: []
+validator_refs:
+- validate_narrative_backflow
+backflow_route:
+  from: review_and_governance
+  to: null
+  return_validator: validate_reader_experience_review_gate
+state_ingestion:
+  ledger_path: .omx/state/yxj-paper-os/review-ledger.yaml
+  status: pending

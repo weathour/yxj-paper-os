@@ -1,0 +1,3 @@
+fixture_id: invalid-unsupported-claim
+expected_failures:
+- validate_claim_support

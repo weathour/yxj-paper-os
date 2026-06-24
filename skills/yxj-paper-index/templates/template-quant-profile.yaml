@@ -1,0 +1,28 @@
+schema_version: yxj-paper-os/template-quant-profile/v2
+artifact_id: template-quant-<venue-or-route>
+status: draft
+owner_department: paper_architecture_and_narrative
+owner_lane: exemplar-learner
+exemplar_manifest:
+- exemplar_id: E001
+  locator: null
+  allowed_use: structure_only
+section_function_distribution:
+- section_id: introduction
+  target_functions: []
+  paragraph_range: null
+- section_id: method
+  target_functions: []
+  paragraph_range: null
+visual_formal_budget:
+  figures: []
+  tables: []
+  algorithms: []
+  formulas: []
+comparison_patterns:
+  baseline_ordering: []
+  ablation_ordering: []
+  experiment_result_ordering: []
+target_manuscript_gap_audit: []
+validator_refs:
+- validate_template_quant_profile

@@ -1,0 +1,2 @@
+### validate_plugin
+Plugin validation passed: /home/weathour/文档/CPS-Papers/shared/paper-writing-tools-lab/plugin-scaffolds/yxj-paper-os-v2

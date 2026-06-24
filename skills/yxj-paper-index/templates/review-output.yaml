@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/review-output/v1
+review_id: review-001
+reviewers:
+  - reviewer_id: skeptic
+    independent: true
+findings:
+  - finding_id: finding-001
+    status: accepted
+    severity: major
+    evidence_status: source-backed
+    owner_lane: paper-architect
+    fix_task: T-fix-001
+    resolution_status: routed
+validators:
+  - validate_review_independence
+  - validate_review_backflow

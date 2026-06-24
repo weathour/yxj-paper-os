@@ -1,0 +1,6 @@
+fixture_id: invalid-l2-pua-report-mismatch
+validity: invalid
+purpose: pua_mismatch
+expected_failures:
+- validate_pua_telemetry
+allowed_extra_failures: []

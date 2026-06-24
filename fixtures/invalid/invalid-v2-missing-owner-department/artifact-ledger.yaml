@@ -1,0 +1,11 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: section-blueprint-001
+  artifact_type: section-blueprint
+  path: collected/T101/section-blueprint.yaml
+  owner_lane: paper-architect
+  owner_department: evidence_and_method
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_section_blueprints

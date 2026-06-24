@@ -1,0 +1,17 @@
+schema_version: yxj-paper-os/rationale-matrix/v1
+matrix_id: rationale-001
+rows:
+  - row_id: whole-paper-spine
+    section: whole-paper
+    rhetorical_purpose: explain why the paper exists and how each section advances the confirmed motivation
+    evidence_anchors: [ev-001]
+    citation_anchors: [cite-001]
+    output_branch: planning
+  - row_id: introduction-problem
+    section: introduction
+    rhetorical_purpose: establish problem scene and gap using source-backed claims
+    evidence_anchors: [ev-001]
+    citation_anchors: [cite-001]
+    output_branch: manuscript
+validators:
+  - validate_rationale_matrix

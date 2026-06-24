@@ -1,0 +1,10 @@
+schema_version: yxj-paper-os/citation-bank/v1
+bank_id: citation-bank-001
+entries:
+  - citation_id: cite-001
+    source_id: src-001
+    claim_area: motivation
+    quality: candidate
+    notes: locator-backed candidate
+validators:
+  - validate_citation_support_bank

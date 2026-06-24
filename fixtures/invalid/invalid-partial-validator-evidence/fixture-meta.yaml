@@ -1,0 +1,8 @@
+fixture_id: invalid-partial-validator-evidence
+expected_failures:
+- validate_task_status_transitions
+- validate_validator_report
+allowed_extra_failures:
+- validate_dispatch_not_complete
+- validate_state_machine
+- validate_subagent_output

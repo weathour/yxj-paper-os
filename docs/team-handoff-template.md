@@ -1,0 +1,23 @@
+# Team handoff template
+
+Use only after explicit Team approval.
+
+## Context
+
+- Ultragoal plan: `.omx/ultragoal/goals.json`
+- Active goal id: `<Gxxx>`
+- Installed plugin source: `/home/weathour/plugins/yxj-paper-os/`
+- Installed plugin cache: `/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/<version>/`
+
+## Lanes
+
+- Architect: workspace/state/runtime contracts.
+- Executor A: skills.
+- Executor B: templates/references.
+- Test-engineer: validators/fixtures.
+- Writer: docs/migration/operation guide.
+- Verifier/Critic: false-completion and gate audit.
+
+## Return evidence
+
+Changed files, validator outputs, fixture pass/fail summary, unresolved risks, gate compliance, and recommendation for Ultragoal checkpoint.

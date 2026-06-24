@@ -1,0 +1,3 @@
+fixture_id: invalid-missing-agent-type
+expected_failures:
+- validate_task_packet

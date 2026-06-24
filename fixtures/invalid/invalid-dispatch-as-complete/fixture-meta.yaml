@@ -1,0 +1,7 @@
+fixture_id: invalid-dispatch-as-complete
+expected_failures:
+- validate_dispatch_not_complete
+- validate_state_machine
+allowed_extra_failures:
+- validate_task_status_transitions
+- validate_validator_report

@@ -1,0 +1,7 @@
+# Code-reviewer ledger_guard blocker resolution
+2026-06-23T17:35:06+08:00
+Resolved final2 code-reviewer blocker:
+- ledger_guard.py check now requires complete tasks to have pipeline_stage: state_transition, state_transition.from, state_transition.to: complete, and state_transition.at.
+- ledger_guard.py stamp now emits pipeline_stage: state_transition for complete tasks.
+- ledger_guard.py stamp default --transition-to is complete and rejects --status complete with another transition target.
+- Added mutation checks for ledger_guard wrong stage/target and stamp semantics.

@@ -1,0 +1,12 @@
+schema_version: yxj-paper-os/template-mirror-policy/v2
+artifact_id: template-mirror-policy
+status: active
+canonical_template_dir: skills/yxj-paper-index/templates
+public_entry_template_mirror_dir: entry-skills/yxj-paper-os/templates
+default_sync_policy: byte_for_byte_sha256
+allowed_divergence_policy: none_without_validator_fixture
+validator_ref: validate_template_mirror_sync
+notes:
+- Canonical templates live under skills/yxj-paper-index/templates because current scaffold validation checks that tree.
+- Public-entry templates mirror canonical templates for package usability.
+- A future schema-equivalent exception must be explicit and covered by valid/invalid fixtures.

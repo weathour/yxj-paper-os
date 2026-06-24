@@ -1,0 +1,3 @@
+expected_failures:
+- validate_repository_hygiene_report
+allowed_extra_failures: []

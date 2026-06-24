@@ -1,0 +1,30 @@
+schema_version: yxj-paper-os/main-text-surface-rules/1
+validator_refs:
+  - validate_main_text_surface_rules
+  - validate_no_internal_codes_in_main_prose
+  - validate_no_snake_case_constraints_in_main_prose
+  - validate_no_raw_method_ids_in_main_prose
+  - validate_no_defensive_claim_boundary_wall
+  - validate_no_bare_citekeys_in_export
+  - validate_rendered_pdf_surface_text
+purpose: Translate internal governance, method, experiment, and export objects into reader-facing manuscript language.
+owner_department: reader_narrative_governance
+consumers:
+  - manuscript_execution
+  - review_backflow
+  - figures
+  - export_validation
+required_validators:
+  - validate_no_internal_codes_in_main_prose
+  - validate_no_snake_case_constraints_in_main_prose
+  - validate_no_raw_method_ids_in_main_prose
+  - validate_no_defensive_claim_boundary_wall
+  - validate_no_bare_citekeys_in_export
+  - validate_rendered_pdf_surface_text
+rules:
+  - Internal family/scenario codes may remain in tables, supplements, or provenance artifacts only when explicitly needed; main prose should use reader-facing family names.
+  - Implementation identifiers and trace internals in snake_case must be translated into natural-language method descriptions.
+  - Raw comparator or ablation ids must be translated into reader labels.
+  - Claim boundaries must be expressed as scope, evidence-strength, and future-work logic rather than defensive disclaimer walls.
+  - Exported PDFs must render citations through the target bibliography pipeline and must not expose raw citekeys.
+  - Figures and captions in the main export must use reader-facing labels even when data files use internal ids.

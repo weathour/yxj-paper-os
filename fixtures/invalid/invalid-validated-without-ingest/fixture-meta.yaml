@@ -1,0 +1,4 @@
+fixture_id: invalid-validated-without-ingest
+expected_failures:
+- validate_task_status_transitions
+- validate_state_machine

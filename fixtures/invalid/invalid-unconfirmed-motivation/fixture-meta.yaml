@@ -1,0 +1,3 @@
+fixture_id: invalid-unconfirmed-motivation
+expected_failures:
+- validate_motivation_confirmation

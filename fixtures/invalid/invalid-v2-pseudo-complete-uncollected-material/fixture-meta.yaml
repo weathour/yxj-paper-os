@@ -1,0 +1,4 @@
+fixture_id: invalid-v2-pseudo-complete-uncollected-material
+expected_failures:
+- validate_task_material_io
+allowed_extra_failures: []

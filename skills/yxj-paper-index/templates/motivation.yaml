@@ -1,0 +1,9 @@
+schema_version: yxj-paper-os/motivation/v1
+motivation_id: motivation-001
+confirmation_status: confirmed
+confirmed_by: paper_owner
+confirmed_at: 2026-06-22T00:00:00Z
+statement: A concise, evidence-grounded motivation statement.
+source_refs: [src-001]
+validators:
+  - validate_motivation_confirmation

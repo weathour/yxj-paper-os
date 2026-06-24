@@ -1,0 +1,5 @@
+fixture_id: invalid-missing-pua-telemetry
+description: missing task pua_telemetry object
+expected_failures:
+- validate_pua_telemetry
+allowed_extra_failures: []

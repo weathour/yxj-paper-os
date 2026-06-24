@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "root": ".",
+    "required_skills": [
+      "yxj-paper-index",
+      "yxj-paper-state",
+      "yxj-paper-interview",
+      "yxj-paper-plan",
+      "yxj-paper-execute",
+      "yxj-paper-research",
+      "yxj-paper-novelty",
+      "yxj-paper-evidence",
+      "yxj-paper-paperspine",
+      "yxj-paper-review",
+      "yxj-paper-figures",
+      "yxj-paper-export",
+      "yxj-paper-migration"
+    ],
+    "required_templates": [
+      "paper-profile.yaml",
+      "state.yaml",
+      "source-map.yaml",
+      "task-packet.yaml",
+      "research-dossier.yaml",
+      "citation-bank.yaml",
+      "motivation.yaml",
+      "evidence-bank.yaml",
+      "rationale-matrix.yaml",
+      "review-output.yaml",
+      "validator-report.yaml",
+      "export-manifest.yaml"
+    ]
+  }
+}

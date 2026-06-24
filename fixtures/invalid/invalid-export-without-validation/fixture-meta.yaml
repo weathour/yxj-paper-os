@@ -1,0 +1,3 @@
+fixture_id: invalid-export-without-validation
+expected_failures:
+- validate_export_manifest

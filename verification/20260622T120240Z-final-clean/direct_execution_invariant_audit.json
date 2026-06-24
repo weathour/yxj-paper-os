@@ -1,0 +1,80 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "field": "agent_type",
+      "template_has": true,
+      "valid_fixture_has": true
+    },
+    {
+      "field": "scoped_context",
+      "template_has": true,
+      "valid_fixture_has": true
+    },
+    {
+      "field": "expected_output_artifacts",
+      "template_has": true,
+      "valid_fixture_has": true
+    },
+    {
+      "field": "collection_path",
+      "template_has": true,
+      "valid_fixture_has": true
+    },
+    {
+      "field": "state_ledger_path",
+      "template_has": true,
+      "valid_fixture_has": true
+    },
+    {
+      "field": "validator_refs",
+      "template_has": true,
+      "valid_fixture_has": true
+    },
+    {
+      "invariant": "all task validator_refs have pass evidence",
+      "proved": true,
+      "refs": [
+        "validate_subagent_output",
+        "validate_task_packet",
+        "validate_task_status_transitions"
+      ],
+      "passing": [
+        "validate_research_dossier",
+        "validate_subagent_output",
+        "validate_task_packet",
+        "validate_task_status_transitions"
+      ]
+    },
+    {
+      "invariant": "all validated artifact validator_refs have pass evidence",
+      "proved": true,
+      "refs": [
+        "validate_research_dossier"
+      ],
+      "passing": [
+        "validate_research_dossier",
+        "validate_subagent_output",
+        "validate_task_packet",
+        "validate_task_status_transitions"
+      ]
+    },
+    {
+      "invariant": "registry covers approved direct/paper lanes",
+      "proved": true,
+      "missing": []
+    },
+    {
+      "invariant": "dispatched != complete",
+      "proved": true
+    },
+    {
+      "invariant": "compile -> execute -> collect -> validate -> ingest -> state_transition",
+      "proved": true
+    },
+    {
+      "invariant": "validator_refs canonical alias rule",
+      "proved": true
+    }
+  ]
+}

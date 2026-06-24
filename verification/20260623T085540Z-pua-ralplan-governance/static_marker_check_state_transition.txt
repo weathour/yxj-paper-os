@@ -1,0 +1,15 @@
+single_entry_orchestrator: PASS :: skills/yxj-paper-index/SKILL.md :: single yxj Paper Orchestrator
+pua_diagnosis_marker: PASS :: skills/yxj-paper-index/references/orchestrator-contract.md :: [PUA-DIAGNOSIS]
+pua_report_marker: PASS :: skills/yxj-paper-index/references/orchestrator-contract.md :: [PUA-REPORT]
+ralplan_gate: PASS :: skills/yxj-paper-index/references/orchestrator-contract.md :: RALPLAN is the consensus gate
+team_after_ralplan: PASS :: skills/yxj-paper-execute/references/agent-contract.md :: Team only after RALPLAN
+paper_owner_user_gate: PASS :: skills/yxj-paper-execute/references/agent-contract.md :: paper-owner-gate remains a user_gate
+completion_invariant: PASS :: skills/yxj-paper-execute/references/runtime-execution-contract.md :: compile -> execute -> collect -> validate -> ingest -> state_transition
+telemetry_not_evidence: PASS :: skills/yxj-paper-state/references/state-contract.md :: never replaces validator evidence
+task_template_pua: PASS :: skills/yxj-paper-index/templates/task-packet.yaml :: pua_telemetry:
+validator_template_pua: PASS :: skills/yxj-paper-index/templates/validator-report.yaml :: validate_pua_telemetry
+validator_function_pua: PASS :: skills/yxj-paper-index/scripts/validate_yxj_paper_os.py :: def validate_pua_telemetry
+validator_function_state_transition: PASS :: skills/yxj-paper-index/scripts/validate_yxj_paper_os.py :: def task_has_state_transition
+invalid_l3_fixture: PASS :: fixtures/invalid/invalid-l3-incomplete-checklist/task-ledger.yaml :: pressure_level: L3
+invalid_state_transition_fixture: PASS :: fixtures/invalid/invalid-complete-without-state-transition/task-ledger.yaml :: status: complete
+STATIC_MARKER_CHECK_PASS

@@ -1,0 +1,6 @@
+fixture_id: invalid-collected-without-validator
+expected_failures:
+- validate_task_status_transitions
+- validate_subagent_output
+allowed_extra_failures:
+- validate_validator_report

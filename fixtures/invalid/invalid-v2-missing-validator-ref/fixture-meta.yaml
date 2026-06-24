@@ -1,0 +1,4 @@
+fixture_id: invalid-v2-missing-validator-ref
+expected_failures:
+- validate_validator_reference_closure
+allowed_extra_failures: []

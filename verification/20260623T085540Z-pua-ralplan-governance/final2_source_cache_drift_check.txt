@@ -1,0 +1,3 @@
+# Final2 source/cache drift check
+2026-06-23T17:26:06+08:00
+FINAL2_SOURCE_CACHE_DRIFT_CHECK_PASS

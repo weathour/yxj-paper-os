@@ -1,0 +1,2 @@
+### pycache_check
+No __pycache__ or .pyc files in scaffold.

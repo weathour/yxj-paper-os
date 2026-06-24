@@ -1,0 +1,5 @@
+fixture_id: invalid-l4-inconsistent-failure-count
+description: L4 requires failure_count >= 5 and full escalation substance
+expected_failures:
+- validate_pua_telemetry
+allowed_extra_failures: []

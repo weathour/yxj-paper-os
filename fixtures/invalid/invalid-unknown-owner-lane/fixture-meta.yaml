@@ -1,0 +1,3 @@
+fixture_id: invalid-unknown-owner-lane
+expected_failures:
+- validate_owner_lane_closure

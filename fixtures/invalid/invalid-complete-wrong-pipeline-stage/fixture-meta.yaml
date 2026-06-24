@@ -1,0 +1,8 @@
+fixture_id: invalid-complete-wrong-pipeline-stage
+validity: invalid
+purpose: wrong_stage
+expected_failures:
+- validate_dispatch_not_complete
+- validate_state_machine
+- validate_task_status_transitions
+allowed_extra_failures: []

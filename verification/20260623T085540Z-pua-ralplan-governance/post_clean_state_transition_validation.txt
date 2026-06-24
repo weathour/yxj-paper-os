@@ -1,0 +1,583 @@
+# Post-clean source validation after state-transition hardening
+2026-06-23T17:14:31+08:00
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "root": ".",
+    "required_skills": [
+      "yxj-paper-index",
+      "yxj-paper-state",
+      "yxj-paper-interview",
+      "yxj-paper-plan",
+      "yxj-paper-execute",
+      "yxj-paper-research",
+      "yxj-paper-novelty",
+      "yxj-paper-evidence",
+      "yxj-paper-paperspine",
+      "yxj-paper-review",
+      "yxj-paper-figures",
+      "yxj-paper-export",
+      "yxj-paper-migration"
+    ],
+    "required_templates": [
+      "paper-profile.yaml",
+      "state.yaml",
+      "source-map.yaml",
+      "task-packet.yaml",
+      "research-dossier.yaml",
+      "citation-bank.yaml",
+      "motivation.yaml",
+      "evidence-bank.yaml",
+      "rationale-matrix.yaml",
+      "review-output.yaml",
+      "validator-report.yaml",
+      "export-manifest.yaml"
+    ]
+  }
+}
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "valid": {
+      "minimal-valid": []
+    },
+    "invalid": {
+      "invalid-collected-without-validator": {
+        "expected": [
+          "validate_subagent_output",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-complete-without-state-transition": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-dispatch-as-complete": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine"
+        ],
+        "allowed_extra": [
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-dispatched-timeout-without-output": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-export-without-validation": {
+        "expected": [
+          "validate_export_manifest"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_export_manifest"
+        ]
+      },
+      "invalid-l2-missing-pua-report": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l3-incomplete-checklist": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l4-inconsistent-failure-count": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-missing-agent-type": {
+        "expected": [
+          "validate_task_packet"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_task_packet"
+        ]
+      },
+      "invalid-missing-artifact-validator-evidence": {
+        "expected": [
+          "validate_validator_report"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_validator_report"
+        ]
+      },
+      "invalid-missing-pua-telemetry": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-missing-source-map": {
+        "expected": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ]
+      },
+      "invalid-missing-validator-definition": {
+        "expected": [
+          "validate_validator_reference_closure"
+        ],
+        "allowed_extra": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_reference_closure",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-partial-validator-evidence": {
+        "expected": [
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "allowed_extra": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-private-raw-leak": {
+        "expected": [
+          "validate_privacy_boundaries"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_privacy_boundaries"
+        ]
+      },
+      "invalid-shallow-rationale-matrix": {
+        "expected": [
+          "validate_rationale_matrix"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_rationale_matrix"
+        ]
+      },
+      "invalid-unconfirmed-motivation": {
+        "expected": [
+          "validate_motivation_confirmation"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_motivation_confirmation"
+        ]
+      },
+      "invalid-unknown-owner-lane": {
+        "expected": [
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_owner_lane_closure"
+        ]
+      },
+      "invalid-unresolved-source-locator": {
+        "expected": [
+          "validate_source_locator_resolution"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_source_locator_resolution"
+        ]
+      },
+      "invalid-unrouted-review-finding": {
+        "expected": [
+          "validate_review_backflow"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_review_backflow"
+        ]
+      },
+      "invalid-unsupported-claim": {
+        "expected": [
+          "validate_claim_support"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_claim_support"
+        ]
+      },
+      "invalid-validated-without-ingest": {
+        "expected": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      }
+    }
+  }
+}
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "root": ".",
+    "required_skills": [
+      "yxj-paper-index",
+      "yxj-paper-state",
+      "yxj-paper-interview",
+      "yxj-paper-plan",
+      "yxj-paper-execute",
+      "yxj-paper-research",
+      "yxj-paper-novelty",
+      "yxj-paper-evidence",
+      "yxj-paper-paperspine",
+      "yxj-paper-review",
+      "yxj-paper-figures",
+      "yxj-paper-export",
+      "yxj-paper-migration"
+    ],
+    "required_templates": [
+      "paper-profile.yaml",
+      "state.yaml",
+      "source-map.yaml",
+      "task-packet.yaml",
+      "research-dossier.yaml",
+      "citation-bank.yaml",
+      "motivation.yaml",
+      "evidence-bank.yaml",
+      "rationale-matrix.yaml",
+      "review-output.yaml",
+      "validator-report.yaml",
+      "export-manifest.yaml"
+    ]
+  }
+}
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "valid": {
+      "minimal-valid": []
+    },
+    "invalid": {
+      "invalid-collected-without-validator": {
+        "expected": [
+          "validate_subagent_output",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-complete-without-state-transition": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-dispatch-as-complete": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine"
+        ],
+        "allowed_extra": [
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-dispatched-timeout-without-output": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-export-without-validation": {
+        "expected": [
+          "validate_export_manifest"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_export_manifest"
+        ]
+      },
+      "invalid-l2-missing-pua-report": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l3-incomplete-checklist": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l4-inconsistent-failure-count": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-missing-agent-type": {
+        "expected": [
+          "validate_task_packet"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_task_packet"
+        ]
+      },
+      "invalid-missing-artifact-validator-evidence": {
+        "expected": [
+          "validate_validator_report"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_validator_report"
+        ]
+      },
+      "invalid-missing-pua-telemetry": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-missing-source-map": {
+        "expected": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ]
+      },
+      "invalid-missing-validator-definition": {
+        "expected": [
+          "validate_validator_reference_closure"
+        ],
+        "allowed_extra": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_reference_closure",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-partial-validator-evidence": {
+        "expected": [
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "allowed_extra": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-private-raw-leak": {
+        "expected": [
+          "validate_privacy_boundaries"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_privacy_boundaries"
+        ]
+      },
+      "invalid-shallow-rationale-matrix": {
+        "expected": [
+          "validate_rationale_matrix"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_rationale_matrix"
+        ]
+      },
+      "invalid-unconfirmed-motivation": {
+        "expected": [
+          "validate_motivation_confirmation"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_motivation_confirmation"
+        ]
+      },
+      "invalid-unknown-owner-lane": {
+        "expected": [
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_owner_lane_closure"
+        ]
+      },
+      "invalid-unresolved-source-locator": {
+        "expected": [
+          "validate_source_locator_resolution"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_source_locator_resolution"
+        ]
+      },
+      "invalid-unrouted-review-finding": {
+        "expected": [
+          "validate_review_backflow"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_review_backflow"
+        ]
+      },
+      "invalid-unsupported-claim": {
+        "expected": [
+          "validate_claim_support"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_claim_support"
+        ]
+      },
+      "invalid-validated-without-ingest": {
+        "expected": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      }
+    }
+  }
+}
+SOURCE_POST_CLEAN_VALIDATION_PASS

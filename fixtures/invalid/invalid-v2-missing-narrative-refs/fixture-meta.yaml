@@ -1,0 +1,4 @@
+fixture_id: invalid-v2-missing-narrative-refs
+expected_failures:
+- validate_narrative_object_binding
+allowed_extra_failures: []

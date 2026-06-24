@@ -1,0 +1,27 @@
+### skill_quick_validate_all
+## yxj-paper-evidence
+Skill is valid!
+## yxj-paper-execute
+Skill is valid!
+## yxj-paper-export
+Skill is valid!
+## yxj-paper-figures
+Skill is valid!
+## yxj-paper-index
+Skill is valid!
+## yxj-paper-interview
+Skill is valid!
+## yxj-paper-migration
+Skill is valid!
+## yxj-paper-novelty
+Skill is valid!
+## yxj-paper-paperspine
+Skill is valid!
+## yxj-paper-plan
+Skill is valid!
+## yxj-paper-research
+Skill is valid!
+## yxj-paper-review
+Skill is valid!
+## yxj-paper-state
+Skill is valid!

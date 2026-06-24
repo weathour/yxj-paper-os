@@ -1,0 +1,5 @@
+fixture_id: invalid-l3-incomplete-checklist
+description: L3 requires all seven checklist items completed
+expected_failures:
+- validate_pua_telemetry
+allowed_extra_failures: []

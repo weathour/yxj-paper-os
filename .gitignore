@@ -1,0 +1,4 @@
+# Local tool/runtime caches; never include in the non-live scaffold package.
+.ruff_cache/
+__pycache__/
+*.py[cod]

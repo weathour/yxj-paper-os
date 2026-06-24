@@ -1,0 +1,6 @@
+# Blocker resolution report
+2026-06-23T17:26:00+08:00
+Resolved final code-reviewer blockers:
+1. L2+ pua_report now exactly mirrors top-level telemetry fields: failure_count, failure_mode, attempts, excluded, next_hypothesis, manager_action.
+2. complete tasks now require pipeline_stage: state_transition and state_transition.from, state_transition.to: complete, and state_transition.at.
+3. Added invalid fixtures: invalid-l2-pua-report-mismatch, invalid-complete-wrong-state-transition-target, invalid-complete-wrong-pipeline-stage.

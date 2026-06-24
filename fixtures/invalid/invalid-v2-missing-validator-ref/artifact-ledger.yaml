@@ -1,0 +1,11 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: compiled-task-packet-001
+  artifact_type: compiled-task-packet
+  path: collected/T105/compiled-task-packet.yaml
+  owner_lane: execution-coordinator
+  owner_department: pmo
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_task_packet

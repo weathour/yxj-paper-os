@@ -1,0 +1,4 @@
+fixture_id: invalid-v2-missing-template-refs
+expected_failures:
+- validate_template_object_binding
+allowed_extra_failures: []

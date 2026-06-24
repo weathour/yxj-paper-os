@@ -1,0 +1,12 @@
+schema_version: yxj-paper-os/export-manifest/v1
+export_id: export-001
+readiness: ready
+source_artifacts:
+- artifact_id: manuscript-source
+  path: manuscript/main.tex
+build_reports:
+- path: exports/build-report.txt
+validation_summary:
+  status: pending
+  validator_report: validator-report.yaml
+residual_risks: []

@@ -1,0 +1,3 @@
+fixture_id: invalid-private-raw-leak
+expected_failures:
+- validate_privacy_boundaries

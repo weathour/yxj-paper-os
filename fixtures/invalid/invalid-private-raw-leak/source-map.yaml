@@ -1,0 +1,13 @@
+schema_version: yxj-paper-os/source-map/v1
+paper_slug: fixture-paper
+sources:
+- source_id: src-001
+  kind: local-note
+  locator: notes/source.md
+  locator_status: resolved
+  privacy: private_raw
+  allowed_uses:
+  - research
+  - motivation
+  private_raw_content: BEGIN PRIVATE RAW unpublished manuscript text
+unresolved_locators: []

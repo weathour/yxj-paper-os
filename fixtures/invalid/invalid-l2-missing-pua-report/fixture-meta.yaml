@@ -1,0 +1,5 @@
+fixture_id: invalid-l2-missing-pua-report
+description: L2 requires structured PUA-REPORT fields
+expected_failures:
+- validate_pua_telemetry
+allowed_extra_failures: []

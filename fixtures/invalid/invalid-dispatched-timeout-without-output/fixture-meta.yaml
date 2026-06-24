@@ -1,0 +1,6 @@
+fixture_id: invalid-dispatched-timeout-without-output
+expected_failures:
+- validate_dispatch_not_complete
+- validate_task_status_transitions
+allowed_extra_failures:
+- validate_validator_report

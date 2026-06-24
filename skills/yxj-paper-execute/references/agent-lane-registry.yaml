@@ -1,0 +1,1294 @@
+schema_version: yxj-paper-os/agent-lane-registry/v2
+canonical_field: validator_refs
+legacy_aliases:
+  validators: validator_refs
+installed_agent_types:
+- analyst
+- architect
+- critic
+- executor
+- explore
+- planner
+- researcher
+- test-engineer
+- verifier
+- writer
+non_subagent_routes:
+- omx_question
+- team
+owner_lane_aliases:
+  research-director: umbrella over scene-analyst, exemplar-learner, sota-mapper, and novelty-panel
+  verifier: generic verifier alias; prefer method-verifier, style-auditor, state-steward, or final-verifier when possible
+  paper-owner-gate: human semantic decision gate represented through omx_question and decision-ledger entry
+lanes:
+- lane_id: profile-architect
+  lane_kind: direct_subagent
+  recommended_agent_type: architect
+  purpose: Design and validate paper profile, modules, paths, and policy toggles.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for profile-architect
+  expected_output_artifacts:
+  - artifact_type: profile-architect-output
+    path_pattern: notes/yxj-paper-os/profile-architect/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: paper-profile
+  - artifact_type: workspace-contract
+  - artifact_type: department-io-contract
+  material_outputs:
+  - artifact_type: paper-profile-policy
+  - artifact_type: profile-validation-plan
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: interview-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: analyst
+  purpose: Clarify user intent, missing boundaries, target venue, and semantic decisions.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for interview-owner
+  expected_output_artifacts:
+  - artifact_type: interview-owner-output
+    path_pattern: notes/yxj-paper-os/interview-owner/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: owner-question
+  - artifact_type: paper-profile
+  - artifact_type: decision-ledger
+  material_outputs:
+  - artifact_type: decision-brief
+  - artifact_type: owner-gated-decision-record
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: state-steward
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Maintain and validate state, task, artifact, decision, evidence, review, and export ledgers.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for state-steward
+  expected_output_artifacts:
+  - artifact_type: state-steward-output
+    path_pattern: notes/yxj-paper-os/state-steward/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: task-ledger
+  - artifact_type: artifact-ledger
+  - artifact_type: validator-report
+  material_outputs:
+  - artifact_type: state-transition-record
+  - artifact_type: manager-state-snapshot
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: source-map-curator
+  lane_kind: direct_subagent
+  recommended_agent_type: explore
+  purpose: Inspect project-local materials and build source maps without copying raw private content.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for source-map-curator
+  expected_output_artifacts:
+  - artifact_type: source-map-curator-output
+    path_pattern: notes/yxj-paper-os/source-map-curator/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: evidence_and_method
+  material_inputs:
+  - artifact_type: paper-profile
+  - artifact_type: local-source-locators
+  material_outputs:
+  - artifact_type: source-map
+  - artifact_type: privacy-boundary-report
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: scene-analyst
+  lane_kind: direct_subagent
+  recommended_agent_type: researcher
+  purpose: Analyze target venue/scene requirements and reviewer criteria.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for scene-analyst
+  expected_output_artifacts:
+  - artifact_type: scene-analyst-output
+    path_pattern: notes/yxj-paper-os/scene-analyst/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: paper_architecture_and_narrative
+  material_inputs:
+  - artifact_type: target-venue-route
+  - artifact_type: reader-spine-brief
+  - artifact_type: source-map
+  material_outputs:
+  - artifact_type: scene-analysis-brief
+  - artifact_type: reviewer-expectation-map
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: exemplar-learner
+  lane_kind: direct_subagent
+  recommended_agent_type: researcher
+  purpose: Learn structural/rhetorical/language patterns from allowed exemplars without copying claims.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for exemplar-learner
+  expected_output_artifacts:
+  - artifact_type: exemplar-learner-output
+    path_pattern: notes/yxj-paper-os/exemplar-learner/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: paper_architecture_and_narrative
+  material_inputs:
+  - artifact_type: allowed-exemplar-set
+  - artifact_type: template-quant-profile
+  material_outputs:
+  - artifact_type: template-quant-profile
+  - artifact_type: section-function-budget
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: sota-mapper
+  lane_kind: direct_subagent
+  recommended_agent_type: researcher
+  purpose: Map SOTA, gaps, claim strength, and risks.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for sota-mapper
+  expected_output_artifacts:
+  - artifact_type: sota-mapper-output
+    path_pattern: notes/yxj-paper-os/sota-mapper/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: evidence_and_method
+  material_inputs:
+  - artifact_type: source-map
+  - artifact_type: citation-bank
+  - artifact_type: reader-spine-brief
+  material_outputs:
+  - artifact_type: sota-gap-map
+  - artifact_type: claim-risk-map
+  narrative_binding_required: true
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: not_required_for_lane
+- lane_id: novelty-panel
+  lane_kind: direct_subagent
+  recommended_agent_type: researcher
+  purpose: Run Sisyphus-like novelty engines and produce evidence-readiness-scored options.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for novelty-panel
+  expected_output_artifacts:
+  - artifact_type: novelty-panel-output
+    path_pattern: notes/yxj-paper-os/novelty-panel/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: paper_architecture_and_narrative
+  material_inputs:
+  - artifact_type: sota-gap-map
+  - artifact_type: reader-spine-brief
+  - artifact_type: evidence-bank
+  material_outputs:
+  - artifact_type: novelty-options
+  - artifact_type: assumption-risk-register
+  narrative_binding_required: true
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: not_required_for_lane
+- lane_id: citation-banker
+  lane_kind: direct_subagent
+  recommended_agent_type: researcher
+  purpose: Build and verify citation support candidates.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for citation-banker
+  expected_output_artifacts:
+  - artifact_type: citation-banker-output
+    path_pattern: notes/yxj-paper-os/citation-banker/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: evidence_and_method
+  material_inputs:
+  - artifact_type: source-map
+  - artifact_type: claim-list
+  material_outputs:
+  - artifact_type: citation-bank
+  - artifact_type: citation-support-map
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: evidence-curator
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Map claims to evidence, experiment locators, figures, and allowed claim strength.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for evidence-curator
+  expected_output_artifacts:
+  - artifact_type: evidence-curator-output
+    path_pattern: notes/yxj-paper-os/evidence-curator/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: evidence_and_method
+  material_inputs:
+  - artifact_type: claim-list
+  - artifact_type: source-map
+  - artifact_type: reader-spine-brief
+  material_outputs:
+  - artifact_type: evidence-bank
+  - artifact_type: claim-support-matrix
+  narrative_binding_required: true
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: not_required_for_lane
+- lane_id: paper-architect
+  lane_kind: direct_subagent
+  recommended_agent_type: planner
+  purpose: Produce contribution map, section blueprints, and writing rationale matrix.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for paper-architect
+  expected_output_artifacts:
+  - artifact_type: paper-architect-output
+    path_pattern: notes/yxj-paper-os/paper-architect/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: paper_architecture_and_narrative
+  material_inputs:
+  - artifact_type: reader-spine-brief
+  - artifact_type: object-representation-matrix
+  - artifact_type: template-quant-profile
+  - artifact_type: evidence-bank
+  material_outputs:
+  - artifact_type: contribution-map
+  - artifact_type: section-blueprint
+  - artifact_type: section-function-budget
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: manuscript-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: writer
+  purpose: Draft or rewrite sections from rationale matrix and evidence anchors.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for manuscript-owner
+  expected_output_artifacts:
+  - artifact_type: manuscript-owner-output
+    path_pattern: notes/yxj-paper-os/manuscript-owner/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: manuscript_and_figure_production
+  material_inputs:
+  - artifact_type: section-blueprint
+  - artifact_type: object-representation-matrix
+  - artifact_type: evidence-bank
+  - artifact_type: section-function-budget
+  material_outputs:
+  - artifact_type: manuscript-section-draft
+  - artifact_type: reader-transition-map
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: method-verifier
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Audit experimental design, statistics, baselines, and reproducibility.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for method-verifier
+  expected_output_artifacts:
+  - artifact_type: method-verifier-output
+    path_pattern: notes/yxj-paper-os/method-verifier/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: evidence_and_method
+  material_inputs:
+  - artifact_type: method-description
+  - artifact_type: object-representation-matrix
+  - artifact_type: evidence-bank
+  material_outputs:
+  - artifact_type: method-contract
+  - artifact_type: experiment-validity-report
+  narrative_binding_required: true
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: not_required_for_lane
+- lane_id: figure-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: executor
+  purpose: Create or validate figures, captions, and figure asset maps.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for figure-owner
+  expected_output_artifacts:
+  - artifact_type: figure-owner-output
+    path_pattern: notes/yxj-paper-os/figure-owner/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: manuscript_and_figure_production
+  material_inputs:
+  - artifact_type: visual-table-algorithm-formula-budget
+  - artifact_type: evidence-bank
+  - artifact_type: object-representation-matrix
+  material_outputs:
+  - artifact_type: figure-plan
+  - artifact_type: caption-brief
+  - artifact_type: visual-provenance-record
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: review-director
+  lane_kind: direct_subagent
+  recommended_agent_type: critic
+  purpose: Run hostile reviewer personas and synthesize fix priorities.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for review-director
+  expected_output_artifacts:
+  - artifact_type: review-director-output
+    path_pattern: notes/yxj-paper-os/review-director/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: review_and_governance
+  material_inputs:
+  - artifact_type: manuscript-draft
+  - artifact_type: reader-spine-brief
+  - artifact_type: object-representation-matrix
+  - artifact_type: template-quant-profile
+  material_outputs:
+  - artifact_type: reader-experience-review-report
+  - artifact_type: narrative-backflow-task
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: style-auditor
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Check writing style constraints, AI-pattern risk, voice consistency, and journal tone.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for style-auditor
+  expected_output_artifacts:
+  - artifact_type: style-auditor-output
+    path_pattern: notes/yxj-paper-os/style-auditor/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: review_and_governance
+  material_inputs:
+  - artifact_type: manuscript-draft
+  - artifact_type: reader-spine-brief
+  - artifact_type: section-function-budget
+  material_outputs:
+  - artifact_type: style-audit-report
+  - artifact_type: lab-notebook-smell-findings
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: export-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: executor
+  purpose: Build export packages, manifests, and submission checks.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for export-owner
+  expected_output_artifacts:
+  - artifact_type: export-owner-output
+    path_pattern: notes/yxj-paper-os/export-owner/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: manuscript_and_figure_production
+  material_inputs:
+  - artifact_type: validated-manuscript
+  - artifact_type: figure-package
+  - artifact_type: export-manifest
+  material_outputs:
+  - artifact_type: export-package
+  - artifact_type: readiness-report
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: repository-hygiene-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Audit git/worktree status, sibling/parent contamination, generated files, ledger snapshot freshness, export-manifest hashes, and delivery-cleanliness gates before author handoff or external submission.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - state/task/artifact/export ledgers under .omx/state/yxj-paper-os/
+  - notes/yxj-paper-os/ledger-snapshot/ when tracked snapshot evidence is required
+  - export-manifest.yaml and build reports when export artifacts exist
+  - git status --short --untracked-files=all or explicit non-git workspace explanation
+  expected_output_artifacts:
+  - artifact_type: repository-hygiene-report
+    path_pattern: notes/yxj-paper-os/repository-hygiene/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_repository_hygiene_report
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark delivery clean.
+  department: pmo
+  material_inputs:
+  - artifact_type: git-status-snapshot
+  - artifact_type: task-ledger
+  - artifact_type: export-manifest
+  material_outputs:
+  - artifact_type: RepositoryHygieneReport
+  - artifact_type: delivery-cleanliness-gate
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    repository_hygiene: validate_repository_hygiene_report
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: yxj-wiki-bridge
+  lane_kind: direct_subagent
+  recommended_agent_type: researcher
+  purpose: Use yxj-wiki/source locators without copying raw library content.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for yxj-wiki-bridge
+  expected_output_artifacts:
+  - artifact_type: yxj-wiki-bridge-output
+    path_pattern: notes/yxj-paper-os/yxj-wiki-bridge/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: evidence_and_method
+  material_inputs:
+  - artifact_type: yxj-wiki-query
+  - artifact_type: source-map
+  material_outputs:
+  - artifact_type: wiki-source-capsule
+  - artifact_type: source-support-note
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: research-director
+  lane_kind: umbrella
+  recommended_agent_type: researcher
+  purpose: Coordinate scene-analyst, exemplar-learner, sota-mapper, and novelty-panel outputs.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for research-director
+  expected_output_artifacts:
+  - artifact_type: research-director-output
+    path_pattern: notes/yxj-paper-os/research-director/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: paper_architecture_and_narrative
+  material_inputs:
+  - artifact_type: scene-analysis-brief
+  - artifact_type: template-quant-profile
+  - artifact_type: sota-gap-map
+  material_outputs:
+  - artifact_type: research-route-plan
+  - artifact_type: research-synthesis
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: execution-coordinator
+  lane_kind: direct_subagent
+  recommended_agent_type: executor
+  purpose: Compile task packets, run the native_subagent_pipeline_adapter, collect, validate, and ingest.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for execution-coordinator
+  expected_output_artifacts:
+  - artifact_type: execution-coordinator-output
+    path_pattern: notes/yxj-paper-os/execution-coordinator/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: task-packet
+  - artifact_type: agent-lane-registry
+  - artifact_type: department-io-contract
+  material_outputs:
+  - artifact_type: compiled-task-packet
+  - artifact_type: execution-collection-plan
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: paper-owner-gate
+  lane_kind: user_gate
+  recommended_agent_type: omx_question
+  purpose: Represent paper-owner semantic authority through explicit question/decision-ledger gate.
+  context_scope:
+  - decision prompt
+  - options/tradeoffs
+  - affected artifacts
+  expected_output_artifacts:
+  - artifact_type: decision-ledger-entry
+    path_pattern: .omx/state/yxj-paper-os/decision-ledger.yaml
+  validator_refs:
+  - validate_decision_ledger
+  - validate_motivation_confirmation
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If no user decision is available, mark blocked_by_user_decision; do not infer semantic authority.
+  department: pmo
+  material_inputs:
+  - artifact_type: owner-gated-question
+  - artifact_type: decision-context
+  material_outputs:
+  - artifact_type: decision-ledger-entry
+  - artifact_type: semantic-authority-record
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: verifier
+  lane_kind: alias
+  recommended_agent_type: verifier
+  purpose: Generic validation owner; prefer specific verifier lanes when possible.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for verifier
+  expected_output_artifacts:
+  - artifact_type: verifier-output
+    path_pattern: notes/yxj-paper-os/verifier/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: review_and_governance
+  material_inputs:
+  - artifact_type: validator-report
+  - artifact_type: task-ledger
+  - artifact_type: artifact-ledger
+  material_outputs:
+  - artifact_type: verification-summary
+  - artifact_type: closure-risk-note
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: final-verifier
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Final independent readiness and consensus verification owner.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for final-verifier
+  expected_output_artifacts:
+  - artifact_type: final-verifier-output
+    path_pattern: notes/yxj-paper-os/final-verifier/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: review_and_governance
+  material_inputs:
+  - artifact_type: all-validator-evidence
+  - artifact_type: manager-handoff-report-v2
+  material_outputs:
+  - artifact_type: final-closure-report
+  - artifact_type: residual-risk-register
+  narrative_binding_required: true
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: validate_narrative_object_binding
+    template_binding: validate_template_object_binding
+- lane_id: artifact-schema-designer
+  lane_kind: direct_subagent
+  recommended_agent_type: architect
+  purpose: Own reusable templates, artifact schemas, required fields, and cross-reference rules.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for artifact-schema-designer
+  expected_output_artifacts:
+  - artifact_type: artifact-schema-designer-output
+    path_pattern: notes/yxj-paper-os/artifact-schema-designer/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: department-io-contract
+  - artifact_type: reader-narrative-governance
+  material_outputs:
+  - artifact_type: artifact-schema
+  - artifact_type: template-contract
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: docs-writer
+  lane_kind: direct_subagent
+  recommended_agent_type: writer
+  purpose: Own user/developer docs, migration notes, and operation guides.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for docs-writer
+  expected_output_artifacts:
+  - artifact_type: docs-writer-output
+    path_pattern: notes/yxj-paper-os/docs-writer/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: validated-contracts
+  - artifact_type: manager-handoff-report-v2
+  material_outputs:
+  - artifact_type: operation-doc-update
+  - artifact_type: migration-doc-update
+  narrative_binding_required: false
+  template_binding_required: true
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: validate_template_object_binding
+- lane_id: migration-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: planner
+  purpose: Own source-only migration planning from old yxj-paper-os without active uninstall or install actions.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for migration-owner
+  expected_output_artifacts:
+  - artifact_type: migration-owner-output
+    path_pattern: notes/yxj-paper-os/migration-owner/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: v1-state
+  - artifact_type: v2-contracts
+  - artifact_type: fixture-matrix
+  material_outputs:
+  - artifact_type: migration-plan
+  - artifact_type: compatibility-report
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: plugin-packaging-lane
+  lane_kind: scaffold_lane
+  recommended_agent_type: executor
+  purpose: Own plugin manifest/resource metadata in non-live scaffold source.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for plugin-packaging-lane
+  expected_output_artifacts:
+  - artifact_type: plugin-packaging-lane-output
+    path_pattern: notes/yxj-paper-os/plugin-packaging-lane/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: source-scaffold
+  - artifact_type: plugin-manifest
+  material_outputs:
+  - artifact_type: packaging-readiness-report
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: scaffold-executor
+  lane_kind: scaffold_lane
+  recommended_agent_type: executor
+  purpose: Own mechanical skill scaffold creation.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for scaffold-executor
+  expected_output_artifacts:
+  - artifact_type: scaffold-executor-output
+    path_pattern: notes/yxj-paper-os/scaffold-executor/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: scaffold-checklist
+  - artifact_type: source-tree
+  material_outputs:
+  - artifact_type: scaffold-patch
+  - artifact_type: scaffold-validation-report
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: workspace-architect
+  lane_kind: scaffold_lane
+  recommended_agent_type: architect
+  purpose: Own workspace-contract design.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for workspace-architect
+  expected_output_artifacts:
+  - artifact_type: workspace-architect-output
+    path_pattern: notes/yxj-paper-os/workspace-architect/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: workspace-contract
+  - artifact_type: paper-root-evidence
+  material_outputs:
+  - artifact_type: workspace-layout-plan
+  - artifact_type: root-detection-policy
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: domain-analyst
+  lane_kind: scaffold_lane
+  recommended_agent_type: analyst
+  purpose: Own domain/source-influence translation.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for domain-analyst
+  expected_output_artifacts:
+  - artifact_type: domain-analyst-output
+    path_pattern: notes/yxj-paper-os/domain-analyst/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: domain-brief
+  - artifact_type: paper-profile
+  material_outputs:
+  - artifact_type: domain-spec
+  - artifact_type: routing-matrix
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: validator-designer
+  lane_kind: scaffold_lane
+  recommended_agent_type: test-engineer
+  purpose: Own validators and fixtures.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for validator-designer
+  expected_output_artifacts:
+  - artifact_type: validator-designer-output
+    path_pattern: notes/yxj-paper-os/validator-designer/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: review_and_governance
+  material_inputs:
+  - artifact_type: validator-contract
+  - artifact_type: fixture-matrix
+  material_outputs:
+  - artifact_type: validator-implementation-plan
+  - artifact_type: fixture-coverage-report
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: omx-workflow-router
+  lane_kind: scaffold_lane
+  recommended_agent_type: planner
+  purpose: Own route/gate mapping and OMX workflow routing.
+  context_scope:
+  - paper-profile.yaml or profile locator
+  - source-map.yaml when source/citation/evidence is relevant
+  - state/task/artifact ledgers under .omx/state/yxj-paper-os/
+  - lane-specific inputs for omx-workflow-router
+  expected_output_artifacts:
+  - artifact_type: omx-workflow-router-output
+    path_pattern: notes/yxj-paper-os/omx-workflow-router/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: ralplan-handoff
+  - artifact_type: ultragoal-ledger
+  - artifact_type: team-gate-policy
+  material_outputs:
+  - artifact_type: workflow-route-decision
+  - artifact_type: gate-status-report
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+department_model_ref: entry-skills/yxj-paper-os/references/department-io-contract.md
+reader_narrative_governance_ref: entry-skills/yxj-paper-os/references/reader-narrative-governance.md
+canonical_material_fields:
+- department
+- material_inputs
+- material_outputs
+- narrative_binding_required
+- template_binding_required
+- validator_coverage
+department_ids:
+- pmo
+- paper_architecture_and_narrative
+- evidence_and_method
+- manuscript_and_figure_production
+- review_and_governance
+v2_required_task_packet_fields:
+- owner_department
+- owner_lane
+- agent_type
+- input_materials
+- expected_output_materials
+- validator_refs
+- collection_path
+- state_ingestion
+- pipeline_stage
+- state_transition
+- backflow_route
+- pua_telemetry
+v2_conditional_task_packet_fields:
+  narrative_object_refs: required when lane.narrative_binding_required is true unless an accepted non_applicable_reason is validated
+  template_object_refs: required when lane.template_binding_required is true unless an accepted non_applicable_reason is validated

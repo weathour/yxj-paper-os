@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/visual-table-algorithm-formula-budget/v2
+artifact_id: visual-formal-budget-<paper-slug>
+status: draft
+owner_department: manuscript_and_figure_production
+items:
+- item_id: fig-001
+  kind: figure
+  target_section: method
+  argumentative_purpose: explain mechanism, not decorate results
+  supports_claim_ids: []
+  consumes_material_objects:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  evidence_refs: []
+validator_refs:
+- validate_visual_budget

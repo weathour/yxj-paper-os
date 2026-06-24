@@ -1,0 +1,2 @@
+validate_pua_telemetry_return: False
+MUTATION_BOOL_FAILURE_COUNT_FAILS_PASS
