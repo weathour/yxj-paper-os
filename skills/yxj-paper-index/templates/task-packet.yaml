@@ -7,7 +7,6 @@ owner_lane: research-director
 agent_type: researcher
 status: compiled
 pipeline_stage: compile
-
 input_materials:
 - artifact_id: reader-spine-001
   artifact_type: ReaderSpineBrief
@@ -37,6 +36,38 @@ validator_refs:
 - validate_subagent_output
 - validate_task_status_transitions
 - validate_pua_telemetry
+actor_provenance:
+  execution_actor_id: null
+  execution_actor_kind: null
+  execution_actor_lane: null
+  manager_role_at_execution: null
+  run_or_session_id: null
+  final_certifier_actor_id: null
+  final_certifier_actor_kind: null
+  final_certifier_lane: null
+  final_certifier_run_or_session_id: null
+  actor_provenance_artifacts: []
+manager_direct_intervention:
+  present: false
+  intervention_id: null
+  inferred_from_actor_provenance: false
+  reason: null
+  affected_departments: []
+  paper_facing: false
+  state_sensitive: false
+  required_independent_review: false
+  independent_review_artifact: null
+  completion_limit_without_review: candidate
+role_separation:
+  executor_actor_id: null
+  executor_lane: null
+  reviewer_actor_id: null
+  reviewer_lane: null
+  verifier_actor_id: null
+  verifier_lane: null
+  state_transition_owner: state-steward
+  final_certifier_actor_id: null
+  same_actor_exceptions: []
 pua_telemetry:
   pressure_level: L0
   failure_count: 0
@@ -71,3 +102,15 @@ pua_telemetry:
     reversed_assumption: false
     minimal_isolation: false
     changed_direction: false
+authority_validator_refs_when_applicable:
+- validate_actor_provenance_present
+- validate_actor_provenance_artifact_trusted
+- validate_effective_actor_identity_resolved
+- validate_derived_sensitivity_classification
+- validate_manager_direct_inferred_or_declared
+- validate_manager_direct_intervention_declared
+- validate_manager_direct_independent_review
+- validate_no_manager_self_certification
+- validate_role_separation_for_paper_facing_tasks
+- validate_manager_direct_handoff_disclosure
+- validate_completion_state_limited_without_independent_review

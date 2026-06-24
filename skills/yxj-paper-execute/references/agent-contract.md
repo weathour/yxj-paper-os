@@ -12,6 +12,14 @@ Every registry lane now belongs to exactly one v2 department and declares the ma
 
 This is the management handoff boundary: the manager dispatches people/agents through lanes, but the lane closes only when its material I/O is collected, validated, ingested, and transitioned. PUA telemetry remains an escalation/control artifact and never substitutes for the declared validators.
 
+## Manager-direct separation rule
+
+The manager may route work to lanes, but lane labels do not prove separation. If a
+manager directly performs lane work, the task must carry `actor_provenance`, a
+`ManagerDirectIntervention` record or inference, and `role_separation` evidence.
+The same effective actor cannot execute, independently review, and finally certify
+paper-facing/export/state-sensitive work.
+
 ## Canonical lane-to-agent/material closure table
 
 | owner_lane | department | lane kind | route/agent_type | material inputs | material outputs | reader/template binding | validator_refs |

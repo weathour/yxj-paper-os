@@ -44,6 +44,15 @@ manuscript-facing evidence. Load `references/repository-delivery-governance.md`
 for export, final handoff, ledger closure, git/worktree status, package hygiene,
 or repository cleanliness questions.
 
+## Manager-direct anti-self-certification rule
+
+The Paper Orchestrator must not silently perform department work and then certify it
+as complete. Manager-direct work is an exception requiring `ManagerDirectIntervention`,
+trusted actor provenance, derived sensitivity classification, independent review
+when paper/export/claim/evidence/state sensitive, and structured handoff disclosure.
+`manager_direct_intervention.present:false`, PUA telemetry, or a manager summary
+never override this rule.
+
 ## Core rule
 
 Never equate dispatch with completion. A paper task can move to `complete` only after:

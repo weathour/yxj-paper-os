@@ -1,0 +1,5 @@
+fixture_id: invalid-manager-direct-present-false-but-manager-actor
+expected_failures:
+- validate_manager_direct_inferred_or_declared
+- validate_manager_direct_intervention_declared
+allowed_extra_failures: []

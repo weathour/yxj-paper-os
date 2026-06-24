@@ -1,0 +1,4 @@
+fixture_id: invalid-manager-direct-hidden-from-handoff
+expected_failures:
+- validate_manager_direct_handoff_disclosure
+allowed_extra_failures: []

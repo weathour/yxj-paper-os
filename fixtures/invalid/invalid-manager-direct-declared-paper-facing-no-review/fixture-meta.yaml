@@ -1,0 +1,5 @@
+fixture_id: invalid-manager-direct-declared-paper-facing-no-review
+expected_failures:
+- validate_manager_direct_independent_review
+- validate_completion_state_limited_without_independent_review
+- validate_manager_direct_handoff_disclosure

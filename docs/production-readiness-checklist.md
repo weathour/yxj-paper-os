@@ -74,3 +74,20 @@ Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` mus
 - [ ] Ledger snapshot freshness is pass or not required.
 - [ ] Export-manifest hashes are pass or not required.
 - [ ] External submission/upload remains explicitly gated unless the paper owner confirmed it.
+
+## Manager authority readiness
+
+- [ ] `manager-direct-intervention.yaml` exists in canonical and public-entry
+      template trees.
+- [ ] `task-packet.yaml` exposes `actor_provenance`,
+      `manager_direct_intervention`, and `role_separation`.
+- [ ] `Manager Handoff Report v2` contains a YAML fenced
+      `authority_role_separation` block.
+- [ ] Validator registry includes actor provenance, trusted provenance artifact,
+      effective actor, derived sensitivity, manager-direct declaration/inference,
+      independent review, no self-certification, role separation, handoff
+      disclosure, and completion-limit validators.
+- [ ] Fixture suite includes valid manager-direct cases and invalid blockers for
+      undeclared manager-direct work, `present:false` manager actor, missing or
+      unparseable provenance, no independent review, same effective actor,
+      sensitivity downgrade, and hidden handoff.

@@ -27,3 +27,11 @@ Use validator refs such as `validate_no_bare_citekeys_in_export` and
 `validate_rendered_pdf_surface_text` in the task ledger. A build that passes but
 leaks internal planning language remains `needs_backflow`, not `complete`.
 
+
+## Authority gate for export readiness
+
+Export readiness is blocked when manuscript/export changes were manager-direct and
+lack trusted provenance, independent review, final-certifier separation, or the
+structured YAML `authority_role_separation` handoff disclosure. A successful build
+plus manager certification remains `candidate` or `validated`, not `complete`, until
+those authority gates pass.

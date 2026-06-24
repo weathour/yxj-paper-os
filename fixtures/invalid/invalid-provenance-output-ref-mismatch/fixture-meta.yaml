@@ -1,0 +1,3 @@
+fixture_id: invalid-provenance-output-ref-mismatch
+expected_failures:
+- validate_actor_provenance_artifact_trusted

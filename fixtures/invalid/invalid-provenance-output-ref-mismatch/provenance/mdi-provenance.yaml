@@ -1,0 +1,26 @@
+provenance_artifact_id: prov-mdi-001
+task_id: T-MDI-001
+created_at: '2026-06-24T00:00:00Z'
+source_type: manager_session
+source_path: task-ledger.yaml
+source_hash: cc961a1dbb49f0fe2e5e6a8dc7502ab0c72ff7280f46c077db7d6cc93f1917b0
+producer:
+  actor_id: manager:session-main
+  actor_kind: manager
+  actor_lane: paper-architect
+  run_or_session_id: session-main
+action:
+  action_type: edit
+  material_refs:
+  - narrative/reader-spine-001.yaml
+  output_refs:
+  - collected/T002/not-declared-output.yaml
+certifier:
+  actor_id: verifier:final-001
+  actor_kind: native_subagent
+  actor_lane: final-verifier
+  run_or_session_id: subagent-final-001
+binding:
+  task_id_matches_packet: true
+  material_refs_exist: true
+  source_hash_verified: true

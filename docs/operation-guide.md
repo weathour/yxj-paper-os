@@ -226,3 +226,22 @@ Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` mus
 ## Repository hygiene / delivery cleanliness gate
 
 Before claiming pre-author-review, export readiness, or final handoff, run/read a `RepositoryHygieneReport`. The report must classify dirty entries by active paper, parent/shared, and sibling paper scope; name generated/ephemeral files; list disallowed entries; check ledger snapshot freshness and export-manifest hashes; and state the external-submission boundary. If the gate is not `pass`, report the paper as content-validated but delivery-dirty, blocked, or owner-gated.
+
+## Manager-direct authority gate
+
+Use manager-direct work only as an exception. If the manager directly produces,
+reviews, verifies, exports, or transitions department-owned material, compile the
+task with:
+
+- `actor_provenance` that identifies execution actor, final certifier, run/session
+  ids, and YAML/JSON provenance artifacts;
+- `manager_direct_intervention` with declaration or provenance inference, reason,
+  affected departments, independent-review requirement, and completion limit;
+- `role_separation` proving executor, reviewer/verifier, and final certifier are
+  distinct effective actors when the task is paper/export/claim/evidence/state
+  sensitive;
+- a manager handoff YAML block named `authority_role_separation`.
+
+Do not close such work with a manager summary, PUA telemetry, or
+`present:false`. Without trusted provenance and required independent review, the
+allowed state is `candidate` or `validated`, not `complete`.

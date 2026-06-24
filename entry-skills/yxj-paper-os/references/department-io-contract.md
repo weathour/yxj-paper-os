@@ -47,6 +47,29 @@ claims, review findings, or export readiness must not close without the relevant
 narrative/template object refs unless the task explicitly records why the refs
 are not applicable and a validator accepts that exception.
 
+## Manager-direct authority exception
+
+The Paper Orchestrator may coordinate, inspect, compile, route, and report as manager.
+When the same active manager directly writes, edits, reviews, verifies, exports, or
+transitions department-owned work, that action is a `ManagerDirectIntervention`
+exception. It must be declared or inferred from actor provenance; a task packet
+self-report of `manager_direct_intervention.present:false` is not authoritative.
+
+Every completion-sensitive task must carry actor provenance for executor, reviewer,
+verifier, and final certifier. The effective actor key is derived from
+`actor_kind`, `actor_id`, `actor_lane`, and `run_or_session_id`. The same manager
+session switching lanes is still the same effective actor and cannot count as
+independent review. Missing or unparseable provenance cannot satisfy independence.
+
+`paper_facing` and `state_sensitive` are derived classifications. They are inferred
+from owner department/lane, material/output paths, validator refs, handoff claims,
+and state-transition fields. Self-report cannot downgrade sensitivity.
+
+Paper-facing, export-facing, claim/evidence, or state-sensitive manager-direct work
+may be `candidate` or `validated` without independent review, but it cannot become
+`complete` until trusted provenance, independent review, and final-certifier
+separation are present.
+
 ## Material object lifecycle
 
 1. **Planned** — required inputs/outputs and owner lane are declared.

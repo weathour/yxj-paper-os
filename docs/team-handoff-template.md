@@ -21,3 +21,11 @@ Use only after explicit Team approval.
 ## Return evidence
 
 Changed files, validator outputs, fixture pass/fail summary, unresolved risks, gate compliance, and recommendation for Ultragoal checkpoint.
+
+## Manager authority handoff for workers
+
+Workers must report whether the leader/manager directly edited or certified any
+owned material in their slice. If so, return the proposed
+`ManagerDirectIntervention` id, provenance artifact path, reviewer identity,
+final certifier identity, and the YAML `authority_role_separation` block needed
+for the leader checkpoint. Workers do not checkpoint Ultragoal state themselves.

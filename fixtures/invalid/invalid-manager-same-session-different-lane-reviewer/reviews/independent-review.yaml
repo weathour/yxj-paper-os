@@ -1,0 +1,9 @@
+review_id: ir-001
+task_id: T-MDI-001
+reviewer_actor_id: manager:session-main
+verdict: approve
+evidence: fixture independent review
+reviewer_actor_kind: manager
+reviewer_lane: review-director
+reviewer_run_or_session_id: session-main
+evidence_path: review-output.yaml

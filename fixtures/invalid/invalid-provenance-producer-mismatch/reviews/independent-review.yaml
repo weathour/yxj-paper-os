@@ -1,0 +1,9 @@
+review_id: ir-001
+task_id: T-MDI-001
+reviewer_actor_id: reviewer:critic-001
+verdict: approve
+evidence: fixture independent review
+reviewer_actor_kind: native_subagent
+reviewer_lane: review-director
+reviewer_run_or_session_id: subagent-review-001
+evidence_path: review-output.yaml

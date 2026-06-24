@@ -1,0 +1,4 @@
+fixture_id: invalid-manager-direct-authority-refs-omitted
+expected_failures:
+- validate_validator_reference_closure
+allowed_extra_failures: []

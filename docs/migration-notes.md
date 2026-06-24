@@ -38,3 +38,16 @@ install, publish, old-plugin removal, external submission/upload, destructive
 changes, credentialed services, or private/raw material copying. A migrated task
 is not complete until the v2 material outputs are collected, validators pass,
 state is ingested, and the state transition is explicit.
+
+## Manager authority migration
+
+Older ledgers may contain manager-authored prose, validator summaries, or closure
+claims without actor provenance. When migrating such records, do not preserve the
+old `complete` claim blindly. Reclassify manager-authored department work as a
+`ManagerDirectIntervention` candidate, add provenance where available, derive
+paper/state sensitivity from materials and state transitions, and require
+independent review before promoting the migrated task to `complete`.
+
+If provenance cannot be reconstructed, keep the migrated record as
+`candidate`/`validated` with residual self-certification risk instead of
+inventing an independent reviewer.

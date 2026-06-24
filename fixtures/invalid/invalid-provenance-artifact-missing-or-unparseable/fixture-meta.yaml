@@ -1,0 +1,4 @@
+fixture_id: invalid-provenance-artifact-missing-or-unparseable
+expected_failures:
+- validate_actor_provenance_artifact_trusted
+allowed_extra_failures: []

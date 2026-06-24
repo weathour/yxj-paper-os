@@ -28,3 +28,12 @@ with owner lane `reader-narrative-governance` or `manuscript-owner` and
 validators for internal-code removal, citation rendering, and PDF-text surface
 quality.
 
+
+## Authority and self-certification review
+
+For paper-facing, export-facing, claim/evidence, or state-sensitive work, review must
+check whether the manager directly produced, reviewed, verified, exported, or
+transitioned the material. If so, require `ManagerDirectIntervention`, trusted actor
+provenance, a distinct effective reviewer, and final-certifier separation before
+accepting `complete`. A manager-authored summary or `present:false` field is not
+enough.

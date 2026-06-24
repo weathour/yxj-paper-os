@@ -112,6 +112,21 @@ Dispatch, PUA telemetry, and a manager recommendation remain non-completion
 states until material outputs are collected, validated, ingested, and
 transitioned.
 
+## Manager-direct intervention boundary
+
+The orchestrator is a manager first. Direct department production by the manager is
+allowed only as an auditable exception, not as the normal closure path. If the
+manager writes, edits, reviews, verifies, exports, or transitions paper-facing or
+state-sensitive material, the task must create or infer a `ManagerDirectIntervention`
+record, attach actor provenance, and limit completion until independent review and
+final-certifier separation are proven. Manager summaries, PUA telemetry, or lane
+labels are not completion evidence.
+
+Broad handoffs must include a YAML fenced `authority_role_separation` block so the
+paper owner can see whether manager-direct work occurred, who independently
+reviewed it, what completion claim is allowed, and what self-certification risk
+remains.
+
 ## Paper-owner handoff contract
 
 The canonical handoff format is **Gate-based Manager Report + Department Table

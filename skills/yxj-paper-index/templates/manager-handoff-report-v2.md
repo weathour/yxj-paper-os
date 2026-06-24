@@ -15,6 +15,22 @@
 | PMO / Paper Management | state-steward |  |  |  | planned |  |  |  |  |
 | Repository hygiene / Delivery cleanliness | repository-hygiene-owner / verifier | git status, ledger snapshot, export manifest | RepositoryHygieneReport | n/a unless handoff affects narrative/template objects | planned |  |  |  | reproducibility, rollback, clean handoff, and submission-package trust |
 
+
+## Authority & Role Separation
+```yaml
+authority_role_separation:
+  manager_direct_used: false
+  manager_direct_interventions: []
+  inferred_manager_direct: false
+  execution_actor_id: null
+  final_certifier_actor_id: null
+  independent_review_required: false
+  independent_review_artifacts: []
+  completion_claim: candidate # candidate | validated | complete
+  completion_limit_reason: null
+  residual_self_certification_risk: none # none | low | medium | high
+```
+
 ## Decision queue
 | decision_id | owner question | options | recommended option | consequence of no decision | blocks/enables | trigger/deadline |
 | --- | --- | --- | --- | --- | --- | --- |

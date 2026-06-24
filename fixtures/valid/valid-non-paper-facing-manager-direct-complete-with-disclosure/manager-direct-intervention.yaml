@@ -1,0 +1,37 @@
+schema_version: yxj-paper-os/manager-direct-intervention/v1
+intervention_id: MDI-001
+task_id: T-MDI-001
+created_at: '2026-06-24T00:00:00Z'
+trigger: fixture manager-direct execution
+why_not_delegated: controlled validator fixture
+affected_departments:
+- pmo
+paper_facing: false
+state_sensitive: true
+manager_actions:
+- compiled task packet fixture
+separation_risk:
+  level: low
+  rationale: manager direct action requires visible provenance
+derived_from_actor_provenance: true
+actor_provenance_refs:
+- provenance/mdi-provenance.yaml
+required_independent_review:
+  present: true
+  rationale: paper/state sensitive manager-direct work
+independent_review:
+  reviewer_actor_id: reviewer:critic-001
+  reviewer_actor_kind: native_subagent
+  reviewer_lane: review-director
+  agent_type: critic
+  evidence_path: reviews/independent-review.yaml
+  verdict: approve
+forbidden_self_certification: true
+allowed_completion_state: complete_after_independent_review
+state_ingestion:
+  ledger_path: state.yaml
+  artifact_ledger_path: artifact-ledger.yaml
+  ingested: true
+backflow_route:
+  on_review_failure: review_and_governance
+  on_authority_failure: pmo

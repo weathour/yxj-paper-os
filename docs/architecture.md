@@ -152,3 +152,19 @@ subagent.
 ## Repository hygiene / delivery cleanliness control plane
 
 `yxj-paper-os` treats repository hygiene as PMO evidence, not cosmetic cleanup. The `repository-hygiene-owner` verifier lane produces `RepositoryHygieneReport` before final handoff/export readiness claims. This separates content readiness from delivery cleanliness and blocks false-ready reports when the git worktree has disallowed current-paper changes, sibling/parent contamination, stale snapshots, missing export-manifest hashes, or unconfirmed external-submission boundaries.
+
+## Manager authority / anti-self-certification plane
+
+The manager is the single public entry, not an all-purpose self-certifier. When
+the active Paper Orchestrator directly writes, edits, reviews, verifies, exports,
+or transitions department-owned work, the action becomes a visible
+`ManagerDirectIntervention` exception. The exception is governed by three
+mechanical facts: trusted `actor_provenance`, resolved effective actor identity,
+and derived sensitivity classification.
+
+The validator plane treats `manager_direct_intervention.present:false` as only a
+claim. If actor provenance shows manager execution, the intervention is inferred
+and must have a governance artifact. Paper-facing, export-facing, claim/evidence,
+or state-sensitive manager-direct work cannot become `complete` until independent
+review and final-certifier separation are both proven. The same manager/session
+switching lanes is still the same effective actor.

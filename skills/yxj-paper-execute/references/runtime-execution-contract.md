@@ -35,6 +35,9 @@ The preserved completion invariant is `compile -> execute -> collect -> validate
 - `pipeline_stage`
 - `state_transition`
 - `pua_telemetry`
+- `actor_provenance`
+- `manager_direct_intervention`
+- `role_separation`
 
 ## V2 validation checkpoints
 
@@ -45,6 +48,16 @@ The preserved completion invariant is `compile -> execute -> collect -> validate
 - `validate_fixture_matrix_nonempty`: fixture-suite verification must show at least one valid fixture and at least one invalid fixture, preventing an empty-matrix false positive.
 - `validate_manager_handoff_v2`: broad handoffs must expose department, material I/O, owner lane/agent, closure state, evidence, risks, owner decisions, and final-paper impact.
 - `validate_repository_hygiene_report`: export/final/pre-author-review handoffs must prove dirty worktree scope, sibling/parent contamination, snapshot freshness, export-manifest hashes, cleanup actions, and external-submission boundary through `RepositoryHygieneReport`.
+
+## Manager-direct and actor-provenance checkpoints
+
+- `validate_actor_provenance_present`: completion-sensitive packets must identify execution actor, reviewer/verifier as applicable, final certifier, run/session ids, and provenance artifacts.
+- `validate_actor_provenance_artifact_trusted`: provenance artifacts must exist, parse as YAML/JSON, match `task_id`, and bind producer/action/certifier/material refs.
+- `validate_effective_actor_identity_resolved`: independent review counts only when trusted effective actor keys resolve and differ. The same manager/session in another lane is not independent.
+- `validate_derived_sensitivity_classification`: `paper_facing` and `state_sensitive` are derived from owner lane, material/output refs, validator refs, handoff claims, and state-transition fields; self-report cannot downgrade them.
+- `validate_manager_direct_inferred_or_declared`: manager execution/review/verification evidence requires a `ManagerDirectIntervention` artifact even when the packet says `present:false`.
+- `validate_completion_state_limited_without_independent_review`: paper/export/claim/evidence/state-sensitive manager-direct work without independent review may not close as `complete`.
+- `validate_manager_direct_handoff_disclosure`: manager handoff must include a YAML fenced `authority_role_separation` block; prose-only disclosure fails.
 
 ## Failure policy
 

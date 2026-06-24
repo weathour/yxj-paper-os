@@ -1,0 +1,3 @@
+fixture_id: invalid-manager-direct-false-handoff-block
+expected_failures:
+- validate_manager_direct_handoff_disclosure

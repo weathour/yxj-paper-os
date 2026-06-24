@@ -1,6 +1,6 @@
 # Validator fixtures
 
-The fixture suite contains two valid paper-control-plane fixtures and thirty-three invalid fixtures:
+The fixture suite contains five valid paper-control-plane fixtures and fifty-five invalid fixtures:
 
 - dispatch-as-complete;
 - missing agent_type;
@@ -93,3 +93,58 @@ Scaffold validation also checks the executable shape of the v2 reader/template o
 ## Repository hygiene fixture contract
 
 `validate_repository_hygiene_report` rejects handoff/export fixtures that mark delivery cleanliness as pass while `RepositoryHygieneReport` contains disallowed dirty entries, sibling/parent contamination without an owner decision, stale snapshots, missing export-manifest hash checks, or no explicit external-submission boundary.
+
+## Manager authority fixture coverage
+
+The current manager-authority matrix extends the suite to five valid fixtures and
+fifty-five invalid fixtures. New valid fixtures prove that manager-direct work can
+close only when provenance, disclosure, and required independent review are
+present. New invalid fixtures prove these blockers:
+
+- `invalid-manager-direct-undeclared-paper-facing-complete`: manager execution is
+  inferred but no intervention artifact is declared.
+- `invalid-manager-direct-present-false-but-manager-actor`: self-report says no
+  manager-direct work while actor provenance says manager execution.
+- `invalid-provenance-artifact-missing-or-unparseable`: actor fields exist but
+  the provenance artifact is missing or untrusted.
+- `invalid-manager-direct-no-independent-review`: paper/state-sensitive
+  manager-direct completion lacks independent review.
+- `invalid-independent-review-same-effective-actor`: role names differ but the
+  same effective actor executes/reviews/certifies.
+- `invalid-low-risk-self-classified-paper-facing`: a paper-facing task tries to
+  self-downgrade sensitivity.
+- `invalid-manager-direct-hidden-from-handoff`: the intervention is absent from
+  structured handoff disclosure.
+- `invalid-manager-same-session-different-lane-reviewer`: the same manager/session
+  changes lanes and still cannot count as an independent reviewer.
+- `invalid-manager-direct-declared-paper-facing-no-review`: declared
+  `manager_direct_intervention.present:true` paper-facing work still requires
+  independent review even when manager execution was not inferred from provenance.
+- `invalid-independent-review-artifact-missing`: non-empty review paths are not
+  trusted unless the review artifact exists and parses.
+- `invalid-independent-review-wrong-task`: review artifacts must bind to the same
+  `task_id`.
+- `invalid-independent-review-reject-verdict`: rejecting review verdicts cannot
+  authorize completion.
+- `invalid-independent-review-reviewer-mismatch`: review artifacts must bind to
+  the declared reviewer effective actor.
+- `invalid-manager-direct-false-handoff-block`: a default/false
+  `authority_role_separation` block is not truthful disclosure.
+- `invalid-provenance-source-hash-missing`: file-backed provenance must include
+  source hash evidence and `source_hash_verified:true`.
+- `invalid-manager-direct-authority-refs-omitted`: authority-relevant manager-direct
+  tasks cannot opt out by stripping authority validators from `validator_refs`;
+  content-triggered governance still fails `validate_validator_reference_closure`.
+- `invalid-provenance-producer-mismatch`: provenance producer must match the
+  task executor actor key.
+- `invalid-provenance-certifier-mismatch`: provenance certifier must match the
+  task final-certifier actor key.
+- `invalid-provenance-material-ref-mismatch`: provenance material refs must be
+  declared task input materials.
+- `invalid-provenance-output-ref-mismatch`: provenance output refs must be
+  declared task output/collection materials.
+- `invalid-provenance-source-hash-mismatch`: local `source_path` hash must match
+  the artifact `source_hash` when `source_hash_verified:true` is claimed.
+
+These fixtures are intentionally stronger than prose policy: the suite fails if
+any expected authority validator is absent or if an unapproved cascade appears.

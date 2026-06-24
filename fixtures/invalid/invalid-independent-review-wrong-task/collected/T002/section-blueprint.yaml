@@ -1,0 +1,5 @@
+schema_version: yxj-paper-os/section-blueprint/v2
+blueprint_id: section-blueprint-001
+sections:
+- section: introduction
+  reader_question: why this problem matters

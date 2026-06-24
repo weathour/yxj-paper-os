@@ -35,7 +35,12 @@ KNOWN_VALIDATORS = {
     'validate_agent_lane_department_binding', 'validate_task_material_io',
     'validate_narrative_object_binding', 'validate_template_object_binding',
     'validate_template_mirror_sync', 'validate_fixture_matrix_nonempty',
-    'validate_manager_handoff_v2',
+    'validate_manager_handoff_v2', 'validate_actor_provenance_present',
+    'validate_actor_provenance_artifact_trusted', 'validate_effective_actor_identity_resolved',
+    'validate_derived_sensitivity_classification', 'validate_manager_direct_inferred_or_declared',
+    'validate_manager_direct_intervention_declared', 'validate_manager_direct_independent_review',
+    'validate_no_manager_self_certification', 'validate_role_separation_for_paper_facing_tasks',
+    'validate_manager_direct_handoff_disclosure', 'validate_completion_state_limited_without_independent_review',
     'validate_reader_spine_brief', 'validate_object_representation_matrix',
     'validate_template_quant_profile', 'validate_section_function_budget',
     'validate_visual_budget', 'validate_reader_experience_review_gate',
@@ -121,7 +126,7 @@ REQUIRED_V2_TEMPLATES = [
     'section-function-budget.yaml', 'visual-table-algorithm-formula-budget.yaml',
     'reader-experience-review-report.yaml', 'narrative-backflow-task.yaml',
     'template-mirror-policy.yaml', 'repository-hygiene-report.yaml',
-    'main-text-surface-rules.yaml',
+    'main-text-surface-rules.yaml', 'manager-direct-intervention.yaml',
 ]
 
 REQUIRED_ROOT_FILES = [
@@ -224,6 +229,25 @@ def check_v2_template_shapes(root: Path) -> list[str]:
             failures.append(f'{validator}:missing_validator_ref:{filename}')
         if not str(data.get('schema_version', '')).startswith('yxj-paper-os/'):
             failures.append(f'{validator}:missing_schema_version:{filename}')
+
+    manager_direct = load_yaml(template_root / 'manager-direct-intervention.yaml', {})
+    if not isinstance(manager_direct, dict):
+        failures.append('validate_manager_direct_intervention_declared:invalid_yaml:manager-direct-intervention.yaml')
+    else:
+        for path in ['intervention_id', 'task_id', 'trigger', 'why_not_delegated', 'affected_departments', 'manager_actions', 'derived_from_actor_provenance', 'actor_provenance_refs', 'required_independent_review.present', 'independent_review.verdict', 'forbidden_self_certification', 'allowed_completion_state', 'state_ingestion.ledger_path', 'backflow_route.on_authority_failure']:
+            if not require_path(manager_direct, path):
+                failures.append(f'validate_manager_direct_intervention_declared:missing_field:manager-direct-intervention.yaml:{path}')
+        if not str(manager_direct.get('schema_version', '')).startswith('yxj-paper-os/manager-direct-intervention/'):
+            failures.append('validate_manager_direct_intervention_declared:missing_schema_version:manager-direct-intervention.yaml')
+
+    task_packet = load_yaml(template_root / 'task-packet.yaml', {})
+    for path in ['actor_provenance.execution_actor_id', 'actor_provenance.execution_actor_kind', 'actor_provenance.manager_role_at_execution', 'actor_provenance.final_certifier_actor_id', 'actor_provenance.actor_provenance_artifacts', 'manager_direct_intervention.present', 'manager_direct_intervention.inferred_from_actor_provenance', 'manager_direct_intervention.required_independent_review', 'role_separation.executor_actor_id', 'role_separation.reviewer_actor_id', 'role_separation.final_certifier_actor_id']:
+        if not require_path(task_packet, path):
+            failures.append(f'validate_actor_provenance_present:missing_task_packet_field:{path}')
+
+    handoff = (template_root / 'manager-handoff-report-v2.md').read_text(encoding='utf-8', errors='ignore') if (template_root / 'manager-handoff-report-v2.md').exists() else ''
+    if '```yaml' not in handoff or 'authority_role_separation:' not in handoff:
+        failures.append('validate_manager_direct_handoff_disclosure:missing_yaml_authority_role_separation_template')
     return failures
 
 
@@ -534,6 +558,12 @@ V2_VALIDATOR_REFS = {
     'validate_agent_lane_department_binding', 'validate_task_material_io',
     'validate_narrative_object_binding', 'validate_template_object_binding',
     'validate_repository_hygiene_report',
+    'validate_actor_provenance_present', 'validate_actor_provenance_artifact_trusted',
+    'validate_effective_actor_identity_resolved', 'validate_derived_sensitivity_classification',
+    'validate_manager_direct_inferred_or_declared', 'validate_manager_direct_intervention_declared',
+    'validate_manager_direct_independent_review', 'validate_no_manager_self_certification',
+    'validate_role_separation_for_paper_facing_tasks', 'validate_manager_direct_handoff_disclosure',
+    'validate_completion_state_limited_without_independent_review',
 }
 
 
@@ -596,8 +626,8 @@ def ledger_artifact_paths(artifacts: dict[str, Any]) -> set[str]:
 
 
 def validate_task_material_io(task: dict[str, Any], fixture: Path, artifacts: dict[str, Any]) -> bool:
-    inputs = task.get('input_materials')
-    outputs = task.get('expected_output_materials')
+    inputs = task.get('input_materials') or []
+    outputs = task.get('expected_output_materials') or []
     if not material_entries_are_valid(inputs, require_path=False):
         return False
     if not material_entries_are_valid(outputs, require_path=True):
@@ -725,7 +755,8 @@ def validate_repository_hygiene_report(task: dict[str, Any], fixture: Path, arti
         if worktree.get('status') not in {'clean', 'dirty_allowed', 'dirty_blocked', 'owner_gated'}:
             return False
         for key in ['total_dirty_entries', 'current_paper_dirty_entries', 'sibling_or_parent_dirty_entries']:
-            if type(worktree.get(key)) is not int or worktree.get(key) < 0:
+            value = worktree.get(key)
+            if type(value) is not int or value < 0:
                 return False
         for key in ['modified_entries', 'deleted_entries', 'untracked_entries', 'generated_or_ephemeral_entries', 'allowed_dirty_patterns', 'disallowed_dirty_entries']:
             if not isinstance(worktree.get(key), list):
@@ -764,6 +795,536 @@ def validate_repository_hygiene_report(task: dict[str, Any], fixture: Path, arti
                 return False
     return True
 
+
+
+AUTHORITY_VALIDATOR_REFS = {
+    'validate_actor_provenance_present', 'validate_actor_provenance_artifact_trusted',
+    'validate_effective_actor_identity_resolved', 'validate_derived_sensitivity_classification',
+    'validate_manager_direct_inferred_or_declared', 'validate_manager_direct_intervention_declared',
+    'validate_manager_direct_independent_review', 'validate_no_manager_self_certification',
+    'validate_role_separation_for_paper_facing_tasks', 'validate_manager_direct_handoff_disclosure',
+    'validate_completion_state_limited_without_independent_review',
+}
+
+PAPER_FACING_LANES = {
+    'manuscript-owner', 'figure-owner', 'export-owner', 'paper-architect', 'review-director',
+    'style-auditor', 'method-verifier', 'evidence-curator', 'scene-analyst', 'exemplar-learner',
+    'sota-mapper', 'research-director', 'final-verifier',
+}
+PAPER_FACING_TERMS = {
+    'manuscript', 'paper', 'section', 'abstract', 'introduction', 'method', 'results',
+    'discussion', 'conclusion', 'figure', 'table', 'algorithm', 'formula', 'caption',
+    'bibliography', 'citation', 'export', 'pdf', 'latex', 'review', 'reader', 'claim', 'evidence',
+}
+STATE_SENSITIVE_TERMS = {'state', 'ledger', 'transition', 'gate', 'handoff', 'readiness', 'export', 'publish', 'install'}
+
+
+def authority_value_present(value: Any) -> bool:
+    if value is None or value is False:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, list):
+        return any(authority_value_present(item) for item in value)
+    if isinstance(value, dict):
+        return any(authority_value_present(item) for item in value.values())
+    return bool(value)
+
+
+def authority_material_present(task: dict[str, Any]) -> bool:
+    if manager_direct_active(task):
+        return True
+    provenance_raw = task.get('actor_provenance')
+    provenance: dict[str, Any] = provenance_raw if isinstance(provenance_raw, dict) else {}
+    if any(authority_value_present(provenance.get(key)) for key in [
+        'execution_actor_id', 'execution_actor_kind', 'execution_actor_lane', 'manager_role_at_execution',
+        'run_or_session_id', 'final_certifier_actor_id', 'final_certifier_actor_kind',
+        'final_certifier_lane', 'final_certifier_run_or_session_id', 'actor_provenance_artifacts',
+    ]):
+        return True
+    separation_raw = task.get('role_separation')
+    separation: dict[str, Any] = separation_raw if isinstance(separation_raw, dict) else {}
+    role_keys = [
+        'executor_actor_id', 'executor_lane', 'reviewer_actor_id', 'reviewer_actor_kind',
+        'reviewer_lane', 'reviewer_run_or_session_id', 'verifier_actor_id', 'verifier_actor_kind',
+        'verifier_lane', 'verifier_run_or_session_id', 'final_certifier_actor_id', 'same_actor_exceptions',
+    ]
+    return any(authority_value_present(separation.get(key)) for key in role_keys)
+
+
+def authority_refs_enabled(refs: list[str], task: dict[str, Any]) -> bool:
+    return bool(set(refs) & AUTHORITY_VALIDATOR_REFS) or authority_material_present(task)
+
+
+def required_authority_validator_refs(task: dict[str, Any], refs: list[str]) -> set[str]:
+    if not authority_refs_enabled(refs, task):
+        return set()
+    required = set(AUTHORITY_VALIDATOR_REFS)
+    if not manager_direct_active(task):
+        required -= {
+            'validate_manager_direct_inferred_or_declared',
+            'validate_manager_direct_intervention_declared',
+            'validate_manager_direct_independent_review',
+            'validate_no_manager_self_certification',
+            'validate_manager_direct_handoff_disclosure',
+            'validate_completion_state_limited_without_independent_review',
+        }
+    return required
+
+
+def missing_authority_validator_refs(task: dict[str, Any], refs: list[str]) -> set[str]:
+    return required_authority_validator_refs(task, refs) - set(refs)
+
+
+def normalize_actor_part(value: Any) -> str:
+    if value is None:
+        return ''
+    return re.sub(r'\s+', '-', str(value).strip().lower())
+
+
+def actor_record(task: dict[str, Any], role: str) -> dict[str, Any] | None:
+    provenance = task.get('actor_provenance') or {}
+    separation = task.get('role_separation') or {}
+    if role == 'executor':
+        actor = {
+            'actor_kind': provenance.get('execution_actor_kind'),
+            'actor_id': separation.get('executor_actor_id') or provenance.get('execution_actor_id'),
+            'actor_lane': separation.get('executor_lane') or provenance.get('execution_actor_lane') or task.get('owner_lane'),
+            'run_or_session_id': provenance.get('run_or_session_id'),
+        }
+    elif role == 'reviewer':
+        actor = {
+            'actor_kind': separation.get('reviewer_actor_kind') or provenance.get('reviewer_actor_kind') or 'native_subagent',
+            'actor_id': separation.get('reviewer_actor_id') or provenance.get('reviewer_actor_id'),
+            'actor_lane': separation.get('reviewer_lane') or provenance.get('reviewer_lane'),
+            'run_or_session_id': separation.get('reviewer_run_or_session_id') or provenance.get('reviewer_run_or_session_id'),
+        }
+    elif role == 'verifier':
+        actor = {
+            'actor_kind': separation.get('verifier_actor_kind') or provenance.get('verifier_actor_kind') or 'native_subagent',
+            'actor_id': separation.get('verifier_actor_id') or provenance.get('verifier_actor_id'),
+            'actor_lane': separation.get('verifier_lane') or provenance.get('verifier_lane'),
+            'run_or_session_id': separation.get('verifier_run_or_session_id') or provenance.get('verifier_run_or_session_id'),
+        }
+    else:
+        actor = {
+            'actor_kind': provenance.get('final_certifier_actor_kind'),
+            'actor_id': separation.get('final_certifier_actor_id') or provenance.get('final_certifier_actor_id'),
+            'actor_lane': separation.get('final_certifier_lane') or provenance.get('final_certifier_lane'),
+            'run_or_session_id': provenance.get('final_certifier_run_or_session_id'),
+        }
+    return actor if actor_key(actor) else None
+
+
+def actor_key(actor: dict[str, Any], *, prefix: str = '') -> str | None:
+    kind = actor.get(f'{prefix}actor_kind') or actor.get('actor_kind')
+    actor_id = actor.get(f'{prefix}actor_id') or actor.get('actor_id')
+    lane = actor.get(f'{prefix}actor_lane') or actor.get('actor_lane') or actor.get(f'{prefix}lane') or actor.get('lane')
+    run = actor.get(f'{prefix}run_or_session_id') or actor.get('run_or_session_id')
+    parts = [normalize_actor_part(kind), normalize_actor_part(actor_id), normalize_actor_part(lane), normalize_actor_part(run)]
+    if not all(parts):
+        return None
+    return ':'.join(parts)
+
+
+def actor_key_from_task(task: dict[str, Any], role: str) -> str | None:
+    actor = actor_record(task, role)
+    return actor_key(actor) if actor else None
+
+
+def same_effective_actor(left: dict[str, Any] | None, right: dict[str, Any] | None) -> bool:
+    """Return true when two records represent the same effective actor.
+
+    Lane changes are not enough to create independence. In particular, the same
+    manager identity or same manager session remains the same actor even if the
+    declared lane changes.
+    """
+    if not left or not right:
+        return False
+    left_key = actor_key(left)
+    right_key = actor_key(right)
+    if left_key and right_key and left_key == right_key:
+        return True
+    l_kind = normalize_actor_part(left.get('actor_kind'))
+    r_kind = normalize_actor_part(right.get('actor_kind'))
+    l_id = normalize_actor_part(left.get('actor_id'))
+    r_id = normalize_actor_part(right.get('actor_id'))
+    l_run = normalize_actor_part(left.get('run_or_session_id'))
+    r_run = normalize_actor_part(right.get('run_or_session_id'))
+    if l_id and r_id and l_id == r_id:
+        return True
+    if l_kind == r_kind == 'manager' and l_run and r_run and l_run == r_run:
+        return True
+    return False
+
+
+def actors_are_independent(*actors: dict[str, Any] | None) -> bool:
+    if any(actor is None for actor in actors):
+        return False
+    concrete = [actor for actor in actors if actor is not None]
+    for idx, left in enumerate(concrete):
+        for right in concrete[idx + 1:]:
+            if same_effective_actor(left, right):
+                return False
+    return True
+
+
+def provenance_artifact_refs(task: dict[str, Any]) -> list[str]:
+    refs = (task.get('actor_provenance') or {}).get('actor_provenance_artifacts') or []
+    paths: list[str] = []
+    for item in refs:
+        if isinstance(item, str):
+            paths.append(item)
+        elif isinstance(item, dict) and isinstance(item.get('path'), str):
+            paths.append(item['path'])
+    return paths
+
+
+def load_provenance_artifacts(task: dict[str, Any], fixture: Path) -> list[dict[str, Any]] | None:
+    paths = provenance_artifact_refs(task)
+    if not paths:
+        return None
+    loaded: list[dict[str, Any]] = []
+    for rel in paths:
+        path = fixture / rel
+        if path.suffix.lower() not in {'.yaml', '.yml', '.json'} or not path.exists():
+            return None
+        try:
+            data = json.loads(path.read_text(encoding='utf-8')) if path.suffix.lower() == '.json' else load_yaml(path, {})
+        except Exception:
+            return None
+        if not isinstance(data, dict):
+            return None
+        loaded.append(data)
+    return loaded
+
+
+def actor_key_matches(left: dict[str, Any] | None, right: dict[str, Any] | None) -> bool:
+    return bool(left and right and actor_key(left) == actor_key(right))
+
+
+def task_ref_values(task: dict[str, Any], fields: list[str]) -> set[str]:
+    values: set[str] = set()
+    for field in fields:
+        for item in task.get(field) or []:
+            if not isinstance(item, dict):
+                continue
+            for key in ['artifact_id', 'object_id', 'path']:
+                value = item.get(key)
+                if isinstance(value, str) and value:
+                    values.add(value.rstrip('/'))
+    return values
+
+
+def action_ref_values(refs: Any) -> set[str] | None:
+    if not isinstance(refs, list) or not refs:
+        return None
+    values: set[str] = set()
+    for item in refs:
+        if isinstance(item, str) and item:
+            values.add(item.rstrip('/'))
+        elif isinstance(item, dict):
+            found = False
+            for key in ['artifact_id', 'object_id', 'path']:
+                value = item.get(key)
+                if isinstance(value, str) and value:
+                    values.add(value.rstrip('/'))
+                    found = True
+            if not found:
+                return None
+        else:
+            return None
+    return values if values else None
+
+
+def source_hash_matches(fixture: Path, source_path: Any, expected_hash: Any) -> bool:
+    if not isinstance(source_path, str) or not isinstance(expected_hash, str) or not expected_hash:
+        return False
+    path = fixture / source_path
+    if not path.exists() or not path.is_file():
+        return False
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    expected = expected_hash.strip().lower()
+    if expected.startswith('sha256:'):
+        expected = expected.split(':', 1)[1]
+    return expected == actual
+
+
+def validate_actor_provenance_present(task: dict[str, Any]) -> bool:
+    provenance = task.get('actor_provenance')
+    if not isinstance(provenance, dict):
+        return False
+    required = ['execution_actor_id', 'execution_actor_kind', 'execution_actor_lane', 'manager_role_at_execution', 'run_or_session_id', 'final_certifier_actor_id', 'final_certifier_actor_kind', 'final_certifier_lane', 'final_certifier_run_or_session_id', 'actor_provenance_artifacts']
+    if any(not provenance.get(key) for key in required):
+        return False
+    if provenance.get('execution_actor_kind') not in {'manager', 'native_subagent', 'team_worker', 'user_gate', 'external_tool'}:
+        return False
+    if provenance.get('manager_role_at_execution') not in {'orchestrator', 'executor', 'reviewer', 'verifier', 'none'}:
+        return False
+    return isinstance(provenance.get('actor_provenance_artifacts'), list) and bool(provenance['actor_provenance_artifacts'])
+
+
+def validate_actor_provenance_artifact_trusted(task: dict[str, Any], fixture: Path) -> bool:
+    artifacts = load_provenance_artifacts(task, fixture)
+    if not artifacts:
+        return False
+    task_id = task.get('task_id')
+    executor = actor_record(task, 'executor')
+    certifier = actor_record(task, 'final_certifier')
+    input_refs = task_ref_values(task, ['input_materials'])
+    output_refs = task_ref_values(task, ['expected_output_materials', 'expected_output_artifacts', 'collected_outputs'])
+    if not executor or not certifier or not input_refs or not output_refs:
+        return False
+    for item in artifacts:
+        if item.get('task_id') != task_id:
+            return False
+        if not item.get('provenance_artifact_id') or not item.get('source_type') or not item.get('source_path'):
+            return False
+        if not item.get('source_hash'):
+            return False
+        for section in ['producer', 'action', 'certifier', 'binding']:
+            if not isinstance(item.get(section), dict):
+                return False
+        for section in ['producer', 'certifier']:
+            actor = item[section]
+            for field in ['actor_id', 'actor_kind', 'actor_lane', 'run_or_session_id']:
+                if not actor.get(field):
+                    return False
+        if not actor_key_matches(item['producer'], executor):
+            return False
+        if not actor_key_matches(item['certifier'], certifier):
+            return False
+        action = item['action']
+        material_refs = action_ref_values(action.get('material_refs'))
+        produced_refs = action_ref_values(action.get('output_refs'))
+        if not action.get('action_type') or material_refs is None or produced_refs is None:
+            return False
+        if not material_refs <= input_refs:
+            return False
+        if not produced_refs <= output_refs:
+            return False
+        binding = item['binding']
+        if binding.get('task_id_matches_packet') is not True or binding.get('material_refs_exist') is not True:
+            return False
+        if binding.get('source_hash_verified') is not True:
+            return False
+        if not source_hash_matches(fixture, item.get('source_path'), item.get('source_hash')):
+            return False
+    return True
+
+
+def validate_effective_actor_identity_resolved(task: dict[str, Any]) -> bool:
+    return bool(actor_key_from_task(task, 'executor') and actor_key_from_task(task, 'final_certifier'))
+
+
+def derived_sensitivity(task: dict[str, Any], refs: list[str]) -> tuple[bool, bool]:
+    texts: list[str] = [str(task.get('owner_department') or ''), str(task.get('owner_lane') or '')]
+    for field in ['input_materials', 'expected_output_materials', 'expected_output_artifacts', 'collected_outputs']:
+        for item in task.get(field) or []:
+            if isinstance(item, dict):
+                texts.extend(str(item.get(k) or '') for k in ['artifact_id', 'artifact_type', 'path'])
+    texts.extend(ref for ref in refs if ref not in AUTHORITY_VALIDATOR_REFS)
+    texts.append(str(task.get('state_transition') or ''))
+    joined = ' '.join(texts).lower()
+    paper = any(term in joined for term in PAPER_FACING_TERMS) or str(task.get('owner_lane')) in PAPER_FACING_LANES
+    state = any(term in joined for term in STATE_SENSITIVE_TERMS) or bool(task.get('state_transition')) or bool(task.get('state_ingestion'))
+    return paper, state
+
+
+def validate_derived_sensitivity_classification(task: dict[str, Any], refs: list[str]) -> bool:
+    paper, state = derived_sensitivity(task, refs)
+    mdi = task.get('manager_direct_intervention') or {}
+    if paper and mdi.get('paper_facing') is False:
+        return False
+    if state and mdi.get('state_sensitive') is False:
+        return False
+    return True
+
+
+def manager_direct_inferred(task: dict[str, Any]) -> bool:
+    provenance = task.get('actor_provenance') or {}
+    return provenance.get('execution_actor_kind') == 'manager' or provenance.get('manager_role_at_execution') in {'executor', 'reviewer', 'verifier'}
+
+
+def manager_direct_declared(task: dict[str, Any]) -> bool:
+    mdi = task.get('manager_direct_intervention') or {}
+    return mdi.get('present') is True or mdi.get('inferred_from_actor_provenance') is True
+
+
+def manager_direct_active(task: dict[str, Any]) -> bool:
+    return manager_direct_declared(task) or manager_direct_inferred(task)
+
+
+def validate_manager_direct_inferred_or_declared(task: dict[str, Any]) -> bool:
+    return (not manager_direct_inferred(task)) or manager_direct_declared(task)
+
+
+def validate_manager_direct_intervention_declared(task: dict[str, Any], fixture: Path) -> bool:
+    mdi = task.get('manager_direct_intervention') or {}
+    if not manager_direct_declared(task):
+        return not manager_direct_inferred(task)
+    intervention_id = mdi.get('intervention_id')
+    if not intervention_id:
+        return False
+    candidates = [fixture / f'{intervention_id}.yaml', fixture / 'manager-direct-intervention.yaml', fixture / f'authority/{intervention_id}.yaml']
+    data = None
+    for path in candidates:
+        if path.exists():
+            data = load_yaml(path, {})
+            break
+    if not isinstance(data, dict):
+        return False
+    if data.get('task_id') != task.get('task_id') or data.get('forbidden_self_certification') is not True:
+        return False
+    return bool(data.get('manager_actions')) and data.get('allowed_completion_state') in {'candidate', 'validated', 'complete_after_independent_review'}
+
+
+def independent_review_required(task: dict[str, Any], refs: list[str]) -> bool:
+    mdi = task.get('manager_direct_intervention') or {}
+    paper, state = derived_sensitivity(task, refs)
+    return manager_direct_active(task) and (paper or state or mdi.get('required_independent_review') is True)
+
+
+def load_independent_review_artifact(task: dict[str, Any], fixture: Path) -> dict[str, Any] | None:
+    mdi = task.get('manager_direct_intervention') or {}
+    rel = mdi.get('independent_review_artifact')
+    if not isinstance(rel, str) or not rel.strip():
+        return None
+    path = fixture / rel
+    if path.suffix.lower() not in {'.yaml', '.yml', '.json'} or not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding='utf-8')) if path.suffix.lower() == '.json' else load_yaml(path, {})
+    except Exception:
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def review_artifact_actor(review: dict[str, Any]) -> dict[str, Any] | None:
+    nested_raw = review.get('reviewer')
+    nested: dict[str, Any] = nested_raw if isinstance(nested_raw, dict) else {}
+    actor = {
+        'actor_id': review.get('reviewer_actor_id') or nested.get('actor_id'),
+        'actor_kind': review.get('reviewer_actor_kind') or nested.get('actor_kind'),
+        'actor_lane': review.get('reviewer_lane') or review.get('reviewer_actor_lane') or nested.get('actor_lane') or nested.get('lane'),
+        'run_or_session_id': review.get('reviewer_run_or_session_id') or nested.get('run_or_session_id'),
+    }
+    return actor if actor_key(actor) else None
+
+
+def review_verdict_is_approving(value: Any) -> bool:
+    return normalize_actor_part(value) in {'approve', 'approved', 'pass', 'passed', 'clear', 'accepted'}
+
+
+def validate_manager_direct_independent_review(task: dict[str, Any], refs: list[str], fixture: Path) -> bool:
+    if not independent_review_required(task, refs):
+        return True
+    review = load_independent_review_artifact(task, fixture)
+    if not review or review.get('task_id') != task.get('task_id'):
+        return False
+    if not review_verdict_is_approving(review.get('verdict')):
+        return False
+    if not (review.get('evidence') or review.get('evidence_path')):
+        return False
+    review_actor = review_artifact_actor(review)
+    declared_reviewer = actor_record(task, 'reviewer')
+    if not review_actor or not declared_reviewer:
+        return False
+    if not same_effective_actor(review_actor, declared_reviewer):
+        return False
+    executor = actor_record(task, 'executor')
+    certifier = actor_record(task, 'final_certifier')
+    return actors_are_independent(executor, review_actor, certifier)
+
+
+def validate_no_manager_self_certification(task: dict[str, Any], refs: list[str]) -> bool:
+    if not independent_review_required(task, refs):
+        return True
+    return actors_are_independent(actor_record(task, 'executor'), actor_record(task, 'reviewer'), actor_record(task, 'final_certifier'))
+
+
+def validate_role_separation_for_paper_facing_tasks(task: dict[str, Any], refs: list[str]) -> bool:
+    paper, state = derived_sensitivity(task, refs)
+    if not (paper or state):
+        return True
+    return validate_effective_actor_identity_resolved(task) and validate_no_manager_self_certification(task, refs)
+
+
+def parse_authority_blocks_from_markdown(text: str) -> list[dict[str, Any]]:
+    blocks: list[dict[str, Any]] = []
+    for match in re.finditer(r'```ya?ml\s*\n(.*?)\n```', text, flags=re.IGNORECASE | re.DOTALL):
+        body = match.group(1)
+        if 'authority_role_separation:' not in body:
+            continue
+        data = yaml.safe_load(body)
+        if isinstance(data, dict) and isinstance(data.get('authority_role_separation'), dict):
+            blocks.append(data['authority_role_separation'])
+    return blocks
+
+
+def authority_role_separation_blocks(fixture: Path) -> list[dict[str, Any]]:
+    blocks: list[dict[str, Any]] = []
+    for path in fixture.rglob('*.md'):
+        try:
+            blocks.extend(parse_authority_blocks_from_markdown(path.read_text(encoding='utf-8', errors='ignore')))
+        except Exception:
+            continue
+    for path in fixture.rglob('*.yaml'):
+        data = load_yaml(path, {})
+        if isinstance(data, dict) and isinstance(data.get('authority_role_separation'), dict):
+            blocks.append(data['authority_role_separation'])
+    return blocks
+
+
+def list_contains_value(values: Any, value: Any) -> bool:
+    if not isinstance(values, list):
+        return False
+    target = normalize_actor_part(value)
+    return any(normalize_actor_part(item) == target for item in values)
+
+
+def handoff_block_matches_task(block: dict[str, Any], task: dict[str, Any], refs: list[str]) -> bool:
+    mdi = task.get('manager_direct_intervention') or {}
+    provenance = task.get('actor_provenance') or {}
+    intervention_id = mdi.get('intervention_id')
+    review_required = independent_review_required(task, refs)
+    if block.get('manager_direct_used') is not True:
+        return False
+    if intervention_id and not list_contains_value(block.get('manager_direct_interventions'), intervention_id):
+        return False
+    if manager_direct_inferred(task) and block.get('inferred_manager_direct') is not True:
+        return False
+    if normalize_actor_part(block.get('execution_actor_id')) != normalize_actor_part(provenance.get('execution_actor_id')):
+        return False
+    if normalize_actor_part(block.get('final_certifier_actor_id')) != normalize_actor_part(provenance.get('final_certifier_actor_id')):
+        return False
+    if block.get('independent_review_required') is not review_required:
+        return False
+    if review_required:
+        rel = mdi.get('independent_review_artifact')
+        if not list_contains_value(block.get('independent_review_artifacts'), rel):
+            return False
+    if not block.get('completion_claim'):
+        return False
+    if task.get('status') == 'complete' and normalize_actor_part(block.get('completion_claim')) != 'complete':
+        return False
+    if not block.get('completion_limit_reason') or not block.get('residual_self_certification_risk'):
+        return False
+    return True
+
+
+def validate_manager_direct_handoff_disclosure(task: dict[str, Any], fixture: Path, refs: list[str]) -> bool:
+    if not manager_direct_active(task):
+        return True
+    return any(handoff_block_matches_task(block, task, refs) for block in authority_role_separation_blocks(fixture))
+
+
+def validate_completion_state_limited_without_independent_review(task: dict[str, Any], refs: list[str], fixture: Path) -> bool:
+    if task.get('status') != 'complete':
+        return True
+    if not independent_review_required(task, refs):
+        return True
+    return validate_manager_direct_independent_review(task, refs, fixture) and validate_no_manager_self_certification(task, refs)
 
 def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], dict[str, Any]]:
     failures: list[str] = []
@@ -845,6 +1406,31 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
         if 'validate_repository_hygiene_report' in refs:
             if not validate_repository_hygiene_report(task, fixture, artifacts):
                 failures.append('validate_repository_hygiene_report')
+        if authority_refs_enabled(refs, task):
+            if missing_authority_validator_refs(task, refs):
+                failures.append('validate_validator_reference_closure')
+            if not validate_actor_provenance_present(task):
+                failures.append('validate_actor_provenance_present')
+            if not validate_actor_provenance_artifact_trusted(task, fixture):
+                failures.append('validate_actor_provenance_artifact_trusted')
+            if not validate_effective_actor_identity_resolved(task):
+                failures.append('validate_effective_actor_identity_resolved')
+            if not validate_derived_sensitivity_classification(task, refs):
+                failures.append('validate_derived_sensitivity_classification')
+            if not validate_manager_direct_inferred_or_declared(task):
+                failures.append('validate_manager_direct_inferred_or_declared')
+            if not validate_manager_direct_intervention_declared(task, fixture):
+                failures.append('validate_manager_direct_intervention_declared')
+            if not validate_manager_direct_independent_review(task, refs, fixture):
+                failures.append('validate_manager_direct_independent_review')
+            if not validate_no_manager_self_certification(task, refs):
+                failures.append('validate_no_manager_self_certification')
+            if not validate_role_separation_for_paper_facing_tasks(task, refs):
+                failures.append('validate_role_separation_for_paper_facing_tasks')
+            if not validate_manager_direct_handoff_disclosure(task, fixture, refs):
+                failures.append('validate_manager_direct_handoff_disclosure')
+            if not validate_completion_state_limited_without_independent_review(task, refs, fixture):
+                failures.append('validate_completion_state_limited_without_independent_review')
         unknown_refs = [r for r in refs if r not in KNOWN_VALIDATORS]
         if unknown_refs:
             failures.append('validate_validator_reference_closure')
