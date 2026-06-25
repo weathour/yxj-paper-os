@@ -1,0 +1,11 @@
+CMD: git status --short --branch
+## omx/expression-design-lane-A-20260625T064500Z
+?? verification/20260625T070108Z-lane-A-task3-boundary/
+
+CMD: git rev-parse --short HEAD
+5584985
+
+CMD: find entry-skills maxdepth 1
+yxj-paper-os
+
+CMD: diff -qr template mirrors
