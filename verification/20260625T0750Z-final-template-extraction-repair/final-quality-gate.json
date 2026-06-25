@@ -1,0 +1,40 @@
+{
+  "schema_version": "yxj-paper-os/final-quality-gate/v1",
+  "status": "passed",
+  "head": "0dcf898c2ec8549500e17121e3c4a678411a3e1d",
+  "evidence_dir": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0750Z-final-template-extraction-repair",
+  "verification": {
+    "status": "passed",
+    "quality_gate": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0750Z-final-template-extraction-repair/final_quality_gate_template_extraction_repair.json",
+    "checks": [
+      "py_compile",
+      "validate_scaffold",
+      "validate_yxj_scaffold",
+      "validate_yxj_fixtures",
+      "run_fixture_suite",
+      "pyright",
+      "ruff",
+      "git_diff_check",
+      "mirror_diff",
+      "targeted_invalid_fixtures"
+    ]
+  },
+  "independentReview": {
+    "codeReviewer": {
+      "agentRole": "code-reviewer",
+      "recommendation": "APPROVE",
+      "blockers": [],
+      "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0750Z-final-template-extraction-repair/final-code-reviewer-APPROVE.md"
+    },
+    "architect": {
+      "agentRole": "architect",
+      "architectStatus": "CLEAR",
+      "blockers": [],
+      "evidence": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0750Z-final-template-extraction-repair/final-architect-CLEAR.md"
+    }
+  },
+  "noInstallPublishUpload": true,
+  "residualRisks": [
+    "OMX Team+Ultragoal overlap/task-claim anomaly is external runtime risk and is recorded under .omx/ultragoal/evidence/G002-team-implementation."
+  ]
+}

@@ -1,6 +1,6 @@
 # Final PMO handoff — yxj-paper-os expression-design governance upgrade
 
-Status: pending independent review completion.
+Status: passed after G006 final review closure.
 
 ## Scope
 - Upgrade yxj-paper-os governance so reader-facing expression design is enforced as concrete material objects, validators, templates, fixtures, and task-packet bindings.
@@ -28,8 +28,13 @@ Status: pending independent review completion.
 - mirror diff: passed.
 
 ## Independent review
-- code-reviewer: pending.
-- architect: pending.
+- code-reviewer: APPROVE (`verification/20260625T0750Z-final-template-extraction-repair/final-code-reviewer-APPROVE.md`).
+- architect: CLEAR (`verification/20260625T0750Z-final-template-extraction-repair/final-architect-CLEAR.md`).
 
 ## Known residual risk
 - OMX Team+Ultragoal runtime overlap and team task claim anomaly were observed during execution. Evidence is retained in `.omx/ultragoal/evidence/G002-team-implementation`. This is an orchestration/runtime issue, not a plugin contract failure.
+
+
+## Final closure evidence
+- Final quality gate: `verification/20260625T0750Z-final-template-extraction-repair/final-quality-gate.json`.
+- Final HEAD: `0dcf898c2ec8549500e17121e3c4a678411a3e1d`.
