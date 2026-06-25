@@ -8,23 +8,28 @@ owner_lane: research-director
 agent_type: researcher
 status: compiled
 pipeline_stage: compile
-mission: Produce the declared material object without making unmanaged completion claims.
+mission: Produce the declared material object without making unmanaged completion
+  claims.
 role_identity:
   department: paper_architecture_and_narrative
   owner_lane: research-director
   agent_type: researcher
-  responsibility: Coordinate research-route material production under the paper architecture plan.
+  responsibility: Coordinate research-route material production under the paper architecture
+    plan.
 intelligence_zone:
   allowed:
-  - synthesize source-map and template-quant-profile signals into a research-route plan
+  - synthesize source-map and template-quant-profile signals into a research-route
+    plan
   - propose downstream materials for evidence and manuscript lanes
   requires_owner_gate:
   - changing paper semantic claims
   - weakening validator or evidence requirements
 forbidden_zone:
-  - do not mark the task complete before collect, validate, ingest, and state_transition evidence exists
-  - do not certify paper-owner semantic decisions
-  - do not edit shared validator scripts, fixture cases, or lane registry files from a production task
+- do not mark the task complete before collect, validate, ingest, and state_transition
+  evidence exists
+- do not certify paper-owner semantic decisions
+- do not edit shared validator scripts, fixture cases, or lane registry files from
+  a production task
 skill_refs:
 - skill_id: example-internal-sop
   owning_department: pmo
@@ -41,6 +46,21 @@ input_materials:
 - artifact_id: template-quant-profile-001
   artifact_type: TemplateQuantProfile
   path: notes/yxj-paper-os/templates/template-quant-profile-001.yaml
+- artifact_id: cognitive-load-budget-001
+  artifact_type: CognitiveLoadBudget
+  path: notes/yxj-paper-os/expression-design/cognitive-load-budget-001.yaml
+- artifact_id: explanation-ladder-001
+  artifact_type: ExplanationLadder
+  path: notes/yxj-paper-os/expression-design/explanation-ladder-001.yaml
+- artifact_id: rhetorical-move-matrix-001
+  artifact_type: RhetoricalMoveMatrix
+  path: notes/yxj-paper-os/expression-design/rhetorical-move-matrix-001.yaml
+- artifact_id: claim-evidence-visibility-map-001
+  artifact_type: ClaimEvidenceVisibilityMap
+  path: notes/yxj-paper-os/expression-design/claim-evidence-visibility-map-001.yaml
+- artifact_id: terminology-register-001
+  artifact_type: TerminologyRegister
+  path: notes/yxj-paper-os/expression-design/terminology-register-001.yaml
 expected_output_materials:
 - artifact_id: research-dossier-001
   artifact_type: research-route-plan
@@ -178,3 +198,33 @@ authority_validator_refs_when_applicable:
 - validate_role_separation_for_paper_facing_tasks
 - validate_manager_direct_handoff_disclosure
 - validate_completion_state_limited_without_independent_review
+expression_design_object_refs:
+- cognitive-load-budget-001
+- explanation-ladder-001
+- rhetorical-move-matrix-001
+- claim-evidence-visibility-map-001
+- terminology-register-001
+expression_design_requirement:
+  required_when_paper_facing: true
+  paper_facing_surfaces:
+  - manuscript
+  - figure
+  - table
+  - algorithm
+  - formula
+  - review
+  - export
+  non_applicable_exception:
+    allowed: true
+    requires_validator_acceptance: true
+    validator_report_field: expression_design_binding_exception
+    self_attestation_allowed: false
+  required_validator_refs_when_applicable: &id001
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget_consumed
+  - validate_rhetorical_move_matrix_consumed
+  - validate_explanation_ladder_progression
+  - validate_claim_evidence_visibility
+  - validate_terminology_register_surface
+  rendered_surface_gate_required_for_exports: true
+validator_refs_when_expression_design_required: *id001

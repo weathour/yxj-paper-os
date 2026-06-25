@@ -8,12 +8,14 @@
 - hard_gated_actions:
 - repository_hygiene_state: clean | dirty_allowed | dirty_blocked | owner_gated
 - delivery_cleanliness_gate: pass | blocked | owner_gated
+- reader_load_status: not_applicable | planned | collected | validated | blocked
+- expression_design_status: not_applicable | planned | collected | validated | blocked
 
 ## Department table
-| Department | Owner lane / agent | Inputs consumed | Outputs produced | Narrative/template refs | Closure state | Evidence | Risks/blockers | Owner attention | Final-paper impact |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| PMO / Paper Management | state-steward |  |  |  | planned |  |  |  |  |
-| Repository hygiene / Delivery cleanliness | repository-hygiene-owner / verifier | git status, ledger snapshot, export manifest | RepositoryHygieneReport | n/a unless handoff affects narrative/template objects | planned |  |  |  | reproducibility, rollback, clean handoff, and submission-package trust |
+| Department | Owner lane / agent | Inputs consumed | Outputs produced | Narrative/template refs | Reader load status | Expression design status | Closure state | Evidence | Risks/blockers | Owner attention | Final-paper impact |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| PMO / Paper Management | state-steward |  |  |  | not_applicable | not_applicable | planned |  |  |  |  |
+| Repository hygiene / Delivery cleanliness | repository-hygiene-owner / verifier | git status, ledger snapshot, export manifest | RepositoryHygieneReport | n/a unless handoff affects narrative/template objects | not_applicable | not_applicable | planned |  |  |  | reproducibility, rollback, clean handoff, and submission-package trust |
 
 
 ## Authority & Role Separation
@@ -30,6 +32,11 @@ authority_role_separation:
   completion_limit_reason: null
   residual_self_certification_risk: none # none | low | medium | high
 ```
+
+## Reader expression-design statuses
+- `reader_load_status` reports whether CognitiveLoadBudget has been planned, collected, validated, or blocked for each paper-facing workstream.
+- `expression_design_status` reports whether ExplanationLadder, RhetoricalMoveMatrix, ClaimEvidenceVisibilityMap, and TerminologyRegister have been consumed or have a validator-accepted non-applicable exception.
+- A manuscript, figure/table/algorithm/formula, review, or export row cannot claim ready/complete from source text alone; rendered output inspection remains required for export-facing rows.
 
 ## Decision queue
 | decision_id | owner question | options | recommended option | consequence of no decision | blocks/enables | trigger/deadline |

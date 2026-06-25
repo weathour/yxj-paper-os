@@ -1,0 +1,68 @@
+schema_version: yxj-paper-os/rhetorical-move-matrix/v1
+artifact_id: rhetorical-move-matrix-001
+status: planned
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+purpose: >-
+  Bind reader questions, object granularity, evidence anchors, and planned text
+  moves so writing tasks produce argument rather than logs.
+source_objects:
+  reviewer_question_map: reviewer-question-map-001
+  object_representation_matrix: object-representation-001
+  main_text_construction_matrix: main-text-construction-matrix-001
+consumers:
+  - manuscript-section-task
+  - figure-caption-task
+  - review-and-backflow-task
+rows:
+  - move_id: RMM-abstract-problem-001
+    section_id: abstract
+    reader_question: RQ-001
+    object_id: problem
+    granularity: motivation_intuition
+    evidence_anchor:
+      artifact_id: claim-citation-capsule-problem-001
+      required: true
+    planned_text_move: State the reader problem before mechanism or metrics.
+    forbidden_moves:
+      - raw_scenario_code_lead
+      - metric_dump_lead
+    final_text_check:
+      - reader_question_answered
+      - no_internal_codes
+  - move_id: RMM-method-mechanism-001
+    section_id: method
+    reader_question: RQ-002
+    object_id: method
+    granularity: method_mechanism
+    evidence_anchor:
+      artifact_id: method-contract-001
+      required: true
+    planned_text_move: Explain the mechanism and authority boundary before algorithmic detail.
+    forbidden_moves:
+      - raw_method_id_only
+      - implementation_trace_dump
+    final_text_check:
+      - mechanism_before_metric
+      - terminology_register_consumed
+  - move_id: RMM-results-stance-001
+    section_id: results
+    reader_question: RQ-003
+    object_id: result
+    granularity: result_insight
+    evidence_anchor:
+      artifact_id: result-package-001
+      required: true
+    planned_text_move: Present comparison stance, supported claim, and limitation in one reader-visible unit.
+    forbidden_moves:
+      - unsupported_claim_upgrade
+      - defensive_not_x_not_y_wall
+    final_text_check:
+      - claim_evidence_visibility_consumed
+      - limitation_boundary_visible
+validator_refs:
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+ledger_targets:
+  - artifact-ledger
+  - review-ledger

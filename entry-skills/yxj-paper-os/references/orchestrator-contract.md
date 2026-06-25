@@ -104,6 +104,21 @@ reader-facing paper must also show the relevant narrative/template refs from
 `ObjectRepresentationMatrix`, `TemplateQuantProfile`, section/visual budgets,
 reader-experience review, or narrative backflow tasks.
 
+Manuscript, figure/table/algorithm/formula, review, and export tasks that are
+paper-facing must also show expression-design governance:
+`CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+`ClaimEvidenceVisibilityMap`, and `TerminologyRegister`. In task packets this is
+the additive `expression_design_object_refs` field; it cannot replace
+`narrative_object_refs`, `template_object_refs`, or `evidence_object_refs`.
+If expression design is not applicable, the exception must be accepted by
+validator evidence rather than self-attested by the task.
+
+`ExpressionDesignBundle` may be used as a compact index, but the orchestrator
+must still require the independent typed-object checks. Claim visibility can
+stage or reduce reader-facing wording but cannot increase evidence strength.
+Rendered export readiness requires inspection of rendered output, not only
+source markdown.
+
 Final, export, pre-author-review, and cross-root handoff tasks must also carry a
 `RepositoryHygieneReport` from `repository-delivery-governance.md` so content
 readiness is not confused with a clean, reproducible delivery state.

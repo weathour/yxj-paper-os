@@ -11,10 +11,18 @@ objects:
     form: phrase
     granularity: motivation_intuition
     evidence_refs: []
+    expression_design_checks:
+    - load_budget_consumed
+    - rhetorical_move_defined
+    - terminology_surface_checked
   - section_id: problem_setup
     form: definition
     granularity: problem_contract
     evidence_refs: []
+    expression_design_checks:
+    - load_budget_consumed
+    - rhetorical_move_defined
+    - terminology_surface_checked
 - object_id: method
   label: Method
   section_representations:
@@ -22,10 +30,18 @@ objects:
     form: contribution_sentence
     granularity: intuition
     evidence_refs: []
+    expression_design_checks:
+    - load_budget_consumed
+    - rhetorical_move_defined
+    - terminology_surface_checked
   - section_id: method
     form: mechanism
     granularity: method_mechanism
     evidence_refs: []
+    expression_design_checks:
+    - load_budget_consumed
+    - rhetorical_move_defined
+    - terminology_surface_checked
 required_object_ids:
 - scenario
 - problem
@@ -37,3 +53,13 @@ required_object_ids:
 - limitation
 validator_refs:
 - validate_object_representation_matrix
+expression_design_control_refs:
+  cognitive_load_budget: cognitive-load-budget-001
+  explanation_ladder: explanation-ladder-001
+  rhetorical_move_matrix: rhetorical-move-matrix-001
+  claim_evidence_visibility_map: claim-evidence-visibility-map-001
+  terminology_register: terminology-register-001
+expression_design_binding_rule: Object representations must name the reader-facing
+  granularity consumed by CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
+  ClaimEvidenceVisibilityMap, and TerminologyRegister before manuscript or figure
+  production starts.

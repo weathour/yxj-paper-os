@@ -48,10 +48,10 @@ state, or override PMO gates.
 | Department | Owns | Consumes | Produces | Typical lanes |
 | --- | --- | --- | --- | --- |
 | PMO / Paper Management | route, task ledger, decision queue, hard gates, final manager handoff | all department status and validator evidence | `TaskPacketV2`, `ManagerHandoffReportV2`, state transitions | `state-steward`, `execution-coordinator`, `final-verifier` |
-| Paper Architecture & Narrative | reader-facing argument architecture | target venue, claims, evidence, template profile | `ReaderSpineBrief`, `ObjectRepresentationMatrix`, `SectionFunctionBudget`, `ReaderTransitionMap` | `paper-architect`, `exemplar-learner`, `style-auditor` |
+| Paper Architecture & Narrative | reader-facing argument architecture and expression design | target venue, claims, evidence, template profile, reader questions | `ReaderSpineBrief`, `ObjectRepresentationMatrix`, `SectionFunctionBudget`, `ReaderTransitionMap`, `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`, `TerminologyRegister` | `paper-architect`, `exemplar-learner`, `style-auditor` |
 | Evidence & Method | truth boundary and method/experiment admissibility | source map, experiments, claims, narrative needs | Evidence pack, method contract, experiment contract, baseline/ablation rationale | `evidence-curator`, `method-verifier`, `citation-banker` |
-| Manuscript & Figure Production | section/figure/table/algorithm/formula representation | narrative objects, evidence contracts, template budgets | manuscript section outputs, visual/formal package, export package inputs | `manuscript-owner`, `figure-owner`, `export-owner` |
-| Review & Governance | independent closure, hostile review, backflow | all produced objects and handoff evidence | `ReaderExperienceReviewReport`, `NarrativeBackflowTask`, validator report | `review-director`, `verifier`, `final-verifier` |
+| Manuscript & Figure Production | section/figure/table/algorithm/formula representation | narrative objects, evidence contracts, template budgets, expression-design objects | manuscript section outputs, visual/formal package, export package inputs | `manuscript-owner`, `figure-owner`, `export-owner` |
+| Review & Governance | independent closure, hostile review, backflow, rendered reader-surface validation | all produced objects, expression-design evidence, and handoff evidence | `ReaderExperienceReviewReport`, `NarrativeBackflowTask`, validator report, `RenderedSurfaceGateReport` | `review-director`, `verifier`, `final-verifier` |
 
 ## Mandatory task packet bindings
 
@@ -65,6 +65,10 @@ Every v2 task packet must identify:
 - `narrative_object_refs` when writing, review, figure, evidence, method, or
   export work depends on reader-facing argument structure;
 - `template_object_refs` when target venue/exemplar form affects the output;
+- `expression_design_object_refs` when manuscript, figure/table/algorithm/formula,
+  review, or export work is paper-facing and must consume
+  `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+  `ClaimEvidenceVisibilityMap`, and `TerminologyRegister`;
 - `backflow_route` for failed review or lab-notebook-smell findings;
 - `collection_path`, `state_ingestion`, `pipeline_stage`, and `state_transition`;
 - `pua_telemetry` as control evidence only.
@@ -73,6 +77,11 @@ A task that produces paper-facing text, figures, method claims, experiment
 claims, review findings, or export readiness must not close without the relevant
 narrative/template object refs unless the task explicitly records why the refs
 are not applicable and a validator accepts that exception.
+
+A manuscript, figure/table/algorithm/formula, review, or export task must also
+bind `expression_design_object_refs` unless the task carries a validator-accepted
+non-applicable exception. This rule is additive: expression-design refs never
+replace narrative, template, or evidence refs.
 
 ## TaskPacketV2Plus additive governance
 
@@ -102,6 +111,12 @@ The v2plus layer may add fields that improve management clarity:
 - `narrative_object_refs`, `template_object_refs`, and `evidence_object_refs` —
   required when the task touches writing, review, figures, claims, methods,
   experiments, or export surface;
+- `expression_design_object_refs` — required for paper-facing manuscript,
+  figure/table/algorithm/formula, review, or export surfaces unless
+  `validate_expression_design_object_binding` accepts non-applicability;
+- `expression_design_requirement` — declares paper-facing判定 surfaces,
+  non-applicable exception policy, rendered-output requirements, and validator
+  refs needed when expression design applies;
 - `single_writer_lock` — required when a section/file/shared hotspot has one
   current writer;
 - `authority_role_separation` — executor, reviewer, verifier, state steward, and
@@ -192,6 +207,9 @@ Broad manager reports and completion handoffs must expose:
 - material outputs produced;
 - validator and fixture evidence;
 - closure state: planned, collected, validated, ingested, transitioned, blocked;
+- reader-load status: not_applicable, planned, collected, validated, or blocked;
+- expression-design status: not_applicable, planned, collected, validated, or
+  blocked;
 - risks and unresolved gaps;
 - owner decisions vs auto-continuable next steps;
 - hard-gated actions that cannot proceed without explicit authorization;
@@ -203,3 +221,15 @@ The department I/O contract does not authorize live install, publish,
 marketplace update, external submission/upload, credentialed service calls,
 destructive actions, private/raw copying, cross-paper-root mixing, or paper-owner
 semantic decisions. Those remain explicit gates.
+
+## Expression-design hard boundaries
+
+- `ExpressionDesignBundle` is only an index. It cannot replace the five typed
+  object refs or satisfy their validators by itself.
+- `ClaimEvidenceVisibilityMap` cannot increase claim strength; Evidence & Method
+  artifacts remain authoritative.
+- Export readiness cannot close on source markdown alone. Rendered output must
+  be inspected through the rendered-surface gate.
+- This plugin-source upgrade does not re-review any current manuscript unless a
+  separate paper-level task instantiates, validates, ingests, and transitions
+  the new expression-design objects.

@@ -34,6 +34,11 @@ departments:
   - reader_spine
   - object_representation
   - section_function_budget
+  - cognitive_load_budget
+  - explanation_ladder
+  - rhetorical_move_matrix
+  - claim_evidence_visibility_map
+  - terminology_register
   consumes:
   - TemplateQuantProfile
   - evidence_pack
@@ -41,6 +46,12 @@ departments:
   - ReaderSpineBrief
   - ObjectRepresentationMatrix
   - SectionFunctionBudget
+  - CognitiveLoadBudget
+  - ExplanationLadder
+  - RhetoricalMoveMatrix
+  - ClaimEvidenceVisibilityMap
+  - TerminologyRegister
+  - ExpressionDesignBundle
   owner_lanes:
   - paper-architect
   - exemplar-learner
@@ -48,6 +59,12 @@ departments:
   validators:
   - validate_reader_spine_brief
   - validate_object_representation_matrix
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_explanation_ladder
+  - validate_rhetorical_move_matrix
+  - validate_claim_evidence_visibility_map
+  - validate_terminology_register
 - department_id: evidence_and_method
   display_name: Evidence & Method
   owns:
@@ -79,6 +96,11 @@ departments:
   - ObjectRepresentationMatrix
   - SectionFunctionBudget
   - evidence_pack
+  - CognitiveLoadBudget
+  - ExplanationLadder
+  - RhetoricalMoveMatrix
+  - ClaimEvidenceVisibilityMap
+  - TerminologyRegister
   produces:
   - manuscript_section_output
   - figure_table_algorithm_formula_package
@@ -96,12 +118,17 @@ departments:
   - reader_experience_review
   - narrative_backflow
   - final_handoff_cleanliness_gate
+  - rendered_surface_validation
+  - expression_design_backflow
   consumes:
   - all_produced_material_objects
   - RepositoryHygieneReport
+  - expression_design_evidence
+  - RenderedSurfaceGateReport
   produces:
   - ReaderExperienceReviewReport
   - NarrativeBackflowTask
+  - RenderedSurfaceGateReport
   owner_lanes:
   - review-director
   - verifier
@@ -119,3 +146,35 @@ hard_gates:
 - private_raw_copy
 - cross_paper_root_mixing
 - paper_owner_semantic_decision
+task_packet_v2plus_additive_fields:
+  expression_design_object_refs:
+    required_when_paper_facing:
+    - manuscript
+    - figure
+    - table
+    - algorithm
+    - formula
+    - review
+    - export
+    does_not_replace:
+    - narrative_object_refs
+    - template_object_refs
+    - evidence_object_refs
+    non_applicable_exception_requires_validator: true
+  reader_load_status:
+  - not_applicable
+  - planned
+  - collected
+  - validated
+  - blocked
+  expression_design_status:
+  - not_applicable
+  - planned
+  - collected
+  - validated
+  - blocked
+expression_design_boundaries:
+  bundle_cannot_bypass_typed_validators: true
+  claim_visibility_cannot_raise_claim_strength: true
+  rendered_surface_gate_required_for_export: true
+  plugin_upgrade_does_not_re_review_current_manuscript: true

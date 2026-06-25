@@ -1,0 +1,64 @@
+schema_version: yxj-paper-os/claim-evidence-visibility-map/v1
+artifact_id: claim-evidence-visibility-map-001
+status: planned
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+purpose: >-
+  Decide where each claim becomes visible to readers and what evidence strength
+  may be shown. This map references Evidence & Method objects; it never upgrades
+  claim strength by itself.
+truth_boundary:
+  can_raise_claim_strength: false
+  evidence_and_method_are_authoritative: true
+source_objects:
+  evidence_bank: evidence-bank-001
+  claim_citation_capsules:
+    - claim-citation-capsule-001
+  result_packages:
+    - result-package-001
+consumers:
+  - main-text-construction-matrix
+  - manuscript-section-task
+  - review-output
+claims:
+  - claim_id: claim-method-001
+    reader_location:
+      section_id: introduction
+      manuscript_unit: contribution_sentence
+    support_location:
+      evidence_object_ref: claim-citation-capsule-001
+      method_or_result_object_ref: result-package-001
+    allowed_strength: bounded_supported
+    forbidden_wording:
+      - proves
+      - guarantees
+      - universally optimal
+    required_visibility:
+      - supporting_evidence_named
+      - limitation_boundary_named
+    final_text_check:
+      - supported_by_evidence_and_method
+      - no_claim_strength_upgrade
+  - claim_id: claim-result-001
+    reader_location:
+      section_id: results
+      manuscript_unit: main_result_paragraph
+    support_location:
+      evidence_object_ref: result-package-001
+      method_or_result_object_ref: result-package-001
+    allowed_strength: controlled_experiment_evidence
+    forbidden_wording:
+      - deployment_proven
+      - real_world_guaranteed
+    required_visibility:
+      - current_evidence_scope
+      - future_replay_boundary
+    final_text_check:
+      - limitation_boundary_visible
+      - reviewer_risk_named
+validator_refs:
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+ledger_targets:
+  - artifact-ledger
+  - review-ledger

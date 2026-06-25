@@ -1,0 +1,122 @@
+CMD: grep expression objects
+entry-skills/yxj-paper-os/templates/task-packet.yaml:  artifact_type: CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/task-packet.yaml:  artifact_type: ExplanationLadder
+entry-skills/yxj-paper-os/templates/task-packet.yaml:  artifact_type: RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/task-packet.yaml:  artifact_type: ClaimEvidenceVisibilityMap
+entry-skills/yxj-paper-os/templates/task-packet.yaml:  artifact_type: TerminologyRegister
+entry-skills/yxj-paper-os/templates/reader-spine-brief.yaml:  - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/reader-spine-brief.yaml:  - ExplanationLadder
+entry-skills/yxj-paper-os/templates/reader-spine-brief.yaml:  - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/reader-spine-brief.yaml:  - ClaimEvidenceVisibilityMap
+entry-skills/yxj-paper-os/templates/reader-spine-brief.yaml:  - TerminologyRegister
+entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:- ClaimEvidenceVisibilityMap controls wording strength and cannot upgrade Evidence
+entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:- TerminologyRegister mappings must be checked against the rendered export, not only
+entry-skills/yxj-paper-os/templates/object-representation-matrix.yaml:  granularity consumed by CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
+entry-skills/yxj-paper-os/templates/object-representation-matrix.yaml:  ClaimEvidenceVisibilityMap, and TerminologyRegister before manuscript or figure
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - TerminologyRegister
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - TerminologyRegister
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - TerminologyRegister
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:    - TerminologyRegister
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:- CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:- ExplanationLadder
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:- RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:- ClaimEvidenceVisibilityMap
+entry-skills/yxj-paper-os/templates/reviewer-question-map.yaml:- TerminologyRegister
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - ExplanationLadder
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - ClaimEvidenceVisibilityMap
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - TerminologyRegister
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - CognitiveLoadBudget
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - ExplanationLadder
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - ClaimEvidenceVisibilityMap
+entry-skills/yxj-paper-os/templates/department-io-contract.yaml:  - TerminologyRegister
+entry-skills/yxj-paper-os/templates/manager-handoff-report-v2.md:- `reader_load_status` reports whether CognitiveLoadBudget has been planned, collected, validated, or blocked for each paper-facing workstream.
+entry-skills/yxj-paper-os/templates/manager-handoff-report-v2.md:- `expression_design_status` reports whether ExplanationLadder, RhetoricalMoveMatrix, ClaimEvidenceVisibilityMap, and TerminologyRegister have been consumed or have a validator-accepted non-applicable exception.
+entry-skills/yxj-paper-os/SKILL.md:`CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+entry-skills/yxj-paper-os/SKILL.md:`ClaimEvidenceVisibilityMap`, and `TerminologyRegister`. Load
+entry-skills/yxj-paper-os/SKILL.md:- reader expression design and cognitive load, including `CognitiveLoadBudget`,
+entry-skills/yxj-paper-os/SKILL.md:  `ExplanationLadder`, `RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`,
+entry-skills/yxj-paper-os/SKILL.md:  `TerminologyRegister`, `reader_load_status`, and `expression_design_status`;
+entry-skills/yxj-paper-os/SKILL.md:  CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
+entry-skills/yxj-paper-os/SKILL.md:  ClaimEvidenceVisibilityMap, TerminologyRegister, and the optional
+entry-skills/yxj-paper-os/references/orchestrator-contract.md:`CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+entry-skills/yxj-paper-os/references/orchestrator-contract.md:`ClaimEvidenceVisibilityMap`, and `TerminologyRegister`. In task packets this is
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:  -> CognitiveLoadBudget / ExplanationLadder / RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:     / ClaimEvidenceVisibilityMap / TerminologyRegister
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:### CognitiveLoadBudget
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:### ExplanationLadder
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:### RhetoricalMoveMatrix
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:### ClaimEvidenceVisibilityMap
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:### TerminologyRegister
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:validators for `CognitiveLoadBudget`, `ExplanationLadder`,
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:`RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`, or
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:`TerminologyRegister`.
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:`ClaimEvidenceVisibilityMap` is bound by the same rule: it may reduce, stage, or
+entry-skills/yxj-paper-os/references/department-io-contract.md:| Paper Architecture & Narrative | reader-facing argument architecture and expression design | target venue, claims, evidence, template profile, reader questions | `ReaderSpineBrief`, `ObjectRepresentationMatrix`, `SectionFunctionBudget`, `ReaderTransitionMap`, `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`, `TerminologyRegister` | `paper-architect`, `exemplar-learner`, `style-auditor` |
+entry-skills/yxj-paper-os/references/department-io-contract.md:  `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+entry-skills/yxj-paper-os/references/department-io-contract.md:  `ClaimEvidenceVisibilityMap`, and `TerminologyRegister`;
+entry-skills/yxj-paper-os/references/department-io-contract.md:- `ClaimEvidenceVisibilityMap` cannot increase claim strength; Evidence & Method
+docs/operation-guide.md:  expectations for CognitiveLoadBudget, ExplanationLadder,
+docs/operation-guide.md:  RhetoricalMoveMatrix, ClaimEvidenceVisibilityMap, and TerminologyRegister.
+docs/operation-guide.md:| `CognitiveLoadBudget` | Paper Architecture & Narrative | section-writing / figure-caption / rendered-surface gate |
+docs/operation-guide.md:| `ExplanationLadder` | Paper Architecture & Narrative | MainTextConstructionMatrix / manuscript drafting / review |
+docs/operation-guide.md:| `RhetoricalMoveMatrix` | Paper Architecture & Narrative | section-writing / visual-formal production / review |
+docs/operation-guide.md:| `ClaimEvidenceVisibilityMap` | Paper Architecture & Narrative with Evidence & Method inputs | writing / review / claim-boundary checks |
+docs/operation-guide.md:| `TerminologyRegister` | Paper Architecture & Narrative | prose, captions, tables, export text |
+docs/architecture.md:plane: `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+docs/architecture.md:`ClaimEvidenceVisibilityMap`, and `TerminologyRegister`. Paper-facing
+docs/production-readiness-checklist.md:- [ ] CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
+docs/production-readiness-checklist.md:      ClaimEvidenceVisibilityMap, and TerminologyRegister templates exist in
+skills/yxj-paper-index/templates/task-packet.yaml:  artifact_type: CognitiveLoadBudget
+skills/yxj-paper-index/templates/task-packet.yaml:  artifact_type: ExplanationLadder
+skills/yxj-paper-index/templates/task-packet.yaml:  artifact_type: RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/task-packet.yaml:  artifact_type: ClaimEvidenceVisibilityMap
+skills/yxj-paper-index/templates/task-packet.yaml:  artifact_type: TerminologyRegister
+skills/yxj-paper-index/templates/reader-spine-brief.yaml:  - CognitiveLoadBudget
+skills/yxj-paper-index/templates/reader-spine-brief.yaml:  - ExplanationLadder
+skills/yxj-paper-index/templates/reader-spine-brief.yaml:  - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/reader-spine-brief.yaml:  - ClaimEvidenceVisibilityMap
+skills/yxj-paper-index/templates/reader-spine-brief.yaml:  - TerminologyRegister
+skills/yxj-paper-index/templates/main-text-surface-rules.yaml:- ClaimEvidenceVisibilityMap controls wording strength and cannot upgrade Evidence
+skills/yxj-paper-index/templates/main-text-surface-rules.yaml:- TerminologyRegister mappings must be checked against the rendered export, not only
+skills/yxj-paper-index/templates/object-representation-matrix.yaml:  granularity consumed by CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
+skills/yxj-paper-index/templates/object-representation-matrix.yaml:  ClaimEvidenceVisibilityMap, and TerminologyRegister before manuscript or figure
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - TerminologyRegister
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - TerminologyRegister
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - TerminologyRegister
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - CognitiveLoadBudget
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:    - TerminologyRegister
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:- CognitiveLoadBudget
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:- ExplanationLadder
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:- RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:- ClaimEvidenceVisibilityMap
+skills/yxj-paper-index/templates/reviewer-question-map.yaml:- TerminologyRegister
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - CognitiveLoadBudget
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - ExplanationLadder
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - ClaimEvidenceVisibilityMap
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - TerminologyRegister
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - CognitiveLoadBudget
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - ExplanationLadder
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - RhetoricalMoveMatrix
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - ClaimEvidenceVisibilityMap
+skills/yxj-paper-index/templates/department-io-contract.yaml:  - TerminologyRegister
+skills/yxj-paper-index/templates/manager-handoff-report-v2.md:- `reader_load_status` reports whether CognitiveLoadBudget has been planned, collected, validated, or blocked for each paper-facing workstream.
+skills/yxj-paper-index/templates/manager-handoff-report-v2.md:- `expression_design_status` reports whether ExplanationLadder, RhetoricalMoveMatrix, ClaimEvidenceVisibilityMap, and TerminologyRegister have been consumed or have a validator-accepted non-applicable exception.

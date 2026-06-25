@@ -1,0 +1,58 @@
+schema_version: yxj-paper-os/terminology-register/v1
+artifact_id: terminology-register-001
+status: planned
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+purpose: >-
+  Translate internal method, scenario, constraint, and run identifiers into
+  reader-facing terms before prose, captions, and rendered exports are closed.
+source_objects:
+  source_map: source-map-001
+  object_representation_matrix: object-representation-001
+consumers:
+  - main-text-construction-matrix
+  - manuscript-section-task
+  - figure-caption-task
+  - rendered-surface-gate
+terms:
+  - term_id: term-method-full
+    internal_forms:
+      - VG-KZTR_full
+      - vg_kztr_full
+    reader_label: full VG-KZTR policy
+    allowed_surfaces:
+      main_prose: true
+      tables: true
+      provenance: true
+    forbidden_surfaces:
+      - abstract_internal_code
+      - introduction_snake_case
+    replacement_rule: Use reader_label in main prose; keep internal_forms only in provenance or explicit ablation tables.
+    final_text_check:
+      - no_raw_method_ids_in_main_prose
+  - term_id: term-scenario-family
+    internal_forms:
+      - S0/S1/S3/S4/S5
+      - scenario_family_code
+    reader_label: attack and reconfiguration scenario families
+    allowed_surfaces:
+      main_prose: true
+      tables: true
+      provenance: true
+    forbidden_surfaces:
+      - raw_family_code_without_reader_label
+    replacement_rule: Introduce reader_label before any compact family code appears in tables or supplements.
+    final_text_check:
+      - no_internal_codes_in_main_prose
+raw_identifier_policy:
+  main_prose_default: forbidden
+  allowed_only_when:
+    - table_column_with_reader_label
+    - supplement_or_provenance_trace
+    - code_appendix
+validator_refs:
+  - validate_terminology_register
+  - validate_terminology_register_surface
+ledger_targets:
+  - artifact-ledger
+  - review-ledger

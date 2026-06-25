@@ -22,6 +22,12 @@ Use only after explicit Team approval.
 
 Changed files, validator outputs, fixture pass/fail summary, unresolved risks, gate compliance, and recommendation for Ultragoal checkpoint.
 
+For expression-design work, also report whether paper-facing tasks have additive
+`expression_design_object_refs`, whether `reader_load_status` and
+`expression_design_status` appear in handoff output, whether any
+`ExpressionDesignBundle` is only a manifest, and whether export-facing claims
+inspected rendered output rather than source markdown alone.
+
 ## Manager authority handoff for workers
 
 Workers must report whether the leader/manager directly edited or certified any

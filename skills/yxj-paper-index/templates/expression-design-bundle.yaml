@@ -1,0 +1,40 @@
+schema_version: yxj-paper-os/expression-design-bundle/v1
+artifact_id: expression-design-bundle-001
+status: planned
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+purpose: >-
+  Optional compact index for expression-design objects. This bundle is only a
+  convenience manifest and cannot substitute for typed object files or their
+  validators.
+typed_object_refs:
+  cognitive_load_budget: cognitive-load-budget-001
+  explanation_ladder: explanation-ladder-001
+  rhetorical_move_matrix: rhetorical-move-matrix-001
+  claim_evidence_visibility_map: claim-evidence-visibility-map-001
+  terminology_register: terminology-register-001
+required_independent_validator_refs:
+  - validate_cognitive_load_budget
+  - validate_explanation_ladder
+  - validate_rhetorical_move_matrix
+  - validate_claim_evidence_visibility_map
+  - validate_terminology_register
+bundle_rules:
+  cannot_bypass_typed_object_validators: true
+  cannot_replace_expression_design_object_refs: true
+  cannot_raise_claim_strength: true
+  rendered_surface_gate_required_for_exports: true
+consumers:
+  - task-packet
+  - manager-handoff-report-v2
+  - review-and-governance
+validator_refs:
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_explanation_ladder
+  - validate_rhetorical_move_matrix
+  - validate_claim_evidence_visibility_map
+  - validate_terminology_register
+ledger_targets:
+  - artifact-ledger
+  - review-ledger

@@ -90,8 +90,9 @@ linear workflow. The four control planes are:
    `owner_lane`.
 2. **Material-object management**: tasks consume and produce named material
    objects such as `ReaderSpineBrief`, `ObjectRepresentationMatrix`,
-   `TemplateQuantProfile`, evidence banks, method contracts, manuscript section
-   outputs, figure packages, review reports, and export packages.
+   `TemplateQuantProfile`, expression-design objects, evidence banks, method
+   contracts, manuscript section outputs, figure packages, review reports, and
+   export packages.
 3. **Agent/personnel lanes**: `agent-lane-registry.yaml` maps each lane to an
    installed `agent_type`, department, material inputs, material outputs, and
    required reader/template binding.
@@ -106,11 +107,20 @@ must consume the relevant narrative/template objects or record a
 validator-accepted non-applicable reason. This is what prevents final reports
 from degrading into lab-notebook records.
 
+The expression-design layer adds five typed controls under the same material
+plane: `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`,
+`ClaimEvidenceVisibilityMap`, and `TerminologyRegister`. Paper-facing
+manuscript, visual/formal, review, and export tasks bind them through additive
+`expression_design_object_refs`. The optional `ExpressionDesignBundle` is a
+manifest only; it cannot replace typed refs or validators. Claim visibility
+cannot increase evidence strength, and export readiness requires rendered-output
+inspection rather than source-only validation.
+
 ## V2 validator plane
 
 ### Semantic object shape gate
 
-Scaffold validation checks the structural shape of ReaderSpine, object representation, template profile, section function budget, visual/formal budget, reader-experience review, and narrative backflow templates. This gives the reader-narrative plane an executable schema-level gate while preserving the rule that paper-owner semantic claims must not be invented by the manager.
+Scaffold validation checks the structural shape of ReaderSpine, object representation, template profile, section function budget, visual/formal budget, reader-experience review, narrative backflow, and template mirror synchronization. This gives the reader-narrative plane an executable schema-level gate while preserving the rule that paper-owner semantic claims must not be invented by the manager.
 
 
 The validator plane includes the legacy closure checks plus v2 checks:
@@ -123,6 +133,9 @@ The validator plane includes the legacy closure checks plus v2 checks:
 - `validate_narrative_object_binding` and `validate_template_object_binding`
   check ReaderSpine/template-object references for lanes that affect reader
   understanding or venue/exemplar form.
+- `validate_expression_design_object_binding` and the expression-object
+  validators are the planned enforcement layer for paper-facing manuscript,
+  figure/table/algorithm/formula, review, and export tasks.
 - `validate_template_mirror_sync` ensures public-entry templates remain
   byte-identical to canonical templates.
 - `validate_fixture_matrix_nonempty` prevents empty fixture-suite false

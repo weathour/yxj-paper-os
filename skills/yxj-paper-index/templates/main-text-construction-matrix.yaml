@@ -6,77 +6,116 @@ source_objects:
   reviewer_question_map: reviewer-question-map-001
   reader_spine_brief: reader-spine-001
   template_quant_profile: template-quant-profile-001
+  expression_design_objects:
+    cognitive_load_budget: cognitive-load-budget-001
+    explanation_ladder: explanation-ladder-001
+    rhetorical_move_matrix: rhetorical-move-matrix-001
+    claim_evidence_visibility_map: claim-evidence-visibility-map-001
+    terminology_register: terminology-register-001
 rows:
-  - row_id: MTCM-abstract-001
-    section: abstract
-    manuscript_unit: first_problem_sentence
-    reader_question: RQ-001
-    object_representation:
-      object: problem
-      form: one_reader_problem_sentence
-      reader_label: reasoning-layer authorization problem
-      forbidden_forms:
-        - raw_scenario_code
-        - snake_case_constraint
-    granularity: motivation_intuition
-    evidence_anchor:
-      artifact_id: claim-citation-capsule-problem-001
-      required: true
-    template_rule: state problem before mechanism and metrics
-    surface_rule: avoid S0/S1/S3/S4/S5 and internal run identifiers
-    final_text_check:
-      - no_internal_codes
-      - no_bare_citekeys
-      - contribution_visible
-  - row_id: MTCM-method-001
-    section: method
-    manuscript_unit: mechanism_overview_paragraph
-    reader_question: RQ-002
-    object_representation:
-      object: method
-      form: mechanism_paragraph_plus_pipeline_reference
-      reader_label: evidence-gated authorization mechanism
-      forbidden_forms:
-        - raw_method_id_only
-        - implementation_trace_dump
-    granularity: method_mechanism
-    evidence_anchor:
-      artifact_id: method-contract-001
-      required: true
-    template_rule: explain decision objects and authority boundaries before algorithmic detail
-    surface_rule: translate implementation names into reader-facing labels
-    final_text_check:
-      - mechanism_before_metric
-      - no_snake_case_constraints
-      - action_boundary_explicit
-  - row_id: MTCM-results-001
-    section: results
-    manuscript_unit: main_result_paragraph
-    reader_question: RQ-003
-    object_representation:
-      object: result
-      form: claim_bound_result_interpretation
-      reader_label: controlled evidence result
-      forbidden_forms:
-        - metric_dump_without_stance
-        - defensive_not_x_not_y_wall
-    granularity: result_insight
-    evidence_anchor:
-      artifact_id: result-package-001
-      required: true
-    template_rule: state comparison stance, supported claim, and limitation together
-    surface_rule: distinguish current controlled evidence from future replay evidence
-    final_text_check:
-      - claim_boundary_readable
-      - supported_by_result_package
-      - reviewer_risk_named
+- row_id: MTCM-abstract-001
+  section: abstract
+  manuscript_unit: first_problem_sentence
+  reader_question: RQ-001
+  object_representation:
+    object: problem
+    form: one_reader_problem_sentence
+    reader_label: reasoning-layer authorization problem
+    forbidden_forms:
+    - raw_scenario_code
+    - snake_case_constraint
+  granularity: motivation_intuition
+  evidence_anchor:
+    artifact_id: claim-citation-capsule-problem-001
+    required: true
+  template_rule: state problem before mechanism and metrics
+  surface_rule: avoid S0/S1/S3/S4/S5 and internal run identifiers
+  final_text_check:
+  - no_internal_codes
+  - no_bare_citekeys
+  - contribution_visible
+  - expression_design_refs_consumed
+  - reader_load_within_budget
+  expression_design_controls:
+    cognitive_load_budget_ref: CLB-abstract
+    explanation_ladder_stage_ref: EL-problem-intuition
+    rhetorical_move_ref: RMM-abstract-problem-001
+    claim_visibility_ref: claim-method-001
+    terminology_register_ref: term-scenario-family
+    required_before_drafting: true
+- row_id: MTCM-method-001
+  section: method
+  manuscript_unit: mechanism_overview_paragraph
+  reader_question: RQ-002
+  object_representation:
+    object: method
+    form: mechanism_paragraph_plus_pipeline_reference
+    reader_label: evidence-gated authorization mechanism
+    forbidden_forms:
+    - raw_method_id_only
+    - implementation_trace_dump
+  granularity: method_mechanism
+  evidence_anchor:
+    artifact_id: method-contract-001
+    required: true
+  template_rule: explain decision objects and authority boundaries before algorithmic
+    detail
+  surface_rule: translate implementation names into reader-facing labels
+  final_text_check:
+  - mechanism_before_metric
+  - no_snake_case_constraints
+  - action_boundary_explicit
+  - expression_design_refs_consumed
+  - reader_load_within_budget
+  expression_design_controls:
+    cognitive_load_budget_ref: CLB-method
+    explanation_ladder_stage_ref: EL-method-mechanism
+    rhetorical_move_ref: RMM-method-mechanism-001
+    claim_visibility_ref: claim-method-001
+    terminology_register_ref: term-method-full
+    required_before_drafting: true
+- row_id: MTCM-results-001
+  section: results
+  manuscript_unit: main_result_paragraph
+  reader_question: RQ-003
+  object_representation:
+    object: result
+    form: claim_bound_result_interpretation
+    reader_label: controlled evidence result
+    forbidden_forms:
+    - metric_dump_without_stance
+    - defensive_not_x_not_y_wall
+  granularity: result_insight
+  evidence_anchor:
+    artifact_id: result-package-001
+    required: true
+  template_rule: state comparison stance, supported claim, and limitation together
+  surface_rule: distinguish current controlled evidence from future replay evidence
+  final_text_check:
+  - claim_boundary_readable
+  - supported_by_result_package
+  - reviewer_risk_named
+  - expression_design_refs_consumed
+  - reader_load_within_budget
+  expression_design_controls:
+    cognitive_load_budget_ref: CLB-results
+    explanation_ladder_stage_ref: EL-result-evidence
+    rhetorical_move_ref: RMM-results-stance-001
+    claim_visibility_ref: claim-result-001
+    terminology_register_ref: term-method-full
+    required_before_drafting: true
 validator_refs:
-  - validate_main_text_construction_matrix_refs
+- validate_main_text_construction_matrix_refs
 ledger_targets:
-  - artifact-ledger
-  - review-ledger
+- artifact-ledger
+- review-ledger
 downstream_consumers:
-  - section-writing-task
-  - content-refinement-task
-  - reader-surface-translator-task
-  - rendered-surface-gate
+- section-writing-task
+- content-refinement-task
+- reader-surface-translator-task
+- rendered-surface-gate
+validator_refs_when_expression_design_required:
+- validate_expression_design_object_binding
+- validate_rhetorical_move_matrix_consumed
+- validate_claim_evidence_visibility
+- validate_terminology_register_surface

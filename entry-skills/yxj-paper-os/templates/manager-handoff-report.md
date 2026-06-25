@@ -53,3 +53,9 @@ Split next steps into:
 - `auto-continuable`
 - `requires paper-owner decision`
 - `hard-gated/prohibited until explicit authorization`
+
+
+## Expression-design status addendum
+- reader_load_status: not_applicable | planned | collected | validated | blocked
+- expression_design_status: not_applicable | planned | collected | validated | blocked
+- expression_design_object_refs: []

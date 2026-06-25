@@ -28,3 +28,13 @@ reviewer_expectations:
 owner_gated_decisions: []
 validator_refs:
 - validate_reader_spine_brief
+expression_design_requirements:
+  reader_load_status: planned
+  expression_design_status: planned
+  required_objects:
+  - CognitiveLoadBudget
+  - ExplanationLadder
+  - RhetoricalMoveMatrix
+  - ClaimEvidenceVisibilityMap
+  - TerminologyRegister
+  claim_visibility_cannot_raise_evidence_strength: true

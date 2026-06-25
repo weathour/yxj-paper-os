@@ -1,0 +1,2 @@
+CMD: single public entry check
+yxj-paper-os

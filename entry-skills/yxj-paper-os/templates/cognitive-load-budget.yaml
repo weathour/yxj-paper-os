@@ -1,0 +1,79 @@
+schema_version: yxj-paper-os/cognitive-load-budget/v1
+artifact_id: cognitive-load-budget-001
+status: planned
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+purpose: >-
+  Bound how much conceptual, formal, metric, and terminology load each reader-facing
+  surface may carry before manuscript/figure/export production begins.
+source_objects:
+  reviewer_question_map: reviewer-question-map-001
+  reader_spine_brief: reader-spine-001
+  object_representation_matrix: object-representation-001
+  template_quant_profile: template-quant-profile-001
+consumers:
+  - main-text-construction-matrix
+  - manuscript-section-task
+  - figure-caption-task
+  - rendered-surface-gate
+section_budgets:
+  - section_id: abstract
+    reader_question_refs:
+      - RQ-001
+    allowed_granularity: motivation_intuition
+    max_new_terms: 2
+    max_formal_objects: 0
+    required_progression: problem -> contribution -> bounded evidence
+    forbidden_overload:
+      - raw scenario or method identifiers
+      - more than one unresolved claim boundary
+    final_text_checks:
+      - no_internal_codes
+      - contribution_visible
+  - section_id: method
+    reader_question_refs:
+      - RQ-002
+    allowed_granularity: method_mechanism
+    max_new_terms: 5
+    max_formal_objects: 2
+    required_progression: intuition -> mechanism -> formal detail
+    forbidden_overload:
+      - formula before mechanism intuition
+      - implementation trace dump
+    final_text_checks:
+      - mechanism_before_metric
+      - terminology_register_consumed
+  - section_id: results
+    reader_question_refs:
+      - RQ-003
+    allowed_granularity: result_insight
+    max_new_terms: 3
+    max_formal_objects: 1
+    required_progression: comparison stance -> evidence -> limitation boundary
+    forbidden_overload:
+      - metric dump without argument stance
+      - unsupported claim escalation
+    final_text_checks:
+      - claim_boundary_readable
+      - evidence_visibility_consumed
+forbidden_overload_rules:
+  - rule_id: CLB-no-raw-logs
+    applies_to:
+      - manuscript
+      - figure_caption
+      - export
+    description: Do not draft reader-facing prose directly from experiment logs or raw run labels.
+  - rule_id: CLB-rendered-surface-required
+    applies_to:
+      - export
+    description: Source-only checks cannot close paper-facing output; rendered text must be inspected.
+downstream_task_refs:
+  - section-writing-task
+  - reader-surface-translator-task
+  - rendered-surface-gate
+validator_refs:
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+ledger_targets:
+  - artifact-ledger
+  - review-ledger

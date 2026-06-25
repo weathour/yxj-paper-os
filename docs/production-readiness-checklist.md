@@ -60,6 +60,18 @@ Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` mus
 - [ ] Reader narrative governance objects are consumed before manuscript,
       method, evidence, review, figure, table, algorithm, formula, or export
       tasks claim completion.
+- [ ] `TaskPacketV2Plus` exposes additive `expression_design_object_refs` and
+      never uses them as replacements for `narrative_object_refs`,
+      `template_object_refs`, or `evidence_object_refs`.
+- [ ] CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
+      ClaimEvidenceVisibilityMap, and TerminologyRegister templates exist in
+      both canonical and public-entry template trees.
+- [ ] ExpressionDesignBundle, when used, is only a manifest and cannot bypass
+      typed-object validators.
+- [ ] Manager handoffs expose `reader_load_status` and
+      `expression_design_status` for paper-facing workstreams.
+- [ ] Rendered export readiness inspects rendered output; source-only checks are
+      insufficient for final completion.
 
 - [ ] Scaffold validation passes semantic object shape validators for ReaderSpine, object representation, template profile, section budget, visual/formal budget, reader-experience review, and narrative backflow templates.
 - [ ] Binding exceptions are independently accepted in `validator-report.yaml`; task-local exception fields cannot self-attest non-applicability.

@@ -88,12 +88,21 @@ For v2 work, the manager must connect task routing to material objects:
 - `entry-skills/yxj-paper-os/references/reader-narrative-governance.md` defines
   ReaderSpineBrief, ObjectRepresentationMatrix, TemplateQuantProfile,
   SectionFunctionBudget, VisualTableAlgorithmFormulaBudget,
-  ReaderExperienceReviewReport, and NarrativeBackflowTask expectations.
+  ReaderExperienceReviewReport, NarrativeBackflowTask, and expression-design
+  expectations for CognitiveLoadBudget, ExplanationLadder,
+  RhetoricalMoveMatrix, ClaimEvidenceVisibilityMap, and TerminologyRegister.
 
 A writing, review, figure, evidence, method, or export task that affects the
 reader-facing paper should not be reported complete unless it declares the
 relevant narrative/template object refs or records a validator-accepted
 not-applicable reason.
+
+Manuscript, figure/table/algorithm/formula, review, and export tasks that are
+paper-facing must also declare additive `expression_design_object_refs` or carry
+a validator-accepted non-applicable exception. These refs do not replace
+`narrative_object_refs`, `template_object_refs`, or `evidence_object_refs`.
+`ExpressionDesignBundle` may index the typed objects, but cannot bypass their
+independent validators.
 
 
 ## V2 department/material execution pattern
@@ -108,6 +117,9 @@ material objects, not from a generic prompt. The packet must contain:
   contribution, scenario, experiment, baseline, ablation, result, figure,
   table, algorithm, formula, review, or export representation;
 - `template_object_refs` when target venue or exemplar form constrains output;
+- `expression_design_object_refs` when paper-facing writing, visual/formal,
+  review, or export work must consume reader-load, explanation ladder,
+  rhetorical move, claim visibility, and terminology controls;
 - `backflow_route`, `state_ingestion`, `state_transition`, and `pua_telemetry`;
 - v2 validator refs required by the lane.
 
@@ -281,6 +293,20 @@ Operate these seven objects as the first reusable institutional layer:
 | `SingleWriterSectionLock` | PMO | section/shared-hotspot editing |
 | `ReaderSurfaceTutorReview` | Review & Governance | backflow fixes |
 | `RenderedSurfaceGateReport` | Review & Governance / Export | final rendered export checks |
+
+### Expression-design material objects
+
+Operate these as the reader-expression design layer below the reader question
+and construction matrices:
+
+| Object | Owner | Main consumer |
+| --- | --- | --- |
+| `CognitiveLoadBudget` | Paper Architecture & Narrative | section-writing / figure-caption / rendered-surface gate |
+| `ExplanationLadder` | Paper Architecture & Narrative | MainTextConstructionMatrix / manuscript drafting / review |
+| `RhetoricalMoveMatrix` | Paper Architecture & Narrative | section-writing / visual-formal production / review |
+| `ClaimEvidenceVisibilityMap` | Paper Architecture & Narrative with Evidence & Method inputs | writing / review / claim-boundary checks |
+| `TerminologyRegister` | Paper Architecture & Narrative | prose, captions, tables, export text |
+| `ExpressionDesignBundle` | Paper Architecture & Narrative | optional index only; cannot replace typed-object refs or validators |
 
 ### Production tasks
 

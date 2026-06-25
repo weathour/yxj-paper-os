@@ -1,0 +1,59 @@
+schema_version: yxj-paper-os/explanation-ladder/v1
+artifact_id: explanation-ladder-001
+status: planned
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+purpose: >-
+  Force each major paper object to progress from reader intuition to mechanism,
+  evidence, and bounded claim before final prose is produced.
+source_objects:
+  reviewer_question_map: reviewer-question-map-001
+  object_representation_matrix: object-representation-001
+  claim_citation_capsules:
+    - claim-citation-capsule-001
+consumers:
+  - main-text-construction-matrix
+  - manuscript-section-task
+  - reader-surface-tutor-review
+ladders:
+  - object_id: method
+    reader_question_ref: RQ-002
+    stages:
+      - stage_id: intuition
+        surface: Why the reader needs this mechanism.
+        allowed_inputs:
+          - reader-spine-001
+        forbidden_shortcuts:
+          - raw_method_id_only
+      - stage_id: mechanism
+        surface: How decision objects and authority boundaries interact.
+        allowed_inputs:
+          - method-contract-001
+        forbidden_shortcuts:
+          - implementation_trace_dump
+      - stage_id: evidence
+        surface: Which experiment/result package makes the mechanism credible.
+        allowed_inputs:
+          - result-package-001
+        forbidden_shortcuts:
+          - unsupported_metric_claim
+      - stage_id: bounded_claim
+        surface: What the paper may claim and what remains future evidence.
+        allowed_inputs:
+          - claim-citation-capsule-001
+        forbidden_shortcuts:
+          - stronger_than_allowed_evidence
+    required_stage_order:
+      - intuition
+      - mechanism
+      - evidence
+      - bounded_claim
+    final_text_check:
+      - no_jump_from_internal_id_to_claim
+      - mechanism_before_metric
+validator_refs:
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+ledger_targets:
+  - artifact-ledger
+  - review-ledger
