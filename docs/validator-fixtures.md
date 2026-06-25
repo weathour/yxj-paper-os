@@ -1,6 +1,6 @@
 # Validator fixtures
 
-The fixture suite contains five valid paper-control-plane fixtures and fifty-five invalid fixtures:
+The fixture suite contains thirteen valid paper-control-plane fixtures and seventy invalid fixtures:
 
 - dispatch-as-complete;
 - missing agent_type;
@@ -56,6 +56,9 @@ Valid fixtures:
 - `v2-governance-valid`: v2 fixture; proves department binding, material I/O,
   narrative refs, template refs, validator evidence, ingestion, and state
   transition can close together.
+- `expression-design-object-refs-additive`: v2 expression-design fixture; proves
+  `expression_design_object_refs` can be added while `narrative_object_refs`,
+  `template_object_refs`, and `evidence_object_refs` remain present.
 
 Additional invalid v2 fixtures:
 
@@ -82,6 +85,10 @@ silently pass with no fixtures checked.
 - `invalid-v2-self-declared-template-exception` expects
   `validate_template_object_binding`; a task-local exception cannot self-attest
   that required template refs are not applicable.
+- `invalid-expression-design-replaces-narrative-refs` expects
+  `validate_narrative_object_binding` and `validate_template_object_binding`;
+  `expression_design_object_refs` is additive and cannot stand in for required
+  reader narrative or template references on paper-facing writing work.
 - The pseudo-completion fixture includes the raw expected material file but keeps
   it out of `collected_outputs` and `artifact-ledger`, proving raw file
   existence alone cannot close material I/O.
@@ -96,8 +103,8 @@ Scaffold validation also checks the executable shape of the v2 reader/template o
 
 ## Manager authority fixture coverage
 
-The current manager-authority matrix extends the suite to five valid fixtures and
-fifty-five invalid fixtures. New valid fixtures prove that manager-direct work can
+The current manager-authority matrix extends the fixture suite. New valid
+fixtures prove that manager-direct work can
 close only when provenance, disclosure, and required independent review are
 present. New invalid fixtures prove these blockers:
 

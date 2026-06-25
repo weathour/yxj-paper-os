@@ -1,0 +1,5 @@
+fixture_id: invalid-expression-design-replaces-narrative-refs
+expected_failures:
+- validate_narrative_object_binding
+- validate_template_object_binding
+allowed_extra_failures: []

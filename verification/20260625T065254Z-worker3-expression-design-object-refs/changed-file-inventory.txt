@@ -1,0 +1,46 @@
+Changed files:
+ M docs/production-readiness-checklist.md
+ M docs/validator-fixtures.md
+?? fixtures/invalid/invalid-expression-design-replaces-narrative-refs/
+?? fixtures/valid/expression-design-object-refs-additive/
+?? verification/20260625T065254Z-worker3-expression-design-object-refs/
+
+New valid fixture files:
+fixtures/valid/expression-design-object-refs-additive/artifact-ledger.yaml
+fixtures/valid/expression-design-object-refs-additive/collected/T132A/section-blueprint.yaml
+fixtures/valid/expression-design-object-refs-additive/evidence-bank.yaml
+fixtures/valid/expression-design-object-refs-additive/export-manifest.yaml
+fixtures/valid/expression-design-object-refs-additive/motivation.yaml
+fixtures/valid/expression-design-object-refs-additive/rationale-matrix.yaml
+fixtures/valid/expression-design-object-refs-additive/review-output.yaml
+fixtures/valid/expression-design-object-refs-additive/source-map.yaml
+fixtures/valid/expression-design-object-refs-additive/state.yaml
+fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml
+fixtures/valid/expression-design-object-refs-additive/validator-report.yaml
+
+New invalid fixture files:
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/artifact-ledger.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/collected/T132B/section-blueprint.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/evidence-bank.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/export-manifest.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/fixture-meta.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/motivation.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/rationale-matrix.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/review-output.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/source-map.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/state.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml
+fixtures/invalid/invalid-expression-design-replaces-narrative-refs/validator-report.yaml
+
+Verification files:
+verification/20260625T065254Z-worker3-expression-design-object-refs/changed-file-inventory.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/fixtures.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/git_diff_check.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/py_compile.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/pyright.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/ruff_check_modified.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/run_fixture_suite.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/scaffold.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/targeted_invalid_expected_note.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/targeted_invalid_fixture.txt
+verification/20260625T065254Z-worker3-expression-design-object-refs/targeted_valid_fixture.txt

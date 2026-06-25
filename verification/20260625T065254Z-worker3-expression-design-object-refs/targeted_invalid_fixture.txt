@@ -1,0 +1,12 @@
+=== targeted_invalid_fixture ===
+{
+  "ok": false,
+  "failures": [
+    "validate_narrative_object_binding",
+    "validate_template_object_binding"
+  ],
+  "detail": {
+    "fixture": "fixtures/invalid/invalid-expression-design-replaces-narrative-refs"
+  }
+}
+exit_code=1

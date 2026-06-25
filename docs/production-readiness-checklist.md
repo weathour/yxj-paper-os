@@ -49,11 +49,16 @@ Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` mus
       validator coverage.
 - [ ] `task-packet.yaml` exposes `owner_department`, `input_materials`,
       `expected_output_materials`, `narrative_object_refs`,
-      `template_object_refs`, and `backflow_route`.
+      `template_object_refs`, `evidence_object_refs`,
+      `expression_design_object_refs`, and `backflow_route`.
+- [ ] `expression_design_object_refs` is additive only: paper-facing tasks keep
+      required narrative/template/evidence refs instead of substituting
+      expression-design object IDs for them.
 - [ ] Public-entry templates and canonical templates are byte-identical.
 - [ ] Fixture suite has at least one valid v1 compatibility fixture, one valid
       v2 governance fixture, and invalid v2 blockers for department/material/
-      narrative/template/reference/pseudo-completion failures.
+      narrative/template/reference/pseudo-completion failures, plus
+      expression-design additivity and replacement blockers.
 - [ ] Broad handoffs use `Manager Handoff Report v2` with department, material
       I/O, owner lane/agent, closure state, evidence, owner decisions, hard
       gates, and final-paper impact.

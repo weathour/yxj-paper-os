@@ -1,0 +1,3 @@
+=== ruff_check_modified ===
+All checks passed!
+exit_code=0

@@ -1,0 +1,1 @@
+Targeted invalid fixture is expected to exit 1; intended failures are validate_narrative_object_binding and validate_template_object_binding.

@@ -1,0 +1,9 @@
+=== targeted_valid_fixture ===
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "fixture": "fixtures/valid/expression-design-object-refs-additive"
+  }
+}
+exit_code=0
