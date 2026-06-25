@@ -1,0 +1,4 @@
+fixture_id: invalid-claim-evidence-visibility-raises-strength
+expected_failures:
+- validate_claim_evidence_visibility
+allowed_extra_failures: []

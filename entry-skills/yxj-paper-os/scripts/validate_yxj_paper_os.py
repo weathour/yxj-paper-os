@@ -137,6 +137,9 @@ REQUIRED_V2_TEMPLATES = [
     'reader-experience-review-report.yaml', 'narrative-backflow-task.yaml',
     'template-mirror-policy.yaml', 'repository-hygiene-report.yaml',
     'main-text-surface-rules.yaml', 'manager-direct-intervention.yaml',
+    'cognitive-load-budget.yaml', 'explanation-ladder.yaml',
+    'rhetorical-move-matrix.yaml', 'claim-evidence-visibility-map.yaml',
+    'terminology-register.yaml', 'expression-design-bundle.yaml',
 ]
 
 REQUIRED_ROOT_FILES = [
@@ -157,6 +160,31 @@ def load_yaml(path: Path, default: Any = None) -> Any:
         return default
     with path.open('r', encoding='utf-8') as fh:
         return yaml.safe_load(fh) or default
+
+
+def yaml_has_duplicate_keys(path: Path) -> bool:
+    if not path.exists():
+        return False
+    try:
+        root = yaml.compose(path.read_text(encoding='utf-8'))
+    except yaml.YAMLError:
+        return True
+
+    def visit(node: Any) -> bool:
+        if isinstance(node, yaml.MappingNode):
+            keys: set[Any] = set()
+            for key_node, value_node in node.value:
+                key = key_node.value
+                if key in keys:
+                    return True
+                keys.add(key)
+                if visit(value_node):
+                    return True
+        if isinstance(node, yaml.SequenceNode):
+            return any(visit(item) for item in node.value)
+        return False
+
+    return visit(root) if root is not None else False
 
 
 def dump_result(ok: bool, failures: list[str], detail: dict[str, Any] | None = None) -> int:
@@ -225,6 +253,30 @@ def check_v2_template_shapes(root: Path) -> list[str]:
             'validate_main_text_surface_rules',
             ['owner_department', 'consumers', 'required_validators', 'rules'],
         ),
+        'cognitive-load-budget.yaml': (
+            'validate_cognitive_load_budget',
+            ['artifact_id', 'owning_department', 'consumers', 'section_budgets', 'forbidden_overload_rules', 'validator_refs'],
+        ),
+        'explanation-ladder.yaml': (
+            'validate_explanation_ladder',
+            ['artifact_id', 'owning_department', 'consumers', 'ladders', 'validator_refs'],
+        ),
+        'rhetorical-move-matrix.yaml': (
+            'validate_rhetorical_move_matrix',
+            ['artifact_id', 'owning_department', 'consumers', 'rows', 'validator_refs'],
+        ),
+        'claim-evidence-visibility-map.yaml': (
+            'validate_claim_evidence_visibility_map',
+            ['artifact_id', 'owning_department', 'consumers', 'truth_boundary.can_raise_claim_strength', 'claims', 'validator_refs'],
+        ),
+        'terminology-register.yaml': (
+            'validate_terminology_register',
+            ['artifact_id', 'owning_department', 'consumers', 'terms', 'validator_refs'],
+        ),
+        'expression-design-bundle.yaml': (
+            'validate_expression_design_object_binding',
+            ['artifact_id', 'owning_department', 'consumers', 'typed_object_refs', 'bundle_rules.cannot_bypass_typed_object_validators', 'validator_refs'],
+        ),
     }
     for filename, (validator, paths) in checks.items():
         data = load_yaml(template_root / filename, {})
@@ -239,6 +291,18 @@ def check_v2_template_shapes(root: Path) -> list[str]:
             failures.append(f'{validator}:missing_validator_ref:{filename}')
         if not str(data.get('schema_version', '')).startswith('yxj-paper-os/'):
             failures.append(f'{validator}:missing_schema_version:{filename}')
+        if filename == 'expression-design-bundle.yaml':
+            typed_refs = data.get('typed_object_refs') or {}
+            bundle_rules = data.get('bundle_rules') or {}
+            if bundle_rules.get('cannot_bypass_typed_object_validators') is not True:
+                failures.append(f'{validator}:bundle_can_bypass:{filename}')
+            required_keys = {'cognitive_load_budget', 'explanation_ladder', 'rhetorical_move_matrix', 'claim_evidence_visibility_map', 'terminology_register'}
+            if not isinstance(typed_refs, dict) or not required_keys.issubset(set(typed_refs)):
+                failures.append(f'{validator}:missing_required_typed_ref:{filename}')
+
+    for yaml_path in list(template_root.glob('*.yaml')) + list((root / 'entry-skills/yxj-paper-os/templates').glob('*.yaml')):
+        if yaml_has_duplicate_keys(yaml_path):
+            failures.append(f'validate_schema_fields:duplicate_yaml_key:{yaml_path.relative_to(root)}')
 
     manager_direct = load_yaml(template_root / 'manager-direct-intervention.yaml', {})
     if not isinstance(manager_direct, dict):
@@ -940,6 +1004,8 @@ def validate_expression_design_object_binding(
     if lane and lane.get('narrative_binding_required') and not task.get('narrative_object_refs'):
         return False
     if lane and lane.get('template_binding_required') and not task.get('template_object_refs'):
+        return False
+    if not refs_are_resolved(task.get('evidence_object_refs'), task, fixture):
         return False
     if not EXPRESSION_DESIGN_OBJECT_VALIDATORS.issubset(validator_refs):
         return False
@@ -2142,6 +2208,49 @@ def validate_claim_evidence_visibility_map_material(
     return True
 
 
+CLAIM_STRENGTH_UPGRADE_KEYS = {
+    'claim_strength_override',
+    'upgraded_claim_strength',
+    'promotion_status',
+    'can_strengthen_claim',
+    'can_raise_claim_strength',
+    'claim_strength_promotion',
+    'strength_upgrade',
+}
+
+CLAIM_STRENGTH_UPGRADE_VALUES = {
+    'true',
+    'promote',
+    'promoted',
+    'promotion',
+    'upgrade',
+    'upgraded',
+    'raise',
+    'raised',
+    'stronger',
+    'strongerthanevidence',
+}
+
+
+def claim_strength_upgrade_requested(container: Any) -> bool:
+    if not isinstance(container, dict):
+        return False
+    for key in CLAIM_STRENGTH_UPGRADE_KEYS:
+        value = container.get(key)
+        if value is True:
+            return True
+        if isinstance(value, str) and normalize_material_key(value) in CLAIM_STRENGTH_UPGRADE_VALUES:
+            return True
+    truth_boundary = container.get('truth_boundary')
+    if isinstance(truth_boundary, dict):
+        if truth_boundary.get('can_raise_claim_strength') is True:
+            return True
+        value = truth_boundary.get('claim_strength_policy') or truth_boundary.get('claim_strength_upgrade')
+        if isinstance(value, str) and normalize_material_key(value) in CLAIM_STRENGTH_UPGRADE_VALUES:
+            return True
+    return False
+
+
 def validate_claim_evidence_visibility_material(
     fixture: Path,
     artifacts: dict[str, Any] | None = None,
@@ -2150,16 +2259,15 @@ def validate_claim_evidence_visibility_material(
     items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ClaimEvidenceVisibilityMap'], artifacts, tasks)
     if not items:
         return True
-    upgrade_keys = {'claim_strength_override', 'upgraded_claim_strength', 'promotion_status', 'can_strengthen_claim'}
     for _, data in items:
         if data is None:
             return False
-        if any(data.get(key) in {True, 'promoted', 'upgrade', 'upgraded'} for key in upgrade_keys):
+        if claim_strength_upgrade_requested(data):
             return False
         for row in claim_visibility_rows(data):
             if not isinstance(row, dict):
                 return False
-            if any(row.get(key) in {True, 'promoted', 'upgrade', 'upgraded'} for key in upgrade_keys):
+            if claim_strength_upgrade_requested(row):
                 return False
             refs = row.get('evidence_refs') or row.get('method_refs') or row.get('evidence_method_refs') or []
             normalized_refs = ' '.join(normalize_material_key(ref) for ref in material_ref_strings(refs))
@@ -2171,10 +2279,11 @@ def validate_claim_evidence_visibility_material(
             evidence = row.get('evidence_strength') or row.get('source_strength') or row.get('support_strength')
             allowed_rank = claim_strength_rank(allowed)
             evidence_rank = claim_strength_rank(evidence)
-            if evidence_rank is not None and allowed_rank is not None and allowed_rank > evidence_rank:
+            if allowed_rank is None or evidence_rank is None:
                 return False
-            allowed_norm = normalize_material_key(allowed)
-            if allowed_norm in {'upgrade', 'upgraded', 'strongerthanevidence', 'promoted'}:
+            if allowed_rank > evidence_rank:
+                return False
+            if normalize_material_key(allowed) in CLAIM_STRENGTH_UPGRADE_VALUES:
                 return False
     return True
 
@@ -2329,25 +2438,41 @@ def validate_reader_surface_tutor_review_material(
     return True
 
 
+SOURCE_ONLY_RENDERED_METHODS = {'sourceonly', 'sourcemarkdown', 'markdownsource', 'source', 'markdown'}
+
+
 def validate_rendered_surface_gate_material(
     fixture: Path,
     artifacts: dict[str, Any] | None = None,
     tasks: Any = None,
-) -> tuple[bool, bool]:
+) -> tuple[bool, bool, bool]:
     items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['RenderedSurfaceGateReport'], artifacts, tasks)
     if not items:
-        return True, True
+        return True, True, True
+    all_rendered_text_ok = True
     all_internal_ok = True
     all_citekeys_ok = True
     for _, data in items:
         if data is None:
-            return False, False
+            return False, False, False
         for field in ['artifact_path', 'rendered_text_locator', 'checks', 'violations', 'verdict']:
             if data.get(field) is None:
-                return False, False
+                return False, False, False
+        locator = data.get('rendered_text_locator')
+        if not isinstance(locator, dict):
+            return False, False, False
         text = str(data.get('rendered_text_sample') or data.get('rendered_text') or '')
-        no_internal_codes = not any(pattern.search(text) for pattern in INTERNAL_CODE_PATTERNS)
-        no_bare_citekeys = not re.search(r'(?<!\\w)@[A-Za-z][A-Za-z0-9:_-]+', text)
+        extraction_method = normalize_material_key(locator.get('extraction_method'))
+        locator_text_path = locator.get('text_path') or locator.get('extracted_text_path') or data.get('rendered_text_path')
+        rendered_text_ok = bool(text.strip())
+        rendered_text_ok = rendered_text_ok and bool(data.get('artifact_path'))
+        rendered_text_ok = rendered_text_ok and data.get('source_only_validation_allowed') is not True
+        rendered_text_ok = rendered_text_ok and extraction_method not in SOURCE_ONLY_RENDERED_METHODS
+        if 'sourceonly' in extraction_method or (extraction_method.startswith('source') and 'pdf' not in extraction_method):
+            rendered_text_ok = False
+        rendered_text_ok = rendered_text_ok and (has_text(locator_text_path) or bool(text.strip()))
+        no_internal_codes = rendered_text_ok and not any(pattern.search(text) for pattern in INTERNAL_CODE_PATTERNS)
+        no_bare_citekeys = rendered_text_ok and not re.search(r'(?<!\w)@[A-Za-z][A-Za-z0-9:_-]+', text)
         statuses = [
             normalize_actor_part(data.get('internal_code_status')),
             normalize_actor_part(data.get('snake_case_status')),
@@ -2360,9 +2485,10 @@ def validate_rendered_surface_gate_material(
         if normalize_actor_part(data.get('verdict')) not in {'pass', 'passed', 'clean', 'approve', 'approved'}:
             no_internal_codes = False
             no_bare_citekeys = False
+        all_rendered_text_ok = all_rendered_text_ok and bool(rendered_text_ok)
         all_internal_ok = all_internal_ok and bool(no_internal_codes)
         all_citekeys_ok = all_citekeys_ok and bool(no_bare_citekeys)
-    return all_internal_ok, all_citekeys_ok
+    return all_rendered_text_ok, all_internal_ok, all_citekeys_ok
 
 
 def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], dict[str, Any]]:
@@ -2566,7 +2692,9 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
         failures.append('validate_single_writer_lock_held')
     if not validate_reader_surface_tutor_review_material(fixture, artifacts, tasks):
         failures.append('validate_reader_surface_tutor_review_spans')
-    rendered_ok, bare_citekeys_ok = validate_rendered_surface_gate_material(fixture, artifacts, tasks)
+    rendered_text_ok, rendered_ok, bare_citekeys_ok = validate_rendered_surface_gate_material(fixture, artifacts, tasks)
+    if not rendered_text_ok:
+        failures.append('validate_rendered_pdf_surface_text')
     if not rendered_ok:
         failures.append('validate_no_internal_codes_in_rendered_text')
     if not bare_citekeys_ok:

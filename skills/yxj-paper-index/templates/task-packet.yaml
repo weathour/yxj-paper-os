@@ -70,7 +70,6 @@ narrative_object_refs:
 template_object_refs:
 - template-quant-profile-001
 evidence_object_refs: []
-expression_design_object_refs: []
 expression_design_applicability:
   paper_facing: false
   required: false

@@ -1,0 +1,72 @@
+{
+  "ok": false,
+  "failures": [
+    "validate_claim_evidence_visibility_map:missing_field:claim-evidence-visibility-map.yaml:map_id",
+    "validate_cognitive_load_budget:missing_field:cognitive-load-budget.yaml:budget_id",
+    "validate_explanation_ladder:missing_field:explanation-ladder.yaml:ladder_id",
+    "validate_explanation_ladder:missing_field:explanation-ladder.yaml:steps",
+    "validate_expression_design_object_binding:bundle_can_bypass:expression-design-bundle.yaml",
+    "validate_expression_design_object_binding:missing_field:expression-design-bundle.yaml:bundle_id",
+    "validate_expression_design_object_binding:missing_field:expression-design-bundle.yaml:cannot_bypass_typed_object_validators",
+    "validate_expression_design_object_binding:missing_required_typed_ref:expression-design-bundle.yaml",
+    "validate_expression_design_object_binding:missing_typed_refs:expression-design-bundle.yaml",
+    "validate_rhetorical_move_matrix:missing_field:rhetorical-move-matrix.yaml:matrix_id",
+    "validate_terminology_register:missing_field:terminology-register.yaml:register_id"
+  ],
+  "detail": {
+    "root": "/home/weathour/plugins/yxj-paper-os",
+    "public_entry_skills": [
+      "yxj-paper-os"
+    ],
+    "required_internal_skills": [
+      "yxj-paper-index",
+      "yxj-paper-state",
+      "yxj-paper-interview",
+      "yxj-paper-plan",
+      "yxj-paper-execute",
+      "yxj-paper-research",
+      "yxj-paper-novelty",
+      "yxj-paper-evidence",
+      "yxj-paper-paperspine",
+      "yxj-paper-review",
+      "yxj-paper-figures",
+      "yxj-paper-export",
+      "yxj-paper-migration"
+    ],
+    "required_templates": [
+      "paper-profile.yaml",
+      "state.yaml",
+      "source-map.yaml",
+      "task-packet.yaml",
+      "research-dossier.yaml",
+      "citation-bank.yaml",
+      "motivation.yaml",
+      "evidence-bank.yaml",
+      "rationale-matrix.yaml",
+      "review-output.yaml",
+      "validator-report.yaml",
+      "export-manifest.yaml"
+    ],
+    "required_v2_templates": [
+      "department-io-contract.yaml",
+      "reader-spine-brief.yaml",
+      "object-representation-matrix.yaml",
+      "template-quant-profile.yaml",
+      "section-function-budget.yaml",
+      "visual-table-algorithm-formula-budget.yaml",
+      "reader-experience-review-report.yaml",
+      "narrative-backflow-task.yaml",
+      "template-mirror-policy.yaml",
+      "repository-hygiene-report.yaml",
+      "main-text-surface-rules.yaml",
+      "manager-direct-intervention.yaml",
+      "cognitive-load-budget.yaml",
+      "explanation-ladder.yaml",
+      "rhetorical-move-matrix.yaml",
+      "claim-evidence-visibility-map.yaml",
+      "terminology-register.yaml",
+      "expression-design-bundle.yaml",
+      "manager-handoff-report-v2.md"
+    ]
+  }
+}

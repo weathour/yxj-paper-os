@@ -1,0 +1,193 @@
+schema_version: yxj-paper-os/task-ledger/v2
+tasks:
+- task_id: T132C
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: paper_architecture_and_narrative
+  owner_lane: paper-architect
+  agent_type: planner
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - rationale-matrix.yaml
+    - task-ledger.yaml
+  input_materials:
+  - artifact_id: reader-spine-001
+    artifact_type: ReaderSpineBrief
+    path: narrative/reader-spine-001.yaml
+  - artifact_id: object-repr-001
+    artifact_type: ObjectRepresentationMatrix
+    path: narrative/object-representation-matrix.yaml
+  - artifact_id: template-profile-001
+    artifact_type: TemplateQuantProfile
+    path: narrative/template-quant-profile.yaml
+  - artifact_id: evidence-bank-001
+    artifact_type: evidence-bank
+    path: evidence-bank.yaml
+  - artifact_id: cognitive-load-budget-001
+    artifact_type: CognitiveLoadBudget
+    path: narrative/cognitive-load-budget-001.yaml
+  - artifact_id: explanation-ladder-001
+    artifact_type: ExplanationLadder
+    path: narrative/explanation-ladder-001.yaml
+  - artifact_id: rhetorical-move-matrix-001
+    artifact_type: RhetoricalMoveMatrix
+    path: narrative/rhetorical-move-matrix-001.yaml
+  - artifact_id: claim-evidence-visibility-map-001
+    artifact_type: ClaimEvidenceVisibilityMap
+    path: narrative/claim-evidence-visibility-map-001.yaml
+  - artifact_id: terminology-register-001
+    artifact_type: TerminologyRegister
+    path: narrative/terminology-register-001.yaml
+  expected_output_materials:
+  - artifact_id: section-blueprint-001
+    artifact_type: section-blueprint
+    path: collected/T132C/section-blueprint.yaml
+  narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+  template_object_refs:
+  - template-profile-001
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_reader_experience_failure: paper_architecture_and_narrative
+  expected_output_artifacts:
+  - artifact_id: section-blueprint-001
+    artifact_type: section-blueprint
+    path: collected/T132C/section-blueprint.yaml
+  collection_path: collected/T132C/
+  state_ledger_path: state.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+  - validate_terminology_register
+  - validate_terminology_register_surface
+  collected_outputs:
+  - artifact_id: section-blueprint-001
+    path: collected/T132C/section-blueprint.yaml
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_narrative_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_template_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_expression_design_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder_progression
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register_surface
+    status: pass
+    report_path: validator-report.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: State the bounded paper task before execution.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: ''
+      impact_surface: ''
+      prevention_or_check: ''
+      data_or_evidence: ''
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  evidence_object_refs: []
+  expression_design_object_refs:
+  - cognitive-load-budget-001
+  - explanation-ladder-001
+  - rhetorical-move-matrix-001
+  - claim-evidence-visibility-map-001
+  - terminology-register-001

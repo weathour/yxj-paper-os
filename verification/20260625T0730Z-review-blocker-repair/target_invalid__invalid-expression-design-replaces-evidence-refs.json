@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "failures": [
+    "validate_expression_design_object_binding"
+  ],
+  "detail": {
+    "fixture": "/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-evidence-refs"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "pattern_count": 16,
+  "findings": [
+    {
+      "file": "docs/operation-guide.md",
+      "line": 104,
+      "text": "`ExpressionDesignBundle` may index the typed objects, but cannot bypass their"
+    },
+    {
+      "file": "docs/production-readiness-checklist.md",
+      "line": 74,
+      "text": "- [ ] ExpressionDesignBundle, when used, is only a manifest and cannot bypass"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/SKILL.md",
+      "line": 214,
+      "text": "ExpressionDesignBundle manifest that cannot bypass typed validators."
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/references/reader-narrative-governance.md",
+      "line": 183,
+      "text": "task, but it is only a manifest. It cannot bypass independent typed-object"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py",
+      "line": 323,
+      "text": "if '[TODO:' in json.dumps(manifest):"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py",
+      "line": 324,
+      "text": "failures.append('manifest_contains_todo_placeholder')"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py",
+      "line": 362,
+      "text": "if '[TODO:' in path.read_text(encoding='utf-8'):"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py",
+      "line": 363,
+      "text": "failures.append(f'skill_contains_todo:{skill}')"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/templates/department-io-contract.yaml",
+      "line": 177,
+      "text": "bundle_cannot_bypass_typed_validators: true"
+    },
+    {
+      "file": "entry-skills/yxj-paper-os/templates/expression-design-bundle.yaml",
+      "line": 23,
+      "text": "cannot_bypass_typed_object_validators: true"
+    },
+    {
+      "file": "skills/yxj-paper-index/scripts/validate_yxj_paper_os.py",
+      "line": 323,
+      "text": "if '[TODO:' in json.dumps(manifest):"
+    },
+    {
+      "file": "skills/yxj-paper-index/scripts/validate_yxj_paper_os.py",
+      "line": 324,
+      "text": "failures.append('manifest_contains_todo_placeholder')"
+    },
+    {
+      "file": "skills/yxj-paper-index/scripts/validate_yxj_paper_os.py",
+      "line": 362,
+      "text": "if '[TODO:' in path.read_text(encoding='utf-8'):"
+    },
+    {
+      "file": "skills/yxj-paper-index/scripts/validate_yxj_paper_os.py",
+      "line": 363,
+      "text": "failures.append(f'skill_contains_todo:{skill}')"
+    },
+    {
+      "file": "skills/yxj-paper-index/templates/department-io-contract.yaml",
+      "line": 177,
+      "text": "bundle_cannot_bypass_typed_validators: true"
+    },
+    {
+      "file": "skills/yxj-paper-index/templates/expression-design-bundle.yaml",
+      "line": 23,
+      "text": "cannot_bypass_typed_object_validators: true"
+    }
+  ]
+}

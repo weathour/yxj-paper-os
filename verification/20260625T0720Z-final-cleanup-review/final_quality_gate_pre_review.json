@@ -1,0 +1,44 @@
+{
+  "schema_version": "yxj-paper-os/final-quality-gate/v1",
+  "status": "passed",
+  "phase": "pre_review",
+  "evidence_dir": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0720Z-final-cleanup-review",
+  "checks": {
+    "final_validate_scaffold.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_validate_yxj_scaffold.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_validate_yxj_fixtures.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_run_fixture_suite.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_py_compile.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "final_git_diff_check.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "final_mirror_diff.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "final_pyright.txt": {
+      "ok": true,
+      "excerpt": "0 errors, 0 warnings, 0 informations\n"
+    },
+    "final_ruff.txt": {
+      "ok": true,
+      "excerpt": "All checks passed!\n"
+    }
+  }
+}

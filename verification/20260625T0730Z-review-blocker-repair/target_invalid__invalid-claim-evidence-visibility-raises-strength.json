@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "failures": [
+    "validate_claim_evidence_visibility"
+  ],
+  "detail": {
+    "fixture": "/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-claim-evidence-visibility-raises-strength"
+  }
+}

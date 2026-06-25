@@ -1,0 +1,812 @@
+{
+  "ok": true,
+  "failures": [],
+  "detail": {
+    "valid": {
+      "claim-citation-capsule-valid": [],
+      "expression-design-object-refs-additive": [],
+      "main-text-construction-matrix-valid": [],
+      "minimal-valid": [],
+      "reader-surface-tutor-review-valid": [],
+      "rendered-surface-gate-report-valid": [],
+      "repository-hygiene-valid": [],
+      "result-package-valid": [],
+      "reviewer-question-map-valid": [],
+      "single-writer-section-lock-valid": [],
+      "v2-governance-valid": [],
+      "valid-manager-direct-reviewed-paper-facing": [],
+      "valid-non-paper-facing-manager-direct-complete-with-disclosure": []
+    },
+    "invalid": {
+      "claim-citation-capsule-no-snippet": {
+        "expected": [
+          "validate_claim_citation_capsule_support"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_claim_citation_capsule_support"
+        ]
+      },
+      "claim-citation-capsule-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      },
+      "invalid-claim-evidence-visibility-raises-strength": {
+        "expected": [
+          "validate_claim_evidence_visibility"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_claim_evidence_visibility"
+        ]
+      },
+      "invalid-collected-without-validator": {
+        "expected": [
+          "validate_subagent_output",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-complete-without-state-transition": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-complete-wrong-pipeline-stage": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-complete-wrong-state-transition-target": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "invalid-dispatch-as-complete": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine"
+        ],
+        "allowed_extra": [
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-dispatched-timeout-without-output": {
+        "expected": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-export-without-validation": {
+        "expected": [
+          "validate_export_manifest"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_export_manifest"
+        ]
+      },
+      "invalid-expression-design-replaces-evidence-refs": {
+        "expected": [
+          "validate_expression_design_object_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_expression_design_object_binding"
+        ]
+      },
+      "invalid-expression-design-replaces-narrative-refs": {
+        "expected": [
+          "validate_expression_design_object_binding",
+          "validate_narrative_object_binding",
+          "validate_template_object_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_expression_design_object_binding",
+          "validate_narrative_object_binding",
+          "validate_template_object_binding"
+        ]
+      },
+      "invalid-independent-review-artifact-missing": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ]
+      },
+      "invalid-independent-review-reject-verdict": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ]
+      },
+      "invalid-independent-review-reviewer-mismatch": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ]
+      },
+      "invalid-independent-review-same-effective-actor": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ],
+        "allowed_extra": [
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review"
+        ],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ]
+      },
+      "invalid-independent-review-wrong-task": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review"
+        ]
+      },
+      "invalid-l2-missing-pua-report": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l2-pua-report-mismatch": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l3-incomplete-checklist": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-l4-inconsistent-failure-count": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-low-risk-self-classified-paper-facing": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_derived_sensitivity_classification",
+          "validate_manager_direct_independent_review"
+        ],
+        "allowed_extra": [
+          "validate_manager_direct_handoff_disclosure",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_derived_sensitivity_classification",
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review"
+        ]
+      },
+      "invalid-manager-direct-authority-refs-omitted": {
+        "expected": [
+          "validate_validator_reference_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_validator_reference_closure"
+        ]
+      },
+      "invalid-manager-direct-declared-paper-facing-no-review": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review"
+        ]
+      },
+      "invalid-manager-direct-false-handoff-block": {
+        "expected": [
+          "validate_manager_direct_handoff_disclosure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_manager_direct_handoff_disclosure"
+        ]
+      },
+      "invalid-manager-direct-hidden-from-handoff": {
+        "expected": [
+          "validate_manager_direct_handoff_disclosure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_manager_direct_handoff_disclosure"
+        ]
+      },
+      "invalid-manager-direct-no-independent-review": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ],
+        "allowed_extra": [
+          "validate_manager_direct_handoff_disclosure"
+        ],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ]
+      },
+      "invalid-manager-direct-present-false-but-manager-actor": {
+        "expected": [
+          "validate_manager_direct_inferred_or_declared",
+          "validate_manager_direct_intervention_declared"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_manager_direct_inferred_or_declared",
+          "validate_manager_direct_intervention_declared"
+        ]
+      },
+      "invalid-manager-direct-undeclared-paper-facing-complete": {
+        "expected": [
+          "validate_manager_direct_inferred_or_declared",
+          "validate_manager_direct_intervention_declared"
+        ],
+        "allowed_extra": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review"
+        ],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_handoff_disclosure",
+          "validate_manager_direct_independent_review",
+          "validate_manager_direct_inferred_or_declared",
+          "validate_manager_direct_intervention_declared"
+        ]
+      },
+      "invalid-manager-same-session-different-lane-reviewer": {
+        "expected": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_completion_state_limited_without_independent_review",
+          "validate_manager_direct_independent_review",
+          "validate_no_manager_self_certification",
+          "validate_role_separation_for_paper_facing_tasks"
+        ]
+      },
+      "invalid-missing-agent-type": {
+        "expected": [
+          "validate_task_packet"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_task_packet"
+        ]
+      },
+      "invalid-missing-artifact-validator-evidence": {
+        "expected": [
+          "validate_validator_report"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_validator_report"
+        ]
+      },
+      "invalid-missing-pua-telemetry": {
+        "expected": [
+          "validate_pua_telemetry"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_pua_telemetry"
+        ]
+      },
+      "invalid-missing-source-map": {
+        "expected": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_research_triplet_collection",
+          "validate_source_map"
+        ]
+      },
+      "invalid-missing-validator-definition": {
+        "expected": [
+          "validate_validator_reference_closure"
+        ],
+        "allowed_extra": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_reference_closure",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-partial-validator-evidence": {
+        "expected": [
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ],
+        "allowed_extra": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output"
+        ],
+        "got": [
+          "validate_dispatch_not_complete",
+          "validate_state_machine",
+          "validate_subagent_output",
+          "validate_task_status_transitions",
+          "validate_validator_report"
+        ]
+      },
+      "invalid-private-raw-leak": {
+        "expected": [
+          "validate_privacy_boundaries"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_privacy_boundaries"
+        ]
+      },
+      "invalid-provenance-artifact-missing-or-unparseable": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-provenance-certifier-mismatch": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-provenance-material-ref-mismatch": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-provenance-output-ref-mismatch": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-provenance-producer-mismatch": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-provenance-source-hash-mismatch": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-provenance-source-hash-missing": {
+        "expected": [
+          "validate_actor_provenance_artifact_trusted"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_actor_provenance_artifact_trusted"
+        ]
+      },
+      "invalid-rendered-surface-source-only": {
+        "expected": [
+          "validate_no_bare_citekeys_in_export",
+          "validate_no_internal_codes_in_rendered_text",
+          "validate_rendered_pdf_surface_text"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_no_bare_citekeys_in_export",
+          "validate_no_internal_codes_in_rendered_text",
+          "validate_rendered_pdf_surface_text"
+        ]
+      },
+      "invalid-repository-hygiene-unclean": {
+        "expected": [
+          "validate_repository_hygiene_report"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_repository_hygiene_report"
+        ]
+      },
+      "invalid-shallow-rationale-matrix": {
+        "expected": [
+          "validate_rationale_matrix"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_rationale_matrix"
+        ]
+      },
+      "invalid-unconfirmed-motivation": {
+        "expected": [
+          "validate_motivation_confirmation"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_motivation_confirmation"
+        ]
+      },
+      "invalid-unknown-owner-lane": {
+        "expected": [
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_owner_lane_closure"
+        ]
+      },
+      "invalid-unresolved-source-locator": {
+        "expected": [
+          "validate_source_locator_resolution"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_source_locator_resolution"
+        ]
+      },
+      "invalid-unrouted-review-finding": {
+        "expected": [
+          "validate_review_backflow"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_review_backflow"
+        ]
+      },
+      "invalid-unsupported-claim": {
+        "expected": [
+          "validate_claim_support"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_claim_support"
+        ]
+      },
+      "invalid-v2-missing-material-io": {
+        "expected": [
+          "validate_task_material_io"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_task_material_io"
+        ]
+      },
+      "invalid-v2-missing-narrative-refs": {
+        "expected": [
+          "validate_narrative_object_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_narrative_object_binding"
+        ]
+      },
+      "invalid-v2-missing-owner-department": {
+        "expected": [
+          "validate_agent_lane_department_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding"
+        ]
+      },
+      "invalid-v2-missing-template-refs": {
+        "expected": [
+          "validate_template_object_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_template_object_binding"
+        ]
+      },
+      "invalid-v2-missing-validator-ref": {
+        "expected": [
+          "validate_validator_reference_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_validator_reference_closure"
+        ]
+      },
+      "invalid-v2-pseudo-complete-uncollected-material": {
+        "expected": [
+          "validate_task_material_io"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_task_material_io"
+        ]
+      },
+      "invalid-v2-self-declared-narrative-exception": {
+        "expected": [
+          "validate_narrative_object_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_narrative_object_binding"
+        ]
+      },
+      "invalid-v2-self-declared-template-exception": {
+        "expected": [
+          "validate_template_object_binding"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_template_object_binding"
+        ]
+      },
+      "invalid-validated-without-ingest": {
+        "expected": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_state_machine",
+          "validate_task_status_transitions"
+        ]
+      },
+      "main-text-construction-matrix-missing-evidence": {
+        "expected": [
+          "validate_main_text_construction_matrix_refs"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_main_text_construction_matrix_refs"
+        ]
+      },
+      "main-text-construction-matrix-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      },
+      "reader-surface-tutor-review-no-span": {
+        "expected": [
+          "validate_reader_surface_tutor_review_spans"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_reader_surface_tutor_review_spans"
+        ]
+      },
+      "reader-surface-tutor-review-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      },
+      "rendered-surface-gate-raw-id": {
+        "expected": [
+          "validate_no_internal_codes_in_rendered_text"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_no_internal_codes_in_rendered_text"
+        ]
+      },
+      "rendered-surface-gate-report-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      },
+      "result-package-no-source": {
+        "expected": [
+          "validate_result_package_claim_boundary"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_result_package_claim_boundary"
+        ]
+      },
+      "result-package-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      },
+      "reviewer-question-map-missing-personas": {
+        "expected": [
+          "validate_reviewer_question_map"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_reviewer_question_map"
+        ]
+      },
+      "reviewer-question-map-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      },
+      "single-writer-section-lock-missing-owner": {
+        "expected": [
+          "validate_single_writer_lock_held"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_single_writer_lock_held"
+        ]
+      },
+      "single-writer-section-lock-owner-mismatch": {
+        "expected": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ],
+        "allowed_extra": [],
+        "got": [
+          "validate_agent_lane_department_binding",
+          "validate_owner_lane_closure"
+        ]
+      }
+    },
+    "valid_count": 13,
+    "invalid_count": 73
+  }
+}
