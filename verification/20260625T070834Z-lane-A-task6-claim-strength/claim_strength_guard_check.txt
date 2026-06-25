@@ -1,0 +1,4 @@
+CMD: verify ClaimEvidenceVisibilityMap cannot raise claim strength
+PASS entry-skills/yxj-paper-os/templates/claim-evidence-visibility-map.yaml: claim visibility references Evidence & Method and cannot raise claim strength
+PASS skills/yxj-paper-index/templates/claim-evidence-visibility-map.yaml: claim visibility references Evidence & Method and cannot raise claim strength
+PASS claim_evidence_visibility_no_strength_upgrade_contract

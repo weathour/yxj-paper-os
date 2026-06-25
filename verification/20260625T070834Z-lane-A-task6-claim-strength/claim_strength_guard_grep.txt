@@ -1,0 +1,17 @@
+CMD: grep claim-strength boundary wording
+entry-skills/yxj-paper-os/references/orchestrator-contract.md:Narrative, Evidence & Method, Manuscript & Figure Production, and Review &
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:- it may reference Evidence & Method objects, claim-citation capsules, result
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:- it cannot independently upgrade claim strength;
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:surface an evidence-supported claim, but it cannot raise claim strength beyond
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:Evidence & Method support.
+entry-skills/yxj-paper-os/references/skill-registry-governance.md:5. changes claim boundaries without Evidence & Method approval;
+entry-skills/yxj-paper-os/references/department-io-contract.md:| Evidence & Method | truth boundary and method/experiment admissibility | source map, experiments, claims, narrative needs | Evidence pack, method contract, experiment contract, baseline/ablation rationale | `evidence-curator`, `method-verifier`, `citation-banker` |
+entry-skills/yxj-paper-os/references/department-io-contract.md:- `ClaimEvidenceVisibilityMap` cannot increase claim strength; Evidence & Method
+docs/operation-guide.md:| `ClaimCitationCapsule` | Evidence & Method | MainTextConstructionMatrix / writing |
+docs/operation-guide.md:| `ResultPackage` | Evidence & Method | results writing / surface gate |
+docs/operation-guide.md:| `ClaimEvidenceVisibilityMap` | Paper Architecture & Narrative with Evidence & Method inputs | writing / review / claim-boundary checks |
+docs/architecture.md:   Narrative, Evidence & Method, Manuscript & Figure Production, and Review &
+entry-skills/yxj-paper-os/templates/claim-evidence-visibility-map.yaml:  may be shown. This map references Evidence & Method objects; it never upgrades
+entry-skills/yxj-paper-os/templates/claim-evidence-visibility-map.yaml:  can_raise_claim_strength: false
+skills/yxj-paper-index/templates/claim-evidence-visibility-map.yaml:  may be shown. This map references Evidence & Method objects; it never upgrades
+skills/yxj-paper-index/templates/claim-evidence-visibility-map.yaml:  can_raise_claim_strength: false

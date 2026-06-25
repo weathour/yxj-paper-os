@@ -1,0 +1,6 @@
+CMD: git status before evidence commit
+## omx/expression-design-lane-A-20260625T064500Z
+?? verification/20260625T070834Z-lane-A-task6-claim-strength/
+
+CMD: current HEAD
+b7065fa
