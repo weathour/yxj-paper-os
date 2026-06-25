@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "failures": [
+    "validate_no_bare_citekeys_in_export",
+    "validate_no_internal_codes_in_rendered_text",
+    "validate_rendered_pdf_surface_text"
+  ],
+  "detail": {
+    "fixture": "/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-rendered-surface-missing-extraction-method"
+  }
+}

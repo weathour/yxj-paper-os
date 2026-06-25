@@ -1,0 +1,69 @@
+{
+  "schema_version": "yxj-paper-os/template-extraction-repair-quality-gate/v1",
+  "status": "passed",
+  "evidence_dir": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0750Z-final-template-extraction-repair",
+  "checks": {
+    "final_validate_scaffold.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_validate_yxj_scaffold.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_validate_yxj_fixtures.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_run_fixture_suite.json": {
+      "ok": true,
+      "failures": []
+    },
+    "target_invalid__invalid-rendered-surface-missing-extraction-method.json": {
+      "ok": true,
+      "failures": [
+        "validate_no_bare_citekeys_in_export",
+        "validate_no_internal_codes_in_rendered_text",
+        "validate_rendered_pdf_surface_text"
+      ]
+    },
+    "target_invalid__invalid-rendered-surface-source-only.json": {
+      "ok": true,
+      "failures": [
+        "validate_no_bare_citekeys_in_export",
+        "validate_no_internal_codes_in_rendered_text",
+        "validate_rendered_pdf_surface_text"
+      ]
+    },
+    "target_invalid__invalid-claim-evidence-visibility-raises-strength.json": {
+      "ok": true,
+      "failures": [
+        "validate_claim_evidence_visibility"
+      ]
+    },
+    "target_valid__expression-design-object-refs-additive.json": {
+      "ok": true,
+      "failures": []
+    },
+    "final_py_compile.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "final_git_diff_check.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "final_mirror_diff.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "final_pyright.txt": {
+      "ok": true,
+      "excerpt": "0 errors, 0 warnings, 0 informations\n"
+    },
+    "final_ruff.txt": {
+      "ok": true,
+      "excerpt": "All checks passed!\n"
+    }
+  }
+}

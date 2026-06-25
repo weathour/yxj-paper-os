@@ -291,6 +291,24 @@ def check_v2_template_shapes(root: Path) -> list[str]:
             failures.append(f'{validator}:missing_validator_ref:{filename}')
         if not str(data.get('schema_version', '')).startswith('yxj-paper-os/'):
             failures.append(f'{validator}:missing_schema_version:{filename}')
+        if filename == 'claim-evidence-visibility-map.yaml':
+            rows = data.get('claims') or []
+            if not isinstance(rows, list) or not rows:
+                failures.append(f'{validator}:missing_claim_rows:{filename}')
+            for idx, row in enumerate(rows):
+                if not isinstance(row, dict):
+                    failures.append(f'{validator}:invalid_claim_row:{filename}:{idx}')
+                    continue
+                allowed = row.get('allowed_strength') or row.get('allowed_claim_strength')
+                evidence = row.get('evidence_strength') or row.get('source_strength') or row.get('support_strength')
+                allowed_rank = claim_strength_rank(allowed)
+                evidence_rank = claim_strength_rank(evidence)
+                if allowed_rank is None:
+                    failures.append(f'{validator}:unknown_allowed_strength:{filename}:{idx}')
+                if evidence_rank is None:
+                    failures.append(f'{validator}:missing_or_unknown_evidence_strength:{filename}:{idx}')
+                if allowed_rank is not None and evidence_rank is not None and allowed_rank > evidence_rank:
+                    failures.append(f'{validator}:template_claim_strength_upgrade:{filename}:{idx}')
         if filename == 'expression-design-bundle.yaml':
             typed_refs = data.get('typed_object_refs') or {}
             bundle_rules = data.get('bundle_rules') or {}
@@ -2466,6 +2484,7 @@ def validate_rendered_surface_gate_material(
         locator_text_path = locator.get('text_path') or locator.get('extracted_text_path') or data.get('rendered_text_path')
         rendered_text_ok = bool(text.strip())
         rendered_text_ok = rendered_text_ok and bool(data.get('artifact_path'))
+        rendered_text_ok = rendered_text_ok and bool(extraction_method)
         rendered_text_ok = rendered_text_ok and data.get('source_only_validation_allowed') is not True
         rendered_text_ok = rendered_text_ok and extraction_method not in SOURCE_ONLY_RENDERED_METHODS
         if 'sourceonly' in extraction_method or (extraction_method.startswith('source') and 'pdf' not in extraction_method):
