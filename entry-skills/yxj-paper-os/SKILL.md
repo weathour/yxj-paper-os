@@ -42,7 +42,10 @@ when compiling, routing, validating, or reporting tasks, and load
 template/exemplar analysis, figures/tables/algorithms/formulas, review, or
 manuscript-facing evidence. Load `references/repository-delivery-governance.md`
 for export, final handoff, ledger closure, git/worktree status, package hygiene,
-or repository cleanliness questions.
+or repository cleanliness questions. Load `references/skill-registry-governance.md`
+when compiling, auditing, or explaining internal skills as reusable SOP
+capabilities; internal skills remain hidden implementation modules, not public
+commands or hidden managers.
 
 ## Manager-direct anti-self-certification rule
 
@@ -194,7 +197,9 @@ module:
 - `references/department-io-contract.md` for v2 department, material-object, task-packet, and manager-handoff obligations.
 - `references/reader-narrative-governance.md` for ReaderSpine, object representation, template quant, and lab-notebook-smell governance.
 - `references/repository-delivery-governance.md` for RepositoryHygieneReport, delivery cleanliness, dirty worktree, sibling/parent contamination, export-manifest, and cleanup-gate governance.
-- `templates/` for artifact schemas.
+- `references/skill-registry-governance.md` for CompanySkillRegistry, skill-as-SOP permissions, anti-hidden-manager checks, and internal skill authority limits.
+- `../../skills/yxj-paper-execute/references/production-lane-expectations.md` for section-writing, content-refinement, and reader-surface-translator task expectations.
+- `templates/` for artifact schemas, including the seven Phase-1 MVP materials: ReviewerQuestionMap, MainTextConstructionMatrix, ClaimCitationCapsule, ResultPackage, SingleWriterSectionLock, ReaderSurfaceTutorReview, and RenderedSurfaceGateReport.
 - `scripts/run_fixture_suite.py` for non-live scaffold validation.
 - `scripts/ledger_guard.py` for paper-workspace final ledger closure checks, stamping, and snapshots.
 

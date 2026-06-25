@@ -1,0 +1,4 @@
+fixture_id: reader-surface-tutor-review-no-span
+expected_failures:
+- validate_reader_surface_tutor_review_spans
+allowed_extra_failures: []

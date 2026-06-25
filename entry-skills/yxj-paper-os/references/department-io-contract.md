@@ -16,6 +16,33 @@ The preserved completion invariant is:
 
 `compile -> execute -> collect -> validate -> ingest -> state_transition`
 
+## Company-style control plane
+
+`yxj-paper-os` is managed as a small paper-production organization rather than a
+linear prompt workflow. The public surface remains one PMO / Paper Orchestrator;
+departments own accountability; agent lanes perform bounded work; internal
+skills provide reusable SOP capability; material objects are the handoff unit;
+validators provide evidence; ledgers and state transitions close the loop.
+
+The control plane is:
+
+```text
+Paper Owner semantic authority
+  -> PMO / Paper Orchestrator route and gate
+  -> Department accountability
+  -> Agent lane execution
+  -> Internal skill SOP
+  -> Material object candidate
+  -> Validator evidence
+  -> Ledger ingestion
+  -> State transition / backflow / owner-gate
+```
+
+Internal skills must never become a second manager. They may produce, consume,
+repair, or review material candidates only inside declared permissions. They do
+not make paper-owner semantic decisions, certify their own outputs, mutate final
+state, or override PMO gates.
+
 ## PMO + department model
 
 | Department | Owns | Consumes | Produces | Typical lanes |
@@ -46,6 +73,80 @@ A task that produces paper-facing text, figures, method claims, experiment
 claims, review findings, or export readiness must not close without the relevant
 narrative/template object refs unless the task explicitly records why the refs
 are not applicable and a validator accepts that exception.
+
+## TaskPacketV2Plus additive governance
+
+`TaskPacketV2Plus` is an additive superset of the existing v2 task packet. It
+must not remove, rename, or weaken current required v2 fields:
+
+- `owner_department`
+- `owner_lane`
+- `agent_type`
+- `input_materials`
+- `expected_output_materials`
+- `validator_refs`
+- `collection_path`
+- `state_ingestion`
+- `pipeline_stage`
+- `state_transition`
+- `backflow_route`
+- `pua_telemetry`
+
+The v2plus layer may add fields that improve management clarity:
+
+- `skill_refs` — internal SOP skills the lane may use;
+- `mode_permissions` — whether the lane may produce, consume, review, repair, or
+  route material objects;
+- `mission` — the bounded task outcome in reader/reviewer terms;
+- `expected_output_materials` — the material object contract, not just a file;
+- `narrative_object_refs`, `template_object_refs`, and `evidence_object_refs` —
+  required when the task touches writing, review, figures, claims, methods,
+  experiments, or export surface;
+- `single_writer_lock` — required when a section/file/shared hotspot has one
+  current writer;
+- `authority_role_separation` — executor, reviewer, verifier, state steward, and
+  final certifier boundaries;
+- `completion_claim_allowed` — false until collection, validation, ingestion,
+  and state transition evidence exist.
+
+V2plus does not authorize worker-local completion. It only makes the task packet
+clear enough for agents to exercise intelligence inside institutional bounds.
+
+## Single-writer section and hotspot locks
+
+Shared manuscript sections, registry files, validator scripts, fixture
+directories, and export/readiness artifacts must have a single effective writer
+at a time. A `SingleWriterSectionLock` records:
+
+- `lock_id`;
+- `section_or_file`;
+- `owner_lane`;
+- `agent_actor`;
+- `allowed_collaborators`;
+- `expires_or_release_condition`;
+- `conflict_policy`;
+- `validator_refs`.
+
+Reviewer and collaborator lanes may comment or provide patch snippets, but the
+lock owner integrates changes. A task that edits a locked path without a matching
+lock cannot claim `complete`.
+
+## Authority role separation
+
+Completion-sensitive work must keep these roles separable:
+
+| Role | Responsibility | Cannot replace |
+| --- | --- | --- |
+| Executor | produces the candidate material | independent reviewer |
+| Reviewer | checks reader/surface/evidence risks | final certifier |
+| Verifier | proves validators and fixtures pass | paper-owner semantic authority |
+| State steward | ingests evidence and records transitions | executor |
+| Final certifier | signs off completion after evidence | same effective actor as executor for sensitive work |
+
+The same manager session switching lanes is still the same effective actor. For
+paper-facing, export-facing, claim/evidence, or state-sensitive outputs,
+manager-direct work may remain candidate/validated but cannot become complete
+without trusted provenance, independent review, and final-certifier separation.
 
 ## Manager-direct authority exception
 

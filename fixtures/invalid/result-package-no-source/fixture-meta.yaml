@@ -1,0 +1,4 @@
+fixture_id: result-package-no-source
+expected_failures:
+- validate_result_package_claim_boundary
+allowed_extra_failures: []

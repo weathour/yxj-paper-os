@@ -1,0 +1,15 @@
+{
+  "include": [
+    "entry-skills/yxj-paper-os/scripts",
+    "skills/yxj-paper-index/scripts"
+  ],
+  "executionEnvironments": [
+    {
+      "root": "entry-skills/yxj-paper-os/scripts"
+    },
+    {
+      "root": "skills/yxj-paper-index/scripts"
+    }
+  ],
+  "typeCheckingMode": "basic"
+}

@@ -1,0 +1,18 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: research-dossier-001
+  artifact_type: research-dossier
+  path: collected/T001/research-dossier.yaml
+  owner_lane: research-director
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_research_dossier
+- artifact_id: claim-citation-capsule-001
+  artifact_type: ClaimCitationCapsule
+  path: claim-citation-capsule.yaml
+  owner_lane: paper-architect
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_claim_citation_capsule_support

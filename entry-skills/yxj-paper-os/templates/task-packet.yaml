@@ -1,23 +1,55 @@
-schema_version: yxj-paper-os/task-packet/v1
+schema_version: yxj-paper-os/task-packet/v2plus
+extends_schema_version: yxj-paper-os/task-packet/v2
 task_id: T001
 route: pipeline
 adapter: native_subagent_pipeline_adapter
-owner_department: pmo
+owner_department: paper_architecture_and_narrative
 owner_lane: research-director
 agent_type: researcher
 status: compiled
 pipeline_stage: compile
+mission: Produce the declared material object without making unmanaged completion claims.
+role_identity:
+  department: paper_architecture_and_narrative
+  owner_lane: research-director
+  agent_type: researcher
+  responsibility: Coordinate research-route material production under the paper architecture plan.
+intelligence_zone:
+  allowed:
+  - synthesize source-map and template-quant-profile signals into a research-route plan
+  - propose downstream materials for evidence and manuscript lanes
+  requires_owner_gate:
+  - changing paper semantic claims
+  - weakening validator or evidence requirements
+forbidden_zone:
+  - do not mark the task complete before collect, validate, ingest, and state_transition evidence exists
+  - do not certify paper-owner semantic decisions
+  - do not edit shared validator scripts, fixture cases, or lane registry files from a production task
+skill_refs:
+- skill_id: example-internal-sop
+  owning_department: pmo
+  mode_permissions:
+  - produce
+  - consume
+mode_permissions:
+- produce
+- consume
 input_materials:
 - artifact_id: reader-spine-001
   artifact_type: ReaderSpineBrief
   path: notes/yxj-paper-os/narrative/reader-spine-001.yaml
+- artifact_id: template-quant-profile-001
+  artifact_type: TemplateQuantProfile
+  path: notes/yxj-paper-os/templates/template-quant-profile-001.yaml
 expected_output_materials:
 - artifact_id: research-dossier-001
-  artifact_type: research-dossier
+  artifact_type: research-route-plan
   path: notes/yxj-paper-os/research/research-dossier-001.yaml
 narrative_object_refs:
 - reader-spine-001
-template_object_refs: []
+template_object_refs:
+- template-quant-profile-001
+evidence_object_refs: []
 backflow_route:
   on_validator_failure: review_and_governance
   on_reader_experience_failure: paper_architecture_and_narrative
@@ -27,15 +59,32 @@ scoped_context:
   allowed_paths: []
 expected_output_artifacts:
 - artifact_id: research-dossier-001
-  artifact_type: research-dossier
+  artifact_type: research-route-plan
   path: notes/yxj-paper-os/research/research-dossier-001.yaml
 collection_path: .omx/state/yxj-paper-os/collections/T001/
 state_ledger_path: .omx/state/yxj-paper-os/task-ledger.yaml
+state_ingestion:
+  target_ledgers:
+  - task-ledger
+  - artifact-ledger
+  required_snapshot: true
+state_transition:
+  from: compiled
+  to: complete
+  owner_lane: state-steward
+  allowed_only_after:
+  - collected
+  - validated
+  - ingested
 validator_refs:
 - validate_task_packet
 - validate_subagent_output
 - validate_task_status_transitions
 - validate_pua_telemetry
+- validate_agent_lane_department_binding
+- validate_task_material_io
+- validate_narrative_object_binding
+- validate_template_object_binding
 actor_provenance:
   execution_actor_id: null
   execution_actor_kind: null
@@ -68,6 +117,21 @@ role_separation:
   state_transition_owner: state-steward
   final_certifier_actor_id: null
   same_actor_exceptions: []
+single_writer_lock:
+  required: false
+  lock_ref: null
+  required_when:
+  - editing_manuscript_section
+  - editing_shared_registry
+  - editing_validator_script
+  - editing_fixture_case_directory
+authority_role_separation:
+  executor: executor_actor_id
+  reviewer: reviewer_actor_id
+  verifier: verifier_actor_id
+  state_steward: state-steward
+  final_certifier: final_certifier_actor_id
+completion_claim_allowed: false
 pua_telemetry:
   pressure_level: L0
   failure_count: 0

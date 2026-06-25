@@ -245,3 +245,54 @@ task with:
 Do not close such work with a manager summary, PUA telemetry, or
 `present:false`. Without trusted provenance and required independent review, the
 allowed state is `candidate` or `validated`, not `complete`.
+
+
+## Company-style material governance v2plus
+
+The upgraded management model should be operated as a company-style paper
+production system:
+
+```text
+PMO / Paper Orchestrator
+  -> Department accountability
+  -> Agent lane execution
+  -> Internal skill SOP
+  -> Material object candidate
+  -> Validator evidence
+  -> Ledger ingestion
+  -> State transition or backflow
+```
+
+Use the single public `yxj-paper-os` entry. Do not expose internal
+`skills/yxj-paper-*` modules as public commands. Skills are SOP capabilities
+that produce/consume/review/repair/route material candidates under permissions;
+they do not certify completion or make paper-owner semantic decisions.
+
+### Phase-1 MVP material objects
+
+Operate these seven objects as the first reusable institutional layer:
+
+| Object | Owner | Main consumer |
+| --- | --- | --- |
+| `ReviewerQuestionMap` | Paper Architecture & Narrative | MainTextConstructionMatrix / writing / review |
+| `MainTextConstructionMatrix` | Paper Architecture & Narrative | section-writing / content-refinement |
+| `ClaimCitationCapsule` | Evidence & Method | MainTextConstructionMatrix / writing |
+| `ResultPackage` | Evidence & Method | results writing / surface gate |
+| `SingleWriterSectionLock` | PMO | section/shared-hotspot editing |
+| `ReaderSurfaceTutorReview` | Review & Governance | backflow fixes |
+| `RenderedSurfaceGateReport` | Review & Governance / Export | final rendered export checks |
+
+### Production tasks
+
+Before a production task can claim completion, verify that it consumed the
+required `ReviewerQuestionMap`, `MainTextConstructionMatrix`, evidence refs, and
+`SingleWriterSectionLock` where applicable. Production lanes may provide
+validator requirements but must not directly edit shared validator scripts,
+fixture directories, or lane registry files.
+
+### Fixture contract
+
+Fixture cases live under `<plugin-root>/fixtures/valid/<case-dir>/` and
+`<plugin-root>/fixtures/invalid/<case-dir>/`. Invalid fixture cases must include
+`fixture-meta.yaml.expected_failures`; standalone YAML files directly under
+`fixtures/valid` or `fixtures/invalid` are not accepted as fixture cases.

@@ -1,0 +1,83 @@
+schema_version: yxj-paper-os/reviewer-question-map/v1
+artifact_id: reviewer-question-map-001
+status: planned
+owning_department: paper_architecture_and_narrative
+target_reader:
+  venue_route: KBS
+  reader_profile: knowledge-based-systems reviewer evaluating method novelty, evidence
+    sufficiency, and reader-facing clarity
+  assumed_prior_knowledge:
+  - intelligent transportation systems
+  - cyber-physical system security
+  - multi-agent or platoon coordination basics
+reviewer_personas: []
+questions:
+- question_id: RQ-001
+  question: What concrete problem makes the proposed method necessary?
+  expected_answer_location:
+  - abstract
+  - introduction
+  - problem_setup
+  required_objects:
+  - problem
+  - scenario
+  - contribution
+  evidence_expectation: cite source or project evidence where a factual claim is made
+- question_id: RQ-002
+  question: What mechanism explains why the method should work?
+  expected_answer_location:
+  - method
+  - algorithm_or_pipeline_figure
+  required_objects:
+  - method
+  - mechanism
+  - action_boundary
+  evidence_expectation: bind mechanism claims to method contracts and supported examples
+- question_id: RQ-003
+  question: What evidence supports each result claim and where is the claim boundary?
+  expected_answer_location:
+  - experiment_design
+  - results
+  - discussion_limitations
+  required_objects:
+  - experiment
+  - baseline
+  - ablation
+  - result
+  - limitation
+  evidence_expectation: bind result wording to ResultPackage and ClaimCitationCapsule
+    objects
+section_targets:
+  abstract:
+    reader_question_ids:
+    - RQ-001
+    - RQ-002
+    - RQ-003
+    surface_expectation: no internal scenario codes, no raw method ids, no defensive
+      claim wall
+  introduction:
+    reader_question_ids:
+    - RQ-001
+    surface_expectation: motivate with reader problem and contribution stance
+  method:
+    reader_question_ids:
+    - RQ-002
+    surface_expectation: explain mechanism before implementation labels
+  results:
+    reader_question_ids:
+    - RQ-003
+    surface_expectation: narrate comparison meaning, not just metrics
+risk_tags:
+- lab_notebook_smell
+- unsupported_claim
+- internal_code_leak
+- claim_boundary_overreach
+downstream_consumers:
+- MainTextConstructionMatrix
+- SectionDraftPackage
+- ReaderSurfaceTutorReview
+validator_refs:
+- validate_reviewer_question_map
+ledger_targets:
+- artifact-ledger
+- review-ledger

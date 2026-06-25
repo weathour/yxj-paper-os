@@ -1,0 +1,4 @@
+fixture_id: reviewer-question-map-missing-personas
+expected_failures:
+- validate_reviewer_question_map
+allowed_extra_failures: []

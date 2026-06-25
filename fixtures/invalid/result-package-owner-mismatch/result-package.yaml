@@ -1,0 +1,45 @@
+schema_version: yxj-paper-os/result-package/v1
+artifact_id: result-package-001
+status: planned
+owning_department: evidence_and_method
+result_id: RESULT-001
+source_locator:
+  artifact_id: experiment-result-artifact-001
+  path: experiments/results/example/summary.json
+  hash: null
+  generated_by: null
+supported_claim:
+  claim_id: CLAIM-RESULT-001
+  claim_text: The exact result claim allowed by this evidence.
+  support_scope: controlled_mechanism_suite_only
+metric_anchor:
+  metric_name: primary_metric
+  table_or_file: experiments/results/example/summary.csv
+  statistic: mean_or_ci_or_test
+figure_table_anchor:
+  figure_id: F-result-001
+  table_id: T-result-001
+allowed_wording:
+  - In the controlled mechanism suite, the method supports this bounded result.
+forbidden_wording:
+  - public-road deployment is proven
+  - trajectory replay has been validated
+  - controller stability is established
+reviewer_risk:
+  risk_level: medium
+  likely_objection: Current evidence may not support a broader real-world claim.
+  mitigation: State evidence scope and future-evidence branch explicitly.
+promotion_status: candidate|validated|promoted|blocked
+future_evidence_branch:
+  branch_id: future-trajectory-replay
+  promotion_gate_required: true
+  current_results_section_allowed: false
+validator_refs:
+  - validate_result_package_claim_boundary
+ledger_targets:
+  - evidence-ledger
+  - artifact-ledger
+downstream_consumers:
+  - MainTextConstructionMatrix
+  - results-section-writing
+  - rendered-surface-gate

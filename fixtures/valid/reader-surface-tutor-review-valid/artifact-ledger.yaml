@@ -1,0 +1,18 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: research-dossier-001
+  artifact_type: research-dossier
+  path: collected/T001/research-dossier.yaml
+  owner_lane: research-director
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_research_dossier
+- artifact_id: reader-surface-tutor-review-001
+  artifact_type: ReaderSurfaceTutorReview
+  path: reader-surface-tutor-review.yaml
+  owner_lane: review-director
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_reader_surface_tutor_review_spans

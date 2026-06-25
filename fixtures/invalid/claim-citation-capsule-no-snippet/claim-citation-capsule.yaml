@@ -1,0 +1,44 @@
+schema_version: yxj-paper-os/claim-citation-capsule/v1
+artifact_id: claim-citation-capsule-001
+status: planned
+owning_department: evidence_and_method
+claim_id: CLAIM-001
+claim_text: The manuscript claim to be supported, narrowed, or rejected.
+claim_location:
+  section: introduction
+  manuscript_unit: contribution_sentence
+query:
+  question: What source or evidence supports this claim?
+  required_source_type:
+  - peer_reviewed_reference
+  - project_evidence
+  - paper_owner_decision
+source_locator:
+  locator_id: source-001
+  source_type: bibliographic_or_project_locator
+  path_or_citekey: example2026source
+  anchor: section-or-page-or-artifact-anchor
+  raw_private_source_copied: false
+supporting_snippet: {}
+support_strength: weak|moderate|strong|unresolved
+risk:
+  unsupported_claim: true
+  overclaim: false
+  stale_source: false
+  private_source_boundary: false
+bibtex_key: example2026source
+usable_sentence:
+  allowed_wording: A source-bounded sentence that can appear in the manuscript.
+  forbidden_wording:
+  - wording that exceeds support strength
+  - wording that hides uncertainty
+validator_refs:
+- validate_claim_citation_capsule_support
+ledger_targets:
+- evidence-ledger
+- artifact-ledger
+downstream_consumers:
+- MainTextConstructionMatrix
+- ResultPackage
+- section-writing-task
+- review-finding

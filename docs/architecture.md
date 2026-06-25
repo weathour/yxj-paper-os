@@ -168,3 +168,28 @@ and must have a governance artifact. Paper-facing, export-facing, claim/evidence
 or state-sensitive manager-direct work cannot become `complete` until independent
 review and final-certifier separation are both proven. The same manager/session
 switching lanes is still the same effective actor.
+
+
+## V2plus material-skill architecture
+
+The v2plus layer keeps the existing v2 state machine and task-packet fields but
+adds a stronger material-skill management plane:
+
+- `TaskPacketV2Plus` is additive-only and preserves old v2 fields such as
+  `collection_path`, `state_ingestion`, `pipeline_stage`, and `state_transition`.
+- `CompanySkillRegistry` records internal SOP capabilities and prevents skills
+  from becoming hidden managers.
+- `SingleWriterSectionLock` protects manuscript sections and shared hotspots.
+- Reader-facing writing is governed by `ReviewerQuestionMap` and
+  `MainTextConstructionMatrix`, so method/problem/contribution/scene/result
+  objects appear at the right granularity in each manuscript location.
+- Evidence-facing writing is bounded by `ClaimCitationCapsule` and
+  `ResultPackage`, so source support and result scope travel into prose.
+- Review/export closure uses `ReaderSurfaceTutorReview` and
+  `RenderedSurfaceGateReport` to catch internal codes, snake_case constraints,
+  raw method ids, bare citekeys, and defensive claim-boundary walls in rendered
+  output.
+
+This architecture separates responsibility from automation: departments own
+accountability, agents execute, skills provide SOPs, materials carry outputs,
+validators prove contracts, ledgers preserve memory, and the PMO routes closure.

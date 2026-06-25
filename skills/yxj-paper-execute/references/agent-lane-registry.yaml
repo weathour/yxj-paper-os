@@ -20,7 +20,112 @@ owner_lane_aliases:
   research-director: umbrella over scene-analyst, exemplar-learner, sota-mapper, and novelty-panel
   verifier: generic verifier alias; prefer method-verifier, style-auditor, state-steward, or final-verifier when possible
   paper-owner-gate: human semantic decision gate represented through omx_question and decision-ledger entry
+  taskpacket-governance-owner: PMO lane for additive TaskPacketV2Plus governance; does not replace existing v2 task packet fields
+  skill-registry-owner: PMO lane for internal SOP skill registry governance; skills are not hidden managers
+  single-writer-lock-owner: PMO lane for section/file/shared-hotspot lock materials
 lanes:
+- lane_id: taskpacket-governance-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: architect
+  purpose: Maintain additive TaskPacketV2Plus governance while preserving v2 task packet compatibility.
+  context_scope:
+  - department-io-contract.md
+  - task-packet.yaml
+  - agent-lane-registry.yaml
+  expected_output_artifacts:
+  - artifact_type: taskpacket-v2plus-governance
+    path_pattern: notes/yxj-paper-os/management/taskpacket-v2plus/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: department-io-contract
+  - artifact_type: task-packet-template
+  - artifact_type: lane-registry
+  material_outputs:
+  - artifact_type: TaskPacketV2Plus
+  - artifact_type: authority-role-separation
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: skill-registry-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: architect
+  purpose: Maintain CompanySkillRegistry governance where internal skills are reusable SOP capabilities, not departments or hidden managers.
+  context_scope:
+  - skill-registry-governance.md
+  - department-io-contract.md
+  - agent-lane-registry.yaml
+  expected_output_artifacts:
+  - artifact_type: CompanySkillRegistry
+    path_pattern: notes/yxj-paper-os/management/company-skill-registry/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: department-io-contract
+  - artifact_type: skill-registry-governance
+  material_outputs:
+  - artifact_type: CompanySkillRegistry
+  - artifact_type: skill-authority-limit
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
+- lane_id: single-writer-lock-owner
+  lane_kind: direct_subagent
+  recommended_agent_type: verifier
+  purpose: Maintain SingleWriterSectionLock process materials for manuscript sections and shared implementation hotspots.
+  context_scope:
+  - single-writer-section-lock.yaml
+  - task-ledger.yaml
+  - artifact-ledger.yaml
+  expected_output_artifacts:
+  - artifact_type: SingleWriterSectionLock
+    path_pattern: notes/yxj-paper-os/management/single-writer-locks/<task-id>.yaml
+  - artifact_type: validator-report
+    path_pattern: .omx/state/yxj-paper-os/validator-reports/<task-id>.yaml
+  validator_refs:
+  - validate_task_packet
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  department: pmo
+  material_inputs:
+  - artifact_type: task-ledger
+  - artifact_type: file-ownership-table
+  material_outputs:
+  - artifact_type: SingleWriterSectionLock
+  narrative_binding_required: false
+  template_binding_required: false
+  validator_coverage:
+    department_binding: validate_agent_lane_department_binding
+    material_io: validate_task_material_io
+    narrative_binding: not_required_for_lane
+    template_binding: not_required_for_lane
 - lane_id: profile-architect
   lane_kind: direct_subagent
   recommended_agent_type: architect
@@ -1263,6 +1368,7 @@ lanes:
     template_binding: not_required_for_lane
 department_model_ref: entry-skills/yxj-paper-os/references/department-io-contract.md
 reader_narrative_governance_ref: entry-skills/yxj-paper-os/references/reader-narrative-governance.md
+skill_registry_governance_ref: entry-skills/yxj-paper-os/references/skill-registry-governance.md
 canonical_material_fields:
 - department
 - material_inputs
@@ -1292,3 +1398,12 @@ v2_required_task_packet_fields:
 v2_conditional_task_packet_fields:
   narrative_object_refs: required when lane.narrative_binding_required is true unless an accepted non_applicable_reason is validated
   template_object_refs: required when lane.template_binding_required is true unless an accepted non_applicable_reason is validated
+v2plus_additive_task_packet_fields:
+- skill_refs
+- mode_permissions
+- mission
+- evidence_object_refs
+- single_writer_lock
+- authority_role_separation
+- completion_claim_allowed
+v2plus_compatibility_rule: v2plus fields are additive only; existing v2 task packets with required v2 fields remain valid.

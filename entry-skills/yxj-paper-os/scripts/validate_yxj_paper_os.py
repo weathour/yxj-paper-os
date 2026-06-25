@@ -49,6 +49,10 @@ KNOWN_VALIDATORS = {
     'validate_no_snake_case_constraints_in_main_prose', 'validate_no_raw_method_ids_in_main_prose',
     'validate_no_defensive_claim_boundary_wall', 'validate_no_bare_citekeys_in_export',
     'validate_rendered_pdf_surface_text',
+    'validate_reviewer_question_map', 'validate_main_text_construction_matrix_refs',
+    'validate_claim_citation_capsule_support', 'validate_result_package_claim_boundary',
+    'validate_single_writer_lock_held', 'validate_reader_surface_tutor_review_spans',
+    'validate_no_internal_codes_in_rendered_text',
 }
 
 DEFAULT_ALLOWED_OWNER_LANES = {
@@ -244,6 +248,41 @@ def check_v2_template_shapes(root: Path) -> list[str]:
     for path in ['actor_provenance.execution_actor_id', 'actor_provenance.execution_actor_kind', 'actor_provenance.manager_role_at_execution', 'actor_provenance.final_certifier_actor_id', 'actor_provenance.actor_provenance_artifacts', 'manager_direct_intervention.present', 'manager_direct_intervention.inferred_from_actor_provenance', 'manager_direct_intervention.required_independent_review', 'role_separation.executor_actor_id', 'role_separation.reviewer_actor_id', 'role_separation.final_certifier_actor_id']:
         if not require_path(task_packet, path):
             failures.append(f'validate_actor_provenance_present:missing_task_packet_field:{path}')
+    if isinstance(task_packet, dict):
+        for path in ['role_identity.department', 'role_identity.owner_lane', 'role_identity.agent_type', 'intelligence_zone.allowed', 'intelligence_zone.requires_owner_gate', 'forbidden_zone']:
+            if not require_path(task_packet, path):
+                failures.append(f'validate_task_packet:missing_task_packet_field:{path}')
+        task_lane = lane_registry_by_id(root).get(str(task_packet.get('owner_lane') or ''))
+        if not validate_agent_lane_department_binding(task_packet, task_lane):
+            failures.append('validate_agent_lane_department_binding:task-packet-template-owner-binding')
+        task_packet_refs = set(task_packet.get('validator_refs') or [])
+        required_refs = {'validate_agent_lane_department_binding', 'validate_task_material_io'}
+        if task_lane and task_lane.get('narrative_binding_required'):
+            required_refs.add('validate_narrative_object_binding')
+        if task_lane and task_lane.get('template_binding_required'):
+            required_refs.add('validate_template_object_binding')
+        missing_refs = required_refs - task_packet_refs
+        if missing_refs:
+            failures.append(
+                f"validate_validator_reference_closure:task-packet-template-missing:{','.join(sorted(missing_refs))}"
+            )
+        lane_outputs = {
+            str(item.get('artifact_type'))
+            for item in task_lane.get('material_outputs', [])
+            if isinstance(item, dict) and item.get('artifact_type')
+        } if task_lane else set()
+        packet_outputs = {
+            str(item.get('artifact_type'))
+            for field in ['expected_output_materials', 'expected_output_artifacts']
+            for item in task_packet.get(field, [])
+            if isinstance(item, dict) and item.get('artifact_type')
+        }
+        if lane_outputs and not (packet_outputs & lane_outputs):
+            failures.append('validate_task_material_io:task-packet-template-output-not-in-lane')
+        if not validate_narrative_object_binding(task_packet, task_lane, template_root, {}):
+            failures.append('validate_narrative_object_binding:task-packet-template-unresolved')
+        if not validate_template_object_binding(task_packet, task_lane, template_root, {}):
+            failures.append('validate_template_object_binding:task-packet-template-unresolved')
 
     handoff = (template_root / 'manager-handoff-report-v2.md').read_text(encoding='utf-8', errors='ignore') if (template_root / 'manager-handoff-report-v2.md').exists() else ''
     if '```yaml' not in handoff or 'authority_role_separation:' not in handoff:
@@ -1326,6 +1365,431 @@ def validate_completion_state_limited_without_independent_review(task: dict[str,
         return True
     return validate_manager_direct_independent_review(task, refs, fixture) and validate_no_manager_self_certification(task, refs)
 
+def load_named_material(fixture: Path, *names: str) -> dict[str, Any] | None:
+    for name in names:
+        path = fixture / name
+        if path.exists():
+            data = load_yaml(path, {})
+            if isinstance(data, dict):
+                return data
+    return None
+
+
+def non_empty_list(value: Any) -> bool:
+    return isinstance(value, list) and bool(value)
+
+
+def non_empty_dict(value: Any) -> bool:
+    return isinstance(value, dict) and bool(value)
+
+
+def has_text(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+
+MATERIAL_OBJECT_SPECS: dict[str, dict[str, Any]] = {
+    'ReviewerQuestionMap': {
+        'filenames': {'reviewer-question-map.yaml'},
+        'schema_version': 'yxj-paper-os/reviewer-question-map/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_reviewer_question_map',
+        'aliases': {'ReviewerQuestionMap', 'reviewer-question-map', 'reviewer_question_map'},
+    },
+    'MainTextConstructionMatrix': {
+        'filenames': {'main-text-construction-matrix.yaml'},
+        'schema_version': 'yxj-paper-os/main-text-construction-matrix/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_main_text_construction_matrix_refs',
+        'aliases': {'MainTextConstructionMatrix', 'main-text-construction-matrix', 'main_text_construction_matrix'},
+    },
+    'ClaimCitationCapsule': {
+        'filenames': {'claim-citation-capsule.yaml'},
+        'schema_version': 'yxj-paper-os/claim-citation-capsule/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'evidence_and_method'},
+        'allowed_lanes': {'evidence-curator', 'method-verifier'},
+        'validator': 'validate_claim_citation_capsule_support',
+        'aliases': {'ClaimCitationCapsule', 'claim-citation-capsule', 'claim_citation_capsule'},
+    },
+    'ResultPackage': {
+        'filenames': {'result-package.yaml'},
+        'schema_version': 'yxj-paper-os/result-package/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'evidence_and_method'},
+        'allowed_lanes': {'evidence-curator', 'method-verifier'},
+        'validator': 'validate_result_package_claim_boundary',
+        'aliases': {'ResultPackage', 'result-package', 'result_package'},
+    },
+    'SingleWriterSectionLock': {
+        'filenames': {'single-writer-section-lock.yaml'},
+        'schema_version': 'yxj-paper-os/single-writer-section-lock/v1',
+        'owner_fields': {'owner_department'},
+        'allowed_departments': {'pmo'},
+        'allowed_lanes': {'single-writer-lock-owner'},
+        'validator': 'validate_single_writer_lock_held',
+        'aliases': {'SingleWriterSectionLock', 'single-writer-section-lock', 'single_writer_section_lock'},
+    },
+    'ReaderSurfaceTutorReview': {
+        'filenames': {'reader-surface-tutor-review.yaml'},
+        'schema_version': 'yxj-paper-os/reader-surface-tutor-review/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'review_and_governance'},
+        'allowed_lanes': {'review-director', 'style-auditor', 'final-verifier'},
+        'validator': 'validate_reader_surface_tutor_review_spans',
+        'aliases': {'ReaderSurfaceTutorReview', 'reader-surface-tutor-review', 'reader_surface_tutor_review'},
+    },
+    'RenderedSurfaceGateReport': {
+        'filenames': {'rendered-surface-gate-report.yaml'},
+        'schema_version': 'yxj-paper-os/rendered-surface-gate-report/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'review_and_governance', 'manuscript_and_figure_production'},
+        'allowed_lanes': {'review-director', 'style-auditor', 'final-verifier', 'export-owner'},
+        'validator': 'validate_no_internal_codes_in_rendered_text',
+        'aliases': {'RenderedSurfaceGateReport', 'rendered-surface-gate-report', 'rendered_surface_gate_report'},
+    },
+}
+
+
+INTERNAL_CODE_PATTERNS = [
+    re.compile(r'\bS[0-9]+(?:/S[0-9]+)+\b'),
+    re.compile(r'\b[A-Za-z0-9]+_[A-Za-z0-9_]*\b'),
+    re.compile(r'\b(?:VG-KZTR_full|B2_[A-Za-z0-9_]+|no_[A-Za-z0-9_]+)\b'),
+]
+
+
+def normalize_material_key(value: Any) -> str:
+    return re.sub(r'[^a-z0-9]+', '', str(value or '').lower())
+
+
+def material_spec_matches_entry(spec: dict[str, Any], entry: dict[str, Any]) -> bool:
+    artifact_type = normalize_material_key(entry.get('artifact_type') or entry.get('type'))
+    aliases = {normalize_material_key(alias) for alias in spec.get('aliases') or set()}
+    path_name = Path(str(entry.get('path') or '')).name
+    return artifact_type in aliases or path_name in set(spec.get('filenames') or set())
+
+
+def material_spec_for_data(data: dict[str, Any]) -> dict[str, Any] | None:
+    schema = data.get('schema_version')
+    for spec in MATERIAL_OBJECT_SPECS.values():
+        if schema == spec.get('schema_version'):
+            return spec
+    return None
+
+
+def declared_task_material_entries(
+    tasks: Any,
+    spec: dict[str, Any],
+) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+    entries: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    for task in tasks or []:
+        if not isinstance(task, dict):
+            continue
+        for field in ['expected_output_materials', 'expected_output_artifacts', 'collected_outputs']:
+            for item in task.get(field) or []:
+                if isinstance(item, dict) and material_spec_matches_entry(spec, item):
+                    entries.append((task, item))
+    return entries
+
+
+def declared_artifact_entries(artifacts: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        art for art in artifacts.get('artifacts') or []
+        if isinstance(art, dict) and material_spec_matches_entry(spec, art)
+    ]
+
+
+def material_declared_paths(
+    fixture: Path,
+    spec: dict[str, Any],
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> list[str]:
+    paths: set[str] = set()
+    for filename in spec.get('filenames') or set():
+        if (fixture / filename).exists():
+            paths.add(str(filename))
+    if artifacts:
+        for art in declared_artifact_entries(artifacts, spec):
+            path = art.get('path')
+            if isinstance(path, str) and path:
+                paths.add(path.rstrip('/'))
+    for _, item in declared_task_material_entries(tasks, spec):
+        path = item.get('path')
+        if isinstance(path, str) and path:
+            paths.add(path.rstrip('/'))
+    return sorted(paths)
+
+
+def material_data_items(
+    fixture: Path,
+    spec: dict[str, Any],
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> list[tuple[str, dict[str, Any] | None]]:
+    items: list[tuple[str, dict[str, Any] | None]] = []
+    for rel in material_declared_paths(fixture, spec, artifacts, tasks):
+        data = load_yaml(fixture / rel, {})
+        items.append((rel, data if isinstance(data, dict) else None))
+    return items
+
+
+def material_owner_department(data: dict[str, Any], spec: dict[str, Any]) -> str:
+    for field in spec.get('owner_fields') or set():
+        value = data.get(field)
+        if isinstance(value, str) and value:
+            return value
+    return ''
+
+
+def lane_department(lane_id: Any, registry_lanes: dict[str, dict[str, Any]]) -> str:
+    lane = registry_lanes.get(str(lane_id or '')) or {}
+    return str(lane.get('department') or '')
+
+
+def validate_known_material_object_bindings(
+    fixture: Path,
+    artifacts: dict[str, Any],
+    tasks: Any,
+    registry_lanes: dict[str, dict[str, Any]],
+) -> list[str]:
+    failures: list[str] = []
+    for spec in MATERIAL_OBJECT_SPECS.values():
+        allowed_lanes = set(spec.get('allowed_lanes') or set())
+        allowed_departments = set(spec.get('allowed_departments') or set())
+        object_validator = str(spec.get('validator'))
+        paths = material_declared_paths(fixture, spec, artifacts, tasks)
+        if not paths:
+            continue
+
+        for rel, data in material_data_items(fixture, spec, artifacts, tasks):
+            if data is None:
+                failures.append(object_validator)
+                continue
+            if material_spec_for_data(data) != spec:
+                failures.append(object_validator)
+            owner_department = material_owner_department(data, spec)
+            if owner_department not in allowed_departments:
+                failures.append('validate_agent_lane_department_binding')
+
+        artifact_entries = declared_artifact_entries(artifacts, spec)
+        for rel in paths:
+            path_artifacts = [
+                art for art in artifact_entries
+                if str(art.get('path') or '').rstrip('/') == rel
+            ]
+            if not path_artifacts:
+                failures.append('validate_owner_lane_closure')
+            for art in path_artifacts:
+                owner_lane = str(art.get('owner_lane') or '')
+                if owner_lane not in allowed_lanes:
+                    failures.append('validate_owner_lane_closure')
+                if lane_department(owner_lane, registry_lanes) not in allowed_departments:
+                    failures.append('validate_agent_lane_department_binding')
+
+        for task, item in declared_task_material_entries(tasks, spec):
+            owner_lane = str(task.get('owner_lane') or '')
+            task_department = str(task.get('owner_department') or lane_department(owner_lane, registry_lanes))
+            if owner_lane not in allowed_lanes:
+                failures.append('validate_owner_lane_closure')
+            if task_department not in allowed_departments:
+                failures.append('validate_agent_lane_department_binding')
+            path = str(item.get('path') or '').rstrip('/')
+            if path and not (fixture / path).exists():
+                failures.append(object_validator)
+    return sorted(set(failures))
+
+
+def validate_reviewer_question_map_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ReviewerQuestionMap'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        required = ['target_reader', 'reviewer_personas', 'questions', 'section_targets', 'risk_tags', 'downstream_consumers']
+        if any(not data.get(field) for field in required):
+            return False
+        if not non_empty_list(data.get('reviewer_personas')) or not non_empty_list(data.get('questions')):
+            return False
+        for q in data.get('questions') or []:
+            if not isinstance(q, dict) or not has_text(q.get('question_id')) or not has_text(q.get('question')):
+                return False
+            if not non_empty_list(q.get('expected_answer_location')):
+                return False
+    return True
+
+
+def validate_main_text_construction_matrix_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['MainTextConstructionMatrix'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        rows_value = data.get('rows')
+        if not isinstance(rows_value, list) or not rows_value:
+            return False
+        rows: list[Any] = rows_value
+        for row in rows:
+            if not isinstance(row, dict):
+                return False
+            for field in ['section', 'manuscript_unit', 'reader_question', 'object_representation', 'granularity', 'evidence_anchor', 'template_rule', 'surface_rule', 'final_text_check']:
+                if not row.get(field):
+                    return False
+            anchor = row.get('evidence_anchor')
+            if not isinstance(anchor, dict) or anchor.get('required') is not True or not has_text(anchor.get('artifact_id')):
+                return False
+            obj = row.get('object_representation')
+            if not isinstance(obj, dict) or not has_text(obj.get('object')) or not has_text(obj.get('form')):
+                return False
+    return True
+
+
+def validate_claim_citation_capsule_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ClaimCitationCapsule'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        if not has_text(data.get('claim_id')) or not has_text(data.get('claim_text')):
+            return False
+        locator = data.get('source_locator')
+        snippet = data.get('supporting_snippet')
+        usable = data.get('usable_sentence')
+        if not isinstance(locator, dict) or not (has_text(locator.get('path_or_citekey')) or has_text(locator.get('locator_id'))):
+            return False
+        if not isinstance(snippet, dict) or not has_text(snippet.get('summary')):
+            return False
+        if normalize_actor_part(data.get('support_strength')) in {'', 'unresolved'}:
+            return False
+        if not has_text(data.get('bibtex_key')):
+            return False
+        if not isinstance(usable, dict) or not has_text(usable.get('allowed_wording')) or not non_empty_list(usable.get('forbidden_wording')):
+            return False
+    return True
+
+
+def validate_result_package_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ResultPackage'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        locator = data.get('source_locator')
+        if not isinstance(locator, dict) or not has_text(locator.get('path')):
+            return False
+        for field in ['supported_claim', 'metric_anchor', 'figure_table_anchor', 'reviewer_risk']:
+            if not non_empty_dict(data.get(field)):
+                return False
+        if not non_empty_list(data.get('allowed_wording')) or not non_empty_list(data.get('forbidden_wording')):
+            return False
+        future = data.get('future_evidence_branch')
+        if isinstance(future, dict) and future.get('current_results_section_allowed') is True and normalize_actor_part(data.get('promotion_status')) != 'promoted':
+            return False
+    return True
+
+
+def validate_single_writer_lock_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['SingleWriterSectionLock'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        for field in ['lock_id', 'section_or_file', 'owner_lane', 'agent_actor', 'expires_or_release_condition', 'conflict_policy']:
+            if not data.get(field):
+                return False
+        if not isinstance(data.get('agent_actor'), dict) or not has_text(data['agent_actor'].get('actor_lane')):
+            return False
+        if not non_empty_list(data.get('validator_refs')):
+            return False
+    return True
+
+
+def validate_reader_surface_tutor_review_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ReaderSurfaceTutorReview'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        for field in ['review_id', 'source_path', 'source_span', 'rendered_span', 'severity', 'violated_rule', 'responsible_department', 'responsible_lane', 'expected_fix_output', 'backflow_route']:
+            if not data.get(field):
+                return False
+        for field in ['source_span', 'rendered_span']:
+            span = data.get(field)
+            if not isinstance(span, dict) or not has_text(span.get('text')) or span.get('start_line') is None:
+                return False
+    return True
+
+
+def validate_rendered_surface_gate_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> tuple[bool, bool]:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['RenderedSurfaceGateReport'], artifacts, tasks)
+    if not items:
+        return True, True
+    all_internal_ok = True
+    all_citekeys_ok = True
+    for _, data in items:
+        if data is None:
+            return False, False
+        for field in ['artifact_path', 'rendered_text_locator', 'checks', 'violations', 'verdict']:
+            if data.get(field) is None:
+                return False, False
+        text = str(data.get('rendered_text_sample') or data.get('rendered_text') or '')
+        no_internal_codes = not any(pattern.search(text) for pattern in INTERNAL_CODE_PATTERNS)
+        no_bare_citekeys = not re.search(r'(?<!\\w)@[A-Za-z][A-Za-z0-9:_-]+', text)
+        statuses = [
+            normalize_actor_part(data.get('internal_code_status')),
+            normalize_actor_part(data.get('snake_case_status')),
+            normalize_actor_part(data.get('raw_method_id_status')),
+        ]
+        if any(status in {'fail', 'failed', 'present', 'dirty'} for status in statuses):
+            no_internal_codes = False
+        if normalize_actor_part(data.get('bare_citekey_status')) in {'fail', 'failed', 'present', 'dirty'}:
+            no_bare_citekeys = False
+        if normalize_actor_part(data.get('verdict')) not in {'pass', 'passed', 'clean', 'approve', 'approved'}:
+            no_internal_codes = False
+            no_bare_citekeys = False
+        all_internal_ok = all_internal_ok and bool(no_internal_codes)
+        all_citekeys_ok = all_citekeys_ok and bool(no_bare_citekeys)
+    return all_internal_ok, all_citekeys_ok
+
+
 def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], dict[str, Any]]:
     failures: list[str] = []
     detail: dict[str, Any] = {'fixture': str(fixture)}
@@ -1475,6 +1939,26 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
     val_summary = export.get('validation_summary') or {}
     if export and (export.get('readiness') == 'ready') and val_summary.get('status') != 'pass':
         failures.append('validate_export_manifest')
+
+    failures.extend(validate_known_material_object_bindings(fixture, artifacts, tasks, registry_lanes))
+
+    if not validate_reviewer_question_map_material(fixture, artifacts, tasks):
+        failures.append('validate_reviewer_question_map')
+    if not validate_main_text_construction_matrix_material(fixture, artifacts, tasks):
+        failures.append('validate_main_text_construction_matrix_refs')
+    if not validate_claim_citation_capsule_material(fixture, artifacts, tasks):
+        failures.append('validate_claim_citation_capsule_support')
+    if not validate_result_package_material(fixture, artifacts, tasks):
+        failures.append('validate_result_package_claim_boundary')
+    if not validate_single_writer_lock_material(fixture, artifacts, tasks):
+        failures.append('validate_single_writer_lock_held')
+    if not validate_reader_surface_tutor_review_material(fixture, artifacts, tasks):
+        failures.append('validate_reader_surface_tutor_review_spans')
+    rendered_ok, bare_citekeys_ok = validate_rendered_surface_gate_material(fixture, artifacts, tasks)
+    if not rendered_ok:
+        failures.append('validate_no_internal_codes_in_rendered_text')
+    if not bare_citekeys_ok:
+        failures.append('validate_no_bare_citekeys_in_export')
 
     if artifacts:
         fixture_passing_validators: set[str] = set()

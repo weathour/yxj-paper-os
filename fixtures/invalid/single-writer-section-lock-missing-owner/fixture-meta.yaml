@@ -1,0 +1,4 @@
+fixture_id: single-writer-section-lock-missing-owner
+expected_failures:
+- validate_single_writer_lock_held
+allowed_extra_failures: []

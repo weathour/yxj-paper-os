@@ -51,3 +51,24 @@ independent review before promoting the migrated task to `complete`.
 If provenance cannot be reconstructed, keep the migrated record as
 `candidate`/`validated` with residual self-certification risk instead of
 inventing an independent reviewer.
+
+
+## V2-to-v2plus material migration
+
+Existing v2 task packets remain valid when they preserve required v2 fields.
+Do not rewrite old ledgers merely to satisfy v2plus fields. Instead, add v2plus
+materials when a new or migrated task touches reader-facing writing, evidence,
+review, export, or shared editing hotspots.
+
+| Existing v2 concept | V2plus addition |
+| --- | --- |
+| `ReaderSpineBrief` / `ObjectRepresentationMatrix` | `ReviewerQuestionMap` + `MainTextConstructionMatrix` for section-level construction |
+| citation/evidence bank | `ClaimCitationCapsule` for claim-level support |
+| experiment/result artifact | `ResultPackage` for claim boundary and allowed wording |
+| unmanaged section edit | `SingleWriterSectionLock` |
+| prose review comment | `ReaderSurfaceTutorReview` with source/rendered spans and backflow route |
+| export validation | `RenderedSurfaceGateReport` against rendered text |
+
+Migration rule: old tasks can remain historical, but new completion claims for
+paper-facing or state-sensitive work must pass the v2plus material/validator
+contracts once the corresponding objects are introduced.

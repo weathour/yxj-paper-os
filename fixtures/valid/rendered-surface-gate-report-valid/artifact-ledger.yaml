@@ -1,0 +1,19 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: research-dossier-001
+  artifact_type: research-dossier
+  path: collected/T001/research-dossier.yaml
+  owner_lane: research-director
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_research_dossier
+- artifact_id: rendered-surface-gate-report-001
+  artifact_type: RenderedSurfaceGateReport
+  path: rendered-surface-gate-report.yaml
+  owner_lane: final-verifier
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export

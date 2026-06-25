@@ -18,7 +18,7 @@ Operate the approved `native_subagent_pipeline_adapter`.
 6. Transition state only after ingestion evidence exists.
 7. Run `../yxj-paper-index/scripts/ledger_guard.py check --root <paper-root>`; if `.omx/` is ignored, run `snapshot` and require a fresh snapshot before the final completion claim.
 
-Read `references/runtime-execution-contract.md`, `references/agent-contract.md`, and `references/agent-lane-registry.yaml` before implementing runtime behavior. Use `../yxj-paper-index/scripts/validate_fixture.py` for task-ledger checks.
+Read `references/runtime-execution-contract.md`, `references/agent-contract.md`, `references/agent-lane-registry.yaml`, and `references/production-lane-expectations.md` before implementing runtime behavior. Use `../yxj-paper-index/scripts/validate_fixture.py` for task-ledger checks.
 
 
 ## Managed-agent pressure protocol

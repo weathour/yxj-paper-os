@@ -1,0 +1,4 @@
+fixture_id: main-text-construction-matrix-missing-evidence
+expected_failures:
+- validate_main_text_construction_matrix_refs
+allowed_extra_failures: []

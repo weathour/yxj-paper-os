@@ -1,0 +1,4 @@
+fixture_id: claim-citation-capsule-no-snippet
+expected_failures:
+- validate_claim_citation_capsule_support
+allowed_extra_failures: []

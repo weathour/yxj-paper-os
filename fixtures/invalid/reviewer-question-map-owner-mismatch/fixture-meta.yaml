@@ -1,0 +1,3 @@
+expected_failures:
+- validate_agent_lane_department_binding
+- validate_owner_lane_closure

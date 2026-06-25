@@ -1,0 +1,102 @@
+# Skill registry governance — yxj-paper-os
+
+This reference defines how `yxj-paper-os` treats skills inside the company-style
+paper production system.
+
+## Core rule
+
+A skill is a reusable SOP capability. It is not:
+
+- a department;
+- an agent/person;
+- a hidden manager;
+- a final certifier;
+- a substitute for validators, ledgers, or paper-owner decisions.
+
+The public user-facing entry remains `yxj-paper-os`. Internal skills are called
+by the PMO or a department lane through a task packet and must return material
+objects plus evidence, not unmanaged prose claims of completion.
+
+## Required registry fields
+
+Every internal skill entry must be representable as:
+
+```yaml
+skill_id:
+owning_department:
+allowed_callers:
+mode_permissions:
+  - produce
+  - consume
+  - review
+  - repair
+  - route
+input_materials:
+output_materials:
+validator_refs:
+ledger_targets:
+hard_gates:
+references:
+templates:
+fixture_cases:
+authority_limits:
+```
+
+## Permission meanings
+
+| Permission | Meaning | Hard limit |
+| --- | --- | --- |
+| `produce` | create a candidate material object | cannot self-certify |
+| `consume` | read declared upstream materials | cannot invent missing evidence |
+| `review` | emit review findings or tutor comments | cannot be final certifier for its own output |
+| `repair` | produce a bounded fix candidate | cannot change claim boundary without Evidence/Method approval |
+| `route` | recommend a department/backflow route | PMO/state steward performs the actual transition |
+
+## CompanySkillRegistry material
+
+The PMO owns `CompanySkillRegistry` as a governance material. It records:
+
+- skill id and human-readable purpose;
+- owning department;
+- allowed caller departments/lanes;
+- permitted modes;
+- required inputs and outputs;
+- validator refs and fixture cases;
+- ledger targets;
+- hard gates and authority limits;
+- references/templates used by the skill.
+
+The registry is consumed by `TaskPacketV2Plus` compilation and by validators
+checking that a worker used an allowed SOP capability for the declared material
+object.
+
+## Anti-hidden-manager checks
+
+A skill entry is invalid when it:
+
+1. declares itself as final certifier;
+2. exposes itself as a public `$` command for ordinary users when it is intended
+   to remain internal;
+3. mutates ledger/state directly without a state-steward route;
+4. makes paper-owner semantic decisions;
+5. changes claim boundaries without Evidence & Method approval;
+6. allows completion without validator evidence.
+
+These checks are enforced later through fixture-backed validators. Until those
+validators exist, PMO handoff must explicitly state that a skill-produced output
+is only a candidate material object.
+
+## Relationship to departments and agents
+
+```text
+Department owns accountability.
+Agent lane performs the task.
+Skill provides the SOP.
+Material object carries the output.
+Validator proves the contract.
+Ledger stores the institutional memory.
+PMO coordinates route and closure.
+```
+
+This separation is mandatory. It lets agents remain intelligent and adaptive
+without turning ad hoc writing into ungoverned completion claims.

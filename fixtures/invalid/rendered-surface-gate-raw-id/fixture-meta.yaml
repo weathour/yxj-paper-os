@@ -1,0 +1,4 @@
+fixture_id: rendered-surface-gate-raw-id
+expected_failures:
+- validate_no_internal_codes_in_rendered_text
+allowed_extra_failures: []

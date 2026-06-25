@@ -1,0 +1,28 @@
+schema_version: yxj-paper-os/reader-surface-tutor-review/v1
+review_id: reader-surface-review-001
+status: candidate
+owning_department: review_and_governance
+source_path: manuscript/sections/00_abstract.md
+source_span: {}
+rendered_span:
+  artifact_path: exports/main.pdf
+  page: 1
+  text: Rendered reader-facing span.
+severity: major
+violated_rule: no_internal_codes_in_main_prose
+responsible_department: manuscript_and_figure_production
+responsible_lane: manuscript-owner
+expected_fix_output:
+  output_type: reader-facing rewrite patch
+  required_materials:
+  - MainTextConstructionMatrix
+  - ClaimCitationCapsule
+backflow_route:
+  target_department: manuscript_and_figure_production
+  target_lane: manuscript-owner
+  task_type: reader-surface-translator
+validator_refs:
+- validate_reader_surface_tutor_review_spans
+ledger_targets:
+- review-ledger
+- artifact-ledger

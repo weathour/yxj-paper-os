@@ -13,6 +13,39 @@ uses them.
 
 ## Required narrative and template objects
 
+### ReviewerQuestionMap
+Turns target-reader and reviewer expectations into explicit questions that the
+abstract, introduction, method, experiments, results, discussion, figures, and
+export surface must answer. It prevents writing tasks from starting with raw
+experiment logs or internal method codes.
+
+Minimum content:
+- target reader and venue route;
+- reviewer personas and their likely concerns;
+- reader/reviewer questions with expected answer locations;
+- section targets and required objects;
+- risk tags such as lab-notebook smell, unsupported claim, internal-code leak,
+  and claim-boundary overreach;
+- downstream consumers, especially `MainTextConstructionMatrix`, section-writing,
+  review, and rendered-surface gates.
+
+### MainTextConstructionMatrix
+Translates reader questions, template rules, evidence anchors, and object
+representation requirements into section-level writing instructions. It is the
+construction bridge between planning materials and manuscript prose.
+
+Each row should declare:
+- section and manuscript unit;
+- linked reviewer/reader question;
+- object representation form and forbidden forms;
+- granularity expected at that location: intuition, contract, mechanism,
+  evidence, insight, or boundary;
+- evidence anchor or explicit accepted non-applicable reason;
+- template rule consumed from exemplar analysis;
+- surface rule that prevents raw internal codes, snake_case constraints, raw
+  method ids, bare citekeys, and defensive claim walls;
+- final text checks required before a writing task can report completion.
+
 ### ReaderSpineBrief
 Defines the reader problem, paper spine, contribution visibility, section
 question sequence, reviewer expectations, and unresolved owner semantic
@@ -80,8 +113,14 @@ A normal progression is:
 
 `motivation intuition -> problem contract -> method mechanism -> experiment evidence -> result insight -> limitation boundary`
 
+`ReviewerQuestionMap` records why the reader needs the object. `ObjectRepresentationMatrix`
+records how the object appears. `MainTextConstructionMatrix` records the exact
+section/unit representation form and granularity. A writing task may not flatten
+these layers into one generic paragraph plan.
+
 The ObjectRepresentationMatrix records exceptions when a paper deliberately uses
-a different order.
+a different order; the MainTextConstructionMatrix must then name the exception
+and the validator/backflow route that accepts it.
 
 ## Lab-notebook-smell gate
 
@@ -136,7 +175,11 @@ reviewed. The final rendered artifact must be checked for reader-surface leaks,
 including raw citekeys, internal scenario codes, snake_case constraints,
 raw method ids, and defensive claim-boundary walls.
 
-Recommended validator names:
+Recommended narrative-construction validator names:
+- `validate_reviewer_question_map`
+- `validate_main_text_construction_matrix_refs`
+
+Recommended surface validator names:
 - `validate_no_internal_codes_in_main_prose`
 - `validate_no_snake_case_constraints_in_main_prose`
 - `validate_no_raw_method_ids_in_main_prose`

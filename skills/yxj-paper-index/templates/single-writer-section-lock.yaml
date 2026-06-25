@@ -1,0 +1,38 @@
+schema_version: yxj-paper-os/single-writer-section-lock/v1
+lock_id: SWL-001
+lock_type: section_or_hotspot
+section_or_file: manuscript/sections/04_method.md
+owner_department: pmo
+owner_lane: single-writer-lock-owner
+agent_actor:
+  actor_kind: codex-agent
+  actor_id: null
+  actor_lane: single-writer-lock-owner
+  run_or_session_id: null
+allowed_collaborators:
+  - lane: review-director
+    mode: comment_only
+  - lane: evidence-curator
+    mode: patch_snippet_only
+expires_or_release_condition:
+  condition: validator_evidence_collected_and_state_ingested
+  deadline_utc: null
+conflict_policy:
+  on_second_writer: block_and_route_to_pmo
+  on_stale_lock: require_pmo_release_record
+  on_shared_hotspot: owner_integrates_collaborator_snippets
+locked_materials:
+  input_material_refs: []
+  expected_output_material_refs: []
+validator_refs:
+  - validate_single_writer_lock_held
+ledger_targets:
+  - task-ledger
+  - artifact-ledger
+state_transition:
+  from: planned
+  to: locked
+notes: >
+  A SingleWriterSectionLock is a process material. It does not grant paper-owner
+  semantic authority and cannot certify the edited section; it only prevents
+  conflicting writers on one section/file/shared hotspot.
