@@ -1,0 +1,14 @@
+CMD: grep rendered/source-only wording
+entry-skills/yxj-paper-os/references/orchestrator-contract.md:Rendered export readiness requires inspection of rendered output, not only
+entry-skills/yxj-paper-os/references/orchestrator-contract.md:source markdown.
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:snake_case fields into reader-facing language before prose or rendered exports
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:- rendered-output checks that catch raw identifiers and unrendered placeholders.
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:discussion, captions, or rendered exports.
+entry-skills/yxj-paper-os/references/department-io-contract.md:  non-applicable exception policy, rendered-output requirements, and validator
+entry-skills/yxj-paper-os/references/department-io-contract.md:- Export readiness cannot close on source markdown alone. Rendered output must
+docs/operation-guide.md:| `RenderedSurfaceGateReport` | Review & Governance / Export | final rendered export checks |
+docs/architecture.md:cannot increase evidence strength, and export readiness requires rendered-output
+docs/architecture.md:inspection rather than source-only validation.
+docs/team-handoff-template.md:inspected rendered output rather than source markdown alone.
+docs/migration-notes.md:Migration is source-only unless the paper owner explicitly authorizes live
+docs/production-readiness-checklist.md:- [ ] Rendered export readiness inspects rendered output; source-only checks are

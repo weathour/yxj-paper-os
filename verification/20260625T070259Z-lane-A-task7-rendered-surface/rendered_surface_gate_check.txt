@@ -1,0 +1,4 @@
+CMD: verify rendered surface gate requires rendered output
+PASS entry-skills/yxj-paper-os/templates/rendered-surface-gate-report.yaml: rendered output evidence required and source-only validation forbidden
+PASS skills/yxj-paper-index/templates/rendered-surface-gate-report.yaml: rendered output evidence required and source-only validation forbidden
+PASS rendered_surface_gate_contract

@@ -1,0 +1,6 @@
+CMD: git status --short --branch before evidence commit
+## omx/expression-design-lane-A-20260625T064500Z
+?? verification/20260625T070259Z-lane-A-task7-rendered-surface/
+
+CMD: current HEAD
+0edf6d4
