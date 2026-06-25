@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "evidence_dir": "/home/weathour/plugins/yxj-paper-os/verification/20260625T0713Z-expression-design-integration",
+  "checks": {
+    "validate_scaffold_rerun.json": {
+      "ok": true,
+      "failures": []
+    },
+    "validate_yxj_scaffold_rerun.json": {
+      "ok": true,
+      "failures": []
+    },
+    "validate_yxj_fixtures_rerun.json": {
+      "ok": true,
+      "failures": []
+    },
+    "run_fixture_suite_rerun.json": {
+      "ok": true,
+      "failures": []
+    },
+    "target-valid-expression-fixture-after-repair.json": {
+      "ok": true,
+      "failures": []
+    },
+    "target-invalid-expression-fixture-after-repair.json": {
+      "ok": true,
+      "failures": [
+        "validate_expression_design_object_binding",
+        "validate_narrative_object_binding",
+        "validate_template_object_binding"
+      ]
+    },
+    "py_compile_rerun.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "pyright_cli_rerun.txt": {
+      "ok": true,
+      "excerpt": "0 errors, 0 warnings, 0 informations\n"
+    },
+    "ruff_cli_rerun.txt": {
+      "ok": true,
+      "excerpt": "All checks passed!\n"
+    },
+    "git_diff_check_rerun.txt": {
+      "ok": true,
+      "excerpt": ""
+    },
+    "mirror_diff_rerun.txt": {
+      "ok": true,
+      "excerpt": ""
+    }
+  }
+}

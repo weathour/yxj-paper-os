@@ -20,9 +20,36 @@ validators_run:
   status: pass
 - validator: validate_section_blueprints
   status: pass
+- validator: validate_expression_design_object_binding
+  status: pass
+- validator: validate_cognitive_load_budget
+  status: pass
+- validator: validate_cognitive_load_budget_consumed
+  status: pass
+- validator: validate_explanation_ladder
+  status: pass
+- validator: validate_explanation_ladder_progression
+  status: pass
+- validator: validate_rhetorical_move_matrix
+  status: pass
+- validator: validate_rhetorical_move_matrix_consumed
+  status: pass
+- validator: validate_claim_evidence_visibility_map
+  status: pass
+- validator: validate_claim_evidence_visibility
+  status: pass
+- validator: validate_terminology_register
+  status: pass
+- validator: validate_terminology_register_surface
+  status: pass
 artifacts_checked:
 - task-ledger.yaml
 - artifact-ledger.yaml
+- narrative/cognitive-load-budget-001.yaml
+- narrative/explanation-ladder-001.yaml
+- narrative/rhetorical-move-matrix-001.yaml
+- narrative/claim-evidence-visibility-map-001.yaml
+- narrative/terminology-register-001.yaml
 failures: []
 next_route: state_ingest
 pua_telemetry_checked:

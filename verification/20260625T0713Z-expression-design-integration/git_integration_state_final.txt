@@ -1,0 +1,34 @@
+--- git status before G003 repair commit ---
+## main...origin/main [ahead 8]
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/artifact-ledger.yaml
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/fixture-meta.yaml
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/validator-report.yaml
+ M fixtures/valid/expression-design-object-refs-additive/artifact-ledger.yaml
+ M fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml
+ M fixtures/valid/expression-design-object-refs-additive/validator-report.yaml
+?? fixtures/invalid/invalid-expression-design-replaces-narrative-refs/narrative/
+?? fixtures/valid/expression-design-object-refs-additive/narrative/
+?? verification/20260625T0713Z-expression-design-integration/
+--- recent commits ---
+d31707a (HEAD -> main) task: expression design object refs additive fixtures
+d1bd08c task: lane B expression-design validators
+75653c9 task: verify claim visibility strength guard
+6f8b789 task: verify rendered surface gate guard
+21f2f71 task: verify expression design bundle guard
+6a937c1 task: record lane A routing invariant evidence
+80129c4 task: expression design governance lane A
+04a3b69 feat: strengthen paper governance material gates
+2b14f0e (origin/main) feat: harden paper manager authority governance
+5a76464 Initial private yxj-paper-os plugin
+--- final changed/untracked files for G003 repair ---
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/artifact-ledger.yaml
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/fixture-meta.yaml
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml
+ M fixtures/invalid/invalid-expression-design-replaces-narrative-refs/validator-report.yaml
+ M fixtures/valid/expression-design-object-refs-additive/artifact-ledger.yaml
+ M fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml
+ M fixtures/valid/expression-design-object-refs-additive/validator-report.yaml
+?? fixtures/invalid/invalid-expression-design-replaces-narrative-refs/narrative/
+?? fixtures/valid/expression-design-object-refs-additive/narrative/
+?? verification/20260625T0713Z-expression-design-integration/

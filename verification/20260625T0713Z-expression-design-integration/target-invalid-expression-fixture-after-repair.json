@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "failures": [
+    "validate_expression_design_object_binding",
+    "validate_narrative_object_binding",
+    "validate_template_object_binding"
+  ],
+  "detail": {
+    "fixture": "/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs"
+  }
+}

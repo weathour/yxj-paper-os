@@ -71,6 +71,17 @@ tasks:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+  - validate_terminology_register
+  - validate_terminology_register_surface
   collected_outputs:
   - artifact_id: section-blueprint-001
     path: collected/T132A/section-blueprint.yaml
@@ -97,6 +108,39 @@ tasks:
     status: pass
     report_path: validator-report.yaml
   - validator: validate_template_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_expression_design_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder_progression
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register_surface
     status: pass
     report_path: validator-report.yaml
   state_ingestion:

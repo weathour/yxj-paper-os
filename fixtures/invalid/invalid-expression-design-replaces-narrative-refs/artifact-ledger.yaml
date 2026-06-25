@@ -9,3 +9,48 @@ artifacts:
   status: validated
   validator_refs:
   - validate_section_blueprints
+- artifact_id: cognitive-load-budget-001
+  artifact_type: CognitiveLoadBudget
+  path: narrative/cognitive-load-budget-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_cognitive_load_budget
+- artifact_id: explanation-ladder-001
+  artifact_type: ExplanationLadder
+  path: narrative/explanation-ladder-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_explanation_ladder
+- artifact_id: rhetorical-move-matrix-001
+  artifact_type: RhetoricalMoveMatrix
+  path: narrative/rhetorical-move-matrix-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_rhetorical_move_matrix
+- artifact_id: claim-evidence-visibility-map-001
+  artifact_type: ClaimEvidenceVisibilityMap
+  path: narrative/claim-evidence-visibility-map-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_claim_evidence_visibility_map
+- artifact_id: terminology-register-001
+  artifact_type: TerminologyRegister
+  path: narrative/terminology-register-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_terminology_register

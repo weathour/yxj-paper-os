@@ -1,0 +1,117 @@
+expression_design_object_refs occurrences:
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/task-packet.yaml:73:expression_design_object_refs: []
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/task-packet.yaml:222:expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/manager-handoff-report.md:61:- expression_design_object_refs: []
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:52:expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/rendered-surface-gate-report.yaml:35:expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/expression-design-bundle.yaml:24:  cannot_replace_expression_design_object_refs: true
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/department-io-contract.yaml:150:  expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:600:    'expression_design_object_refs', 'expression_design_applicability',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:927:    refs = task.get('expression_design_object_refs')
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2433:                or task.get('expression_design_object_refs')
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2454:            or task.get('expression_design_object_refs')
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/orchestrator-contract.md:111:the additive `expression_design_object_refs` field; it cannot replace
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/reader-narrative-governance.md:33:packets, `expression_design_object_refs` is additive and must not replace
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/department-io-contract.md:68:- `expression_design_object_refs` when manuscript, figure/table/algorithm/formula,
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/department-io-contract.md:82:bind `expression_design_object_refs` unless the task carries a validator-accepted
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/department-io-contract.md:114:- `expression_design_object_refs` — required for paper-facing manuscript,
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/task-packet.yaml:73:expression_design_object_refs: []
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/task-packet.yaml:222:expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/manager-handoff-report.md:61:- expression_design_object_refs: []
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/main-text-surface-rules.yaml:52:expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/rendered-surface-gate-report.yaml:35:expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/expression-design-bundle.yaml:24:  cannot_replace_expression_design_object_refs: true
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/department-io-contract.yaml:150:  expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:600:    'expression_design_object_refs', 'expression_design_applicability',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:927:    refs = task.get('expression_design_object_refs')
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2433:                or task.get('expression_design_object_refs')
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2454:            or task.get('expression_design_object_refs')
+/home/weathour/plugins/yxj-paper-os/docs/operation-guide.md:101:paper-facing must also declare additive `expression_design_object_refs` or carry
+/home/weathour/plugins/yxj-paper-os/docs/operation-guide.md:120:- `expression_design_object_refs` when paper-facing writing, visual/formal,
+/home/weathour/plugins/yxj-paper-os/docs/architecture.md:114:`expression_design_object_refs`. The optional `ExpressionDesignBundle` is a
+/home/weathour/plugins/yxj-paper-os/docs/team-handoff-template.md:26:`expression_design_object_refs`, whether `reader_load_status` and
+/home/weathour/plugins/yxj-paper-os/docs/production-readiness-checklist.md:53:      `expression_design_object_refs`, and `backflow_route`.
+/home/weathour/plugins/yxj-paper-os/docs/production-readiness-checklist.md:54:- [ ] `expression_design_object_refs` is additive only: paper-facing tasks keep
+/home/weathour/plugins/yxj-paper-os/docs/production-readiness-checklist.md:68:- [ ] `TaskPacketV2Plus` exposes additive `expression_design_object_refs` and
+/home/weathour/plugins/yxj-paper-os/docs/validator-fixtures.md:60:  `expression_design_object_refs` can be added while `narrative_object_refs`,
+/home/weathour/plugins/yxj-paper-os/docs/validator-fixtures.md:90:  `expression_design_object_refs` is additive and cannot stand in for required
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml:186:  expression_design_object_refs:
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml:189:  expression_design_object_refs:
+claim/rendered validator occurrences:
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/task-packet.yaml:92:- validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/task-packet.yaml:248:  - validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/main-text-construction-matrix.yaml:120:- validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:9:- validate_rendered_pdf_surface_text
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:11:- validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:29:- validate_rendered_pdf_surface_text
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/main-text-surface-rules.yaml:31:- validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/rendered-surface-gate-report.yaml:30:- validate_rendered_pdf_surface_text
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/rendered-surface-gate-report.yaml:44:  source_markdown_only_is_failure: true
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/claim-evidence-visibility-map.yaml:11:  can_raise_claim_strength: false
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/claim-evidence-visibility-map.yaml:60:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/claim-evidence-visibility-map.yaml:61:  - validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/expression-design-bundle.yaml:20:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/expression-design-bundle.yaml:36:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/templates/department-io-contract.yaml:66:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:50:    'validate_claim_evidence_visibility_map', 'validate_terminology_register',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:52:    'validate_explanation_ladder_progression', 'validate_claim_evidence_visibility',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:57:    'validate_rendered_pdf_surface_text',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:610:    'validate_claim_evidence_visibility_map', 'validate_terminology_register',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:612:    'validate_explanation_ladder_progression', 'validate_claim_evidence_visibility',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:626:    'validate_claim_evidence_visibility_map',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:1671:        'validator': 'validate_claim_evidence_visibility_map',
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2112:def validate_claim_evidence_visibility_map_material(
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2145:def validate_claim_evidence_visibility_material(
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2461:                failures.append('validate_rendered_pdf_surface_text')
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2553:    if not validate_claim_evidence_visibility_map_material(fixture, artifacts, tasks):
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2554:        failures.append('validate_claim_evidence_visibility_map')
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2555:    if not validate_claim_evidence_visibility_material(fixture, artifacts, tasks):
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py:2556:        failures.append('validate_claim_evidence_visibility')
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/reader-narrative-governance.md:282:- `validate_claim_evidence_visibility_map`
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/reader-narrative-governance.md:291:- `validate_rendered_pdf_surface_text`
+/home/weathour/plugins/yxj-paper-os/entry-skills/yxj-paper-os/references/reader-narrative-governance.md:295:- `validate_claim_evidence_visibility`
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/task-packet.yaml:92:- validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/task-packet.yaml:248:  - validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/main-text-construction-matrix.yaml:120:- validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/main-text-surface-rules.yaml:9:- validate_rendered_pdf_surface_text
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/main-text-surface-rules.yaml:11:- validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/main-text-surface-rules.yaml:29:- validate_rendered_pdf_surface_text
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/main-text-surface-rules.yaml:31:- validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/rendered-surface-gate-report.yaml:30:- validate_rendered_pdf_surface_text
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/rendered-surface-gate-report.yaml:44:  source_markdown_only_is_failure: true
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/claim-evidence-visibility-map.yaml:11:  can_raise_claim_strength: false
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/claim-evidence-visibility-map.yaml:60:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/claim-evidence-visibility-map.yaml:61:  - validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/expression-design-bundle.yaml:20:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/expression-design-bundle.yaml:36:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/templates/department-io-contract.yaml:66:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:50:    'validate_claim_evidence_visibility_map', 'validate_terminology_register',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:52:    'validate_explanation_ladder_progression', 'validate_claim_evidence_visibility',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:57:    'validate_rendered_pdf_surface_text',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:610:    'validate_claim_evidence_visibility_map', 'validate_terminology_register',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:612:    'validate_explanation_ladder_progression', 'validate_claim_evidence_visibility',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:626:    'validate_claim_evidence_visibility_map',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:1671:        'validator': 'validate_claim_evidence_visibility_map',
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2112:def validate_claim_evidence_visibility_map_material(
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2145:def validate_claim_evidence_visibility_material(
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2461:                failures.append('validate_rendered_pdf_surface_text')
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2553:    if not validate_claim_evidence_visibility_map_material(fixture, artifacts, tasks):
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2554:        failures.append('validate_claim_evidence_visibility_map')
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2555:    if not validate_claim_evidence_visibility_material(fixture, artifacts, tasks):
+/home/weathour/plugins/yxj-paper-os/skills/yxj-paper-index/scripts/validate_yxj_paper_os.py:2556:        failures.append('validate_claim_evidence_visibility')
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml:78:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml:79:  - validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml:131:  - validator: validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/task-ledger.yaml:134:  - validator: validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/artifact-ledger.yaml:47:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/narrative/claim-evidence-visibility-map-001.yaml:5:can_raise_claim_strength: false
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/validator-report.yaml:37:- validator: validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/invalid/invalid-expression-design-replaces-narrative-refs/validator-report.yaml:39:- validator: validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml:81:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml:82:  - validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml:134:  - validator: validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/task-ledger.yaml:137:  - validator: validate_claim_evidence_visibility
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/artifact-ledger.yaml:47:  - validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/narrative/claim-evidence-visibility-map-001.yaml:5:can_raise_claim_strength: false
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/validator-report.yaml:37:- validator: validate_claim_evidence_visibility_map
+/home/weathour/plugins/yxj-paper-os/fixtures/valid/expression-design-object-refs-additive/validator-report.yaml:39:- validator: validate_claim_evidence_visibility
