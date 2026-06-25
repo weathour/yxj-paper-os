@@ -45,6 +45,12 @@ KNOWN_VALIDATORS = {
     'validate_template_quant_profile', 'validate_section_function_budget',
     'validate_visual_budget', 'validate_reader_experience_review_gate',
     'validate_narrative_backflow', 'validate_repository_hygiene_report',
+    'validate_expression_design_object_binding', 'validate_cognitive_load_budget',
+    'validate_explanation_ladder', 'validate_rhetorical_move_matrix',
+    'validate_claim_evidence_visibility_map', 'validate_terminology_register',
+    'validate_cognitive_load_budget_consumed', 'validate_rhetorical_move_matrix_consumed',
+    'validate_explanation_ladder_progression', 'validate_claim_evidence_visibility',
+    'validate_terminology_register_surface',
     'validate_main_text_surface_rules', 'validate_no_internal_codes_in_main_prose',
     'validate_no_snake_case_constraints_in_main_prose', 'validate_no_raw_method_ids_in_main_prose',
     'validate_no_defensive_claim_boundary_wall', 'validate_no_bare_citekeys_in_export',
@@ -591,18 +597,92 @@ def validate_pua_telemetry(task: dict[str, Any]) -> bool:
 V2_TASK_FIELDS = {
     'owner_department', 'input_materials', 'expected_output_materials',
     'narrative_object_refs', 'template_object_refs', 'backflow_route',
+    'expression_design_object_refs', 'expression_design_applicability',
+    'expression_design_binding_exception',
 }
 
 V2_VALIDATOR_REFS = {
     'validate_agent_lane_department_binding', 'validate_task_material_io',
     'validate_narrative_object_binding', 'validate_template_object_binding',
     'validate_repository_hygiene_report',
+    'validate_expression_design_object_binding', 'validate_cognitive_load_budget',
+    'validate_explanation_ladder', 'validate_rhetorical_move_matrix',
+    'validate_claim_evidence_visibility_map', 'validate_terminology_register',
+    'validate_cognitive_load_budget_consumed', 'validate_rhetorical_move_matrix_consumed',
+    'validate_explanation_ladder_progression', 'validate_claim_evidence_visibility',
+    'validate_terminology_register_surface',
     'validate_actor_provenance_present', 'validate_actor_provenance_artifact_trusted',
     'validate_effective_actor_identity_resolved', 'validate_derived_sensitivity_classification',
     'validate_manager_direct_inferred_or_declared', 'validate_manager_direct_intervention_declared',
     'validate_manager_direct_independent_review', 'validate_no_manager_self_certification',
     'validate_role_separation_for_paper_facing_tasks', 'validate_manager_direct_handoff_disclosure',
     'validate_completion_state_limited_without_independent_review',
+}
+
+EXPRESSION_DESIGN_OBJECT_VALIDATORS = {
+    'validate_cognitive_load_budget',
+    'validate_explanation_ladder',
+    'validate_rhetorical_move_matrix',
+    'validate_claim_evidence_visibility_map',
+    'validate_terminology_register',
+}
+
+EXPRESSION_DESIGN_REQUIRED_REF_MARKERS: dict[str, set[str]] = {
+    'CognitiveLoadBudget': {'cognitiveloadbudget', 'cognitiveload', 'cognitive-load-budget'},
+    'ExplanationLadder': {'explanationladder', 'explanation-ladder'},
+    'RhetoricalMoveMatrix': {'rhetoricalmovematrix', 'rhetorical-move-matrix'},
+    'ClaimEvidenceVisibilityMap': {
+        'claimevidencevisibilitymap',
+        'claim-evidence-visibility-map',
+        'claimevidencevisibility',
+    },
+    'TerminologyRegister': {'terminologyregister', 'terminology-register'},
+}
+
+PAPER_FACING_EXPRESSION_LANES = {
+    'manuscript-owner',
+    'figure-owner',
+    'review-director',
+    'style-auditor',
+    'export-owner',
+    'final-verifier',
+}
+
+PAPER_FACING_EXPRESSION_DEPARTMENTS = {
+    'manuscript_and_figure_production',
+    'review_and_governance',
+}
+
+PAPER_FACING_EXPRESSION_MARKERS = {
+    'manuscript',
+    'maintext',
+    'main-text',
+    'section',
+    'paragraph',
+    'figure',
+    'table',
+    'algorithm',
+    'formula',
+    'caption',
+    'review',
+    'reader',
+    'rendered',
+    'export',
+    'submission',
+}
+
+RENDERED_SURFACE_REQUIRED_MARKERS = {
+    'manuscriptsectiondraft',
+    'validatedmanuscript',
+    'manuscriptdraft',
+    'figurepackage',
+    'figureplan',
+    'caption',
+    'exportpackage',
+    'exportmanifest',
+    'submissionpackage',
+    'readersurfacereview',
+    'renderedsurface',
 }
 
 
@@ -705,6 +785,10 @@ def refs_are_resolved(refs: Any, task: dict[str, Any], fixture: Path) -> bool:
             f'{ref_id}.yaml',
             f'narrative/{ref_id}.yaml',
             f'templates/{ref_id}.yaml',
+            f'expression-design/{ref_id}.yaml',
+            f'expression-design/{ref_id}',
+            f'expression_design/{ref_id}.yaml',
+            f'expression_design/{ref_id}',
         }
         if ref_id in known_ids or ref_id in known_paths:
             continue
@@ -747,6 +831,150 @@ def validate_template_object_binding(task: dict[str, Any], lane: dict[str, Any] 
     if report_accepts_binding_exception(report, task, 'template', str(exception.get('non_applicable_reason') or '')):
         return True
     return refs_are_resolved(task.get('template_object_refs'), task, fixture)
+
+
+def material_ref_strings(refs: Any) -> list[str]:
+    values: list[str] = []
+    if not isinstance(refs, list):
+        return values
+    for ref in refs:
+        if isinstance(ref, dict):
+            for key in ['artifact_id', 'object_id', 'artifact_type', 'type', 'path']:
+                value = ref.get(key)
+                if isinstance(value, str) and value:
+                    values.append(value)
+        elif isinstance(ref, str) and ref:
+            values.append(ref)
+    return values
+
+
+def task_material_text(task: dict[str, Any]) -> str:
+    values: list[str] = [
+        str(task.get('task_id') or ''),
+        str(task.get('route') or ''),
+        str(task.get('owner_lane') or ''),
+        str(task.get('owner_department') or ''),
+        str(task.get('mission') or ''),
+        str(task.get('pipeline_stage') or ''),
+    ]
+    for field in ['input_materials', 'expected_output_materials', 'expected_output_artifacts', 'collected_outputs']:
+        for item in task.get(field) or []:
+            if not isinstance(item, dict):
+                continue
+            for key in ['artifact_type', 'artifact_id', 'type', 'path']:
+                value = item.get(key)
+                if isinstance(value, str) and value:
+                    values.append(value)
+    return ' '.join(values)
+
+
+def task_requires_expression_design(task: dict[str, Any], lane: dict[str, Any] | None) -> bool:
+    applicability = task.get('expression_design_applicability') or {}
+    if isinstance(applicability, dict):
+        if applicability.get('required') is True or applicability.get('paper_facing') is True:
+            return True
+        if applicability.get('required') is False:
+            return False
+    owner_lane = str(task.get('owner_lane') or '')
+    if owner_lane in PAPER_FACING_EXPRESSION_LANES:
+        return True
+    owner_department = str(task.get('owner_department') or (lane or {}).get('department') or '')
+    if owner_department in PAPER_FACING_EXPRESSION_DEPARTMENTS:
+        text = normalize_material_key(task_material_text(task))
+        if any(normalize_material_key(marker) in text for marker in PAPER_FACING_EXPRESSION_MARKERS):
+            return True
+    return False
+
+
+def expression_design_non_applicable_accepted(task: dict[str, Any], report: dict[str, Any]) -> bool:
+    exception = task.get('expression_design_binding_exception') or {}
+    reason = str(exception.get('non_applicable_reason') or '')
+    if report_accepts_binding_exception(report, task, 'expression_design', reason):
+        return True
+    applicability = task.get('expression_design_applicability') or {}
+    if isinstance(applicability, dict) and applicability.get('required') is False:
+        reason = str(applicability.get('non_applicable_reason') or reason)
+        return report_accepts_binding_exception(report, task, 'expression_design', reason)
+    return False
+
+
+def expression_refs_cover_required_types(refs: Any) -> bool:
+    normalized = {normalize_material_key(value) for value in material_ref_strings(refs)}
+    if not normalized:
+        return False
+    for markers in EXPRESSION_DESIGN_REQUIRED_REF_MARKERS.values():
+        normalized_markers = {normalize_material_key(marker) for marker in markers}
+        if not any(any(marker in value for marker in normalized_markers) for value in normalized):
+            return False
+    return True
+
+
+def expression_design_bundle_declared(refs: Any, task: dict[str, Any]) -> bool:
+    values = material_ref_strings(refs)
+    values.extend(material_ref_strings(task.get('input_materials')))
+    values.extend(material_ref_strings(task.get('expected_output_materials')))
+    values.extend(material_ref_strings(task.get('expected_output_artifacts')))
+    values.extend(material_ref_strings(task.get('collected_outputs')))
+    return any('expressiondesignbundle' in normalize_material_key(value) for value in values)
+
+
+def validate_expression_design_object_binding(
+    task: dict[str, Any],
+    lane: dict[str, Any] | None,
+    fixture: Path,
+    report: dict[str, Any],
+) -> bool:
+    refs = task.get('expression_design_object_refs')
+    validator_refs = set(normalize_validator_refs(task, []))
+    required = task_requires_expression_design(task, lane)
+    if not required and not refs:
+        return True
+    if expression_design_non_applicable_accepted(task, report):
+        return True
+    if 'validate_expression_design_object_binding' not in validator_refs:
+        return False
+    if not refs_are_resolved(refs, task, fixture):
+        return False
+    if not expression_refs_cover_required_types(refs):
+        return False
+    if lane and lane.get('narrative_binding_required') and not task.get('narrative_object_refs'):
+        return False
+    if lane and lane.get('template_binding_required') and not task.get('template_object_refs'):
+        return False
+    if not EXPRESSION_DESIGN_OBJECT_VALIDATORS.issubset(validator_refs):
+        return False
+    if expression_design_bundle_declared(refs, task) and not EXPRESSION_DESIGN_OBJECT_VALIDATORS.issubset(validator_refs):
+        return False
+    return True
+
+
+def task_requires_rendered_surface_gate(task: dict[str, Any], lane: dict[str, Any] | None) -> bool:
+    applicability = task.get('expression_design_applicability') or {}
+    if isinstance(applicability, dict):
+        if applicability.get('rendered_surface_required') is True:
+            return True
+        if applicability.get('rendered_surface_required') is False:
+            return False
+    if not task_requires_expression_design(task, lane):
+        return False
+    owner_lane = str(task.get('owner_lane') or '')
+    if owner_lane in {'review-director', 'style-auditor', 'export-owner', 'final-verifier'}:
+        return True
+    text = normalize_material_key(task_material_text(task))
+    return any(marker in text for marker in RENDERED_SURFACE_REQUIRED_MARKERS)
+
+
+def task_declares_rendered_surface_gate(task: dict[str, Any], fixture: Path) -> bool:
+    spec = MATERIAL_OBJECT_SPECS['RenderedSurfaceGateReport']
+    for field in ['input_materials', 'expected_output_materials', 'expected_output_artifacts', 'collected_outputs']:
+        for item in task.get(field) or []:
+            if not isinstance(item, dict):
+                continue
+            if not material_spec_matches_entry(spec, item):
+                continue
+            path = item.get('path')
+            return isinstance(path, str) and bool(path) and (fixture / path).exists()
+    return False
 
 
 def hygiene_report_paths(task: dict[str, Any], artifacts: dict[str, Any]) -> list[str]:
@@ -1407,6 +1635,51 @@ MATERIAL_OBJECT_SPECS: dict[str, dict[str, Any]] = {
         'validator': 'validate_main_text_construction_matrix_refs',
         'aliases': {'MainTextConstructionMatrix', 'main-text-construction-matrix', 'main_text_construction_matrix'},
     },
+    'CognitiveLoadBudget': {
+        'filenames': {'cognitive-load-budget.yaml'},
+        'schema_version': 'yxj-paper-os/cognitive-load-budget/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_cognitive_load_budget',
+        'aliases': {'CognitiveLoadBudget', 'cognitive-load-budget', 'cognitive_load_budget'},
+    },
+    'ExplanationLadder': {
+        'filenames': {'explanation-ladder.yaml'},
+        'schema_version': 'yxj-paper-os/explanation-ladder/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_explanation_ladder',
+        'aliases': {'ExplanationLadder', 'explanation-ladder', 'explanation_ladder'},
+    },
+    'RhetoricalMoveMatrix': {
+        'filenames': {'rhetorical-move-matrix.yaml'},
+        'schema_version': 'yxj-paper-os/rhetorical-move-matrix/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_rhetorical_move_matrix',
+        'aliases': {'RhetoricalMoveMatrix', 'rhetorical-move-matrix', 'rhetorical_move_matrix'},
+    },
+    'ClaimEvidenceVisibilityMap': {
+        'filenames': {'claim-evidence-visibility-map.yaml'},
+        'schema_version': 'yxj-paper-os/claim-evidence-visibility-map/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_claim_evidence_visibility_map',
+        'aliases': {'ClaimEvidenceVisibilityMap', 'claim-evidence-visibility-map', 'claim_evidence_visibility_map'},
+    },
+    'TerminologyRegister': {
+        'filenames': {'terminology-register.yaml'},
+        'schema_version': 'yxj-paper-os/terminology-register/v1',
+        'owner_fields': {'owning_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect'},
+        'validator': 'validate_terminology_register',
+        'aliases': {'TerminologyRegister', 'terminology-register', 'terminology_register'},
+    },
     'ClaimCitationCapsule': {
         'filenames': {'claim-citation-capsule.yaml'},
         'schema_version': 'yxj-paper-os/claim-citation-capsule/v1',
@@ -1658,6 +1931,308 @@ def validate_main_text_construction_matrix_material(
     return True
 
 
+def validate_cognitive_load_budget_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['CognitiveLoadBudget'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        if not has_text(data.get('budget_id') or data.get('artifact_id')):
+            return False
+        sections = data.get('section_budgets') or data.get('sections')
+        if not isinstance(sections, list) or not sections:
+            return False
+        forbidden = data.get('forbidden_overload_rules') or data.get('forbidden_rules')
+        if not non_empty_list(forbidden):
+            return False
+        for section in sections:
+            if not isinstance(section, dict):
+                return False
+            if not has_text(section.get('section_id') or section.get('section')):
+                return False
+            limits = section.get('load_limits') or section.get('budget') or section.get('reader_load_budget')
+            if not (non_empty_dict(limits) or non_empty_list(limits)):
+                return False
+            if not (section.get('forbidden_overload_rules') or forbidden):
+                return False
+    return True
+
+
+def validate_cognitive_load_budget_consumed_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['CognitiveLoadBudget'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        consumers = data.get('downstream_consumers') or data.get('consumers') or data.get('downstream_task_refs')
+        if not non_empty_list(consumers):
+            return False
+    return True
+
+
+def validate_explanation_ladder_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ExplanationLadder'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        if not has_text(data.get('ladder_id') or data.get('artifact_id')):
+            return False
+        steps = data.get('steps') or data.get('ladder') or data.get('rows')
+        if not isinstance(steps, list) or len(steps) < 3:
+            return False
+        for step in steps:
+            if not isinstance(step, dict):
+                return False
+            if not has_text(step.get('stage') or step.get('level')):
+                return False
+            if not has_text(step.get('reader_explanation') or step.get('explanation') or step.get('planned_text')):
+                return False
+    return True
+
+
+def validate_explanation_ladder_progression_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ExplanationLadder'], artifacts, tasks)
+    if not items:
+        return True
+    required = {'intuition', 'mechanism', 'evidence'}
+    forbidden_jump = {'claim', 'resultclaim', 'conclusion'}
+    for _, data in items:
+        if data is None:
+            return False
+        steps = data.get('steps') or data.get('ladder') or data.get('rows') or []
+        stage_names = [normalize_material_key(step.get('stage') or step.get('level')) for step in steps if isinstance(step, dict)]
+        if not stage_names:
+            return False
+        if not all(any(req in stage for stage in stage_names) for req in required):
+            return False
+        if stage_names[0] in forbidden_jump:
+            return False
+        if any('raw' in stage or 'internal' in stage or 'formal' in stage for stage in stage_names[:1]):
+            if len(stage_names) < 4:
+                return False
+            before_claim = stage_names[: max((i for i, s in enumerate(stage_names) if 'claim' in s), default=len(stage_names))]
+            if not all(any(req in stage for stage in before_claim) for req in required):
+                return False
+    return True
+
+
+def validate_rhetorical_move_matrix_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['RhetoricalMoveMatrix'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        rows = data.get('rows') or data.get('moves')
+        if not isinstance(rows, list) or not rows:
+            return False
+        for row in rows:
+            if not isinstance(row, dict):
+                return False
+            for field in ['reader_question', 'object', 'granularity', 'planned_text_move', 'final_text_check']:
+                if not has_text(row.get(field)):
+                    return False
+            anchor = row.get('evidence_anchor')
+            if not (has_text(anchor) or (isinstance(anchor, dict) and (has_text(anchor.get('artifact_id')) or has_text(anchor.get('source'))))):
+                return False
+    return True
+
+
+def validate_rhetorical_move_matrix_consumed_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['RhetoricalMoveMatrix'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        consumers = data.get('downstream_consumers') or data.get('consumers') or data.get('downstream_task_refs')
+        if not non_empty_list(consumers):
+            return False
+    return True
+
+
+CLAIM_STRENGTH_ORDER = {
+    'unsupported': 0,
+    'unresolved': 0,
+    'hypothesis': 1,
+    'speculative': 1,
+    'observed': 2,
+    'descriptive': 2,
+    'bounded': 3,
+    'qualified': 3,
+    'supported': 4,
+    'strong': 5,
+    'proven': 6,
+    'definitive': 6,
+}
+
+
+def claim_strength_rank(value: Any) -> int | None:
+    normalized = normalize_material_key(value)
+    if not normalized:
+        return None
+    for key, rank in CLAIM_STRENGTH_ORDER.items():
+        if normalize_material_key(key) == normalized:
+            return rank
+    return None
+
+
+def claim_visibility_rows(data: dict[str, Any]) -> list[Any]:
+    return data.get('claims') or data.get('rows') or data.get('claim_visibility_rows') or []
+
+
+def validate_claim_evidence_visibility_map_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ClaimEvidenceVisibilityMap'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        if not has_text(data.get('map_id') or data.get('artifact_id')):
+            return False
+        rows = claim_visibility_rows(data)
+        if not isinstance(rows, list) or not rows:
+            return False
+        for row in rows:
+            if not isinstance(row, dict):
+                return False
+            if not has_text(row.get('claim_id') or row.get('claim')):
+                return False
+            if not has_text(row.get('support_location') or row.get('location') or row.get('manuscript_location')):
+                return False
+            refs = row.get('evidence_refs') or row.get('method_refs') or row.get('evidence_method_refs')
+            if not non_empty_list(refs):
+                return False
+            if not has_text(row.get('allowed_strength') or row.get('allowed_claim_strength')):
+                return False
+            if not non_empty_list(row.get('forbidden_wording') or row.get('forbidden_wording_patterns')):
+                return False
+    return True
+
+
+def validate_claim_evidence_visibility_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['ClaimEvidenceVisibilityMap'], artifacts, tasks)
+    if not items:
+        return True
+    upgrade_keys = {'claim_strength_override', 'upgraded_claim_strength', 'promotion_status', 'can_strengthen_claim'}
+    for _, data in items:
+        if data is None:
+            return False
+        if any(data.get(key) in {True, 'promoted', 'upgrade', 'upgraded'} for key in upgrade_keys):
+            return False
+        for row in claim_visibility_rows(data):
+            if not isinstance(row, dict):
+                return False
+            if any(row.get(key) in {True, 'promoted', 'upgrade', 'upgraded'} for key in upgrade_keys):
+                return False
+            refs = row.get('evidence_refs') or row.get('method_refs') or row.get('evidence_method_refs') or []
+            normalized_refs = ' '.join(normalize_material_key(ref) for ref in material_ref_strings(refs))
+            if not normalized_refs:
+                return False
+            if not any(marker in normalized_refs for marker in ['evidence', 'method', 'source', 'result', 'claimcitation', 'resultpackage']):
+                return False
+            allowed = row.get('allowed_strength') or row.get('allowed_claim_strength')
+            evidence = row.get('evidence_strength') or row.get('source_strength') or row.get('support_strength')
+            allowed_rank = claim_strength_rank(allowed)
+            evidence_rank = claim_strength_rank(evidence)
+            if evidence_rank is not None and allowed_rank is not None and allowed_rank > evidence_rank:
+                return False
+            allowed_norm = normalize_material_key(allowed)
+            if allowed_norm in {'upgrade', 'upgraded', 'strongerthanevidence', 'promoted'}:
+                return False
+    return True
+
+
+def validate_terminology_register_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['TerminologyRegister'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        entries = data.get('terms') or data.get('entries') or data.get('terminology')
+        if not isinstance(entries, list) or not entries:
+            return False
+        for entry in entries:
+            if not isinstance(entry, dict):
+                return False
+            if not has_text(entry.get('term') or entry.get('raw_term')):
+                return False
+            if entry.get('main_prose_allowed') is None and entry.get('allowed_in_main_prose') is None:
+                return False
+            if not has_text(entry.get('reader_facing_term') or entry.get('replacement') or entry.get('surface_term')):
+                return False
+    return True
+
+
+def validate_terminology_register_surface_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items = material_data_items(fixture, MATERIAL_OBJECT_SPECS['TerminologyRegister'], artifacts, tasks)
+    if not items:
+        return True
+    for _, data in items:
+        if data is None:
+            return False
+        entries = data.get('terms') or data.get('entries') or data.get('terminology') or []
+        for entry in entries:
+            if not isinstance(entry, dict):
+                return False
+            term = str(entry.get('term') or entry.get('raw_term') or '')
+            allowed = entry.get('main_prose_allowed')
+            if allowed is None:
+                allowed = entry.get('allowed_in_main_prose')
+            raw_like = any(pattern.search(term) for pattern in INTERNAL_CODE_PATTERNS)
+            raw_like = raw_like or bool(re.search(r'[A-Za-z]+_[A-Za-z0-9_]+', term))
+            if raw_like and allowed is True:
+                return False
+            if raw_like and not has_text(entry.get('reader_facing_term') or entry.get('replacement') or entry.get('surface_term')):
+                return False
+    return True
+
+
 def validate_claim_citation_capsule_material(
     fixture: Path,
     artifacts: dict[str, Any] | None = None,
@@ -1853,6 +2428,13 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
                 required_v2_refs.add('validate_narrative_object_binding')
             if lane and lane.get('template_binding_required'):
                 required_v2_refs.add('validate_template_object_binding')
+            if (
+                'validate_expression_design_object_binding' in refs
+                or task.get('expression_design_object_refs')
+                or task.get('expression_design_applicability')
+                or task_requires_expression_design(task, lane)
+            ):
+                required_v2_refs.add('validate_expression_design_object_binding')
             if not required_v2_refs.issubset(set(refs)):
                 failures.append('validate_validator_reference_closure')
         if is_v2 or 'validate_agent_lane_department_binding' in refs:
@@ -1867,6 +2449,16 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
         if is_v2 or 'validate_template_object_binding' in refs:
             if not validate_template_object_binding(task, lane, fixture, report):
                 failures.append('validate_template_object_binding')
+        if (
+            'validate_expression_design_object_binding' in refs
+            or task.get('expression_design_object_refs')
+            or task.get('expression_design_applicability')
+            or task_requires_expression_design(task, lane)
+        ):
+            if not validate_expression_design_object_binding(task, lane, fixture, report):
+                failures.append('validate_expression_design_object_binding')
+            if task_requires_rendered_surface_gate(task, lane) and not task_declares_rendered_surface_gate(task, fixture):
+                failures.append('validate_rendered_pdf_surface_text')
         if 'validate_repository_hygiene_report' in refs:
             if not validate_repository_hygiene_report(task, fixture, artifacts):
                 failures.append('validate_repository_hygiene_report')
@@ -1946,6 +2538,26 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
         failures.append('validate_reviewer_question_map')
     if not validate_main_text_construction_matrix_material(fixture, artifacts, tasks):
         failures.append('validate_main_text_construction_matrix_refs')
+    if not validate_cognitive_load_budget_material(fixture, artifacts, tasks):
+        failures.append('validate_cognitive_load_budget')
+    if not validate_cognitive_load_budget_consumed_material(fixture, artifacts, tasks):
+        failures.append('validate_cognitive_load_budget_consumed')
+    if not validate_explanation_ladder_material(fixture, artifacts, tasks):
+        failures.append('validate_explanation_ladder')
+    if not validate_explanation_ladder_progression_material(fixture, artifacts, tasks):
+        failures.append('validate_explanation_ladder_progression')
+    if not validate_rhetorical_move_matrix_material(fixture, artifacts, tasks):
+        failures.append('validate_rhetorical_move_matrix')
+    if not validate_rhetorical_move_matrix_consumed_material(fixture, artifacts, tasks):
+        failures.append('validate_rhetorical_move_matrix_consumed')
+    if not validate_claim_evidence_visibility_map_material(fixture, artifacts, tasks):
+        failures.append('validate_claim_evidence_visibility_map')
+    if not validate_claim_evidence_visibility_material(fixture, artifacts, tasks):
+        failures.append('validate_claim_evidence_visibility')
+    if not validate_terminology_register_material(fixture, artifacts, tasks):
+        failures.append('validate_terminology_register')
+    if not validate_terminology_register_surface_material(fixture, artifacts, tasks):
+        failures.append('validate_terminology_register_surface')
     if not validate_claim_citation_capsule_material(fixture, artifacts, tasks):
         failures.append('validate_claim_citation_capsule_support')
     if not validate_result_package_material(fixture, artifacts, tasks):

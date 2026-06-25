@@ -70,6 +70,27 @@ narrative_object_refs:
 template_object_refs:
 - template-quant-profile-001
 evidence_object_refs: []
+expression_design_object_refs: []
+expression_design_applicability:
+  paper_facing: false
+  required: false
+  rendered_surface_required: false
+  required_when:
+  - manuscript_sections
+  - figures_tables_algorithms_formulas
+  - review_outputs
+  - export_surfaces
+  non_applicable_reason: non-paper-facing route template; paper-facing tasks must override and bind expression-design objects
+expression_design_binding_exception:
+  non_applicable_reason: null
+  accepted_by_validator_report: false
+expression_design_validator_refs_when_applicable:
+- validate_expression_design_object_binding
+- validate_cognitive_load_budget
+- validate_explanation_ladder
+- validate_rhetorical_move_matrix
+- validate_claim_evidence_visibility_map
+- validate_terminology_register
 backflow_route:
   on_validator_failure: review_and_governance
   on_reader_experience_failure: paper_architecture_and_narrative
