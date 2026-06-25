@@ -1,0 +1,7 @@
+CMD: grep non-bypass wording
+entry-skills/yxj-paper-os/references/reader-narrative-governance.md:task, but it is only a manifest. It cannot bypass independent typed-object
+entry-skills/yxj-paper-os/references/department-io-contract.md:- `ExpressionDesignBundle` is only an index. It cannot replace the five typed
+docs/operation-guide.md:`ExpressionDesignBundle` may index the typed objects, but cannot bypass their
+docs/operation-guide.md:| `ExpressionDesignBundle` | Paper Architecture & Narrative | optional index only; cannot replace typed-object refs or validators |
+docs/architecture.md:manifest only; it cannot replace typed refs or validators. Claim visibility
+docs/production-readiness-checklist.md:- [ ] ExpressionDesignBundle, when used, is only a manifest and cannot bypass

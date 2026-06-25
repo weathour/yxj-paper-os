@@ -1,0 +1,6 @@
+CMD: git status --short --branch before evidence commit
+## omx/expression-design-lane-A-20260625T064500Z
+?? verification/20260625T070205Z-lane-A-task5-bundle/
+
+CMD: current HEAD
+e75a7ac

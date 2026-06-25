@@ -1,0 +1,4 @@
+CMD: verify ExpressionDesignBundle cannot bypass typed validators
+PASS entry-skills/yxj-paper-os/templates/expression-design-bundle.yaml: typed refs and independent validators required
+PASS skills/yxj-paper-index/templates/expression-design-bundle.yaml: typed refs and independent validators required
+PASS bundle_non_bypass_contract
