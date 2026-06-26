@@ -1,0 +1,18 @@
+schema_version: yxj-paper-os/section-move-plan/v1
+artifact_id: section-move-plan-template
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+paper_type: research
+section: introduction
+language: zh-to-en
+journal: nature
+narrative_object_refs:
+- reader-spine-001
+evidence_refs:
+- evidence-bank-001
+move_sequence:
+- move_id: m1
+  purpose: establish broad problem
+  evidence_ref: evidence-bank-001
+validator_refs:
+- validate_section_move_plan

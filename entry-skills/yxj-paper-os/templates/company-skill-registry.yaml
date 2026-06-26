@@ -1,0 +1,166 @@
+schema_version: yxj-paper-os/company-skill-registry/v1
+artifact_id: company-skill-registry-template
+owning_department: pmo
+owner_lane: skill-registry-owner
+registry_scope: hidden_internal_sop_capabilities
+public_surface_allowed: false
+single_public_entry: yxj-paper-os
+capabilities:
+- capability_id: nature-reader-absorption
+  owner_department: evidence_and_method
+  owner_lane: evidence-curator
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - NatureSourceInventory
+  produces:
+  - PaperReaderPackage
+  validator_refs:
+  - validate_paper_reader_package
+  authority_limits:
+  - no_public_command
+  - no_state_transition_authority
+- capability_id: nature-academic-search-absorption
+  owner_department: evidence_and_method
+  owner_lane: sota-mapper
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - NatureSourceInventory
+  produces:
+  - SearchStrategyDossier
+  validator_refs:
+  - validate_search_strategy_dossier
+  authority_limits:
+  - no_public_command
+  - no_external_search_without_gate
+- capability_id: nature-citation-absorption
+  owner_department: evidence_and_method
+  owner_lane: citation-banker
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - SearchStrategyDossier
+  produces:
+  - CitationVerificationReport
+  validator_refs:
+  - validate_citation_verification_report
+  authority_limits:
+  - no_metadata_only_support
+- capability_id: nature-writing-absorption
+  owner_department: paper_architecture_and_narrative
+  owner_lane: paper-architect
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - ReaderSpineBrief
+  produces:
+  - SectionMovePlan
+  - JournalStyleProfile
+  validator_refs:
+  - validate_section_move_plan
+  - validate_journal_style_profile
+  authority_limits:
+  - no_claim_invention
+- capability_id: nature-polishing-absorption
+  owner_department: manuscript_and_figure_production
+  owner_lane: manuscript-owner
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - SectionMovePlan
+  produces:
+  - PolishingRepairReport
+  validator_refs:
+  - validate_polishing_repair_report
+  authority_limits:
+  - no_claim_strength_upgrade
+- capability_id: nature-data-absorption
+  owner_department: evidence_and_method
+  owner_lane: method-verifier
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - ResultPackage
+  produces:
+  - DataAvailabilityPlan
+  validator_refs:
+  - validate_data_availability_plan
+  authority_limits:
+  - no_invented_identifier
+- capability_id: nature-reviewer-absorption
+  owner_department: review_and_governance
+  owner_lane: review-director
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - manuscript-draft
+  produces:
+  - ReviewerPanelReport
+  validator_refs:
+  - validate_reviewer_panel_report
+  authority_limits:
+  - no_editorial_decision
+- capability_id: nature-response-absorption
+  owner_department: review_and_governance
+  owner_lane: review-director
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - ReviewerPanelReport
+  produces:
+  - ResponseActionMap
+  validator_refs:
+  - validate_response_action_map
+  authority_limits:
+  - no_invented_line_numbers
+- capability_id: nature-paper2ppt-absorption
+  owner_department: manuscript_and_figure_production
+  owner_lane: manuscript-owner
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - ReaderSpineBrief
+  - NatureFigureContract
+  produces:
+  - PresentationPlan
+  validator_refs:
+  - validate_presentation_plan
+  authority_limits:
+  - not_export_primary_owner
+- capability_id: nature-paper-to-patent-absorption
+  owner_department: manuscript_and_figure_production
+  owner_lane: docs-writer
+  public_surface_allowed: false
+  hidden_manager: false
+  allowed_callers:
+  - yxj-paper-os
+  consumes:
+  - SourceMap
+  produces:
+  - PatentDraftBoundary
+  validator_refs:
+  - validate_patent_draft_boundary
+  authority_limits:
+  - drafting_aid_only
+  - not_legal_opinion
+validator_refs:
+- validate_company_skill_registry

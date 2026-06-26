@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/cognitive-load-budget/v1
+budget_id: cognitive-load-budget-001
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+section_budgets:
+- section_id: method-overview
+  reader_load_budget:
+    max_new_terms: 3
+    max_internal_codes: 0
+  forbidden_overload_rules:
+  - Do not expose fixture IDs or snake_case constraints in main prose.
+forbidden_overload_rules:
+- No raw validator names in reader-facing prose.
+downstream_consumers:
+- T132A
+- T132B

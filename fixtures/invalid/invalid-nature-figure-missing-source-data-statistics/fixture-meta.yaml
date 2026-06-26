@@ -1,0 +1,3 @@
+expected_failures:
+- validate_figure_source_data_statistics
+allowed_extra_failures: []

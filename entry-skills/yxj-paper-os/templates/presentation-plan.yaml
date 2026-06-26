@@ -1,0 +1,31 @@
+schema_version: yxj-paper-os/presentation-plan/v1
+artifact_id: presentation-plan-template
+owning_department: manuscript_and_figure_production
+owner_lane: manuscript-owner
+canonical_department_id: manuscript_and_figure_production
+narrative_object_refs:
+- reader-spine-001
+- section-move-plan-001
+expression_design_object_refs:
+- cognitive-load-budget-001
+- explanation-ladder-001
+- rhetorical-move-matrix-001
+- claim-evidence-visibility-map-001
+- terminology-register-001
+figure_refs:
+- nature-figure-contract-001
+evidence_refs:
+- evidence-bank-001
+presentation_narrative_arc: problem-to-solution
+slides:
+- slide_id: s1
+  purpose: motivation
+  speaker_notes: Explain the core problem and evidence boundary.
+self_review:
+  status: pass
+  checks:
+  - text budget
+  - figure legibility
+  - non-template design
+validator_refs:
+- validate_presentation_plan

@@ -10,6 +10,48 @@ Treat figures as evidence-bearing artifacts.
 
 Each figure plan must include source data locator, generation script or manual provenance, caption claim anchors, privacy policy, and validation status. Route unsupported visual claims to `$yxj-paper-evidence` or `$yxj-paper-review`.
 
+## Nature-grade figure governance
+
+When a manuscript figure is intended for final paper/export use, treat
+“Nature-grade” quality as a managed material-object pipeline, not as taste
+advice after drawing. The figure-owner must consume the paper's reader/narrative
+objects and expression-design objects, then produce or collect these additive
+materials before closure:
+
+1. `NatureFigureContract` — one core conclusion, reader question, figure
+   archetype, hero/support panel hierarchy, panel map, claim/evidence refs, and
+   required narrative/template/expression-design refs.
+2. `NatureFigureAestheticProfile` — composition archetype, hero-panel
+   exception policy, semantic palette roles, editable typography, lowercase
+   panel labels, legend strategy, white-background/export constraints, and
+   expression-design refs.
+3. `NaturePanelEvidenceMap` — each panel has a unique reader question, evidence
+   role, supported claim ids, evidence refs, statistics ref, and image-integrity
+   ref.
+4. `FigureBackendRoute` — exactly one final source of truth
+   (`tikz_cps_tikz`, script route, extracted asset, or manual-review-only route);
+   backend mixing is prohibited except for non-visual utilities such as checksums.
+5. `FigureSourceDataStatistics` — source-data/statistics block for measured
+   panels, or an explicit `conceptual:true` no-data rationale for deterministic
+   conceptual/vector schematics.
+6. `FigureImageIntegrityRecord` — image/raster processing provenance when
+   applicable, or validator-accepted `not_applicable` for pure deterministic
+   vector/conceptual figures.
+7. `NatureCaptionLegendBrief` — title, present-tense panel descriptions,
+   statistics/source-data statements, permitted claim-closing sentence, privacy
+   surface, and attribution/permission note.
+8. `NatureFigureQAReport` — independent visual/aesthetic/evidence/caption/export
+   and rendered-surface QA with explicit backflow routes.
+9. `FigureExportBundle` — editable source, SVG/PDF plus preview/raster export,
+   dimensions, legibility, manifest refs, and hash provenance.
+
+The aesthetic guarantee comes from objective gates: archetype selection before
+drawing, hero/support hierarchy, semantic color roles, restrained typography,
+direct-label/legend policy, panel-label discipline, editable text, rendered
+surface inspection, and independent QA. Do not let a worker self-certify “good
+taste”; failing aesthetic/evidence/caption/export checks route to
+figure-owner, evidence/method, manuscript-owner, export-owner, or review lanes.
+
 ## Required gates
 
 Do not treat drawing as complete until the figure has passed:
@@ -55,13 +97,21 @@ If those files are not present, still create the same fields locally in `FIGURE_
 For TikZ/cps-tikz figures:
 
 1. Create or update the `FIGURE_INSTRUCTION.md` design card.
-2. Create or update `README.md` with figure ID, manuscript slot, route, supported claim, allowed caption claims, non-claims, source files, generated artifacts, and rerun command.
-3. Create or update `data_manifest.json`; use an explicit `conceptual: true` and `no_data_rationale` for non-data schematics.
-4. Implement the figure in deterministic TikZ source. Prefer shared semantic colors/styles/macros over ad hoc colors.
-5. Compile standalone PDF and convert to SVG/PNG when used by the manuscript/export package.
-6. Visually inspect the rendered PNG/PDF for clipping, unreadable text, overlaps, arrow crossings, wrong direction, and target-column fit.
-7. Insert or update the manuscript `\includegraphics`, label, and caption only after standalone validation.
-8. Rebuild the manuscript and rerun claim/evidence/export/ledger checks when the figure affects the paper package.
+2. Bind the figure to the Nature-grade material objects above when the figure is
+   final/export-facing; at minimum record `NatureFigureContract`,
+   `NatureFigureAestheticProfile`, `NaturePanelEvidenceMap`,
+   `FigureBackendRoute`, `FigureSourceDataStatistics`,
+   `FigureImageIntegrityRecord`, `NatureCaptionLegendBrief`,
+   `NatureFigureQAReport`, and `FigureExportBundle` refs. Conceptual/vector
+   figures still need explicit no-data and image-integrity not-applicable
+   records.
+3. Create or update `README.md` with figure ID, manuscript slot, route, supported claim, allowed caption claims, non-claims, source files, generated artifacts, and rerun command.
+4. Create or update `data_manifest.json`; use an explicit `conceptual: true` and `no_data_rationale` for non-data schematics.
+5. Implement the figure in deterministic TikZ source. Prefer shared semantic colors/styles/macros over ad hoc colors.
+6. Compile standalone PDF and convert to SVG/PNG when used by the manuscript/export package.
+7. Visually inspect the rendered PNG/PDF for clipping, unreadable text, overlaps, arrow crossings, wrong direction, and target-column fit.
+8. Insert or update the manuscript `\includegraphics`, label, and caption only after standalone validation.
+9. Rebuild the manuscript and rerun claim/evidence/export/ledger checks when the figure affects the paper package.
 
 ## Hard prohibitions
 

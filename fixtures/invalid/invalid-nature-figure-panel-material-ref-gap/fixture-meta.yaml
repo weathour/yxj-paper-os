@@ -1,0 +1,3 @@
+expected_failures:
+- validate_panel_evidence_map
+allowed_extra_failures: []

@@ -12,5 +12,12 @@ items:
   - ReaderSpineBrief
   - ObjectRepresentationMatrix
   evidence_refs: []
+  nature_grade_required: true
+  nature_figure_contract_ref: nature-figure-contract-001
+  aesthetic_profile_ref: nature-figure-aesthetic-profile-001
+  panel_evidence_map_ref: nature-panel-evidence-map-001
+  backend_route_ref: figure-backend-route-001
+  expected_figure_package_refs:
+  - figure-export-bundle-001
 validator_refs:
 - validate_visual_budget

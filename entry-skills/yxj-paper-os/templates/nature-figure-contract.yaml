@@ -1,0 +1,49 @@
+schema_version: yxj-paper-os/nature-figure-contract/v1
+artifact_id: nature-figure-contract-<figure-id>
+status: draft
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+nature_grade_required: true
+figure_id: fig-001
+target_section: method
+core_conclusion: One sentence claim the figure must defend.
+reader_question: What should the reader understand from this figure?
+figure_archetype: schematic_led_composite
+panel_hierarchy:
+  hero_panel_id: fig-001a
+  supporting_panel_ids:
+    - fig-001b
+  roles:
+    primary:
+      - fig-001a
+    validation:
+      - fig-001b
+panel_map:
+  - panel_id: fig-001a
+    reader_question: How does the mechanism work?
+    evidence_role: primary_mechanism
+    supports_claim_ids:
+      - claim-001
+    evidence_refs:
+      - evidence-001
+narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+template_object_refs:
+  - template-profile-001
+expression_design_object_refs:
+  - cognitive-load-budget-001
+  - explanation-ladder-001
+  - rhetorical-move-matrix-001
+  - claim-evidence-visibility-map-001
+  - terminology-register-001
+evidence_refs:
+  - evidence-001
+source_data_refs: []
+reviewer_risks:
+  - Panel evidence must not overclaim beyond source data.
+validator_refs:
+  - validate_nature_figure_contract
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  - validate_expression_design_object_binding

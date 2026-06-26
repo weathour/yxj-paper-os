@@ -1,0 +1,17 @@
+schema_version: yxj-paper-os/journal-style-profile/v1
+artifact_id: journal-style-profile-template
+owning_department: paper_architecture_and_narrative
+owner_lane: exemplar-learner
+journal: nature
+source_basis:
+- nature-writing/manifest.yaml
+- nature-polishing/manifest.yaml
+style_axes:
+  paper_type: research
+  language: zh-to-en
+diction_rules:
+- hedge claims to evidence strength
+forbidden_patterns:
+- unsupported novelty inflation
+validator_refs:
+- validate_journal_style_profile

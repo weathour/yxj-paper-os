@@ -1,0 +1,26 @@
+schema_version: yxj-paper-os/search-strategy-dossier/v1
+artifact_id: search-strategy-dossier-001
+owning_department: evidence_and_method
+owner_lane: sota-mapper
+workflow: multi-source-search
+queries:
+- query: zero trust platoon reconfiguration
+  source_targets:
+  - PubMed
+  - CrossRef
+  - arXiv
+  rationale: find claim support
+source_tiers:
+  T1:
+  - publisher
+  - doi
+  T2:
+  - index
+  T3:
+  - web_fallback
+deduplication:
+  status: planned
+  method: doi-title-year
+failure_log: []
+validator_refs:
+- validate_search_strategy_dossier

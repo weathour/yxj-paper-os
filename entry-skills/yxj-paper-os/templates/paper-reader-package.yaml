@@ -1,0 +1,19 @@
+schema_version: yxj-paper-os/paper-reader-package/v1
+artifact_id: paper-reader-package-template
+owning_department: evidence_and_method
+owner_lane: evidence-curator
+source_format: doi-arxiv
+source_blocks:
+- source_id: S1
+  anchor: doi:example
+  text_summary: source-grounded block
+  grounding_status: grounded
+figure_table_map:
+- asset_id: F1
+  near_block: S1
+  caption_summary: figure/table mapped near relevant prose
+exact_source_anchors_required: true
+summary_only: false
+bilingual_reader_required: true
+validator_refs:
+- validate_paper_reader_package

@@ -1,0 +1,23 @@
+schema_version: yxj-paper-os/nature-figure-qa-report/v1
+artifact_id: nature-figure-qa-report-<figure-id>
+status: draft
+owning_department: review_and_governance
+owner_lane: review-director
+figure_id: fig-001
+checks:
+  visual_qa: pass
+  aesthetic_qa: pass
+  evidence_qa: pass
+  caption_qa: pass
+  image_integrity_qa: pass
+  export_qa: pass
+  rendered_surface_qa: pass
+verdict: pass
+findings: []
+backflow_route:
+  on_visual_failure: figure-owner
+  on_evidence_failure: evidence-curator
+  on_caption_failure: manuscript-owner
+  on_export_failure: export-owner
+validator_refs:
+  - validate_nature_figure_qa_report

@@ -1,0 +1,7 @@
+schema_version: yxj-paper-os/fixture-meta/v1
+fixture_id: invalid-nature-absorption-missing-journal-style-backflow
+valid: false
+expected_failures:
+- validate_nature_absorption_package
+allowed_extra_failures:
+- validate_validator_report

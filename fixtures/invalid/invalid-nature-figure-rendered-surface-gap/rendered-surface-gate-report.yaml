@@ -1,0 +1,28 @@
+schema_version: yxj-paper-os/rendered-surface-gate-report/v1
+artifact_id: rendered-surface-gate-report-001
+status: validated
+owning_department: review_and_governance
+artifact_path: figures/build/fig-zt-001.pdf
+rendered_text_locator:
+  extraction_method: source_markdown
+  text_path: exports/fig-zt-001.txt
+  page_range: figure
+rendered_text_sample: The rendered figure uses reader-facing labels and formatted
+  figure references.
+checks:
+- no_internal_codes_in_rendered_text
+- no_bare_citekeys_in_export
+- no_snake_case_constraints
+- no_raw_method_ids
+violations: []
+bare_citekey_status: pass
+internal_code_status: pass
+snake_case_status: pass
+raw_method_id_status: pass
+verdict: pass
+validator_refs:
+- validate_no_internal_codes_in_rendered_text
+- validate_no_bare_citekeys_in_export
+ledger_targets:
+- export-ledger
+- review-ledger

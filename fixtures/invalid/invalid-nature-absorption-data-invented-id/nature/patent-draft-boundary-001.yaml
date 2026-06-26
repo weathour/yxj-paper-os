@@ -1,0 +1,21 @@
+schema_version: yxj-paper-os/patent-draft-boundary/v1
+artifact_id: patent-draft-boundary-001
+owning_department: manuscript_and_figure_production
+owner_lane: manuscript-owner
+source_ids:
+- P001
+- F001
+source_support_map:
+- feature_id: feature-1
+  source_ids:
+  - P001
+  support_state: explicit
+drafting_aid_only: true
+not_legal_opinion: true
+no_patentability_guarantee: true
+professional_review_gate:
+  required: true
+  reviewer: patent professional / inventor confirmation
+formal_filing_authorized: false
+validator_refs:
+- validate_patent_draft_boundary

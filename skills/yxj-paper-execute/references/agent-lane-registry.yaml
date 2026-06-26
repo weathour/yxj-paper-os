@@ -17,17 +17,23 @@ non_subagent_routes:
 - omx_question
 - team
 owner_lane_aliases:
-  research-director: umbrella over scene-analyst, exemplar-learner, sota-mapper, and novelty-panel
-  verifier: generic verifier alias; prefer method-verifier, style-auditor, state-steward, or final-verifier when possible
-  paper-owner-gate: human semantic decision gate represented through omx_question and decision-ledger entry
-  taskpacket-governance-owner: PMO lane for additive TaskPacketV2Plus governance; does not replace existing v2 task packet fields
-  skill-registry-owner: PMO lane for internal SOP skill registry governance; skills are not hidden managers
+  research-director: umbrella over scene-analyst, exemplar-learner, sota-mapper, and
+    novelty-panel
+  verifier: generic verifier alias; prefer method-verifier, style-auditor, state-steward,
+    or final-verifier when possible
+  paper-owner-gate: human semantic decision gate represented through omx_question
+    and decision-ledger entry
+  taskpacket-governance-owner: PMO lane for additive TaskPacketV2Plus governance;
+    does not replace existing v2 task packet fields
+  skill-registry-owner: PMO lane for internal SOP skill registry governance; skills
+    are not hidden managers
   single-writer-lock-owner: PMO lane for section/file/shared-hotspot lock materials
 lanes:
 - lane_id: taskpacket-governance-owner
   lane_kind: direct_subagent
   recommended_agent_type: architect
-  purpose: Maintain additive TaskPacketV2Plus governance while preserving v2 task packet compatibility.
+  purpose: Maintain additive TaskPacketV2Plus governance while preserving v2 task
+    packet compatibility.
   context_scope:
   - department-io-contract.md
   - task-packet.yaml
@@ -43,7 +49,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: department-io-contract
@@ -62,7 +70,8 @@ lanes:
 - lane_id: skill-registry-owner
   lane_kind: direct_subagent
   recommended_agent_type: architect
-  purpose: Maintain CompanySkillRegistry governance where internal skills are reusable SOP capabilities, not departments or hidden managers.
+  purpose: Maintain CompanySkillRegistry governance where internal skills are reusable
+    SOP capabilities, not departments or hidden managers.
   context_scope:
   - skill-registry-governance.md
   - department-io-contract.md
@@ -78,7 +87,12 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_nature_source_inventory
+  - validate_company_skill_registry
+  - validate_nature_absorption_package
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: department-io-contract
@@ -86,6 +100,8 @@ lanes:
   material_outputs:
   - artifact_type: CompanySkillRegistry
   - artifact_type: skill-authority-limit
+  - artifact_type: NatureSourceInventory
+  - artifact_type: NatureAbsorptionPackage
   narrative_binding_required: false
   template_binding_required: false
   validator_coverage:
@@ -93,10 +109,13 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: not_required_for_lane
     template_binding: not_required_for_lane
+    nature_absorption: validate_nature_source_inventory; validate_company_skill_registry;
+      validate_nature_absorption_package
 - lane_id: single-writer-lock-owner
   lane_kind: direct_subagent
   recommended_agent_type: verifier
-  purpose: Maintain SingleWriterSectionLock process materials for manuscript sections and shared implementation hotspots.
+  purpose: Maintain SingleWriterSectionLock process materials for manuscript sections
+    and shared implementation hotspots.
   context_scope:
   - single-writer-section-lock.yaml
   - task-ledger.yaml
@@ -112,7 +131,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: task-ledger
@@ -147,7 +168,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: paper-profile
@@ -184,7 +207,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: owner-question
@@ -203,7 +228,8 @@ lanes:
 - lane_id: state-steward
   lane_kind: direct_subagent
   recommended_agent_type: verifier
-  purpose: Maintain and validate state, task, artifact, decision, evidence, review, and export ledgers.
+  purpose: Maintain and validate state, task, artifact, decision, evidence, review,
+    and export ledgers.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -221,7 +247,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: task-ledger
@@ -240,7 +268,8 @@ lanes:
 - lane_id: source-map-curator
   lane_kind: direct_subagent
   recommended_agent_type: explore
-  purpose: Inspect project-local materials and build source maps without copying raw private content.
+  purpose: Inspect project-local materials and build source maps without copying raw
+    private content.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -258,7 +287,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: evidence_and_method
   material_inputs:
   - artifact_type: paper-profile
@@ -296,7 +327,9 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: paper_architecture_and_narrative
   material_inputs:
   - artifact_type: target-venue-route
@@ -315,7 +348,8 @@ lanes:
 - lane_id: exemplar-learner
   lane_kind: direct_subagent
   recommended_agent_type: researcher
-  purpose: Learn structural/rhetorical/language patterns from allowed exemplars without copying claims.
+  purpose: Learn structural/rhetorical/language patterns from allowed exemplars without
+    copying claims.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -335,7 +369,10 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_journal_style_profile
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: paper_architecture_and_narrative
   material_inputs:
   - artifact_type: allowed-exemplar-set
@@ -343,6 +380,7 @@ lanes:
   material_outputs:
   - artifact_type: template-quant-profile
   - artifact_type: section-function-budget
+  - artifact_type: JournalStyleProfile
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -350,6 +388,7 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+    nature_absorption: validate_journal_style_profile
 - lane_id: sota-mapper
   lane_kind: direct_subagent
   recommended_agent_type: researcher
@@ -373,7 +412,10 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_search_strategy_dossier
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: evidence_and_method
   material_inputs:
   - artifact_type: source-map
@@ -382,6 +424,7 @@ lanes:
   material_outputs:
   - artifact_type: sota-gap-map
   - artifact_type: claim-risk-map
+  - artifact_type: SearchStrategyDossier
   narrative_binding_required: true
   template_binding_required: false
   validator_coverage:
@@ -389,10 +432,12 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: not_required_for_lane
+    nature_absorption: validate_search_strategy_dossier
 - lane_id: novelty-panel
   lane_kind: direct_subagent
   recommended_agent_type: researcher
-  purpose: Run Sisyphus-like novelty engines and produce evidence-readiness-scored options.
+  purpose: Run Sisyphus-like novelty engines and produce evidence-readiness-scored
+    options.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -412,7 +457,9 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: paper_architecture_and_narrative
   material_inputs:
   - artifact_type: sota-gap-map
@@ -449,7 +496,10 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_citation_verification_report
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: evidence_and_method
   material_inputs:
   - artifact_type: source-map
@@ -457,6 +507,7 @@ lanes:
   material_outputs:
   - artifact_type: citation-bank
   - artifact_type: citation-support-map
+  - artifact_type: CitationVerificationReport
   narrative_binding_required: false
   template_binding_required: false
   validator_coverage:
@@ -464,10 +515,12 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: not_required_for_lane
     template_binding: not_required_for_lane
+    nature_absorption: validate_citation_verification_report
 - lane_id: evidence-curator
   lane_kind: direct_subagent
   recommended_agent_type: verifier
-  purpose: Map claims to evidence, experiment locators, figures, and allowed claim strength.
+  purpose: Map claims to evidence, experiment locators, figures, and allowed claim
+    strength.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -487,15 +540,26 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_panel_evidence_map
+  - validate_paper_reader_package
+  - validate_citation_verification_report
+  - validate_data_availability_plan
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: evidence_and_method
   material_inputs:
   - artifact_type: claim-list
   - artifact_type: source-map
   - artifact_type: reader-spine-brief
+  - artifact_type: NatureFigureContract
   material_outputs:
   - artifact_type: evidence-bank
   - artifact_type: claim-support-matrix
+  - artifact_type: NaturePanelEvidenceMap
+  - artifact_type: PaperReaderPackage
+  - artifact_type: CitationVerificationReport
+  - artifact_type: DataAvailabilityPlan
   narrative_binding_required: true
   template_binding_required: false
   validator_coverage:
@@ -503,6 +567,8 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: not_required_for_lane
+    nature_absorption: validate_paper_reader_package; validate_citation_verification_report;
+      validate_data_availability_plan
 - lane_id: paper-architect
   lane_kind: direct_subagent
   recommended_agent_type: planner
@@ -526,17 +592,30 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_nature_figure_contract
+  - validate_nature_figure_aesthetic_profile
+  - validate_expression_design_object_binding
+  - validate_section_move_plan
+  - validate_journal_style_profile
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: paper_architecture_and_narrative
   material_inputs:
   - artifact_type: reader-spine-brief
   - artifact_type: object-representation-matrix
   - artifact_type: template-quant-profile
   - artifact_type: evidence-bank
+  - artifact_type: visual-table-algorithm-formula-budget
+  - artifact_type: expression-design-objects
   material_outputs:
   - artifact_type: contribution-map
   - artifact_type: section-blueprint
   - artifact_type: section-function-budget
+  - artifact_type: NatureFigureContract
+  - artifact_type: NatureFigureAestheticProfile
+  - artifact_type: SectionMovePlan
+  - artifact_type: JournalStyleProfile
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -544,6 +623,7 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+    nature_absorption: validate_section_move_plan; validate_journal_style_profile
 - lane_id: manuscript-owner
   lane_kind: direct_subagent
   recommended_agent_type: writer
@@ -567,7 +647,12 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_polishing_repair_report
+  - validate_presentation_plan
+  - validate_patent_draft_boundary
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: manuscript_and_figure_production
   material_inputs:
   - artifact_type: section-blueprint
@@ -577,6 +662,9 @@ lanes:
   material_outputs:
   - artifact_type: manuscript-section-draft
   - artifact_type: reader-transition-map
+  - artifact_type: PolishingRepairReport
+  - artifact_type: PresentationPlan
+  - artifact_type: PatentDraftBoundary
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -584,6 +672,8 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+    nature_absorption: validate_polishing_repair_report; validate_presentation_plan;
+      validate_patent_draft_boundary
 - lane_id: method-verifier
   lane_kind: direct_subagent
   recommended_agent_type: verifier
@@ -607,15 +697,25 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_figure_source_data_statistics
+  - validate_figure_image_integrity_record
+  - validate_data_availability_plan
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: evidence_and_method
   material_inputs:
   - artifact_type: method-description
   - artifact_type: object-representation-matrix
   - artifact_type: evidence-bank
+  - artifact_type: NatureFigureContract
+  - artifact_type: NaturePanelEvidenceMap
   material_outputs:
   - artifact_type: method-contract
   - artifact_type: experiment-validity-report
+  - artifact_type: FigureSourceDataStatistics
+  - artifact_type: FigureImageIntegrityRecord
+  - artifact_type: DataAvailabilityPlan
   narrative_binding_required: true
   template_binding_required: false
   validator_coverage:
@@ -623,6 +723,7 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: not_required_for_lane
+    nature_absorption: validate_data_availability_plan
 - lane_id: figure-owner
   lane_kind: direct_subagent
   recommended_agent_type: executor
@@ -646,16 +747,37 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_expression_design_object_binding
+  - validate_figure_backend_route
+  - validate_nature_caption_legend
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: manuscript_and_figure_production
   material_inputs:
   - artifact_type: visual-table-algorithm-formula-budget
   - artifact_type: evidence-bank
   - artifact_type: object-representation-matrix
+  - artifact_type: NatureFigureContract
+  - artifact_type: NatureFigureAestheticProfile
+  - artifact_type: NaturePanelEvidenceMap
+  - artifact_type: FigureSourceDataStatistics
+  - artifact_type: FigureImageIntegrityRecord
+  - artifact_type: CognitiveLoadBudget
+  - artifact_type: ExplanationLadder
+  - artifact_type: RhetoricalMoveMatrix
+  - artifact_type: ClaimEvidenceVisibilityMap
+  - artifact_type: TerminologyRegister
   material_outputs:
   - artifact_type: figure-plan
   - artifact_type: caption-brief
   - artifact_type: visual-provenance-record
+  - artifact_type: FigureBackendRoute
+  - artifact_type: NatureCaptionLegendBrief
+  - artifact_type: figure-export-source
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -663,6 +785,7 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+  expression_design_required: true
 - lane_id: review-director
   lane_kind: direct_subagent
   recommended_agent_type: critic
@@ -686,16 +809,34 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_expression_design_object_binding
+  - validate_nature_figure_qa_report
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  - validate_reviewer_panel_report
+  - validate_response_action_map
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: review_and_governance
   material_inputs:
   - artifact_type: manuscript-draft
   - artifact_type: reader-spine-brief
   - artifact_type: object-representation-matrix
   - artifact_type: template-quant-profile
+  - artifact_type: NatureFigureContract
+  - artifact_type: NatureFigureAestheticProfile
+  - artifact_type: NaturePanelEvidenceMap
+  - artifact_type: NatureCaptionLegendBrief
+  - artifact_type: FigureExportBundle
+  - artifact_type: RenderedSurfaceGateReport
   material_outputs:
   - artifact_type: reader-experience-review-report
   - artifact_type: narrative-backflow-task
+  - artifact_type: NatureFigureQAReport
+  - artifact_type: ReviewerPanelReport
+  - artifact_type: ResponseActionMap
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -703,10 +844,13 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+    nature_absorption: validate_reviewer_panel_report; validate_response_action_map
+  expression_design_required: true
 - lane_id: style-auditor
   lane_kind: direct_subagent
   recommended_agent_type: verifier
-  purpose: Check writing style constraints, AI-pattern risk, voice consistency, and journal tone.
+  purpose: Check writing style constraints, AI-pattern risk, voice consistency, and
+    journal tone.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -726,15 +870,25 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_nature_figure_aesthetic_profile
+  - validate_nature_caption_legend
+  - validate_rendered_pdf_surface_text
+  - validate_polishing_repair_report
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: review_and_governance
   material_inputs:
   - artifact_type: manuscript-draft
   - artifact_type: reader-spine-brief
   - artifact_type: section-function-budget
+  - artifact_type: NatureFigureAestheticProfile
+  - artifact_type: NatureCaptionLegendBrief
+  - artifact_type: RenderedSurfaceGateReport
   material_outputs:
   - artifact_type: style-audit-report
   - artifact_type: lab-notebook-smell-findings
+  - artifact_type: PolishingRepairReport
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -742,6 +896,7 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+    nature_absorption: validate_polishing_repair_report
 - lane_id: export-owner
   lane_kind: direct_subagent
   recommended_agent_type: executor
@@ -765,15 +920,28 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_expression_design_object_binding
+  - validate_figure_export_bundle
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: manuscript_and_figure_production
   material_inputs:
   - artifact_type: validated-manuscript
   - artifact_type: figure-package
   - artifact_type: export-manifest
+  - artifact_type: NatureFigureContract
+  - artifact_type: NatureFigureAestheticProfile
+  - artifact_type: NatureCaptionLegendBrief
+  - artifact_type: FigureBackendRoute
+  - artifact_type: RenderedSurfaceGateReport
   material_outputs:
   - artifact_type: export-package
   - artifact_type: readiness-report
+  - artifact_type: FigureExportBundle
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -781,10 +949,13 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+  expression_design_required: true
 - lane_id: repository-hygiene-owner
   lane_kind: direct_subagent
   recommended_agent_type: verifier
-  purpose: Audit git/worktree status, sibling/parent contamination, generated files, ledger snapshot freshness, export-manifest hashes, and delivery-cleanliness gates before author handoff or external submission.
+  purpose: Audit git/worktree status, sibling/parent contamination, generated files,
+    ledger snapshot freshness, export-manifest hashes, and delivery-cleanliness gates
+    before author handoff or external submission.
   context_scope:
   - paper-profile.yaml or profile locator
   - state/task/artifact/export ledgers under .omx/state/yxj-paper-os/
@@ -804,7 +975,9 @@ lanes:
   - validate_agent_lane_department_binding
   - validate_task_material_io
   - validate_repository_hygiene_report
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark delivery clean.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark delivery
+    clean.
   department: pmo
   material_inputs:
   - artifact_type: git-status-snapshot
@@ -842,7 +1015,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: evidence_and_method
   material_inputs:
   - artifact_type: yxj-wiki-query
@@ -860,7 +1035,8 @@ lanes:
 - lane_id: research-director
   lane_kind: umbrella
   recommended_agent_type: researcher
-  purpose: Coordinate scene-analyst, exemplar-learner, sota-mapper, and novelty-panel outputs.
+  purpose: Coordinate scene-analyst, exemplar-learner, sota-mapper, and novelty-panel
+    outputs.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -880,7 +1056,9 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: paper_architecture_and_narrative
   material_inputs:
   - artifact_type: scene-analysis-brief
@@ -899,7 +1077,8 @@ lanes:
 - lane_id: execution-coordinator
   lane_kind: direct_subagent
   recommended_agent_type: executor
-  purpose: Compile task packets, run the native_subagent_pipeline_adapter, collect, validate, and ingest.
+  purpose: Compile task packets, run the native_subagent_pipeline_adapter, collect,
+    validate, and ingest.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -917,7 +1096,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: task-packet
@@ -936,7 +1117,8 @@ lanes:
 - lane_id: paper-owner-gate
   lane_kind: user_gate
   recommended_agent_type: omx_question
-  purpose: Represent paper-owner semantic authority through explicit question/decision-ledger gate.
+  purpose: Represent paper-owner semantic authority through explicit question/decision-ledger
+    gate.
   context_scope:
   - decision prompt
   - options/tradeoffs
@@ -949,7 +1131,8 @@ lanes:
   - validate_motivation_confirmation
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If no user decision is available, mark blocked_by_user_decision; do not infer semantic authority.
+  fallback_policy: If no user decision is available, mark blocked_by_user_decision;
+    do not infer semantic authority.
   department: pmo
   material_inputs:
   - artifact_type: owner-gated-question
@@ -985,7 +1168,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: review_and_governance
   material_inputs:
   - artifact_type: validator-report
@@ -1024,14 +1209,26 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  - validate_nature_figure_qa_report
+  - validate_figure_export_bundle
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  - validate_nature_absorption_package
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: review_and_governance
   material_inputs:
   - artifact_type: all-validator-evidence
   - artifact_type: manager-handoff-report-v2
+  - artifact_type: NatureFigureQAReport
+  - artifact_type: FigureExportBundle
+  - artifact_type: RenderedSurfaceGateReport
   material_outputs:
   - artifact_type: final-closure-report
   - artifact_type: residual-risk-register
+  - artifact_type: NatureAbsorptionPackage
   narrative_binding_required: true
   template_binding_required: true
   validator_coverage:
@@ -1039,10 +1236,12 @@ lanes:
     material_io: validate_task_material_io
     narrative_binding: validate_narrative_object_binding
     template_binding: validate_template_object_binding
+    nature_absorption: validate_nature_absorption_package
 - lane_id: artifact-schema-designer
   lane_kind: direct_subagent
   recommended_agent_type: architect
-  purpose: Own reusable templates, artifact schemas, required fields, and cross-reference rules.
+  purpose: Own reusable templates, artifact schemas, required fields, and cross-reference
+    rules.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -1060,7 +1259,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: department-io-contract
@@ -1098,7 +1299,9 @@ lanes:
   - validate_task_material_io
   - validate_narrative_object_binding
   - validate_template_object_binding
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: validated-contracts
@@ -1116,7 +1319,8 @@ lanes:
 - lane_id: migration-owner
   lane_kind: direct_subagent
   recommended_agent_type: planner
-  purpose: Own source-only migration planning from old yxj-paper-os without active uninstall or install actions.
+  purpose: Own source-only migration planning from old yxj-paper-os without active
+    uninstall or install actions.
   context_scope:
   - paper-profile.yaml or profile locator
   - source-map.yaml when source/citation/evidence is relevant
@@ -1134,7 +1338,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: v1-state
@@ -1171,7 +1377,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: source-scaffold
@@ -1206,7 +1414,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: scaffold-checklist
@@ -1242,7 +1452,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: workspace-contract
@@ -1278,7 +1490,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: domain-brief
@@ -1314,7 +1528,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: review_and_governance
   material_inputs:
   - artifact_type: validator-contract
@@ -1350,7 +1566,9 @@ lanes:
   - validate_pua_telemetry
   - validate_agent_lane_department_binding
   - validate_task_material_io
-  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with unavailable_agent_type evidence; do not silently substitute worker or mark dispatch complete.
+  fallback_policy: If the recommended agent_type is unavailable, stop as blocked with
+    unavailable_agent_type evidence; do not silently substitute worker or mark dispatch
+    complete.
   department: pmo
   material_inputs:
   - artifact_type: ralplan-handoff
@@ -1396,8 +1614,10 @@ v2_required_task_packet_fields:
 - backflow_route
 - pua_telemetry
 v2_conditional_task_packet_fields:
-  narrative_object_refs: required when lane.narrative_binding_required is true unless an accepted non_applicable_reason is validated
-  template_object_refs: required when lane.template_binding_required is true unless an accepted non_applicable_reason is validated
+  narrative_object_refs: required when lane.narrative_binding_required is true unless
+    an accepted non_applicable_reason is validated
+  template_object_refs: required when lane.template_binding_required is true unless
+    an accepted non_applicable_reason is validated
 v2plus_additive_task_packet_fields:
 - skill_refs
 - mode_permissions
@@ -1406,4 +1626,5 @@ v2plus_additive_task_packet_fields:
 - single_writer_lock
 - authority_role_separation
 - completion_claim_allowed
-v2plus_compatibility_rule: v2plus fields are additive only; existing v2 task packets with required v2 fields remain valid.
+v2plus_compatibility_rule: v2plus fields are additive only; existing v2 task packets
+  with required v2 fields remain valid.

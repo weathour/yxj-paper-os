@@ -1,0 +1,32 @@
+schema_version: yxj-paper-os/data-availability-plan/v1
+artifact_id: data-availability-plan-template
+owning_department: evidence_and_method
+owner_lane: method-verifier
+datasets:
+- dataset_id: D1
+  supports_results:
+  - R1
+  access_route: public_repository
+  repository_route:
+    name: Zenodo
+    confirmation_status: confirmed
+    source_locator: doi:10.0000/example
+  identifiers:
+    doi: 10.0000/example
+    confirmation_status: confirmed
+    source_locator: doi:10.0000/example
+  license:
+    value: CC-BY-4.0
+    confirmation_status: confirmed
+    source_locator: repository-record
+fair_metadata_checklist:
+  status: pass
+  items:
+  - findable
+  - accessible
+  - interoperable
+  - reusable
+statement_draft: Data supporting the findings are available in the confirmed repository
+  record.
+validator_refs:
+- validate_data_availability_plan

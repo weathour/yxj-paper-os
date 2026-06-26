@@ -1,0 +1,18 @@
+schema_version: yxj-paper-os/figure-image-integrity-record/v1
+artifact_id: figure-image-integrity-record-001
+status: validated
+owning_department: evidence_and_method
+owner_lane: method-verifier
+figure_id: fig-zt-001
+image_integrity_applicability:
+  status: not_applicable
+  rationale: Pure deterministic vector/conceptual figure; no raster, image plate,
+    blot, microscopy, screenshot, or extracted asset panel.
+backend_route_ref: figure-backend-route-001
+raster_or_image_panel: false
+raw_locator: null
+processed_locator: null
+processing_steps: []
+scale_bar: null
+validator_refs:
+- validate_figure_image_integrity_record

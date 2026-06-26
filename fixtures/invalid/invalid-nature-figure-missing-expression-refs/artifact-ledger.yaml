@@ -1,0 +1,138 @@
+schema_version: yxj-paper-os/artifact-ledger/v1
+artifacts:
+- artifact_id: cognitive-load-budget-001
+  artifact_type: CognitiveLoadBudget
+  path: narrative/cognitive-load-budget-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  validator_refs:
+  - validate_cognitive_load_budget
+  privacy: tracked_summary
+  status: validated
+- artifact_id: explanation-ladder-001
+  artifact_type: ExplanationLadder
+  path: narrative/explanation-ladder-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  validator_refs:
+  - validate_explanation_ladder
+  privacy: tracked_summary
+  status: validated
+- artifact_id: rhetorical-move-matrix-001
+  artifact_type: RhetoricalMoveMatrix
+  path: narrative/rhetorical-move-matrix-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  validator_refs:
+  - validate_rhetorical_move_matrix
+  privacy: tracked_summary
+  status: validated
+- artifact_id: claim-evidence-visibility-map-001
+  artifact_type: ClaimEvidenceVisibilityMap
+  path: narrative/claim-evidence-visibility-map-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  validator_refs:
+  - validate_claim_evidence_visibility_map
+  privacy: tracked_summary
+  status: validated
+- artifact_id: terminology-register-001
+  artifact_type: TerminologyRegister
+  path: narrative/terminology-register-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  validator_refs:
+  - validate_terminology_register
+  privacy: tracked_summary
+  status: validated
+- artifact_id: nature-figure-contract-001
+  artifact_type: NatureFigureContract
+  path: nature/nature-figure-contract-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_nature_figure_contract
+- artifact_id: nature-figure-aesthetic-profile-001
+  artifact_type: NatureFigureAestheticProfile
+  path: nature/nature-figure-aesthetic-profile-001.yaml
+  owner_lane: paper-architect
+  owner_department: paper_architecture_and_narrative
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_nature_figure_aesthetic_profile
+- artifact_id: nature-panel-evidence-map-001
+  artifact_type: NaturePanelEvidenceMap
+  path: nature/nature-panel-evidence-map-001.yaml
+  owner_lane: method-verifier
+  owner_department: evidence_and_method
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_panel_evidence_map
+- artifact_id: figure-backend-route-001
+  artifact_type: FigureBackendRoute
+  path: nature/figure-backend-route-001.yaml
+  owner_lane: figure-owner
+  owner_department: manuscript_and_figure_production
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_figure_backend_route
+- artifact_id: figure-source-data-statistics-001
+  artifact_type: FigureSourceDataStatistics
+  path: nature/figure-source-data-statistics-001.yaml
+  owner_lane: method-verifier
+  owner_department: evidence_and_method
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_figure_source_data_statistics
+- artifact_id: figure-image-integrity-record-001
+  artifact_type: FigureImageIntegrityRecord
+  path: nature/figure-image-integrity-record-001.yaml
+  owner_lane: method-verifier
+  owner_department: evidence_and_method
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_figure_image_integrity_record
+- artifact_id: nature-caption-legend-brief-001
+  artifact_type: NatureCaptionLegendBrief
+  path: nature/nature-caption-legend-brief-001.yaml
+  owner_lane: figure-owner
+  owner_department: manuscript_and_figure_production
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_nature_caption_legend
+- artifact_id: nature-figure-qa-report-001
+  artifact_type: NatureFigureQAReport
+  path: nature/nature-figure-qa-report-001.yaml
+  owner_lane: review-director
+  owner_department: review_and_governance
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_nature_figure_qa_report
+- artifact_id: figure-export-bundle-001
+  artifact_type: FigureExportBundle
+  path: nature/figure-export-bundle-001.yaml
+  owner_lane: export-owner
+  owner_department: manuscript_and_figure_production
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_figure_export_bundle
+- artifact_id: rendered-surface-gate-report-001
+  artifact_type: RenderedSurfaceGateReport
+  path: rendered-surface-gate-report.yaml
+  owner_lane: final-verifier
+  owner_department: review_and_governance
+  privacy: tracked_summary
+  status: validated
+  validator_refs:
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export

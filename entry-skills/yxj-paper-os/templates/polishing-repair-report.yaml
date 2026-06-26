@@ -1,0 +1,20 @@
+schema_version: yxj-paper-os/polishing-repair-report/v1
+artifact_id: polishing-repair-report-template
+owning_department: manuscript_and_figure_production
+owner_lane: manuscript-owner
+failure_modes:
+- mode_id: fm-1
+  description: Chinese lab-note structure
+  severity: medium
+repairs:
+- span_id: span-1
+  repair_action: restructure for reader flow
+  claim_strength_change:
+    allowed: false
+phrasebank_application:
+  status: applied
+  source: academic phrasebank / Nature patterns
+chinese_author_alignment:
+  status: checked
+validator_refs:
+- validate_polishing_repair_report

@@ -1,0 +1,19 @@
+schema_version: yxj-paper-os/figure-backend-route/v1
+artifact_id: figure-backend-route-001
+status: validated
+owning_department: manuscript_and_figure_production
+owner_lane: figure-owner
+figure_id: fig-zt-001
+selected_route: tikz_cps_tikz
+route_exclusivity_required: true
+final_source_of_truth:
+  type: tikz_source
+  path: figures/src/fig-zt-001/figure.tex
+cross_backend_rendering_allowed: false
+allowed_non_visual_utilities:
+- file_inspection
+- checksum
+missing_runtime_policy: stop_before_rendering
+conceptual_route_allowed: true
+validator_refs:
+- validate_figure_backend_route

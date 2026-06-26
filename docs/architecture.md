@@ -116,6 +116,35 @@ manifest only; it cannot replace typed refs or validators. Claim visibility
 cannot increase evidence strength, and export readiness requires rendered-output
 inspection rather than source-only validation.
 
+## Nature-grade figure architecture
+
+The figure upgrade absorbs the strong parts of the external `nature-figure`
+workflow as yxj-native material objects rather than as a separate public skill.
+The single public `yxj-paper-os` entry remains the manager; the figure subsystem
+is split across departments:
+
+1. **Paper Architecture & Narrative** produces `NatureFigureContract` and
+   `NatureFigureAestheticProfile` before drawing. This fixes the one core
+   conclusion, reader question, figure archetype, hero/support hierarchy,
+   expression-design refs, and objective aesthetic policy.
+2. **Evidence & Method** produces `NaturePanelEvidenceMap`,
+   `FigureSourceDataStatistics`, and `FigureImageIntegrityRecord`, so each panel
+   has evidence/statistics/integrity support or an explicit conceptual/vector
+   exception.
+3. **Manuscript & Figure Production** produces `FigureBackendRoute`,
+   `NatureCaptionLegendBrief`, and `FigureExportBundle`, keeping one final
+   source of truth and exportable SVG/PDF/preview artifacts with editable text.
+4. **Review & Governance** produces `RenderedSurfaceGateReport` and
+   `NatureFigureQAReport`, preventing figure-owner/export-owner
+   self-certification and routing visual, aesthetic, evidence, caption, export,
+   or rendered-surface failures back to the responsible lane.
+
+The aesthetic guarantee is therefore executable: archetype selection, hero-panel
+hierarchy, semantic palette roles, restrained typography, label/legend policy,
+white/background discipline, editable text, final-size legibility, rendered
+surface checks, and independent QA are material fields with validators and
+fixtures. “Looks good” is not a closure state.
+
 ## V2 validator plane
 
 ### Semantic object shape gate
@@ -141,6 +170,16 @@ The validator plane includes the legacy closure checks plus v2 checks:
 - `validate_fixture_matrix_nonempty` prevents empty fixture-suite false
   positives.
 - `validate_manager_handoff_v2` protects the broad manager handoff shape.
+- The Nature-grade figure validators protect figure contract, aesthetics, panel
+  evidence, backend exclusivity, source/statistics, image integrity, caption,
+  independent QA, and export bundle closure:
+  `validate_nature_figure_contract`,
+  `validate_nature_figure_aesthetic_profile`, `validate_panel_evidence_map`,
+  `validate_figure_backend_route`,
+  `validate_figure_source_data_statistics`,
+  `validate_figure_image_integrity_record`,
+  `validate_nature_caption_legend`, `validate_nature_figure_qa_report`, and
+  `validate_figure_export_bundle`.
 
 ## PUA/RALPLAN governance control plane
 
@@ -202,7 +241,19 @@ adds a stronger material-skill management plane:
   `RenderedSurfaceGateReport` to catch internal codes, snake_case constraints,
   raw method ids, bare citekeys, and defensive claim-boundary walls in rendered
   output.
+- Nature-grade figure closure adds `NatureFigureContract`,
+  `NatureFigureAestheticProfile`, `NaturePanelEvidenceMap`,
+  `FigureBackendRoute`, `FigureSourceDataStatistics`,
+  `FigureImageIntegrityRecord`, `NatureCaptionLegendBrief`,
+  `NatureFigureQAReport`, and `FigureExportBundle`.
 
 This architecture separates responsibility from automation: departments own
 accountability, agents execute, skills provide SOPs, materials carry outputs,
 validators prove contracts, ledgers preserve memory, and the PMO routes closure.
+
+
+## Nature full-absorption control plane
+
+Milestone M1 extends the earlier Nature-grade figure work into a broader yxj-native absorption layer for non-figure Nature skills. The source basis is `Yuan1z0825/nature-skills` at commit `5d2ba1dee1c087be6de8f4a8aad4b27f04974be9`. The absorption is not a public `nature-*` skill copy: the single public `yxj-paper-os` manager remains the only user-facing entry, and every absorbed capability is represented as an internal SOP/capability cell, material object, validator, fixture, backflow route, and ledger/state closure candidate.
+
+The 14 first-class M1 materials are: `NatureSourceInventory`, `CompanySkillRegistry`, `NatureAbsorptionPackage`, `PaperReaderPackage`, `SearchStrategyDossier`, `CitationVerificationReport`, `SectionMovePlan`, `JournalStyleProfile`, `PolishingRepairReport`, `DataAvailabilityPlan`, `ReviewerPanelReport`, `ResponseActionMap`, `PresentationPlan`, and `PatentDraftBoundary`. `PresentationPlan` is owned by the existing canonical department id `manuscript_and_figure_production` as a writing/expression capability cell; the display label may say Manuscript / Figure / Communication Production, but the canonical id is frozen. Patent output is a source-grounded drafting aid only, not legal advice or a patentability guarantee.

@@ -1,0 +1,1214 @@
+schema_version: yxj-paper-os/task-ledger/v2
+tasks:
+- task_id: T-NF-ARCH
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: paper_architecture_and_narrative
+  owner_lane: paper-architect
+  agent_type: planner
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - task-ledger.yaml
+    - artifact-ledger.yaml
+    - nature/
+    - narrative/
+  input_materials:
+  - artifact_id: reader-spine-001
+    artifact_type: ReaderSpineBrief
+    path: narrative/reader-spine-001.yaml
+  - artifact_id: object-repr-001
+    artifact_type: ObjectRepresentationMatrix
+    path: narrative/object-representation-matrix.yaml
+  - artifact_id: template-profile-001
+    artifact_type: TemplateQuantProfile
+    path: narrative/template-quant-profile.yaml
+  - artifact_id: evidence-bank-001
+    artifact_type: evidence-bank
+    path: evidence-bank.yaml
+  - artifact_id: cognitive-load-budget-001
+    artifact_type: CognitiveLoadBudget
+    path: narrative/cognitive-load-budget-001.yaml
+  - artifact_id: explanation-ladder-001
+    artifact_type: ExplanationLadder
+    path: narrative/explanation-ladder-001.yaml
+  - artifact_id: rhetorical-move-matrix-001
+    artifact_type: RhetoricalMoveMatrix
+    path: narrative/rhetorical-move-matrix-001.yaml
+  - artifact_id: claim-evidence-visibility-map-001
+    artifact_type: ClaimEvidenceVisibilityMap
+    path: narrative/claim-evidence-visibility-map-001.yaml
+  - artifact_id: terminology-register-001
+    artifact_type: TerminologyRegister
+    path: narrative/terminology-register-001.yaml
+  expected_output_materials:
+  - artifact_id: nature-figure-contract-001
+    artifact_type: NatureFigureContract
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    artifact_type: NatureFigureAestheticProfile
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  expected_output_artifacts:
+  - artifact_id: nature-figure-contract-001
+    artifact_type: NatureFigureContract
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    artifact_type: NatureFigureAestheticProfile
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  collection_path: nature/
+  state_ledger_path: state.yaml
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_evidence_failure: evidence_and_method
+    on_export_failure: manuscript_and_figure_production
+  collected_outputs:
+  - artifact_id: nature-figure-contract-001
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: Validate a Nature-grade figure package through yxj-paper-os
+        material objects.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: Nature-grade figure pipeline
+      impact_surface: paper-facing figure/caption/export
+      prevention_or_check: material-object validators and rendered-surface gate
+      data_or_evidence: fixture materials
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+  template_object_refs:
+  - template-profile-001
+  expression_design_object_refs:
+  - cognitive-load-budget-001
+  - explanation-ladder-001
+  - rhetorical-move-matrix-001
+  - claim-evidence-visibility-map-001
+  - terminology-register-001
+  evidence_object_refs:
+  - evidence-bank-001
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+  - validate_terminology_register
+  - validate_terminology_register_surface
+  - validate_nature_figure_contract
+  - validate_nature_figure_aesthetic_profile
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_narrative_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_template_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_expression_design_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder_progression
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register_surface
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_nature_figure_contract
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_nature_figure_aesthetic_profile
+    status: pass
+    report_path: validator-report.yaml
+- task_id: T-NF-EVID
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: evidence_and_method
+  owner_lane: method-verifier
+  agent_type: verifier
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - task-ledger.yaml
+    - artifact-ledger.yaml
+    - nature/
+    - narrative/
+  input_materials:
+  - artifact_id: reader-spine-001
+    artifact_type: ReaderSpineBrief
+    path: narrative/reader-spine-001.yaml
+  - artifact_id: object-repr-001
+    artifact_type: ObjectRepresentationMatrix
+    path: narrative/object-representation-matrix.yaml
+  - artifact_id: template-profile-001
+    artifact_type: TemplateQuantProfile
+    path: narrative/template-quant-profile.yaml
+  - artifact_id: evidence-bank-001
+    artifact_type: evidence-bank
+    path: evidence-bank.yaml
+  - artifact_id: nature-figure-contract-001
+    artifact_type: NatureFigureContract
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    artifact_type: NatureFigureAestheticProfile
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  expected_output_materials:
+  - artifact_id: nature-panel-evidence-map-001
+    artifact_type: NaturePanelEvidenceMap
+    path: nature/nature-panel-evidence-map-001.yaml
+  - artifact_id: figure-source-data-statistics-001
+    artifact_type: FigureSourceDataStatistics
+    path: nature/figure-source-data-statistics-001.yaml
+  - artifact_id: figure-image-integrity-record-001
+    artifact_type: FigureImageIntegrityRecord
+    path: nature/figure-image-integrity-record-001.yaml
+  expected_output_artifacts:
+  - artifact_id: nature-panel-evidence-map-001
+    artifact_type: NaturePanelEvidenceMap
+    path: nature/nature-panel-evidence-map-001.yaml
+  - artifact_id: figure-source-data-statistics-001
+    artifact_type: FigureSourceDataStatistics
+    path: nature/figure-source-data-statistics-001.yaml
+  - artifact_id: figure-image-integrity-record-001
+    artifact_type: FigureImageIntegrityRecord
+    path: nature/figure-image-integrity-record-001.yaml
+  collection_path: nature/
+  state_ledger_path: state.yaml
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_evidence_failure: evidence_and_method
+    on_export_failure: manuscript_and_figure_production
+  collected_outputs:
+  - artifact_id: nature-panel-evidence-map-001
+    path: nature/nature-panel-evidence-map-001.yaml
+  - artifact_id: figure-source-data-statistics-001
+    path: nature/figure-source-data-statistics-001.yaml
+  - artifact_id: figure-image-integrity-record-001
+    path: nature/figure-image-integrity-record-001.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: Validate a Nature-grade figure package through yxj-paper-os
+        material objects.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: Nature-grade figure pipeline
+      impact_surface: paper-facing figure/caption/export
+      prevention_or_check: material-object validators and rendered-surface gate
+      data_or_evidence: fixture materials
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_panel_evidence_map
+  - validate_figure_source_data_statistics
+  - validate_figure_image_integrity_record
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_narrative_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_panel_evidence_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_figure_source_data_statistics
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_figure_image_integrity_record
+    status: pass
+    report_path: validator-report.yaml
+- task_id: T-NF-FIG
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: manuscript_and_figure_production
+  owner_lane: figure-owner
+  agent_type: executor
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - task-ledger.yaml
+    - artifact-ledger.yaml
+    - nature/
+    - narrative/
+  input_materials:
+  - artifact_id: reader-spine-001
+    artifact_type: ReaderSpineBrief
+    path: narrative/reader-spine-001.yaml
+  - artifact_id: object-repr-001
+    artifact_type: ObjectRepresentationMatrix
+    path: narrative/object-representation-matrix.yaml
+  - artifact_id: template-profile-001
+    artifact_type: TemplateQuantProfile
+    path: narrative/template-quant-profile.yaml
+  - artifact_id: evidence-bank-001
+    artifact_type: evidence-bank
+    path: evidence-bank.yaml
+  - artifact_id: cognitive-load-budget-001
+    artifact_type: CognitiveLoadBudget
+    path: narrative/cognitive-load-budget-001.yaml
+  - artifact_id: explanation-ladder-001
+    artifact_type: ExplanationLadder
+    path: narrative/explanation-ladder-001.yaml
+  - artifact_id: rhetorical-move-matrix-001
+    artifact_type: RhetoricalMoveMatrix
+    path: narrative/rhetorical-move-matrix-001.yaml
+  - artifact_id: claim-evidence-visibility-map-001
+    artifact_type: ClaimEvidenceVisibilityMap
+    path: narrative/claim-evidence-visibility-map-001.yaml
+  - artifact_id: terminology-register-001
+    artifact_type: TerminologyRegister
+    path: narrative/terminology-register-001.yaml
+  - artifact_id: nature-figure-contract-001
+    artifact_type: NatureFigureContract
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    artifact_type: NatureFigureAestheticProfile
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  - artifact_id: nature-panel-evidence-map-001
+    artifact_type: NaturePanelEvidenceMap
+    path: nature/nature-panel-evidence-map-001.yaml
+  - artifact_id: figure-source-data-statistics-001
+    artifact_type: FigureSourceDataStatistics
+    path: nature/figure-source-data-statistics-001.yaml
+  - artifact_id: figure-image-integrity-record-001
+    artifact_type: FigureImageIntegrityRecord
+    path: nature/figure-image-integrity-record-001.yaml
+  - artifact_id: rendered-surface-gate-report-001
+    artifact_type: RenderedSurfaceGateReport
+    path: rendered-surface-gate-report.yaml
+  expected_output_materials:
+  - artifact_id: figure-backend-route-001
+    artifact_type: FigureBackendRoute
+    path: nature/figure-backend-route-001.yaml
+  - artifact_id: nature-caption-legend-brief-001
+    artifact_type: NatureCaptionLegendBrief
+    path: nature/nature-caption-legend-brief-001.yaml
+  expected_output_artifacts:
+  - artifact_id: figure-backend-route-001
+    artifact_type: FigureBackendRoute
+    path: nature/figure-backend-route-001.yaml
+  - artifact_id: nature-caption-legend-brief-001
+    artifact_type: NatureCaptionLegendBrief
+    path: nature/nature-caption-legend-brief-001.yaml
+  collection_path: nature/
+  state_ledger_path: state.yaml
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_evidence_failure: evidence_and_method
+    on_export_failure: manuscript_and_figure_production
+  collected_outputs:
+  - artifact_id: figure-backend-route-001
+    path: nature/figure-backend-route-001.yaml
+  - artifact_id: nature-caption-legend-brief-001
+    path: nature/nature-caption-legend-brief-001.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: Validate a Nature-grade figure package through yxj-paper-os
+        material objects.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: Nature-grade figure pipeline
+      impact_surface: paper-facing figure/caption/export
+      prevention_or_check: material-object validators and rendered-surface gate
+      data_or_evidence: fixture materials
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+  template_object_refs:
+  - template-profile-001
+  expression_design_object_refs:
+  - cognitive-load-budget-001
+  - explanation-ladder-001
+  - rhetorical-move-matrix-001
+  - claim-evidence-visibility-map-001
+  - terminology-register-001
+  evidence_object_refs:
+  - evidence-bank-001
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+  - validate_terminology_register
+  - validate_terminology_register_surface
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  - validate_figure_backend_route
+  - validate_nature_caption_legend
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_narrative_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_template_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_expression_design_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder_progression
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register_surface
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rendered_pdf_surface_text
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_no_internal_codes_in_rendered_text
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_no_bare_citekeys_in_export
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_figure_backend_route
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_nature_caption_legend
+    status: pass
+    report_path: validator-report.yaml
+- task_id: T-NF-EXPORT
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: manuscript_and_figure_production
+  owner_lane: export-owner
+  agent_type: executor
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - task-ledger.yaml
+    - artifact-ledger.yaml
+    - nature/
+    - narrative/
+  input_materials:
+  - artifact_id: reader-spine-001
+    artifact_type: ReaderSpineBrief
+    path: narrative/reader-spine-001.yaml
+  - artifact_id: object-repr-001
+    artifact_type: ObjectRepresentationMatrix
+    path: narrative/object-representation-matrix.yaml
+  - artifact_id: template-profile-001
+    artifact_type: TemplateQuantProfile
+    path: narrative/template-quant-profile.yaml
+  - artifact_id: evidence-bank-001
+    artifact_type: evidence-bank
+    path: evidence-bank.yaml
+  - artifact_id: cognitive-load-budget-001
+    artifact_type: CognitiveLoadBudget
+    path: narrative/cognitive-load-budget-001.yaml
+  - artifact_id: explanation-ladder-001
+    artifact_type: ExplanationLadder
+    path: narrative/explanation-ladder-001.yaml
+  - artifact_id: rhetorical-move-matrix-001
+    artifact_type: RhetoricalMoveMatrix
+    path: narrative/rhetorical-move-matrix-001.yaml
+  - artifact_id: claim-evidence-visibility-map-001
+    artifact_type: ClaimEvidenceVisibilityMap
+    path: narrative/claim-evidence-visibility-map-001.yaml
+  - artifact_id: terminology-register-001
+    artifact_type: TerminologyRegister
+    path: narrative/terminology-register-001.yaml
+  - artifact_id: nature-figure-contract-001
+    artifact_type: NatureFigureContract
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    artifact_type: NatureFigureAestheticProfile
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  - artifact_id: nature-panel-evidence-map-001
+    artifact_type: NaturePanelEvidenceMap
+    path: nature/nature-panel-evidence-map-001.yaml
+  - artifact_id: figure-source-data-statistics-001
+    artifact_type: FigureSourceDataStatistics
+    path: nature/figure-source-data-statistics-001.yaml
+  - artifact_id: figure-image-integrity-record-001
+    artifact_type: FigureImageIntegrityRecord
+    path: nature/figure-image-integrity-record-001.yaml
+  - artifact_id: figure-backend-route-001
+    artifact_type: FigureBackendRoute
+    path: nature/figure-backend-route-001.yaml
+  - artifact_id: nature-caption-legend-brief-001
+    artifact_type: NatureCaptionLegendBrief
+    path: nature/nature-caption-legend-brief-001.yaml
+  - artifact_id: rendered-surface-gate-report-001
+    artifact_type: RenderedSurfaceGateReport
+    path: rendered-surface-gate-report.yaml
+  expected_output_materials:
+  - artifact_id: figure-export-bundle-001
+    artifact_type: FigureExportBundle
+    path: nature/figure-export-bundle-001.yaml
+  expected_output_artifacts:
+  - artifact_id: figure-export-bundle-001
+    artifact_type: FigureExportBundle
+    path: nature/figure-export-bundle-001.yaml
+  collection_path: nature/
+  state_ledger_path: state.yaml
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_evidence_failure: evidence_and_method
+    on_export_failure: manuscript_and_figure_production
+  collected_outputs:
+  - artifact_id: figure-export-bundle-001
+    path: nature/figure-export-bundle-001.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: Validate a Nature-grade figure package through yxj-paper-os
+        material objects.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: Nature-grade figure pipeline
+      impact_surface: paper-facing figure/caption/export
+      prevention_or_check: material-object validators and rendered-surface gate
+      data_or_evidence: fixture materials
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+  template_object_refs:
+  - template-profile-001
+  expression_design_object_refs:
+  - cognitive-load-budget-001
+  - explanation-ladder-001
+  - rhetorical-move-matrix-001
+  - claim-evidence-visibility-map-001
+  - terminology-register-001
+  evidence_object_refs:
+  - evidence-bank-001
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+  - validate_terminology_register
+  - validate_terminology_register_surface
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  - validate_figure_export_bundle
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_narrative_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_template_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_expression_design_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder_progression
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register_surface
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rendered_pdf_surface_text
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_no_internal_codes_in_rendered_text
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_no_bare_citekeys_in_export
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_figure_export_bundle
+    status: pass
+    report_path: validator-report.yaml
+- task_id: T-NF-QA
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: review_and_governance
+  owner_lane: review-director
+  agent_type: critic
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - task-ledger.yaml
+    - artifact-ledger.yaml
+    - nature/
+    - narrative/
+  input_materials:
+  - artifact_id: reader-spine-001
+    artifact_type: ReaderSpineBrief
+    path: narrative/reader-spine-001.yaml
+  - artifact_id: object-repr-001
+    artifact_type: ObjectRepresentationMatrix
+    path: narrative/object-representation-matrix.yaml
+  - artifact_id: template-profile-001
+    artifact_type: TemplateQuantProfile
+    path: narrative/template-quant-profile.yaml
+  - artifact_id: evidence-bank-001
+    artifact_type: evidence-bank
+    path: evidence-bank.yaml
+  - artifact_id: cognitive-load-budget-001
+    artifact_type: CognitiveLoadBudget
+    path: narrative/cognitive-load-budget-001.yaml
+  - artifact_id: explanation-ladder-001
+    artifact_type: ExplanationLadder
+    path: narrative/explanation-ladder-001.yaml
+  - artifact_id: rhetorical-move-matrix-001
+    artifact_type: RhetoricalMoveMatrix
+    path: narrative/rhetorical-move-matrix-001.yaml
+  - artifact_id: claim-evidence-visibility-map-001
+    artifact_type: ClaimEvidenceVisibilityMap
+    path: narrative/claim-evidence-visibility-map-001.yaml
+  - artifact_id: terminology-register-001
+    artifact_type: TerminologyRegister
+    path: narrative/terminology-register-001.yaml
+  - artifact_id: nature-figure-contract-001
+    artifact_type: NatureFigureContract
+    path: nature/nature-figure-contract-001.yaml
+  - artifact_id: nature-figure-aesthetic-profile-001
+    artifact_type: NatureFigureAestheticProfile
+    path: nature/nature-figure-aesthetic-profile-001.yaml
+  - artifact_id: nature-panel-evidence-map-001
+    artifact_type: NaturePanelEvidenceMap
+    path: nature/nature-panel-evidence-map-001.yaml
+  - artifact_id: figure-source-data-statistics-001
+    artifact_type: FigureSourceDataStatistics
+    path: nature/figure-source-data-statistics-001.yaml
+  - artifact_id: figure-image-integrity-record-001
+    artifact_type: FigureImageIntegrityRecord
+    path: nature/figure-image-integrity-record-001.yaml
+  - artifact_id: figure-backend-route-001
+    artifact_type: FigureBackendRoute
+    path: nature/figure-backend-route-001.yaml
+  - artifact_id: nature-caption-legend-brief-001
+    artifact_type: NatureCaptionLegendBrief
+    path: nature/nature-caption-legend-brief-001.yaml
+  - artifact_id: figure-export-bundle-001
+    artifact_type: FigureExportBundle
+    path: nature/figure-export-bundle-001.yaml
+  - artifact_id: rendered-surface-gate-report-001
+    artifact_type: RenderedSurfaceGateReport
+    path: rendered-surface-gate-report.yaml
+  expected_output_materials:
+  - artifact_id: nature-figure-qa-report-001
+    artifact_type: NatureFigureQAReport
+    path: nature/nature-figure-qa-report-001.yaml
+  expected_output_artifacts:
+  - artifact_id: nature-figure-qa-report-001
+    artifact_type: NatureFigureQAReport
+    path: nature/nature-figure-qa-report-001.yaml
+  collection_path: nature/
+  state_ledger_path: state.yaml
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_evidence_failure: evidence_and_method
+    on_export_failure: manuscript_and_figure_production
+  collected_outputs:
+  - artifact_id: nature-figure-qa-report-001
+    path: nature/nature-figure-qa-report-001.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: Validate a Nature-grade figure package through yxj-paper-os
+        material objects.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: Nature-grade figure pipeline
+      impact_surface: paper-facing figure/caption/export
+      prevention_or_check: material-object validators and rendered-surface gate
+      data_or_evidence: fixture materials
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  narrative_object_refs:
+  - reader-spine-001
+  - object-repr-001
+  template_object_refs:
+  - template-profile-001
+  expression_design_object_refs:
+  - cognitive-load-budget-001
+  - explanation-ladder-001
+  - rhetorical-move-matrix-001
+  - claim-evidence-visibility-map-001
+  - terminology-register-001
+  evidence_object_refs:
+  - evidence-bank-001
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_narrative_object_binding
+  - validate_template_object_binding
+  - validate_expression_design_object_binding
+  - validate_cognitive_load_budget
+  - validate_cognitive_load_budget_consumed
+  - validate_explanation_ladder
+  - validate_explanation_ladder_progression
+  - validate_rhetorical_move_matrix
+  - validate_rhetorical_move_matrix_consumed
+  - validate_claim_evidence_visibility_map
+  - validate_claim_evidence_visibility
+  - validate_terminology_register
+  - validate_terminology_register_surface
+  - validate_rendered_pdf_surface_text
+  - validate_no_internal_codes_in_rendered_text
+  - validate_no_bare_citekeys_in_export
+  - validate_nature_figure_qa_report
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_narrative_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_template_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_expression_design_object_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_cognitive_load_budget_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_explanation_ladder_progression
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rhetorical_move_matrix_consumed
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility_map
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_claim_evidence_visibility
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_terminology_register_surface
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_rendered_pdf_surface_text
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_no_internal_codes_in_rendered_text
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_no_bare_citekeys_in_export
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_nature_figure_qa_report
+    status: pass
+    report_path: validator-report.yaml
+- task_id: T-NATURE-ABSORB-PMO
+  route: pipeline
+  adapter: native_subagent_pipeline_adapter
+  owner_department: pmo
+  owner_lane: skill-registry-owner
+  agent_type: architect
+  status: complete
+  pipeline_stage: state_transition
+  scoped_context:
+    paper_root: .
+    source_map: source-map.yaml
+    allowed_paths:
+    - source-map.yaml
+    - evidence-bank.yaml
+    - task-ledger.yaml
+    - artifact-ledger.yaml
+    - nature/
+    - narrative/
+  input_materials:
+  - artifact_id: nature-source-inventory-001
+    artifact_type: NatureSourceInventory
+    path: nature/nature-source-inventory-001.yaml
+  - artifact_id: company-skill-registry-001
+    artifact_type: CompanySkillRegistry
+    path: nature/company-skill-registry-001.yaml
+  expected_output_materials:
+  - artifact_id: nature-absorption-package-001
+    artifact_type: NatureAbsorptionPackage
+    path: nature/nature-absorption-package-001.yaml
+  expected_output_artifacts:
+  - artifact_id: nature-absorption-package-001
+    artifact_type: NatureAbsorptionPackage
+    path: nature/nature-absorption-package-001.yaml
+  collection_path: nature/
+  state_ledger_path: state.yaml
+  backflow_route:
+    on_validator_failure: review_and_governance
+    on_evidence_failure: evidence_and_method
+    on_export_failure: manuscript_and_figure_production
+  collected_outputs:
+  - artifact_id: nature-absorption-package-001
+    artifact_type: NatureAbsorptionPackage
+    path: nature/nature-absorption-package-001.yaml
+  state_ingestion:
+    status: ingested
+    ledger_path: state.yaml
+  pua_telemetry:
+    pressure_level: L0
+    failure_count: 0
+    failure_mode: null
+    pua_diagnosis:
+      problem_or_goal: Validate yxj-native Nature full absorption root package.
+      evidence: []
+      next_action: Proceed through compile -> execute -> collect -> validate -> ingest
+        -> state_transition.
+    owner_four_questions:
+      root_cause_or_target: Nature non-figure full absorption control plane
+      impact_surface: paper lifecycle reader/search/citation/writing/data/review/response/communication/patent
+      prevention_or_check: material-object validators and rendered-surface gate
+      data_or_evidence: fixture materials
+    attempts: []
+    excluded: []
+    next_hypothesis: ''
+    manager_action: ''
+    pua_report:
+      present: false
+      failure_count: 0
+      failure_mode: null
+      attempts: []
+      excluded: []
+      next_hypothesis: ''
+      manager_action: ''
+    seven_item_checklist:
+      read_failure_signal: false
+      searched_core_problem: false
+      read_original_material: false
+      verified_prerequisites: false
+      reversed_assumption: false
+      minimal_isolation: false
+      changed_direction: false
+  state_transition:
+    from: validated
+    to: complete
+    at: fixture-time
+  narrative_object_refs: []
+  template_object_refs: []
+  expression_design_object_refs: []
+  evidence_object_refs: []
+  validator_refs:
+  - validate_task_packet
+  - validate_subagent_output
+  - validate_task_status_transitions
+  - validate_pua_telemetry
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_nature_source_inventory
+  - validate_company_skill_registry
+  - validate_nature_absorption_package
+  validator_evidence:
+  - validator: validate_task_packet
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_subagent_output
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_status_transitions
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_pua_telemetry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_agent_lane_department_binding
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_task_material_io
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_nature_source_inventory
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_company_skill_registry
+    status: pass
+    report_path: validator-report.yaml
+  - validator: validate_nature_absorption_package
+    status: pass
+    report_path: validator-report.yaml

@@ -1,0 +1,13 @@
+schema_version: yxj-paper-os/explanation-ladder/v1
+ladder_id: explanation-ladder-001
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+steps:
+- stage: intuition
+  reader_explanation: State the reader problem before introducing the mechanism.
+- stage: mechanism
+  reader_explanation: Explain how the mechanism transforms evidence into authorization.
+- stage: evidence
+  reader_explanation: Connect each claim to the bounded evidence record.
+- stage: claim
+  reader_explanation: Only then state the supported claim boundary.

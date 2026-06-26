@@ -1,0 +1,3 @@
+expected_failures:
+- validate_expression_design_object_binding
+allowed_extra_failures: []

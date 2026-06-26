@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/claim-evidence-visibility-map/v1
+map_id: claim-evidence-visibility-map-001
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+can_raise_claim_strength: false
+claims:
+- claim_id: claim-reader-facing-mechanism
+  support_location: Results paragraph and evidence table
+  evidence_refs:
+  - evidence-bank-001
+  - method-contract-001
+  allowed_strength: supported
+  evidence_strength: supported
+  forbidden_wording:
+  - proves public-road safety
+  - cryptographic guarantee

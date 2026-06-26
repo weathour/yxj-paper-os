@@ -1,0 +1,9 @@
+schema_version: yxj-paper-os/fixture-meta/v1
+fixture_id: invalid-nature-absorption-presentation-export-owner
+valid: false
+expected_failures:
+- validate_presentation_plan
+allowed_extra_failures:
+- validate_owner_lane_closure
+- validate_agent_lane_department_binding
+- validate_validator_report

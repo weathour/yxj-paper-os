@@ -1,0 +1,3 @@
+expected_failures:
+- validate_figure_image_integrity_record
+allowed_extra_failures: []

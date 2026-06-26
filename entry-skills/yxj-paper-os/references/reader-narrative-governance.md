@@ -113,6 +113,79 @@ required figures/tables/formal elements, and validation rules.
 ### VisualTableAlgorithmFormulaBudget
 Explains why each planned visual/formal object exists, which claim it supports,
 which section consumes it, and what evidence or source anchors it requires.
+For final/export-facing figures, each figure row should also declare whether
+Nature-grade governance is required and reference the downstream
+`NatureFigureContract`, `NatureFigureAestheticProfile`,
+`NaturePanelEvidenceMap`, `FigureBackendRoute`, and expected
+`FigureExportBundle` objects. The visual/formal budget explains why a figure
+exists; the Nature-grade objects prove that the figure carries the argument,
+evidence, aesthetics, caption, and export contract without becoming decoration.
+
+### NatureFigureContract
+Defines a figure as a reader-facing argument before drawing begins.
+
+Minimum content:
+- one figure id, target section, and core conclusion;
+- reader question and accepted figure archetype, such as quantitative grid,
+  schematic-led composite, image plate plus quant, or asymmetric mixed modality;
+- hero/support panel hierarchy and panel map;
+- panel-level reader questions, evidence roles, supported claim ids, and
+  evidence refs;
+- narrative, template, expression-design, and evidence refs consumed by the
+  figure task.
+
+### NatureFigureAestheticProfile
+Turns “Nature figure taste” into explicit, reviewable design constraints. It
+records composition archetype, hero-panel exception policy, semantic palette
+roles, editable typography, lowercase-bold panel label policy, non-decorative
+badges, legend/direct-label strategy, background policy, and final-size/export
+legibility. This object is consumed by figure-owner, style-auditor,
+review-director, and export-owner lanes; it cannot certify aesthetics by itself.
+
+### NaturePanelEvidenceMap
+Ensures that every panel earns its place. Each panel must have a unique reader
+question, evidence role, supported claim ids, evidence refs, and links to
+statistics/source-data and image-integrity records. Panels that only decorate,
+duplicate another panel's question, or imply unsupported claim strength route to
+review/backflow.
+
+### FigureBackendRoute
+Selects one final source of truth for a figure: deterministic TikZ/cps-tikz,
+script-generated Python/R, extracted asset under manual review, or
+manual-review-only. Cross-backend rendering as a final source is prohibited.
+Rendered SVG/PDF/PNG outputs are export artifacts, not the source of truth when
+editable code/vector source exists.
+
+### FigureSourceDataStatistics
+Carries source-data/statistics requirements for data panels: source data refs,
+sample size or no-data rationale, error definition, statistical test, and the
+legend statistics block. Conceptual/vector schematics must use
+`conceptual:true` with a no-data rationale instead of pretending that absent data
+exist.
+
+### FigureImageIntegrityRecord
+Carries image/raster provenance when the figure includes image plates,
+screenshots, microscopy/blots, extracted assets, or processed raster panels. Pure
+deterministic vector/conceptual figures may record `not_applicable` only with an
+explicit rationale and non-raster route.
+
+### NatureCaptionLegendBrief
+Translates the figure contract into a manuscript-facing caption: title,
+present-tense panel descriptions, statistics statement, source-data statement,
+allowed claim-closing sentence, attribution/permission note, and privacy leak
+checks. Captions are reader-surface text and must consume terminology and claim
+visibility controls.
+
+### NatureFigureQAReport
+Independent QA record for visual, aesthetic, evidence, caption, image-integrity,
+export, and rendered-surface checks. It names the backflow owner for each class
+of failure and prevents figure-owner or export-owner self-certification.
+
+### FigureExportBundle
+Records source artifacts, output formats, editable text status, final dimensions,
+manifest refs, and hash provenance. A Nature-grade figure export normally needs
+editable source, SVG/PDF, and a preview/raster artifact. Export readiness still
+requires rendered-surface validation; source files alone do not close export.
 
 ### CognitiveLoadBudget
 Defines how much conceptual, formal, metric, terminology, and claim-boundary
@@ -294,3 +367,42 @@ Recommended surface validator names:
 - `validate_explanation_ladder_progression`
 - `validate_claim_evidence_visibility`
 - `validate_terminology_register_surface`
+
+Recommended Nature-grade figure validator names:
+- `validate_nature_figure_contract`
+- `validate_nature_figure_aesthetic_profile`
+- `validate_panel_evidence_map`
+- `validate_figure_backend_route`
+- `validate_figure_source_data_statistics`
+- `validate_figure_image_integrity_record`
+- `validate_nature_caption_legend`
+- `validate_nature_figure_qa_report`
+- `validate_figure_export_bundle`
+
+
+## Nature full-absorption material chain
+
+Non-figure Nature skills are absorbed as yxj-native internal capability cells. The canonical departments do not change; display labels may expand, but state/validator department IDs remain stable. In particular, presentation/PPT is a writing/expression production capability under `manuscript_and_figure_production`, not an export-only department.
+
+The M1 chain is:
+
+```text
+NatureSourceInventory
+  -> CompanySkillRegistry
+  -> PaperReaderPackage / SearchStrategyDossier / CitationVerificationReport
+  -> SectionMovePlan / JournalStyleProfile / PolishingRepairReport
+  -> DataAvailabilityPlan
+  -> ReviewerPanelReport / ResponseActionMap
+  -> PresentationPlan / PatentDraftBoundary
+  -> NatureAbsorptionPackage
+  -> validator evidence
+  -> ledger ingestion / state transition / backflow
+```
+
+Boundary rules:
+- `CompanySkillRegistry` rows must set `public_surface_allowed:false` and `hidden_manager:false`.
+- `NatureAbsorptionPackage` must link every required capability material and a backflow route before closure.
+- `DataAvailabilityPlan` may not invent repository identifiers, licences, accessions, access committees, or embargoes.
+- `ResponseActionMap` must preserve reviewer/editor comment IDs and must not invent line numbers or manuscript changes.
+- `PresentationPlan` must consume narrative/expression refs and cannot be owned only by `export-owner`.
+- `PatentDraftBoundary` is a drafting-aid boundary, not legal advice, not a patentability opinion, and not filing authorization.

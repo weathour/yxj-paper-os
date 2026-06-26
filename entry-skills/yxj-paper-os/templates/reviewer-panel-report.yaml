@@ -1,0 +1,33 @@
+schema_version: yxj-paper-os/reviewer-panel-report/v1
+artifact_id: reviewer-panel-report-template
+owning_department: review_and_governance
+owner_lane: review-director
+reviewer_reports:
+- reviewer_id: reviewer-1
+  emphasis: originality
+  major_concerns:
+  - concern with evidence
+  invented_identity: false
+- reviewer_id: reviewer-2
+  emphasis: technical soundness
+  major_concerns:
+  - concern with validation
+  invented_identity: false
+- reviewer_id: reviewer-3
+  emphasis: readability
+  major_concerns:
+  - concern with broad readership
+  invented_identity: false
+cross_review_synthesis:
+  consensus_strengths:
+  - clear problem
+  consensus_risks:
+  - needs validation
+technical_failing_map:
+- finding_id: tf-1
+  owner_lane: method-verifier
+  severity: major
+broad_interest_readout: interdisciplinary readership if evidence is strong
+editorial_decision_claimed: false
+validator_refs:
+- validate_reviewer_panel_report

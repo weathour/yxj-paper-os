@@ -1,0 +1,47 @@
+schema_version: yxj-paper-os/nature-figure-aesthetic-profile/v1
+artifact_id: nature-figure-aesthetic-profile-001
+status: validated
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+nature_grade_required: true
+figure_id: fig-zt-001
+composition:
+  figure_archetype: schematic_led_composite
+  hero_panel_id: fig-zt-001a
+  supporting_panel_ids:
+  - fig-zt-001b
+  panel_hierarchy:
+    primary:
+    - fig-zt-001a
+    validation:
+    - fig-zt-001b
+  dashboard_equal_panel_bias_check: pass
+palette:
+  semantic_roles:
+    neutral: neutral_grey_family
+    signal: method_blue_family
+    accent: restrained_orange_family
+  stable_role_mapping_required: true
+typography:
+  font_family_policy: standard_sans_serif
+  editable_text_required: true
+  final_size_legibility: required
+panel_label_policy:
+  lowercase_bold: true
+  decorative_badges: false
+legend_strategy: direct_label
+background_policy:
+  plot_background: white
+  black_background_allowed_only_for_image_plate: true
+export_aesthetic_constraints:
+  final_size_legibility: required
+  export_bundle_ref: figure-export-bundle-001
+expression_design_object_refs:
+- cognitive-load-budget-001
+- explanation-ladder-001
+- rhetorical-move-matrix-001
+- claim-evidence-visibility-map-001
+- terminology-register-001
+validator_refs:
+- validate_nature_figure_aesthetic_profile
+- validate_expression_design_object_binding

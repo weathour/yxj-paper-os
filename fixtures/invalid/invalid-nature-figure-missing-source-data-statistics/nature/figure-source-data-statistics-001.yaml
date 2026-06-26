@@ -1,0 +1,21 @@
+schema_version: yxj-paper-os/figure-source-data-statistics/v1
+artifact_id: figure-source-data-statistics-001
+status: validated
+owning_department: evidence_and_method
+owner_lane: method-verifier
+figure_id: fig-zt-001
+conceptual: false
+no_data_rationale: Deterministic conceptual/vector schematic; no measured source data
+  are plotted.
+source_data_refs: []
+statistics:
+  n: not_applicable
+  error_definition: not_applicable
+  statistical_test: not_applicable
+  correction_method: not_applicable
+legend_statistics_block:
+  required: false
+  text: Conceptual schematic; no sample statistics are reported.
+backend_route_ref: figure-backend-route-001
+validator_refs:
+- validate_figure_source_data_statistics

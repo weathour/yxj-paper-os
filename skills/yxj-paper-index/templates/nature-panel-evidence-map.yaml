@@ -1,0 +1,21 @@
+schema_version: yxj-paper-os/nature-panel-evidence-map/v1
+artifact_id: nature-panel-evidence-map-<figure-id>
+status: draft
+owning_department: evidence_and_method
+owner_lane: evidence-curator
+figure_id: fig-001
+panels:
+  - panel_id: fig-001a
+    reader_question: How does the mechanism work?
+    evidence_role: primary_mechanism
+    granularity_stage: mechanism
+    supports_claim_ids:
+      - claim-001
+    evidence_refs:
+      - evidence-001
+    source_data_refs: []
+    statistics_ref: figure-source-data-statistics-001
+    image_integrity_ref: figure-image-integrity-record-001
+    unique_evidence_role: true
+validator_refs:
+  - validate_panel_evidence_map

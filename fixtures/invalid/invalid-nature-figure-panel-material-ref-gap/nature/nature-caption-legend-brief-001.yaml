@@ -1,0 +1,31 @@
+schema_version: yxj-paper-os/nature-caption-legend-brief/v1
+artifact_id: nature-caption-legend-brief-001
+status: validated
+owning_department: manuscript_and_figure_production
+owner_lane: figure-owner
+figure_id: fig-zt-001
+caption_title: Fig. 1 | Evidence-gated reconfiguration mechanism
+panel_descriptions:
+- panel_id: fig-zt-001a
+  text: Panel a shows the mechanism using reader-facing labels.
+  tense: present
+- panel_id: fig-zt-001b
+  text: Panel b states the validation boundary without upgrading the claim.
+  tense: present
+statistics_statement:
+  required: false
+  text: Conceptual schematic; no sample statistics are reported.
+source_data_statement:
+  required: false
+  text: Source data are not applicable to the conceptual schematic.
+claim_closing_sentence:
+  allowed: true
+  text: Together, the panels define the mechanism and validation boundary.
+attribution_permission:
+  required: false
+  text: Original figure generated from project materials.
+privacy_surface:
+  private_path_leak_status: pass
+  raw_locator_leak_status: pass
+validator_refs:
+- validate_nature_caption_legend

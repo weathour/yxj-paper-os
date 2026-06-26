@@ -59,6 +59,25 @@ KNOWN_VALIDATORS = {
     'validate_claim_citation_capsule_support', 'validate_result_package_claim_boundary',
     'validate_single_writer_lock_held', 'validate_reader_surface_tutor_review_spans',
     'validate_no_internal_codes_in_rendered_text',
+    'validate_nature_figure_contract', 'validate_nature_figure_aesthetic_profile',
+    'validate_panel_evidence_map', 'validate_figure_backend_route',
+    'validate_figure_source_data_statistics', 'validate_figure_image_integrity_record',
+    'validate_nature_caption_legend', 'validate_nature_figure_qa_report',
+    'validate_figure_export_bundle',
+    'validate_nature_source_inventory',
+    'validate_nature_absorption_package',
+    'validate_company_skill_registry',
+    'validate_paper_reader_package',
+    'validate_search_strategy_dossier',
+    'validate_citation_verification_report',
+    'validate_section_move_plan',
+    'validate_journal_style_profile',
+    'validate_polishing_repair_report',
+    'validate_data_availability_plan',
+    'validate_reviewer_panel_report',
+    'validate_response_action_map',
+    'validate_presentation_plan',
+    'validate_patent_draft_boundary',
 }
 
 DEFAULT_ALLOWED_OWNER_LANES = {
@@ -140,6 +159,18 @@ REQUIRED_V2_TEMPLATES = [
     'cognitive-load-budget.yaml', 'explanation-ladder.yaml',
     'rhetorical-move-matrix.yaml', 'claim-evidence-visibility-map.yaml',
     'terminology-register.yaml', 'expression-design-bundle.yaml',
+    'nature-figure-contract.yaml', 'nature-figure-aesthetic-profile.yaml',
+    'nature-panel-evidence-map.yaml', 'figure-backend-route.yaml',
+    'figure-source-data-statistics.yaml', 'figure-image-integrity-record.yaml',
+    'nature-caption-legend-brief.yaml', 'nature-figure-qa-report.yaml',
+    'figure-export-bundle.yaml',
+    'nature-source-inventory.yaml', 'nature-absorption-package.yaml',
+    'company-skill-registry.yaml', 'paper-reader-package.yaml',
+    'search-strategy-dossier.yaml', 'citation-verification-report.yaml',
+    'section-move-plan.yaml', 'journal-style-profile.yaml',
+    'polishing-repair-report.yaml', 'data-availability-plan.yaml',
+    'reviewer-panel-report.yaml', 'response-action-map.yaml',
+    'presentation-plan.yaml', 'patent-draft-boundary.yaml',
 ]
 
 REQUIRED_ROOT_FILES = [
@@ -276,6 +307,98 @@ def check_v2_template_shapes(root: Path) -> list[str]:
         'expression-design-bundle.yaml': (
             'validate_expression_design_object_binding',
             ['artifact_id', 'owning_department', 'consumers', 'typed_object_refs', 'bundle_rules.cannot_bypass_typed_object_validators', 'validator_refs'],
+        ),
+        'nature-figure-contract.yaml': (
+            'validate_nature_figure_contract',
+            ['artifact_id', 'owning_department', 'figure_id', 'core_conclusion', 'reader_question', 'figure_archetype', 'panel_hierarchy.hero_panel_id', 'panel_map', 'narrative_object_refs', 'template_object_refs', 'expression_design_object_refs', 'evidence_refs', 'validator_refs'],
+        ),
+        'nature-figure-aesthetic-profile.yaml': (
+            'validate_nature_figure_aesthetic_profile',
+            ['artifact_id', 'owning_department', 'figure_id', 'composition.figure_archetype', 'composition.dashboard_equal_panel_bias_check', 'palette.semantic_roles', 'typography.editable_text_required', 'panel_label_policy.lowercase_bold', 'legend_strategy', 'background_policy', 'expression_design_object_refs', 'validator_refs'],
+        ),
+        'nature-panel-evidence-map.yaml': (
+            'validate_panel_evidence_map',
+            ['artifact_id', 'owning_department', 'figure_id', 'panels', 'validator_refs'],
+        ),
+        'figure-backend-route.yaml': (
+            'validate_figure_backend_route',
+            ['artifact_id', 'owning_department', 'figure_id', 'selected_route', 'route_exclusivity_required', 'final_source_of_truth.type', 'cross_backend_rendering_allowed', 'missing_runtime_policy', 'validator_refs'],
+        ),
+        'figure-source-data-statistics.yaml': (
+            'validate_figure_source_data_statistics',
+            ['artifact_id', 'owning_department', 'figure_id', 'conceptual', 'statistics', 'legend_statistics_block', 'backend_route_ref', 'validator_refs'],
+        ),
+        'figure-image-integrity-record.yaml': (
+            'validate_figure_image_integrity_record',
+            ['artifact_id', 'owning_department', 'figure_id', 'image_integrity_applicability.status', 'backend_route_ref', 'raster_or_image_panel', 'validator_refs'],
+        ),
+        'nature-caption-legend-brief.yaml': (
+            'validate_nature_caption_legend',
+            ['artifact_id', 'owning_department', 'figure_id', 'caption_title', 'panel_descriptions', 'statistics_statement', 'source_data_statement', 'privacy_surface', 'validator_refs'],
+        ),
+        'nature-figure-qa-report.yaml': (
+            'validate_nature_figure_qa_report',
+            ['artifact_id', 'owning_department', 'figure_id', 'checks', 'verdict', 'backflow_route', 'validator_refs'],
+        ),
+        'figure-export-bundle.yaml': (
+            'validate_figure_export_bundle',
+            ['artifact_id', 'owning_department', 'figure_id', 'source_artifacts', 'outputs', 'editable_text_status', 'final_dimensions', 'manifest_refs', 'hash_provenance.status', 'validator_refs'],
+        ),
+        'nature-source-inventory.yaml': (
+            'validate_nature_source_inventory',
+            ['artifact_id', 'owning_department', 'source_repo.name', 'source_repo.url', 'source_repo.commit_hash', 'source_files_required', 'capabilities', 'validator_refs'],
+        ),
+        'company-skill-registry.yaml': (
+            'validate_company_skill_registry',
+            ['artifact_id', 'owning_department', 'registry_scope', 'single_public_entry', 'public_surface_allowed', 'capabilities', 'validator_refs'],
+        ),
+        'nature-absorption-package.yaml': (
+            'validate_nature_absorption_package',
+            ['artifact_id', 'owning_department', 'source_inventory_ref', 'company_skill_registry_ref', 'capability_material_refs', 'department_backflow_routes', 'closure_invariant', 'validator_refs'],
+        ),
+        'paper-reader-package.yaml': (
+            'validate_paper_reader_package',
+            ['artifact_id', 'owning_department', 'source_format', 'source_blocks', 'figure_table_map', 'exact_source_anchors_required', 'summary_only', 'validator_refs'],
+        ),
+        'search-strategy-dossier.yaml': (
+            'validate_search_strategy_dossier',
+            ['artifact_id', 'owning_department', 'workflow', 'queries', 'source_tiers', 'deduplication.status', 'failure_log', 'validator_refs'],
+        ),
+        'citation-verification-report.yaml': (
+            'validate_citation_verification_report',
+            ['artifact_id', 'owning_department', 'segments', 'export_route.format', 'export_route.reference_manager_ready', 'validator_refs'],
+        ),
+        'section-move-plan.yaml': (
+            'validate_section_move_plan',
+            ['artifact_id', 'owning_department', 'paper_type', 'section', 'language', 'journal', 'narrative_object_refs', 'evidence_refs', 'move_sequence', 'validator_refs'],
+        ),
+        'journal-style-profile.yaml': (
+            'validate_journal_style_profile',
+            ['artifact_id', 'owning_department', 'journal', 'source_basis', 'style_axes', 'diction_rules', 'forbidden_patterns', 'validator_refs'],
+        ),
+        'polishing-repair-report.yaml': (
+            'validate_polishing_repair_report',
+            ['artifact_id', 'owning_department', 'failure_modes', 'repairs', 'phrasebank_application.status', 'chinese_author_alignment.status', 'validator_refs'],
+        ),
+        'data-availability-plan.yaml': (
+            'validate_data_availability_plan',
+            ['artifact_id', 'owning_department', 'datasets', 'fair_metadata_checklist.status', 'statement_draft', 'validator_refs'],
+        ),
+        'reviewer-panel-report.yaml': (
+            'validate_reviewer_panel_report',
+            ['artifact_id', 'owning_department', 'reviewer_reports', 'cross_review_synthesis', 'technical_failing_map', 'broad_interest_readout', 'validator_refs'],
+        ),
+        'response-action-map.yaml': (
+            'validate_response_action_map',
+            ['artifact_id', 'owning_department', 'comments', 'point_by_point_draft.status', 'tone_qa.status', 'invented_line_numbers_present', 'validator_refs'],
+        ),
+        'presentation-plan.yaml': (
+            'validate_presentation_plan',
+            ['artifact_id', 'owning_department', 'canonical_department_id', 'narrative_object_refs', 'expression_design_object_refs', 'presentation_narrative_arc', 'slides', 'self_review.status', 'validator_refs'],
+        ),
+        'patent-draft-boundary.yaml': (
+            'validate_patent_draft_boundary',
+            ['artifact_id', 'owning_department', 'source_ids', 'source_support_map', 'drafting_aid_only', 'not_legal_opinion', 'no_patentability_guarantee', 'professional_review_gate.required', 'formal_filing_authorized', 'validator_refs'],
         ),
     }
     for filename, (validator, paths) in checks.items():
@@ -699,6 +822,25 @@ V2_VALIDATOR_REFS = {
     'validate_manager_direct_independent_review', 'validate_no_manager_self_certification',
     'validate_role_separation_for_paper_facing_tasks', 'validate_manager_direct_handoff_disclosure',
     'validate_completion_state_limited_without_independent_review',
+    'validate_nature_figure_contract', 'validate_nature_figure_aesthetic_profile',
+    'validate_panel_evidence_map', 'validate_figure_backend_route',
+    'validate_figure_source_data_statistics', 'validate_figure_image_integrity_record',
+    'validate_nature_caption_legend', 'validate_nature_figure_qa_report',
+    'validate_figure_export_bundle',
+    'validate_nature_source_inventory',
+    'validate_nature_absorption_package',
+    'validate_company_skill_registry',
+    'validate_paper_reader_package',
+    'validate_search_strategy_dossier',
+    'validate_citation_verification_report',
+    'validate_section_move_plan',
+    'validate_journal_style_profile',
+    'validate_polishing_repair_report',
+    'validate_data_availability_plan',
+    'validate_reviewer_panel_report',
+    'validate_response_action_map',
+    'validate_presentation_plan',
+    'validate_patent_draft_boundary',
 }
 
 EXPRESSION_DESIGN_OBJECT_VALIDATORS = {
@@ -1809,6 +1951,214 @@ MATERIAL_OBJECT_SPECS: dict[str, dict[str, Any]] = {
         'validator': 'validate_no_internal_codes_in_rendered_text',
         'aliases': {'RenderedSurfaceGateReport', 'rendered-surface-gate-report', 'rendered_surface_gate_report'},
     },
+    'NatureFigureContract': {
+        'filenames': {'nature-figure-contract.yaml'},
+        'schema_version': 'yxj-paper-os/nature-figure-contract/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'paper_architecture_and_narrative', 'manuscript_and_figure_production'},
+        'allowed_lanes': {'paper-architect', 'figure-owner'},
+        'validator': 'validate_nature_figure_contract',
+        'aliases': {'NatureFigureContract', 'nature-figure-contract', 'nature_figure_contract'},
+    },
+    'NatureFigureAestheticProfile': {
+        'filenames': {'nature-figure-aesthetic-profile.yaml'},
+        'schema_version': 'yxj-paper-os/nature-figure-aesthetic-profile/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'paper_architecture_and_narrative', 'manuscript_and_figure_production'},
+        'allowed_lanes': {'paper-architect', 'figure-owner'},
+        'validator': 'validate_nature_figure_aesthetic_profile',
+        'aliases': {'NatureFigureAestheticProfile', 'nature-figure-aesthetic-profile', 'nature_figure_aesthetic_profile'},
+    },
+    'NaturePanelEvidenceMap': {
+        'filenames': {'nature-panel-evidence-map.yaml'},
+        'schema_version': 'yxj-paper-os/nature-panel-evidence-map/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method', 'paper_architecture_and_narrative'},
+        'allowed_lanes': {'evidence-curator', 'method-verifier', 'paper-architect'},
+        'validator': 'validate_panel_evidence_map',
+        'aliases': {'NaturePanelEvidenceMap', 'nature-panel-evidence-map', 'nature_panel_evidence_map'},
+    },
+    'FigureBackendRoute': {
+        'filenames': {'figure-backend-route.yaml'},
+        'schema_version': 'yxj-paper-os/figure-backend-route/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'manuscript_and_figure_production'},
+        'allowed_lanes': {'figure-owner', 'export-owner'},
+        'validator': 'validate_figure_backend_route',
+        'aliases': {'FigureBackendRoute', 'figure-backend-route', 'figure_backend_route'},
+    },
+    'FigureSourceDataStatistics': {
+        'filenames': {'figure-source-data-statistics.yaml'},
+        'schema_version': 'yxj-paper-os/figure-source-data-statistics/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method'},
+        'allowed_lanes': {'method-verifier', 'evidence-curator'},
+        'validator': 'validate_figure_source_data_statistics',
+        'aliases': {'FigureSourceDataStatistics', 'figure-source-data-statistics', 'figure_source_data_statistics'},
+    },
+    'FigureImageIntegrityRecord': {
+        'filenames': {'figure-image-integrity-record.yaml'},
+        'schema_version': 'yxj-paper-os/figure-image-integrity-record/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method', 'manuscript_and_figure_production'},
+        'allowed_lanes': {'method-verifier', 'evidence-curator', 'figure-owner'},
+        'validator': 'validate_figure_image_integrity_record',
+        'aliases': {'FigureImageIntegrityRecord', 'figure-image-integrity-record', 'figure_image_integrity_record'},
+    },
+    'NatureCaptionLegendBrief': {
+        'filenames': {'nature-caption-legend-brief.yaml'},
+        'schema_version': 'yxj-paper-os/nature-caption-legend-brief/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'manuscript_and_figure_production'},
+        'allowed_lanes': {'figure-owner', 'manuscript-owner'},
+        'validator': 'validate_nature_caption_legend',
+        'aliases': {'NatureCaptionLegendBrief', 'nature-caption-legend-brief', 'nature_caption_legend_brief'},
+    },
+    'NatureFigureQAReport': {
+        'filenames': {'nature-figure-qa-report.yaml'},
+        'schema_version': 'yxj-paper-os/nature-figure-qa-report/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'review_and_governance'},
+        'allowed_lanes': {'review-director', 'style-auditor', 'final-verifier'},
+        'validator': 'validate_nature_figure_qa_report',
+        'aliases': {'NatureFigureQAReport', 'nature-figure-qa-report', 'nature_figure_qa_report'},
+    },
+    'FigureExportBundle': {
+        'filenames': {'figure-export-bundle.yaml'},
+        'schema_version': 'yxj-paper-os/figure-export-bundle/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'manuscript_and_figure_production'},
+        'allowed_lanes': {'export-owner', 'figure-owner'},
+        'validator': 'validate_figure_export_bundle',
+        'aliases': {'FigureExportBundle', 'figure-export-bundle', 'figure_export_bundle'},
+    },
+
+    'NatureSourceInventory': {
+        'filenames': {'nature-source-inventory.yaml'},
+        'schema_version': 'yxj-paper-os/nature-source-inventory/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'pmo'},
+        'allowed_lanes': {'skill-registry-owner', 'research-director'},
+        'validator': 'validate_nature_source_inventory',
+        'aliases': {'NatureSourceInventory', 'nature-source-inventory', 'nature_source_inventory'},
+    },
+    'CompanySkillRegistry': {
+        'filenames': {'company-skill-registry.yaml'},
+        'schema_version': 'yxj-paper-os/company-skill-registry/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'pmo'},
+        'allowed_lanes': {'skill-registry-owner'},
+        'validator': 'validate_company_skill_registry',
+        'aliases': {'CompanySkillRegistry', 'company-skill-registry', 'company_skill_registry'},
+    },
+    'NatureAbsorptionPackage': {
+        'filenames': {'nature-absorption-package.yaml'},
+        'schema_version': 'yxj-paper-os/nature-absorption-package/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'pmo'},
+        'allowed_lanes': {'skill-registry-owner', 'final-verifier'},
+        'validator': 'validate_nature_absorption_package',
+        'aliases': {'NatureAbsorptionPackage', 'nature-absorption-package', 'nature_absorption_package'},
+    },
+    'PaperReaderPackage': {
+        'filenames': {'paper-reader-package.yaml'},
+        'schema_version': 'yxj-paper-os/paper-reader-package/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method'},
+        'allowed_lanes': {'evidence-curator', 'source-map-curator'},
+        'validator': 'validate_paper_reader_package',
+        'aliases': {'PaperReaderPackage', 'paper-reader-package', 'paper_reader_package'},
+    },
+    'SearchStrategyDossier': {
+        'filenames': {'search-strategy-dossier.yaml'},
+        'schema_version': 'yxj-paper-os/search-strategy-dossier/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method', 'paper_architecture_and_narrative'},
+        'allowed_lanes': {'sota-mapper', 'research-director'},
+        'validator': 'validate_search_strategy_dossier',
+        'aliases': {'SearchStrategyDossier', 'search-strategy-dossier', 'search_strategy_dossier'},
+    },
+    'CitationVerificationReport': {
+        'filenames': {'citation-verification-report.yaml'},
+        'schema_version': 'yxj-paper-os/citation-verification-report/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method'},
+        'allowed_lanes': {'citation-banker', 'evidence-curator'},
+        'validator': 'validate_citation_verification_report',
+        'aliases': {'CitationVerificationReport', 'citation-verification-report', 'citation_verification_report'},
+    },
+    'SectionMovePlan': {
+        'filenames': {'section-move-plan.yaml'},
+        'schema_version': 'yxj-paper-os/section-move-plan/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'paper-architect', 'manuscript-owner'},
+        'validator': 'validate_section_move_plan',
+        'aliases': {'SectionMovePlan', 'section-move-plan', 'section_move_plan'},
+    },
+    'JournalStyleProfile': {
+        'filenames': {'journal-style-profile.yaml'},
+        'schema_version': 'yxj-paper-os/journal-style-profile/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'paper_architecture_and_narrative'},
+        'allowed_lanes': {'exemplar-learner', 'paper-architect', 'style-auditor'},
+        'validator': 'validate_journal_style_profile',
+        'aliases': {'JournalStyleProfile', 'journal-style-profile', 'journal_style_profile'},
+    },
+    'PolishingRepairReport': {
+        'filenames': {'polishing-repair-report.yaml'},
+        'schema_version': 'yxj-paper-os/polishing-repair-report/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'manuscript_and_figure_production', 'review_and_governance'},
+        'allowed_lanes': {'manuscript-owner', 'style-auditor'},
+        'validator': 'validate_polishing_repair_report',
+        'aliases': {'PolishingRepairReport', 'polishing-repair-report', 'polishing_repair_report'},
+    },
+    'DataAvailabilityPlan': {
+        'filenames': {'data-availability-plan.yaml'},
+        'schema_version': 'yxj-paper-os/data-availability-plan/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'evidence_and_method'},
+        'allowed_lanes': {'method-verifier', 'evidence-curator'},
+        'validator': 'validate_data_availability_plan',
+        'aliases': {'DataAvailabilityPlan', 'data-availability-plan', 'data_availability_plan'},
+    },
+    'ReviewerPanelReport': {
+        'filenames': {'reviewer-panel-report.yaml'},
+        'schema_version': 'yxj-paper-os/reviewer-panel-report/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'review_and_governance'},
+        'allowed_lanes': {'review-director', 'final-verifier'},
+        'validator': 'validate_reviewer_panel_report',
+        'aliases': {'ReviewerPanelReport', 'reviewer-panel-report', 'reviewer_panel_report'},
+    },
+    'ResponseActionMap': {
+        'filenames': {'response-action-map.yaml'},
+        'schema_version': 'yxj-paper-os/response-action-map/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'review_and_governance'},
+        'allowed_lanes': {'review-director', 'manuscript-owner'},
+        'validator': 'validate_response_action_map',
+        'aliases': {'ResponseActionMap', 'response-action-map', 'response_action_map'},
+    },
+    'PresentationPlan': {
+        'filenames': {'presentation-plan.yaml'},
+        'schema_version': 'yxj-paper-os/presentation-plan/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'manuscript_and_figure_production'},
+        'allowed_lanes': {'manuscript-owner', 'paper-architect'},
+        'validator': 'validate_presentation_plan',
+        'aliases': {'PresentationPlan', 'presentation-plan', 'presentation_plan'},
+    },
+    'PatentDraftBoundary': {
+        'filenames': {'patent-draft-boundary.yaml'},
+        'schema_version': 'yxj-paper-os/patent-draft-boundary/v1',
+        'owner_fields': {'owning_department', 'owner_department'},
+        'allowed_departments': {'manuscript_and_figure_production', 'evidence_and_method'},
+        'allowed_lanes': {'docs-writer', 'manuscript-owner', 'method-verifier'},
+        'validator': 'validate_patent_draft_boundary',
+        'aliases': {'PatentDraftBoundary', 'patent-draft-boundary', 'patent_draft_boundary'},
+    },
 }
 
 
@@ -2456,6 +2806,1009 @@ def validate_reader_surface_tutor_review_material(
     return True
 
 
+
+NATURE_FIGURE_ARCHETYPES = {
+    'quantitative_grid', 'schematic_led_composite', 'image_plate_plus_quant',
+    'asymmetric_mixed_modality',
+}
+NATURE_BACKEND_ROUTES = {'tikz_cps_tikz', 'python', 'r', 'extracted_asset', 'manual_review_only'}
+NATURE_VECTOR_ROUTES = {'tikz_cps_tikz', 'manual_review_only'}
+NATURE_PRIVACY_LEAK_PATTERNS = [
+    re.compile(r'/home/[^\s,;)]*'),
+    re.compile(r'/users/[^\s,;)]*', re.IGNORECASE),
+    re.compile(r'[A-Za-z]:[\\/]+users[\\/][^\s,;)]*', re.IGNORECASE),
+    re.compile(r'BEGIN PRIVATE RAW'),
+    re.compile(r'private_raw_content\s*:'),
+    re.compile(r'raw_unpublished_manuscript\s*:'),
+    re.compile(r'API_KEY\s*='),
+    re.compile(r'SECRET\s*='),
+]
+NATURE_REQUIRED_EXPRESSION_MARKERS = {
+    'CognitiveLoadBudget': {'cognitiveloadbudget', 'cognitiveload', 'cognitive-load-budget'},
+    'ExplanationLadder': {'explanationladder', 'explanation-ladder'},
+    'RhetoricalMoveMatrix': {'rhetoricalmovematrix', 'rhetorical-move-matrix'},
+    'ClaimEvidenceVisibilityMap': {'claimevidencevisibilitymap', 'claim-evidence-visibility-map', 'claimevidencevisibility'},
+    'TerminologyRegister': {'terminologyregister', 'terminology-register'},
+}
+
+
+def raw_task_validator_refs(tasks: Any) -> set[str]:
+    refs: set[str] = set()
+    for task in tasks or []:
+        if not isinstance(task, dict):
+            continue
+        values = task.get('validator_refs')
+        if values is None:
+            values = task.get('validators')
+        for ref in values or []:
+            if isinstance(ref, str):
+                refs.add(ref)
+    return refs
+
+
+def material_validator_required(tasks: Any, validator: str) -> bool:
+    return validator in raw_task_validator_refs(tasks)
+
+
+def nature_material_items(
+    fixture: Path,
+    key: str,
+    artifacts: dict[str, Any] | None,
+    tasks: Any,
+) -> list[tuple[str, dict[str, Any] | None]]:
+    return material_data_items(fixture, MATERIAL_OBJECT_SPECS[key], artifacts, tasks)
+
+
+def nature_items_or_required(
+    fixture: Path,
+    key: str,
+    validator: str,
+    artifacts: dict[str, Any] | None,
+    tasks: Any,
+) -> tuple[list[tuple[str, dict[str, Any] | None]], bool]:
+    items = nature_material_items(fixture, key, artifacts, tasks)
+    return items, bool(items) or material_validator_required(tasks, validator)
+
+
+def figure_archetype_ok(value: Any) -> bool:
+    return normalize_material_key(value) in {normalize_material_key(v) for v in NATURE_FIGURE_ARCHETYPES}
+
+
+def nature_expression_refs_complete(refs: Any) -> bool:
+    normalized = {normalize_material_key(ref) for ref in material_ref_strings(refs)}
+    if not normalized:
+        return False
+    for markers in NATURE_REQUIRED_EXPRESSION_MARKERS.values():
+        marker_norms = {normalize_material_key(marker) for marker in markers}
+        if not any(marker in ref or ref in marker for ref in normalized for marker in marker_norms):
+            return False
+    return True
+
+
+def nature_no_private_leak(value: Any) -> bool:
+    text = yaml.safe_dump(value, allow_unicode=True) if not isinstance(value, str) else value
+    return not any(pattern.search(text) for pattern in NATURE_PRIVACY_LEAK_PATTERNS)
+
+
+def nature_ref_resolves_material_type(
+    ref: Any,
+    fixture: Path,
+    artifacts: dict[str, Any] | None,
+    tasks: Any,
+    spec_key: str,
+) -> bool:
+    if not has_text(ref):
+        return False
+    spec = MATERIAL_OBJECT_SPECS[spec_key]
+    ref_id = str(ref)
+    ref_path = ref_id.rstrip('/')
+    if nature_material_data_for_ref(ref, fixture, artifacts, tasks, spec_key) is not None:
+        return True
+    for task in tasks or []:
+        if not isinstance(task, dict):
+            continue
+        for field in ['input_materials', 'expected_output_materials', 'expected_output_artifacts', 'collected_outputs']:
+            for item in task.get(field) or []:
+                if not isinstance(item, dict) or not material_spec_matches_entry(spec, item):
+                    continue
+                item_id = item.get('artifact_id') or item.get('object_id')
+                item_path = str(item.get('path') or '').rstrip('/')
+                if ref_id == item_id or ref_path == item_path or ref_id == Path(item_path).stem:
+                    return True
+    for art in (artifacts or {}).get('artifacts') or []:
+        if not isinstance(art, dict):
+            continue
+        if not material_spec_matches_entry(spec, art):
+            continue
+        art_id = art.get('artifact_id') or art.get('object_id')
+        art_path = str(art.get('path') or '').rstrip('/')
+        if ref_id == art_id or ref_path == art_path or ref_id == Path(art_path).stem:
+            return True
+    for candidate in nature_ref_candidate_paths(ref_id):
+        path = fixture / candidate
+        if not path.exists() or not path.is_file():
+            continue
+        data = load_yaml(path, {})
+        if isinstance(data, dict) and material_spec_for_data(data) == spec:
+            return True
+    return False
+
+
+def nature_ref_candidate_paths(ref_id: str) -> set[str]:
+    return {
+        ref_id,
+        ref_id.rstrip('/'),
+        f'{ref_id}.yaml',
+        f'nature/{ref_id}.yaml',
+        f'figures/{ref_id}.yaml',
+        f'narrative/{ref_id}.yaml',
+    }
+
+
+def nature_material_data_for_ref(
+    ref: Any,
+    fixture: Path,
+    artifacts: dict[str, Any] | None,
+    tasks: Any,
+    spec_key: str,
+) -> dict[str, Any] | None:
+    if not has_text(ref):
+        return None
+    spec = MATERIAL_OBJECT_SPECS[spec_key]
+    ref_id = str(ref)
+    ref_path = ref_id.rstrip('/')
+
+    def entry_matches(entry: dict[str, Any]) -> str | None:
+        if not material_spec_matches_entry(spec, entry):
+            return None
+        entry_id = entry.get('artifact_id') or entry.get('object_id')
+        entry_path = str(entry.get('path') or '').rstrip('/')
+        if ref_id == entry_id or ref_path == entry_path or ref_id == Path(entry_path).stem:
+            return entry_path
+        return None
+
+    candidate_paths = list(nature_ref_candidate_paths(ref_id))
+    for art in (artifacts or {}).get('artifacts') or []:
+        if isinstance(art, dict):
+            path = entry_matches(art)
+            if path:
+                candidate_paths.insert(0, path)
+    for task in tasks or []:
+        if not isinstance(task, dict):
+            continue
+        for field in ['input_materials', 'expected_output_materials', 'expected_output_artifacts', 'collected_outputs']:
+            for item in task.get(field) or []:
+                if isinstance(item, dict):
+                    path = entry_matches(item)
+                    if path:
+                        candidate_paths.insert(0, path)
+    seen: set[str] = set()
+    for rel in candidate_paths:
+        if not rel or rel in seen:
+            continue
+        seen.add(rel)
+        path = fixture / rel
+        if not path.exists() or not path.is_file():
+            continue
+        data = load_yaml(path, {})
+        if isinstance(data, dict) and material_spec_for_data(data) == spec:
+            return data
+    return None
+
+
+def validate_nature_figure_contract_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'NatureFigureContract', 'validate_nature_figure_contract', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        for field in ['artifact_id', 'figure_id', 'core_conclusion', 'reader_question', 'figure_archetype']:
+            if not has_text(data.get(field)):
+                return False
+        if not figure_archetype_ok(data.get('figure_archetype')):
+            return False
+        hierarchy = data.get('panel_hierarchy') or {}
+        if not isinstance(hierarchy, dict) or not has_text(hierarchy.get('hero_panel_id')):
+            if normalize_material_key(data.get('figure_archetype')) != 'quantitativegrid':
+                return False
+        panels = data.get('panel_map') or []
+        if not isinstance(panels, list) or not panels:
+            return False
+        for panel in panels:
+            if not isinstance(panel, dict):
+                return False
+            for field in ['panel_id', 'reader_question', 'evidence_role']:
+                if not has_text(panel.get(field)):
+                    return False
+            if not non_empty_list(panel.get('supports_claim_ids')) or not non_empty_list(panel.get('evidence_refs')):
+                return False
+        if not non_empty_list(data.get('narrative_object_refs')) or not non_empty_list(data.get('template_object_refs')):
+            return False
+        if not nature_expression_refs_complete(data.get('expression_design_object_refs')):
+            return False
+        if not non_empty_list(data.get('evidence_refs')):
+            return False
+    return True
+
+
+def validate_nature_figure_aesthetic_profile_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'NatureFigureAestheticProfile', 'validate_nature_figure_aesthetic_profile', artifacts, tasks)
+    if not items:
+        return not required
+    allowed_legends = {'directlabel', 'sharedlegend', 'legendpanel', 'nonewithcaptionmapping'}
+    for _, data in items:
+        if data is None:
+            return False
+        composition = data.get('composition') or {}
+        if not isinstance(composition, dict) or not figure_archetype_ok(composition.get('figure_archetype')):
+            return False
+        if normalize_actor_part(composition.get('dashboard_equal_panel_bias_check')) not in {'pass', 'passed', 'clean'}:
+            return False
+        archetype = normalize_material_key(composition.get('figure_archetype'))
+        exception = composition.get('hero_panel_exception') or {}
+        if archetype != 'quantitativegrid' and not has_text(composition.get('hero_panel_id')):
+            return False
+        if archetype == 'quantitativegrid' and not has_text(composition.get('hero_panel_id')) and exception.get('accepted') is not True:
+            return False
+        if not isinstance(composition.get('panel_hierarchy'), dict):
+            return False
+        palette = data.get('palette') or {}
+        roles = palette.get('semantic_roles') if isinstance(palette, dict) else None
+        if not isinstance(roles, dict) or not roles.get('neutral') or not roles.get('signal'):
+            return False
+        typography = data.get('typography') or {}
+        if not isinstance(typography, dict) or typography.get('editable_text_required') is not True or not has_text(typography.get('font_family_policy')):
+            return False
+        labels = data.get('panel_label_policy') or {}
+        if not isinstance(labels, dict) or labels.get('lowercase_bold') is not True or labels.get('decorative_badges') is not False:
+            return False
+        if normalize_material_key(data.get('legend_strategy')) not in allowed_legends:
+            return False
+        background = data.get('background_policy') or {}
+        if not isinstance(background, dict) or normalize_material_key(background.get('plot_background')) != 'white':
+            return False
+        if not nature_expression_refs_complete(data.get('expression_design_object_refs')):
+            return False
+    return True
+
+
+def validate_panel_evidence_map_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'NaturePanelEvidenceMap', 'validate_panel_evidence_map', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        panels = data.get('panels') or []
+        if not isinstance(panels, list) or not panels:
+            return False
+        questions: set[str] = set()
+        for panel in panels:
+            if not isinstance(panel, dict):
+                return False
+            for field in ['panel_id', 'reader_question', 'evidence_role']:
+                if not has_text(panel.get(field)):
+                    return False
+            q = normalize_material_key(panel.get('reader_question'))
+            if not q or q in questions:
+                return False
+            questions.add(q)
+            if not non_empty_list(panel.get('supports_claim_ids')) or not non_empty_list(panel.get('evidence_refs')):
+                return False
+            if not nature_ref_resolves_material_type(
+                panel.get('statistics_ref'),
+                fixture,
+                artifacts,
+                tasks,
+                'FigureSourceDataStatistics',
+            ):
+                return False
+            if not nature_ref_resolves_material_type(
+                panel.get('image_integrity_ref'),
+                fixture,
+                artifacts,
+                tasks,
+                'FigureImageIntegrityRecord',
+            ):
+                return False
+            if panel.get('unique_evidence_role') is not True:
+                return False
+    return True
+
+
+def validate_figure_backend_route_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'FigureBackendRoute', 'validate_figure_backend_route', artifacts, tasks)
+    if not items:
+        return not required
+    allowed = {normalize_material_key(route) for route in NATURE_BACKEND_ROUTES}
+    for _, data in items:
+        if data is None:
+            return False
+        route = normalize_material_key(data.get('selected_route'))
+        if route not in allowed:
+            return False
+        if data.get('route_exclusivity_required') is not True:
+            return False
+        if data.get('cross_backend_rendering_allowed') is not False:
+            return False
+        source = data.get('final_source_of_truth') or {}
+        if not isinstance(source, dict) or not has_text(source.get('type')) or not has_text(source.get('path')):
+            return False
+        if not has_text(data.get('missing_runtime_policy')):
+            return False
+        if route in {'python', 'r'} and normalize_material_key(data.get('missing_runtime_policy')) != 'stopbeforerendering':
+            return False
+        if route == normalize_material_key('tikz_cps_tikz') and 'raster' in normalize_material_key(source.get('type')):
+            return False
+    return True
+
+
+def validate_figure_source_data_statistics_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'FigureSourceDataStatistics', 'validate_figure_source_data_statistics', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if not nature_ref_resolves_material_type(data.get('backend_route_ref'), fixture, artifacts, tasks, 'FigureBackendRoute'):
+            return False
+        conceptual = data.get('conceptual') is True
+        if conceptual:
+            if not has_text(data.get('no_data_rationale')) or not has_text(data.get('backend_route_ref')):
+                return False
+            continue
+        if not non_empty_list(data.get('source_data_refs')):
+            return False
+        stats = data.get('statistics') or {}
+        if not isinstance(stats, dict):
+            return False
+        for field in ['n', 'error_definition', 'statistical_test']:
+            if not has_text(stats.get(field)):
+                return False
+        legend = data.get('legend_statistics_block') or {}
+        if not isinstance(legend, dict) or legend.get('required') is not True or not has_text(legend.get('text')):
+            return False
+    return True
+
+
+def validate_figure_image_integrity_record_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'FigureImageIntegrityRecord', 'validate_figure_image_integrity_record', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        backend_route = nature_material_data_for_ref(data.get('backend_route_ref'), fixture, artifacts, tasks, 'FigureBackendRoute')
+        if backend_route is None:
+            return False
+        applicability = data.get('image_integrity_applicability') or {}
+        if not isinstance(applicability, dict) or not has_text(applicability.get('status')):
+            return False
+        status = normalize_material_key(applicability.get('status'))
+        if status in {'notapplicable', 'na'}:
+            if not has_text(applicability.get('rationale')):
+                return False
+            route_value = backend_route.get('selected_route')
+            route_text = normalize_material_key(route_value)
+            if data.get('raster_or_image_panel') is True:
+                return False
+            if route_text and not any(marker in route_text for marker in ['tikz', 'manualreview']):
+                return False
+            continue
+        if status not in {'applicable', 'required'}:
+            return False
+        if not (has_text(data.get('raw_locator')) or non_empty_dict(data.get('raw_locator'))):
+            return False
+        if not (has_text(data.get('processed_locator')) or non_empty_dict(data.get('processed_locator'))):
+            return False
+        if not non_empty_list(data.get('processing_steps')):
+            return False
+    return True
+
+
+def validate_nature_caption_legend_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'NatureCaptionLegendBrief', 'validate_nature_caption_legend', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None or not nature_no_private_leak(data):
+            return False
+        title = str(data.get('caption_title') or '')
+        if not title.startswith('Fig.') and not title.startswith('Figure'):
+            return False
+        panels = data.get('panel_descriptions') or []
+        if not isinstance(panels, list) or not panels:
+            return False
+        for panel in panels:
+            if not isinstance(panel, dict) or not has_text(panel.get('panel_id')) or not has_text(panel.get('text')):
+                return False
+            if normalize_material_key(panel.get('tense') or 'present') != 'present':
+                return False
+        for field in ['statistics_statement', 'source_data_statement']:
+            statement = data.get(field) or {}
+            if not isinstance(statement, dict) or statement.get('required') is None or not has_text(statement.get('text')):
+                return False
+        privacy = data.get('privacy_surface') or {}
+        if isinstance(privacy, dict):
+            if normalize_actor_part(privacy.get('private_path_leak_status')) in {'fail', 'failed', 'present'}:
+                return False
+            if normalize_actor_part(privacy.get('raw_locator_leak_status')) in {'fail', 'failed', 'present'}:
+                return False
+    return True
+
+
+def validate_nature_figure_qa_report_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'NatureFigureQAReport', 'validate_nature_figure_qa_report', artifacts, tasks)
+    if not items:
+        return not required
+    required_checks = {
+        'visual_qa', 'aesthetic_qa', 'evidence_qa', 'caption_qa',
+        'image_integrity_qa', 'export_qa', 'rendered_surface_qa',
+    }
+    for _, data in items:
+        if data is None:
+            return False
+        checks = data.get('checks') or {}
+        if not isinstance(checks, dict) or not required_checks.issubset(set(checks)):
+            return False
+        if any(normalize_actor_part(checks.get(check)) not in {'pass', 'passed', 'clean', 'notapplicable'} for check in required_checks):
+            return False
+        if normalize_actor_part(data.get('verdict')) not in {'pass', 'passed', 'clean', 'approve', 'approved'}:
+            return False
+        if not isinstance(data.get('backflow_route'), dict):
+            return False
+    return True
+
+
+def validate_figure_export_bundle_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = nature_items_or_required(fixture, 'FigureExportBundle', 'validate_figure_export_bundle', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if not non_empty_list(data.get('source_artifacts')):
+            return False
+        outputs = data.get('outputs') or []
+        if not isinstance(outputs, list) or not outputs:
+            return False
+        formats = {normalize_material_key(out.get('format')) for out in outputs if isinstance(out, dict)}
+        if 'svg' not in formats or 'pdf' not in formats:
+            return False
+        if not any(fmt in formats for fmt in {'tiff', 'tif', 'pngpreview', 'png'}):
+            return False
+        for out in outputs:
+            if not isinstance(out, dict) or not has_text(out.get('path')) or not has_text(out.get('format')):
+                return False
+            if normalize_material_key(out.get('format')) in {'svg', 'pdf'} and out.get('editable_text') is not True:
+                return False
+        if normalize_actor_part(data.get('editable_text_status')) not in {'pass', 'passed', 'clean'}:
+            return False
+        dims = data.get('final_dimensions') or {}
+        if not isinstance(dims, dict) or not has_text(dims.get('target_width')) or normalize_actor_part(dims.get('legibility_status')) not in {'pass', 'passed', 'clean'}:
+            return False
+        if not non_empty_list(data.get('manifest_refs')):
+            return False
+        provenance = data.get('hash_provenance') or {}
+        if not isinstance(provenance, dict) or normalize_actor_part(provenance.get('status')) not in {'recorded', 'pass', 'passed', 'clean'}:
+            return False
+    return True
+
+
+NATURE_ABSORBED_SKILLS = {
+    'nature-writing', 'nature-polishing', 'nature-reader', 'nature-academic-search',
+    'nature-citation', 'nature-data', 'nature-reviewer', 'nature-response',
+    'nature-paper2ppt', 'nature-paper-to-patent',
+}
+NATURE_SEARCH_WORKFLOWS = {
+    'multi-source-search', 'citation-verification', 'mesh-strategy',
+    'citation-file-mgmt', 'reference-mgmt',
+}
+NATURE_READER_FORMATS = {'pdf-text', 'scanned-pdf', 'html', 'doi-arxiv', 'pasted-text'}
+NATURE_WRITING_PAPER_TYPES = {'research', 'methods', 'hypothesis', 'algorithmic', 'review'}
+NATURE_WRITING_SECTIONS = {'abstract', 'intro', 'introduction', 'related-work', 'method', 'methods', 'experiments', 'results', 'discussion', 'conclusion', 'title'}
+NATURE_WRITING_LANGUAGES = {'en', 'zh-to-en'}
+NATURE_JOURNALS = {'nature', 'nat-comms', 'generic', 'kbs', 'eswa'}
+NATURE_REQUIRED_CAPABILITY_KEYS = {'reader', 'search', 'citation', 'writing', 'journal_style', 'polishing', 'data', 'reviewer', 'response', 'presentation', 'patent'}
+
+
+def absorption_items_or_required(
+    fixture: Path,
+    key: str,
+    validator: str,
+    artifacts: dict[str, Any] | None,
+    tasks: Any,
+) -> tuple[list[tuple[str, dict[str, Any] | None]], bool]:
+    return nature_items_or_required(fixture, key, validator, artifacts, tasks)
+
+
+def validate_nature_source_inventory_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'NatureSourceInventory', 'validate_nature_source_inventory', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        repo = data.get('source_repo') or {}
+        if not isinstance(repo, dict) or not has_text(repo.get('name')) or not has_text(repo.get('url')):
+            return False
+        commit = str(repo.get('commit_hash') or '')
+        if not re.fullmatch(r'[0-9a-f]{40}', commit):
+            return False
+        if not non_empty_list(data.get('source_files_required')):
+            return False
+        seen: set[str] = set()
+        for cap in data.get('capabilities') or []:
+            if not isinstance(cap, dict):
+                return False
+            skill = str(cap.get('skill_name') or '')
+            if skill not in NATURE_ABSORBED_SKILLS:
+                return False
+            seen.add(skill)
+            if not non_empty_list(cap.get('source_files')) or not has_text(cap.get('absorbed_as')):
+                return False
+        if not NATURE_ABSORBED_SKILLS.issubset(seen):
+            return False
+    return True
+
+
+def validate_company_skill_registry_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'CompanySkillRegistry', 'validate_company_skill_registry', artifacts, tasks)
+    if not items:
+        return not required
+    required_caps = {f'{skill}-absorption' for skill in NATURE_ABSORBED_SKILLS}
+    required_produces = {
+        'PaperReaderPackage', 'SearchStrategyDossier', 'CitationVerificationReport',
+        'SectionMovePlan', 'JournalStyleProfile', 'PolishingRepairReport',
+        'DataAvailabilityPlan', 'ReviewerPanelReport', 'ResponseActionMap',
+        'PresentationPlan', 'PatentDraftBoundary',
+    }
+    for _, data in items:
+        if data is None:
+            return False
+        if data.get('public_surface_allowed') is not False:
+            return False
+        if str(data.get('single_public_entry') or '') != 'yxj-paper-os':
+            return False
+        seen: set[str] = set()
+        produced: set[str] = set()
+        for cap in data.get('capabilities') or []:
+            if not isinstance(cap, dict):
+                return False
+            cap_id = str(cap.get('capability_id') or '')
+            if cap_id.startswith('nature-'):
+                seen.add(cap_id)
+            if cap.get('public_surface_allowed') is not False or cap.get('hidden_manager') is not False:
+                return False
+            if 'yxj-paper-os' not in [str(c) for c in cap.get('allowed_callers') or []]:
+                return False
+            if not has_text(cap.get('owner_department')) or not has_text(cap.get('owner_lane')):
+                return False
+            if not non_empty_list(cap.get('produces')) or not non_empty_list(cap.get('validator_refs')):
+                return False
+            produced.update(str(item) for item in cap.get('produces') or [] if has_text(item))
+            limits = {normalize_material_key(x) for x in cap.get('authority_limits') or []}
+            if cap_id.startswith('nature-') and not limits:
+                # Every absorbed Nature capability must carry at least one explicit authority limit.
+                return False
+        if not required_caps.issubset(seen):
+            return False
+        if not required_produces.issubset(produced):
+            return False
+    return True
+
+
+def validate_paper_reader_package_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'PaperReaderPackage', 'validate_paper_reader_package', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if str(data.get('source_format') or '') not in NATURE_READER_FORMATS:
+            return False
+        if data.get('exact_source_anchors_required') is not True or data.get('summary_only') is not False:
+            return False
+        blocks = data.get('source_blocks') or []
+        if not isinstance(blocks, list) or not blocks:
+            return False
+        for block in blocks:
+            if not isinstance(block, dict) or not has_text(block.get('source_id')) or not has_text(block.get('anchor')):
+                return False
+            if normalize_actor_part(block.get('grounding_status')) not in {'grounded', 'pass', 'passed'}:
+                return False
+        if not isinstance(data.get('figure_table_map'), list):
+            return False
+    return True
+
+
+def validate_search_strategy_dossier_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'SearchStrategyDossier', 'validate_search_strategy_dossier', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if str(data.get('workflow') or '') not in NATURE_SEARCH_WORKFLOWS:
+            return False
+        if not non_empty_list(data.get('queries')) or not isinstance(data.get('source_tiers'), dict):
+            return False
+        for q in data.get('queries') or []:
+            if not isinstance(q, dict) or not has_text(q.get('query')) or not non_empty_list(q.get('source_targets')):
+                return False
+        dedup = data.get('deduplication') or {}
+        if not isinstance(dedup, dict) or not has_text(dedup.get('status')):
+            return False
+        if not isinstance(data.get('failure_log'), list):
+            return False
+    return True
+
+
+def validate_citation_verification_report_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'CitationVerificationReport', 'validate_citation_verification_report', artifacts, tasks)
+    if not items:
+        return not required
+    allowed = {'direct', 'partial', 'background', 'contradictory', 'unsupported'}
+    for _, data in items:
+        if data is None:
+            return False
+        segments = data.get('segments') or []
+        if not isinstance(segments, list) or not segments:
+            return False
+        for seg in segments:
+            if not isinstance(seg, dict) or not has_text(seg.get('segment_id')) or not has_text(seg.get('claim_text')):
+                return False
+            if str(seg.get('support_grade') or '') not in allowed:
+                return False
+            if seg.get('metadata_only') is True or seg.get('checked_abstract_or_publisher') is not True:
+                return False
+            if not non_empty_list(seg.get('source_refs')):
+                return False
+        export = data.get('export_route') or {}
+        if not isinstance(export, dict) or normalize_actor_part(export.get('reference_manager_ready')) not in {'true', 'pass', 'passed'}:
+            return False
+        if normalize_material_key(export.get('format')) not in {'ris', 'enw', 'zoterordf', 'bibtex'}:
+            return False
+    return True
+
+
+def validate_section_move_plan_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'SectionMovePlan', 'validate_section_move_plan', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if str(data.get('paper_type') or '') not in NATURE_WRITING_PAPER_TYPES:
+            return False
+        if str(data.get('section') or '') not in NATURE_WRITING_SECTIONS:
+            return False
+        if str(data.get('language') or '') not in NATURE_WRITING_LANGUAGES:
+            return False
+        if str(data.get('journal') or '') not in NATURE_JOURNALS:
+            return False
+        if not non_empty_list(data.get('narrative_object_refs')) or not non_empty_list(data.get('evidence_refs')):
+            return False
+        if not non_empty_list(data.get('move_sequence')):
+            return False
+    return True
+
+
+def validate_journal_style_profile_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'JournalStyleProfile', 'validate_journal_style_profile', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if str(data.get('journal') or '') not in NATURE_JOURNALS:
+            return False
+        if not non_empty_list(data.get('source_basis')) or not isinstance(data.get('style_axes'), dict):
+            return False
+        if not non_empty_list(data.get('diction_rules')) or not isinstance(data.get('forbidden_patterns'), list):
+            return False
+    return True
+
+
+def validate_polishing_repair_report_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'PolishingRepairReport', 'validate_polishing_repair_report', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if not non_empty_list(data.get('failure_modes')) or not non_empty_list(data.get('repairs')):
+            return False
+        for repair in data.get('repairs') or []:
+            if not isinstance(repair, dict) or not has_text(repair.get('repair_action')):
+                return False
+            change = repair.get('claim_strength_change') or {}
+            if isinstance(change, dict) and change.get('allowed') is True and not has_text(change.get('evidence_approval_ref')):
+                return False
+        if normalize_actor_part((data.get('phrasebank_application') or {}).get('status')) not in {'applied', 'pass', 'checked'}:
+            return False
+        if normalize_actor_part((data.get('chinese_author_alignment') or {}).get('status')) not in {'checked', 'pass', 'notapplicable'}:
+            return False
+    return True
+
+
+def identifier_confirmed_or_sourced(container: Any) -> bool:
+    if not isinstance(container, dict):
+        return False
+    status = normalize_actor_part(container.get('confirmation_status'))
+    return status == 'confirmed' or has_text(container.get('source_locator'))
+
+
+def validate_data_availability_plan_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'DataAvailabilityPlan', 'validate_data_availability_plan', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        datasets = data.get('datasets') or []
+        if not isinstance(datasets, list) or not datasets:
+            return False
+        for ds in datasets:
+            if not isinstance(ds, dict) or not has_text(ds.get('dataset_id')) or not has_text(ds.get('access_route')):
+                return False
+            repo = ds.get('repository_route') or {}
+            if not isinstance(repo, dict) or not has_text(repo.get('name')):
+                return False
+            ids = ds.get('identifiers') or {}
+            for field in ['doi', 'accession']:
+                if isinstance(ids, dict) and has_text(ids.get(field)) and not identifier_confirmed_or_sourced(ids):
+                    return False
+            lic = ds.get('license')
+            if isinstance(lic, dict) and has_text(lic.get('value')) and not identifier_confirmed_or_sourced(lic):
+                return False
+        fair = data.get('fair_metadata_checklist') or {}
+        if not isinstance(fair, dict) or normalize_actor_part(fair.get('status')) not in {'pass', 'passed', 'checked'}:
+            return False
+        if not has_text(data.get('statement_draft')):
+            return False
+    return True
+
+
+def validate_reviewer_panel_report_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'ReviewerPanelReport', 'validate_reviewer_panel_report', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        reports = data.get('reviewer_reports') or []
+        if not isinstance(reports, list) or len(reports) != 3:
+            return False
+        for rep in reports:
+            if not isinstance(rep, dict) or not has_text(rep.get('reviewer_id')) or not has_text(rep.get('emphasis')):
+                return False
+            if rep.get('invented_identity') is True:
+                return False
+            if not non_empty_list(rep.get('major_concerns')):
+                return False
+        if not isinstance(data.get('cross_review_synthesis'), dict) or not non_empty_list(data.get('technical_failing_map')):
+            return False
+        if data.get('editorial_decision_claimed') is True:
+            return False
+    return True
+
+
+def validate_response_action_map_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'ResponseActionMap', 'validate_response_action_map', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if data.get('invented_line_numbers_present') is True:
+            return False
+        comments = data.get('comments') or []
+        if not isinstance(comments, list) or not comments:
+            return False
+        for comment in comments:
+            if not isinstance(comment, dict) or not has_text(comment.get('comment_id')) or not has_text(comment.get('source')):
+                return False
+            if not has_text(comment.get('action')) or not has_text(comment.get('owner_lane')) or not has_text(comment.get('response_text')):
+                return False
+            for ref in comment.get('line_refs') or []:
+                if isinstance(ref, dict) and normalize_actor_part(ref.get('confirmation_status')) in {'invented', 'unconfirmed', 'guessed'}:
+                    return False
+        draft = data.get('point_by_point_draft') or {}
+        if not isinstance(draft, dict) or draft.get('preserve_comment_ids') is not True:
+            return False
+        if normalize_actor_part((data.get('tone_qa') or {}).get('status')) not in {'pass', 'passed', 'checked'}:
+            return False
+    return True
+
+
+def validate_presentation_plan_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'PresentationPlan', 'validate_presentation_plan', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if str(data.get('canonical_department_id') or data.get('owning_department') or '') != 'manuscript_and_figure_production':
+            return False
+        if str(data.get('owner_lane') or '') == 'export-owner':
+            return False
+        if not non_empty_list(data.get('narrative_object_refs')) or not nature_expression_refs_complete(data.get('expression_design_object_refs')):
+            return False
+        if not (non_empty_list(data.get('figure_refs')) or non_empty_list(data.get('evidence_refs'))):
+            return False
+        slides = data.get('slides') or []
+        if not isinstance(slides, list) or not slides:
+            return False
+        for slide in slides:
+            if not isinstance(slide, dict) or not has_text(slide.get('slide_id')) or not has_text(slide.get('speaker_notes')):
+                return False
+        if normalize_actor_part((data.get('self_review') or {}).get('status')) not in {'pass', 'passed', 'checked'}:
+            return False
+    return True
+
+
+def validate_patent_draft_boundary_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'PatentDraftBoundary', 'validate_patent_draft_boundary', artifacts, tasks)
+    if not items:
+        return not required
+    for _, data in items:
+        if data is None:
+            return False
+        if not non_empty_list(data.get('source_ids')) or not non_empty_list(data.get('source_support_map')):
+            return False
+        for support in data.get('source_support_map') or []:
+            if not isinstance(support, dict) or not has_text(support.get('feature_id')) or not non_empty_list(support.get('source_ids')):
+                return False
+            if str(support.get('support_state') or '') not in {'explicit', 'inherent', 'needs-confirmation'}:
+                return False
+        for field in ['drafting_aid_only', 'not_legal_opinion', 'no_patentability_guarantee']:
+            if data.get(field) is not True:
+                return False
+        gate = data.get('professional_review_gate') or {}
+        if not isinstance(gate, dict) or gate.get('required') is not True:
+            return False
+        if data.get('formal_filing_authorized') is not False:
+            return False
+    return True
+
+
+def validate_nature_absorption_package_material(
+    fixture: Path,
+    artifacts: dict[str, Any] | None = None,
+    tasks: Any = None,
+) -> bool:
+    items, required = absorption_items_or_required(fixture, 'NatureAbsorptionPackage', 'validate_nature_absorption_package', artifacts, tasks)
+    if not items:
+        return not required
+    ref_specs = {
+        'source_inventory_ref': 'NatureSourceInventory',
+        'company_skill_registry_ref': 'CompanySkillRegistry',
+    }
+    cap_specs = {
+        'reader': 'PaperReaderPackage',
+        'search': 'SearchStrategyDossier',
+        'citation': 'CitationVerificationReport',
+        'writing': 'SectionMovePlan',
+        'journal_style': 'JournalStyleProfile',
+        'polishing': 'PolishingRepairReport',
+        'data': 'DataAvailabilityPlan',
+        'reviewer': 'ReviewerPanelReport',
+        'response': 'ResponseActionMap',
+        'presentation': 'PresentationPlan',
+        'patent': 'PatentDraftBoundary',
+    }
+    for _, data in items:
+        if data is None:
+            return False
+        for field, spec in ref_specs.items():
+            if not nature_ref_resolves_material_type(data.get(field), fixture, artifacts, tasks, spec):
+                return False
+        refs = data.get('capability_material_refs') or {}
+        if not isinstance(refs, dict) or not NATURE_REQUIRED_CAPABILITY_KEYS.issubset(set(refs)):
+            return False
+        for key, spec in cap_specs.items():
+            if not nature_ref_resolves_material_type(refs.get(key), fixture, artifacts, tasks, spec):
+                return False
+        routes = data.get('department_backflow_routes') or {}
+        allowed_departments = {'pmo', 'paper_architecture_and_narrative', 'evidence_and_method', 'manuscript_and_figure_production', 'review_and_governance'}
+        if not isinstance(routes, dict) or not NATURE_REQUIRED_CAPABILITY_KEYS.issubset(set(routes)):
+            return False
+        if any(str(route) not in allowed_departments for route in routes.values()):
+            return False
+        if str(data.get('closure_invariant') or '') != 'compile -> execute -> collect -> validate -> ingest -> state_transition':
+            return False
+    return True
+
 SOURCE_ONLY_RENDERED_METHODS = {'sourceonly', 'sourcemarkdown', 'markdownsource', 'source', 'markdown'}
 
 
@@ -2711,6 +4064,53 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
         failures.append('validate_single_writer_lock_held')
     if not validate_reader_surface_tutor_review_material(fixture, artifacts, tasks):
         failures.append('validate_reader_surface_tutor_review_spans')
+    if not validate_nature_figure_contract_material(fixture, artifacts, tasks):
+        failures.append('validate_nature_figure_contract')
+    if not validate_nature_figure_aesthetic_profile_material(fixture, artifacts, tasks):
+        failures.append('validate_nature_figure_aesthetic_profile')
+    if not validate_panel_evidence_map_material(fixture, artifacts, tasks):
+        failures.append('validate_panel_evidence_map')
+    if not validate_figure_backend_route_material(fixture, artifacts, tasks):
+        failures.append('validate_figure_backend_route')
+    if not validate_figure_source_data_statistics_material(fixture, artifacts, tasks):
+        failures.append('validate_figure_source_data_statistics')
+    if not validate_figure_image_integrity_record_material(fixture, artifacts, tasks):
+        failures.append('validate_figure_image_integrity_record')
+    if not validate_nature_caption_legend_material(fixture, artifacts, tasks):
+        failures.append('validate_nature_caption_legend')
+    if not validate_nature_figure_qa_report_material(fixture, artifacts, tasks):
+        failures.append('validate_nature_figure_qa_report')
+    if not validate_figure_export_bundle_material(fixture, artifacts, tasks):
+        failures.append('validate_figure_export_bundle')
+    if not validate_nature_source_inventory_material(fixture, artifacts, tasks):
+        failures.append('validate_nature_source_inventory')
+    if not validate_company_skill_registry_material(fixture, artifacts, tasks):
+        failures.append('validate_company_skill_registry')
+    if not validate_paper_reader_package_material(fixture, artifacts, tasks):
+        failures.append('validate_paper_reader_package')
+    if not validate_search_strategy_dossier_material(fixture, artifacts, tasks):
+        failures.append('validate_search_strategy_dossier')
+    if not validate_citation_verification_report_material(fixture, artifacts, tasks):
+        failures.append('validate_citation_verification_report')
+    if not validate_section_move_plan_material(fixture, artifacts, tasks):
+        failures.append('validate_section_move_plan')
+    if not validate_journal_style_profile_material(fixture, artifacts, tasks):
+        failures.append('validate_journal_style_profile')
+    if not validate_polishing_repair_report_material(fixture, artifacts, tasks):
+        failures.append('validate_polishing_repair_report')
+    if not validate_data_availability_plan_material(fixture, artifacts, tasks):
+        failures.append('validate_data_availability_plan')
+    if not validate_reviewer_panel_report_material(fixture, artifacts, tasks):
+        failures.append('validate_reviewer_panel_report')
+    if not validate_response_action_map_material(fixture, artifacts, tasks):
+        failures.append('validate_response_action_map')
+    if not validate_presentation_plan_material(fixture, artifacts, tasks):
+        failures.append('validate_presentation_plan')
+    if not validate_patent_draft_boundary_material(fixture, artifacts, tasks):
+        failures.append('validate_patent_draft_boundary')
+    if not validate_nature_absorption_package_material(fixture, artifacts, tasks):
+        failures.append('validate_nature_absorption_package')
+
     rendered_text_ok, rendered_ok, bare_citekeys_ok = validate_rendered_surface_gate_material(fixture, artifacts, tasks)
     if not rendered_text_ok:
         failures.append('validate_rendered_pdf_surface_text')

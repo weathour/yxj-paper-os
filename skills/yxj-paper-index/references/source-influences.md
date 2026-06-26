@@ -40,3 +40,8 @@ Adaptation:
 - novelty claims are scored for evidence readiness;
 - reviewer findings must route to owner lanes and fix tasks;
 - marketing or aspirational claims do not count as validation evidence.
+
+
+## Nature full-absorption source influence
+
+Non-figure Nature capabilities are absorbed from `Yuan1z0825/nature-skills` commit `5d2ba1dee1c087be6de8f4a8aad4b27f04974be9` as yxj-native internal SOP/material/validator chains, not public `nature-*` skills. M1 covers reader, academic search, citation, writing, polishing, data availability, reviewer assessment, response mapping, presentation/PPT planning, and patent-draft boundary governance.

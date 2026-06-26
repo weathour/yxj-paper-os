@@ -1,0 +1,29 @@
+schema_version: yxj-paper-os/figure-export-bundle/v1
+artifact_id: figure-export-bundle-<figure-id>
+status: draft
+owning_department: manuscript_and_figure_production
+owner_lane: export-owner
+figure_id: fig-001
+source_artifacts:
+  - path: figures/src/fig-001/figure.tex
+    kind: tikz_source
+outputs:
+  - path: figures/build/fig-001.svg
+    format: svg
+    editable_text: true
+  - path: figures/build/fig-001.pdf
+    format: pdf
+    editable_text: true
+  - path: figures/build/fig-001.png
+    format: png_preview
+    dpi: 300
+editable_text_status: pass
+final_dimensions:
+  target_width: double_column
+  legibility_status: pass
+manifest_refs:
+  - export-manifest.yaml
+hash_provenance:
+  status: recorded
+validator_refs:
+  - validate_figure_export_bundle

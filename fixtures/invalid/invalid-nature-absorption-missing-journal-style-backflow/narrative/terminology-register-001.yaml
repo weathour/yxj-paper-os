@@ -1,0 +1,9 @@
+schema_version: yxj-paper-os/terminology-register/v1
+register_id: terminology-register-001
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+terms:
+- term: semantic_suspect_not_relay_eligible
+  main_prose_allowed: false
+  reader_facing_term: a relay-ineligible semantic warning
+  replacement: a relay-ineligible semantic warning

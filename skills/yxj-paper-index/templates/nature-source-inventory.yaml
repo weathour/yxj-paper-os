@@ -1,0 +1,69 @@
+schema_version: yxj-paper-os/nature-source-inventory/v1
+artifact_id: nature-source-inventory-template
+owning_department: pmo
+owner_lane: skill-registry-owner
+source_repo:
+  name: Yuan1z0825/nature-skills
+  url: https://github.com/Yuan1z0825/nature-skills
+  commit_hash: 5d2ba1dee1c087be6de8f4a8aad4b27f04974be9
+  retrieved_at: '2026-06-26T00:00:00Z'
+source_files_required:
+- SKILL.md
+- manifest.yaml
+- static/
+- references/
+- scripts/
+- assets/
+capabilities:
+- skill_name: nature-writing
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: SectionMovePlan,JournalStyleProfile
+- skill_name: nature-polishing
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: PolishingRepairReport
+- skill_name: nature-reader
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: PaperReaderPackage
+- skill_name: nature-academic-search
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: SearchStrategyDossier
+- skill_name: nature-citation
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: CitationVerificationReport
+- skill_name: nature-data
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: DataAvailabilityPlan
+- skill_name: nature-reviewer
+  source_files:
+  - SKILL.md
+  absorbed_as: ReviewerPanelReport
+- skill_name: nature-response
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: ResponseActionMap
+- skill_name: nature-paper2ppt
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: PresentationPlan
+- skill_name: nature-paper-to-patent
+  source_files:
+  - SKILL.md
+  - manifest.yaml
+  absorbed_as: PatentDraftBoundary
+absorption_status: source_locked
+validator_refs:
+- validate_nature_source_inventory

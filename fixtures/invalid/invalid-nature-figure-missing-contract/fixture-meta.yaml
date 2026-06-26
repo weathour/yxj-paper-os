@@ -1,0 +1,3 @@
+expected_failures:
+- validate_nature_figure_contract
+allowed_extra_failures: []

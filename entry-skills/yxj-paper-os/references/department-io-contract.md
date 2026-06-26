@@ -50,7 +50,7 @@ state, or override PMO gates.
 | PMO / Paper Management | route, task ledger, decision queue, hard gates, final manager handoff | all department status and validator evidence | `TaskPacketV2`, `ManagerHandoffReportV2`, state transitions | `state-steward`, `execution-coordinator`, `final-verifier` |
 | Paper Architecture & Narrative | reader-facing argument architecture and expression design | target venue, claims, evidence, template profile, reader questions | `ReaderSpineBrief`, `ObjectRepresentationMatrix`, `SectionFunctionBudget`, `ReaderTransitionMap`, `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`, `TerminologyRegister` | `paper-architect`, `exemplar-learner`, `style-auditor` |
 | Evidence & Method | truth boundary and method/experiment admissibility | source map, experiments, claims, narrative needs | Evidence pack, method contract, experiment contract, baseline/ablation rationale | `evidence-curator`, `method-verifier`, `citation-banker` |
-| Manuscript & Figure Production | section/figure/table/algorithm/formula representation | narrative objects, evidence contracts, template budgets, expression-design objects | manuscript section outputs, visual/formal package, export package inputs | `manuscript-owner`, `figure-owner`, `export-owner` |
+| Manuscript & Figure Production | section/figure/table/algorithm/formula representation | narrative objects, evidence contracts, template budgets, expression-design objects, Nature-grade figure contracts | manuscript section outputs, visual/formal package, Nature-grade figure package, export package inputs | `manuscript-owner`, `figure-owner`, `export-owner` |
 | Review & Governance | independent closure, hostile review, backflow, rendered reader-surface validation | all produced objects, expression-design evidence, and handoff evidence | `ReaderExperienceReviewReport`, `NarrativeBackflowTask`, validator report, `RenderedSurfaceGateReport` | `review-director`, `verifier`, `final-verifier` |
 
 ## Mandatory task packet bindings
@@ -197,6 +197,60 @@ separation are present.
 `recommended`, `dispatched`, `validated`, and `ingested` are not synonyms for
 `complete`.
 
+## Nature-grade figure material chain
+
+Final/export-facing paper figures are governed by an additive Nature-grade
+material chain. It absorbs the workflow discipline of `nature-figure` while
+keeping yxj-paper-os ownership, validators, and ledger closure:
+
+```text
+Paper Architecture & Narrative
+  -> NatureFigureContract
+  -> NatureFigureAestheticProfile
+Evidence & Method
+  -> NaturePanelEvidenceMap
+  -> FigureSourceDataStatistics
+  -> FigureImageIntegrityRecord
+Manuscript & Figure Production
+  -> FigureBackendRoute
+  -> NatureCaptionLegendBrief
+  -> FigureExportBundle
+Review & Governance
+  -> RenderedSurfaceGateReport
+  -> NatureFigureQAReport
+PMO / State
+  -> validator evidence
+  -> ledger ingestion
+  -> state transition / backflow
+```
+
+These objects are department-owned:
+
+| Material object | Primary owner | Closure purpose |
+| --- | --- | --- |
+| `NatureFigureContract` | Paper Architecture & Narrative / `paper-architect` or `figure-owner` | Fixes the figure's one core conclusion, reader question, archetype, hero/support panel hierarchy, panel map, claim/evidence refs, and required narrative/template/expression refs before drawing. |
+| `NatureFigureAestheticProfile` | Paper Architecture & Narrative with figure/style consumers | Converts aesthetic quality into objective gates: composition archetype, hero-panel exception policy, semantic palette roles, editable typography, panel-label policy, legend strategy, white/background/export constraints. |
+| `NaturePanelEvidenceMap` | Evidence & Method | Prevents ornamental panels by requiring each panel to carry a unique reader question, evidence role, supported claim ids, and evidence/statistics/image-integrity refs. |
+| `FigureBackendRoute` | Manuscript & Figure Production | Selects exactly one final source of truth and blocks backend mixing; source markdown or generated previews never replace editable figure source. |
+| `FigureSourceDataStatistics` | Evidence & Method | Carries source-data/statistics details for measured panels or a validator-accepted conceptual no-data rationale. |
+| `FigureImageIntegrityRecord` | Evidence & Method / Figure Production | Carries image/raster processing provenance or a validator-accepted not-applicable record for pure deterministic vector/conceptual figures. |
+| `NatureCaptionLegendBrief` | Manuscript & Figure Production | Binds title, present-tense panel explanations, statistics/source-data statements, claim-closing sentence, privacy surface, and attribution/permission note. |
+| `NatureFigureQAReport` | Review & Governance | Independently checks visual, aesthetic, evidence, caption, image-integrity, export, and rendered-surface gates and routes failures back to owning lanes. |
+| `FigureExportBundle` | Export owner / Figure owner | Records editable source, SVG/PDF plus preview/raster output, target dimensions, legibility, manifest refs, and hash provenance. |
+
+The aesthetic gate is not subjective self-certification. It is enforced through
+typed material fields and validators: a figure must name its archetype, establish
+hero/support hierarchy, use semantic color roles, keep editable text and
+legible typography, avoid decorative badges, choose a controlled legend/direct
+label strategy, inspect rendered output, and pass independent QA. Review failures
+produce backflow tasks rather than completion claims.
+
+For conceptual/vector figures, `FigureSourceDataStatistics.conceptual:true` and
+`FigureImageIntegrityRecord.image_integrity_applicability.status:not_applicable`
+are valid only with an explicit rationale and a deterministic/manual-review route.
+For data or image panels, source locators, statistics, processing steps, and
+integrity evidence are mandatory.
+
 ## Manager handoff v2 fields
 
 Broad manager reports and completion handoffs must expose:
@@ -233,3 +287,31 @@ semantic decisions. Those remain explicit gates.
 - This plugin-source upgrade does not re-review any current manuscript unless a
   separate paper-level task instantiates, validates, ingests, and transitions
   the new expression-design objects.
+
+
+## Nature full-absorption material chain
+
+Non-figure Nature skills are absorbed as yxj-native internal capability cells. The canonical departments do not change; display labels may expand, but state/validator department IDs remain stable. In particular, presentation/PPT is a writing/expression production capability under `manuscript_and_figure_production`, not an export-only department.
+
+The M1 chain is:
+
+```text
+NatureSourceInventory
+  -> CompanySkillRegistry
+  -> PaperReaderPackage / SearchStrategyDossier / CitationVerificationReport
+  -> SectionMovePlan / JournalStyleProfile / PolishingRepairReport
+  -> DataAvailabilityPlan
+  -> ReviewerPanelReport / ResponseActionMap
+  -> PresentationPlan / PatentDraftBoundary
+  -> NatureAbsorptionPackage
+  -> validator evidence
+  -> ledger ingestion / state transition / backflow
+```
+
+Boundary rules:
+- `CompanySkillRegistry` rows must set `public_surface_allowed:false` and `hidden_manager:false`.
+- `NatureAbsorptionPackage` must link every required capability material and a backflow route before closure.
+- `DataAvailabilityPlan` may not invent repository identifiers, licences, accessions, access committees, or embargoes.
+- `ResponseActionMap` must preserve reviewer/editor comment IDs and must not invent line numbers or manuscript changes.
+- `PresentationPlan` must consume narrative/expression refs and cannot be owned only by `export-owner`.
+- `PatentDraftBoundary` is a drafting-aid boundary, not legal advice, not a patentability opinion, and not filing authorization.

@@ -1,0 +1,23 @@
+schema_version: yxj-paper-os/response-action-map/v1
+artifact_id: response-action-map-template
+owning_department: review_and_governance
+owner_lane: review-director
+comments:
+- comment_id: R1-C1
+  source: reviewer-1
+  taxonomy: technical
+  action: revise method validation
+  owner_lane: method-verifier
+  response_text: We added source-grounded validation notes.
+  line_refs:
+  - line_ref: L120-L132
+    confirmation_status: confirmed
+point_by_point_draft:
+  status: drafted
+  preserve_comment_ids: true
+tone_qa:
+  status: pass
+  stance: respectful-specific
+invented_line_numbers_present: false
+validator_refs:
+- validate_response_action_map

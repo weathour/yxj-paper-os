@@ -1,0 +1,18 @@
+schema_version: yxj-paper-os/citation-verification-report/v1
+artifact_id: citation-verification-report-template
+owning_department: evidence_and_method
+owner_lane: citation-banker
+segments:
+- segment_id: seg-1
+  claim_text: claim requiring support
+  support_grade: direct
+  source_refs:
+  - S1
+  checked_abstract_or_publisher: true
+  metadata_only: false
+export_route:
+  format: ris
+  path: references/export.ris
+  reference_manager_ready: true
+validator_refs:
+- validate_citation_verification_report

@@ -204,6 +204,7 @@ module:
 - `references/reader-narrative-governance.md` for ReaderSpine, object representation, template quant, lab-notebook-smell, expression-design, and cognitive-load governance.
 - `references/repository-delivery-governance.md` for RepositoryHygieneReport, delivery cleanliness, dirty worktree, sibling/parent contamination, export-manifest, and cleanup-gate governance.
 - `references/skill-registry-governance.md` for CompanySkillRegistry, skill-as-SOP permissions, anti-hidden-manager checks, and internal skill authority limits.
+- `references/nature-absorption-governance.md` for Nature non-figure source absorption, internal capability placement, PPT-as-writing ownership, data/response/patent boundaries, and the root NatureAbsorptionPackage closure material.
 - `../../skills/yxj-paper-execute/references/production-lane-expectations.md` for section-writing, content-refinement, and reader-surface-translator task expectations.
 - `templates/` for artifact schemas, including the Phase-1 MVP materials
   ReviewerQuestionMap, MainTextConstructionMatrix, ClaimCitationCapsule,
@@ -211,7 +212,11 @@ module:
   RenderedSurfaceGateReport, plus expression-design objects:
   CognitiveLoadBudget, ExplanationLadder, RhetoricalMoveMatrix,
   ClaimEvidenceVisibilityMap, TerminologyRegister, and the optional
-  ExpressionDesignBundle manifest that cannot bypass typed validators.
+  ExpressionDesignBundle manifest that cannot bypass typed validators, plus
+  Nature-grade figure materials: NatureFigureContract,
+  NatureFigureAestheticProfile, NaturePanelEvidenceMap, FigureBackendRoute,
+  FigureSourceDataStatistics, FigureImageIntegrityRecord,
+  NatureCaptionLegendBrief, NatureFigureQAReport, and FigureExportBundle, plus Nature full-absorption materials: NatureSourceInventory, CompanySkillRegistry, NatureAbsorptionPackage, PaperReaderPackage, SearchStrategyDossier, CitationVerificationReport, SectionMovePlan, JournalStyleProfile, PolishingRepairReport, DataAvailabilityPlan, ReviewerPanelReport, ResponseActionMap, PresentationPlan, and PatentDraftBoundary.
 - `scripts/run_fixture_suite.py` for non-live scaffold validation.
 - `scripts/ledger_guard.py` for paper-workspace final ledger closure checks, stamping, and snapshots.
 

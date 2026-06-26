@@ -100,3 +100,31 @@ PMO coordinates route and closure.
 
 This separation is mandatory. It lets agents remain intelligent and adaptive
 without turning ad hoc writing into ungoverned completion claims.
+
+
+## Nature full-absorption material chain
+
+Non-figure Nature skills are absorbed as yxj-native internal capability cells. The canonical departments do not change; display labels may expand, but state/validator department IDs remain stable. In particular, presentation/PPT is a writing/expression production capability under `manuscript_and_figure_production`, not an export-only department.
+
+The M1 chain is:
+
+```text
+NatureSourceInventory
+  -> CompanySkillRegistry
+  -> PaperReaderPackage / SearchStrategyDossier / CitationVerificationReport
+  -> SectionMovePlan / JournalStyleProfile / PolishingRepairReport
+  -> DataAvailabilityPlan
+  -> ReviewerPanelReport / ResponseActionMap
+  -> PresentationPlan / PatentDraftBoundary
+  -> NatureAbsorptionPackage
+  -> validator evidence
+  -> ledger ingestion / state transition / backflow
+```
+
+Boundary rules:
+- `CompanySkillRegistry` rows must set `public_surface_allowed:false` and `hidden_manager:false`.
+- `NatureAbsorptionPackage` must link every required capability material and a backflow route before closure.
+- `DataAvailabilityPlan` may not invent repository identifiers, licences, accessions, access committees, or embargoes.
+- `ResponseActionMap` must preserve reviewer/editor comment IDs and must not invent line numbers or manuscript changes.
+- `PresentationPlan` must consume narrative/expression refs and cannot be owned only by `export-owner`.
+- `PatentDraftBoundary` is a drafting-aid boundary, not legal advice, not a patentability opinion, and not filing authorization.

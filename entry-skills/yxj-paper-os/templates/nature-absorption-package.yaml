@@ -1,0 +1,33 @@
+schema_version: yxj-paper-os/nature-absorption-package/v1
+artifact_id: nature-absorption-package-template
+owning_department: pmo
+owner_lane: skill-registry-owner
+source_inventory_ref: nature-source-inventory-001
+company_skill_registry_ref: company-skill-registry-001
+capability_material_refs:
+  reader: paper-reader-package-001
+  search: search-strategy-dossier-001
+  citation: citation-verification-report-001
+  writing: section-move-plan-001
+  journal_style: journal-style-profile-001
+  polishing: polishing-repair-report-001
+  data: data-availability-plan-001
+  reviewer: reviewer-panel-report-001
+  response: response-action-map-001
+  presentation: presentation-plan-001
+  patent: patent-draft-boundary-001
+department_backflow_routes:
+  reader: evidence_and_method
+  search: evidence_and_method
+  citation: evidence_and_method
+  writing: paper_architecture_and_narrative
+  polishing: manuscript_and_figure_production
+  data: evidence_and_method
+  reviewer: review_and_governance
+  response: review_and_governance
+  presentation: manuscript_and_figure_production
+  patent: manuscript_and_figure_production
+  journal_style: paper_architecture_and_narrative
+closure_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+validator_refs:
+- validate_nature_absorption_package

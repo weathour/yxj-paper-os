@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/rhetorical-move-matrix/v1
+matrix_id: rhetorical-move-matrix-001
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+rows:
+- reader_question: Why is the baseline comparison sufficient here?
+  object: baseline family
+  granularity: grouped by evidence role
+  planned_text_move: Name the family, state why it is comparable, then defer details
+    to the table.
+  evidence_anchor:
+    artifact_id: evidence-bank-001
+  final_text_check: No raw method IDs or fixture codes appear in the paragraph.
+downstream_consumers:
+- T132A
+- T132B

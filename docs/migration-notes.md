@@ -72,3 +72,36 @@ review, export, or shared editing hotspots.
 Migration rule: old tasks can remain historical, but new completion claims for
 paper-facing or state-sensitive work must pass the v2plus material/validator
 contracts once the corresponding objects are introduced.
+
+## Figure migration to Nature-grade governance
+
+Existing figure plans, TikZ folders, generated plots, captions, or export
+manifests do not need bulk rewriting. When a figure is newly created,
+substantially redesigned, moved toward final manuscript use, or included in an
+export package, migrate it into the Nature-grade chain:
+
+| Existing figure artifact | Nature-grade addition |
+| --- | --- |
+| informal sketch / figure idea | `NatureFigureContract` with core conclusion, reader question, archetype, panel hierarchy, and evidence refs |
+| style notes or copied exemplar taste | `NatureFigureAestheticProfile` with semantic palette, typography, labels, legend, background, and legibility gates |
+| panel list | `NaturePanelEvidenceMap` with unique panel reader questions and evidence roles |
+| mixed scripts/manual edits | `FigureBackendRoute` selecting one final editable source of truth |
+| plot data notes | `FigureSourceDataStatistics` or explicit conceptual no-data rationale |
+| image/screenshot/raster processing | `FigureImageIntegrityRecord` or explicit not-applicable vector rationale |
+| caption draft | `NatureCaptionLegendBrief` with source/statistics/privacy/claim controls |
+| generated SVG/PDF/PNG files | `FigureExportBundle` with editable text, dimensions, manifest refs, and hash provenance |
+| visual review comment | `NatureFigureQAReport` plus rendered-surface gate and backflow route |
+
+Migration must preserve yxj-paper-os philosophy: the public manager remains
+single-entry, departments own their materials, validators prove closure, and the
+state transition happens only after collection, validation, ingestion, and
+backflow resolution. Do not treat the external Nature workflow as a hidden
+manager or copy external figures; absorb only its process discipline and
+aesthetic controls.
+
+
+## Nature full-absorption control plane
+
+Milestone M1 extends the earlier Nature-grade figure work into a broader yxj-native absorption layer for non-figure Nature skills. The source basis is `Yuan1z0825/nature-skills` at commit `5d2ba1dee1c087be6de8f4a8aad4b27f04974be9`. The absorption is not a public `nature-*` skill copy: the single public `yxj-paper-os` manager remains the only user-facing entry, and every absorbed capability is represented as an internal SOP/capability cell, material object, validator, fixture, backflow route, and ledger/state closure candidate.
+
+The 14 first-class M1 materials are: `NatureSourceInventory`, `CompanySkillRegistry`, `NatureAbsorptionPackage`, `PaperReaderPackage`, `SearchStrategyDossier`, `CitationVerificationReport`, `SectionMovePlan`, `JournalStyleProfile`, `PolishingRepairReport`, `DataAvailabilityPlan`, `ReviewerPanelReport`, `ResponseActionMap`, `PresentationPlan`, and `PatentDraftBoundary`. `PresentationPlan` is owned by the existing canonical department id `manuscript_and_figure_production` as a writing/expression capability cell; the display label may say Manuscript / Figure / Communication Production, but the canonical id is frozen. Patent output is a source-grounded drafting aid only, not legal advice or a patentability guarantee.

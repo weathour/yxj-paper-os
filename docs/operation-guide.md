@@ -104,6 +104,23 @@ a validator-accepted non-applicable exception. These refs do not replace
 `ExpressionDesignBundle` may index the typed objects, but cannot bypass their
 independent validators.
 
+For final/export-facing figures, Nature-grade figure governance is additive to
+the same material plane. The manager should compile or collect:
+
+- `NatureFigureContract` and `NatureFigureAestheticProfile` from Paper
+  Architecture & Narrative;
+- `NaturePanelEvidenceMap`, `FigureSourceDataStatistics`, and
+  `FigureImageIntegrityRecord` from Evidence & Method;
+- `FigureBackendRoute`, `NatureCaptionLegendBrief`, and `FigureExportBundle`
+  from Manuscript & Figure Production;
+- `RenderedSurfaceGateReport` and `NatureFigureQAReport` from Review &
+  Governance.
+
+This is how aesthetic quality is guaranteed: objective contract fields and
+independent validators govern archetype, hierarchy, palette, typography, labels,
+legend, background, source/data/statistics, image integrity, caption, export,
+and rendered-surface checks. A figure-owner summary is not aesthetic closure.
+
 
 ## V2 department/material execution pattern
 
@@ -120,6 +137,8 @@ material objects, not from a generic prompt. The packet must contain:
 - `expression_design_object_refs` when paper-facing writing, visual/formal,
   review, or export work must consume reader-load, explanation ladder,
   rhetorical move, claim visibility, and terminology controls;
+- Nature-grade figure object refs when the task draws, captions, reviews, or
+  exports a final manuscript figure;
 - `backflow_route`, `state_ingestion`, `state_transition`, and `pua_telemetry`;
 - v2 validator refs required by the lane.
 
@@ -322,3 +341,10 @@ Fixture cases live under `<plugin-root>/fixtures/valid/<case-dir>/` and
 `<plugin-root>/fixtures/invalid/<case-dir>/`. Invalid fixture cases must include
 `fixture-meta.yaml.expected_failures`; standalone YAML files directly under
 `fixtures/valid` or `fixtures/invalid` are not accepted as fixture cases.
+
+
+## Nature full-absorption control plane
+
+Milestone M1 extends the earlier Nature-grade figure work into a broader yxj-native absorption layer for non-figure Nature skills. The source basis is `Yuan1z0825/nature-skills` at commit `5d2ba1dee1c087be6de8f4a8aad4b27f04974be9`. The absorption is not a public `nature-*` skill copy: the single public `yxj-paper-os` manager remains the only user-facing entry, and every absorbed capability is represented as an internal SOP/capability cell, material object, validator, fixture, backflow route, and ledger/state closure candidate.
+
+The 14 first-class M1 materials are: `NatureSourceInventory`, `CompanySkillRegistry`, `NatureAbsorptionPackage`, `PaperReaderPackage`, `SearchStrategyDossier`, `CitationVerificationReport`, `SectionMovePlan`, `JournalStyleProfile`, `PolishingRepairReport`, `DataAvailabilityPlan`, `ReviewerPanelReport`, `ResponseActionMap`, `PresentationPlan`, and `PatentDraftBoundary`. `PresentationPlan` is owned by the existing canonical department id `manuscript_and_figure_production` as a writing/expression capability cell; the display label may say Manuscript / Figure / Communication Production, but the canonical id is frozen. Patent output is a source-grounded drafting aid only, not legal advice or a patentability guarantee.

@@ -1,0 +1,5 @@
+expected_failures:
+- validate_no_bare_citekeys_in_export
+- validate_no_internal_codes_in_rendered_text
+- validate_rendered_pdf_surface_text
+allowed_extra_failures: []

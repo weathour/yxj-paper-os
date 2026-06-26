@@ -1,0 +1,57 @@
+schema_version: yxj-paper-os/nature-figure-contract/v1
+artifact_id: nature-figure-contract-001
+status: validated
+owning_department: paper_architecture_and_narrative
+owner_lane: paper-architect
+nature_grade_required: true
+figure_id: fig-zt-001
+target_section: method
+core_conclusion: The figure explains how evidence, decision policy, and recovery actions
+  interact before any result claim is made.
+reader_question: How does the reader understand the mechanism before reading the experiments?
+figure_archetype: schematic_led_composite
+panel_hierarchy:
+  hero_panel_id: fig-zt-001a
+  supporting_panel_ids:
+  - fig-zt-001b
+  roles:
+    primary:
+    - fig-zt-001a
+    validation:
+    - fig-zt-001b
+panel_map:
+- panel_id: fig-zt-001a
+  reader_question: How does the mechanism transform evidence into a bounded action?
+  evidence_role: primary_mechanism
+  supports_claim_ids:
+  - claim-001
+  evidence_refs:
+  - evidence-bank-001
+- panel_id: fig-zt-001b
+  reader_question: What validation boundary prevents overclaiming?
+  evidence_role: validation_boundary
+  supports_claim_ids:
+  - claim-001
+  evidence_refs:
+  - evidence-bank-001
+narrative_object_refs:
+- reader-spine-001
+- object-repr-001
+template_object_refs:
+- template-profile-001
+expression_design_object_refs:
+- cognitive-load-budget-001
+- explanation-ladder-001
+- rhetorical-move-matrix-001
+- claim-evidence-visibility-map-001
+- terminology-register-001
+evidence_refs:
+- evidence-bank-001
+source_data_refs: []
+reviewer_risks:
+- Panel wording must not imply empirical superiority without the result package.
+validator_refs:
+- validate_nature_figure_contract
+- validate_narrative_object_binding
+- validate_template_object_binding
+- validate_expression_design_object_binding

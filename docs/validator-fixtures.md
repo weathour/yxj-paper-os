@@ -1,6 +1,7 @@
 # Validator fixtures
 
-The fixture suite contains thirteen valid paper-control-plane fixtures and seventy invalid fixtures:
+The fixture suite contains fifteen valid paper-control-plane fixtures and
+ninety-six invalid fixtures:
 
 - dispatch-as-complete;
 - missing agent_type;
@@ -27,6 +28,8 @@ The fixture suite contains thirteen valid paper-control-plane fixtures and seven
 - complete without explicit state_transition;
 - complete with wrong state_transition target;
 - complete with wrong pipeline stage.
+- Nature-grade figure contract/aesthetic/evidence/backend/statistics/integrity/
+  caption/export/rendered-surface failures.
 
 Run `python3 skills/yxj-paper-index/scripts/run_fixture_suite.py .` from the plugin scaffold root.
 
@@ -59,6 +62,10 @@ Valid fixtures:
 - `expression-design-object-refs-additive`: v2 expression-design fixture; proves
   `expression_design_object_refs` can be added while `narrative_object_refs`,
   `template_object_refs`, and `evidence_object_refs` remain present.
+- `v2plus-nature-figure-valid`: v2plus Nature-grade figure fixture; proves
+  architecture, evidence/method, figure production, export, rendered-surface,
+  and review lanes can close a final/export-facing figure through typed
+  material objects and validator evidence.
 
 Additional invalid v2 fixtures:
 
@@ -92,6 +99,63 @@ silently pass with no fixtures checked.
 - The pseudo-completion fixture includes the raw expected material file but keeps
   it out of `collected_outputs` and `artifact-ledger`, proving raw file
   existence alone cannot close material I/O.
+
+## Nature-grade figure fixture coverage
+
+The valid fixture `v2plus-nature-figure-valid` exercises the complete material
+chain:
+
+- `NatureFigureContract` and `NatureFigureAestheticProfile`;
+- `NaturePanelEvidenceMap`;
+- `FigureBackendRoute`;
+- `FigureSourceDataStatistics`;
+- `FigureImageIntegrityRecord`;
+- `NatureCaptionLegendBrief`;
+- `FigureExportBundle`;
+- `RenderedSurfaceGateReport`;
+- `NatureFigureQAReport`.
+
+Invalid fixtures pin each closure gate:
+
+- `invalid-nature-figure-missing-contract` expects
+  `validate_nature_figure_contract`.
+- `invalid-nature-figure-missing-expression-refs` expects
+  `validate_expression_design_object_binding`.
+- `invalid-nature-figure-backend-exclusivity` expects
+  `validate_figure_backend_route`.
+- `invalid-nature-figure-panel-evidence-gap` expects
+  `validate_panel_evidence_map`.
+- `invalid-nature-figure-panel-material-ref-gap` expects
+  `validate_panel_evidence_map` when panel statistics/image-integrity refs are
+  missing.
+- `invalid-nature-figure-panel-wrong-material-type` expects
+  `validate_panel_evidence_map` when panel statistics/image-integrity refs
+  resolve to the wrong material type.
+- `invalid-nature-figure-missing-source-data-statistics` expects
+  `validate_figure_source_data_statistics`.
+- `invalid-nature-figure-missing-image-integrity` expects
+  `validate_figure_image_integrity_record`.
+- `invalid-nature-figure-image-integrity-not-applicable-wrong-route` expects
+  `validate_figure_image_integrity_record` when a not-applicable image-integrity
+  claim points to a raster/extracted backend route.
+- `invalid-nature-figure-image-integrity-shadow-route` expects
+  `validate_figure_image_integrity_record` when stale local
+  `selected_route`/`backend_route` fields try to override the typed
+  `FigureBackendRoute`.
+- `invalid-nature-figure-missing-image-integrity-qa` expects
+  `validate_nature_figure_qa_report`.
+- `invalid-nature-figure-caption-private-leak` expects
+  `validate_nature_caption_legend`.
+- `invalid-nature-figure-caption-cross-platform-private-leak` expects
+  `validate_nature_caption_legend` for macOS `/Users/...` and Windows
+  `C:\Users\...` / `C:\users\...` / `C:/users/...` private path leaks,
+  including lowercase `/users/...` aliases.
+- `invalid-nature-figure-export-bundle-incomplete` expects
+  `validate_figure_export_bundle`.
+- `invalid-nature-figure-rendered-surface-gap` expects
+  `validate_rendered_pdf_surface_text`,
+  `validate_no_internal_codes_in_rendered_text`, and
+  `validate_no_bare_citekeys_in_export`.
 
 ## Semantic object shape gate
 
@@ -155,3 +219,8 @@ present. New invalid fixtures prove these blockers:
 
 These fixtures are intentionally stronger than prose policy: the suite fails if
 any expected authority validator is absent or if an unapproved cascade appears.
+
+
+## Nature full-absorption fixtures
+
+The fixture matrix now includes `fixtures/valid/v2plus-nature-full-absorption-valid/` and targeted invalid fixtures for public `nature-*`/hidden-manager leakage, missing root absorption refs/backflow, PPT ownership drift to export-only, invented data identifiers, invented response line numbers or missing reviewer IDs, and missing patent boundary disclaimers/professional review gates. Current expected fixture suite size after this milestone is 15 valid / 96 invalid.
