@@ -1,6 +1,6 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.1.0+codex.20260626063147",
+  "version": "0.1.0+codex.20260626101107",
   "description": "Workspace-centric academic paper operating-system contracts for Codex/OMX with a yxj Paper Orchestrator entry point, state-ledger-first departmental manager reports, source-grounded writing, gated execution, and validation loops.",
   "author": {
     "name": "Local yxj workspace"

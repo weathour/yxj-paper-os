@@ -1,0 +1,198 @@
+schema_version: yxj-paper-os/department-material-manifest/v1
+artifact_type: DepartmentMaterialManifest
+artifact_id: department-material-manifest-template
+status: template
+owning_department: pmo
+charter_ref: department-charter.yaml
+single_public_entry: yxj-paper-os
+public_surface_allowed: false
+validator_refs:
+- validate_department_material_manifest
+- validate_no_orphan_material_owner
+- validate_no_route_card_completion_claim
+- validate_department_state_projection
+manifest_rules:
+  every_material_requires_primary_department: true
+  every_material_requires_validator_gate: true
+  every_material_requires_ledger_ingestion_path: true
+  department_route_card_is_completion_evidence: false
+  department_state_is_completion_evidence: false
+  pua_telemetry_is_completion_evidence: false
+  completion_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+materials:
+- material_type: ManagerBootChecklist
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  produced_by_default_mode: contract_only
+  consumers:
+  - Paper Manager / PMO
+  required_validators:
+  - validate_manager_boot_checklist
+  ledger_ingestion_path: .omx/state/yxj-paper-os/task-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: DepartmentCharterRegistry
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - Paper Manager / PMO
+  - Department Managers
+  required_validators:
+  - validate_department_charters
+  - validate_no_public_department_exposure
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: DepartmentMaterialManifest
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - TaskPacketV2Plus compiler
+  required_validators:
+  - validate_department_material_manifest
+  - validate_no_orphan_material_owner
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: DepartmentLaneRegistry
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - Department Managers
+  - TaskPacketV2Plus compiler
+  required_validators:
+  - validate_department_lane_registry
+  - validate_agent_lane_department_binding
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: DepartmentState
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - Paper Manager / PMO status reports
+  required_validators:
+  - validate_department_state_projection
+  ledger_ingestion_path: .omx/state/yxj-paper-os/state.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+  non_completion_reason: status_projection_only
+- material_type: RequiredFunctionMaterialMap
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - TaskPacketV2Plus compiler
+  required_validators:
+  - validate_required_function_material_map
+  - validate_no_orphan_function_owner
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: DepartmentRouteCard
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - TaskPacketV2Plus compiler
+  required_validators:
+  - validate_department_route_card
+  - validate_no_route_card_completion_claim
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: TaskPacketV2Plus
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  consumers:
+  - native_subagent_pipeline_adapter
+  - Team lane lead
+  required_validators:
+  - validate_task_packet
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  ledger_ingestion_path: .omx/state/yxj-paper-os/task-ledger.yaml
+  backflow_target: pmo
+  closure_evidence_allowed: false
+- material_type: SourceMap
+  primary_department: research_source
+  support_departments:
+  - evidence_method
+  required_validators:
+  - validate_source_map
+  - validate_source_locator_resolution
+  ledger_ingestion_path: .omx/state/yxj-paper-os/evidence-ledger.yaml
+  backflow_target: evidence_method
+  closure_evidence_allowed: true
+- material_type: ReaderSpineBrief
+  primary_department: paperspine_narrative_architecture
+  support_departments:
+  - design_function
+  required_validators:
+  - validate_reader_spine_brief
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: paper_architecture_and_narrative
+  closure_evidence_allowed: true
+- material_type: CognitiveLoadBudget
+  primary_department: design_function
+  support_departments:
+  - writing_production
+  - figures_non_text
+  required_validators:
+  - validate_cognitive_load_budget
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: paper_architecture_and_narrative
+  closure_evidence_allowed: true
+- material_type: MainTextConstructionMatrix
+  primary_department: writing_production
+  support_departments:
+  - design_function
+  - evidence_method
+  required_validators:
+  - validate_main_text_construction_matrix_refs
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: manuscript_and_figure_production
+  closure_evidence_allowed: true
+- material_type: EvidenceBank
+  primary_department: evidence_method
+  support_departments:
+  - research_source
+  required_validators:
+  - validate_evidence_bank
+  ledger_ingestion_path: .omx/state/yxj-paper-os/evidence-ledger.yaml
+  backflow_target: evidence_and_method
+  closure_evidence_allowed: true
+- material_type: NatureFigureContract
+  primary_department: figures_non_text
+  support_departments:
+  - design_function
+  - evidence_method
+  required_validators:
+  - validate_nature_figure_contract
+  ledger_ingestion_path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: manuscript_and_figure_production
+  closure_evidence_allowed: true
+- material_type: ValidatorReport
+  primary_department: review_validation
+  support_departments:
+  - pmo
+  required_validators:
+  - validate_validator_report
+  ledger_ingestion_path: .omx/state/yxj-paper-os/review-ledger.yaml
+  backflow_target: review_and_governance
+  closure_evidence_allowed: true
+- material_type: ExportManifest
+  primary_department: export_migration
+  support_departments:
+  - review_validation
+  required_validators:
+  - validate_export_manifest
+  ledger_ingestion_path: .omx/state/yxj-paper-os/export-ledger.yaml
+  backflow_target: manuscript_and_figure_production
+  closure_evidence_allowed: true

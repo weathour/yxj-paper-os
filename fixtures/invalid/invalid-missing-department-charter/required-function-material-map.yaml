@@ -1,0 +1,20 @@
+schema_version: yxj-paper-os/required-function-material-map/v1
+functions:
+- function_id: manager-status-query
+  primary_department: pmo
+  output_materials:
+  - ManagerBootChecklist
+  - DepartmentState
+  validators:
+  - validate_manager_boot_checklist
+  - validate_department_state_projection
+  backflow_target: pmo
+- function_id: manuscript-surface-repair-routing
+  primary_department: paper_architecture_and_narrative
+  output_materials:
+  - TaskPacketV2Plus
+  - DepartmentRouteCard
+  validators:
+  - validate_required_function_material_map
+  - validate_task_material_io
+  backflow_target: review_and_governance

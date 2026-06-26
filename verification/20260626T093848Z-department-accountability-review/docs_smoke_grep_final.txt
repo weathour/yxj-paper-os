@@ -1,0 +1,34 @@
+## command: docs smoke grep after subagent integration
+verification/20260626T093848Z-department-accountability-review/department-accountability-review.md:23:- GAP ADDRESSED — The docs did not yet describe the full Department Accountability Object Layer from the handoff. Updated docs now name and position `manager-boot-checklist.yaml`, `department-charter.yaml`, `department-material-manifest.yaml`, `department-lane-registry.yaml`, `required-function-material-map.yaml`, `department-state.yaml`, and `department-handoff-report.yaml`.
+verification/20260626T093848Z-department-accountability-review/department-accountability-review.md:30:- Lane D must add validator names and fixtures for department charters, material manifest, lane registry, required function/material map, orphan owners, manager boot checklist, department-state projection, no public department exposure, and non-completion route-card/state/handoff misuse.
+verification/20260626T093848Z-department-accountability-review/department-accountability-review.md:37:## Required review-probe findings integrated
+verification/20260626T093848Z-department-accountability-review/department-accountability-review.md:41:- Confirmed / already addressed in Lane E docs: PMO boot guidance, full Department Accountability Object Layer names, readiness checks for the seven bootstrap objects, Design Function versus Writing Production separation, and the route/state/handoff non-completion rule.
+verification/20260626T093848Z-department-accountability-review/department-accountability-review.md:42:- Out of scope for this worker but material for leader integration: at review time, the seven bootstrap templates were still absent from this worker tree. Lane A+B owns adding `manager-boot-checklist.yaml`, `department-charter.yaml`, `department-material-manifest.yaml`, `department-lane-registry.yaml`, `required-function-material-map.yaml`, `department-state.yaml`, and `department-handoff-report.yaml` in both template mirrors.
+verification/20260626T093848Z-department-accountability-review/department-accountability-review.md:47:## Final independent-review verdict
+docs/production-readiness-checklist.md:48:      scaffold validation: `manager-boot-checklist.yaml`,
+docs/production-readiness-checklist.md:49:      `department-charter.yaml`, `department-material-manifest.yaml`,
+docs/production-readiness-checklist.md:50:      `department-lane-registry.yaml`, `required-function-material-map.yaml`,
+docs/production-readiness-checklist.md:51:      `department-state.yaml`, and `department-handoff-report.yaml`.
+docs/migration-notes.md:51:| `owner_department` field | `department-charter.yaml` DRI scope and authority boundary for that department |
+docs/migration-notes.md:52:| material inputs/outputs | `department-material-manifest.yaml` ownership, consumer, validator, ingestion, and backflow row |
+docs/migration-notes.md:53:| owner lane / `agent_type` | `department-lane-registry.yaml` binding and allowed route mode |
+docs/migration-notes.md:54:| generic task goal | `required-function-material-map.yaml` function-to-material and validator requirements |
+docs/migration-notes.md:55:| status summary | `department-state.yaml` readiness/blocker/downstream-impact projection |
+docs/migration-notes.md:56:| manager startup prose | `manager-boot-checklist.yaml` with paper root, state snapshot, active gate, route mode, and stop condition |
+docs/migration-notes.md:57:| lane output note | `department-handoff-report.yaml` with consumed/produced materials, validation evidence, residual risks, and PMO next action |
+docs/architecture.md:119:## Department Accountability Object Layer
+docs/architecture.md:127:| `manager-boot-checklist.yaml` | Forces the public manager to confirm current user intent, paper/project state, active stage/gate, needed departments, material objects, route mode, and stop condition. | A checklist is a boot record only; it does not prove task output. |
+docs/architecture.md:128:| `department-charter.yaml` | Defines each department's DRI scope, support departments, allowed decisions, prohibited decisions, and default escalation route. | Charter ownership cannot bypass paper-owner semantic gates. |
+docs/architecture.md:129:| `department-material-manifest.yaml` | Maps material classes to owning/support departments, consumers, validators, ledger ingestion, and backflow target. | Material ownership is a routing claim until outputs are collected and validated. |
+docs/architecture.md:130:| `department-lane-registry.yaml` | Binds department accountability to concrete owner lanes and installed `agent_type`/non-subagent routes. | A lane assignment is execution authority, not final certification. |
+docs/architecture.md:131:| `required-function-material-map.yaml` | Links paper functions/goals to required input/output materials, validators, and fallback/backflow. | Missing required materials block completion or force an explicit validator-accepted non-applicable reason. |
+docs/architecture.md:132:| `department-state.yaml` | Projects current department readiness, blockers, owner gates, stale evidence, and downstream impact. | Department state is status evidence only; it cannot replace ledger state transition. |
+docs/architecture.md:133:| `department-handoff-report.yaml` | Carries department-to-PMO handoff with consumed/produced materials, validation evidence, risks, and next safe action. | Handoff is candidate/validated/blocked until PMO ledger ingestion and state transition close it. |
+docs/operation-guide.md:141:- `department-charter.yaml` for DRI scope, authority boundaries, owner-gated
+docs/operation-guide.md:143:- `department-material-manifest.yaml` for material ownership, consumers,
+docs/operation-guide.md:145:- `department-lane-registry.yaml` for allowed owner lanes and installed
+docs/operation-guide.md:147:- `required-function-material-map.yaml` for function-to-material requirements;
+docs/operation-guide.md:148:- `department-state.yaml` for current readiness, blockers, stale evidence, and
+docs/operation-guide.md:150:- `department-handoff-report.yaml` for department-to-PMO handoff evidence;
+docs/operation-guide.md:151:- `manager-boot-checklist.yaml` for the activation snapshot.
+docs/operation-guide.md:172:Design Function is not Writing Production. Design owns reader experience,

@@ -1,0 +1,5 @@
+## command: git status --short before commit
+ M verification/20260626T093848Z-department-accountability-review/department-accountability-review.md
+?? verification/20260626T093848Z-department-accountability-review/docs_smoke_grep_final.txt
+?? verification/20260626T093848Z-department-accountability-review/git_diff_check_final.txt
+?? verification/20260626T093848Z-department-accountability-review/git_status_before_commit.txt

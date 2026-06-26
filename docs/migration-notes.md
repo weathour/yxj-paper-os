@@ -39,6 +39,39 @@ changes, credentialed services, or private/raw material copying. A migrated task
 is not complete until the v2 material outputs are collected, validators pass,
 state is ingested, and the state transition is explicit.
 
+## V2-to-department-accountability migration
+
+Existing v2 records that already declare `owner_department` and material I/O are
+not automatically department-accountable. Promote them only after adding the
+object-layer evidence that explains department authority, required functions, and
+handoff status.
+
+| Existing v2 evidence | Department accountability addition |
+| --- | --- |
+| `owner_department` field | `department-charter.yaml` DRI scope and authority boundary for that department |
+| material inputs/outputs | `department-material-manifest.yaml` ownership, consumer, validator, ingestion, and backflow row |
+| owner lane / `agent_type` | `department-lane-registry.yaml` binding and allowed route mode |
+| generic task goal | `required-function-material-map.yaml` function-to-material and validator requirements |
+| status summary | `department-state.yaml` readiness/blocker/downstream-impact projection |
+| manager startup prose | `manager-boot-checklist.yaml` with paper root, state snapshot, active gate, route mode, and stop condition |
+| lane output note | `department-handoff-report.yaml` with consumed/produced materials, validation evidence, residual risks, and PMO next action |
+
+Do not bulk-edit historical ledgers just to make them look current. New or
+migrated completion claims must use the department objects only as routing and
+handoff evidence, then still close through collection, validator evidence, ledger
+ingestion, and explicit state transition. Treat any legacy manager-authored
+review, verification, export, or state transition as a possible
+`ManagerDirectIntervention` until provenance and independent review prove
+otherwise.
+
+When migrating writing-heavy records, preserve the distinction between Design
+Function and Writing Production. Old prose/style notes should be classified as
+design/accountability material when they define reader experience, information
+architecture, claim visibility, figure/text choreography, rhetorical moves, or
+terminology policy. They become writing-production material only when they are
+bounded implementation instructions for manuscript text, captions, tables,
+formulas, or rendered export surfaces.
+
 ## Manager authority migration
 
 Older ledgers may contain manager-authored prose, validator summaries, or closure

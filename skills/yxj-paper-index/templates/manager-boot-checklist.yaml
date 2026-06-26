@@ -1,0 +1,76 @@
+schema_version: yxj-paper-os/manager-boot-checklist/v1
+artifact_type: ManagerBootChecklist
+artifact_id: manager-boot-checklist-<task-id>
+status: template
+owning_department: pmo
+single_public_entry: yxj-paper-os
+public_identity: Paper Manager / PMO
+public_surface_allowed: false
+validator_refs:
+- validate_manager_boot_checklist
+- validate_department_state_projection
+- validate_required_function_material_map
+boot_context:
+  requested_outcome: <user-request-or-team-task>
+  paper_root: <paper-root-or-null>
+  current_project_or_paper_state_ref: .omx/state/yxj-paper-os/state.yaml
+  active_stage: <stage-or-gate>
+  active_gate: <gate-name>
+  stop_condition: <validated-stop-condition>
+state_first_reads:
+- path: .omx/state/yxj-paper-os/state.yaml
+  required_when_exists: true
+- path: .omx/state/yxj-paper-os/task-ledger.yaml
+  required_when_exists: true
+- path: .omx/state/yxj-paper-os/artifact-ledger.yaml
+  required_when_exists: true
+- path: .omx/state/yxj-paper-os/review-ledger.yaml
+  required_when_exists: false
+registry_reads:
+- template_ref: department-charter.yaml
+  purpose: identify department DRI and authority boundaries
+- template_ref: department-material-manifest.yaml
+  purpose: identify required material objects, validators, ledger ingestion, and backflow
+- template_ref: department-lane-registry.yaml
+  purpose: identify existing lane and installed agent_type options
+- template_ref: department-state.yaml
+  purpose: status projection only; never completion evidence
+- template_ref: required-function-material-map.yaml
+  purpose: bind requested function to material outputs and department DRI
+route_selection:
+  route_mode: status_query # status_query | contract_only | department_manager_subagent | team_lane_lead
+  primary_department: <department-id>
+  support_departments: []
+  owner_lane_options: []
+  selected_owner_lane: <owner-lane-or-null>
+  selected_agent_type: <installed-agent-type-or-null>
+  team_gate:
+    ralplan_consensus_ref: null
+    current_story_approval_ref: null
+    status: not_required
+material_accountability:
+  required_input_materials: []
+  required_output_materials: []
+  primary_dri: <department-id>
+  backup_or_support_department: <department-id-or-null>
+  validators_required: []
+  ledger_ingestion_path: <ledger-path>
+  backflow_target: <department-id-or-owner-lane>
+activation_report_required_fields:
+- current_user_intent_and_requested_outcome
+- current_project_or_paper_state
+- active_stage_gate_and_stop_condition
+- required_departments_and_material_objects
+- route_mode_and_lane_options
+- evidence_read_or_gap
+- next_safe_action
+non_completion_boundaries:
+  department_state_is_completion_evidence: false
+  department_route_card_is_completion_evidence: false
+  manager_summary_is_completion_evidence: false
+  pua_telemetry_is_completion_evidence: false
+  completion_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+design_writing_boundary_check:
+  design_function_loaded_when_reader_experience_or_visual_text_interaction_matters: true
+  writing_production_loaded_only_for_prose_realization: true
+  statement: Design Function is distinct from Writing Production; writing consumes design specifications and does not replace them.

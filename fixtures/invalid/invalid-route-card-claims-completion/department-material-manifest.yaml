@@ -1,0 +1,27 @@
+schema_version: yxj-paper-os/department-material-manifest/v1
+materials:
+- material_id: manager-boot-checklist-001
+  artifact_type: ManagerBootChecklist
+  owner_department: pmo
+  owner_lane: paper-owner-gate
+  validator_refs:
+  - validate_manager_boot_checklist
+  ledger_targets:
+  - state.yaml
+  - task-ledger.yaml
+- material_id: department-route-card-001
+  artifact_type: DepartmentRouteCard
+  owner_department: pmo
+  owner_lane: skill-registry-owner
+  validator_refs:
+  - validate_no_route_card_completion_claim
+  ledger_targets:
+  - task-ledger.yaml
+- material_id: required-function-material-map-001
+  artifact_type: RequiredFunctionMaterialMap
+  owner_department: paper_architecture_and_narrative
+  owner_lane: paper-architect
+  validator_refs:
+  - validate_required_function_material_map
+  ledger_targets:
+  - artifact-ledger.yaml

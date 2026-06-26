@@ -1,0 +1,2 @@
+expected_failures:
+- validate_agent_lane_department_binding

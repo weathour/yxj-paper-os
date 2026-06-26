@@ -1,0 +1,2 @@
+## command: ruff check (if available)
+All checks passed!

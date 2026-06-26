@@ -1,0 +1,39 @@
+schema_version: yxj-paper-os/department-route-card/v1
+artifact_type: DepartmentRouteCard
+card_id: drc-001
+task_id: T-dept-001
+department_id: pmo
+department_manager:
+  name: PMO route owner
+  existence_form: contract_only
+  authority_scope:
+    may_decompose: true
+    may_request_lanes: true
+    may_certify_completion: false
+request:
+  summary: Route a department-bound paper task.
+  current_gate: compile
+input_materials_consumed:
+- manager-boot-checklist-001
+proposed_lanes:
+- paper-owner-gate
+requested_task_packets:
+- T-dept-001
+expected_material_outputs:
+- TaskPacketV2Plus
+validators:
+  required:
+  - validate_no_route_card_completion_claim
+  - validate_agent_lane_department_binding
+backflow_route:
+  on_validator_failure: review_and_governance
+team_gate_status:
+  status: not_required
+recursion_control:
+  recursive_subagent_spawning_allowed: false
+authority_boundaries:
+  route_card_is_completion_evidence: false
+  completion_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+pmo_handoff:
+  next_safe_action: compile_task_packet
+closure_state: routed_not_complete

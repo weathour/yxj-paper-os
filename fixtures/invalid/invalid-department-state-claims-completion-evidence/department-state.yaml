@@ -1,0 +1,16 @@
+schema_version: yxj-paper-os/department-state/v1
+projection_only: true
+used_as_completion_evidence: true
+completion_evidence: true
+closure_state: projection_current
+departments:
+- department_id: pmo
+  state: ready
+- department_id: paper_architecture_and_narrative
+  state: ready
+- department_id: evidence_and_method
+  state: ready
+- department_id: manuscript_and_figure_production
+  state: ready
+- department_id: review_and_governance
+  state: ready

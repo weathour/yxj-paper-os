@@ -1,0 +1,6 @@
+{
+  "name": "yxj-paper-os",
+  "version": "0.1.0+fixture",
+  "skills": "./entry-skills/",
+  "entry": "entry-skills/yxj-paper-os/SKILL.md"
+}

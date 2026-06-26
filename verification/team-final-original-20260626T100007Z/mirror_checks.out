@@ -1,0 +1,14 @@
+## mirror checks
+cmp_validate_yxj=0
+cmp_validate_fixture=0
+cmp_run_fixture_suite=0
+cmp_template_department-charter.yaml=0
+cmp_template_department-material-manifest.yaml=0
+cmp_template_department-lane-registry.yaml=0
+cmp_template_department-state.yaml=0
+cmp_template_department-handoff-report.yaml=0
+cmp_template_required-function-material-map.yaml=0
+cmp_template_manager-boot-checklist.yaml=0
+cmp_template_department-route-card.yaml=0
+cmp_template_task-packet.yaml=0
+cmp_template_company-skill-registry.yaml=0

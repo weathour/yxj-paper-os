@@ -43,6 +43,24 @@ Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` mus
 
 ## V2 governance readiness
 
+- [ ] Department accountability templates exist in canonical and public-entry
+      template trees, remain byte-identical across mirrors, and are included in
+      scaffold validation: `manager-boot-checklist.yaml`,
+      `department-charter.yaml`, `department-material-manifest.yaml`,
+      `department-lane-registry.yaml`, `required-function-material-map.yaml`,
+      `department-state.yaml`, and `department-handoff-report.yaml`.
+- [ ] Validator coverage includes department charter, material manifest, lane
+      registry, required function/material map, orphan material/function owner,
+      manager boot checklist, department state projection, no public department
+      exposure, and route-card/non-completion checks.
+- [ ] Manager boot evidence confirms user intent, paper root/state snapshot,
+      active stage/gate, stop condition, required departments, required material
+      objects, route mode, hard gates, and backflow target before broad work is
+      dispatched.
+- [ ] Design Function accountability is documented separately from Writing
+      Production: design owns reader experience, argument choreography,
+      figure/text interaction, expression controls, and specifications; writing
+      realizes those specifications without self-certifying design closure.
 - [ ] `department-route-card.yaml` exists in canonical and public-entry template trees and validates with `validate_department_route_card`.
 - [ ] Department Managers remain internal contracts/subagents/Team lane leads only; no public commands or new native `agent_type`s are introduced.
 - [ ] DepartmentRouteCard is documented as non-completion evidence and cannot bypass validator, ledger, manager-direct, independent-review, or state-transition gates.

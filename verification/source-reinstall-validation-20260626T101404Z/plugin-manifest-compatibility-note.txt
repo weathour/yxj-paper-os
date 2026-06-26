@@ -1,0 +1,4 @@
+Generic plugin-creator validate_plugin.py expects plugin.json `skills` to resolve to `skills`.
+yxj-paper-os intentionally uses `skills: ./entry-skills/` so only the public yxj-paper-os manager entry is exposed while internal department skills remain hidden as repo-local contract resources.
+Do not change this to `skills`, because doing so would expose internal departments and violate the Department Accountability Object Layer boundary.
+Installation compatibility is validated by `codex plugin add yxj-paper-os@personal-local` after commit.

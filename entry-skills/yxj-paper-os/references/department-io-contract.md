@@ -89,6 +89,32 @@ Every v2 task packet must identify:
 - `collection_path`, `state_ingestion`, `pipeline_stage`, and `state_transition`;
 - `pua_telemetry` as control evidence only.
 
+### Department accountability binding fields
+
+`TaskPacketV2Plus` must also make department accountability explicit rather than
+leaving it implicit in lane names. The packet carries:
+
+- `department_accountability.primary_department_dri` and
+  `department_accountability.primary_lane_dri` for the task/function owner;
+- `department_accountability.material_validation_owner_department`,
+  `state_ingestion_owner_department`, and `backflow_target_department`;
+- per-skill binding fields under `skill_refs`, including
+  `primary_department_dri`, `primary_lane_dri`, `public_surface_allowed:false`,
+  `hidden_manager:false`, `validation_owner_department`,
+  `ingestion_owner_department`, and `backflow_target_department`;
+- per-material binding fields on each `input_materials`,
+  `expected_output_materials`, and `expected_output_artifacts` row:
+  `primary_department_dri`, `primary_lane_dri`, `io_role`,
+  `validation_owner_department`, `validator_refs`, `ingestion_owner_department`,
+  `ledger_targets`, and `backflow_target_department`;
+- `department_material_bindings`, a normalized checklist that lets validators and
+  reviewers verify every declared material has a department DRI, lane DRI,
+  validation owner, ingestion owner, ledger target, and backflow target.
+
+These fields are additive. They do not replace `owner_department`, `owner_lane`,
+`agent_type`, `input_materials`, `expected_output_materials`,
+`validator_refs`, `state_ingestion`, or `backflow_route`.
+
 A task that produces paper-facing text, figures, method claims, experiment
 claims, review findings, or export readiness must not close without the relevant
 narrative/template object refs unless the task explicitly records why the refs
@@ -133,6 +159,9 @@ The v2plus layer may add fields that improve management clarity:
 - `expression_design_requirement` — declares paper-facing判定 surfaces,
   non-applicable exception policy, rendered-output requirements, and validator
   refs needed when expression design applies;
+- `department_accountability` and `department_material_bindings` — bind the
+  function, skill, lane, material I/O, validator ownership, ledger ingestion,
+  and backflow route to explicit department DRIs;
 - `single_writer_lock` — required when a section/file/shared hotspot has one
   current writer;
 - `authority_role_separation` — executor, reviewer, verifier, state steward, and

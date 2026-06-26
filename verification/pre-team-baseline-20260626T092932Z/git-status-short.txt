@@ -1,0 +1,17 @@
+ M .codex-plugin/plugin.json
+ M docs/architecture.md
+ M docs/operation-guide.md
+ M docs/production-readiness-checklist.md
+ M entry-skills/yxj-paper-os/SKILL.md
+ M entry-skills/yxj-paper-os/references/department-io-contract.md
+ M entry-skills/yxj-paper-os/references/orchestrator-contract.md
+ M entry-skills/yxj-paper-os/scripts/validate_yxj_paper_os.py
+ M skills/yxj-paper-execute/references/agent-contract.md
+ M skills/yxj-paper-execute/references/runtime-execution-contract.md
+ M skills/yxj-paper-index/SKILL.md
+ M skills/yxj-paper-index/references/orchestrator-contract.md
+ M skills/yxj-paper-index/scripts/validate_yxj_paper_os.py
+?? entry-skills/yxj-paper-os/references/department-manager-governance.md
+?? entry-skills/yxj-paper-os/templates/department-route-card.yaml
+?? skills/yxj-paper-index/references/department-manager-governance.md
+?? skills/yxj-paper-index/templates/department-route-card.yaml

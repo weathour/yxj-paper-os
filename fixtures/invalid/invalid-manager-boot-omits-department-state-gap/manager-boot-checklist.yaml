@@ -1,0 +1,12 @@
+schema_version: yxj-paper-os/manager-boot-checklist/v1
+manager_identity: Paper Manager / PMO
+required_departments_checked:
+- pmo
+- paper_architecture_and_narrative
+- evidence_and_method
+- manuscript_and_figure_production
+- review_and_governance
+status_report:
+  self_identifies_as: Paper Manager / PMO
+  department_state_loaded: false
+  missing_department_state_gap_disclosed: false

@@ -24,6 +24,8 @@ Every internal skill entry must be representable as:
 ```yaml
 skill_id:
 owning_department:
+primary_department_dri:
+primary_lane_dri:
 allowed_callers:
 mode_permissions:
   - produce
@@ -40,6 +42,10 @@ references:
 templates:
 fixture_cases:
 authority_limits:
+function_responsibility:
+lane_responsibility:
+material_io:
+state_controls:
 ```
 
 ## Permission meanings
@@ -58,9 +64,11 @@ The PMO owns `CompanySkillRegistry` as a governance material. It records:
 
 - skill id and human-readable purpose;
 - owning department;
+- primary department DRI and lane DRI for the governed function;
 - allowed caller departments/lanes;
 - permitted modes;
-- required inputs and outputs;
+- required inputs and outputs with material-level department DRI, validator,
+  ingestion, ledger, and backflow bindings;
 - validator refs and fixture cases;
 - ledger targets;
 - hard gates and authority limits;
@@ -69,6 +77,24 @@ The PMO owns `CompanySkillRegistry` as a governance material. It records:
 The registry is consumed by `TaskPacketV2Plus` compilation and by validators
 checking that a worker used an allowed SOP capability for the declared material
 object.
+
+Each `capabilities[]` row must bind four responsibilities:
+
+1. `function_responsibility` — the capability/function id, primary department
+   DRI, primary lane DRI, validation owner, ingestion owner, backflow target, and
+   completion limit.
+2. `lane_responsibility` — the execution lane, owning department, allowed
+   callers, public-surface prohibition, hidden-manager prohibition, and absence
+   of state-transition authority.
+3. `material_io` — input and output material contracts with primary department
+   DRI, validator ownership, ingestion ownership, ledger targets, and backflow
+   targets.
+4. `state_controls` — registry/artifact ledger targets plus the department that
+   owns ingestion and the department that receives failed validation/backflow.
+
+Internal department SOPs remain hidden capability cells. They are invalid if
+they are exposed as public `$` skills, declare themselves a department manager,
+or claim completion without validator evidence and ledger ingestion.
 
 ## Anti-hidden-manager checks
 

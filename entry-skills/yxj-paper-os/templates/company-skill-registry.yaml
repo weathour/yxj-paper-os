@@ -22,6 +22,49 @@ capabilities:
   authority_limits:
   - no_public_command
   - no_state_transition_authority
+  primary_department_dri: evidence_and_method
+  primary_lane_dri: evidence-curator
+  function_responsibility:
+    function_id: nature-reader-absorption
+    primary_department_dri: evidence_and_method
+    primary_lane_dri: evidence-curator
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: evidence-curator
+    owning_department: evidence_and_method
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: NatureSourceInventory
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: evidence_and_method
+    output_materials:
+    - artifact_type: PaperReaderPackage
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_paper_reader_package
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: evidence_and_method
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_claim_allowed: false
 - capability_id: nature-academic-search-absorption
   owner_department: evidence_and_method
   owner_lane: sota-mapper
@@ -38,6 +81,49 @@ capabilities:
   authority_limits:
   - no_public_command
   - no_external_search_without_gate
+  primary_department_dri: evidence_and_method
+  primary_lane_dri: sota-mapper
+  function_responsibility:
+    function_id: nature-academic-search-absorption
+    primary_department_dri: evidence_and_method
+    primary_lane_dri: sota-mapper
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: sota-mapper
+    owning_department: evidence_and_method
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: NatureSourceInventory
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: evidence_and_method
+    output_materials:
+    - artifact_type: SearchStrategyDossier
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_search_strategy_dossier
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: evidence_and_method
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_claim_allowed: false
 - capability_id: nature-citation-absorption
   owner_department: evidence_and_method
   owner_lane: citation-banker
@@ -53,6 +139,49 @@ capabilities:
   - validate_citation_verification_report
   authority_limits:
   - no_metadata_only_support
+  primary_department_dri: evidence_and_method
+  primary_lane_dri: citation-banker
+  function_responsibility:
+    function_id: nature-citation-absorption
+    primary_department_dri: evidence_and_method
+    primary_lane_dri: citation-banker
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: citation-banker
+    owning_department: evidence_and_method
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: SearchStrategyDossier
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: evidence_and_method
+    output_materials:
+    - artifact_type: CitationVerificationReport
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_citation_verification_report
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: evidence_and_method
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_claim_allowed: false
 - capability_id: nature-writing-absorption
   owner_department: paper_architecture_and_narrative
   owner_lane: paper-architect
@@ -70,6 +199,61 @@ capabilities:
   - validate_journal_style_profile
   authority_limits:
   - no_claim_invention
+  primary_department_dri: paper_architecture_and_narrative
+  primary_lane_dri: paper-architect
+  function_responsibility:
+    function_id: nature-writing-absorption
+    primary_department_dri: paper_architecture_and_narrative
+    primary_lane_dri: paper-architect
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: paper_architecture_and_narrative
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: paper-architect
+    owning_department: paper_architecture_and_narrative
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: ReaderSpineBrief
+      primary_department_dri: paper_architecture_and_narrative
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: paper_architecture_and_narrative
+    output_materials:
+    - artifact_type: SectionMovePlan
+      primary_department_dri: paper_architecture_and_narrative
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_section_move_plan
+      - validate_journal_style_profile
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: paper_architecture_and_narrative
+    - artifact_type: JournalStyleProfile
+      primary_department_dri: paper_architecture_and_narrative
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_section_move_plan
+      - validate_journal_style_profile
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: paper_architecture_and_narrative
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: paper_architecture_and_narrative
+    completion_claim_allowed: false
 - capability_id: nature-polishing-absorption
   owner_department: manuscript_and_figure_production
   owner_lane: manuscript-owner
@@ -85,6 +269,49 @@ capabilities:
   - validate_polishing_repair_report
   authority_limits:
   - no_claim_strength_upgrade
+  primary_department_dri: manuscript_and_figure_production
+  primary_lane_dri: manuscript-owner
+  function_responsibility:
+    function_id: nature-polishing-absorption
+    primary_department_dri: manuscript_and_figure_production
+    primary_lane_dri: manuscript-owner
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: manuscript_and_figure_production
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: manuscript-owner
+    owning_department: manuscript_and_figure_production
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: SectionMovePlan
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: manuscript_and_figure_production
+    output_materials:
+    - artifact_type: PolishingRepairReport
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_polishing_repair_report
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: manuscript_and_figure_production
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: manuscript_and_figure_production
+    completion_claim_allowed: false
 - capability_id: nature-data-absorption
   owner_department: evidence_and_method
   owner_lane: method-verifier
@@ -100,6 +327,49 @@ capabilities:
   - validate_data_availability_plan
   authority_limits:
   - no_invented_identifier
+  primary_department_dri: evidence_and_method
+  primary_lane_dri: method-verifier
+  function_responsibility:
+    function_id: nature-data-absorption
+    primary_department_dri: evidence_and_method
+    primary_lane_dri: method-verifier
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: method-verifier
+    owning_department: evidence_and_method
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: ResultPackage
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: evidence_and_method
+    output_materials:
+    - artifact_type: DataAvailabilityPlan
+      primary_department_dri: evidence_and_method
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_data_availability_plan
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: evidence_and_method
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: evidence_and_method
+    completion_claim_allowed: false
 - capability_id: nature-reviewer-absorption
   owner_department: review_and_governance
   owner_lane: review-director
@@ -115,6 +385,49 @@ capabilities:
   - validate_reviewer_panel_report
   authority_limits:
   - no_editorial_decision
+  primary_department_dri: review_and_governance
+  primary_lane_dri: review-director
+  function_responsibility:
+    function_id: nature-reviewer-absorption
+    primary_department_dri: review_and_governance
+    primary_lane_dri: review-director
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: review_and_governance
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: review-director
+    owning_department: review_and_governance
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: manuscript-draft
+      primary_department_dri: review_and_governance
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: review_and_governance
+    output_materials:
+    - artifact_type: ReviewerPanelReport
+      primary_department_dri: review_and_governance
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_reviewer_panel_report
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: review_and_governance
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: review_and_governance
+    completion_claim_allowed: false
 - capability_id: nature-response-absorption
   owner_department: review_and_governance
   owner_lane: review-director
@@ -130,6 +443,49 @@ capabilities:
   - validate_response_action_map
   authority_limits:
   - no_invented_line_numbers
+  primary_department_dri: review_and_governance
+  primary_lane_dri: review-director
+  function_responsibility:
+    function_id: nature-response-absorption
+    primary_department_dri: review_and_governance
+    primary_lane_dri: review-director
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: review_and_governance
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: review-director
+    owning_department: review_and_governance
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: ReviewerPanelReport
+      primary_department_dri: review_and_governance
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: review_and_governance
+    output_materials:
+    - artifact_type: ResponseActionMap
+      primary_department_dri: review_and_governance
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_response_action_map
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: review_and_governance
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: review_and_governance
+    completion_claim_allowed: false
 - capability_id: nature-paper2ppt-absorption
   owner_department: manuscript_and_figure_production
   owner_lane: manuscript-owner
@@ -146,6 +502,54 @@ capabilities:
   - validate_presentation_plan
   authority_limits:
   - not_export_primary_owner
+  primary_department_dri: manuscript_and_figure_production
+  primary_lane_dri: manuscript-owner
+  function_responsibility:
+    function_id: nature-paper2ppt-absorption
+    primary_department_dri: manuscript_and_figure_production
+    primary_lane_dri: manuscript-owner
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: manuscript_and_figure_production
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: manuscript-owner
+    owning_department: manuscript_and_figure_production
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: ReaderSpineBrief
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: manuscript_and_figure_production
+    - artifact_type: NatureFigureContract
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: manuscript_and_figure_production
+    output_materials:
+    - artifact_type: PresentationPlan
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_presentation_plan
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: manuscript_and_figure_production
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: manuscript_and_figure_production
+    completion_claim_allowed: false
 - capability_id: nature-paper-to-patent-absorption
   owner_department: manuscript_and_figure_production
   owner_lane: docs-writer
@@ -162,5 +566,59 @@ capabilities:
   authority_limits:
   - drafting_aid_only
   - not_legal_opinion
+  primary_department_dri: manuscript_and_figure_production
+  primary_lane_dri: docs-writer
+  function_responsibility:
+    function_id: nature-paper-to-patent-absorption
+    primary_department_dri: manuscript_and_figure_production
+    primary_lane_dri: docs-writer
+    validation_owner_department: review_and_governance
+    ingestion_owner_department: pmo
+    backflow_target_department: manuscript_and_figure_production
+    completion_limit: candidate_until_validated_and_ingested
+  lane_responsibility:
+    execution_lane: docs-writer
+    owning_department: manuscript_and_figure_production
+    allowed_callers:
+    - yxj-paper-os
+    public_surface_allowed: false
+    hidden_manager: false
+    state_transition_authority: false
+  material_io:
+    input_materials:
+    - artifact_type: SourceMap
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      ingestion_owner_department: pmo
+      backflow_target_department: manuscript_and_figure_production
+    output_materials:
+    - artifact_type: PatentDraftBoundary
+      primary_department_dri: manuscript_and_figure_production
+      validation_owner_department: review_and_governance
+      validator_refs:
+      - validate_patent_draft_boundary
+      ingestion_owner_department: pmo
+      ledger_targets:
+      - artifact-ledger
+      - skill-registry-ledger
+      backflow_target_department: manuscript_and_figure_production
+  state_controls:
+    ledger_targets:
+    - skill-registry-ledger
+    - artifact-ledger
+    ingestion_owner_department: pmo
+    backflow_target_department: manuscript_and_figure_production
+    completion_claim_allowed: false
 validator_refs:
 - validate_company_skill_registry
+department_accountability:
+  primary_department_dri: pmo
+  primary_lane_dri: skill-registry-owner
+  material_owner_department: pmo
+  validation_owner_department: review_and_governance
+  ingestion_owner_department: pmo
+  backflow_target_department: pmo
+  public_skill_exposure_policy:
+    single_public_entry: yxj-paper-os
+    internal_department_sop_public_skill_allowed: false
+    department_manager_public_skill_allowed: false

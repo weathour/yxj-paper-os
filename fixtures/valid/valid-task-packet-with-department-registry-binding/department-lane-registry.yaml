@@ -1,0 +1,32 @@
+schema_version: yxj-paper-os/department-lane-registry/v1
+lanes:
+- lane_id: paper-owner-gate
+  department_id: pmo
+  agent_type: planner
+  validator_refs:
+  - validate_agent_lane_department_binding
+- lane_id: skill-registry-owner
+  department_id: pmo
+  agent_type: architect
+  validator_refs:
+  - validate_agent_lane_department_binding
+- lane_id: paper-architect
+  department_id: paper_architecture_and_narrative
+  agent_type: architect
+  validator_refs:
+  - validate_agent_lane_department_binding
+- lane_id: method-verifier
+  department_id: evidence_and_method
+  agent_type: verifier
+  validator_refs:
+  - validate_agent_lane_department_binding
+- lane_id: manuscript-owner
+  department_id: manuscript_and_figure_production
+  agent_type: writer
+  validator_refs:
+  - validate_agent_lane_department_binding
+- lane_id: review-director
+  department_id: review_and_governance
+  agent_type: critic
+  validator_refs:
+  - validate_agent_lane_department_binding

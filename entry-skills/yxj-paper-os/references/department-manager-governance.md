@@ -20,6 +20,36 @@ pipeline:
 
 `compile -> execute -> collect -> validate -> ingest -> state_transition`
 
+
+## Department Accountability Registry layer
+
+The Department Manager roster is the middle-management layer. The accountability
+registry underneath it records department DRIs, material ownership, lane options,
+validator gates, ledger-ingestion paths, and backflow targets as data objects:
+
+- `DepartmentCharter` defines each department's purpose, DRI, support
+  departments, authority boundaries, owned materials, validator gates, and
+  backflow routes.
+- `DepartmentMaterialManifest` prevents orphan materials by assigning every
+  material object a primary department, consumers, required validators, ledger
+  path, and invalidation/backflow target.
+- `DepartmentLaneRegistry` binds departments to existing OMX `agent_type` and
+  owner-lane options; it does not create new public commands or new native roles.
+- `DepartmentState` is a PMO status/query projection only. It is not completion
+  evidence and cannot satisfy validators by itself.
+- `RequiredFunctionMaterialMap` binds user-facing functions to required material
+  objects and department DRIs before TaskPacket compilation.
+- `DepartmentHandoffReport` is the upward report from a department manager or
+  Team lane lead to PMO, with inputs consumed, outputs produced, validation
+  evidence, ledger ingestion, backflow, and unresolved owner gates.
+
+Operational charters may be finer grained than the five-manager roster. In
+particular, **Design Function is not Writing Production**: Design Function owns
+reader experience, argument choreography, visual/text interaction, information
+architecture, and material-interface specs; Writing Production owns sentence,
+paragraph, and section realization and must consume Design Function specs rather
+than silently replacing them.
+
 ## Department Manager roster
 
 | Department Manager | Owns | Primary material objects | Typical downstream lanes |

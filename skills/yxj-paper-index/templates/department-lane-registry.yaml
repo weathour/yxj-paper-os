@@ -1,0 +1,162 @@
+schema_version: yxj-paper-os/department-lane-registry/v1
+artifact_type: DepartmentLaneRegistry
+artifact_id: department-lane-registry-template
+status: template
+owning_department: pmo
+source_registry_ref: ../../yxj-paper-execute/references/agent-lane-registry.yaml
+single_public_entry: yxj-paper-os
+public_surface_allowed: false
+new_agent_types_allowed: false
+validator_refs:
+- validate_department_lane_registry
+- validate_agent_lane_department_binding
+- validate_no_public_department_exposure
+rules:
+  use_installed_agent_types_only: true
+  department_sops_are_internal_not_public_skills: true
+  lane_executes_department_dri_remains_accountable: true
+  team_lane_lead_requires_ralplan_and_current_story_approval: true
+installed_agent_types:
+- analyst
+- architect
+- critic
+- executor
+- explore
+- planner
+- researcher
+- test-engineer
+- verifier
+- writer
+department_lanes:
+- department_id: pmo
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: state-steward
+    agent_type: executor
+    purpose: State inspection/update and ledger closure.
+  - owner_lane: execution-coordinator
+    agent_type: executor
+    purpose: Compile task packets and coordinate collection.
+  - owner_lane: taskpacket-governance-owner
+    agent_type: architect
+    purpose: Maintain TaskPacketV2Plus governance.
+  escalation_modes:
+  - department_manager_subagent
+  - team_lane_lead
+- department_id: research_source
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: source-map-curator
+    agent_type: researcher
+    purpose: Source locator and source-map maintenance.
+  - owner_lane: sota-mapper
+    agent_type: researcher
+    purpose: SOTA/gap mapping.
+  - owner_lane: citation-banker
+    agent_type: researcher
+    purpose: Citation support and verification.
+  - owner_lane: yxj-wiki-bridge
+    agent_type: verifier
+    purpose: yxj-wiki/backend compatibility checks.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: novelty_positioning
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: novelty-panel
+    agent_type: critic
+    purpose: Gap, risk, and claim-position challenge.
+  - owner_lane: paper-architect
+    agent_type: architect
+    purpose: Contribution and venue-fit synthesis.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: paperspine_narrative_architecture
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: paper-architect
+    agent_type: architect
+    purpose: Paper spine and section architecture.
+  - owner_lane: scene-analyst
+    agent_type: researcher
+    purpose: Reader-scene analysis.
+  - owner_lane: exemplar-learner
+    agent_type: researcher
+    purpose: Template/exemplar absorption.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: design_function
+  default_mode: contract_only
+  distinct_from: writing_production
+  lane_options:
+  - owner_lane: paper-architect
+    agent_type: architect
+    purpose: Reader experience and design specification.
+  - owner_lane: style-auditor
+    agent_type: verifier
+    purpose: Reader-surface/cognitive-load review.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: writing_production
+  default_mode: contract_only
+  consumes_design_from: design_function
+  lane_options:
+  - owner_lane: manuscript-owner
+    agent_type: writer
+    purpose: Manuscript prose realization.
+  - owner_lane: docs-writer
+    agent_type: writer
+    purpose: Supporting migration/operation prose.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: evidence_method
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: evidence-curator
+    agent_type: verifier
+    purpose: Evidence bank and claim-support validation.
+  - owner_lane: method-verifier
+    agent_type: verifier
+    purpose: Method/result admissibility checks.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: figures_non_text
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: figure-owner
+    agent_type: executor
+    purpose: Figure/table/non-text material production.
+  - owner_lane: export-owner
+    agent_type: executor
+    purpose: Exportable figure package preparation.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: review_validation
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: review-director
+    agent_type: critic
+    purpose: Hostile review and backflow routing.
+  - owner_lane: final-verifier
+    agent_type: verifier
+    purpose: Completion evidence verification.
+  - owner_lane: validator-designer
+    agent_type: test-engineer
+    purpose: Validator/fixture design.
+  escalation_modes:
+  - department_manager_subagent
+- department_id: export_migration
+  default_mode: contract_only
+  lane_options:
+  - owner_lane: export-owner
+    agent_type: executor
+    purpose: Export package checks.
+  - owner_lane: repository-hygiene-owner
+    agent_type: verifier
+    purpose: Repository hygiene and delivery cleanliness.
+  - owner_lane: migration-owner
+    agent_type: writer
+    purpose: Migration notes and compatibility report.
+  escalation_modes:
+  - department_manager_subagent
+  - team_lane_lead

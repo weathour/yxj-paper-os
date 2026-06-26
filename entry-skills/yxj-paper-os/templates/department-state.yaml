@@ -1,0 +1,135 @@
+schema_version: yxj-paper-os/department-state/v1
+artifact_type: DepartmentState
+artifact_id: department-state-template
+status: template
+owning_department: pmo
+single_public_entry: yxj-paper-os
+public_surface_allowed: false
+state_kind: routing_status_projection
+is_completion_evidence: false
+validator_refs:
+- validate_department_state_projection
+- validate_no_route_card_completion_claim
+projection_rules:
+  department_state_does_not_close_tasks: true
+  route_cards_do_not_close_tasks: true
+  completion_requires_collected_outputs_validators_ledger_and_state_transition: true
+  stale_or_missing_material_status_must_backflow: true
+active_gate: <gate-name>
+paper_root: <paper-root>
+updated_at: <iso8601>
+updated_by: Paper Manager / PMO
+manager_boot_checklist_ref: notes/yxj-paper-os/management/manager-boot-checklist/<task-id>.yaml
+department_status:
+- department_id: pmo
+  route_mode: status_query
+  state: ready
+  current_dri: pmo
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: pmo
+  next_safe_action: confirm_task_goal_stage_material_department_route
+- department_id: research_source
+  route_mode: contract_only
+  state: not_started
+  current_dri: evidence_and_method
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: evidence_and_method
+  next_safe_action: load_source_map_or_create_task_packet
+- department_id: novelty_positioning
+  route_mode: contract_only
+  state: not_started
+  current_dri: paper_architecture_and_narrative
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: paper_architecture_and_narrative
+  next_safe_action: check_gap_and_contribution_materials
+- department_id: paperspine_narrative_architecture
+  route_mode: contract_only
+  state: not_started
+  current_dri: paper_architecture_and_narrative
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: paper_architecture_and_narrative
+  next_safe_action: inspect_reader_spine_and_section_blueprint
+- department_id: design_function
+  route_mode: contract_only
+  state: not_started
+  current_dri: paper_architecture_and_narrative
+  distinct_from: writing_production
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: paper_architecture_and_narrative
+  next_safe_action: inspect_reader_experience_and_expression_design_objects
+- department_id: writing_production
+  route_mode: contract_only
+  state: not_started
+  current_dri: manuscript_and_figure_production
+  consumes_design_from: design_function
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: manuscript_and_figure_production
+  next_safe_action: wait_for_design_evidence_and_section_inputs_before_prose_claim
+- department_id: evidence_method
+  route_mode: contract_only
+  state: not_started
+  current_dri: evidence_and_method
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: evidence_and_method
+  next_safe_action: inspect_evidence_bank_and_result_package
+- department_id: figures_non_text
+  route_mode: contract_only
+  state: not_started
+  current_dri: manuscript_and_figure_production
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: manuscript_and_figure_production
+  next_safe_action: inspect_figure_contract_and_backend_route
+- department_id: review_validation
+  route_mode: contract_only
+  state: not_started
+  current_dri: review_and_governance
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: review_and_governance
+  next_safe_action: inspect_validator_report_and_review_backflow
+- department_id: export_migration
+  route_mode: contract_only
+  state: not_started
+  current_dri: manuscript_and_figure_production
+  latest_route_card_ref: null
+  active_material_refs: []
+  validator_evidence_refs: []
+  ledger_ingestion_refs: []
+  blockers: []
+  backflow_target: manuscript_and_figure_production
+  next_safe_action: inspect_export_manifest_and_repository_hygiene

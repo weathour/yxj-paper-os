@@ -116,6 +116,35 @@ manifest only; it cannot replace typed refs or validators. Claim visibility
 cannot increase evidence strength, and export readiness requires rendered-output
 inspection rather than source-only validation.
 
+## Department Accountability Object Layer
+
+The department bootstrap is not only a prose convention. It is represented by a
+small object layer that lets the PMO ask "who owns this function, material, lane,
+validator, and backflow target?" before it starts work:
+
+| Object/template | Accountability purpose | Completion limit |
+| --- | --- | --- |
+| `manager-boot-checklist.yaml` | Forces the public manager to confirm current user intent, paper/project state, active stage/gate, needed departments, material objects, route mode, and stop condition. | A checklist is a boot record only; it does not prove task output. |
+| `department-charter.yaml` | Defines each department's DRI scope, support departments, allowed decisions, prohibited decisions, and default escalation route. | Charter ownership cannot bypass paper-owner semantic gates. |
+| `department-material-manifest.yaml` | Maps material classes to owning/support departments, consumers, validators, ledger ingestion, and backflow target. | Material ownership is a routing claim until outputs are collected and validated. |
+| `department-lane-registry.yaml` | Binds department accountability to concrete owner lanes and installed `agent_type`/non-subagent routes. | A lane assignment is execution authority, not final certification. |
+| `required-function-material-map.yaml` | Links paper functions/goals to required input/output materials, validators, and fallback/backflow. | Missing required materials block completion or force an explicit validator-accepted non-applicable reason. |
+| `department-state.yaml` | Projects current department readiness, blockers, owner gates, stale evidence, and downstream impact. | Department state is status evidence only; it cannot replace ledger state transition. |
+| `department-handoff-report.yaml` | Carries department-to-PMO handoff with consumed/produced materials, validation evidence, risks, and next safe action. | Handoff is candidate/validated/blocked until PMO ledger ingestion and state transition close it. |
+
+This object layer preserves the core invariant: department owns accountability;
+agent/lane executes; skill provides SOP; material carries output; validator proves
+contract; ledger/state records closure; PMO routes and closes.
+
+Design Function is therefore distinct from Writing Production. Design owns the
+reader experience specification: information architecture, argument
+choreography, figure/text interaction, material inventory shape, load controls,
+rhetorical moves, claim visibility, and terminology policy. Writing Production
+implements those specifications in manuscript prose, captions, tables, formulas,
+and export text. A writing lane may consume and realize design materials, but it
+must not silently redefine design accountability or self-certify reader-facing
+closure.
+
 ## Nature-grade figure architecture
 
 The figure upgrade absorbs the strong parts of the external `nature-figure`

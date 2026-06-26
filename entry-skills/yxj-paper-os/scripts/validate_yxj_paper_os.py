@@ -30,6 +30,12 @@ KNOWN_VALIDATORS = {
     'validate_exemplar_learning', 'validate_sota_gap_map', 'validate_novelty_options',
     'validate_section_blueprints', 'validate_workflow_plan', 'validate_team_gate',
     'validate_department_route_card',
+    'validate_department_charters', 'validate_department_material_manifest',
+    'validate_department_lane_registry', 'validate_required_function_material_map',
+    'validate_no_orphan_material_owner', 'validate_no_orphan_function_owner',
+    'validate_no_public_department_exposure', 'validate_no_route_card_completion_claim',
+    'validate_manager_boot_checklist', 'validate_department_state_projection',
+    'validate_department_handoff_report',
     'validate_validator_report', 'validate_source_locator_resolution', 'validate_owner_lane_closure',
     'validate_validator_reference_closure', 'validate_task_status_transitions',
     'validate_direct_execution_adapter', 'validate_verifier_review', 'validate_pua_telemetry',
@@ -157,7 +163,10 @@ REQUIRED_V2_TEMPLATES = [
     'reader-experience-review-report.yaml', 'narrative-backflow-task.yaml',
     'template-mirror-policy.yaml', 'repository-hygiene-report.yaml',
     'main-text-surface-rules.yaml', 'manager-direct-intervention.yaml',
-    'department-route-card.yaml',
+    'department-charter.yaml', 'department-material-manifest.yaml',
+    'department-lane-registry.yaml', 'department-state.yaml',
+    'department-handoff-report.yaml', 'required-function-material-map.yaml',
+    'manager-boot-checklist.yaml', 'department-route-card.yaml',
     'cognitive-load-budget.yaml', 'explanation-ladder.yaml',
     'rhetorical-move-matrix.yaml', 'claim-evidence-visibility-map.yaml',
     'terminology-register.yaml', 'expression-design-bundle.yaml',
@@ -174,6 +183,25 @@ REQUIRED_V2_TEMPLATES = [
     'reviewer-panel-report.yaml', 'response-action-map.yaml',
     'presentation-plan.yaml', 'patent-draft-boundary.yaml',
 ]
+
+REQUIRED_DEPARTMENT_FIXTURES = {
+    'valid': {
+        'valid-department-accountability-registry',
+        'valid-manager-boot-with-department-state',
+        'valid-task-packet-with-department-registry-binding',
+    },
+    'invalid': {
+        'invalid-missing-department-charter',
+        'invalid-orphan-material-no-owner-department',
+        'invalid-orphan-function-no-primary-department',
+        'invalid-lane-agent-type-without-department',
+        'invalid-internal-department-public-exposure',
+        'invalid-skill-registry-hidden-manager',
+        'invalid-route-card-claims-completion',
+        'invalid-manager-boot-omits-department-state-gap',
+        'invalid-department-state-claims-completion-evidence',
+    },
+}
 
 REQUIRED_ROOT_FILES = [
     '.codex-plugin/plugin.json',
@@ -287,6 +315,34 @@ def check_v2_template_shapes(root: Path) -> list[str]:
         'main-text-surface-rules.yaml': (
             'validate_main_text_surface_rules',
             ['owner_department', 'consumers', 'required_validators', 'rules'],
+        ),
+        'department-charter.yaml': (
+            'validate_department_charters',
+            ['artifact_type', 'departments', 'single_public_entry', 'public_surface_allowed', 'completion_invariant'],
+        ),
+        'department-material-manifest.yaml': (
+            'validate_department_material_manifest',
+            ['artifact_type', 'charter_ref', 'materials', 'manifest_rules.department_state_is_completion_evidence', 'manifest_rules.department_route_card_is_completion_evidence'],
+        ),
+        'department-lane-registry.yaml': (
+            'validate_department_lane_registry',
+            ['artifact_type', 'department_lanes', 'installed_agent_types', 'rules.use_installed_agent_types_only', 'rules.department_sops_are_internal_not_public_skills'],
+        ),
+        'department-state.yaml': (
+            'validate_department_state_projection',
+            ['artifact_type', 'state_kind', 'is_completion_evidence', 'projection_rules.department_state_does_not_close_tasks', 'projection_rules.completion_requires_collected_outputs_validators_ledger_and_state_transition', 'department_status'],
+        ),
+        'department-handoff-report.yaml': (
+            'validate_department_handoff_report',
+            ['artifact_type', 'handoff_identity.from_department_id', 'scope.requested_outcome', 'inputs_consumed', 'outputs_produced', 'validation.route_card_is_completion_evidence', 'validation.department_state_is_completion_evidence', 'ledger_and_state.state_transition_required', 'pmo_summary.next_safe_action'],
+        ),
+        'required-function-material-map.yaml': (
+            'validate_required_function_material_map',
+            ['artifact_type', 'functions', 'rules.every_function_requires_primary_department', 'rules.every_function_requires_material_output', 'rules.every_function_requires_validator_gate', 'rules.every_function_requires_backflow_target'],
+        ),
+        'manager-boot-checklist.yaml': (
+            'validate_manager_boot_checklist',
+            ['artifact_type', 'public_identity', 'boot_context.requested_outcome', 'boot_context.active_gate', 'boot_context.stop_condition', 'state_first_reads', 'registry_reads', 'route_selection.route_mode', 'material_accountability.primary_dri', 'activation_report_required_fields', 'non_completion_boundaries.department_state_is_completion_evidence'],
         ),
         'department-route-card.yaml': (
             'validate_department_route_card',
@@ -663,9 +719,15 @@ def check_scaffold(root: Path) -> tuple[list[str], dict[str, Any]]:
             failures.append('agent_contract_not_registry_backed')
     if not (root / 'fixtures/valid/minimal-valid').exists():
         failures.append('missing_valid_fixture:minimal-valid')
+    for fixture_name in sorted(REQUIRED_DEPARTMENT_FIXTURES['valid']):
+        if not (root / 'fixtures/valid' / fixture_name).is_dir():
+            failures.append(f'missing_valid_fixture:{fixture_name}')
     invalid_root = root / 'fixtures/invalid'
     if not invalid_root.exists() or len([p for p in invalid_root.iterdir() if p.is_dir()]) < 15:
         failures.append('missing_invalid_fixture_set')
+    for fixture_name in sorted(REQUIRED_DEPARTMENT_FIXTURES['invalid']):
+        if not (root / 'fixtures/invalid' / fixture_name).is_dir():
+            failures.append(f'missing_invalid_fixture:{fixture_name}')
     source_doc = root / 'skills/yxj-paper-index/references/source-influences.md'
     if source_doc.exists():
         influence_candidates = {
@@ -1867,6 +1929,278 @@ def load_named_material(fixture: Path, *names: str) -> dict[str, Any] | None:
             if isinstance(data, dict):
                 return data
     return None
+
+
+DEPARTMENT_IDS = {
+    'pmo',
+    'paper_architecture_and_narrative',
+    'evidence_and_method',
+    'manuscript_and_figure_production',
+    'review_and_governance',
+}
+
+DEPARTMENT_VALIDATOR_NAMES = {
+    'validate_department_charters',
+    'validate_department_material_manifest',
+    'validate_department_lane_registry',
+    'validate_required_function_material_map',
+    'validate_no_orphan_material_owner',
+    'validate_no_orphan_function_owner',
+    'validate_no_public_department_exposure',
+    'validate_no_route_card_completion_claim',
+    'validate_manager_boot_checklist',
+    'validate_department_state_projection',
+}
+
+DEPARTMENT_FAILURE_CODES = {
+    'validate_department_charters': 'MISSING_DEPARTMENT_CHARTER',
+    'validate_no_orphan_material_owner': 'ORPHAN_MATERIAL_OWNER',
+    'validate_no_orphan_function_owner': 'ORPHAN_FUNCTION_OWNER',
+    'validate_agent_lane_department_binding': 'LANE_WITHOUT_DEPARTMENT',
+    'validate_no_public_department_exposure': 'PUBLIC_INTERNAL_DEPARTMENT',
+    'validate_company_skill_registry': 'HIDDEN_MANAGER_SKILL',
+    'validate_no_route_card_completion_claim': 'ROUTE_CARD_COMPLETION_CLAIM',
+    'validate_manager_boot_checklist': 'MANAGER_BOOT_MISSING_DEPARTMENT_STATE_OR_GAP',
+    'validate_department_state_projection': 'DEPARTMENT_STATE_USED_AS_COMPLETION_EVIDENCE',
+}
+
+
+def material_list(data: Any, key: str) -> list[dict[str, Any]]:
+    if not isinstance(data, dict):
+        return []
+    values = data.get(key) or []
+    return [item for item in values if isinstance(item, dict)]
+
+
+def fixture_meta(fixture: Path) -> dict[str, Any]:
+    data = load_yaml(fixture / 'fixture-meta.yaml', {})
+    return data if isinstance(data, dict) else {}
+
+
+def department_fixture_active(fixture: Path, meta: dict[str, Any], tasks: Any) -> bool:
+    expected = set(meta.get('expected_failures') or [])
+    if expected & DEPARTMENT_VALIDATOR_NAMES:
+        return True
+    department_files = {
+        'department-charter.yaml',
+        'department-charters.yaml',
+        'department-material-manifest.yaml',
+        'department-lane-registry.yaml',
+        'department-handoff-report.yaml',
+        'required-function-material-map.yaml',
+        'manager-boot-checklist.yaml',
+        'department-state.yaml',
+        'department-route-card.yaml',
+        'public-skill-manifest.json',
+    }
+    return any((fixture / name).exists() for name in department_files)
+
+
+def department_charters_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-charter.yaml', {})
+    if not data:
+        data = load_yaml(fixture / 'department-charters.yaml', {})
+    departments = material_list(data, 'departments')
+    seen = {str(item.get('department_id') or '') for item in departments}
+    if not DEPARTMENT_IDS.issubset(seen):
+        return False
+    for item in departments:
+        if str(item.get('department_id') or '') not in DEPARTMENT_IDS:
+            return False
+        if not has_text(item.get('display_name')) or not has_text(item.get('primary_responsibility')):
+            return False
+        if not non_empty_list(item.get('validator_refs')):
+            return False
+    return True
+
+
+def department_material_manifest_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-material-manifest.yaml', {})
+    materials = material_list(data, 'materials')
+    if not materials:
+        return False
+    for item in materials:
+        if not has_text(item.get('material_id')) or not has_text(item.get('artifact_type')):
+            return False
+        if not has_text(item.get('owner_lane')):
+            return False
+        if not non_empty_list(item.get('validator_refs')) or not non_empty_list(item.get('ledger_targets')):
+            return False
+    return True
+
+
+def no_orphan_material_owner_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-material-manifest.yaml', {})
+    materials = material_list(data, 'materials')
+    if not materials:
+        return False
+    for item in materials:
+        owner = str(item.get('owner_department') or '')
+        if owner not in DEPARTMENT_IDS:
+            return False
+    return True
+
+
+def department_lane_registry_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-lane-registry.yaml', {})
+    lanes = material_list(data, 'lanes')
+    if not lanes:
+        return False
+    for item in lanes:
+        if not has_text(item.get('lane_id')) or not has_text(item.get('agent_type')):
+            return False
+        if not non_empty_list(item.get('validator_refs')):
+            return False
+    return True
+
+
+def lane_agent_department_binding_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-lane-registry.yaml', {})
+    lanes = material_list(data, 'lanes')
+    if not lanes:
+        return False
+    for item in lanes:
+        if has_text(item.get('agent_type')) and str(item.get('department_id') or item.get('owner_department') or '') not in DEPARTMENT_IDS:
+            return False
+    return True
+
+
+def required_function_material_map_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'required-function-material-map.yaml', {})
+    functions = material_list(data, 'functions')
+    if not functions:
+        return False
+    for item in functions:
+        if not has_text(item.get('function_id')):
+            return False
+        if not non_empty_list(item.get('output_materials')) or not non_empty_list(item.get('validators')):
+            return False
+        if not has_text(item.get('backflow_target')):
+            return False
+    return True
+
+
+def no_orphan_function_owner_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'required-function-material-map.yaml', {})
+    functions = material_list(data, 'functions')
+    if not functions:
+        return False
+    for item in functions:
+        owner = str(item.get('primary_department') or '')
+        if owner not in DEPARTMENT_IDS:
+            return False
+    return True
+
+
+def no_public_department_exposure_ok(fixture: Path, root: Path) -> bool:
+    manifest_path = fixture / 'public-skill-manifest.json'
+    if manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+        except Exception:
+            return False
+    else:
+        try:
+            manifest = json.loads((root / '.codex-plugin/plugin.json').read_text(encoding='utf-8'))
+        except Exception:
+            return False
+    text = json.dumps(manifest)
+    forbidden = {
+        'department-charter',
+        'department-manager',
+        'paper-architecture-and-narrative',
+        'evidence-and-method',
+        'manuscript-and-figure-production',
+        'review-and-governance',
+        'yxj-paper-pmo',
+    }
+    if any(marker in text for marker in forbidden):
+        return False
+    if isinstance(manifest, dict) and manifest.get('skills') not in {PUBLIC_SKILLS_RESOURCE, './entry-skills/'}:
+        return False
+    return True
+
+
+def no_route_card_completion_claim_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-route-card.yaml', {})
+    if not data:
+        return True
+    boundaries = data.get('authority_boundaries') or {}
+    manager = data.get('department_manager') or {}
+    authority = manager.get('authority_scope') if isinstance(manager, dict) else {}
+    closure = normalize_material_key(data.get('closure_state'))
+    if closure in {'complete', 'completed', 'validated', 'ready', 'done'}:
+        return False
+    if isinstance(boundaries, dict) and boundaries.get('route_card_is_completion_evidence') is not False:
+        return False
+    if isinstance(authority, dict) and authority.get('may_certify_completion') is not False:
+        return False
+    return True
+
+
+def manager_boot_checklist_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'manager-boot-checklist.yaml', {})
+    if not data:
+        return False
+    report = data.get('status_report') or {}
+    if 'Paper Manager' not in str(data.get('manager_identity') or report.get('self_identifies_as') or ''):
+        return False
+    has_state = has_text(data.get('department_state_ref')) or bool(report.get('department_state_loaded'))
+    gap_disclosed = bool(report.get('missing_department_state_gap_disclosed') or data.get('missing_department_state_gap'))
+    if not (has_state or gap_disclosed):
+        return False
+    if not non_empty_list(data.get('required_departments_checked')):
+        return False
+    return True
+
+
+def department_state_projection_ok(fixture: Path) -> bool:
+    data = load_yaml(fixture / 'department-state.yaml', {})
+    if not data:
+        return False
+    if data.get('projection_only') is not True:
+        return False
+    if data.get('used_as_completion_evidence') is not False or data.get('completion_evidence') is True:
+        return False
+    if normalize_material_key(data.get('closure_state')) in {'complete', 'completed', 'validated', 'ready', 'done'}:
+        return False
+    departments = material_list(data, 'departments')
+    return DEPARTMENT_IDS.issubset({str(item.get('department_id') or '') for item in departments})
+
+
+def validate_department_accountability_fixture(
+    fixture: Path,
+    root: Path,
+    tasks: Any,
+    artifacts: dict[str, Any],
+) -> tuple[list[str], dict[str, Any]]:
+    meta = fixture_meta(fixture)
+    if not department_fixture_active(fixture, meta, tasks):
+        return [], {}
+    checks = {
+        'validate_department_charters': department_charters_ok(fixture),
+        'validate_department_material_manifest': department_material_manifest_ok(fixture),
+        'validate_no_orphan_material_owner': no_orphan_material_owner_ok(fixture),
+        'validate_department_lane_registry': department_lane_registry_ok(fixture),
+        'validate_agent_lane_department_binding': lane_agent_department_binding_ok(fixture),
+        'validate_required_function_material_map': required_function_material_map_ok(fixture),
+        'validate_no_orphan_function_owner': no_orphan_function_owner_ok(fixture),
+        'validate_no_public_department_exposure': no_public_department_exposure_ok(fixture, root),
+        'validate_no_route_card_completion_claim': no_route_card_completion_claim_ok(fixture),
+        'validate_manager_boot_checklist': manager_boot_checklist_ok(fixture),
+        'validate_department_state_projection': department_state_projection_ok(fixture),
+    }
+    failures = [name for name, ok in checks.items() if not ok]
+    if (fixture / 'company-skill-registry.yaml').exists() and not validate_company_skill_registry_material(fixture, artifacts, tasks):
+        failures.append('validate_company_skill_registry')
+    detail = {
+        'active': True,
+        'diagnostic_codes': [
+            {'validator': name, 'code': DEPARTMENT_FAILURE_CODES.get(name, name)}
+            for name in sorted(set(failures))
+        ],
+    }
+    return sorted(set(failures)), detail
 
 
 def non_empty_list(value: Any) -> bool:
@@ -4151,6 +4485,13 @@ def check_fixture(fixture: Path, root: Path | None = None) -> tuple[list[str], d
     if not validate_nature_absorption_package_material(fixture, artifacts, tasks):
         failures.append('validate_nature_absorption_package')
 
+    department_failures, department_detail = validate_department_accountability_fixture(
+        fixture, root, tasks, artifacts
+    )
+    failures.extend(department_failures)
+    if department_detail:
+        detail['department_accountability'] = department_detail
+
     rendered_text_ok, rendered_ok, bare_citekeys_ok = validate_rendered_surface_gate_material(fixture, artifacts, tasks)
     if not rendered_text_ok:
         failures.append('validate_rendered_pdf_surface_text')
@@ -4218,6 +4559,12 @@ def check_fixtures(root: Path) -> tuple[list[str], dict[str, Any]]:
             failures.append(f'invalid_fixture_unexpected_extra_failures:{fx.name}:{",".join(sorted(unexpected))}')
     if detail['valid_count'] == 0 or detail['invalid_count'] == 0:
         failures.append('validate_fixture_matrix_nonempty')
+    for fixture_name in sorted(REQUIRED_DEPARTMENT_FIXTURES['valid']):
+        if fixture_name not in detail['valid']:
+            failures.append(f'missing_valid_fixture:{fixture_name}')
+    for fixture_name in sorted(REQUIRED_DEPARTMENT_FIXTURES['invalid']):
+        if fixture_name not in detail['invalid']:
+            failures.append(f'missing_invalid_fixture:{fixture_name}')
     return failures, detail
 
 

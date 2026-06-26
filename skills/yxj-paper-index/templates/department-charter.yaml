@@ -1,0 +1,336 @@
+schema_version: yxj-paper-os/department-charter/v1
+artifact_type: DepartmentCharterRegistry
+artifact_id: department-charter-registry-template
+status: template
+owning_department: pmo
+registry_scope: internal_department_accountability
+single_public_entry: yxj-paper-os
+public_surface_allowed: false
+manager_roster_ref: references/department-manager-governance.md
+completion_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+validator_refs:
+- validate_department_charters
+- validate_no_public_department_exposure
+- validate_no_orphan_material_owner
+departments:
+- department_id: pmo
+  display_name: PMO / Paper Management
+  parent_department_manager: PMO Department Manager
+  primary_dri: pmo
+  support_departments:
+  - review_validation
+  purpose: Public Paper Manager / PMO activation, owner intent confirmation, route
+    selection, task packet compilation, ledger/state transition, and final handoff.
+  owned_material_objects:
+  - ManagerBootChecklist
+  - DepartmentCharterRegistry
+  - DepartmentMaterialManifest
+  - DepartmentLaneRegistry
+  - DepartmentState
+  - RequiredFunctionMaterialMap
+  - TaskPacketV2Plus
+  - DepartmentRequest
+  - ManagerHandoffReportV2
+  lane_options:
+  - owner_lane: state-steward
+    agent_type: executor
+  - owner_lane: execution-coordinator
+    agent_type: executor
+  - owner_lane: taskpacket-governance-owner
+    agent_type: architect
+  acceptance_gates:
+  - validate_manager_boot_checklist
+  - validate_required_function_material_map
+  - validate_task_packet
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/task-ledger.yaml
+  - .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: pmo
+  authority_boundaries:
+  - no_public_department_command
+  - no_completion_without_validator_ledger_state_transition
+  - paper_owner_semantic_decisions_remain_owner_gated
+- department_id: research_source
+  display_name: Research / Source
+  parent_department_manager: Evidence & Method Manager
+  primary_dri: evidence_and_method
+  support_departments:
+  - novelty_positioning
+  - review_validation
+  purpose: Source retrieval, yxj-wiki/backend compatibility, citations, absorption
+    state, and source/citation evidence compatibility.
+  owned_material_objects:
+  - SourceMap
+  - ResearchDossier
+  - SearchStrategyDossier
+  - CitationBank
+  - CitationVerificationReport
+  - NatureSourceInventory
+  lane_options:
+  - owner_lane: source-map-curator
+    agent_type: researcher
+  - owner_lane: sota-mapper
+    agent_type: researcher
+  - owner_lane: citation-banker
+    agent_type: researcher
+  - owner_lane: yxj-wiki-bridge
+    agent_type: verifier
+  acceptance_gates:
+  - validate_source_map
+  - validate_source_locator_resolution
+  - validate_citation_verification_report
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/evidence-ledger.yaml
+  backflow_target: evidence_and_method
+  authority_boundaries:
+  - no_metadata_only_support
+  - no_private_raw_copy_without_authority
+- department_id: novelty_positioning
+  display_name: Novelty / Positioning
+  parent_department_manager: Paper Architecture & Narrative Manager
+  primary_dri: paper_architecture_and_narrative
+  support_departments:
+  - research_source
+  - review_validation
+  purpose: Problem gap, contribution, venue fit, claim positioning, and reviewer
+    risk framing.
+  owned_material_objects:
+  - NoveltyOptions
+  - ContributionBrief
+  - ClaimHierarchy
+  - SotaGapMap
+  lane_options:
+  - owner_lane: novelty-panel
+    agent_type: critic
+  - owner_lane: paper-architect
+    agent_type: architect
+  acceptance_gates:
+  - validate_novelty_options
+  - validate_claim_support
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: paper_architecture_and_narrative
+  authority_boundaries:
+  - no_claim_strength_upgrade_without_evidence
+- department_id: paperspine_narrative_architecture
+  display_name: PaperSpine / Narrative Architecture
+  parent_department_manager: Paper Architecture & Narrative Manager
+  primary_dri: paper_architecture_and_narrative
+  support_departments:
+  - design_function
+  - writing_production
+  purpose: Argument spine, section flow, reader journey, section blueprint, and
+    Nature-derived rhetorical design intent.
+  owned_material_objects:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  - SectionFunctionBudget
+  - RationaleMatrix
+  lane_options:
+  - owner_lane: paper-architect
+    agent_type: architect
+  - owner_lane: scene-analyst
+    agent_type: researcher
+  - owner_lane: exemplar-learner
+    agent_type: researcher
+  acceptance_gates:
+  - validate_reader_spine_brief
+  - validate_object_representation_matrix
+  - validate_section_function_budget
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: paper_architecture_and_narrative
+  authority_boundaries:
+  - owner_gate_for_final_motivation_and_contribution_spine
+- department_id: design_function
+  display_name: Design Function
+  parent_department_manager: Paper Architecture & Narrative Manager
+  primary_dri: paper_architecture_and_narrative
+  support_departments:
+  - figures_non_text
+  - writing_production
+  purpose: Reader experience, argument choreography, information architecture,
+    figure/text interaction, cognitive load, and design specifications consumed by
+    writing and figures.
+  distinct_from: writing_production
+  not_equivalent_to: Writing Department
+  owned_material_objects:
+  - CognitiveLoadBudget
+  - ExplanationLadder
+  - RhetoricalMoveMatrix
+  - ClaimEvidenceVisibilityMap
+  - TerminologyRegister
+  - ExpressionDesignBundle
+  lane_options:
+  - owner_lane: paper-architect
+    agent_type: architect
+  - owner_lane: style-auditor
+    agent_type: verifier
+  acceptance_gates:
+  - validate_cognitive_load_budget
+  - validate_explanation_ladder
+  - validate_rhetorical_move_matrix
+  - validate_claim_evidence_visibility_map
+  - validate_terminology_register
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: paper_architecture_and_narrative
+  authority_boundaries:
+  - design_specs_do_not_replace_evidence
+  - writing_may_consume_but_not_erase_design_specs
+- department_id: writing_production
+  display_name: Writing Production
+  parent_department_manager: Manuscript & Figure Production Manager
+  primary_dri: manuscript_and_figure_production
+  support_departments:
+  - design_function
+  - evidence_method
+  - review_validation
+  purpose: Prose realization, sentence/paragraph/section drafting, style repair,
+    deslop, and manuscript patch production from validated design/evidence inputs.
+  consumes_design_from: design_function
+  owned_material_objects:
+  - SectionMovePlan
+  - JournalStyleProfile
+  - PolishingRepairReport
+  - MainTextConstructionMatrix
+  - SingleWriterSectionLock
+  lane_options:
+  - owner_lane: manuscript-owner
+    agent_type: writer
+  - owner_lane: docs-writer
+    agent_type: writer
+  acceptance_gates:
+  - validate_section_move_plan
+  - validate_main_text_construction_matrix_refs
+  - validate_single_writer_lock_held
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: manuscript_and_figure_production
+  authority_boundaries:
+  - no_claim_invention
+  - no_template_or_design_exception_without_validator_report
+- department_id: evidence_method
+  display_name: Evidence / Method
+  parent_department_manager: Evidence & Method Manager
+  primary_dri: evidence_and_method
+  support_departments:
+  - research_source
+  - review_validation
+  purpose: Experiment/evidence alignment, method fidelity, claim-evidence gates,
+    result packages, and data availability.
+  owned_material_objects:
+  - EvidenceBank
+  - ClaimCitationCapsule
+  - ResultPackage
+  - DataAvailabilityPlan
+  - MethodContract
+  lane_options:
+  - owner_lane: evidence-curator
+    agent_type: verifier
+  - owner_lane: method-verifier
+    agent_type: verifier
+  acceptance_gates:
+  - validate_evidence_bank
+  - validate_claim_citation_capsule_support
+  - validate_result_package_claim_boundary
+  - validate_data_availability_plan
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/evidence-ledger.yaml
+  backflow_target: evidence_and_method
+  authority_boundaries:
+  - no_unsupported_claim
+  - no_invented_identifier
+- department_id: figures_non_text
+  display_name: Figures / Non-text
+  parent_department_manager: Manuscript & Figure Production Manager
+  primary_dri: manuscript_and_figure_production
+  support_departments:
+  - design_function
+  - evidence_method
+  - export_migration
+  purpose: Figures, tables, non-text supplements, captions, source data, visual
+    evidence package, and exportable figure bundles.
+  owned_material_objects:
+  - NatureFigureContract
+  - NatureFigureAestheticProfile
+  - NaturePanelEvidenceMap
+  - FigureBackendRoute
+  - FigureExportBundle
+  lane_options:
+  - owner_lane: figure-owner
+    agent_type: executor
+  - owner_lane: export-owner
+    agent_type: executor
+  acceptance_gates:
+  - validate_nature_figure_contract
+  - validate_panel_evidence_map
+  - validate_figure_export_bundle
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/artifact-ledger.yaml
+  backflow_target: manuscript_and_figure_production
+  authority_boundaries:
+  - no_figure_without_source_data_or_backend_route
+- department_id: review_validation
+  display_name: Review / Validation
+  parent_department_manager: Review & Governance Manager
+  primary_dri: review_and_governance
+  support_departments:
+  - pmo
+  purpose: Adversarial review, consistency checks, authority separation,
+    completion proof, final-certifier separation, and no self-certification.
+  owned_material_objects:
+  - ReviewOutput
+  - ValidatorReport
+  - ReaderExperienceReviewReport
+  - NarrativeBackflowTask
+  - ReviewerPanelReport
+  lane_options:
+  - owner_lane: review-director
+    agent_type: critic
+  - owner_lane: final-verifier
+    agent_type: verifier
+  - owner_lane: validator-designer
+    agent_type: test-engineer
+  acceptance_gates:
+  - validate_review_independence
+  - validate_verifier_review
+  - validate_validator_report
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/review-ledger.yaml
+  backflow_target: review_and_governance
+  authority_boundaries:
+  - reviewer_must_not_be_same_effective_actor_for_sensitive_outputs
+  - pua_telemetry_is_not_completion_evidence
+- department_id: export_migration
+  display_name: Export / Migration
+  parent_department_manager: Manuscript & Figure Production Manager
+  primary_dri: manuscript_and_figure_production
+  support_departments:
+  - review_validation
+  - pmo
+  purpose: Venue format, LaTeX/export package, migration notes, export readiness,
+    repository hygiene, and submission package boundaries.
+  owned_material_objects:
+  - ExportManifest
+  - RepositoryHygieneReport
+  - MigrationReport
+  - PresentationPlan
+  - PatentDraftBoundary
+  lane_options:
+  - owner_lane: export-owner
+    agent_type: executor
+  - owner_lane: repository-hygiene-owner
+    agent_type: verifier
+  - owner_lane: migration-owner
+    agent_type: writer
+  acceptance_gates:
+  - validate_export_manifest
+  - validate_repository_hygiene_report
+  - validate_patent_draft_boundary
+  ledger_ingestion_paths:
+  - .omx/state/yxj-paper-os/export-ledger.yaml
+  backflow_target: manuscript_and_figure_production
+  authority_boundaries:
+  - no_external_submission_without_explicit_authority
+  - no_active_install_or_marketplace_mutation_without_gate

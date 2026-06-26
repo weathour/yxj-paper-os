@@ -121,7 +121,61 @@ independent validators govern archetype, hierarchy, palette, typography, labels,
 legend, background, source/data/statistics, image integrity, caption, export,
 and rendered-surface checks. A figure-owner summary is not aesthetic closure.
 
+## Manager boot and department accountability objects
 
+At the start of broad paper work, use the manager boot checklist before drafting
+or dispatching tasks. The boot record should answer these questions with current
+evidence, not guesses:
+
+1. What did the paper owner ask for, and what outcome/stop condition is active?
+2. Which paper/project root and yxj-paper-os state snapshot are in force?
+3. Which gate is active: status query, contract-only routing, department-manager
+   subagent, Team lane lead, validation, migration, export, or owner decision?
+4. Which departments are primary/support DRIs for the requested function?
+5. Which material objects must be consumed, produced, validated, ingested, and
+   possibly backflowed?
+6. Which route mode is allowed now, and which actions are hard-gated?
+
+Use the department object layer as the source of truth:
+
+- `department-charter.yaml` for DRI scope, authority boundaries, owner-gated
+  decisions, and prohibited actions;
+- `department-material-manifest.yaml` for material ownership, consumers,
+  validators, ledger ingestion, and backflow;
+- `department-lane-registry.yaml` for allowed owner lanes and installed
+  `agent_type`/non-subagent routes;
+- `required-function-material-map.yaml` for function-to-material requirements;
+- `department-state.yaml` for current readiness, blockers, stale evidence, and
+  downstream impact;
+- `department-handoff-report.yaml` for department-to-PMO handoff evidence;
+- `manager-boot-checklist.yaml` for the activation snapshot.
+
+The normal operating order is:
+
+```text
+ManagerBootChecklist
+  -> DepartmentCharter / DepartmentMaterialManifest / DepartmentLaneRegistry
+  -> RequiredFunctionMaterialMap / DepartmentState
+  -> DepartmentRouteCard or direct TaskPacketV2Plus compilation
+  -> execution lane or Team lane lead
+  -> DepartmentHandoffReport / material candidate
+  -> validator evidence
+  -> ledger ingestion
+  -> PMO state transition or backflow
+```
+
+Do not report `DepartmentState`, `DepartmentRouteCard`, or
+`DepartmentHandoffReport` as completion by themselves. They can justify routing
+or candidate validation, but closure still needs collected outputs, validator
+passes, ledger ingestion, and explicit state transition.
+
+Design Function is not Writing Production. Design owns reader experience,
+argument choreography, information architecture, figure/text interaction,
+material shape, expression-design controls, and reviewer-facing specifications.
+Writing Production consumes those specifications to realize prose, captions,
+tables, formulas, and export text. If a writer changes design intent, the change
+must be routed back through the design/architecture accountability path rather
+than hidden in a prose edit.
 
 ## Department Manager operating pattern
 

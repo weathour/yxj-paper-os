@@ -1,0 +1,239 @@
+schema_version: yxj-paper-os/required-function-material-map/v1
+artifact_type: RequiredFunctionMaterialMap
+artifact_id: required-function-material-map-template
+status: template
+owning_department: pmo
+single_public_entry: yxj-paper-os
+public_surface_allowed: false
+validator_refs:
+- validate_required_function_material_map
+- validate_no_orphan_function_owner
+- validate_no_orphan_material_owner
+- validate_agent_lane_department_binding
+rules:
+  every_function_requires_primary_department: true
+  every_function_requires_material_output: true
+  every_function_requires_validator_gate: true
+  every_function_requires_backflow_target: true
+  public_user_invokes_only_yxj_paper_os: true
+functions:
+- function_id: manager_boot
+  public_request_examples:
+  - yxj-paper-os status
+  - 论文经理检查一下
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  required_input_materials:
+  - state.yaml
+  - task-ledger.yaml
+  required_output_materials:
+  - ManagerBootChecklist
+  - DepartmentState
+  route_mode_options:
+  - status_query
+  - contract_only
+  validator_refs:
+  - validate_manager_boot_checklist
+  - validate_department_state_projection
+  backflow_target: pmo
+- function_id: department_route
+  primary_department: pmo
+  support_departments:
+  - review_validation
+  required_input_materials:
+  - DepartmentCharterRegistry
+  - DepartmentMaterialManifest
+  - DepartmentLaneRegistry
+  required_output_materials:
+  - DepartmentRouteCard
+  - TaskPacketV2Plus
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  - team_lane_lead
+  validator_refs:
+  - validate_department_route_card
+  - validate_task_packet
+  - validate_agent_lane_department_binding
+  backflow_target: pmo
+- function_id: source_research_and_citation
+  primary_department: research_source
+  support_departments:
+  - evidence_method
+  required_input_materials:
+  - paper-profile.yaml
+  required_output_materials:
+  - SourceMap
+  - ResearchDossier
+  - CitationVerificationReport
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_source_map
+  - validate_research_dossier
+  - validate_citation_verification_report
+  backflow_target: evidence_and_method
+- function_id: novelty_and_contribution_positioning
+  primary_department: novelty_positioning
+  support_departments:
+  - research_source
+  required_input_materials:
+  - SourceMap
+  - ResearchDossier
+  required_output_materials:
+  - SotaGapMap
+  - NoveltyOptions
+  - ContributionBrief
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_novelty_options
+  - validate_claim_support
+  backflow_target: paper_architecture_and_narrative
+- function_id: paperspine_and_reader_architecture
+  primary_department: paperspine_narrative_architecture
+  support_departments:
+  - design_function
+  required_input_materials:
+  - Motivation
+  - SourceMap
+  required_output_materials:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  - SectionFunctionBudget
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_reader_spine_brief
+  - validate_object_representation_matrix
+  - validate_section_function_budget
+  backflow_target: paper_architecture_and_narrative
+- function_id: reader_experience_design
+  primary_department: design_function
+  support_departments:
+  - paperspine_narrative_architecture
+  - writing_production
+  required_input_materials:
+  - ReaderSpineBrief
+  - ObjectRepresentationMatrix
+  required_output_materials:
+  - CognitiveLoadBudget
+  - ExplanationLadder
+  - RhetoricalMoveMatrix
+  - ClaimEvidenceVisibilityMap
+  - TerminologyRegister
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_cognitive_load_budget
+  - validate_explanation_ladder
+  - validate_rhetorical_move_matrix
+  - validate_claim_evidence_visibility_map
+  - validate_terminology_register
+  backflow_target: paper_architecture_and_narrative
+  boundary: Design Function is distinct from Writing Production and specifies reader experience before prose realization.
+- function_id: prose_and_section_production
+  primary_department: writing_production
+  support_departments:
+  - design_function
+  - evidence_method
+  required_input_materials:
+  - ReaderSpineBrief
+  - CognitiveLoadBudget
+  - EvidenceBank
+  required_output_materials:
+  - SectionMovePlan
+  - MainTextConstructionMatrix
+  - PolishingRepairReport
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_section_move_plan
+  - validate_main_text_construction_matrix_refs
+  - validate_no_internal_codes_in_main_prose
+  backflow_target: manuscript_and_figure_production
+  boundary: Writing consumes design specs and validated evidence; it must not invent claims or erase Design Function objects.
+- function_id: evidence_method_alignment
+  primary_department: evidence_method
+  support_departments:
+  - research_source
+  required_input_materials:
+  - SourceMap
+  - ResultPackage
+  required_output_materials:
+  - EvidenceBank
+  - ClaimCitationCapsule
+  - DataAvailabilityPlan
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_evidence_bank
+  - validate_claim_citation_capsule_support
+  - validate_data_availability_plan
+  backflow_target: evidence_and_method
+- function_id: figure_and_non_text_package
+  primary_department: figures_non_text
+  support_departments:
+  - design_function
+  - evidence_method
+  required_input_materials:
+  - NatureFigureContract
+  - EvidenceBank
+  required_output_materials:
+  - NaturePanelEvidenceMap
+  - FigureBackendRoute
+  - FigureExportBundle
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_nature_figure_contract
+  - validate_panel_evidence_map
+  - validate_figure_export_bundle
+  backflow_target: manuscript_and_figure_production
+- function_id: review_validation_and_backflow
+  primary_department: review_validation
+  support_departments:
+  - pmo
+  required_input_materials:
+  - TaskPacketV2Plus
+  - ProducedMaterial
+  required_output_materials:
+  - ReviewOutput
+  - ValidatorReport
+  - NarrativeBackflowTask
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  validator_refs:
+  - validate_review_independence
+  - validate_verifier_review
+  - validate_validator_report
+  backflow_target: review_and_governance
+- function_id: export_and_migration
+  primary_department: export_migration
+  support_departments:
+  - review_validation
+  - pmo
+  required_input_materials:
+  - ValidatorReport
+  - ExportManifest
+  required_output_materials:
+  - RepositoryHygieneReport
+  - MigrationReport
+  - ExportPackage
+  route_mode_options:
+  - contract_only
+  - department_manager_subagent
+  - team_lane_lead
+  validator_refs:
+  - validate_export_manifest
+  - validate_repository_hygiene_report
+  backflow_target: manuscript_and_figure_production

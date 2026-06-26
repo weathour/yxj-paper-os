@@ -1,0 +1,2 @@
+## command: python3 - << mirror diff check
+mirror pairs byte-identical for shared top-level template/script files

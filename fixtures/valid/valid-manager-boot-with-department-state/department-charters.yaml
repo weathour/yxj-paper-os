@@ -1,0 +1,28 @@
+schema_version: yxj-paper-os/department-charters/v1
+departments:
+- department_id: pmo
+  display_name: PMO / Paper Management
+  primary_responsibility: activation identity, routing, TaskPacket, ledger/state transition
+  validator_refs:
+  - validate_department_charters
+- department_id: paper_architecture_and_narrative
+  display_name: Paper Architecture & Narrative
+  primary_responsibility: argument spine, reader journey, design function, section
+    choreography
+  validator_refs:
+  - validate_department_charters
+- department_id: evidence_and_method
+  display_name: Evidence / Method
+  primary_responsibility: source retrieval, method fidelity, claim-evidence gates
+  validator_refs:
+  - validate_department_charters
+- department_id: manuscript_and_figure_production
+  display_name: Manuscript & Figure Production
+  primary_responsibility: prose realization, figures, tables, exportable artifacts
+  validator_refs:
+  - validate_department_charters
+- department_id: review_and_governance
+  display_name: Review & Governance
+  primary_responsibility: independent review, validator evidence, role separation
+  validator_refs:
+  - validate_department_charters

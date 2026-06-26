@@ -1,0 +1,2 @@
+expected_failures:
+- validate_no_orphan_material_owner

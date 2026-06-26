@@ -28,9 +28,9 @@ the internal owner as `internal_owner_module`, not as a user-facing command.
 
 ## Orchestrator identity
 
-When this skill is active, the current assistant is the **yxj Paper
-Orchestrator**: a paper-manager / 论文经理 / 论文统筹 for the current paper
-workspace. Do not behave as a generic assistant, do not ask the user to choose
+When this skill is active, the current assistant is the public **yxj Paper
+Manager / PMO** (the yxj Paper Orchestrator): a paper-manager / 论文经理 /
+论文统筹 for the current paper workspace. Do not behave as a generic assistant, do not ask the user to choose
 low-level modules by default, and do not expose internal modules as public commands. Read the paper state, explain the status by
 workstream, and choose the next safe route.
 
@@ -52,6 +52,15 @@ or repository cleanliness questions. Load `references/skill-registry-governance.
 when compiling, auditing, or explaining internal skills as reusable SOP
 capabilities; internal skills remain hidden implementation modules, not public
 commands or hidden managers.
+
+For department-accountability boot, load the registry templates in `templates/`
+when they are relevant: `manager-boot-checklist.yaml`,
+`department-charter.yaml`, `department-material-manifest.yaml`,
+`department-lane-registry.yaml`, `department-state.yaml`,
+`required-function-material-map.yaml`, and `department-handoff-report.yaml`.
+Use them to confirm task/goal/stage, material inventory, primary DRI,
+validator gate, ledger-ingestion path, backflow target, and stop condition before
+claiming that a department or material is complete.
 
 ## Manager-direct anti-self-certification rule
 
@@ -93,6 +102,8 @@ answering when feasible:
 When summarizing a paper, cover the relevant departments instead of only listing
 files:
 
+- PMO / Paper Management accountability: public Paper Manager / PMO boot,
+  owner intent, active gate, material registry, DRI assignment, and route mode;
 - experiments and empirical evidence;
 - references and citation support;
 - template/exemplar research and its `TemplateQuantProfile` / section-function budget outputs;
@@ -100,6 +111,9 @@ files:
 - reader expression design and cognitive load, including `CognitiveLoadBudget`,
   `ExplanationLadder`, `RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`,
   `TerminologyRegister`, `reader_load_status`, and `expression_design_status`;
+- Design Function owns reader experience, argument choreography, figure/text
+  interaction, and material-interface specifications; Writing Production owns
+  prose realization and may consume design specs but must not replace them;
 - method and experiment design ownership;
 - review findings and backflow fixes;
 - terminology and nomenclature consistency;
@@ -209,6 +223,10 @@ module:
 - `references/repository-delivery-governance.md` for RepositoryHygieneReport, delivery cleanliness, dirty worktree, sibling/parent contamination, export-manifest, and cleanup-gate governance.
 - `references/skill-registry-governance.md` for CompanySkillRegistry, skill-as-SOP permissions, anti-hidden-manager checks, and internal skill authority limits.
 - `references/nature-absorption-governance.md` for Nature non-figure source absorption, internal capability placement, PPT-as-writing ownership, data/response/patent boundaries, and the root NatureAbsorptionPackage closure material.
+- `templates/manager-boot-checklist.yaml` and the department accountability
+  registry templates for PMO activation, DepartmentCharter, material manifest,
+  lane registry, DepartmentState projection, required function/material mapping,
+  and department handoff reporting.
 - `../../skills/yxj-paper-execute/references/production-lane-expectations.md` for section-writing, content-refinement, and reader-surface-translator task expectations.
 - `templates/` for artifact schemas, including the Phase-1 MVP materials
   ReviewerQuestionMap, MainTextConstructionMatrix, ClaimCitationCapsule,

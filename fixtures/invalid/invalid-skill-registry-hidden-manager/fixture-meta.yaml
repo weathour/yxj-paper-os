@@ -1,0 +1,2 @@
+expected_failures:
+- validate_company_skill_registry

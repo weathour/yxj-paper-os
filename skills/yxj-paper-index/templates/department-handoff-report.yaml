@@ -1,0 +1,70 @@
+schema_version: yxj-paper-os/department-handoff-report/v1
+artifact_type: DepartmentHandoffReport
+artifact_id: department-handoff-report-<task-id>-<department-id>
+status: draft
+owning_department: pmo
+single_public_entry: yxj-paper-os
+public_surface_allowed: false
+validator_refs:
+- validate_department_handoff_report
+- validate_no_route_card_completion_claim
+- validate_task_status_transitions
+handoff_identity:
+  from_department_id: <department-id>
+  from_department_manager: <department-manager-name>
+  mode: contract_only # contract_only | department_manager_subagent | team_lane_lead
+  to_department_id: pmo
+  task_id: <task-id>
+  owner_lane: <owner-lane>
+  agent_type: <installed-agent-type-or-null>
+  recursion_control: no_recursive_uncontrolled_subagents
+scope:
+  requested_outcome: <requested-outcome>
+  active_gate: <gate-name>
+  route_card_ref: <department-route-card-or-null>
+  manager_boot_checklist_ref: <manager-boot-checklist-or-null>
+inputs_consumed:
+- artifact_id: <artifact-id>
+  artifact_type: <artifact-type>
+  path: <path-or-locator>
+  status: available
+outputs_produced:
+- artifact_id: <artifact-id>
+  artifact_type: <artifact-type>
+  path: <path-or-locator>
+  producer_department: <department-id>
+  producer_lane: <owner-lane>
+validation:
+  validators_required: []
+  validators_run: []
+  validator_evidence_refs: []
+  route_card_is_completion_evidence: false
+  department_state_is_completion_evidence: false
+  completion_claim_allowed: false
+ledger_and_state:
+  ledger_ingestion_required: true
+  ledger_ingestion_refs: []
+  state_transition_required: true
+  state_transition_ref: null
+  closure_state: recommended # recommended | collected | validated | ingested | complete | blocked
+backflow:
+  on_validator_failure: <department-id-or-owner-lane>
+  on_missing_input: pmo
+  on_owner_gate: paper-owner-gate
+  unresolved_owner_gates: []
+team_boundary:
+  team_mode_used: false
+  ralplan_consensus_ref: null
+  current_story_approval_ref: null
+  lane_lead_handoff_refs: []
+design_writing_boundary:
+  design_function_outputs_consumed: []
+  writing_production_outputs_consumed: []
+  boundary_statement: Design Function owns reader experience and argument choreography;
+    Writing Production owns prose realization and cannot replace design specs.
+pmo_summary:
+  current_concrete_situation: <status-with-artifact-paths>
+  current_problems_or_risks: []
+  needs_paper_owner_attention: []
+  impact_on_final_paper: <impact>
+  next_safe_action: <next-action>
