@@ -4,14 +4,14 @@ The runtime adapter is named `native_subagent_pipeline_adapter`.
 
 ## Direct execution sequence
 
-1. **compile**: create a v2 task packet from profile, source-map, reader narrative objects, template budgets, evidence/rationale rows, and owner lane. The packet mirrors `agent-lane-registry.yaml` with `owner_department`, `input_materials`, `expected_output_materials`, required narrative/template refs, `backflow_route`, and validator refs.
+1. **compile**: create a v2 task packet from profile, source-map, relevant DepartmentRouteCard, reader narrative objects, template budgets, evidence/rationale rows, and owner lane. The packet mirrors `agent-lane-registry.yaml` with `owner_department`, `input_materials`, `expected_output_materials`, required narrative/template refs, `backflow_route`, and validator refs.
 2. **execute**: launch a Codex native subagent with the declared `agent_type`; Team requires explicit gate.
 3. **collect**: copy returned artifacts/material objects to `collection_path` and list them in the task ledger.
 4. **validate**: run all `validator_refs`, including v2 department/material/narrative/template validators when declared by the lane; write `validator-report.yaml`.
 5. **ingest**: update state/artifact/evidence/review/export ledgers so produced materials are visible to downstream departments.
 6. **state_transition**: move the task and project phase only after ingestion evidence.
 
-The preserved completion invariant is `compile -> execute -> collect -> validate -> ingest -> state_transition`.
+The preserved completion invariant is `compile -> execute -> collect -> validate -> ingest -> state_transition`. DepartmentRouteCard is a route-planning input, never completion evidence.
 
 ## Required task packet fields
 
@@ -46,6 +46,7 @@ The preserved completion invariant is `compile -> execute -> collect -> validate
 - `validate_narrative_object_binding`: lanes that shape reader-facing text, method claims, evidence claims, figures, review, or export must carry relevant narrative object refs, unless `validator-report.yaml` records an independently accepted binding exception.
 - `validate_template_object_binding`: lanes affected by exemplar/venue form must carry relevant template object refs, unless `validator-report.yaml` records an independently accepted binding exception.
 - `validate_fixture_matrix_nonempty`: fixture-suite verification must show at least one valid fixture and at least one invalid fixture, preventing an empty-matrix false positive.
+- `validate_department_route_card`: department-level route cards must declare manager existence form, requested lanes/task packets, material outputs, validators, Team gate status, recursion control, authority boundaries, and non-completion status.
 - `validate_manager_handoff_v2`: broad handoffs must expose department, material I/O, owner lane/agent, closure state, evidence, risks, owner decisions, and final-paper impact.
 - `validate_repository_hygiene_report`: export/final/pre-author-review handoffs must prove dirty worktree scope, sibling/parent contamination, snapshot freshness, export-manifest hashes, cleanup actions, and external-submission boundary through `RepositoryHygieneReport`.
 

@@ -1,0 +1,80 @@
+schema_version: yxj-paper-os/department-route-card/v1
+artifact_type: DepartmentRouteCard
+validator_refs:
+  - validate_department_route_card
+  - validate_agent_lane_department_binding
+  - validate_task_material_io
+  - validate_team_gate
+card_id: dept-route-<task-id>-<department-id>
+task_id: <task-id>
+department_id: pmo # pmo | paper_architecture_and_narrative | evidence_and_method | manuscript_and_figure_production | review_and_governance
+department_manager:
+  name: PMO Department Manager
+  existence_form: contract_only # contract_only | department_manager_subagent | team_lane_lead
+  acting_agent_type: null # installed OMX role only when existence_form is department_manager_subagent or team_lane_lead
+  authority_scope:
+    may_decompose: true
+    may_request_lanes: true
+    may_recommend_team: true
+    may_compile_task_packets: false
+    may_certify_completion: false
+    may_make_owner_semantic_decisions: false
+request:
+  summary: <department-scoped request>
+  current_gate: <gate-name>
+  upstream_dependencies: []
+  downstream_consumers: []
+input_materials_consumed:
+  - artifact_id: <artifact-id>
+    artifact_type: <artifact-type>
+    path: <path-or-locator>
+    status: available # available | missing | stale | owner_gated | external_gated
+missing_inputs: []
+proposed_lanes:
+  - owner_lane: <lane-id-from-agent-lane-registry>
+    agent_type: <installed-agent-type-or-route>
+    purpose: <why this lane is needed>
+    input_material_refs: []
+    expected_output_refs: []
+    validator_refs: []
+requested_task_packets:
+  - task_packet_id: <task-packet-id>
+    owner_department: <department-id>
+    owner_lane: <lane-id>
+    route: native_subagent_pipeline_adapter
+    compilation_status: recommended # recommended | compiled | blocked
+    collection_path: <path>
+expected_material_outputs:
+  - artifact_id: <artifact-id>
+    artifact_type: <artifact-type>
+    expected_path: <path>
+    downstream_ledger: <ledger-path>
+validators:
+  required: []
+  not_applicable_with_reason: []
+backflow_route:
+  on_validator_failure: <owner-lane-or-department>
+  on_owner_gate: paper-owner-gate
+  on_authority_failure: review_and_governance
+team_gate_status:
+  team_recommended: false
+  ralplan_consensus_ref: null
+  explicit_current_story_approval_ref: null
+  status: not_required # not_required | recommended | approved | blocked
+recursion_control:
+  recursive_subagent_spawning_allowed: false
+  leaf_execution_owned_by: PMO execution-coordinator through TaskPacketV2
+  note: Department Managers produce route cards and may not recursively orchestrate uncontrolled subagents.
+authority_boundaries:
+  route_card_is_completion_evidence: false
+  completion_invariant: compile -> execute -> collect -> validate -> ingest -> state_transition
+  manager_direct_intervention_required_if_manager_executes: true
+  independent_review_required_for_sensitive_outputs: true
+owner_gates: []
+risks_and_blockers: []
+pmo_handoff:
+  next_safe_action: <compile-task-packet | ask-owner | run-validator | route-review | block>
+  auto_continuable: []
+  requires_paper_owner_decision: []
+  hard_gated_or_prohibited: []
+closure_state: recommended # recommended | blocked | superseded

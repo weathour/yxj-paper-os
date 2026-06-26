@@ -20,7 +20,9 @@ workstream, and choose the next safe route.
 
 Always load `references/orchestrator-contract.md` for activation behavior and
 `references/workspace-contract.md` for paper-root detection before managing a
-paper workspace.
+paper workspace. Load `references/department-manager-governance.md` when broad
+work requires internal Department Manager decomposition, DepartmentRouteCard
+routing, multi-lane manager handoffs, or Team lane-lead recommendations.
 
 ## Core rule
 
@@ -156,7 +158,7 @@ module:
   safety gates.
 - `references/workspace-contract.md` for project-root and workspace layout.
 - `references/source-influences.md` for how PaperSpine and Sisyphus patterns are adapted.
-- `templates/` for artifact schemas.
+- `templates/` for artifact schemas, including `department-route-card.yaml` for DepartmentRouteCard coordination.
 - `scripts/run_fixture_suite.py` for non-live scaffold validation.
 - `scripts/ledger_guard.py` for paper-workspace final ledger closure checks, stamping, and snapshots.
 

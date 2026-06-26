@@ -122,6 +122,26 @@ legend, background, source/data/statistics, image integrity, caption, export,
 and rendered-surface checks. A figure-owner summary is not aesthetic closure.
 
 
+
+## Department Manager operating pattern
+
+For broad or multi-lane work, the Paper Orchestrator should first choose the
+responsible internal Department Manager rather than directly juggling every
+module, lane, and material object. The default existence form is
+`contract_only`: load `department-manager-governance.md` and the relevant
+department contract, then produce or update a `DepartmentRouteCard`.
+
+Use `department_manager_subagent` only for complex department slices, and only
+with an installed OMX role from the lane registry. Use `team_lane_lead` only
+after RALPLAN consensus and explicit current-story approval. Department Managers
+return route cards, requested lanes, owner gates, and risks upward; they do not
+spawn uncontrolled descendants, expose public commands, make semantic owner
+decisions, launch Team by themselves, or certify completion.
+
+A `DepartmentRouteCard` may justify TaskPacketV2 compilation, but final closure
+still requires collected outputs, validator evidence, ledger ingestion, and
+`compile -> execute -> collect -> validate -> ingest -> state_transition`.
+
 ## V2 department/material execution pattern
 
 For a v2-managed task, compile a task packet from the lane registry and the

@@ -6,6 +6,16 @@ This contract is backed by the canonical lane registry in `agent-lane-registry.y
 
 Every direct task must declare a concrete OMX/Codex native `agent_type` from the registry. `paper-owner-gate` is not a subagent lane; it routes to `omx_question` and a decision-ledger entry. Do not use `worker` as a general-purpose subagent outside active Team/Swarm runtime.
 
+## Department Manager routing rule
+
+Department Managers are not new public commands or new native `agent_type`s. A
+manager may be represented by an internal contract/prompt, by a temporary native
+subagent using an already installed role to produce a `DepartmentRouteCard`, or
+by a Team lane lead after the Team gate. The returned route card can request
+lanes and TaskPacketV2 compilation, but leaf execution still uses registry lanes
+and the normal native subagent rule. Department Managers must not recursively
+spawn uncontrolled subagents or certify completion.
+
 ## V2 department/material binding rule
 
 Every registry lane now belongs to exactly one v2 department and declares the material object classes it consumes and produces. A compiled task packet must mirror the registry row with `owner_department`, `input_materials`, `expected_output_materials`, `validator_refs`, `backflow_route`, `state_ingestion`, and the normal runtime fields. If `narrative_binding_required` or `template_binding_required` is true for the lane, the task must carry non-empty `narrative_object_refs` or `template_object_refs` respectively. A task-local exception is not enough; non-applicability must be independently accepted in `validator-report.yaml`.

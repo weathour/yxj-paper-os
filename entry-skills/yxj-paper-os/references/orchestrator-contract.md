@@ -21,6 +21,27 @@ The active assistant is responsible for coordinating the paper workspace:
 This is a leader/orchestrator contract. It does not replace specialist lanes
 such as researcher, writer, verifier, critic, executor, or paper-owner-gate.
 
+## Department Manager governance
+
+The Paper Orchestrator should not directly expose or manually juggle every
+internal module, registry lane, validator, and material object during broad paper
+management. It manages through five internal Department Managers: PMO, Paper
+Architecture & Narrative, Evidence & Method, Manuscript & Figure Production, and
+Review & Governance.
+
+Department Managers exist as internal contracts/prompts by default. For complex
+department slices, the orchestrator may launch a temporary native subagent with
+an installed OMX role to produce a `DepartmentRouteCard`. For large projects,
+Department Managers may become Team lane leads only after RALPLAN consensus and
+explicit current-story paper-owner approval. In all forms, they return route
+cards, risks, owner gates, and lane requests upward; they do not recursively
+spawn uncontrolled subagents, expose public commands, add new agent types, make
+owner semantic decisions, launch Team without the gate, or certify completion.
+
+`DepartmentRouteCard` is a coordination material object and non-completion
+evidence. It may feed TaskPacketV2 compilation, but closure still requires
+collected outputs, validators, ledger ingestion, and state transition.
+
 ## Activation boot sequence
 
 For paper-workspace questions, run this sequence before answering when feasible:
@@ -96,7 +117,7 @@ Governance ownership.
 
 Every routed task should be explainable as:
 
-`owner_department -> owner_lane/agent_type -> input_materials -> expected_output_materials -> validators -> ingestion -> state_transition`
+`Department Manager -> DepartmentRouteCard -> owner_department -> owner_lane/agent_type -> input_materials -> expected_output_materials -> validators -> ingestion -> state_transition`
 
 Writing, review, figure, evidence, method, and export tasks that affect the
 reader-facing paper must also show the relevant narrative/template refs from
@@ -160,6 +181,7 @@ that should let the paper owner manage or instruct the paper manager.
    - recommended next safe route.
 2. **Department Table**
    - department or `internal_owner_module`;
+   - responsible internal Department Manager and latest `DepartmentRouteCard` when available;
    - owner lane and agent type;
    - current concrete situation;
    - material inputs consumed and material outputs produced;

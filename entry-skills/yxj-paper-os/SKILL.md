@@ -38,6 +38,9 @@ Always load `references/orchestrator-contract.md` for activation behavior and
 `references/workspace-contract.md` for paper-root detection before managing a
 paper workspace. For v2 governance, load `references/department-io-contract.md`
 when compiling, routing, validating, or reporting tasks, and load
+`references/department-manager-governance.md` when broad work requires
+department-level decomposition, DepartmentRouteCard routing, multi-lane manager
+handoffs, or Team lane-lead recommendations. Load
 `references/reader-narrative-governance.md` when a task touches writing story,
 template/exemplar analysis, figures/tables/algorithms/formulas, review, or
 manuscript-facing evidence, including expression-design objects such as
@@ -201,6 +204,7 @@ module:
 - `references/workspace-contract.md` for project-root and workspace layout.
 - `references/source-influences.md` for how PaperSpine and Sisyphus patterns are adapted.
 - `references/department-io-contract.md` for v2 department, material-object, task-packet, and manager-handoff obligations.
+- `references/department-manager-governance.md` for internal Department Manager existence forms, DepartmentRouteCard routing, recursion control, and Team lane-lead boundaries.
 - `references/reader-narrative-governance.md` for ReaderSpine, object representation, template quant, lab-notebook-smell, expression-design, and cognitive-load governance.
 - `references/repository-delivery-governance.md` for RepositoryHygieneReport, delivery cleanliness, dirty worktree, sibling/parent contamination, export-manifest, and cleanup-gate governance.
 - `references/skill-registry-governance.md` for CompanySkillRegistry, skill-as-SOP permissions, anti-hidden-manager checks, and internal skill authority limits.

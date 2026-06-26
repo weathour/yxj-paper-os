@@ -43,6 +43,9 @@ Fixture-level validation mirrors `ledger_guard.py`: a task marked `complete` mus
 
 ## V2 governance readiness
 
+- [ ] `department-route-card.yaml` exists in canonical and public-entry template trees and validates with `validate_department_route_card`.
+- [ ] Department Managers remain internal contracts/subagents/Team lane leads only; no public commands or new native `agent_type`s are introduced.
+- [ ] DepartmentRouteCard is documented as non-completion evidence and cannot bypass validator, ledger, manager-direct, independent-review, or state-transition gates.
 - [ ] `agent-lane-registry.yaml` uses schema `yxj-paper-os/agent-lane-registry/v2`.
 - [ ] Every lane declares `department`, `material_inputs`, `material_outputs`,
       `narrative_binding_required`, `template_binding_required`, and v2

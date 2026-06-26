@@ -29,6 +29,7 @@ The control plane is:
 ```text
 Paper Owner semantic authority
   -> PMO / Paper Orchestrator route and gate
+  -> Department Manager route card
   -> Department accountability
   -> Agent lane execution
   -> Internal skill SOP
@@ -47,11 +48,26 @@ state, or override PMO gates.
 
 | Department | Owns | Consumes | Produces | Typical lanes |
 | --- | --- | --- | --- | --- |
-| PMO / Paper Management | route, task ledger, decision queue, hard gates, final manager handoff | all department status and validator evidence | `TaskPacketV2`, `ManagerHandoffReportV2`, state transitions | `state-steward`, `execution-coordinator`, `final-verifier` |
+| PMO / Paper Management | route, task ledger, decision queue, hard gates, final manager handoff | all department status and validator evidence | `TaskPacketV2`, `DepartmentRouteCard`, `ManagerHandoffReportV2`, state transitions | `state-steward`, `execution-coordinator`, `final-verifier` |
 | Paper Architecture & Narrative | reader-facing argument architecture and expression design | target venue, claims, evidence, template profile, reader questions | `ReaderSpineBrief`, `ObjectRepresentationMatrix`, `SectionFunctionBudget`, `ReaderTransitionMap`, `CognitiveLoadBudget`, `ExplanationLadder`, `RhetoricalMoveMatrix`, `ClaimEvidenceVisibilityMap`, `TerminologyRegister` | `paper-architect`, `exemplar-learner`, `style-auditor` |
 | Evidence & Method | truth boundary and method/experiment admissibility | source map, experiments, claims, narrative needs | Evidence pack, method contract, experiment contract, baseline/ablation rationale | `evidence-curator`, `method-verifier`, `citation-banker` |
 | Manuscript & Figure Production | section/figure/table/algorithm/formula representation | narrative objects, evidence contracts, template budgets, expression-design objects, Nature-grade figure contracts | manuscript section outputs, visual/formal package, Nature-grade figure package, export package inputs | `manuscript-owner`, `figure-owner`, `export-owner` |
 | Review & Governance | independent closure, hostile review, backflow, rendered reader-surface validation | all produced objects, expression-design evidence, and handoff evidence | `ReaderExperienceReviewReport`, `NarrativeBackflowTask`, validator report, `RenderedSurfaceGateReport` | `review-director`, `verifier`, `final-verifier` |
+
+
+## Department Manager layer
+
+A Department Manager is an internal middle-management role, not a public skill,
+not a new native `agent_type`, and not a second top-level manager. Its allowed
+outputs are department state classification, lane requests, owner-gate risks,
+validator recommendations, and a `DepartmentRouteCard`. The route card can feed
+TaskPacketV2 compilation but is not completion evidence. It cannot replace
+material output collection, validator evidence, ledger ingestion, manager-direct
+intervention records, independent review, or final-certifier separation.
+
+Permitted existence forms are: `contract_only`, `department_manager_subagent`
+using an installed OMX role, and `team_lane_lead` after RALPLAN plus explicit
+current-story approval. Recursive uncontrolled subagent spawning is prohibited.
 
 ## Mandatory task packet bindings
 

@@ -29,6 +29,7 @@ KNOWN_VALIDATORS = {
     'validate_export_manifest', 'validate_project_brief', 'validate_research_dossier',
     'validate_exemplar_learning', 'validate_sota_gap_map', 'validate_novelty_options',
     'validate_section_blueprints', 'validate_workflow_plan', 'validate_team_gate',
+    'validate_department_route_card',
     'validate_validator_report', 'validate_source_locator_resolution', 'validate_owner_lane_closure',
     'validate_validator_reference_closure', 'validate_task_status_transitions',
     'validate_direct_execution_adapter', 'validate_verifier_review', 'validate_pua_telemetry',
@@ -156,6 +157,7 @@ REQUIRED_V2_TEMPLATES = [
     'reader-experience-review-report.yaml', 'narrative-backflow-task.yaml',
     'template-mirror-policy.yaml', 'repository-hygiene-report.yaml',
     'main-text-surface-rules.yaml', 'manager-direct-intervention.yaml',
+    'department-route-card.yaml',
     'cognitive-load-budget.yaml', 'explanation-ladder.yaml',
     'rhetorical-move-matrix.yaml', 'claim-evidence-visibility-map.yaml',
     'terminology-register.yaml', 'expression-design-bundle.yaml',
@@ -181,6 +183,8 @@ REQUIRED_ROOT_FILES = [
     'skills/yxj-paper-execute/references/agent-contract.md',
     'skills/yxj-paper-execute/references/agent-lane-registry.yaml',
     'skills/yxj-paper-index/references/source-influences.md',
+    'skills/yxj-paper-index/references/department-manager-governance.md',
+    'entry-skills/yxj-paper-os/references/department-manager-governance.md',
     'docs/architecture.md', 'docs/operation-guide.md', 'docs/migration-notes.md',
     'docs/production-readiness-checklist.md',
 ]
@@ -283,6 +287,10 @@ def check_v2_template_shapes(root: Path) -> list[str]:
         'main-text-surface-rules.yaml': (
             'validate_main_text_surface_rules',
             ['owner_department', 'consumers', 'required_validators', 'rules'],
+        ),
+        'department-route-card.yaml': (
+            'validate_department_route_card',
+            ['card_id', 'task_id', 'department_id', 'department_manager.name', 'department_manager.existence_form', 'department_manager.authority_scope.may_decompose', 'department_manager.authority_scope.may_request_lanes', 'department_manager.authority_scope.may_certify_completion', 'request.summary', 'request.current_gate', 'input_materials_consumed', 'proposed_lanes', 'requested_task_packets', 'expected_material_outputs', 'validators.required', 'backflow_route.on_validator_failure', 'team_gate_status.status', 'recursion_control.recursive_subagent_spawning_allowed', 'authority_boundaries.route_card_is_completion_evidence', 'authority_boundaries.completion_invariant', 'pmo_handoff.next_safe_action', 'closure_state'],
         ),
         'cognitive-load-budget.yaml': (
             'validate_cognitive_load_budget',
@@ -414,6 +422,37 @@ def check_v2_template_shapes(root: Path) -> list[str]:
             failures.append(f'{validator}:missing_validator_ref:{filename}')
         if not str(data.get('schema_version', '')).startswith('yxj-paper-os/'):
             failures.append(f'{validator}:missing_schema_version:{filename}')
+        if filename == 'department-route-card.yaml':
+            allowed_departments = {'pmo', 'paper_architecture_and_narrative', 'evidence_and_method', 'manuscript_and_figure_production', 'review_and_governance'}
+            allowed_forms = {'contract_only', 'department_manager_subagent', 'team_lane_lead'}
+            allowed_team_status = {'not_required', 'recommended', 'approved', 'blocked'}
+            if data.get('artifact_type') != 'DepartmentRouteCard':
+                failures.append(f'{validator}:wrong_artifact_type:{filename}')
+            if data.get('department_id') not in allowed_departments:
+                failures.append(f'{validator}:invalid_department_id:{filename}')
+            manager = data.get('department_manager') or {}
+            if not isinstance(manager, dict) or manager.get('existence_form') not in allowed_forms:
+                failures.append(f'{validator}:invalid_existence_form:{filename}')
+            authority = manager.get('authority_scope') if isinstance(manager, dict) else {}
+            if not isinstance(authority, dict) or authority.get('may_certify_completion') is not False:
+                failures.append(f'{validator}:may_certify_completion_not_false:{filename}')
+            if not isinstance(authority, dict) or authority.get('may_make_owner_semantic_decisions') is not False:
+                failures.append(f'{validator}:may_make_owner_semantic_decisions_not_false:{filename}')
+            recursion = data.get('recursion_control') or {}
+            if not isinstance(recursion, dict) or recursion.get('recursive_subagent_spawning_allowed') is not False:
+                failures.append(f'{validator}:recursive_spawning_not_false:{filename}')
+            boundaries = data.get('authority_boundaries') or {}
+            if not isinstance(boundaries, dict) or boundaries.get('route_card_is_completion_evidence') is not False:
+                failures.append(f'{validator}:route_card_completion_evidence_not_false:{filename}')
+            invariant = str(boundaries.get('completion_invariant') or '') if isinstance(boundaries, dict) else ''
+            if 'compile -> execute -> collect -> validate -> ingest -> state_transition' not in invariant:
+                failures.append(f'{validator}:missing_completion_invariant:{filename}')
+            team_gate = data.get('team_gate_status') or {}
+            if not isinstance(team_gate, dict) or team_gate.get('status') not in allowed_team_status:
+                failures.append(f'{validator}:invalid_team_gate_status:{filename}')
+            if team_gate.get('team_recommended') is True and not team_gate.get('ralplan_consensus_ref'):
+                failures.append(f'{validator}:team_recommended_without_ralplan:{filename}')
+
         if filename == 'claim-evidence-visibility-map.yaml':
             rows = data.get('claims') or []
             if not isinstance(rows, list) or not rows:
@@ -654,6 +693,7 @@ def check_scaffold(root: Path) -> tuple[list[str], dict[str, Any]]:
         failures.append('missing_dispatch_completion_invariant')
     governance_marker_checks = {
         'skills/yxj-paper-index/references/orchestrator-contract.md': ['PUA-DIAGNOSIS', 'PUA-REPORT', 'pua_telemetry', 'RALPLAN'],
+        'skills/yxj-paper-index/references/department-manager-governance.md': ['DepartmentRouteCard', 'team_lane_lead', 'compile -> execute -> collect -> validate -> ingest -> state_transition'],
         'skills/yxj-paper-execute/references/runtime-execution-contract.md': ['pua_telemetry', 'validate_pua_telemetry', 'compile -> execute -> collect -> validate -> ingest -> state_transition'],
         'skills/yxj-paper-execute/references/agent-contract.md': ['PUA-DIAGNOSIS', 'PUA-REPORT', 'paper-owner-gate'],
         'skills/yxj-paper-state/references/state-contract.md': ['pua_telemetry', 'never replaces validator evidence'],

@@ -1,6 +1,6 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.1.0+codex.20260622122347",
+  "version": "0.1.0+codex.20260626063147",
   "description": "Workspace-centric academic paper operating-system contracts for Codex/OMX with a yxj Paper Orchestrator entry point, state-ledger-first departmental manager reports, source-grounded writing, gated execution, and validation loops.",
   "author": {
     "name": "Local yxj workspace"
@@ -18,15 +18,15 @@
     "coordinator",
     "paper-manager",
     "workflow-routing",
-    "论文统筹",
-    "论文经理",
-    "论文调度"
+    "\u8bba\u6587\u7edf\u7b79",
+    "\u8bba\u6587\u7ecf\u7406",
+    "\u8bba\u6587\u8c03\u5ea6"
   ],
   "skills": "./entry-skills/",
   "interface": {
     "displayName": "yxj Paper OS",
     "shortDescription": "Paper-manager orchestration for stateful academic paper workspaces.",
-    "longDescription": "yxj-paper-os makes the active assistant act as a yxj Paper Orchestrator / 论文经理 for stateful academic paper workspaces: detect the paper root, read state/ledgers first, report by workstream, choose safe workflows, coordinate source mapping, interviews, planning, execution, research, novelty, evidence, PaperSpine/Sisyphus-inspired review, figures, export, migration, and preserve validation gates.",
+    "longDescription": "yxj-paper-os makes the active assistant act as a yxj Paper Orchestrator / \u8bba\u6587\u7ecf\u7406 for stateful academic paper workspaces: detect the paper root, read state/ledgers first, report by workstream, choose safe workflows, coordinate source mapping, interviews, planning, execution, research, novelty, evidence, PaperSpine/Sisyphus-inspired review, figures, export, migration, and preserve validation gates.",
     "developerName": "Local yxj workspace",
     "category": "Productivity",
     "capabilities": [

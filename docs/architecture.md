@@ -145,6 +145,23 @@ white/background discipline, editable text, final-size legibility, rendered
 surface checks, and independent QA are material fields with validators and
 fixtures. “Looks good” is not a closure state.
 
+
+## Department Manager governance plane
+
+The single public `yxj-paper-os` manager now delegates broad paper management
+through five internal Department Managers: PMO, Paper Architecture & Narrative,
+Evidence & Method, Manuscript & Figure Production, and Review & Governance.
+This middle layer compresses the manager's span of control without adding public
+commands or new native agent types.
+
+A Department Manager can exist as a loaded internal contract, a temporary native
+subagent with an installed OMX role, or a Team lane lead after RALPLAN plus
+explicit current-story approval. Its material output is `DepartmentRouteCard`,
+which records requested lanes, material I/O, validators, Team gate status,
+recursion control, authority boundaries, and PMO handoff. The card is routing
+evidence only; it cannot satisfy completion, validator, ledger, independent
+review, or state-transition gates.
+
 ## V2 validator plane
 
 ### Semantic object shape gate
