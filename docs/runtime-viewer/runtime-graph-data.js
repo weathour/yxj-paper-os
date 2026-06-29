@@ -12,7 +12,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     backflow: '审核回流',
     governance: '治理与 sidecar',
   };
-  const defaultVisibleKinds = ['material', 'validation', 'graph', 'backflow', 'governance'];
+  const defaultVisibleKinds = ['material', 'graph', 'backflow', 'governance'];
   const layers = [
     { id: 'L0', y: 30, h: 280, title: 'L0 控制面', subtitle: '人类授权、主 Agent、物料图、验证器、任务包总线', tone: 'control' },
     { id: 'L1', y: 335, h: 170, title: 'L1 基础材料', subtitle: '需求语义契约与来源/证据盘点', tone: 'source' },
@@ -64,6 +64,37 @@ window.PPG_RUNTIME_GRAPH = (() => {
     ['g1','governance','G01','CTRL','权限/路线控制'], ['g2','governance','G01','GRAPH','状态控制'], ['g3','governance','S16','G02','论文后派生'],
   ].map(([id,kind,source,target,label,route]) => ({ id,kind,source,target,label,route }));
   nodes.filter((node) => node.id.startsWith('S')).forEach((node, index) => edges.push({ id: `d${String(index).padStart(2,'0')}`, kind: 'dispatch', source: 'BUS', target: node.id, label: 'dispatch' }));
+
+  const roadmap = {
+    canvas: { width: 1760, height: 1260 },
+    lanes: [
+      { id: 'R0', y: 24, h: 150, title: '控制闭环', subtitle: '人类授权 -> 主 Agent -> 任务包 -> 验证器/物料图', tone: 'control' },
+      { id: 'R1', y: 210, h: 130, title: '1 基础材料', subtitle: '把人的需求和证据边界变成可执行材料', tone: 'source' },
+      { id: 'R2', y: 370, h: 130, title: '2 研究与 claim', subtitle: '从研究场景到可被证据支持的主张', tone: 'research' },
+      { id: 'R3', y: 530, h: 130, title: '3 论文设计', subtitle: '组织读者路线、概念颗粒度、术语表层和图表契约', tone: 'design' },
+      { id: 'R4', y: 690, h: 130, title: '4 内容生产', subtitle: '正文任务包、正文产出、图表产出汇入集成稿', tone: 'production' },
+      { id: 'R5', y: 850, h: 150, title: '5 审核回流', subtitle: '审核只产生 loss，回流到最近责任物料并局部再生成', tone: 'review' },
+      { id: 'R6', y: 1040, h: 150, title: '6 交付派生', subtitle: '最终交付和论文稳定后的外部派生', tone: 'delivery' },
+    ],
+    nodes: [
+      ['OWNER',190,60,180,78], ['CTRL',420,60,210,78], ['BUS',680,60,230,78], ['VALIDATORS',960,60,210,78], ['GRAPH',1220,60,210,78], ['G01',1480,60,210,78],
+      ['S00',190,236,220,78], ['S01',500,236,220,78],
+      ['S02',190,396,220,78], ['S03',500,396,220,78], ['S04',810,396,220,78],
+      ['S05',190,556,220,78], ['S06',500,556,220,78], ['S07',810,556,220,78], ['S08',1120,556,220,78],
+      ['S09',190,716,220,78], ['S10',500,716,220,78], ['S11',810,716,220,78], ['S12',1120,716,220,78],
+      ['S13',190,882,220,78], ['S14',500,882,220,78], ['S15',810,882,220,78],
+      ['S16',500,1080,220,78], ['FINAL',810,1080,260,78], ['G02',1160,1080,230,78],
+    ].map(([id,x,y,w,h]) => ({ id,x,y,w,h })),
+    edges: [
+      ['r-c1','OWNER','CTRL','需求/批准','governance'], ['r-c2','CTRL','BUS','编译任务包','dispatch'], ['r-c3','BUS','VALIDATORS','验证规则','validation'], ['r-c4','VALIDATORS','GRAPH','验证报告','validation'], ['r-c5','GRAPH','CTRL','图状态','graph'], ['r-c6','G01','CTRL','治理边界','governance'],
+      ['r-01','S00','S01','profile / forbidden routes','material'], ['r-02','S01','S02','source map','material'], ['r-03','S02','S03','research dossier','material'], ['r-04','S03','S04','贡献候选进入证据门','material'], ['r-05','S04','S05','可写 claim','material'], ['r-06','S05','S06','reader spine','material'], ['r-07','S06','S07','对象与颗粒度','material'], ['r-08','S07','S09','表层控制汇入写作包','material'], ['r-09','S09','S10','正文任务包','material'], ['r-10','S10','S12','候选文本','material'], ['r-11','S12','S13','集成候选稿','material'], ['r-12','S13','S14','findings / loss','material'], ['r-13','S14','S15','repair packets','material'], ['r-14','S15','S16','delivery-ready','material'], ['r-15','S16','FINAL','最终论文包','material'],
+      ['r-b1','S05','S08','图表/形式计划','material'], ['r-b2','S08','S11','figure contract','material'], ['r-b3','S11','S12','图表与 caption','material'], ['r-f1','S04','S09','claim control','material'], ['r-f2','S05','S09','spine control','material'], ['r-f3','S06','S09','granularity control','material'],
+      ['r-v1','S04','VALIDATORS','claim gate','validation','rightRail'], ['r-v2','S12','VALIDATORS','consistency gate','validation','rightRail'], ['r-v3','S13','VALIDATORS','review gate','validation','rightRail'], ['r-v4','S16','VALIDATORS','export gate','validation','rightRail'],
+      ['r-r1','S14','S04','claim/evidence 回流','backflow','backRail'], ['r-r2','S14','S07','术语/表层回流','backflow','backRail'], ['r-r3','S15','S10','局部文本再生成','backflow'], ['r-r4','S15','S12','重新集成','backflow'], ['r-r5','S15','S04','必要时重开 claim 门','backflow','backRail'],
+      ['r-d1','S16','G02','论文后派生','governance'],
+    ].map(([id,source,target,label,kind,route]) => ({ id,source,target,label,kind,route })),
+  };
+
   const presets = [
     { id: 'all', label: '全流程', nodes: ['OWNER','CTRL','GRAPH','VALIDATORS','BUS','G01','S00','S01','S02','S03','S04','S05','S06','S07','S08','S09','S10','S11','S12','S13','S14','S15','S16','FINAL','G02'] },
     { id: 'spine', label: '论文主线', nodes: ['S00','S01','S02','S03','S04','S05','S06','S07','S08','S09','S10','S11','S12','S13','S14','S15','S16','FINAL'] },
@@ -71,5 +102,5 @@ window.PPG_RUNTIME_GRAPH = (() => {
     { id: 'review', label: '审核回流', nodes: ['S12','S13','S14','S15','S04','S07','S09','S10'] },
     { id: 'control', label: '控制面', nodes: ['OWNER','CTRL','GRAPH','VALIDATORS','BUS','G01'] },
   ];
-  return { meta, legend, defaultVisibleKinds, layers, nodes, edges, presets };
+  return { meta, legend, defaultVisibleKinds, layers, nodes, edges, presets, roadmap };
 })();
