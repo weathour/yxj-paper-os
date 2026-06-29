@@ -51,14 +51,16 @@
           <button id="showReference" type="button">显示/隐藏原图</button>
         </div>
         <div class="toolbar-group" aria-label="缩放控制">
+          <button id="fitWidth" type="button">适合宽度</button>
           <button id="zoomOut" type="button">缩小</button>
-          <output id="zoomLabel">85%</output>
+          <output id="zoomLabel">62%</output>
           <button id="zoomIn" type="button">放大</button>
         </div>
       </div>
 
       <div class="canvas-frame" id="canvasFrame">
         <div id="graphCanvas" class="graph-canvas">
+          <div id="laneLayer" class="lane-layer" aria-hidden="true"></div>
           <svg id="edgeLayer" class="edge-layer" aria-hidden="true"></svg>
           <div id="nodeLayer" class="node-layer"></div>
         </div>

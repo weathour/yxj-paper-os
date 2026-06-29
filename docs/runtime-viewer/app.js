@@ -7,9 +7,10 @@
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
   };
   const state = {
-    selectedId: 'CTRL', query: '', zoom: 0.85, visibleKinds: new Set(edgeKinds),
+    selectedId: 'CTRL', query: '', zoom: 0.62, visibleKinds: new Set(graph.defaultVisibleKinds || edgeKinds),
     activePreset: 'all', focusSet: new Set(graph.presets.find((preset) => preset.id === 'all').nodes), stepIndex: 1,
   };
+  const laneLayer = document.getElementById('laneLayer');
   const nodeLayer = document.getElementById('nodeLayer');
   const edgeLayer = document.getElementById('edgeLayer');
   const detailContent = document.getElementById('detailContent');
@@ -29,6 +30,17 @@
     return haystack.includes(query.toLowerCase());
   }
   function truncate(value, max = 46) { return value.length > max ? `${value.slice(0, max - 1)}…` : value; }
+  function renderLanes() {
+    laneLayer.innerHTML = '';
+    (graph.layers || []).forEach((layer) => {
+      const section = document.createElement('section');
+      section.className = `runtime-lane tone-${layer.tone}`;
+      section.style.top = `${layer.y}px`;
+      section.style.height = `${layer.h}px`;
+      section.innerHTML = `<div class="lane-label"><strong>${layer.title}</strong><span>${layer.subtitle}</span></div>`;
+      laneLayer.appendChild(section);
+    });
+  }
   function renderNodes() {
     nodeLayer.innerHTML = '';
     graph.nodes.forEach((node) => {
@@ -75,7 +87,9 @@
       const label = document.createElement('label');
       label.className = 'filter-item';
       label.innerHTML = `<input type="checkbox" checked data-kind="${kind}" /><span class="filter-swatch" style="--swatch:${kindColors[kind]}"></span><span>${graph.legend[kind]}</span>`;
-      label.querySelector('input').addEventListener('change', (event) => {
+      const checkbox = label.querySelector('input');
+      checkbox.checked = state.visibleKinds.has(kind);
+      checkbox.addEventListener('change', (event) => {
         if (event.target.checked) state.visibleKinds.add(kind);
         else state.visibleKinds.delete(kind);
         update();
@@ -179,7 +193,7 @@
       const related = selectedRelated.has(id);
       element.classList.toggle('is-selected', id === state.selectedId);
       element.classList.toggle('is-in-focus', inFocus && hasFocus);
-      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : !related);
+      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : false);
       element.classList.toggle('is-search-miss', !matchesSearch);
     });
     document.querySelectorAll('.index-button').forEach((element) => {
@@ -197,7 +211,7 @@
       const inFocus = state.focusSet.has(source) && state.focusSet.has(target);
       element.style.display = visible ? '' : 'none';
       element.classList.toggle('is-related', related);
-      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : !related);
+      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : false);
     });
     document.querySelectorAll('[data-preset]').forEach((button) => button.classList.toggle('is-active', button.dataset.preset === state.activePreset));
     renderDetail();
@@ -234,8 +248,9 @@
     document.getElementById('nextStep').addEventListener('click', () => moveStep(1));
     document.getElementById('resetFocus').addEventListener('click', () => activatePreset('all'));
     document.getElementById('showReference').addEventListener('click', () => { referenceFigure.hidden = !referenceFigure.hidden; });
-    document.getElementById('zoomOut').addEventListener('click', () => { state.zoom = Math.max(0.45, Number((state.zoom - 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('fitWidth').addEventListener('click', () => { const frame = document.getElementById('canvasFrame'); state.zoom = Math.max(0.32, Math.min(1.25, Number(((frame.clientWidth - 32) / graph.meta.canvas.width).toFixed(2)))); applyZoom(); });
+    document.getElementById('zoomOut').addEventListener('click', () => { state.zoom = Math.max(0.32, Number((state.zoom - 0.1).toFixed(2))); applyZoom(); });
     document.getElementById('zoomIn').addEventListener('click', () => { state.zoom = Math.min(1.25, Number((state.zoom + 0.1).toFixed(2))); applyZoom(); });
   }
-  renderNodes(); renderEdges(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
+  renderLanes(); renderNodes(); renderEdges(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
 })();

@@ -55,13 +55,28 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 #zoomLabel { min-width: 52px; text-align: center; color: var(--muted); font-family: var(--mono); }
 .canvas-frame { height: calc(100vh - 166px); min-height: 680px; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); background: oklch(0.985 0.004 250); position: relative; }
 .graph-canvas { position: relative; width: 2220px; height: 1540px; transform-origin: 0 0; }
-.edge-layer, .node-layer { position: absolute; inset: 0; }
-.edge-layer { pointer-events: none; overflow: visible; }
-.node-layer { pointer-events: none; }
+.lane-layer, .edge-layer, .node-layer { position: absolute; inset: 0; }
+.lane-layer { pointer-events: none; z-index: 0; }
+.edge-layer { pointer-events: none; overflow: visible; z-index: 1; }
+.node-layer { pointer-events: none; z-index: 2; }
+.runtime-lane { position: absolute; left: 24px; right: 24px; border: 1px solid var(--line); border-radius: 14px; background: oklch(1 0 0 / 0.46); }
+.runtime-lane::after { content: ""; position: absolute; left: 166px; top: 0; bottom: 0; border-left: 1px solid var(--line); }
+.runtime-lane.tone-control { background: oklch(0.96 0.028 85 / 0.55); }
+.runtime-lane.tone-source { background: oklch(0.95 0.03 145 / 0.48); }
+.runtime-lane.tone-research { background: oklch(0.94 0.035 255 / 0.46); }
+.runtime-lane.tone-design { background: oklch(0.94 0.032 305 / 0.46); }
+.runtime-lane.tone-production { background: oklch(0.95 0.032 150 / 0.44); }
+.runtime-lane.tone-review { background: oklch(0.94 0.04 25 / 0.46); }
+.runtime-lane.tone-delivery { background: oklch(0.95 0.03 145 / 0.48); }
+.lane-label { position: absolute; left: 18px; top: 18px; width: 130px; display: grid; gap: 6px; }
+.lane-label strong { font-size: 14px; letter-spacing: -0.01em; }
+.lane-label span { color: var(--muted); font-size: 12px; line-height: 1.35; }
 .node-card { position: absolute; display: grid; gap: 6px; align-content: start; border: 1px solid var(--node-line); border-radius: var(--radius); background: var(--node-bg); color: var(--ink); padding: 10px 12px; text-align: left; pointer-events: auto; min-height: 80px; box-shadow: none; }
 .node-card:hover, .node-card:focus-visible { border-color: var(--accent); outline: 2px solid oklch(0.84 0.06 255 / 0.8); }
 .node-card.is-selected { border-color: var(--accent); outline: 3px solid oklch(0.78 0.08 255 / 0.8); z-index: 5; }
-.node-card.is-dimmed, .edge-path.is-dimmed, .edge-label.is-dimmed { opacity: 0.18; }
+.node-card.is-dimmed { opacity: 0.22; }
+.edge-path.is-dimmed { opacity: 0.10; }
+.edge-label.is-dimmed { opacity: 0; }
 .node-card.is-search-miss { opacity: 0.28; }
 .node-card.is-in-focus:not(.is-selected) { outline: 2px solid oklch(0.70 0.12 145 / 0.65); }
 .node-head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
@@ -80,11 +95,12 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .node-card.type-production, .node-card.type-delivery { --node-bg: oklch(0.93 0.035 145); --node-line: oklch(0.66 0.11 145); }
 .node-card.type-review, .node-card.type-repair { --node-bg: oklch(0.92 0.055 25); --node-line: oklch(0.64 0.14 25); }
 .node-card.type-sidecar { border-style: dashed; }
-.edge-path { fill: none; stroke: var(--edge-color); stroke-width: 2.2; opacity: 0.7; }
+.edge-path { fill: none; stroke: var(--edge-color); stroke-width: 2.2; opacity: 0.52; }
 .edge-path.kind-dispatch, .edge-path.kind-backflow, .edge-path.kind-governance { stroke-dasharray: 7 6; }
 .edge-path.kind-graph { stroke-dasharray: 3 4; }
-.edge-path.is-related { stroke-width: 3.4; opacity: 1; }
-.edge-label { font-size: 11px; fill: var(--muted); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.edge-path.is-related { stroke-width: 3.4; opacity: 0.96; }
+.edge-label { font-size: 11px; fill: var(--muted); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; opacity: 0; }
+.edge-label.is-related { opacity: 1; }
 .reference-figure { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin: 14px 0 0; background: var(--panel); }
 .reference-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
 .reference-figure figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; }
