@@ -12,7 +12,7 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 
 ## Current status
 
-- Phase: Phase 6 promoted — strict subagent task-packet compiler, MissingMaterialReport, and packet-aware CandidateArtifactReturn over the Phase 5 backflow baseline.
+- Phase: Phase 8 promoted — local plugin/runtime surface with read-only runtime adapter, frontend Runtime State mode, one public manager skill, and validation package over the Phase 7 vertical slice.
 - Live install: not enabled.
 - Marketplace registration: not enabled.
 - Existing `$yxj-paper-os`: not mutated by this repository.
@@ -45,6 +45,8 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 24. [`docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md`](docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md) — formal promotion record for Phase 4 material schemas and semantic validators.
 25. [`docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md`](docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md) — formal promotion record for Phase 5 local backflow and scoped stale propagation.
 26. [`docs/phase-promotions/PHASE_6_SUBAGENT_TASK_PACKET_MECHANISM_2026-06-29.md`](docs/phase-promotions/PHASE_6_SUBAGENT_TASK_PACKET_MECHANISM_2026-06-29.md) — formal promotion record for Phase 6 strict packet compilation and return contracts.
+27. [`docs/phase-promotions/PHASE_7_VERTICAL_SLICE_2026-06-29.md`](docs/phase-promotions/PHASE_7_VERTICAL_SLICE_2026-06-29.md) — formal promotion record for the deterministic overclaim repair vertical slice.
+28. [`docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`](docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md) — formal promotion record for the local plugin/frontend runtime surface.
 
 ## Minimal artifacts
 
@@ -64,7 +66,11 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 - [`examples/backflow_tasks/overclaim_repair.compiled.v1.yaml`](examples/backflow_tasks/overclaim_repair.compiled.v1.yaml), [`examples/runtime/overclaim-loop.phase5-stale.json`](examples/runtime/overclaim-loop.phase5-stale.json), and [`examples/controller-reports/overclaim-loop.phase5-stale.report.txt`](examples/controller-reports/overclaim-loop.phase5-stale.report.txt): Phase 5 before/after evidence that only affected downstream nodes become stale.
 - [`scripts/compile_task_packet.py`](scripts/compile_task_packet.py): Phase 6 deterministic strict TaskPacket compiler for intro-writing and claim-repair targets.
 - [`scripts/verify_phase6_task_packets.sh`](scripts/verify_phase6_task_packets.sh): Phase 6 regression matrix for strict packet compilation, missing-material reports, packet-aware returns, authority/path negative fixtures, and Phase 5 regressions.
+- [`scripts/ppg_runtime_adapter.py`](scripts/ppg_runtime_adapter.py): Phase 8 read-only operator-facing adapter that validates a graph and emits deterministic JSON/Markdown runtime state reports.
+- [`scripts/verify_phase8_plugin_surface.sh`](scripts/verify_phase8_plugin_surface.sh): Phase 8 validation wrapper for adapter semantic keys/sections, invalid graph rejection, frontend syntax/safe-DOM assertions, and plugin manifest validation.
+- [`examples/runtime-reports/overclaim-loop.phase7-state.json`](examples/runtime-reports/overclaim-loop.phase7-state.json) and [`examples/runtime-reports/overclaim-loop.phase7-state.md`](examples/runtime-reports/overclaim-loop.phase7-state.md): deterministic Phase 8 state report fixtures for the Phase 7 after graph.
 - [`examples/packets/intro_writing_packet.v2.yaml`](examples/packets/intro_writing_packet.v2.yaml), [`examples/packets/claim_repair_packet.v1.yaml`](examples/packets/claim_repair_packet.v1.yaml), [`examples/missing_material_reports/intro_missing_reader_spine.v1.yaml`](examples/missing_material_reports/intro_missing_reader_spine.v1.yaml), and [`examples/candidate_returns/intro_candidate_return.v1.yaml`](examples/candidate_returns/intro_candidate_return.v1.yaml): Phase 6 positive evidence for strict packets, blocked compilation, and non-self-certifying candidate return.
+- [`examples/runtime/overclaim-loop.phase7-after.json`](examples/runtime/overclaim-loop.phase7-after.json): Phase 7 closed-loop after graph consumed by the Phase 8 runtime adapter/frontend state surface.
 
 ## Design principle
 
