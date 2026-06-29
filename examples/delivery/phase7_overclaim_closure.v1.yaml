@@ -1,0 +1,8 @@
+schema_version: ppg-review-closure/v0.1
+closure_id: phase7_overclaim_closure_v1
+status: validated
+finding_id: phase7_overclaim_review_finding_v1
+evidence:
+  - candidate intro draft validates as ppg-section-draft/v0.1
+  - forbidden universal safety wording is absent
+  - bounded authority framing is present with active evidence anchors

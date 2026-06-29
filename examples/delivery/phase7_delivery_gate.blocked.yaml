@@ -1,0 +1,7 @@
+schema_version: ppg-delivery-gate/v0.1
+gate_id: phase7_delivery_gate_v1
+status: blocked
+closures:
+  - phase7_overclaim_closure_v1
+unresolved_blockers:
+  - section_draft_not_valid_for_closure

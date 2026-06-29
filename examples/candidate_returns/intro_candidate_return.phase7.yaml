@@ -1,0 +1,18 @@
+schema_version: ppg-candidate-return/v0.1
+return_id: intro_candidate_return_phase7
+status: candidate
+packet_id: intro_writing_packet_v2
+output_artifact_path: examples/candidate-artifacts/intro_draft.v2.md
+evidence:
+  - mock_writer consumed strict intro_writing_packet_v2
+  - mock_writer wrote only the packet output_artifact_path
+  - section draft keeps bounded authority wording and evidence anchors
+validator_expectations:
+  - validate_section_draft.py must pass on the candidate markdown
+  - validate_candidate_return.py must pass against the originating packet
+  - main agent remains responsible for graph ingestion and delivery gating
+remaining_risks:
+  - semantic quality remains candidate-only until reviewer closure and delivery gate pass
+graph_completion_claimed: false
+recursive_dispatch_requested: false
+writes_outside_allowed_paths: false

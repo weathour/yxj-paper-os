@@ -1,0 +1,11 @@
+schema_version: ppg-review-finding/v0.1
+finding_id: phase7_overclaim_review_finding_v1
+status: validated
+failure_type: claim_overreach
+severity: high
+target: claim_boundary_map_v1
+summary: Phase7 mock reviewer found an overstrong universal safety claim in the stale introduction draft.
+payload:
+  claim_text: The platoon controller guarantees universal safety under V2X authority loss.
+  recommended_target: claim_boundary_map
+  source_draft: examples/manuscript/intro.v1.md
