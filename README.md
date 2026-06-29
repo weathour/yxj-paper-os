@@ -27,6 +27,7 @@ This repository intentionally replaces the failed department-self-loop model wit
 8. [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation roadmap.
 9. [`docs/RELATED_FRAMEWORKS.md`](docs/RELATED_FRAMEWORKS.md) — OMX pipeline and related graph/agent framework survey.
 10. [`docs/IMPLEMENTATION_FLOW.md`](docs/IMPLEMENTATION_FLOW.md) — concrete core-first implementation flow before OMX Pipeline wrapping.
+11. [`docs/HUMAN_NEED_TO_PAPER_FLOW.md`](docs/HUMAN_NEED_TO_PAPER_FLOW.md) — human-need-centered paper production dimensions and flow diagram.
 
 ## Minimal artifacts
 
