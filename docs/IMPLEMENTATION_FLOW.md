@@ -12,6 +12,23 @@ schema -> graph store -> validators -> stale propagation -> task packets -> loca
 
 OMX Pipeline can later wrap these phases after the graph runtime is proven.
 
+
+## Build-order decision
+
+The implementation order is not pure top-down framework design and not pure bottom-up material design. Follow ADR-0002:
+
+```text
+thin framework skeleton -> one concrete vertical slice -> generalize material families
+```
+
+The first concrete slice is:
+
+```text
+OwnerIntent -> PaperControlSpine -> ClaimBoundaryMap -> ReviewerQuestionMap -> TerminologyRegister -> WritingTaskPacket -> SectionDraft -> ReviewFinding -> BackflowTask -> stale propagation / revised packet
+```
+
+This keeps the runtime architecture stable while forcing every abstraction to prove itself on a real paper-production path.
+
 ## Workstream order
 
 ### F0 — Repository spine and design freeze
