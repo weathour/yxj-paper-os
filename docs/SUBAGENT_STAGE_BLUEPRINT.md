@@ -25,6 +25,13 @@ backflow_targets:
 completion_gate:
 ```
 
+
+## Context bundle policy
+
+Use ADR-0003: subagents may receive relatively large material bundles, but the bundle must be structured rather than lossy-compressed. The task packet compiler should organize materials into mandatory controls, evidence/source anchors, local context, optional background, forbidden routes, validator refs, and return format.
+
+The goal is not to minimize context at all costs. The goal is to prevent undifferentiated context dumps.
+
 ## Important dispatchable stages
 
 ### S00 — Owner semantic contract
