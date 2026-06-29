@@ -12,7 +12,7 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 
 ## Current status
 
-- Phase: Phase 4 promoted — material schemas and semantic validators over the Phase 3 controller baseline.
+- Phase: Phase 5 promoted — local backflow compiler and scoped stale propagation over the Phase 4 validator baseline.
 - Live install: not enabled.
 - Marketplace registration: not enabled.
 - Existing `$yxj-paper-os`: not mutated by this repository.
@@ -43,6 +43,7 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 22. [`docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md) — formal promotion record for the executable material graph core.
 23. [`docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md`](docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md) — formal promotion record for the dry-run main-agent controller logic.
 24. [`docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md`](docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md) — formal promotion record for Phase 4 material schemas and semantic validators.
+25. [`docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md`](docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md) — formal promotion record for Phase 5 local backflow and scoped stale propagation.
 
 ## Minimal artifacts
 
@@ -57,6 +58,8 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 - [`scripts/validate_graph.py`](scripts/validate_graph.py): dependency-free structural and Phase 2 runtime-semantics validator for graph examples.
 - [`scripts/ppg_store.py`](scripts/ppg_store.py): dependency-free runtime graph inspection and dry-run controller CLI (`inspect`, `report`, `frontier`, `commit-plan`).
 - [`scripts/validate_material.py`](scripts/validate_material.py), [`scripts/validate_review_finding.py`](scripts/validate_review_finding.py), [`scripts/validate_packet.py`](scripts/validate_packet.py), [`scripts/validate_backflow.py`](scripts/validate_backflow.py), and [`scripts/validate_delivery_gate.py`](scripts/validate_delivery_gate.py): Phase 4 dependency-free semantic validators with stable `VALID`/`INVALID` CLI output and failure codes.
+- [`scripts/compile_backflow.py`](scripts/compile_backflow.py) and [`scripts/propagate_stale.py`](scripts/propagate_stale.py): Phase 5 deterministic local backflow compiler and scoped stale-propagation dry-run engine.
+- [`examples/backflow_tasks/overclaim_repair.compiled.v1.yaml`](examples/backflow_tasks/overclaim_repair.compiled.v1.yaml), [`examples/runtime/overclaim-loop.phase5-stale.json`](examples/runtime/overclaim-loop.phase5-stale.json), and [`examples/controller-reports/overclaim-loop.phase5-stale.report.txt`](examples/controller-reports/overclaim-loop.phase5-stale.report.txt): Phase 5 before/after evidence that only affected downstream nodes become stale.
 
 ## Design principle
 
