@@ -3,6 +3,8 @@
 Date: 2026-06-29  
 Scope: record the ideal eight-phase path for advancing `yxj-paper-ppg-runtime`, and decide how `$autopilot`, `$ralplan`, and `$ultragoal` should be used to drive each phase.
 
+Non-reference baseline: do not use `$yxj-plugin-incubator`, Plugin OS v2+, hidden-department IO, seven-artifact incubation packages, or PUA-style managed-agent governance as references for this runtime. The eight phases are governed by the PPG model itself: explicit material graph, main-agent controller, validators, task packets, and local backflow.
+
 ## 0. Executive conclusion
 
 The eight phases are suitable for OMX/Codex managed execution, but they should **not** be run as one giant monolithic `$autopilot` job.
@@ -581,22 +583,21 @@ Autopilot recommendation: yes, and this should be treated as the first major rel
 
 ---
 
-### Phase 8 — 扩展成完整插件与前端 runtime
+### Phase 8 — 扩展成 runtime adapter 与前端 state surface
 
-Purpose: wrap the proven runtime as a Plugin OS style manager and make the state visible to the human owner.
+Purpose: expose the proven PPG runtime through a thin operator-facing adapter and make material-graph state visible to the human owner. This phase must not import Plugin OS / incubator concepts; it only wraps the already-proven runtime controller.
 
 Consumes:
 
 - proven vertical slice;
-- plugin manager principles;
-- single public entry contract;
-- hidden internal workstream model;
+- runtime controller protocol;
+- material graph schemas and validators;
 - runtime viewer product constraints.
 
 Produces:
 
-- one public manager entry;
-- hidden internal runtime modules;
+- one operator-facing runtime entry;
+- runtime modules organized by graph operation, not departments;
 - frontend material graph mode;
 - active frontier view;
 - stale/backflow visualization;
@@ -606,16 +607,16 @@ Produces:
 
 Ralplan focus:
 
-- decide plugin surface and non-live boundaries;
-- decide which internals remain hidden;
-- decide manager handoff format;
+- decide runtime adapter surface and non-live boundaries;
+- decide module boundaries around graph operations;
+- decide controller report format;
 - decide frontend state model;
 - decide install/publish gates.
 
 Ultragoal stories:
 
-1. scaffold entry skill and hidden internal skill/module layout;
-2. wire manager boot to graph state inspection;
+1. scaffold thin runtime entry and graph-operation modules;
+2. wire runtime boot to graph state inspection;
 3. add frontend runtime state mode beyond stage taxonomy;
 4. add owner decision and stale/backflow panels;
 5. add plugin validation and docs;

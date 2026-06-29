@@ -4,6 +4,8 @@ Date: 2026-06-29
 Scope: macro推进目标、工程流程、实现参考、subagent task packet 设定、主 agent 调度原则。  
 Baseline: stage/material taxonomy v0.2 has been accepted as a design baseline, but runnable runtime is not proven.
 
+Non-reference baseline: this project must not inherit or cite `$yxj-plugin-incubator`, Plugin OS v2+, hidden-department IO, seven-artifact incubation packages, or PUA-style managed-agent governance as design sources. The governing model is only the Codex-native paper production graph runtime: versioned materials, transform tasks, validators, local backflow, and main-agent control.
+
 ## 0. Executive decision
 
 Continue in the new `yxj-paper-ppg-runtime` repository. Do not perform a large in-place rewrite of `$yxj-paper-os` yet.
@@ -326,38 +328,38 @@ Exit gate:
 - artifacts are committed as material versions;
 - stale state clears only after validator-backed commit.
 
-### Phase 7 — Plugin manager surface
+### Phase 7 — Runtime adapter and human-facing surface
 
-Goal: wrap the proven runtime as a Plugin OS style manager.
+Goal: expose the proven material-graph runtime through a small operator-facing adapter and a human-readable state surface. This is not a Plugin OS / incubator manager layer. It is a thin interface over the runtime controller and graph store.
 
 Public model:
 
 ```text
-one public manager entry
-hidden internal runtime/workstream modules
-state-first boot
-manager-owned routing
-validator-backed completion
+one operator-facing runtime entry
+versioned material graph as source of truth
+controller-owned frontier selection
+validator-backed state transitions
 owner-gated semantic decisions
+visible active frontier / stale / backflow / delivery state
 ```
 
 Likely future layout:
 
 ```text
 yxj-paper-ppg-runtime-plugin/
-  .codex-plugin/plugin.json       # skills: ./entry-skills/
-  entry-skills/yxj-paper-ppg-runtime/SKILL.md
-  skills/graph-core/
-  skills/task-packet/
-  skills/backflow/
-  skills/review/
-  skills/delivery/
+  .codex-plugin/plugin.json
+  entry-skills/yxj-paper-ppg-runtime/SKILL.md  # thin runtime entry
+  runtime/graph-core/
+  runtime/task-packet/
+  runtime/backflow/
+  runtime/review/
+  runtime/delivery/
   schemas/
   scripts/
   fixtures/
 ```
 
-Do not make every internal lane a public `$` skill. The user wakes the manager; the manager chooses internal routes.
+Do not turn runtime modules into autonomous public departments. The user interacts with the runtime entry; the main agent/controller reads graph state and chooses bounded transforms.
 
 ## 3. Main agent principles
 
@@ -389,7 +391,7 @@ Invalid completion signals:
 - task started;
 - file generated without validation;
 - validator invoked without result ingestion;
-- PUA telemetry;
+- retry or diagnostic telemetry;
 - review requested without closure.
 
 ### P3. Scripts before subagents for deterministic work
@@ -458,7 +460,7 @@ task_packet:
   schema_version:
   task_kind:
   agent_type:
-  pressure_level: L0
+  retry_policy:
   mission:
   target_material:
   input_materials:
@@ -491,25 +493,18 @@ Every bounded LLM subagent task should include:
 完成必须给出 changed/created artifact、validator expectation、remaining risk。
 ```
 
-For repeated failures, use internal PUA telemetry for LLM agents only:
+For repeated failures, use a neutral structured failure report. This is runtime diagnostics, not a separate governance philosophy and not completion evidence:
 
-```text
-[PUA-DIAGNOSIS] 问题是 ___；证据是 ___；下一步动作是 ___。
+```yaml
+FailureReport:
+  failure_count:
+  failure_mode:
+  evidence:
+  attempts:
+  excluded_causes:
+  next_hypothesis:
+  controller_action:
 ```
-
-At L2+:
-
-```text
-[PUA-REPORT]
-failure_count:
-failure_mode:
-attempts:
-excluded:
-next_hypothesis:
-manager_action:
-```
-
-PUA telemetry is never completion evidence.
 
 ## 5. Specific subagent packet families
 
@@ -754,7 +749,7 @@ Validators:
 | Validation | `docs/VALIDATION_AND_TESTING.md` | validator suite MVP |
 | Viewer | `docs/runtime-viewer/` | add material graph mode later |
 | Strict review | `docs/RUNTIME_STRICT_REVIEW_ROUND2_2026-06-29.md` | P0 gating backlog |
-| Plugin OS pattern | `yxj-plugin-incubator` references | single public manager entry later |
+| Runtime adapter boundary | this document, `docs/RUNTIME_PROTOCOL.md`, `PRODUCT.md` | thin operator entry over material graph runtime |
 
 ## 6.5 Phase-scoped Autopilot execution protocol
 
