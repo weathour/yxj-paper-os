@@ -1,0 +1,8 @@
+schema_version: ppg-material/v0.1
+material_id: unused_sidecar
+version: v1
+status: stale
+material_type: UnusedSidecar
+summary: Disconnected stale sidecar used to prove stale frontier requires an active path.
+payload:
+  note: should not outrank candidate work

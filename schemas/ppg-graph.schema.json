@@ -58,6 +58,7 @@
         "node_type": {
           "enum": [
             "owner_intent",
+            "owner_decision",
             "material",
             "transform_task",
             "agent_run",

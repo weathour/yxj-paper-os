@@ -9,6 +9,7 @@ from typing import Any
 
 ALLOWED_NODE_TYPES = {
     "owner_intent",
+    "owner_decision",
     "material",
     "transform_task",
     "agent_run",
@@ -52,17 +53,48 @@ def _relative_to_repo(path_text: str) -> Path:
 
 
 def _requires_runtime_artifact_check(path_text: str) -> bool:
-    """Only Phase 2 runtime material fixtures are forced to exist.
+    """Only runtime fixture artifact handles are forced to exist.
 
     Legacy examples intentionally use paths such as ``materials/foo.yaml`` that
-    are documentation handles, not repo-root fixture paths. Phase 2's stricter
-    artifact existence check applies to new runtime fixtures under
-    ``examples/materials/``.
+    are documentation handles, not repo-root fixture paths. Stricter artifact
+    existence checks apply to current runtime fixture folders under examples/.
     """
 
     path = _relative_to_repo(path_text)
     parts = path.parts
-    return len(parts) >= 2 and parts[0] == "examples" and parts[1] == "materials"
+    return len(parts) >= 2 and parts[0] == "examples" and parts[1] in {"materials", "owner-decisions", "validator-reports"}
+
+
+def _validate_owner_decision_artifact(node: dict[str, Any], errors: list[str], prefix: str) -> None:
+    artifact_path = node.get("artifact_path")
+    if not artifact_path:
+        fail(errors, f"{prefix}.artifact_path is required for owner_decision")
+        return
+    artifact = _relative_to_repo(str(artifact_path))
+    if not artifact.exists():
+        fail(errors, f"{prefix}.artifact_path does not exist: {artifact_path}")
+        return
+    try:
+        payload = json.loads(artifact.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        fail(errors, f"{prefix}.artifact_path is not valid owner decision JSON: {exc}")
+        return
+
+    required = ["schema_version", "decision_id", "status", "question", "why_owner_gated", "blocks", "options", "created_at"]
+    for key in required:
+        if key not in payload:
+            fail(errors, f"{prefix}.owner_decision missing required field: {key}")
+    if payload.get("schema_version") != "ppg-owner-decision/v0.1":
+        fail(errors, f"{prefix}.owner_decision schema_version must be ppg-owner-decision/v0.1")
+    if payload.get("decision_id") != node.get("id"):
+        fail(errors, f"{prefix}.owner_decision decision_id must match node id")
+    if payload.get("status") not in {"queued", "answered", "deferred"}:
+        fail(errors, f"{prefix}.owner_decision status invalid: {payload.get('status')}")
+    if not isinstance(payload.get("blocks"), list):
+        fail(errors, f"{prefix}.owner_decision blocks must be a list")
+    options = payload.get("options")
+    if not isinstance(options, list) or not options:
+        fail(errors, f"{prefix}.owner_decision options must be a non-empty list")
 
 
 def _node_label(node: dict[str, Any]) -> str:
@@ -146,6 +178,9 @@ def validate(path: Path) -> list[str]:
                 if not artifact.exists():
                     fail(errors, f"{prefix}.artifact_path does not exist: {artifact_path}")
 
+        if node_type == "owner_decision":
+            _validate_owner_decision_artifact(node, errors, prefix)
+
     edge_ids: set[str] = set()
     incoming_by_type: dict[tuple[str, str], int] = {}
     supersedes_edges_by_source: dict[str, set[str]] = {}
@@ -201,7 +236,8 @@ def validate(path: Path) -> list[str]:
                 fail(errors, f"committed node has no provenance/input edge: {node_id}")
         if node_type == "manuscript_artifact":
             has_task = incoming_by_type.get((node_id, "produces"), 0) > 0
-            if not has_task:
+            is_missing_task_placeholder = status == "planned" and node.get("needs_task_packet") is True
+            if not has_task and not is_missing_task_placeholder:
                 fail(errors, f"manuscript artifact has no producing task: {node_id}")
         if node_type == "review_finding":
             has_report = incoming_by_type.get((node_id, "reports"), 0) > 0

@@ -1,0 +1,27 @@
+graph_id: phase3-owner-gated-decision-graph
+active_versions:
+  - claim_boundary_map: claim_boundary_map_v2
+  - evidence_inventory: evidence_inventory_v1
+  - reader_spine: reader_spine_v1
+committed_materials:
+  - claim_boundary_map_v2: material_id=claim_boundary_map version=v2 status=committed supersedes=claim_boundary_map_v1
+  - evidence_inventory_v1: material_id=evidence_inventory version=v1 status=committed
+  - reader_spine_v1: material_id=reader_spine version=v1 status=committed
+candidate_materials:
+  - claim_boundary_map_candidate_v3: material_id=claim_boundary_map version=v3-candidate status=candidate candidate_for=claim_boundary_map
+stale_materials:
+  - claim_boundary_map_v1: material_id=claim_boundary_map version=v1 status=stale historical_superseded_by_active=true
+blocked_items:
+  - none
+owner_gated_items:
+  - owner_decision_contribution_strength_v1: type=owner_decision status=owner_gated version=v1
+open_review_findings:
+  - finding_overclaim_v1: type=review_finding status=candidate version=v1 classified_repair=true
+next_frontier:
+  id: owner_decision_contribution_strength_v1
+  kind: owner_decision
+  priority: 1
+  reason: owner_gated_root_decision
+completion_blockers:
+  - candidate claim_boundary_map_candidate_v3 cannot commit: candidate status must be validated before commit; candidate must declare supersedes=claim_boundary_map_v2; candidate must have supersedes edge claim_boundary_map_candidate_v3 -> claim_boundary_map_v2; candidate-specific validator edge is required; candidate-specific validation report reference is required
+  - owner-gated item owner_decision_contribution_strength_v1 requires human owner decision

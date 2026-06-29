@@ -336,7 +336,7 @@ Given a graph state, the main-agent controller can say what is next,
 why it is next, what is blocked by the human owner, and what cannot be called complete.
 ```
 
-Autopilot recommendation: yes, but keep stories small. This phase defines the management semantics; require Architect/Critic review.
+Autopilot result: promoted after strict Autopilot/Ralplan consensus and implementation validation. See [`phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md`](phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md).
 
 ---
 
@@ -652,7 +652,7 @@ Use this phase order:
 ```text
 Phase 1: promoted; keep frozen.
 Phase 2: promoted; executable material graph core.
-Phase 3: controller/frontier semantics.
+Phase 3: promoted; controller/frontier/commit-plan semantics.
 Phase 4: schemas and validators.
 Phase 5: local backflow/stale propagation.
 Phase 6: task packet compiler.
