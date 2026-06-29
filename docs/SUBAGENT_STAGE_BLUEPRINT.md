@@ -133,15 +133,26 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Backflow targets:** reader spine, claim/evidence materials, visual budget.
 - **Completion gate:** no final/export-facing figure can proceed without contract/evidence/backend route.
 
-### S09 — Main-text task packet compilation
+### S09A — Control-material selection
 
-- **Purpose:** compile bounded writing tasks for each section/unit.
+- **Purpose:** choose the minimal control material set needed by the target manuscript unit before compiling a writing task.
 - **Agent type:** main agent or `planner`; may be script-assisted.
 - **Mode:** `hybrid_generated`.
-- **Consumes:** all L2-L3 control materials and target manuscript unit plan.
+- **Consumes:** admitted claim capsules, reader spine, object/granularity controls, terminology/surface controls, target manuscript unit.
+- **Produces:** `selected-control-bundle.yaml`, `control-priority-map.yaml`, `missing-control-report.yaml`.
+- **Validators:** required controls present, no overloaded all-context packet, priority order resolves conflicts, missing materials are explicit.
+- **Backflow targets:** claim/evidence materials, reader spine, granularity controls, surface controls.
+- **Completion gate:** S09B can build a task packet without guessing which upstream controls matter.
+
+### S09B — Per-unit task packet assembly
+
+- **Purpose:** compile one bounded `WritingTaskPacket` for a section/unit from the selected control bundle, evidence anchors, validator refs, and return contract.
+- **Agent type:** main agent or `planner`; may be script-assisted.
+- **Mode:** `hybrid_generated`.
+- **Consumes:** `selected-control-bundle.yaml`, evidence/source anchors, target manuscript unit, validator refs, expected return format, single-writer lock requirements.
 - **Produces:** `task-packet.yaml`, `section-move-plan.yaml`, `single-writer-section-lock.yaml`.
-- **Validators:** required inputs present, expected output path, validator refs, completion forbidden for worker, single-writer lock for shared hotspots.
-- **Backflow targets:** missing control materials.
+- **Validators:** required inputs present, expected output path, validator refs, `completion_forbidden=true` for worker/subagent, single-writer lock for shared hotspots.
+- **Backflow targets:** S09A control selection, missing evidence anchors, S14/S15 repair packet source.
 - **Completion gate:** packet is narrow enough for subagent execution and complete enough for validation.
 
 ### S10 — Main-text production
@@ -149,10 +160,10 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Purpose:** produce candidate manuscript modules from task packets.
 - **Agent type:** `writer` or `executor` depending on text/code mix.
 - **Mode:** `agent_generated`.
-- **Consumes:** task packet, construction matrix, terminology register, claim/evidence visibility, source/citation/result capsules.
+- **Consumes:** S09B task packet, construction matrix, terminology register, claim/evidence visibility, source/citation/result capsules.
 - **Produces:** candidate abstract/introduction/related-work/method/experiment/results/discussion/conclusion units; may later feed polishing materials.
 - **Validators:** no internal code leakage, claim strength obeys boundary, reader question answered, citations/rendering not raw, output matches packet.
-- **Backflow targets:** rhetoric/surface controls, claim/evidence visibility, section plan.
+- **Backflow targets:** S09B task packet, rhetoric/surface controls, claim/evidence visibility, section plan.
 - **Completion gate:** candidate text collected and validated; not complete until review and graph commit.
 
 ### S11 — Figure / caption / formal artifact production
@@ -160,10 +171,10 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Purpose:** produce figures, captions, tables, algorithms, formulas, and their export bundles.
 - **Agent type:** `executor` for deterministic drawing/code; `designer` for visual plan; `verifier` for QA.
 - **Mode:** `hybrid_generated`.
-- **Consumes:** figure contracts, panel evidence maps, backend route, source data/statistics, image-integrity requirements, caption brief.
+- **Consumes:** figure contracts from S08, panel evidence/result packages from S04, source data locators from S01, backend route, image-integrity requirements, caption brief.
 - **Produces:** `figure-source-data-statistics.yaml`, `figure-image-integrity-record.yaml`, `nature-caption-legend-brief.yaml`, `figure-export-bundle.yaml`, candidate figure/caption artifacts.
 - **Validators:** build/render, source data, image integrity, caption claim boundary, legibility, backend source of truth.
-- **Backflow targets:** figure contract, panel evidence, evidence inventory, caption brief.
+- **Backflow targets:** S08 figure contract, S04 panel evidence/result package, S01 evidence inventory/source locator, caption brief.
 - **Completion gate:** figure/caption has editable source, rendered outputs, provenance, QA route, and claim support.
 
 ### S12 — Integration and consistency pass
@@ -194,9 +205,9 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Agent type:** main agent or `planner`; `verifier` for routing validity.
 - **Mode:** `hybrid_generated`.
 - **Consumes:** review outputs, validator reports, affected materials graph.
-- **Produces:** `narrative-backflow-task.yaml`, repair task packets, `polishing-repair-report.yaml`, `response-action-map.yaml` when reviewer/editor responses exist.
+- **Produces:** `narrative-backflow-task.yaml`, repair task packets, S09A control-reselection tasks when scope changed, S09B packet-regeneration tasks when text must be regenerated, `polishing-repair-report.yaml`, `response-action-map.yaml` when reviewer/editor responses exist.
 - **Validators:** each finding has target layer/material, affected downstream nodes, repair mission, validators, owner-gate status.
-- **Backflow targets:** L0-L7 depending on failure type.
+- **Backflow targets:** `L0_surface`, `L1_terminology`, `L2_rhetorical_move`, `L3_claim_evidence`, `L4_spine_semantics`, `L5_figure_data`, `L6_export_render`, `L7_repository_hygiene`, with explicit nearest-responsible material id.
 - **Completion gate:** no accepted finding remains unrouted.
 
 ### S15 — Repair execution and local regeneration
@@ -205,9 +216,9 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Agent type:** `executor`, `writer`, `verifier`, or `critic` depending on fix.
 - **Mode:** `agent_generated` / `hybrid_generated`.
 - **Consumes:** backflow task packet, target material, stale downstream set.
-- **Produces:** revised material, revised text/figure, updated validator report.
+- **Produces:** revised material, regenerated S09B task packet when needed, revised text/figure, updated validator report.
 - **Validators:** stale propagation scoped, unrelated nodes unchanged, original finding resolved, no new high-severity finding introduced.
-- **Backflow targets:** same or deeper layer if fix fails.
+- **Backflow targets:** S09B for regenerated writing packets, S10/S11 for local text/figure regeneration, S12 for reintegration, or the same/deeper layer if fix fails.
 - **Completion gate:** graph records new version and affected nodes are revalidated.
 
 ### S16 — Export, repository hygiene, and handoff
@@ -215,7 +226,7 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Purpose:** package final paper and prove delivery cleanliness.
 - **Agent type:** `verifier` / `executor` for builds; main agent for owner handoff.
 - **Mode:** `hybrid_generated`.
-- **Consumes:** final manuscript candidate, figures/captions, review closure, export package inputs, repository state.
+- **Consumes:** clean final candidate from S12, review closure from S13, repair-complete delivery package from S15, figures/captions, export package inputs, repository state.
 - **Produces:** `export-manifest.yaml`, `repository-hygiene-report.yaml`, `manager-handoff-report.md`, `manager-handoff-report-v2.md`.
 - **Validators:** build success, rendered surface checks, no raw citekeys/internal ids, manifest hashes, dirty worktree classification, external submission boundary.
 - **Backflow targets:** export surface, manuscript surface, repository hygiene, owner decisions.
@@ -244,7 +255,7 @@ These are important but not part of the main paper cognition forward pass.
 The first runnable chain should not use every stage. Use:
 
 ```text
-S00 -> S01 -> S04 -> S05 -> S07 -> S09 -> S10 -> S13 -> S14 -> S15
+S00 -> S01 -> S04 -> S05 -> S07 -> S09A -> S09B -> S10 -> S13 -> S14 -> S15
 ```
 
 This proves one manuscript unit can move from owner need to evidence-bound writing, review loss, local backflow, and revised output.

@@ -6,9 +6,9 @@
     material: 'var(--material)', dispatch: 'var(--dispatch)', validation: 'var(--validation)',
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
   };
-  const primaryRoadmapEdges = new Set(['r-01','r-02','r-03','r-04','r-05','r-06','r-07','r-08','r-09','r-10','r-11','r-12','r-13','r-14','r-15']);
+  const primaryRoadmapEdges = new Set(['r-01','r-02','r-03','r-04','r-05','r-06','r-07','r-08','r-09','r-10','r-11','r-12','r-clean','r-15']);
   const roadmapFocusGroups = [
-    { id: 'figures', nodes: new Set(['S05','S08','S11','S12']), edges: new Set(['r-b1','r-b2','r-b3']) },
+    { id: 'figures', nodes: new Set(['S01','S04','S05','S06','S08','S11','S12']), edges: new Set(['r-b0','r-b1','r-b1a','r-b2a','r-b2b','r-b2','r-b3']) },
   ];
   const FLOW_RAIL_GAPS = { roadmap: 36, graph: 20 };
   const urlPreset = new URLSearchParams(window.location.search).get('preset');
@@ -110,7 +110,7 @@
     graph.nodes.forEach((node) => {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'index-button'; button.dataset.id = node.id;
-      button.innerHTML = `<span class="id">${node.id}</span><span>${node.titleZh.replace(/^S\d+\s+/, '')}</span>`;
+      button.innerHTML = `<span class="id">${node.id}</span><span>${node.titleZh.replace(/^S\d+[A-Z]?\s+/, '')}</span>`;
       button.addEventListener('click', () => selectNode(node.id, true));
       nodeIndex.appendChild(button);
     });
@@ -163,10 +163,10 @@
       this.boxes = boxes;
       this.railX = railX;
       this.explicitOffsets = new Map([
-        ['r-b1', 22], ['r-b2', 58], ['r-b3', 94],
+        ['r-b0', 22], ['r-b1', 44], ['r-b1a', 66], ['r-b2a', 88], ['r-b2b', 110], ['r-b2', 132], ['r-b3', 154],
       ]);
       this.explicitTracks = new Map([
-        ['r-b1', 0], ['r-b2', 14], ['r-b3', 28],
+        ['r-b0', 0], ['r-b1', 14], ['r-b1a', 28], ['r-b2a', 42], ['r-b2b', 56], ['r-b2', 70], ['r-b3', 84],
       ]);
     }
     bendOffset(edge, edgeIndex) {

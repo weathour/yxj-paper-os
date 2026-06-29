@@ -1,6 +1,6 @@
 # Stage Coverage Audit — Are 17 Rings Too Many or Missing Anything?
 
-This audit reviews the 17 dispatchable PPG Runtime stages (`S00`-`S16`) plus sidecar governance stages. It asks:
+This audit reviews the dispatchable PPG Runtime stages (`S00`-`S16`, with `S09` split into `S09A/S09B`) plus sidecar governance stages. It asks:
 
 1. Are there too many stages?
 2. Are some stages duplicates?
@@ -9,17 +9,17 @@ This audit reviews the 17 dispatchable PPG Runtime stages (`S00`-`S16`) plus sid
 
 ## Executive answer
 
-The 17-stage list is not too many as a **full long-term paper-production runtime taxonomy**. It is too many as a **default execution chain**.
+The 17-logical-stage taxonomy is not too many as a **full long-term paper-production runtime taxonomy**. Materializing S09 as S09A/S09B yields one extra dispatch node, and the whole set is too many as a **default execution chain**.
 
 Use three levels:
 
 ```text
-MVP chain: 10 stages
-Standard full paper chain: 14 stages
-Full runtime taxonomy: 17 stages + sidecars
+MVP chain: 10 logical responsibilities / 11 dispatch nodes after S09 split
+Standard full paper route: stage-selected path with S03 optional and S09 split explicit
+Full runtime taxonomy: 17 logical stages / 18 dispatch nodes + sidecars
 ```
 
-The 17 stages cover the full paper-production lifecycle well. The main missing item is not another stage, but a cross-cutting mechanism: **versioned graph state and dependency/stale propagation**. That belongs to the runtime core, not to a subagent stage.
+The 17 logical stages cover the full paper-production lifecycle well. The main missing item is not another stage, but a cross-cutting mechanism: **versioned graph state and dependency/stale propagation**. That belongs to the runtime core, not to a subagent stage.
 
 ## Coverage against paper lifecycle
 
@@ -34,7 +34,8 @@ The 17 stages cover the full paper-production lifecycle well. The main missing i
 | Object representation / granularity | S06 | covered |
 | Rhetoric / terminology / surface controls | S07 | covered |
 | Figure/table/algorithm/formula planning | S08 | covered |
-| Task packet compilation | S09 | covered |
+| Control-material selection | S09A | covered |
+| Per-unit task packet compilation | S09B | covered |
 | Main-text drafting | S10 | covered |
 | Figure/caption/formal artifact production | S11 | covered |
 | Integration / cross-section consistency | S12 | covered |
@@ -170,7 +171,7 @@ This is acceptable. It does not need a new stage unless citation-heavy literatur
 
 ## Recommended stage sets
 
-### MVP chain: 10 stages
+### MVP chain: 10 logical responsibilities / 11 dispatch nodes
 
 Use this for the first runnable slice:
 
@@ -180,7 +181,8 @@ S01 Source/citation/evidence inventory
 S04 Evidence-to-claim admissibility
 S05 Paper spine and reader-question synthesis
 S07 Rhetoric, terminology, and surface-control synthesis
-S09 Main-text task packet compilation
+S09A Control-material selection
+S09B Per-unit task packet assembly
 S10 Main-text production
 S13 Adversarial manuscript review
 S14 Backflow compilation and repair planning
@@ -193,22 +195,22 @@ This proves:
 human need -> evidence-bound writing -> review loss -> local backflow
 ```
 
-### Standard full paper chain: 14 stages
+### Standard full paper route
 
 Use for normal full manuscript production:
 
 ```text
-S00 -> S01 -> S02 -> S04 -> S05 -> S06 -> S07 -> S08 -> S09 -> S10 -> S11 -> S12 -> S13 -> S14/S15 loop -> S16
+S00 -> S01 -> S02 -> S04 -> S05 -> S06 -> S07 -> S08 -> S09A -> S09B -> S10 -> S11 -> S12 -> S13 -> S14/S15 loop -> S16
 ```
 
 S03 is optional if novelty/contribution is unstable.
 
-### Full runtime taxonomy: 17 stages + sidecars
+### Full runtime taxonomy: 17 logical stages / 18 dispatch nodes + sidecars
 
-Keep all stages as the classification system:
+Keep all logical stages as the classification system:
 
 ```text
-S00-S16 + G01 + G02
+S00-S16, with S09 materialized as S09A/S09B, plus G01 + G02
 ```
 
 Use only activated stages per project state.
@@ -224,7 +226,7 @@ Use only activated stages per project state.
 | claim-bearing writing planned | S04 |
 | new section or major rewrite planned | S05-S07 |
 | figure/table/algorithm/formula touched | S08/S11 |
-| writing execution needed | S09/S10 |
+| writing execution needed | S09A/S09B/S10 |
 | multiple modules integrated | S12 |
 | candidate manuscript/module exists | S13 |
 | review finding exists | S14/S15 |
