@@ -188,6 +188,11 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
   opacity: 0.98;
   stroke-width: 3.2;
 }
+#roadmapEdgeLayer .edge-path.roadmap-edge.is-focus-edge {
+  opacity: 1;
+  stroke: oklch(0.25 0.13 150) !important;
+  stroke-width: 4.4;
+}
 #roadmapEdgeLayer .edge-path.roadmap-edge.primary-edge.is-related {
   stroke: oklch(0.31 0.12 150) !important;
   stroke-width: 3.6;
@@ -197,6 +202,30 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
   stroke-width: 3.5;
   stroke-dasharray: 8 5;
 }
+.edge-port {
+  fill: var(--panel);
+  opacity: 0;
+  pointer-events: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+}
+#roadmapEdgeLayer .edge-port.roadmap-edge.is-focus-edge {
+  color: oklch(0.25 0.13 150);
+  opacity: 1;
+}
+#roadmapEdgeLayer .edge-port-target.roadmap-edge.is-focus-edge {
+  fill: oklch(0.90 0.07 150);
+}
 #roadmapEdgeLayer .edge-label.roadmap-edge.is-related {
   opacity: 0;
+}
+#roadmapEdgeLayer .edge-label.roadmap-edge.is-focus-edge {
+  opacity: 1;
+  fill: oklch(0.20 0.07 150);
+  font-size: 13px;
+  font-weight: 850;
+  paint-order: stroke;
+  stroke: var(--panel);
+  stroke-linejoin: round;
+  stroke-width: 7px;
 }

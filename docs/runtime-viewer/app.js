@@ -7,6 +7,9 @@
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
   };
   const primaryRoadmapEdges = new Set(['r-01','r-02','r-03','r-04','r-05','r-06','r-07','r-08','r-09','r-10','r-11','r-12','r-13','r-14','r-15']);
+  const roadmapFocusGroups = [
+    { id: 'figures', nodes: new Set(['S05','S08','S11','S12']), edges: new Set(['r-b1','r-b2','r-b3']) },
+  ];
   const FLOW_RAIL_GAPS = { roadmap: 36, graph: 20 };
   const urlPreset = new URLSearchParams(window.location.search).get('preset');
   const initialPreset = graph.presets.find((preset) => preset.id === urlPreset) || graph.presets.find((preset) => preset.id === 'all');
@@ -159,9 +162,18 @@
     constructor({ boxes, railX }) {
       this.boxes = boxes;
       this.railX = railX;
+      this.explicitOffsets = new Map([
+        ['r-b1', 22], ['r-b2', 58], ['r-b3', 94],
+      ]);
+      this.explicitTracks = new Map([
+        ['r-b1', 0], ['r-b2', 14], ['r-b3', 28],
+      ]);
     }
-    bendOffset(edgeIndex) {
-      return 20 + (edgeIndex % 6) * 5;
+    bendOffset(edge, edgeIndex) {
+      return this.explicitOffsets.get(edge.id) || (20 + (edgeIndex % 6) * 5);
+    }
+    railTrack(edge) {
+      return this.railX + (this.explicitTracks.get(edge.id) || 0);
     }
     route(edge, edgeIndex) {
       const source = this.boxes.get(edge.source);
@@ -169,12 +181,15 @@
       if (!source || !target) return null;
       const out = source.port('out');
       const input = target.port('in');
-      const offset = this.bendOffset(edgeIndex);
+      const offset = this.bendOffset(edge, edgeIndex);
+      const railX = this.railTrack(edge);
       const sourceExitY = out.y + offset;
       const targetEntryY = Math.max(12, input.y - offset);
       return {
-        path: `M ${out.x} ${out.y} V ${sourceExitY} H ${this.railX} V ${targetEntryY} H ${input.x} V ${input.y}`,
-        label: { x: this.railX + 12, y: Math.round((sourceExitY + targetEntryY) / 2) - 4 },
+        path: `M ${out.x} ${out.y} V ${sourceExitY} H ${railX} V ${targetEntryY} H ${input.x} V ${input.y}`,
+        label: { x: Math.max(railX + 20, input.x - 200), y: input.y - 10 },
+        sourcePort: out,
+        targetPort: input,
       };
     }
   }
@@ -194,6 +209,9 @@
   }
   function renderEdgeSet(svg, edges, boxes, modeClass, railX) {
     const router = new LeftRailRouter({ boxes, railX });
+    const paths = [];
+    const ports = [];
+    const labels = [];
     svg.innerHTML = '';
     edges.forEach((edge, index) => {
       const route = router.route(edge, index);
@@ -207,19 +225,38 @@
       path.dataset.kind = kind;
       path.dataset.source = edge.source;
       path.dataset.target = edge.target;
-      svg.appendChild(path);
+      paths.push(path);
+      const sourcePort = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      sourcePort.setAttribute('class', `edge-port ${modeClass} edge-port-source kind-${kind}`);
+      sourcePort.setAttribute('cx', route.sourcePort.x);
+      sourcePort.setAttribute('cy', route.sourcePort.y);
+      sourcePort.setAttribute('r', 5);
+      sourcePort.dataset.kind = kind;
+      sourcePort.dataset.source = edge.source;
+      sourcePort.dataset.target = edge.target;
+      ports.push(sourcePort);
+      const targetPort = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      targetPort.setAttribute('class', `edge-port ${modeClass} edge-port-target kind-${kind}`);
+      targetPort.setAttribute('cx', route.targetPort.x);
+      targetPort.setAttribute('cy', route.targetPort.y);
+      targetPort.setAttribute('r', 5);
+      targetPort.dataset.kind = kind;
+      targetPort.dataset.source = edge.source;
+      targetPort.dataset.target = edge.target;
+      ports.push(targetPort);
       if (edge.label) {
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('class', `edge-label ${modeClass}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`);
         text.setAttribute('x', route.label.x);
         text.setAttribute('y', route.label.y);
-        text.textContent = modeClass === 'roadmap-edge' && primaryRoadmapEdges.has(edge.id) ? `→ ${edge.label}` : (modeClass === 'roadmap-edge' && kind === 'backflow' ? `↩ ${edge.label}` : edge.label);
+        text.textContent = modeClass === 'roadmap-edge' ? `${edge.source}→${edge.target} · ${edge.label}` : edge.label;
         text.dataset.kind = kind;
         text.dataset.source = edge.source;
         text.dataset.target = edge.target;
-        svg.appendChild(text);
+        labels.push(text);
       }
     });
+    [...paths, ...ports, ...labels].forEach((element) => svg.appendChild(element));
   }
   function renderGraphEdges() {
     const boxes = measureNodeBoxes(nodeLayer);
@@ -287,6 +324,10 @@
       element.classList.toggle('is-related-card', related && id !== state.selectedId);
     });
   }
+  function isGroupedRoadmapEdge(element) {
+    if (state.mode !== 'roadmap' || !element.classList.contains('roadmap-edge')) return false;
+    return roadmapFocusGroups.some((group) => group.nodes.has(state.selectedId) && group.edges.has(element.id));
+  }
   function updateEdges(selector) {
     document.querySelectorAll(selector).forEach((element) => {
       const kind = element.dataset.kind; const source = element.dataset.source; const target = element.dataset.target;
@@ -296,9 +337,12 @@
       const hasFocus = state.focusSet && state.focusSet.size && state.activePreset !== 'all';
       const localOnly = state.mode === 'roadmap' && element.classList.contains('roadmap-edge');
       const focusEdge = localOnly && hasFocus && inFocus;
-      element.style.display = visibleByKind && (!localOnly || related || focusEdge) ? '' : 'none';
-      element.classList.toggle('is-related', related || focusEdge);
-      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : false);
+      const groupedEdge = isGroupedRoadmapEdge(element);
+      const emphasized = related || focusEdge || groupedEdge;
+      element.style.display = visibleByKind && (!localOnly || emphasized) ? '' : 'none';
+      element.classList.toggle('is-related', emphasized);
+      element.classList.toggle('is-focus-edge', focusEdge || groupedEdge);
+      element.classList.toggle('is-dimmed', hasFocus ? !inFocus && !groupedEdge : false);
     });
   }
   function update() {
@@ -307,7 +351,7 @@
       const id = element.dataset.id; const node = nodeById.get(id);
       element.classList.toggle('is-active', id === state.selectedId); element.classList.toggle('is-hidden', !textIncludes(node, state.query));
     });
-    updateEdges('.edge-path, .edge-label');
+    updateEdges('.edge-path, .edge-label, .edge-port');
     document.querySelectorAll('[data-preset]').forEach((button) => button.classList.toggle('is-active', button.dataset.preset === state.activePreset));
     document.getElementById('roadmapMode').classList.toggle('is-active', state.mode === 'roadmap');
     document.getElementById('graphMode').classList.toggle('is-active', state.mode === 'graph');
