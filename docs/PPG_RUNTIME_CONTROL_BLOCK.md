@@ -4,6 +4,7 @@ This document defines the complete runtime as a control block diagram. Each stag
 
 ## Diagram files
 
+- Interactive frontend: [`docs/runtime-viewer/index.html`](runtime-viewer/index.html)
 - Editable source: [`docs/diagrams/ppg-runtime-control-block.drawio`](diagrams/ppg-runtime-control-block.drawio)
 - Preview PNG: [`docs/diagrams/ppg-runtime-control-block.png`](diagrams/ppg-runtime-control-block.png)
 - Embedded editable PNG: [`docs/diagrams/ppg-runtime-control-block.drawio.png`](diagrams/ppg-runtime-control-block.drawio.png)

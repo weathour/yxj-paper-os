@@ -1,0 +1,241 @@
+(function initRuntimeViewer() {
+  const graph = window.PPG_RUNTIME_GRAPH;
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const edgeKinds = Object.keys(graph.legend);
+  const kindColors = {
+    material: 'var(--material)', dispatch: 'var(--dispatch)', validation: 'var(--validation)',
+    graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
+  };
+  const state = {
+    selectedId: 'CTRL', query: '', zoom: 0.85, visibleKinds: new Set(edgeKinds),
+    activePreset: 'all', focusSet: new Set(graph.presets.find((preset) => preset.id === 'all').nodes), stepIndex: 1,
+  };
+  const nodeLayer = document.getElementById('nodeLayer');
+  const edgeLayer = document.getElementById('edgeLayer');
+  const detailContent = document.getElementById('detailContent');
+  const nodeIndex = document.getElementById('nodeIndex');
+  const presetButtons = document.getElementById('presetButtons');
+  const edgeFilters = document.getElementById('edgeFilters');
+  const graphCanvas = document.getElementById('graphCanvas');
+  const referenceFigure = document.getElementById('referenceFigure');
+
+  graphCanvas.style.width = `${graph.meta.canvas.width}px`;
+  graphCanvas.style.height = `${graph.meta.canvas.height}px`;
+  edgeLayer.setAttribute('viewBox', `0 0 ${graph.meta.canvas.width} ${graph.meta.canvas.height}`);
+
+  function textIncludes(node, query) {
+    if (!query) return true;
+    const haystack = [node.id, node.title, node.titleZh, node.phase, node.description, ...node.inputs, ...node.outputs, ...node.validators, ...node.backflowTargets].join(' ').toLowerCase();
+    return haystack.includes(query.toLowerCase());
+  }
+  function truncate(value, max = 46) { return value.length > max ? `${value.slice(0, max - 1)}…` : value; }
+  function renderNodes() {
+    nodeLayer.innerHTML = '';
+    graph.nodes.forEach((node) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `node-card type-${node.type}`;
+      button.dataset.id = node.id;
+      button.style.left = `${node.x}px`;
+      button.style.top = `${node.y}px`;
+      button.style.width = `${node.w}px`;
+      button.style.height = `${node.h}px`;
+      button.setAttribute('aria-label', `${node.id} ${node.titleZh}`);
+      button.innerHTML = `<div class="node-head"><span class="node-id">${node.id}</span><span class="node-phase">${node.phase}</span></div><div><div class="node-title">${node.titleZh}</div><div class="node-subtitle">${node.title}</div></div><div class="io-preview"><span><strong>IN</strong>${truncate(node.inputs.join('；'))}</span><span><strong>OUT</strong>${truncate(node.outputs.join('；'))}</span></div>`;
+      button.addEventListener('click', () => selectNode(node.id));
+      nodeLayer.appendChild(button);
+    });
+  }
+  function renderIndex() {
+    nodeIndex.innerHTML = '';
+    graph.nodes.forEach((node) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'index-button';
+      button.dataset.id = node.id;
+      button.innerHTML = `<span class="id">${node.id}</span><span>${node.titleZh.replace(/^S\d+\s+/, '')}</span>`;
+      button.addEventListener('click', () => selectNode(node.id, true));
+      nodeIndex.appendChild(button);
+    });
+  }
+  function renderPresets() {
+    presetButtons.innerHTML = '';
+    graph.presets.forEach((preset) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = preset.label;
+      button.dataset.preset = preset.id;
+      button.addEventListener('click', () => activatePreset(preset.id));
+      presetButtons.appendChild(button);
+    });
+  }
+  function renderFilters() {
+    edgeFilters.innerHTML = '';
+    edgeKinds.forEach((kind) => {
+      const label = document.createElement('label');
+      label.className = 'filter-item';
+      label.innerHTML = `<input type="checkbox" checked data-kind="${kind}" /><span class="filter-swatch" style="--swatch:${kindColors[kind]}"></span><span>${graph.legend[kind]}</span>`;
+      label.querySelector('input').addEventListener('change', (event) => {
+        if (event.target.checked) state.visibleKinds.add(kind);
+        else state.visibleKinds.delete(kind);
+        update();
+      });
+      edgeFilters.appendChild(label);
+    });
+  }
+  function inferAnchor(node, target) {
+    const dx = (target.x + target.w / 2) - (node.x + node.w / 2);
+    const dy = (target.y + target.h / 2) - (node.y + node.h / 2);
+    if (Math.abs(dx) > Math.abs(dy)) return dx >= 0 ? 'right' : 'left';
+    return dy >= 0 ? 'bottom' : 'top';
+  }
+  function anchorPoint(node, target, anchor) {
+    const side = anchor || inferAnchor(node, target);
+    const midX = node.x + node.w / 2;
+    const midY = node.y + node.h / 2;
+    if (side === 'left') return { x: node.x, y: midY };
+    if (side === 'right') return { x: node.x + node.w, y: midY };
+    if (side === 'top') return { x: midX, y: node.y };
+    if (side === 'bottom') return { x: midX, y: node.y + node.h };
+    return { x: midX, y: midY };
+  }
+  function edgePath(edge) {
+    const source = nodeById.get(edge.source);
+    const target = nodeById.get(edge.target);
+    const start = anchorPoint(source, target, edge.sourceAnchor);
+    const end = anchorPoint(target, source, edge.targetAnchor);
+    if (edge.route === 'leftRail') return `M ${start.x} ${start.y} H 10 V ${end.y} H ${end.x}`;
+    if (edge.route === 'rightRail') return `M ${start.x} ${start.y} H ${graph.meta.canvas.width - 28} V ${end.y} H ${end.x}`;
+    if (Math.abs(start.x - end.x) < 40 || Math.abs(start.y - end.y) < 40) return `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+    const midX = Math.round((start.x + end.x) / 2);
+    return `M ${start.x} ${start.y} H ${midX} V ${end.y} H ${end.x}`;
+  }
+  function labelPoint(edge) {
+    const source = nodeById.get(edge.source);
+    const target = nodeById.get(edge.target);
+    return { x: Math.round((source.x + source.w / 2 + target.x + target.w / 2) / 2), y: Math.round((source.y + source.h / 2 + target.y + target.h / 2) / 2) - 6 };
+  }
+  function renderEdges() {
+    edgeLayer.innerHTML = `<defs>${edgeKinds.map((kind) => `<marker id="arrow-${kind}" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="${kindColors[kind]}" /></marker>`).join('')}</defs>`;
+    graph.edges.forEach((edge) => {
+      const kind = edgeKinds.includes(edge.kind) ? edge.kind : 'governance';
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('id', edge.id);
+      path.setAttribute('class', `edge-path kind-${kind}`);
+      path.setAttribute('d', edgePath(edge));
+      path.setAttribute('stroke', kindColors[kind]);
+      path.setAttribute('marker-end', `url(#arrow-${kind})`);
+      path.dataset.kind = kind; path.dataset.source = edge.source; path.dataset.target = edge.target;
+      edgeLayer.appendChild(path);
+      if (edge.label && edge.kind !== 'dispatch') {
+        const point = labelPoint(edge);
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('class', 'edge-label');
+        text.setAttribute('x', point.x); text.setAttribute('y', point.y);
+        text.textContent = edge.label;
+        text.dataset.kind = kind; text.dataset.source = edge.source; text.dataset.target = edge.target;
+        edgeLayer.appendChild(text);
+      }
+    });
+  }
+  function relatedNodeIds(id) {
+    const related = new Set([id]);
+    graph.edges.forEach((edge) => { if (edge.source === id) related.add(edge.target); if (edge.target === id) related.add(edge.source); });
+    return related;
+  }
+  function detailBlock(title, items) {
+    return `<section class="detail-section"><h3>${title}</h3><div class="chip-list">${items.map((item) => `<span class="chip">${item}</span>`).join('')}</div></section>`;
+  }
+  function relationBlock(title, edges, directionKey) {
+    if (!edges.length) return `<section class="detail-section"><h3>${title}</h3><div class="empty-state">没有直接关系。</div></section>`;
+    const items = edges.map((edge) => {
+      const otherId = edge[directionKey];
+      const other = nodeById.get(otherId);
+      return `<div class="relation-item"><button type="button" data-jump="${otherId}">${otherId}</button> ${edge.kind} · ${edge.label || '无标签'} · ${other ? other.titleZh : ''}</div>`;
+    }).join('');
+    return `<section class="detail-section"><h3>${title}</h3><div class="relation-list">${items}</div></section>`;
+  }
+  function renderDetail() {
+    const node = nodeById.get(state.selectedId) || nodeById.get('CTRL');
+    const incoming = graph.edges.filter((edge) => edge.target === node.id);
+    const outgoing = graph.edges.filter((edge) => edge.source === node.id);
+    detailContent.innerHTML = `<h2>${node.titleZh}</h2><div class="detail-id">${node.id} · ${node.title} · ${node.phase}</div><p class="detail-description">${node.description}</p>${detailBlock('输入', node.inputs)}${detailBlock('输出', node.outputs)}${detailBlock('验证器 / 门控', node.validators)}${detailBlock('可能回流目标', node.backflowTargets)}${relationBlock('流入关系', incoming, 'source')}${relationBlock('流出关系', outgoing, 'target')}`;
+    detailContent.querySelectorAll('[data-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.jump, true)));
+  }
+  function applyZoom() {
+    graphCanvas.style.transform = `scale(${state.zoom})`;
+    graphCanvas.style.width = `${graph.meta.canvas.width * state.zoom}px`;
+    graphCanvas.style.height = `${graph.meta.canvas.height * state.zoom}px`;
+    document.getElementById('zoomLabel').textContent = `${Math.round(state.zoom * 100)}%`;
+  }
+  function update() {
+    const selectedRelated = relatedNodeIds(state.selectedId);
+    const hasFocus = state.focusSet && state.focusSet.size && state.activePreset !== 'all';
+    document.querySelectorAll('.node-card').forEach((element) => {
+      const id = element.dataset.id;
+      const node = nodeById.get(id);
+      const matchesSearch = textIncludes(node, state.query);
+      const inFocus = state.focusSet.has(id);
+      const related = selectedRelated.has(id);
+      element.classList.toggle('is-selected', id === state.selectedId);
+      element.classList.toggle('is-in-focus', inFocus && hasFocus);
+      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : !related);
+      element.classList.toggle('is-search-miss', !matchesSearch);
+    });
+    document.querySelectorAll('.index-button').forEach((element) => {
+      const id = element.dataset.id;
+      const node = nodeById.get(id);
+      element.classList.toggle('is-active', id === state.selectedId);
+      element.classList.toggle('is-hidden', !textIncludes(node, state.query));
+    });
+    document.querySelectorAll('.edge-path, .edge-label').forEach((element) => {
+      const kind = element.dataset.kind;
+      const source = element.dataset.source;
+      const target = element.dataset.target;
+      const visible = state.visibleKinds.has(kind);
+      const related = source === state.selectedId || target === state.selectedId;
+      const inFocus = state.focusSet.has(source) && state.focusSet.has(target);
+      element.style.display = visible ? '' : 'none';
+      element.classList.toggle('is-related', related);
+      element.classList.toggle('is-dimmed', hasFocus ? !inFocus : !related);
+    });
+    document.querySelectorAll('[data-preset]').forEach((button) => button.classList.toggle('is-active', button.dataset.preset === state.activePreset));
+    renderDetail();
+  }
+  function selectNode(id, scrollIntoView = false) {
+    if (!nodeById.has(id)) return;
+    state.selectedId = id;
+    const preset = graph.presets.find((item) => item.id === state.activePreset);
+    if (preset) {
+      const index = preset.nodes.indexOf(id);
+      if (index >= 0) state.stepIndex = index;
+    }
+    update();
+    if (scrollIntoView) {
+      const element = document.querySelector(`.node-card[data-id="${CSS.escape(id)}"]`);
+      if (element) element.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    }
+  }
+  function activatePreset(id) {
+    const preset = graph.presets.find((item) => item.id === id) || graph.presets[0];
+    state.activePreset = preset.id;
+    state.focusSet = new Set(preset.nodes);
+    state.stepIndex = 0;
+    selectNode(preset.nodes[0], true);
+  }
+  function moveStep(delta) {
+    const preset = graph.presets.find((item) => item.id === state.activePreset) || graph.presets[0];
+    state.stepIndex = (state.stepIndex + delta + preset.nodes.length) % preset.nodes.length;
+    selectNode(preset.nodes[state.stepIndex], true);
+  }
+  function bindControls() {
+    document.getElementById('searchInput').addEventListener('input', (event) => { state.query = event.target.value.trim(); update(); });
+    document.getElementById('prevStep').addEventListener('click', () => moveStep(-1));
+    document.getElementById('nextStep').addEventListener('click', () => moveStep(1));
+    document.getElementById('resetFocus').addEventListener('click', () => activatePreset('all'));
+    document.getElementById('showReference').addEventListener('click', () => { referenceFigure.hidden = !referenceFigure.hidden; });
+    document.getElementById('zoomOut').addEventListener('click', () => { state.zoom = Math.max(0.45, Number((state.zoom - 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('zoomIn').addEventListener('click', () => { state.zoom = Math.min(1.25, Number((state.zoom + 0.1).toFixed(2))); applyZoom(); });
+  }
+  renderNodes(); renderEdges(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
+})();
