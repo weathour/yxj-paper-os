@@ -35,9 +35,9 @@
 
 - [ ] implement graph state loader;
 - [ ] implement frontier selector;
-- [ ] implement task packet compiler;
+- [x] implement deterministic strict task packet compiler for the Phase 6 intro-writing and claim-repair targets;
 - [ ] implement commit protocol;
-- [ ] implement stale propagation.
+- [x] implement scoped stale propagation dry-run.
 
 ## M5 — Closed-loop test
 
@@ -53,4 +53,3 @@
 - [ ] design approval UX;
 - [ ] design diff/trace view;
 - [ ] design multi-paper dashboard.
-

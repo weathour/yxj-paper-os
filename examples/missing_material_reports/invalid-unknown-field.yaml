@@ -1,0 +1,11 @@
+schema_version: ppg-missing-material-report/v0.1
+report_id: intro_writing_packet_v2_missing_materials_v1
+status: blocked
+packet_id: intro_writing_packet_v2
+missing_materials:
+  - reader_spine_v1
+reason: Required graph materials are missing; packet compilation is blocked.
+controller_action: Main agent must restore or produce the missing materials before dispatch.
+completion_forbidden: true
+no_recursive_orchestration: true
+unapproved_field: do not accept

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yxj.local/schemas/ppg-candidate-return.schema.json",
+  "title": "PPG CandidateArtifactReturn",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "return_id",
+    "status",
+    "packet_id",
+    "output_artifact_path",
+    "evidence",
+    "validator_expectations",
+    "remaining_risks",
+    "graph_completion_claimed",
+    "recursive_dispatch_requested",
+    "writes_outside_allowed_paths"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ppg-candidate-return/v0.1"
+    },
+    "return_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "candidate"
+    },
+    "packet_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_artifact_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*(?:^|/)\\.\\.?(?:/|$))(?!~)(?![A-Za-z]:)(examples/candidate-artifacts|examples/materials)/[^\\s\\\\]+\\.[^/\\s\\\\]+$"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "validator_expectations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "remaining_risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "graph_completion_claimed": {
+      "const": false
+    },
+    "recursive_dispatch_requested": {
+      "const": false
+    },
+    "writes_outside_allowed_paths": {
+      "const": false
+    }
+  }
+}

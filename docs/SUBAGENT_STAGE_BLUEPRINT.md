@@ -3,7 +3,11 @@
 This blueprint converts the yxj-paper-os neural material layers into dispatchable rings. Each ring is intended to run as:
 
 ```text
-TaskPacket + consumed material bundle -> bounded subagent/script work -> required output materials -> validators -> graph commit/backflow
+Strict TaskPacket + consumed material bundle
+  -> bounded subagent/script work
+  -> CandidateArtifactReturn / MissingMaterialReport
+  -> validators
+  -> main-agent commit/backflow decision
 ```
 
 A ring is not a department. It is a repeatable transform over explicit inputs and outputs.
@@ -30,7 +34,9 @@ completion_gate:
 
 Use ADR-0003: subagents may receive relatively large material bundles, but the bundle must be structured rather than lossy-compressed. The task packet compiler should organize materials into mandatory controls, evidence/source anchors, local context, optional background, forbidden routes, validator refs, and return format.
 
-The goal is not to minimize context at all costs. The goal is to prevent undifferentiated context dumps.
+The goal is not to minimize context at all costs. The goal is to prevent undifferentiated context dumps and to make the packet an authority boundary.
+
+Phase 6 strict packets add explicit `allowed_read_paths`, `allowed_write_paths`, `output_artifact_path`, `worker_boot_clause`, `completion_forbidden: true`, `no_recursive_orchestration: true`, and `owner_gate_required: false`. A worker return is only a candidate: it cannot mark graph completion or widen its write surface.
 
 ## Important dispatchable stages
 
@@ -150,10 +156,10 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Agent type:** main agent or `planner`; may be script-assisted.
 - **Mode:** `hybrid_generated`.
 - **Consumes:** `selected-control-bundle.yaml`, evidence/source anchors, target manuscript unit, validator refs, expected return format, single-writer lock requirements.
-- **Produces:** `task-packet.yaml`, `section-move-plan.yaml`, `single-writer-section-lock.yaml`.
-- **Validators:** required inputs present, expected output path, validator refs, `completion_forbidden=true` for worker/subagent, single-writer lock for shared hotspots.
+- **Produces:** strict `task-packet.yaml`, `section-move-plan.yaml`, `single-writer-section-lock.yaml`; if blocked, `MissingMaterialReport`.
+- **Validators:** required inputs present, expected output path, validator refs, `allowed_read_paths`, `allowed_write_paths`, `worker_boot_clause`, `completion_forbidden=true`, `no_recursive_orchestration=true`, `owner_gate_required=false` for worker/subagent, single-writer lock for shared hotspots.
 - **Backflow targets:** S09A control selection, missing evidence anchors, S14/S15 repair packet source.
-- **Completion gate:** packet is narrow enough for subagent execution and complete enough for validation.
+- **Completion gate:** packet is narrow enough for subagent execution, complete enough for validation, and cannot grant graph-completion or recursive-dispatch authority.
 
 ### S10 — Main-text production
 
@@ -161,8 +167,8 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 - **Agent type:** `writer` or `executor` depending on text/code mix.
 - **Mode:** `agent_generated`.
 - **Consumes:** S09B task packet, construction matrix, terminology register, claim/evidence visibility, source/citation/result capsules.
-- **Produces:** candidate abstract/introduction/related-work/method/experiment/results/discussion/conclusion units; may later feed polishing materials.
-- **Validators:** no internal code leakage, claim strength obeys boundary, reader question answered, citations/rendering not raw, output matches packet.
+- **Produces:** candidate abstract/introduction/related-work/method/experiment/results/discussion/conclusion units plus `CandidateArtifactReturn`; may later feed polishing materials.
+- **Validators:** no internal code leakage, claim strength obeys boundary, reader question answered, citations/rendering not raw, output matches packet, return packet id matches origin, output path is inside packet write boundary, `remaining_risks` present.
 - **Backflow targets:** S09B task packet, rhetoric/surface controls, claim/evidence visibility, section plan.
 - **Completion gate:** candidate text collected and validated; not complete until review and graph commit.
 

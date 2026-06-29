@@ -1,0 +1,58 @@
+schema_version: ppg-task-packet/v0.1
+packet_id: claim_repair_packet_v1
+status: planned
+task_kind: claim_boundary_repair
+agent_type: planner
+mission: Draft a candidate ClaimBoundaryMap repair from overclaim finding and active evidence.
+target_material: claim_boundary_map_candidate_v3
+input_materials:
+  - evidence_inventory_v1
+  - claim_boundary_map_v2
+  - finding_overclaim_v1
+  - repair_claim_boundary_task_v1
+mandatory_controls:
+  evidence_inventory: evidence_inventory_v1
+  claim_boundary: claim_boundary_map_v2
+  review_finding: finding_overclaim_v1
+  backflow_task: repair_claim_boundary_task_v1
+evidence_anchors:
+  - examples/materials/evidence_inventory.v1.yaml
+  - examples/materials/claim_boundary_map.v2.yaml
+  - examples/review_findings/overclaim.v1.yaml
+  - examples/backflow_tasks/overclaim_repair.v1.yaml
+forbidden_routes:
+  - mark_graph_complete
+  - dispatch_subagents
+  - write_outside_allowed_write_paths
+  - change_owner_intent
+allowed_actions:
+  - read_material_bundle
+  - draft_candidate_artifact
+  - return_evidence
+allowed_read_paths:
+  - examples/materials/evidence_inventory.v1.yaml
+  - examples/materials/claim_boundary_map.v2.yaml
+  - examples/review_findings/overclaim.v1.yaml
+  - examples/backflow_tasks/overclaim_repair.v1.yaml
+  - examples/backflow_tasks/overclaim_repair.compiled.v1.yaml
+allowed_write_paths:
+  - examples/materials/claim_boundary_map.v3-candidate.yaml
+allowed_tools:
+  - "none"
+output_artifact_path: examples/materials/claim_boundary_map.v3-candidate.yaml
+expected_output_schema: ppg-material/v0.1
+validators:
+  - "validate_packet:phase6"
+  - "validate_material:claim_boundary_map_v3_candidate"
+return_format:
+  candidate_artifact: required
+  evidence: required
+  remaining_risks: required
+  missing_material_report: required_if_blocked
+ingestion_target: claim_boundary_map_candidate_v3
+stop_condition: Return candidate material and evidence only; do not commit the graph.
+failure_report_format: ppg-missing-material-report/v0.1
+worker_boot_clause: completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only.
+completion_forbidden: true
+no_recursive_orchestration: true
+owner_gate_required: false

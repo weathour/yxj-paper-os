@@ -111,10 +111,12 @@ Core commands:
 ```bash
 python3 scripts/validate_material.py examples/materials/claim_boundary_map.v2.yaml
 python3 scripts/validate_review_finding.py examples/review_findings/overclaim.v1.yaml
-python3 scripts/validate_packet.py examples/packets/intro_writing_packet.v1.yaml
+python3 scripts/validate_packet.py examples/packets/intro_writing_packet.v2.yaml
 python3 scripts/validate_backflow.py examples/backflow_tasks/overclaim_repair.v1.yaml
 python3 scripts/validate_delivery_gate.py examples/delivery/review_closure.pass.yaml
 ```
+
+`examples/packets/intro_writing_packet.v1.yaml` was the Phase 4/5 minimal packet fixture. After Phase 6 it is kept only as byte-preserved legacy provenance; strict packet validation uses `intro_writing_packet.v2.yaml`.
 
 Semantic-negative fixtures prove that validation is not syntax-only:
 
@@ -125,8 +127,8 @@ Semantic-negative fixtures prove that validation is not syntax-only:
 - `examples/materials/invalid-claim-strength-nonstring.yaml` -> `E_CLAIM_STRENGTH_INVALID`;
 - `examples/materials/invalid-reader-spine-missing-questions.yaml` -> `E_READER_QUESTION_REQUIRED`;
 - `examples/materials/invalid-terminology-leak.yaml` -> `E_TERMINOLOGY_LEAK`;
-- `examples/packets/invalid-missing-inputs.yaml` -> `E_TASK_INPUTS_REQUIRED`;
-- `examples/packets/invalid-validator-shape.yaml` -> `E_PAYLOAD_REQUIRED`;
+- `examples/packets/invalid-missing-allowed-read-paths.yaml` -> `E_TASK_ALLOWED_READ_PATHS_REQUIRED`;
+- `examples/packets/invalid-validator-shape.yaml` is historical; current strict packet shape failures are covered by the Phase 6 fixtures below;
 - `examples/review_findings/invalid-missing-target.yaml` -> `E_FINDING_TARGET_REQUIRED`;
 - `examples/backflow_tasks/invalid-missing-action.yaml` -> `E_BACKFLOW_ACTION_REQUIRED`;
 - `examples/delivery/invalid-delivery-gate-blocker.yaml` -> `E_DELIVERY_GATE_BLOCKER`;
@@ -138,8 +140,8 @@ Additional malformed-shape fixtures lock schema-declared field types:
 
 - `examples/review_findings/invalid-target-shape.yaml` -> `E_FINDING_TARGET_REQUIRED`;
 - `examples/backflow_tasks/invalid-action-shape.yaml` -> `E_BACKFLOW_ACTION_REQUIRED`;
-- `examples/packets/invalid-output-schema-shape.yaml` -> `E_TASK_OUTPUT_SCHEMA_REQUIRED`;
-- `examples/packets/invalid-input-material-shape.yaml` -> `E_TASK_INPUTS_REQUIRED`;
+- `examples/packets/invalid-missing-output-path.yaml` -> `E_TASK_OUTPUT_PATH_REQUIRED`;
+- `examples/packets/invalid-input-material-shape.yaml` is historical; current strict packet input/authority failures are covered by the Phase 6 fixtures below;
 - `examples/delivery/invalid-review-closure-evidence-shape.yaml` and `examples/delivery/invalid-review-closure-finding-shape.yaml` -> `E_CLOSURE_FINDING_REQUIRED`;
 - `examples/materials/invalid-evidence-inventory-package-shape.yaml` -> `E_PAYLOAD_REQUIRED`;
 - `examples/materials/invalid-claim-boundary-allowed-claims-scalar.yaml` -> `E_PAYLOAD_REQUIRED`;
@@ -149,3 +151,99 @@ Additional malformed-shape fixtures lock schema-declared field types:
 
 The YAML loader is a small stdlib subset parser in `scripts/ppg_validate_common.py`; Phase 4 intentionally forbids `import yaml` / `from yaml` so validation remains deterministic in a fresh Codex/plugin environment.
 
+## Phase 6 strict task-packet and return-contract spine
+
+Phase 6 upgrades `TaskPacket` from a loose context bundle to an authority boundary. The strict fixtures are:
+
+- `examples/packets/intro_writing_packet.v2.yaml`;
+- `examples/packets/claim_repair_packet.v1.yaml`.
+
+The historical `examples/packets/intro_writing_packet.v1.yaml` remains a byte-preserved legacy fixture tied to stale graph provenance and is not used as Phase 6 strict-validation evidence.
+
+Core compile/validate commands:
+
+```bash
+scripts/verify_phase6_task_packets.sh
+```
+
+Key individual commands covered by the script:
+
+```bash
+python3 scripts/compile_task_packet.py \
+  --graph examples/runtime/overclaim-loop.v1.json \
+  --target section_draft_intro.v1 \
+  --out /tmp/phase6-intro-packet.yaml
+python3 scripts/validate_packet.py /tmp/phase6-intro-packet.yaml
+cmp /tmp/phase6-intro-packet.yaml examples/packets/intro_writing_packet.v2.yaml
+
+python3 scripts/compile_task_packet.py \
+  --graph examples/runtime/overclaim-loop.v1.json \
+  --target claim_boundary_map_candidate_v3 \
+  --out /tmp/phase6-claim-repair-packet.yaml
+python3 scripts/validate_packet.py /tmp/phase6-claim-repair-packet.yaml
+cmp /tmp/phase6-claim-repair-packet.yaml examples/packets/claim_repair_packet.v1.yaml
+```
+
+Strict packet negative fixtures lock the authority boundary:
+
+- `examples/packets/invalid-missing-allowed-read-paths.yaml` -> `E_TASK_ALLOWED_READ_PATHS_REQUIRED`;
+- `examples/packets/invalid-missing-allowed-write-paths.yaml` -> `E_TASK_ALLOWED_WRITE_PATHS_REQUIRED`;
+- `examples/packets/invalid-missing-output-path.yaml` -> `E_TASK_OUTPUT_PATH_REQUIRED`;
+- `examples/packets/invalid-missing-evidence-anchors.yaml` -> `E_TASK_EVIDENCE_ANCHORS_REQUIRED`;
+- `examples/packets/invalid-completion-forbidden-false.yaml` -> `E_TASK_COMPLETION_FORBIDDEN_REQUIRED`;
+- `examples/packets/invalid-recursive-orchestration-false.yaml` -> `E_TASK_NO_RECURSIVE_ORCHESTRATION_REQUIRED`;
+- `examples/packets/invalid-output-outside-allowed-writes.yaml` -> `E_TASK_OUTPUT_OUTSIDE_ALLOWED_WRITES`;
+- `examples/packets/invalid-owner-gate-required-true.yaml` -> `E_TASK_OWNER_GATE_FORBIDDEN`;
+- `examples/packets/invalid-missing-owner-gate-required.yaml` -> `E_TASK_OWNER_GATE_REQUIRED`;
+- `examples/packets/invalid-broad-allowed-read-path.yaml` and `examples/packets/invalid-broad-allowed-write-path.yaml` -> `E_TASK_ALLOWED_PATH_TOO_BROAD`;
+- `examples/packets/invalid-missing-worker-boot-clause.yaml` and `examples/packets/invalid-weak-worker-boot-clause.yaml` -> `E_TASK_WORKER_BOOT_CLAUSE_REQUIRED`.
+- `examples/packets/invalid-output-traversal.yaml` -> `E_TASK_OUTPUT_OUTSIDE_ALLOWED_WRITES`;
+- `examples/packets/invalid-allowed-write-traversal.yaml` -> `E_TASK_ALLOWED_PATH_TOO_BROAD`;
+- `examples/packets/invalid-missing-forbidden-route.yaml` -> `E_TASK_FORBIDDEN_ROUTES_REQUIRED`;
+- `examples/packets/invalid-unsafe-allowed-action.yaml` -> `E_TASK_ALLOWED_ACTIONS_REQUIRED`;
+- `examples/packets/invalid-unsafe-allowed-tool.yaml` -> `E_TASK_ALLOWED_TOOLS_REQUIRED`.
+- `examples/packets/invalid-broad-material-read-dir.yaml` and `examples/packets/invalid-broad-candidate-write-dir.yaml` -> `E_TASK_ALLOWED_PATH_TOO_BROAD`;
+- `examples/packets/invalid-tilde-read-path.yaml` and `examples/packets/invalid-drive-write-path.yaml` -> `E_TASK_ALLOWED_PATH_TOO_BROAD`;
+- `examples/packets/invalid-duplicate-none-tool.yaml` -> `E_TASK_ALLOWED_TOOLS_REQUIRED`.
+- `examples/packets/invalid-status-committed.yaml` -> `E_TASK_STATUS_PLANNED_REQUIRED`;
+- `examples/packets/invalid-unknown-field.yaml` -> `E_TASK_UNKNOWN_FIELD`;
+- `examples/packets/invalid-missing-safe-action.yaml` -> `E_TASK_ALLOWED_ACTIONS_REQUIRED`.
+
+Blocked compilation uses `MissingMaterialReport` instead of guessed context:
+
+```bash
+python3 scripts/validate_missing_material_report.py \
+  examples/missing_material_reports/intro_missing_reader_spine.v1.yaml
+
+python3 scripts/compile_task_packet.py \
+  --graph examples/runtime/phase6-missing-reader-spine.json \
+  --target section_draft_intro.v2 \
+  --out /tmp/should-not-exist-packet.yaml \
+  --missing-report-out /tmp/phase6-missing-report.yaml
+```
+
+The compile command is expected to exit nonzero, write no packet, and write a valid report.
+`examples/missing_material_reports/invalid-unknown-field.yaml` locks `E_REPORT_UNKNOWN_FIELD`.
+
+Candidate returns are validated against their originating packet:
+
+```bash
+python3 scripts/validate_candidate_return.py \
+  --packet examples/packets/intro_writing_packet.v2.yaml \
+  examples/candidate_returns/intro_candidate_return.v1.yaml
+```
+
+Negative return fixtures prove no self-certification:
+
+- `examples/candidate_returns/invalid-graph-completion-claimed.yaml` -> `E_RETURN_GRAPH_COMPLETION_FORBIDDEN`;
+- `examples/candidate_returns/invalid-recursive-dispatch-requested.yaml` -> `E_RETURN_RECURSIVE_DISPATCH_FORBIDDEN`;
+- `examples/candidate_returns/invalid-writes-outside-allowed.yaml` -> `E_RETURN_WRITE_ESCAPE_FORBIDDEN`;
+- `examples/candidate_returns/invalid-outside-path-despite-claim.yaml` -> `E_RETURN_OUTPUT_OUTSIDE_PACKET_ALLOWED_WRITES`;
+- `examples/candidate_returns/invalid-path-traversal-despite-prefix.yaml` -> `E_RETURN_OUTPUT_OUTSIDE_PACKET_ALLOWED_WRITES`;
+- `examples/candidate_returns/invalid-output-path-mismatch.yaml` -> `E_RETURN_OUTPUT_PATH_MISMATCH`;
+- `examples/candidate_returns/invalid-tilde-output-path.yaml` and `examples/candidate_returns/invalid-drive-output-path.yaml` -> `E_RETURN_OUTPUT_OUTSIDE_PACKET_ALLOWED_WRITES`;
+- `examples/candidate_returns/invalid-packet-id-mismatch.yaml` -> `E_RETURN_PACKET_ID_MISMATCH`;
+- `examples/candidate_returns/invalid-missing-remaining-risks.yaml` -> `E_RETURN_REMAINING_RISKS_REQUIRED`.
+- `examples/candidate_returns/invalid-unknown-field.yaml` -> `E_RETURN_UNKNOWN_FIELD`.
+
+Phase 6 remains a compiler/contract phase. It intentionally does not run a real writer/verifier subagent pilot; that begins in Phase 7.

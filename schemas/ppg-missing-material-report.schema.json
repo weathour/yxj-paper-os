@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yxj.local/schemas/ppg-missing-material-report.schema.json",
+  "title": "PPG MissingMaterialReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "status",
+    "packet_id",
+    "missing_materials",
+    "reason",
+    "controller_action",
+    "completion_forbidden",
+    "no_recursive_orchestration"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ppg-missing-material-report/v0.1"
+    },
+    "report_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "blocked"
+    },
+    "packet_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "missing_materials": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "controller_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "completion_forbidden": {
+      "const": true
+    },
+    "no_recursive_orchestration": {
+      "const": true
+    }
+  }
+}

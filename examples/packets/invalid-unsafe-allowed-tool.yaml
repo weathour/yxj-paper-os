@@ -1,0 +1,53 @@
+schema_version: ppg-task-packet/v0.1
+packet_id: intro_writing_packet_v2
+status: planned
+task_kind: writing
+agent_type: writer
+mission: Draft a candidate introduction section from bounded claim and reader-spine materials.
+target_material: intro_draft_v2
+input_materials:
+  - evidence_inventory_v1
+  - claim_boundary_map_v2
+  - reader_spine_v1
+mandatory_controls:
+  evidence_inventory: evidence_inventory_v1
+  claim_boundary: claim_boundary_map_v2
+  reader_spine: reader_spine_v1
+evidence_anchors:
+  - examples/materials/evidence_inventory.v1.yaml
+  - examples/materials/claim_boundary_map.v2.yaml
+  - examples/materials/reader_spine.v1.yaml
+forbidden_routes:
+  - mark_graph_complete
+  - dispatch_subagents
+  - write_outside_allowed_write_paths
+  - change_owner_intent
+allowed_actions:
+  - read_material_bundle
+  - draft_candidate_artifact
+  - return_evidence
+allowed_read_paths:
+  - examples/materials/evidence_inventory.v1.yaml
+  - examples/materials/claim_boundary_map.v2.yaml
+  - examples/materials/reader_spine.v1.yaml
+allowed_write_paths:
+  - examples/candidate-artifacts/intro_draft.v2.md
+allowed_tools:
+  - bash
+output_artifact_path: examples/candidate-artifacts/intro_draft.v2.md
+expected_output_schema: ppg-section-draft/v0.1
+validators:
+  - "validate_packet:phase6"
+  - "validate_material:claim_boundary_map_v2"
+return_format:
+  candidate_artifact: required
+  evidence: required
+  remaining_risks: required
+  missing_material_report: required_if_blocked
+ingestion_target: intro_draft_v2
+stop_condition: Return candidate artifact and evidence only; do not mark graph completion.
+failure_report_format: ppg-missing-material-report/v0.1
+worker_boot_clause: completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only.
+completion_forbidden: true
+no_recursive_orchestration: true
+owner_gate_required: false
