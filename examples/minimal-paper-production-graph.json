@@ -1,0 +1,179 @@
+{
+  "schema_version": "ppg-graph/v0.1",
+  "graph_id": "minimal-introduction-loop",
+  "title": "Minimal Introduction Paragraph Production Loop",
+  "nodes": [
+    {
+      "id": "owner_intent_v1",
+      "node_type": "owner_intent",
+      "label": "Owner Intent v1",
+      "status": "committed",
+      "version": "v1",
+      "layer": 0,
+      "summary": "Human-approved topic, method boundary, and forbidden routes."
+    },
+    {
+      "id": "evidence_inventory_v1",
+      "node_type": "material",
+      "label": "EvidenceInventory v1",
+      "status": "committed",
+      "version": "v1",
+      "layer": 1,
+      "artifact_path": "materials/evidence_inventory.v1.yaml",
+      "summary": "Known experiment packages and validation commands."
+    },
+    {
+      "id": "claim_boundary_map_v1",
+      "node_type": "material",
+      "label": "ClaimBoundaryMap v1",
+      "status": "committed",
+      "version": "v1",
+      "layer": 2,
+      "artifact_path": "materials/claim_boundary_map.v1.yaml",
+      "summary": "Allowed and forbidden claim strengths."
+    },
+    {
+      "id": "reviewer_question_map_v1",
+      "node_type": "material",
+      "label": "ReviewerQuestionMap v1",
+      "status": "committed",
+      "version": "v1",
+      "layer": 2,
+      "artifact_path": "materials/reviewer_question_map.v1.yaml",
+      "summary": "Questions the introduction must answer."
+    },
+    {
+      "id": "writing_packet_intro_gap_v1",
+      "node_type": "transform_task",
+      "label": "WritingTaskPacket: intro gap paragraph",
+      "status": "validated",
+      "version": "v1",
+      "layer": 3,
+      "artifact_path": "packets/intro_gap_packet.v1.yaml",
+      "summary": "Bounded task packet for one introduction paragraph."
+    },
+    {
+      "id": "intro_gap_draft_v1",
+      "node_type": "manuscript_artifact",
+      "label": "Introduction gap paragraph v1",
+      "status": "candidate",
+      "version": "v1",
+      "layer": 4,
+      "artifact_path": "manuscript/introduction_gap.v1.md",
+      "summary": "Candidate paragraph produced from the writing packet."
+    },
+    {
+      "id": "reader_review_v1",
+      "node_type": "validator",
+      "label": "Reader and claim review",
+      "status": "planned",
+      "layer": 6,
+      "summary": "Checks reader question coverage and claim boundary."
+    },
+    {
+      "id": "finding_overclaim_v1",
+      "node_type": "review_finding",
+      "label": "Finding: overclaim in gap paragraph",
+      "status": "candidate",
+      "version": "v1",
+      "layer": 6,
+      "summary": "Draft states stronger safety guarantee than evidence supports."
+    },
+    {
+      "id": "backflow_claim_visibility_v1",
+      "node_type": "backflow_task",
+      "label": "Backflow: repair claim visibility",
+      "status": "planned",
+      "version": "v1",
+      "layer": 6,
+      "summary": "Repair claim visibility and regenerate affected paragraph only."
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "source": "owner_intent_v1",
+      "target": "evidence_inventory_v1",
+      "edge_type": "references",
+      "dependency_strength": "provenance",
+      "label": "owner-provided evidence scope"
+    },
+    {
+      "id": "e1",
+      "source": "owner_intent_v1",
+      "target": "claim_boundary_map_v1",
+      "edge_type": "constrains",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e2",
+      "source": "evidence_inventory_v1",
+      "target": "claim_boundary_map_v1",
+      "edge_type": "consumes",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e3",
+      "source": "owner_intent_v1",
+      "target": "reviewer_question_map_v1",
+      "edge_type": "constrains",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e4",
+      "source": "claim_boundary_map_v1",
+      "target": "writing_packet_intro_gap_v1",
+      "edge_type": "consumes",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e5",
+      "source": "reviewer_question_map_v1",
+      "target": "writing_packet_intro_gap_v1",
+      "edge_type": "consumes",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e6",
+      "source": "writing_packet_intro_gap_v1",
+      "target": "intro_gap_draft_v1",
+      "edge_type": "produces",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e7",
+      "source": "reader_review_v1",
+      "target": "intro_gap_draft_v1",
+      "edge_type": "validates",
+      "dependency_strength": "soft"
+    },
+    {
+      "id": "e8",
+      "source": "reader_review_v1",
+      "target": "finding_overclaim_v1",
+      "edge_type": "reports",
+      "dependency_strength": "provenance"
+    },
+    {
+      "id": "e9",
+      "source": "finding_overclaim_v1",
+      "target": "claim_boundary_map_v1",
+      "edge_type": "invalidates",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e10",
+      "source": "finding_overclaim_v1",
+      "target": "backflow_claim_visibility_v1",
+      "edge_type": "produces",
+      "dependency_strength": "hard"
+    },
+    {
+      "id": "e11",
+      "source": "backflow_claim_visibility_v1",
+      "target": "claim_boundary_map_v1",
+      "edge_type": "repairs",
+      "dependency_strength": "hard"
+    }
+  ]
+}

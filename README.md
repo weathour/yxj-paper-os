@@ -1,0 +1,42 @@
+# yxj-paper-ppg-runtime
+
+`yxj-paper-ppg-runtime` is a planning and implementation repository for a Codex-native paper production management plugin.
+
+The target model is:
+
+> **Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch**
+
+This repository intentionally replaces the failed department-self-loop model with a graph runtime model: the main Codex agent controls a versioned paper-production graph, specialist agents or scripts operate on bounded graph nodes, validators decide node status, and review findings produce targeted backflow instead of whole-paper rewrites.
+
+## Current status
+
+- Phase: architecture and contract design.
+- Live install: not enabled.
+- Marketplace registration: not enabled.
+- Existing `$yxj-paper-os`: not mutated by this repository.
+
+## Core documents
+
+1. [`docs/PLAN.md`](docs/PLAN.md) — full staged plan.
+2. [`docs/TOPOLOGY.md`](docs/TOPOLOGY.md) — material graph topology, node/edge types, status, versioning.
+3. [`docs/VISUALIZATION_CONTRACT.md`](docs/VISUALIZATION_CONTRACT.md) — front-end graph visualization requirements.
+4. [`docs/MATERIAL_SCHEMA.md`](docs/MATERIAL_SCHEMA.md) — material envelope and typed payload families.
+5. [`docs/RUNTIME_PROTOCOL.md`](docs/RUNTIME_PROTOCOL.md) — main-agent dispatch, task packets, frontier queue, commit protocol.
+6. [`docs/BACKFLOW_PROTOCOL.md`](docs/BACKFLOW_PROTOCOL.md) — local backpropagation and stale propagation.
+7. [`docs/VALIDATION_AND_TESTING.md`](docs/VALIDATION_AND_TESTING.md) — validator plan and closed-loop tests.
+8. [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation roadmap.
+
+## Minimal artifacts
+
+- [`schemas/ppg-graph.schema.json`](schemas/ppg-graph.schema.json): draft graph data schema for front-end/runtime exchange.
+- [`examples/minimal-paper-production-graph.json`](examples/minimal-paper-production-graph.json): smallest useful paper-production graph.
+- [`scripts/validate_graph.py`](scripts/validate_graph.py): dependency-free structural validator for graph examples.
+
+## Design principle
+
+The main agent is not a department manager. It is the runtime controller of a paper-production graph:
+
+```text
+observe graph -> select frontier -> compile packet -> dispatch/execute -> collect -> validate -> commit/stale/backflow -> repeat
+```
+
