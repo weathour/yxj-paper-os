@@ -1,0 +1,10 @@
+schema_version: ppg-material/v0.1
+material_id: claim_boundary_map
+version: invalid-allowed-claims-scalar
+status: candidate
+material_type: ClaimBoundaryMap
+summary: allowed_claims must be a list of mappings, not a scalar.
+payload:
+  allowed_claims: bounded_claim
+  forbidden_claims:
+    - universal_safety_guarantee

@@ -1,0 +1,5 @@
+schema_version: ppg-task-packet/v0.1
+packet_id: invalid_missing_inputs
+status: planned
+mission: Missing inputs should be rejected.
+expected_output_schema: ppg-section-draft/v0.1

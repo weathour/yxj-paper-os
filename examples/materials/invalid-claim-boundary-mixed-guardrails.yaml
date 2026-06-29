@@ -1,0 +1,13 @@
+schema_version: ppg-material/v0.1
+material_id: claim_boundary_map
+version: invalid-mixed-guardrails
+status: candidate
+material_type: ClaimBoundaryMap
+summary: Claim boundary with one valid guardrail and one malformed guardrail must fail shape validation.
+payload:
+  allowed_claims:
+    - id: bounded_claim
+      strength: evidence_supported
+  forbidden_claims:
+    - universal_safety_guarantee
+  forbidden_wording: universal guarantee

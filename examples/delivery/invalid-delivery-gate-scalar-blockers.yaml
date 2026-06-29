@@ -1,0 +1,4 @@
+schema_version: ppg-delivery-gate/v0.1
+gate_id: invalid_delivery_gate_scalar_blockers
+status: pass
+unresolved_blockers: overclaim_review_finding_v1 still open

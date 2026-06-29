@@ -344,55 +344,44 @@ Autopilot result: promoted after strict Autopilot/Ralplan consensus and implemen
 
 Purpose: make the important paper-production materials machine-checkable.
 
+Status: promoted as the Phase 4 schema-and-validator spine. See [`phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md`](phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md).
+
 Consumes:
 
-- material graph core;
-- controller protocol;
+- Phase 2 material graph core;
+- Phase 3 controller protocol;
 - stage/material taxonomy;
 - strict review P0/P1 schema list.
 
 Produces:
 
-P0 schemas:
+P0 schemas and validators:
 
-- `ReviewFinding`;
-- `BackflowTask`;
-- `ReviewClosure`;
-- `DeliveryGate`;
-- `TaskPacket`.
+- `ReviewFinding` -> `scripts/validate_review_finding.py`;
+- `BackflowTask` -> `scripts/validate_backflow.py`;
+- `ReviewClosure` -> `scripts/validate_delivery_gate.py`;
+- `DeliveryGate` -> `scripts/validate_delivery_gate.py`;
+- `TaskPacket` -> `scripts/validate_packet.py`.
 
-P1 schemas:
+P1 vertical-slice material checks:
 
-- owner intent/decision;
-- evidence inventory;
-- claim boundary map;
-- claim evidence visibility map;
-- reader spine;
-- terminology register;
-- selected control bundle;
-- writing task packet;
-- section draft;
-- figure contract and panel evidence map.
+- `EvidenceInventory`;
+- `ClaimBoundaryMap`;
+- `ReaderSpine`;
+- `TerminologyRegister`;
+- `ClaimEvidenceVisibilityMap` is intentionally deferred because the current overclaim loop targets `ClaimBoundaryMap`; Phase 5 may add it if selected as a concrete backflow target.
 
-Ralplan focus:
+Validator failure-code contract:
 
-- pick P0 schema order;
-- decide strict vs permissive fields;
-- define validator failure codes;
-- define sidecar pollution lint.
+- parse/envelope/status/payload codes: `E_PARSE`, `E_ENVELOPE_REQUIRED`, `E_STATUS_INVALID`, `E_PAYLOAD_REQUIRED`;
+- P1 semantic codes: `E_CLAIM_STRENGTH_INVALID`, `E_FORBIDDEN_WORDING_REQUIRED`, `E_READER_QUESTION_REQUIRED`, `E_TERMINOLOGY_LEAK`;
+- P0 runtime-object codes: `E_TASK_INPUTS_REQUIRED`, `E_TASK_OUTPUT_SCHEMA_REQUIRED`, `E_FINDING_FAILURE_TYPE_REQUIRED`, `E_FINDING_TARGET_REQUIRED`, `E_BACKFLOW_TARGET_REQUIRED`, `E_BACKFLOW_ACTION_REQUIRED`, `E_CLOSURE_FINDING_REQUIRED`, `E_DELIVERY_GATE_BLOCKER`.
 
-Ultragoal stories:
-
-1. implement P0 schemas;
-2. implement generic payload validation;
-3. add P0 valid/invalid fixtures;
-4. implement enough P1 schemas for the vertical slice;
-5. add schema documentation and example material files.
-
-Validation:
+Validation examples:
 
 ```bash
-python3 scripts/validate_material.py examples/materials/claim_boundary_map.v1.yaml
+python3 scripts/validate_material.py examples/materials/claim_boundary_map.v2.yaml
+python3 scripts/validate_material.py examples/materials/claim_boundary_map.v1.yaml  # intentionally invalid: E_CLAIM_STRENGTH_INVALID
 python3 scripts/validate_packet.py examples/packets/intro_writing_packet.v1.yaml
 python3 scripts/validate_backflow.py examples/backflow_tasks/overclaim_repair.v1.yaml
 python3 scripts/validate_delivery_gate.py examples/delivery/review_closure.pass.yaml
@@ -401,11 +390,11 @@ python3 scripts/validate_delivery_gate.py examples/delivery/review_closure.pass.
 Phase promotion gate:
 
 ```text
-Critical runtime materials can fail validation for semantic reasons,
+Critical runtime materials now fail validation for semantic reasons,
 not just missing files or malformed JSON/YAML.
 ```
 
-Autopilot recommendation: yes. This phase benefits strongly from `$ralplan` test-spec discipline and Ultragoal checkpoints.
+Autopilot result: promoted after strict Autopilot/Ralplan consensus, solo Ultragoal implementation, full CLI validation, independent code-review APPROVE/CLEAR, and CLI-runtime QA substitute.
 
 ---
 

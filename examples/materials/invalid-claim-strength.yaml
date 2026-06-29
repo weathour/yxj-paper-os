@@ -1,0 +1,10 @@
+schema_version: ppg-material/v0.1
+material_id: claim_boundary_map
+version: invalid-claim-strength
+status: candidate
+material_type: ClaimBoundaryMap
+summary: Invalid claim boundary with overstrong claim strength.
+payload:
+  allowed_claims:
+    - id: overstrong_claim
+      strength: too_strong

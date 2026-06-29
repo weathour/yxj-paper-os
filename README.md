@@ -12,7 +12,7 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 
 ## Current status
 
-- Phase: Phase 3 promoted — dry-run main-agent controller logic over the executable material graph core.
+- Phase: Phase 4 promoted — material schemas and semantic validators over the Phase 3 controller baseline.
 - Live install: not enabled.
 - Marketplace registration: not enabled.
 - Existing `$yxj-paper-os`: not mutated by this repository.
@@ -42,18 +42,21 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 21. [`docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md`](docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md) — formal promotion record that freezes Phase 1 as the v0.2 abstract model baseline for Phase 2 implementation.
 22. [`docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md) — formal promotion record for the executable material graph core.
 23. [`docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md`](docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md) — formal promotion record for the dry-run main-agent controller logic.
+24. [`docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md`](docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md) — formal promotion record for Phase 4 material schemas and semantic validators.
 
 ## Minimal artifacts
 
 - [`schemas/ppg-graph.schema.json`](schemas/ppg-graph.schema.json): graph data schema for front-end/runtime exchange, now including Phase 2 runtime material fields.
 - [`schemas/ppg-material.schema.json`](schemas/ppg-material.schema.json), [`schemas/ppg-transform-task.schema.json`](schemas/ppg-transform-task.schema.json), [`schemas/ppg-validator-report.schema.json`](schemas/ppg-validator-report.schema.json): Phase 2 core runtime object contracts.
 - [`schemas/ppg-owner-decision.schema.json`](schemas/ppg-owner-decision.schema.json): Phase 3 minimal owner decision record contract for owner-gated controller frontier items.
+- [`schemas/ppg-review-finding.schema.json`](schemas/ppg-review-finding.schema.json), [`schemas/ppg-backflow-task.schema.json`](schemas/ppg-backflow-task.schema.json), [`schemas/ppg-review-closure.schema.json`](schemas/ppg-review-closure.schema.json), [`schemas/ppg-delivery-gate.schema.json`](schemas/ppg-delivery-gate.schema.json), [`schemas/ppg-task-packet.schema.json`](schemas/ppg-task-packet.schema.json), and [`schemas/ppg-material-payloads.schema.json`](schemas/ppg-material-payloads.schema.json): Phase 4 P0/P1 schema-and-validator spine.
 - [`examples/minimal-paper-production-graph.json`](examples/minimal-paper-production-graph.json): smallest useful paper-production graph.
 - [`examples/runtime/overclaim-loop.v1.json`](examples/runtime/overclaim-loop.v1.json): Phase 2 executable material-version runtime graph.
 - [`examples/runtime/owner-gated-decision.json`](examples/runtime/owner-gated-decision.json), [`examples/runtime/stale-upstream-control.json`](examples/runtime/stale-upstream-control.json), [`examples/runtime/disconnected-stale-material.json`](examples/runtime/disconnected-stale-material.json), [`examples/runtime/weak-reference-stale-material.json`](examples/runtime/weak-reference-stale-material.json), [`examples/runtime/missing-task-packet.json`](examples/runtime/missing-task-packet.json), [`examples/runtime/commit-ready-candidate.json`](examples/runtime/commit-ready-candidate.json), [`examples/runtime/commit-ready-missing-provenance.json`](examples/runtime/commit-ready-missing-provenance.json): Phase 3 controller fixtures for owner-gated priority, stale frontier active-path filtering, missing task-packet priority, positive commit-plan dry-run readiness, and distinct provenance checks.
 - [`examples/controller-reports/`](examples/controller-reports/): mandatory exact-output fixtures for Phase 3 controller reports.
 - [`scripts/validate_graph.py`](scripts/validate_graph.py): dependency-free structural and Phase 2 runtime-semantics validator for graph examples.
 - [`scripts/ppg_store.py`](scripts/ppg_store.py): dependency-free runtime graph inspection and dry-run controller CLI (`inspect`, `report`, `frontier`, `commit-plan`).
+- [`scripts/validate_material.py`](scripts/validate_material.py), [`scripts/validate_review_finding.py`](scripts/validate_review_finding.py), [`scripts/validate_packet.py`](scripts/validate_packet.py), [`scripts/validate_backflow.py`](scripts/validate_backflow.py), and [`scripts/validate_delivery_gate.py`](scripts/validate_delivery_gate.py): Phase 4 dependency-free semantic validators with stable `VALID`/`INVALID` CLI output and failure codes.
 
 ## Design principle
 

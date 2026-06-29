@@ -118,3 +118,32 @@ Every material declares one method:
 | `hybrid_generated` | LLM candidate plus program validation |
 | `manual_owner_decision` | semantic commitments only the owner can make |
 
+## Phase 4 machine-checkable subset
+
+The full material ontology remains larger than the executable MVP. Phase 4 freezes a machine-checkable subset that is sufficient for the current overclaim/backflow vertical slice.
+
+### P0 runtime objects
+
+| Object | Schema | Validator |
+| --- | --- | --- |
+| `ReviewFinding` | `schemas/ppg-review-finding.schema.json` | `scripts/validate_review_finding.py` |
+| `BackflowTask` | `schemas/ppg-backflow-task.schema.json` | `scripts/validate_backflow.py` |
+| `ReviewClosure` | `schemas/ppg-review-closure.schema.json` | `scripts/validate_delivery_gate.py` |
+| `DeliveryGate` | `schemas/ppg-delivery-gate.schema.json` | `scripts/validate_delivery_gate.py` |
+| `TaskPacket` | `schemas/ppg-task-packet.schema.json` | `scripts/validate_packet.py` |
+
+### P1 vertical slice
+
+`schemas/ppg-material-payloads.schema.json` and `scripts/validate_material.py` currently check:
+
+- `EvidenceInventory.evidence_packages`;
+- `ClaimBoundaryMap.allowed_claims[*].strength` plus forbidden wording/claim guardrails;
+- `ReaderSpine.questions`;
+- `TerminologyRegister` as a registry material that may list stale/blocked terms without being treated as paper-facing leakage.
+
+`ClaimEvidenceVisibilityMap`, selected control bundles, section-draft shape, and figure contract/panel evidence maps are deferred until a later phase chooses them as concrete backflow or writing targets.
+
+### Sidecar pollution rule
+
+Phase 4 lints only paper-facing text fields such as `draft_text`, `caption_text`, `claim_text`, `summary_for_reader`, `paragraph`, or blocks explicitly marked `paper_facing: true`. It does not fail registry/control fields such as `stale_terms`, `forbidden_terms`, ids, schema names, provenance, or validator metadata merely because those fields name internal runtime terms.
+

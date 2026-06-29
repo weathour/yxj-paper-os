@@ -1,0 +1,8 @@
+schema_version: ppg-material/v0.1
+material_id: intro_draft
+version: invalid-terminology-leak
+status: candidate
+material_type: SectionDraft
+summary: Invalid paper-facing prose with leaked runtime terminology.
+payload:
+  draft_text: "This paper is coordinated by an autonomous department before final writing."

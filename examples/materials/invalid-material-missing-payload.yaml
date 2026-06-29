@@ -1,0 +1,6 @@
+schema_version: ppg-material/v0.1
+material_id: evidence_inventory
+version: invalid-missing-payload
+status: candidate
+material_type: EvidenceInventory
+summary: Invalid material envelope missing payload.

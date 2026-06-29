@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yxj.local/schemas/ppg-delivery-gate.schema.json",
+  "title": "PPG DeliveryGate",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "gate_id", "status"],
+  "properties": {
+    "schema_version": {"const": "ppg-delivery-gate/v0.1"},
+    "gate_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["pass", "fail", "blocked"]},
+    "unresolved_blockers": {"type": "array", "items": {"type": "string"}},
+    "closures": {"type": "array", "items": {"type": "string"}}
+  }
+}

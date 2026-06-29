@@ -1,0 +1,13 @@
+schema_version: ppg-task-packet/v0.1
+packet_id: intro_writing_packet_v1
+status: validated
+mission: Write the introduction section from bounded claim and reader-spine materials.
+input_materials:
+  - evidence_inventory_v1
+  - claim_boundary_map_v2
+  - reader_spine_v1
+  - terminology_register_v1
+expected_output_schema: ppg-section-draft/v0.1
+validators:
+  - "validate_material:claim_boundary_map_v2"
+  - "validate_material:reader_spine_v1"
