@@ -8,11 +8,13 @@
   };
   const primaryRoadmapEdges = new Set(['r-01','r-02','r-03','r-04','r-05','r-06','r-07','r-08','r-09','r-10','r-11','r-12','r-13','r-14','r-15']);
   const FLOW_RAIL_GAPS = { roadmap: 36, graph: 20 };
+  const urlPreset = new URLSearchParams(window.location.search).get('preset');
+  const initialPreset = graph.presets.find((preset) => preset.id === urlPreset) || graph.presets.find((preset) => preset.id === 'all');
   const state = {
-    mode: 'roadmap', selectedId: 'S00', query: '',
+    mode: 'roadmap', selectedId: initialPreset.id === 'all' ? 'S00' : initialPreset.nodes[0], query: '',
     zooms: { roadmap: 0.72, graph: 0.62 },
     visibleKinds: new Set(graph.defaultVisibleKinds || edgeKinds),
-    activePreset: 'all', focusSet: new Set(graph.presets.find((preset) => preset.id === 'all').nodes), stepIndex: 1,
+    activePreset: initialPreset.id, focusSet: new Set(initialPreset.nodes), stepIndex: 0,
   };
 
   const laneLayer = document.getElementById('laneLayer');
@@ -293,8 +295,9 @@
       const inFocus = state.focusSet.has(source) && state.focusSet.has(target);
       const hasFocus = state.focusSet && state.focusSet.size && state.activePreset !== 'all';
       const localOnly = state.mode === 'roadmap' && element.classList.contains('roadmap-edge');
-      element.style.display = visibleByKind && (!localOnly || related) ? '' : 'none';
-      element.classList.toggle('is-related', related);
+      const focusEdge = localOnly && hasFocus && inFocus;
+      element.style.display = visibleByKind && (!localOnly || related || focusEdge) ? '' : 'none';
+      element.classList.toggle('is-related', related || focusEdge);
       element.classList.toggle('is-dimmed', hasFocus ? !inFocus : false);
     });
   }
@@ -345,6 +348,7 @@
     document.getElementById('zoomOut').addEventListener('click', () => { state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
     document.getElementById('zoomIn').addEventListener('click', () => { state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
     document.querySelectorAll('[data-guide-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.guideJump, true)));
+    document.querySelectorAll('[data-guide-preset]').forEach((button) => button.addEventListener('click', () => activatePreset(button.dataset.guidePreset)));
   }
 
   renderLanes(laneLayer, graph.layers || []); renderGraphNodes(); renderGraphEdges();

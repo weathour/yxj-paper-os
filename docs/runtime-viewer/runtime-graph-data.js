@@ -99,6 +99,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     { id: 'all', label: '全流程', nodes: ['OWNER','CTRL','GRAPH','VALIDATORS','BUS','G01','S00','S01','S02','S03','S04','S05','S06','S07','S08','S09','S10','S11','S12','S13','S14','S15','S16','FINAL','G02'] },
     { id: 'spine', label: '论文主线', nodes: ['S00','S01','S02','S03','S04','S05','S06','S07','S08','S09','S10','S11','S12','S13','S14','S15','S16','FINAL'] },
     { id: 'writing', label: '写作汇入', nodes: ['S04','S05','S06','S07','S08','S09','S10','S11','S12'] },
+    { id: 'figures', label: '图表支路', nodes: ['S05','S08','S11','S12'] },
     { id: 'review', label: '审核回流', nodes: ['S12','S13','S14','S15','S04','S07','S09','S10'] },
     { id: 'control', label: '控制面', nodes: ['OWNER','CTRL','GRAPH','VALIDATORS','BUS','G01'] },
   ];
