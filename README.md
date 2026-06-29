@@ -29,6 +29,7 @@ This repository intentionally replaces the failed department-self-loop model wit
 10. [`docs/IMPLEMENTATION_FLOW.md`](docs/IMPLEMENTATION_FLOW.md) — concrete core-first implementation flow before OMX Pipeline wrapping.
 11. [`docs/HUMAN_NEED_TO_PAPER_FLOW.md`](docs/HUMAN_NEED_TO_PAPER_FLOW.md) — human-need-centered paper production dimensions and flow diagram.
 12. [`docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md`](docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md) — inventory of yxj-paper-os paper-production layers, dimensions, and materials.
+13. [`docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md`](docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md) — all yxj-paper-os materials reorganized into neural-network-like paper-production layers.
 
 ## Minimal artifacts
 
