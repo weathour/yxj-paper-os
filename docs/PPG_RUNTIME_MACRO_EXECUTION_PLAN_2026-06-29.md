@@ -73,6 +73,8 @@ Exit condition:
 
 ### Phase 1 — Executable material graph core
 
+Status: promoted. See [`phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md).
+
 Goal: make the graph more than a diagram.
 
 Deliverables:
@@ -767,12 +769,14 @@ Each phase needs its own plan, Ultragoal ledger evidence, validation output, rev
 
 ### Session 1: graph core and schemas
 
-1. Add `ppg-material.schema.json`.
-2. Add `ppg-transform-task.schema.json`.
-3. Add `ppg-validator-report.schema.json`.
-4. Implement `ppg_store.py inspect`.
-5. Create `examples/runtime/overclaim-loop.v1.json`.
-6. Validate old and new examples.
+Status: complete / promoted.
+
+1. Add `ppg-material.schema.json`. — done
+2. Add `ppg-transform-task.schema.json`. — done
+3. Add `ppg-validator-report.schema.json`. — done
+4. Implement `ppg_store.py inspect`. — done
+5. Create `examples/runtime/overclaim-loop.v1.json`. — done
+6. Validate old and new examples. — done
 
 ### Session 2: negative validation and supersedes invariant
 

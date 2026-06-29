@@ -1,0 +1,13 @@
+schema_version: ppg-material/v0.1
+material_id: claim_boundary_map
+version: v2
+status: committed
+material_type: ClaimBoundaryMap
+supersedes: claim_boundary_map_v1
+summary: Active boundary that downgrades safety language to evidence-supported scope.
+payload:
+  allowed_claims:
+    - id: bounded_authority_allocation_claim
+      strength: evidence_supported
+  forbidden_claims:
+    - universal_safety_guarantee

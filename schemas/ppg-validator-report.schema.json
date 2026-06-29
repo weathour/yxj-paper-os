@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.yxj/ppg-validator-report.schema.json",
+  "title": "PPG Validator Report",
+  "description": "Machine-readable result of validating a graph, material version, transform task, or artifact.",
+  "type": "object",
+  "required": ["schema_version", "report_id", "validator_id", "target", "status"],
+  "properties": {
+    "schema_version": { "const": "ppg-validator-report/v0.1" },
+    "report_id": { "type": "string", "minLength": 1 },
+    "validator_id": { "type": "string", "minLength": 1 },
+    "target": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["pass", "fail", "warning", "blocked"] },
+    "checked_at": { "type": "string" },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "message"],
+        "properties": {
+          "severity": { "enum": ["info", "warning", "error", "blocker"] },
+          "message": { "type": "string" },
+          "path": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

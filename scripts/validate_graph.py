@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 ALLOWED_NODE_TYPES = {
     "owner_intent",
@@ -38,10 +39,34 @@ ALLOWED_EDGE_TYPES = {
     "supersedes",
     "references",
 }
+PROVENANCE_EDGE_TYPES = ("consumes", "constrains", "produces", "references")
+ACTIVE_STATUSES = {"committed"}
 
 
 def fail(errors: list[str], message: str) -> None:
     errors.append(message)
+
+
+def _relative_to_repo(path_text: str) -> Path:
+    return Path(path_text)
+
+
+def _requires_runtime_artifact_check(path_text: str) -> bool:
+    """Only Phase 2 runtime material fixtures are forced to exist.
+
+    Legacy examples intentionally use paths such as ``materials/foo.yaml`` that
+    are documentation handles, not repo-root fixture paths. Phase 2's stricter
+    artifact existence check applies to new runtime fixtures under
+    ``examples/materials/``.
+    """
+
+    path = _relative_to_repo(path_text)
+    parts = path.parts
+    return len(parts) >= 2 and parts[0] == "examples" and parts[1] == "materials"
+
+
+def _node_label(node: dict[str, Any]) -> str:
+    return f"{node.get('id')} ({node.get('node_type')}, {node.get('status')})"
 
 
 def validate(path: Path) -> list[str]:
@@ -58,16 +83,29 @@ def validate(path: Path) -> list[str]:
 
     nodes = graph.get("nodes")
     edges = graph.get("edges")
+    active_versions = graph.get("active_versions", {})
+    has_active_versions = "active_versions" in graph
+
     if not isinstance(nodes, list):
         fail(errors, "nodes must be a list")
         nodes = []
     if not isinstance(edges, list):
         fail(errors, "edges must be a list")
         edges = []
+    if not isinstance(active_versions, dict):
+        fail(errors, "active_versions must be an object when present")
+        active_versions = {}
 
     node_ids: set[str] = set()
+    nodes_by_id: dict[str, dict[str, Any]] = {}
+    material_versions: dict[tuple[str, str], str] = {}
+    material_nodes_by_id: dict[str, list[str]] = {}
+
     for i, node in enumerate(nodes):
         prefix = f"nodes[{i}]"
+        if not isinstance(node, dict):
+            fail(errors, f"{prefix} must be an object")
+            continue
         node_id = node.get("id")
         if not node_id:
             fail(errors, f"{prefix}.id is required")
@@ -75,19 +113,48 @@ def validate(path: Path) -> list[str]:
         if node_id in node_ids:
             fail(errors, f"duplicate node id: {node_id}")
         node_ids.add(node_id)
-        if node.get("node_type") not in ALLOWED_NODE_TYPES:
-            fail(errors, f"{prefix}.node_type invalid: {node.get('node_type')}")
-        if node.get("status") not in ALLOWED_STATUSES:
-            fail(errors, f"{prefix}.status invalid: {node.get('status')}")
+        nodes_by_id[node_id] = node
+
+        node_type = node.get("node_type")
+        status = node.get("status")
+        if node_type not in ALLOWED_NODE_TYPES:
+            fail(errors, f"{prefix}.node_type invalid: {node_type}")
+        if status not in ALLOWED_STATUSES:
+            fail(errors, f"{prefix}.status invalid: {status}")
         if not node.get("label"):
             fail(errors, f"{prefix}.label is required")
-        if node.get("status") == "stale" and not node.get("stale_reason"):
+        if status == "stale" and not node.get("stale_reason"):
             fail(errors, f"{prefix} is stale but stale_reason is missing")
+
+        if node_type == "material":
+            material_id = node.get("material_id")
+            version = node.get("version")
+            if has_active_versions and not material_id:
+                fail(errors, f"{prefix}.material_id is required when active_versions is present")
+            if material_id:
+                material_nodes_by_id.setdefault(material_id, []).append(node_id)
+            if material_id and version:
+                key = (material_id, version)
+                previous = material_versions.get(key)
+                if previous and previous != node_id:
+                    fail(errors, f"duplicate material version for {material_id}@{version}: {previous}, {node_id}")
+                material_versions[key] = node_id
+
+            artifact_path = node.get("artifact_path")
+            if artifact_path and _requires_runtime_artifact_check(str(artifact_path)):
+                artifact = _relative_to_repo(str(artifact_path))
+                if not artifact.exists():
+                    fail(errors, f"{prefix}.artifact_path does not exist: {artifact_path}")
 
     edge_ids: set[str] = set()
     incoming_by_type: dict[tuple[str, str], int] = {}
+    supersedes_edges_by_source: dict[str, set[str]] = {}
+
     for i, edge in enumerate(edges):
         prefix = f"edges[{i}]"
+        if not isinstance(edge, dict):
+            fail(errors, f"{prefix} must be an object")
+            continue
         edge_id = edge.get("id")
         if not edge_id:
             fail(errors, f"{prefix}.id is required")
@@ -95,6 +162,7 @@ def validate(path: Path) -> list[str]:
         if edge_id in edge_ids:
             fail(errors, f"duplicate edge id: {edge_id}")
         edge_ids.add(edge_id)
+
         source = edge.get("source")
         target = edge.get("target")
         if source not in node_ids:
@@ -107,6 +175,19 @@ def validate(path: Path) -> list[str]:
         if target and edge_type:
             incoming_by_type[(target, edge_type)] = incoming_by_type.get((target, edge_type), 0) + 1
 
+        if edge_type == "supersedes" and source in nodes_by_id and target in nodes_by_id:
+            source_node = nodes_by_id[source]
+            target_node = nodes_by_id[target]
+            supersedes_edges_by_source.setdefault(source, set()).add(target)
+            if source_node.get("node_type") != "material" or target_node.get("node_type") != "material":
+                fail(errors, f"{prefix}.supersedes must connect material nodes new_version -> old_version")
+            elif source_node.get("material_id") != target_node.get("material_id"):
+                fail(errors, f"{prefix}.supersedes material_id mismatch: {source} -> {target}")
+            elif source_node.get("supersedes") != target:
+                fail(errors, f"{prefix}.supersedes direction invalid: source {source} must declare supersedes={target}")
+            if target_node.get("supersedes") == source:
+                fail(errors, f"{prefix}.supersedes appears reversed: target {target} declares supersedes={source}")
+
     for node in nodes:
         node_id = node.get("id")
         node_type = node.get("node_type")
@@ -114,7 +195,7 @@ def validate(path: Path) -> list[str]:
         if status == "committed" and node_type != "owner_intent":
             has_input = any(
                 incoming_by_type.get((node_id, t), 0) > 0
-                for t in ("consumes", "constrains", "produces", "references")
+                for t in PROVENANCE_EDGE_TYPES
             )
             if not has_input:
                 fail(errors, f"committed node has no provenance/input edge: {node_id}")
@@ -126,6 +207,40 @@ def validate(path: Path) -> list[str]:
             has_report = incoming_by_type.get((node_id, "reports"), 0) > 0
             if not has_report:
                 fail(errors, f"review finding has no reporting validator/reviewer: {node_id}")
+
+        if node_type == "material" and node.get("supersedes"):
+            superseded_id = node.get("supersedes")
+            superseded = nodes_by_id.get(superseded_id)
+            if not superseded:
+                fail(errors, f"material node {node_id}.supersedes does not exist: {superseded_id}")
+            elif superseded.get("node_type") != "material":
+                fail(errors, f"material node {node_id}.supersedes target is not material: {superseded_id}")
+            elif node.get("material_id") != superseded.get("material_id"):
+                fail(errors, f"material node {node_id}.supersedes material_id mismatch: {superseded_id}")
+            edge_targets = supersedes_edges_by_source.get(node_id, set())
+            if edge_targets and superseded_id not in edge_targets:
+                fail(errors, f"material node {node_id}.supersedes disagrees with supersedes edge")
+
+    for material_id, active_node_id in active_versions.items():
+        if not isinstance(material_id, str) or not material_id:
+            fail(errors, "active_versions keys must be non-empty material ids")
+            continue
+        if not isinstance(active_node_id, str) or not active_node_id:
+            fail(errors, f"active_versions[{material_id}] must be a non-empty node id")
+            continue
+        active_node = nodes_by_id.get(active_node_id)
+        if not active_node:
+            fail(errors, f"active_versions[{material_id}] target does not exist: {active_node_id}")
+            continue
+        if active_node.get("node_type") != "material":
+            fail(errors, f"active_versions[{material_id}] target is not a material: {_node_label(active_node)}")
+            continue
+        if active_node.get("material_id") != material_id:
+            fail(errors, f"active_versions[{material_id}] material_id mismatch: {active_node_id} has {active_node.get('material_id')}")
+        if active_node.get("status") not in ACTIVE_STATUSES:
+            fail(errors, f"active_versions[{material_id}] target must be committed, got {_node_label(active_node)}")
+        if active_node.get("candidate_for"):
+            fail(errors, f"active_versions[{material_id}] target is a candidate: {active_node_id}")
 
     return errors
 

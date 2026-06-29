@@ -1,0 +1,9 @@
+schema_version: ppg-material/v0.1
+material_id: claim_boundary_map
+version: v3-candidate
+status: candidate
+material_type: ClaimBoundaryMap
+candidate_for: claim_boundary_map
+summary: Candidate future repair; must not be active in Phase 2.
+payload:
+  candidate_change: tighten terminology around authority loss

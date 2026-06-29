@@ -1,0 +1,8 @@
+{
+  "schema_version": "ppg-validator-report/v0.1",
+  "report_id": "claim_boundary_map_v2_report",
+  "validator_id": "claim_strength_validator",
+  "target": "claim_boundary_map_v2",
+  "status": "pass",
+  "findings": []
+}

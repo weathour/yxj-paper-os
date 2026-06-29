@@ -40,12 +40,16 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 19. [`docs/PPG_RUNTIME_MACRO_EXECUTION_PLAN_2026-06-29.md`](docs/PPG_RUNTIME_MACRO_EXECUTION_PLAN_2026-06-29.md) — macro execution plan for the new repository: phases, schemas, scripts, subagent packets, main-agent dispatch principles, and plugin wrapping order.
 20. [`docs/PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md`](docs/PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md) — detailed eight-phase ideal-state roadmap and phase-scoped `$autopilot` / `$ralplan -> $ultragoal` execution protocol.
 21. [`docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md`](docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md) — formal promotion record that freezes Phase 1 as the v0.2 abstract model baseline for Phase 2 implementation.
+22. [`docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md) — formal promotion record for the executable material graph core.
 
 ## Minimal artifacts
 
-- [`schemas/ppg-graph.schema.json`](schemas/ppg-graph.schema.json): draft graph data schema for front-end/runtime exchange.
+- [`schemas/ppg-graph.schema.json`](schemas/ppg-graph.schema.json): graph data schema for front-end/runtime exchange, now including Phase 2 runtime material fields.
+- [`schemas/ppg-material.schema.json`](schemas/ppg-material.schema.json), [`schemas/ppg-transform-task.schema.json`](schemas/ppg-transform-task.schema.json), [`schemas/ppg-validator-report.schema.json`](schemas/ppg-validator-report.schema.json): Phase 2 core runtime object contracts.
 - [`examples/minimal-paper-production-graph.json`](examples/minimal-paper-production-graph.json): smallest useful paper-production graph.
-- [`scripts/validate_graph.py`](scripts/validate_graph.py): dependency-free structural validator for graph examples.
+- [`examples/runtime/overclaim-loop.v1.json`](examples/runtime/overclaim-loop.v1.json): Phase 2 executable material-version runtime graph.
+- [`scripts/validate_graph.py`](scripts/validate_graph.py): dependency-free structural and Phase 2 runtime-semantics validator for graph examples.
+- [`scripts/ppg_store.py`](scripts/ppg_store.py): dependency-free runtime graph inspection CLI.
 
 ## Design principle
 

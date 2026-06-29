@@ -3,26 +3,58 @@
   "$id": "https://local.yxj/ppg-graph.schema.json",
   "title": "Paper Production Graph",
   "type": "object",
-  "required": ["schema_version", "graph_id", "nodes", "edges"],
+  "required": [
+    "schema_version",
+    "graph_id",
+    "nodes",
+    "edges"
+  ],
   "properties": {
-    "schema_version": { "const": "ppg-graph/v0.1" },
-    "graph_id": { "type": "string", "minLength": 1 },
-    "title": { "type": "string" },
+    "schema_version": {
+      "const": "ppg-graph/v0.1"
+    },
+    "graph_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string"
+    },
     "nodes": {
       "type": "array",
-      "items": { "$ref": "#/$defs/node" }
+      "items": {
+        "$ref": "#/$defs/node"
+      }
     },
     "edges": {
       "type": "array",
-      "items": { "$ref": "#/$defs/edge" }
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    },
+    "active_versions": {
+      "type": "object",
+      "description": "Map from logical material_id to active committed material node id.",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
     }
   },
   "$defs": {
     "node": {
       "type": "object",
-      "required": ["id", "node_type", "label", "status"],
+      "required": [
+        "id",
+        "node_type",
+        "label",
+        "status"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
         "node_type": {
           "enum": [
             "owner_intent",
@@ -36,7 +68,10 @@
             "backflow_task"
           ]
         },
-        "label": { "type": "string", "minLength": 1 },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
         "status": {
           "enum": [
             "planned",
@@ -49,23 +84,80 @@
             "owner_gated"
           ]
         },
-        "version": { "type": "string" },
-        "layer": { "type": "integer", "minimum": 0 },
-        "artifact_path": { "type": "string" },
-        "summary": { "type": "string" },
-        "payload_ref": { "type": "string" },
-        "validators": { "type": "array", "items": { "type": "string" } },
-        "stale_reason": { "type": "string" }
+        "version": {
+          "type": "string"
+        },
+        "layer": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "artifact_path": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "payload_ref": {
+          "type": "string"
+        },
+        "validators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stale_reason": {
+          "type": "string"
+        },
+        "material_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Concrete old-version node id. Direction: new -> old."
+        },
+        "candidate_for": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "report_id": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "additionalProperties": true
     },
     "edge": {
       "type": "object",
-      "required": ["id", "source", "target", "edge_type"],
+      "required": [
+        "id",
+        "source",
+        "target",
+        "edge_type"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "source": { "type": "string", "minLength": 1 },
-        "target": { "type": "string", "minLength": 1 },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
         "edge_type": {
           "enum": [
             "consumes",
@@ -79,8 +171,16 @@
             "references"
           ]
         },
-        "dependency_strength": { "enum": ["hard", "soft", "provenance"] },
-        "label": { "type": "string" }
+        "dependency_strength": {
+          "enum": [
+            "hard",
+            "soft",
+            "provenance"
+          ]
+        },
+        "label": {
+          "type": "string"
+        }
       },
       "additionalProperties": true
     }

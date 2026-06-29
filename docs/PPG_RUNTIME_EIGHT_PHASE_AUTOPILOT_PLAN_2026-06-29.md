@@ -284,7 +284,7 @@ The repo can load a runtime graph, resolve a material's active version,
 show upstream/downstream dependencies, and reject structurally invalid references.
 ```
 
-Autopilot recommendation: yes. This is the first phase worth a full phase-scoped `$autopilot` or `$ralplan -> $ultragoal` cycle.
+Autopilot result: promoted after phase-scoped Autopilot/Ralplan consensus and implementation validation. See [`phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md).
 
 ---
 
@@ -651,7 +651,7 @@ Use this phase order:
 
 ```text
 Phase 1: promoted; keep frozen.
-Phase 2: start next; graph core.
+Phase 2: promoted; executable material graph core.
 Phase 3: controller/frontier semantics.
 Phase 4: schemas and validators.
 Phase 5: local backflow/stale propagation.

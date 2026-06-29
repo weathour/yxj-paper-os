@@ -1,0 +1,10 @@
+schema_version: ppg-material/v0.1
+material_id: claim_boundary_map
+version: v1
+status: stale
+material_type: ClaimBoundaryMap
+summary: Superseded boundary that allowed an overstrong safety guarantee.
+payload:
+  allowed_claims:
+    - id: old_overstrong_claim
+      strength: too_strong
