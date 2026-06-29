@@ -37,6 +37,8 @@
   const presetButtons = document.getElementById('presetButtons');
   const edgeFilters = document.getElementById('edgeFilters');
   const referenceFigure = document.getElementById('referenceFigure');
+  const runtimeStateFrame = document.getElementById('runtimeStateFrame');
+  const runtimeStateContent = document.getElementById('runtimeStateContent');
 
   graphCanvas.style.width = `${graph.meta.canvas.width}px`;
   graphCanvas.style.height = `${graph.meta.canvas.height}px`;
@@ -277,6 +279,142 @@
     return related;
   }
   function detailBlock(title, items) { return `<section class="detail-section"><h3>${title}</h3><div class="chip-list">${items.map((item) => `<span class="chip">${item}</span>`).join('')}</div></section>`; }
+
+  function createTextElement(tagName, className, text) {
+    const element = document.createElement(tagName);
+    if (className) element.className = className;
+    element.textContent = text == null || text === '' ? '—' : String(text);
+    return element;
+  }
+  function appendKeyValue(parent, label, value) {
+    const row = document.createElement('div');
+    row.className = 'state-kv';
+    row.appendChild(createTextElement('span', 'state-kv__key', label));
+    row.appendChild(createTextElement('span', 'state-kv__value', value));
+    parent.appendChild(row);
+  }
+  function appendStateSection(parent, title, subtitle) {
+    const section = document.createElement('section');
+    section.className = 'state-section';
+    section.appendChild(createTextElement('h3', '', title));
+    if (subtitle) section.appendChild(createTextElement('p', 'state-section__subtitle', subtitle));
+    parent.appendChild(section);
+    return section;
+  }
+  function appendEmpty(section, message = '当前没有待处理项目。') {
+    const empty = createTextElement('div', 'empty-state', message);
+    section.appendChild(empty);
+  }
+  function appendCardList(section, items, renderer) {
+    const list = document.createElement('div');
+    list.className = 'state-card-grid';
+    if (!items || !items.length) {
+      appendEmpty(section);
+      return;
+    }
+    items.forEach((item, index) => list.appendChild(renderer(item, index)));
+    section.appendChild(list);
+  }
+  function stateCard(title, tone = 'neutral') {
+    const card = document.createElement('article');
+    card.className = `state-card tone-${tone}`;
+    card.appendChild(createTextElement('h4', '', title));
+    return card;
+  }
+  function renderRuntimeState() {
+    const runtime = graph.runtimeState;
+    runtimeStateContent.textContent = '';
+    if (!runtime) {
+      appendEmpty(runtimeStateContent, 'runtimeState 数据未加载。');
+      return;
+    }
+
+    const summary = appendStateSection(runtimeStateContent, 'Graph + Frontier', '主 Agent 首先看这里：当前图、下一前沿、是否有阻塞。');
+    const summaryGrid = document.createElement('div');
+    summaryGrid.className = 'state-summary-grid';
+    const graphCard = stateCard('Graph', 'graph');
+    appendKeyValue(graphCard, 'graph_id', runtime.graph.graph_id);
+    appendKeyValue(graphCard, 'title', runtime.graph.title);
+    appendKeyValue(graphCard, 'source', runtime.graph.source_path);
+    appendKeyValue(graphCard, 'nodes / edges', `${runtime.graph.node_count} / ${runtime.graph.edge_count}`);
+    const frontierCard = stateCard('Next Frontier', 'frontier');
+    appendKeyValue(frontierCard, 'id', runtime.next_frontier.id);
+    appendKeyValue(frontierCard, 'kind', runtime.next_frontier.kind);
+    appendKeyValue(frontierCard, 'priority', runtime.next_frontier.priority);
+    appendKeyValue(frontierCard, 'reason', runtime.next_frontier.reason);
+    summaryGrid.appendChild(graphCard);
+    summaryGrid.appendChild(frontierCard);
+    summary.appendChild(summaryGrid);
+
+    const active = appendStateSection(runtimeStateContent, 'Active Versions', '逻辑物料 -> 当前 committed 节点。');
+    appendCardList(active, runtime.active_versions, (item) => {
+      const card = stateCard(item.material_id, 'active');
+      appendKeyValue(card, 'active node', item.active_node);
+      appendKeyValue(card, 'status', item.status);
+      appendKeyValue(card, 'version', item.version);
+      appendKeyValue(card, 'artifact', item.artifact_path);
+      return card;
+    });
+
+    const stale = appendStateSection(runtimeStateContent, 'Stale / Candidate Materials', '局部回流和未提交候选物料是 owner/main-agent 决策焦点。');
+    appendCardList(stale, [...runtime.stale_materials, ...runtime.candidate_materials], (item) => {
+      const tone = item.status === 'stale' ? 'stale' : 'candidate';
+      const card = stateCard(item.id, tone);
+      appendKeyValue(card, 'status', item.status);
+      appendKeyValue(card, 'material', item.material_id || item.candidate_for);
+      appendKeyValue(card, 'version', item.version);
+      if ('historical_superseded_by_active' in item) appendKeyValue(card, 'historical', item.historical_superseded_by_active);
+      if ('on_active_control_path' in item) appendKeyValue(card, 'active path', item.on_active_control_path);
+      if (item.candidate_for) appendKeyValue(card, 'candidate_for', item.candidate_for);
+      appendKeyValue(card, 'artifact', item.artifact_path);
+      return card;
+    });
+
+    const review = appendStateSection(runtimeStateContent, 'Review Findings + Backflow Tasks', '审核 finding 不直接重写全文，而是映射到最近责任物料和局部 repair task。');
+    appendCardList(review, runtime.open_review_findings, (item) => {
+      const card = stateCard(item.id, 'review');
+      appendKeyValue(card, 'failure', item.failure_type);
+      appendKeyValue(card, 'target', item.primary_target);
+      appendKeyValue(card, 'classified repair', item.classified_repair);
+      appendKeyValue(card, 'repair tasks', (item.repair_tasks || []).join(', ') || 'none');
+      return card;
+    });
+    appendCardList(review, runtime.backflow_tasks, (item) => {
+      const card = stateCard(item.id, 'backflow');
+      appendKeyValue(card, 'status', item.status);
+      appendKeyValue(card, 'sources', (item.source_findings || []).join(', ') || 'none');
+      appendKeyValue(card, 'targets', (item.targets || []).join(', ') || 'none');
+      appendKeyValue(card, 'artifact', item.artifact_path);
+      return card;
+    });
+
+    const owner = appendStateSection(runtimeStateContent, 'Owner Decisions', '只有会改变论文核心语义或授权边界的事项进入 owner queue。');
+    appendCardList(owner, runtime.owner_decisions, (item) => {
+      const card = stateCard(item.id, 'owner');
+      appendKeyValue(card, 'status', item.status);
+      appendKeyValue(card, 'label', item.label);
+      appendKeyValue(card, 'artifact', item.artifact_path);
+      return card;
+    });
+
+    const delivery = appendStateSection(runtimeStateContent, 'Delivery Gates + Review Closures', '交付门和 ReviewClosure 证明局部修复已闭合，但不代表 live publish。');
+    appendCardList(delivery, [...runtime.delivery_gates, ...runtime.review_closures], (item) => {
+      const card = stateCard(item.id, item.id.includes('closure') ? 'closure' : 'delivery');
+      appendKeyValue(card, 'status', item.status);
+      appendKeyValue(card, 'report id', item.report_id);
+      appendKeyValue(card, 'validates', (item.validates || []).join(', ') || 'none');
+      appendKeyValue(card, 'artifact', item.artifact_path);
+      return card;
+    });
+
+    const blockers = appendStateSection(runtimeStateContent, 'Completion Blockers', '这些 blocker 阻止主 Agent 宣称图完成。');
+    appendCardList(blockers, runtime.completion_blockers, (item, index) => {
+      const card = stateCard(`blocker ${index + 1}`, 'blocker');
+      card.appendChild(createTextElement('p', 'state-blocker-text', item));
+      return card;
+    });
+  }
+
   function relationBlock(title, edges, directionKey) {
     if (!edges.length) return `<section class="detail-section"><h3>${title}</h3><div class="empty-state">没有直接关系。</div></section>`;
     const items = edges.map((edge) => {
@@ -294,9 +432,9 @@
     detailContent.querySelectorAll('[data-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.jump, true)));
   }
 
-  function activeCanvas() { return state.mode === 'roadmap' ? { canvas: roadmapCanvas, stage: roadmapStage, frame: roadmapFrame, width: graph.roadmap.canvas.width } : { canvas: graphCanvas, stage: graphStage, frame: graphFrame, width: graph.meta.canvas.width }; }
+  function activeCanvas() { return state.mode === 'graph' ? { canvas: graphCanvas, stage: graphStage, frame: graphFrame, width: graph.meta.canvas.width } : { canvas: roadmapCanvas, stage: roadmapStage, frame: roadmapFrame, width: graph.roadmap.canvas.width }; }
   function applyZoom() {
-    const zoom = state.zooms[state.mode];
+    const zoom = state.mode === 'state' ? null : state.zooms[state.mode];
     const targets = [
       { canvas: roadmapCanvas, stage: roadmapStage, width: graph.roadmap.canvas.width, height: graph.roadmap.canvas.height, zoom: state.zooms.roadmap },
       { canvas: graphCanvas, stage: graphStage, width: graph.meta.canvas.width, height: graph.meta.canvas.height, zoom: state.zooms.graph },
@@ -308,7 +446,7 @@
       stage.style.width = `${width * z}px`;
       stage.style.height = `${height * z}px`;
     });
-    document.getElementById('zoomLabel').textContent = `${Math.round(zoom * 100)}%`;
+    document.getElementById('zoomLabel').textContent = zoom === null ? 'state' : `${Math.round(zoom * 100)}%`;
   }
 
   function updateCards(selector) {
@@ -355,8 +493,10 @@
     document.querySelectorAll('[data-preset]').forEach((button) => button.classList.toggle('is-active', button.dataset.preset === state.activePreset));
     document.getElementById('roadmapMode').classList.toggle('is-active', state.mode === 'roadmap');
     document.getElementById('graphMode').classList.toggle('is-active', state.mode === 'graph');
+    document.getElementById('runtimeStateMode').classList.toggle('is-active', state.mode === 'state');
     roadmapFrame.classList.toggle('is-hidden', state.mode !== 'roadmap');
     graphFrame.classList.toggle('is-hidden', state.mode !== 'graph');
+    runtimeStateFrame.classList.toggle('is-hidden', state.mode !== 'state');
     document.getElementById('roadmapGuide').classList.toggle('is-hidden', state.mode !== 'roadmap');
     renderDetail(); applyZoom();
   }
@@ -388,14 +528,15 @@
     document.getElementById('showReference').addEventListener('click', () => { referenceFigure.hidden = !referenceFigure.hidden; });
     document.getElementById('roadmapMode').addEventListener('click', () => { state.mode = 'roadmap'; update(); });
     document.getElementById('graphMode').addEventListener('click', () => { state.mode = 'graph'; update(); });
-    document.getElementById('fitWidth').addEventListener('click', () => { const active = activeCanvas(); state.zooms[state.mode] = Math.max(0.32, Math.min(1.25, Number(((active.frame.clientWidth - 32) / active.width).toFixed(2)))); applyZoom(); });
-    document.getElementById('zoomOut').addEventListener('click', () => { state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
-    document.getElementById('zoomIn').addEventListener('click', () => { state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('runtimeStateMode').addEventListener('click', () => { state.mode = 'state'; update(); });
+    document.getElementById('fitWidth').addEventListener('click', () => { if (state.mode === 'state') return; const active = activeCanvas(); state.zooms[state.mode] = Math.max(0.32, Math.min(1.25, Number(((active.frame.clientWidth - 32) / active.width).toFixed(2)))); applyZoom(); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if (state.mode === 'state') return; state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('zoomIn').addEventListener('click', () => { if (state.mode === 'state') return; state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
     document.querySelectorAll('[data-guide-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.guideJump, true)));
     document.querySelectorAll('[data-guide-preset]').forEach((button) => button.addEventListener('click', () => activatePreset(button.dataset.guidePreset)));
   }
 
   renderLanes(laneLayer, graph.layers || []); renderGraphNodes(); renderGraphEdges();
   renderLanes(roadmapLaneLayer, graph.roadmap.lanes || []); renderRoadmapNodes(); renderRoadmapEdges();
-  renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
+  renderRuntimeState(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
 })();

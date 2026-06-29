@@ -85,6 +85,12 @@ diff -u examples/runtime-reports/overclaim-loop.phase7-state.json "$json_out"
 diff -u examples/runtime-reports/overclaim-loop.phase7-state.md "$md_out"
 node --check docs/runtime-viewer/runtime-graph-data.js
 node --check docs/runtime-viewer/app.js
+if grep -q 'runtimeStateContent\.innerHTML' docs/runtime-viewer/app.js; then
+  echo "PHASE8_RUNTIME_STATE_UNSAFE_INNERHTML" >&2
+  exit 1
+fi
+grep -q 'runtimeStateContent.textContent' docs/runtime-viewer/app.js
+grep -q 'createTextElement' docs/runtime-viewer/app.js
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
 
 echo "PHASE8_PLUGIN_SURFACE_VERIFY_OK"

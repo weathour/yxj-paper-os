@@ -1,11 +1,11 @@
 window.PPG_RUNTIME_GRAPH = (() => {
   const meta = {
     title: 'PPG Runtime 人工把握视图',
-    subtitle: '环节/物料 taxonomy v0.2 已确认，执行物料图仍待实现',
+    subtitle: 'Phase8 本地 runtime state surface：显式物料图、前沿、stale/backflow 与交付门可见',
     status: {
-      baseline: '环节与物料分类可作为 v0.2 设计基线',
-      scope: '当前视图展示 stage taxonomy / transform map，不代表 runnable runtime 已完成',
-      next: '下一阶段实现 Material@vN、supersedes、stale propagation、ReviewClosure 与 DeliveryGate',
+      baseline: 'Phase8 本地插件/runtime surface 已进入实现：adapter 报告与前端状态面板同源',
+      scope: '当前视图同时展示 stage taxonomy 与 Phase7 fixture-backed runtime state；仍不代表已 live-install/publish',
+      next: '后续可在明确授权后扩展 live graph import / install / marketplace；Phase8 只做本地只读 surface',
     },
     canvas: { width: 2260, height: 1680 },
   };
@@ -111,5 +111,177 @@ window.PPG_RUNTIME_GRAPH = (() => {
     { id: 'control', label: '控制面', nodes: ['OWNER','CTRL','GRAPH','VALIDATORS','BUS','G01'] },
     { id: 'runtime-core', label: '执行核心', nodes: ['CTRL','GRAPH','VALIDATORS','BUS','S09A','S09B','S13','S14','S15','S16'] },
   ];
-  return { meta, legend, defaultVisibleKinds, layers, nodes, edges, presets, roadmap };
+  const runtimeState = {
+  "active_versions": [
+    {
+      "active_node": "claim_boundary_map_v2",
+      "artifact_path": "examples/materials/claim_boundary_map.v2.yaml",
+      "material_id": "claim_boundary_map",
+      "status": "committed",
+      "version": "v2"
+    },
+    {
+      "active_node": "evidence_inventory_v1",
+      "artifact_path": "examples/materials/evidence_inventory.v1.yaml",
+      "material_id": "evidence_inventory",
+      "status": "committed",
+      "version": "v1"
+    },
+    {
+      "active_node": "reader_spine_v1",
+      "artifact_path": "examples/materials/reader_spine.v1.yaml",
+      "material_id": "reader_spine",
+      "status": "committed",
+      "version": "v1"
+    }
+  ],
+  "backflow_tasks": [
+    {
+      "artifact_path": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml",
+      "id": "phase7_overclaim_review_finding_v1_backflow_v1",
+      "label": "Phase7 overclaim backflow task v1",
+      "node_type": "backflow_task",
+      "source_findings": [
+        "phase7_overclaim_review_finding_v1"
+      ],
+      "status": "planned",
+      "summary": "Compiled local backflow task that maps claim_overreach to active ClaimBoundaryMap repair target.",
+      "targets": [],
+      "version": "v1"
+    },
+    {
+      "id": "repair_claim_boundary_task_v1",
+      "label": "Repair ClaimBoundaryMap task v1",
+      "node_type": "backflow_task",
+      "source_findings": [
+        "finding_overclaim_v1"
+      ],
+      "status": "validated",
+      "summary": "Backflow task that creates claim_boundary_map_v2.",
+      "targets": [
+        "claim_boundary_map_v2",
+        "claim_boundary_map_candidate_v3"
+      ],
+      "version": "v1"
+    }
+  ],
+  "candidate_materials": [
+    {
+      "artifact_path": "examples/materials/claim_boundary_map.v3-candidate.yaml",
+      "candidate_for": "claim_boundary_map",
+      "id": "claim_boundary_map_candidate_v3",
+      "label": "ClaimBoundaryMap v3 candidate",
+      "material_id": "claim_boundary_map",
+      "node_type": "material",
+      "status": "candidate",
+      "summary": "Candidate future revision; not active.",
+      "version": "v3-candidate"
+    }
+  ],
+  "completion_blockers": [
+    "candidate claim_boundary_map_candidate_v3 cannot commit: candidate status must be validated before commit; candidate must declare supersedes=claim_boundary_map_v2; candidate must have supersedes edge claim_boundary_map_candidate_v3 -> claim_boundary_map_v2; candidate-specific validator edge is required; candidate-specific validation report reference is required"
+  ],
+  "delivery_gates": [
+    {
+      "artifact_path": "examples/delivery/phase7_delivery_gate.pass.yaml",
+      "id": "phase7_delivery_gate_v1",
+      "label": "Phase7 DeliveryGate v1",
+      "node_type": "validation_report",
+      "report_id": "phase7_delivery_gate_v1",
+      "reported_by": [],
+      "status": "validated",
+      "summary": "DeliveryGate pass for the deterministic intro overclaim repair vertical slice.",
+      "validates": [],
+      "version": "v1"
+    }
+  ],
+  "graph": {
+    "edge_count": 31,
+    "graph_id": "phase2-overclaim-material-graph",
+    "node_count": 22,
+    "source_path": "examples/runtime/overclaim-loop.phase7-after.json",
+    "title": "Phase 7 Deterministic Overclaim Repair Vertical Slice"
+  },
+  "next_frontier": {
+    "id": "claim_boundary_map_candidate_v3",
+    "kind": "material",
+    "priority": 5,
+    "reason": "candidate_material_awaiting_validation_or_commit_plan"
+  },
+  "open_review_findings": [
+    {
+      "classified_repair": true,
+      "failure_type": "claim_overreach",
+      "id": "finding_overclaim_v1",
+      "invalidates": [
+        "claim_boundary_map_v1"
+      ],
+      "label": "Finding: overclaim v1",
+      "node_type": "review_finding",
+      "primary_target": "claim_boundary_map_v1",
+      "repair_tasks": [
+        "repair_claim_boundary_task_v1"
+      ],
+      "status": "candidate",
+      "summary": "Draft states stronger guarantee than evidence supports.",
+      "version": "v1"
+    },
+    {
+      "artifact_path": "examples/review_findings/phase7_overclaim.v1.yaml",
+      "classified_repair": true,
+      "failure_type": "claim_overreach",
+      "id": "phase7_overclaim_review_finding_v1",
+      "invalidates": [
+        "claim_boundary_map_v1"
+      ],
+      "label": "Phase7 finding: intro overclaim v1",
+      "node_type": "review_finding",
+      "primary_target": "claim_boundary_map_v1",
+      "repair_tasks": [
+        "phase7_overclaim_review_finding_v1_backflow_v1"
+      ],
+      "status": "validated",
+      "summary": "Mock reviewer found universal safety overclaim in intro_draft_v1.",
+      "version": "v1"
+    }
+  ],
+  "owner_decisions": [],
+  "review_closures": [
+    {
+      "artifact_path": "examples/delivery/phase7_overclaim_closure.v1.yaml",
+      "id": "phase7_overclaim_closure_v1",
+      "label": "Phase7 overclaim ReviewClosure v1",
+      "node_type": "validation_report",
+      "report_id": "phase7_overclaim_closure_v1",
+      "reported_by": [
+        "phase7_mock_reviewer_closure_v1"
+      ],
+      "status": "validated",
+      "summary": "ReviewClosure proving the intro overclaim finding is locally repaired.",
+      "validates": [
+        "phase7_overclaim_review_finding_v1",
+        "phase7_delivery_gate_v1"
+      ],
+      "version": "v1"
+    }
+  ],
+  "schema_version": "ppg-runtime-state-report/v0.1",
+  "stale_materials": [
+    {
+      "artifact_path": "examples/materials/claim_boundary_map.v1.yaml",
+      "historical_superseded_by_active": true,
+      "id": "claim_boundary_map_v1",
+      "label": "ClaimBoundaryMap v1",
+      "material_id": "claim_boundary_map",
+      "node_type": "material",
+      "on_active_control_path": false,
+      "stale_reason": "Superseded by claim_boundary_map_v2 after overclaim review finding.",
+      "status": "stale",
+      "summary": "Old claim boundary version preserved for provenance.",
+      "version": "v1"
+    }
+  ]
+};
+
+  return { meta, legend, defaultVisibleKinds, layers, nodes, edges, presets, roadmap, runtimeState };
 })();
