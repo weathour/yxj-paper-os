@@ -54,6 +54,7 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .workspace-toolbar { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
 #zoomLabel { min-width: 52px; text-align: center; color: var(--muted); font-family: var(--mono); }
 .canvas-frame { height: calc(100vh - 166px); min-height: 680px; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); background: oklch(0.985 0.004 250); position: relative; }
+.canvas-stage { position: relative; }
 .graph-canvas { position: relative; width: 2220px; height: 1540px; transform-origin: 0 0; }
 .lane-layer, .edge-layer, .node-layer { position: absolute; inset: 0; }
 .lane-layer { pointer-events: none; z-index: 0; }
@@ -141,11 +142,11 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .route-strip { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
 .route-strip button { min-height: 28px; padding: 3px 8px; font-size: 12px; background: var(--bg); }
 .backflow-strip button { border-color: oklch(0.72 0.12 25); background: oklch(0.96 0.04 25); }
+.graph-canvas::before,
 .roadmap-canvas::before {
   content: "统一左侧汇流总线";
   position: absolute;
-  left: 144px;
-  top: 176px;
+  left: var(--flow-rail-x, 154px);
   bottom: 44px;
   border-left: 2px solid oklch(0.44 0.06 255 / 0.54);
   color: oklch(0.34 0.04 255);
@@ -156,6 +157,8 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
   z-index: 1;
   pointer-events: none;
 }
+.graph-canvas::before { top: 28px; }
+.roadmap-canvas::before { top: 176px; }
 .route-card::before,
 .route-card::after {
   position: absolute;

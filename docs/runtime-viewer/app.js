@@ -1,15 +1,13 @@
 (function initRuntimeViewer() {
   const graph = window.PPG_RUNTIME_GRAPH;
   const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
-  const routeById = new Map((graph.roadmap.nodes || []).map((node) => [node.id, node]));
   const edgeKinds = Object.keys(graph.legend);
   const kindColors = {
     material: 'var(--material)', dispatch: 'var(--dispatch)', validation: 'var(--validation)',
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
   };
   const primaryRoadmapEdges = new Set(['r-01','r-02','r-03','r-04','r-05','r-06','r-07','r-08','r-09','r-10','r-11','r-12','r-13','r-14','r-15']);
-  const ROADMAP_FLOW_RAIL_X = 150;
-  const GRAPH_FLOW_RAIL_X = 160;
+  const FLOW_RAIL_GAPS = { roadmap: 36, graph: 20 };
   const state = {
     mode: 'roadmap', selectedId: 'S00', query: '',
     zooms: { roadmap: 0.72, graph: 0.62 },
@@ -22,11 +20,13 @@
   const edgeLayer = document.getElementById('edgeLayer');
   const graphCanvas = document.getElementById('graphCanvas');
   const graphFrame = document.getElementById('canvasFrame');
+  const graphStage = document.getElementById('graphStage');
   const roadmapLaneLayer = document.getElementById('roadmapLaneLayer');
   const roadmapNodeLayer = document.getElementById('roadmapNodeLayer');
   const roadmapEdgeLayer = document.getElementById('roadmapEdgeLayer');
   const roadmapCanvas = document.getElementById('roadmapCanvas');
   const roadmapFrame = document.getElementById('roadmapFrame');
+  const roadmapStage = document.getElementById('roadmapStage');
   const detailContent = document.getElementById('detailContent');
   const nodeIndex = document.getElementById('nodeIndex');
   const presetButtons = document.getElementById('presetButtons');
@@ -137,69 +137,99 @@
     });
   }
 
-  function inferAnchor(source, target) {
-    const dx = (target.x + target.w / 2) - (source.x + source.w / 2);
-    const dy = (target.y + target.h / 2) - (source.y + source.h / 2);
-    if (Math.abs(dx) > Math.abs(dy)) return dx >= 0 ? 'right' : 'left';
-    return dy >= 0 ? 'bottom' : 'top';
+  class NodeBox {
+    constructor(element) {
+      this.id = element.dataset.id;
+      this.x = element.offsetLeft;
+      this.y = element.offsetTop;
+      this.w = element.offsetWidth;
+      this.h = element.offsetHeight;
+    }
+    port(name) {
+      const centerX = this.x + this.w / 2;
+      if (name === 'in') return { x: centerX, y: this.y };
+      if (name === 'out') return { x: centerX, y: this.y + this.h };
+      return { x: centerX, y: this.y + this.h / 2 };
+    }
   }
-  function anchorPoint(box, target, anchor) {
-    const side = anchor || inferAnchor(box, target);
-    const midX = box.x + box.w / 2; const midY = box.y + box.h / 2;
-    if (side === 'left') return { x: box.x, y: midY };
-    if (side === 'right') return { x: box.x + box.w, y: midY };
-    if (side === 'top') return { x: midX, y: box.y };
-    if (side === 'bottom') return { x: midX, y: box.y + box.h };
-    return { x: midX, y: midY };
+
+  class LeftRailRouter {
+    constructor({ boxes, railX }) {
+      this.boxes = boxes;
+      this.railX = railX;
+    }
+    bendOffset(edgeIndex) {
+      return 20 + (edgeIndex % 6) * 5;
+    }
+    route(edge, edgeIndex) {
+      const source = this.boxes.get(edge.source);
+      const target = this.boxes.get(edge.target);
+      if (!source || !target) return null;
+      const out = source.port('out');
+      const input = target.port('in');
+      const offset = this.bendOffset(edgeIndex);
+      const sourceExitY = out.y + offset;
+      const targetEntryY = Math.max(12, input.y - offset);
+      return {
+        path: `M ${out.x} ${out.y} V ${sourceExitY} H ${this.railX} V ${targetEntryY} H ${input.x} V ${input.y}`,
+        label: { x: this.railX + 12, y: Math.round((sourceExitY + targetEntryY) / 2) - 4 },
+      };
+    }
   }
-  function railFlowPath(edge, boxById, railX) {
-    const source = boxById.get(edge.source);
-    const target = boxById.get(edge.target);
-    const sourceX = source.x + source.w / 2;
-    const sourceY = source.y + source.h;
-    const targetX = target.x + target.w / 2;
-    const targetY = target.y;
-    const spread = (Math.abs(hashId(edge.id)) % 5) * 4;
-    const exitY = sourceY + 18 + spread;
-    const entryY = targetY - 18 - spread;
-    return `M ${sourceX} ${sourceY} V ${exitY} H ${railX} V ${entryY} H ${targetX} V ${targetY}`;
+
+  function measureNodeBoxes(layer) {
+    return new Map(Array.from(layer.querySelectorAll('.node-card')).map((element) => {
+      const box = new NodeBox(element);
+      return [box.id, box];
+    }));
   }
-  function edgePath(edge, boxById, canvasWidth, modeClass) {
-    const railX = modeClass === 'roadmap-edge' ? ROADMAP_FLOW_RAIL_X : GRAPH_FLOW_RAIL_X;
-    return railFlowPath(edge, boxById, railX);
+  function railXFor(boxes, mode) {
+    const minNodeX = Math.min(...Array.from(boxes.values()).map((box) => box.x));
+    return Math.max(48, minNodeX - FLOW_RAIL_GAPS[mode]);
   }
-  function labelPoint(edge, boxById, modeClass) {
-    const source = boxById.get(edge.source); const target = boxById.get(edge.target);
-    const railX = modeClass === 'roadmap-edge' ? ROADMAP_FLOW_RAIL_X : GRAPH_FLOW_RAIL_X;
-    return { x: railX + 12, y: Math.round((source.y + source.h + target.y) / 2) - 4 };
+  function setRailPosition(canvas, railX) {
+    canvas.style.setProperty('--flow-rail-x', `${railX}px`);
   }
-  function hashId(value) {
-    return [...value].reduce((total, char) => total + char.charCodeAt(0), 0);
-  }
-  function renderEdgeSet(svg, edges, boxById, canvasWidth, modeClass) {
+  function renderEdgeSet(svg, edges, boxes, modeClass, railX) {
+    const router = new LeftRailRouter({ boxes, railX });
     svg.innerHTML = '';
-    edges.forEach((edge) => {
+    edges.forEach((edge, index) => {
+      const route = router.route(edge, index);
+      if (!route) return;
       const kind = edgeKinds.includes(edge.kind) ? edge.kind : 'governance';
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('id', edge.id); path.setAttribute('class', `edge-path ${modeClass} kind-${kind}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`);
-      path.setAttribute('d', edgePath(edge, boxById, canvasWidth, modeClass)); path.setAttribute('stroke', kindColors[kind]);
-      path.dataset.kind = kind; path.dataset.source = edge.source; path.dataset.target = edge.target;
+      path.setAttribute('id', edge.id);
+      path.setAttribute('class', `edge-path ${modeClass} kind-${kind}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`);
+      path.setAttribute('d', route.path);
+      path.setAttribute('stroke', kindColors[kind]);
+      path.dataset.kind = kind;
+      path.dataset.source = edge.source;
+      path.dataset.target = edge.target;
       svg.appendChild(path);
       if (edge.label) {
-        const point = labelPoint(edge, boxById, modeClass);
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('class', `edge-label ${modeClass}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`); text.setAttribute('x', point.x); text.setAttribute('y', point.y);
-        text.textContent = modeClass === 'roadmap-edge' && primaryRoadmapEdges.has(edge.id) ? `→ ${edge.label}` : (modeClass === 'roadmap-edge' && kind === 'backflow' ? `↩ ${edge.label}` : edge.label); text.dataset.kind = kind; text.dataset.source = edge.source; text.dataset.target = edge.target;
+        text.setAttribute('class', `edge-label ${modeClass}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`);
+        text.setAttribute('x', route.label.x);
+        text.setAttribute('y', route.label.y);
+        text.textContent = modeClass === 'roadmap-edge' && primaryRoadmapEdges.has(edge.id) ? `→ ${edge.label}` : (modeClass === 'roadmap-edge' && kind === 'backflow' ? `↩ ${edge.label}` : edge.label);
+        text.dataset.kind = kind;
+        text.dataset.source = edge.source;
+        text.dataset.target = edge.target;
         svg.appendChild(text);
       }
     });
   }
   function renderGraphEdges() {
-    const boxById = new Map(graph.nodes.map((node) => [node.id, node]));
-    renderEdgeSet(edgeLayer, graph.edges, boxById, graph.meta.canvas.width, 'graph-edge');
+    const boxes = measureNodeBoxes(nodeLayer);
+    const railX = railXFor(boxes, 'graph');
+    setRailPosition(graphCanvas, railX);
+    renderEdgeSet(edgeLayer, graph.edges, boxes, 'graph-edge', railX);
   }
   function renderRoadmapEdges() {
-    renderEdgeSet(roadmapEdgeLayer, graph.roadmap.edges, routeById, graph.roadmap.canvas.width, 'roadmap-edge');
+    const boxes = measureNodeBoxes(roadmapNodeLayer);
+    const railX = railXFor(boxes, 'roadmap');
+    setRailPosition(roadmapCanvas, railX);
+    renderEdgeSet(roadmapEdgeLayer, graph.roadmap.edges, boxes, 'roadmap-edge', railX);
   }
 
   function relatedNodeIds(id) {
@@ -225,11 +255,20 @@
     detailContent.querySelectorAll('[data-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.jump, true)));
   }
 
-  function activeCanvas() { return state.mode === 'roadmap' ? { canvas: roadmapCanvas, frame: roadmapFrame, width: graph.roadmap.canvas.width } : { canvas: graphCanvas, frame: graphFrame, width: graph.meta.canvas.width }; }
+  function activeCanvas() { return state.mode === 'roadmap' ? { canvas: roadmapCanvas, stage: roadmapStage, frame: roadmapFrame, width: graph.roadmap.canvas.width } : { canvas: graphCanvas, stage: graphStage, frame: graphFrame, width: graph.meta.canvas.width }; }
   function applyZoom() {
     const zoom = state.zooms[state.mode];
-    const targets = [{ canvas: roadmapCanvas, width: graph.roadmap.canvas.width, height: graph.roadmap.canvas.height, zoom: state.zooms.roadmap }, { canvas: graphCanvas, width: graph.meta.canvas.width, height: graph.meta.canvas.height, zoom: state.zooms.graph }];
-    targets.forEach(({ canvas, width, height, zoom: z }) => { canvas.style.transform = `scale(${z})`; canvas.style.width = `${width * z}px`; canvas.style.height = `${height * z}px`; });
+    const targets = [
+      { canvas: roadmapCanvas, stage: roadmapStage, width: graph.roadmap.canvas.width, height: graph.roadmap.canvas.height, zoom: state.zooms.roadmap },
+      { canvas: graphCanvas, stage: graphStage, width: graph.meta.canvas.width, height: graph.meta.canvas.height, zoom: state.zooms.graph },
+    ];
+    targets.forEach(({ canvas, stage, width, height, zoom: z }) => {
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      canvas.style.transform = `scale(${z})`;
+      stage.style.width = `${width * z}px`;
+      stage.style.height = `${height * z}px`;
+    });
     document.getElementById('zoomLabel').textContent = `${Math.round(zoom * 100)}%`;
   }
 

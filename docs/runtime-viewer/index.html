@@ -70,18 +70,22 @@
       </section>
 
       <div class="canvas-frame" id="roadmapFrame">
-        <div id="roadmapCanvas" class="roadmap-canvas">
-          <div id="roadmapLaneLayer" class="lane-layer" aria-hidden="true"></div>
-          <svg id="roadmapEdgeLayer" class="edge-layer" aria-hidden="true"></svg>
-          <div id="roadmapNodeLayer" class="node-layer"></div>
+        <div id="roadmapStage" class="canvas-stage">
+          <div id="roadmapCanvas" class="roadmap-canvas">
+            <div id="roadmapLaneLayer" class="lane-layer" aria-hidden="true"></div>
+            <svg id="roadmapEdgeLayer" class="edge-layer" aria-hidden="true"></svg>
+            <div id="roadmapNodeLayer" class="node-layer"></div>
+          </div>
         </div>
       </div>
 
       <div class="canvas-frame is-hidden" id="canvasFrame">
-        <div id="graphCanvas" class="graph-canvas">
-          <div id="laneLayer" class="lane-layer" aria-hidden="true"></div>
-          <svg id="edgeLayer" class="edge-layer" aria-hidden="true"></svg>
-          <div id="nodeLayer" class="node-layer"></div>
+        <div id="graphStage" class="canvas-stage">
+          <div id="graphCanvas" class="graph-canvas">
+            <div id="laneLayer" class="lane-layer" aria-hidden="true"></div>
+            <svg id="edgeLayer" class="edge-layer" aria-hidden="true"></svg>
+            <div id="nodeLayer" class="node-layer"></div>
+          </div>
         </div>
       </div>
 
