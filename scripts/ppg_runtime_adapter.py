@@ -139,7 +139,10 @@ def _owner_decisions(store: GraphStore) -> list[dict[str, Any]]:
 
 def _review_closure_map(store: GraphStore) -> dict[str, list[str]]:
     closure_by_finding: dict[str, list[str]] = {}
+    accepted_closure_statuses = {"validated", "committed"}
     for node in _validation_reports(store, token="closure"):
+        if node.get("status") not in accepted_closure_statuses:
+            continue
         closure_id = str(node.get("id", ""))
         for target_id in node.get("validates", []):
             target = store.nodes_by_id.get(str(target_id), {})
@@ -281,6 +284,16 @@ def render_markdown(state: dict[str, Any]) -> str:
     return "\n".join(sections)
 
 
+
+def _same_existing_file(left: Path, right: Path) -> bool:
+    """Return true when two paths reference the same existing filesystem object."""
+
+    try:
+        return left.exists() and right.exists() and left.samefile(right)
+    except OSError:
+        return False
+
+
 def write_output(text: str, out: Path | None) -> None:
     if out is None:
         print(text, end="")
@@ -299,7 +312,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    if args.out is not None and args.out.resolve() == args.graph.resolve():
+    if args.out is not None and (args.out.resolve() == args.graph.resolve() or _same_existing_file(args.out, args.graph)):
         print(f"INVALID {args.out}: --out must not overwrite the input graph", file=sys.stderr)
         return 1
     try:

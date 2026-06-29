@@ -96,6 +96,41 @@ if python3 scripts/ppg_runtime_adapter.py --graph examples/runtime/overclaim-loo
   exit 1
 fi
 
+cp examples/runtime/overclaim-loop.phase7-after.json "$tmp_dir/graph-copy.json"
+ln "$tmp_dir/graph-copy.json" "$tmp_dir/graph-hardlink.json"
+if python3 scripts/ppg_runtime_adapter.py --graph "$tmp_dir/graph-copy.json" --format markdown --out "$tmp_dir/graph-hardlink.json" >"$tmp_dir/hardlink-guard.json" 2>"$tmp_dir/hardlink-guard.err"; then
+  echo "PHASE8_HARDLINK_OUT_GUARD_UNEXPECTED_PASS" >&2
+  exit 1
+fi
+python3 -m json.tool "$tmp_dir/graph-copy.json" >/dev/null
+
+python3 - "$tmp_dir/blocked-closure.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+path = Path(sys.argv[1])
+payload = json.loads(Path('examples/runtime/overclaim-loop.phase7-after.json').read_text(encoding='utf-8'))
+for node in payload.get('nodes', []):
+    if node.get('id') == 'phase7_overclaim_closure_v1':
+        node['status'] = 'blocked'
+        break
+path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+PY
+python3 scripts/ppg_runtime_adapter.py --graph "$tmp_dir/blocked-closure.json" --format json --out "$tmp_dir/blocked-closure-state.json"
+python3 - "$tmp_dir/blocked-closure-state.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+payload = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+open_ids = {item['id'] for item in payload.get('open_review_findings', [])}
+closed_ids = {item['id'] for item in payload.get('closed_review_findings', [])}
+if 'phase7_overclaim_review_finding_v1' not in open_ids:
+    raise SystemExit('PHASE8_BLOCKED_CLOSURE_FINDING_NOT_OPEN')
+if 'phase7_overclaim_review_finding_v1' in closed_ids:
+    raise SystemExit('PHASE8_BLOCKED_CLOSURE_FINDING_STILL_CLOSED')
+print('PHASE8_BLOCKED_CLOSURE_ASSERTIONS_OK')
+PY
+
 diff -u examples/runtime-reports/overclaim-loop.phase7-state.json "$json_out"
 diff -u examples/runtime-reports/overclaim-loop.phase7-state.md "$md_out"
 node - <<'JS'
