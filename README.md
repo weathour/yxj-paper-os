@@ -25,6 +25,7 @@ This repository intentionally replaces the failed department-self-loop model wit
 6. [`docs/BACKFLOW_PROTOCOL.md`](docs/BACKFLOW_PROTOCOL.md) — local backpropagation and stale propagation.
 7. [`docs/VALIDATION_AND_TESTING.md`](docs/VALIDATION_AND_TESTING.md) — validator plan and closed-loop tests.
 8. [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation roadmap.
+9. [`docs/RELATED_FRAMEWORKS.md`](docs/RELATED_FRAMEWORKS.md) — OMX pipeline and related graph/agent framework survey.
 
 ## Minimal artifacts
 
