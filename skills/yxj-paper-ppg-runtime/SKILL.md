@@ -21,7 +21,7 @@ The main agent controls a versioned graph of materials, task packets, validators
 
 This repository is a local Phase8 plugin/runtime surface. It provides:
 
-- read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
+- graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
 - deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
 - interactive frontend: `docs/runtime-viewer/index.html` with roadmap, detailed graph, and Runtime State modes;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
@@ -43,7 +43,7 @@ Do **not** mutate old `$yxj-paper-os`, use `$yxj-plugin-incubator` as a design s
 
 ## Runtime inspection commands
 
-Use these local read-only commands before claiming graph state:
+Use these local graph-state-read-only commands before claiming graph state:
 
 ```bash
 python3 scripts/ppg_runtime_adapter.py \
@@ -71,7 +71,7 @@ A paper-production node is not complete because an agent produced text. It is co
 ## Safe operating boundaries
 
 - Treat owner decisions as semantic authority gates.
-- Treat runtime adapter output as read-only inspection evidence.
+- Treat runtime adapter output as graph-state-read-only inspection evidence; `--out` may write report files but must not overwrite the input graph.
 - Treat frontend state as human-owner observability, not as a commit surface.
 - Keep graph-operation modules bounded by material/task/validator/backflow/delivery contracts.
 - Preserve existing validation gates before promoting any phase or manuscript state.

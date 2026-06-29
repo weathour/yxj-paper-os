@@ -27,7 +27,7 @@ The repository now exposes the proven PPG runtime through a local, non-publishin
 
 ```text
 Phase7 after graph
--> read-only runtime adapter validates graph
+-> graph-state-read-only runtime adapter validates graph
 -> deterministic JSON/Markdown state reports
 -> frontend Runtime State mode shows graph/frontier/stale/candidate/review/backflow/owner/delivery/blocker panels
 -> one public manager skill describes safe operation and validation gates
@@ -74,7 +74,7 @@ The adapter reports:
 - This is a local development surface, not a live plugin install or marketplace publication.
 - The runtime remains `Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch`.
 - Internal graph-operation lanes are hidden from the public plugin surface.
-- Adapter output is read-only inspection evidence; it does not mutate graph state.
+- Adapter output is graph-state-read-only inspection evidence: it may write reports to `--out`, but refuses to overwrite the input graph and never mutates graph state.
 - Frontend state is owner observability; it is not a commit surface.
 - Completion remains controller-owned and validator-backed.
 
@@ -98,10 +98,11 @@ Expected Phase8 wrapper signals:
 ```text
 PHASE8_JSON_ASSERTIONS_OK
 PHASE8_MARKDOWN_ASSERTIONS_OK
+PHASE8_FRONTEND_RUNTIME_STATE_SYNC_OK
 PHASE8_PLUGIN_SURFACE_VERIFY_OK
 ```
 
-Expected inherited suite signals:
+Expected inherited suite signals included in the Phase8 wrapper and also run directly:
 
 ```text
 PHASE7_FIXTURE_SUITE_OK

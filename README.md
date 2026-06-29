@@ -12,7 +12,7 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 
 ## Current status
 
-- Phase: Phase 8 promoted — local plugin/runtime surface with read-only runtime adapter, frontend Runtime State mode, one public manager skill, and validation package over the Phase 7 vertical slice.
+- Phase: Phase 8 promoted — local plugin/runtime surface with graph-state-read-only runtime adapter, frontend Runtime State mode, one public manager skill, and validation package over the Phase 7 vertical slice.
 - Live install: not enabled.
 - Marketplace registration: not enabled.
 - Existing `$yxj-paper-os`: not mutated by this repository.
@@ -66,8 +66,8 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 - [`examples/backflow_tasks/overclaim_repair.compiled.v1.yaml`](examples/backflow_tasks/overclaim_repair.compiled.v1.yaml), [`examples/runtime/overclaim-loop.phase5-stale.json`](examples/runtime/overclaim-loop.phase5-stale.json), and [`examples/controller-reports/overclaim-loop.phase5-stale.report.txt`](examples/controller-reports/overclaim-loop.phase5-stale.report.txt): Phase 5 before/after evidence that only affected downstream nodes become stale.
 - [`scripts/compile_task_packet.py`](scripts/compile_task_packet.py): Phase 6 deterministic strict TaskPacket compiler for intro-writing and claim-repair targets.
 - [`scripts/verify_phase6_task_packets.sh`](scripts/verify_phase6_task_packets.sh): Phase 6 regression matrix for strict packet compilation, missing-material reports, packet-aware returns, authority/path negative fixtures, and Phase 5 regressions.
-- [`scripts/ppg_runtime_adapter.py`](scripts/ppg_runtime_adapter.py): Phase 8 read-only operator-facing adapter that validates a graph and emits deterministic JSON/Markdown runtime state reports.
-- [`scripts/verify_phase8_plugin_surface.sh`](scripts/verify_phase8_plugin_surface.sh): Phase 8 validation wrapper for adapter semantic keys/sections, invalid graph rejection, frontend syntax/safe-DOM assertions, and plugin manifest validation.
+- [`scripts/ppg_runtime_adapter.py`](scripts/ppg_runtime_adapter.py): Phase 8 graph-state-read-only operator-facing adapter that validates a graph and emits deterministic JSON/Markdown runtime state reports.
+- [`scripts/verify_phase8_plugin_surface.sh`](scripts/verify_phase8_plugin_surface.sh): Phase 8 validation wrapper for adapter semantic keys/sections, invalid graph/output-path rejection, frontend runtime-state sync, frontend syntax/safe-DOM assertions, plugin/skill validation, and Phase7/Phase6 inherited gates.
 - [`examples/runtime-reports/overclaim-loop.phase7-state.json`](examples/runtime-reports/overclaim-loop.phase7-state.json) and [`examples/runtime-reports/overclaim-loop.phase7-state.md`](examples/runtime-reports/overclaim-loop.phase7-state.md): deterministic Phase 8 state report fixtures for the Phase 7 after graph.
 - [`examples/packets/intro_writing_packet.v2.yaml`](examples/packets/intro_writing_packet.v2.yaml), [`examples/packets/claim_repair_packet.v1.yaml`](examples/packets/claim_repair_packet.v1.yaml), [`examples/missing_material_reports/intro_missing_reader_spine.v1.yaml`](examples/missing_material_reports/intro_missing_reader_spine.v1.yaml), and [`examples/candidate_returns/intro_candidate_return.v1.yaml`](examples/candidate_returns/intro_candidate_return.v1.yaml): Phase 6 positive evidence for strict packets, blocked compilation, and non-self-certifying candidate return.
 - [`examples/runtime/overclaim-loop.phase7-after.json`](examples/runtime/overclaim-loop.phase7-after.json): Phase 7 closed-loop after graph consumed by the Phase 8 runtime adapter/frontend state surface.

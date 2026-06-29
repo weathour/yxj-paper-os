@@ -370,11 +370,13 @@
       return card;
     });
 
-    const review = appendStateSection(runtimeStateContent, 'Review Findings + Backflow Tasks', '审核 finding 不直接重写全文，而是映射到最近责任物料和局部 repair task。');
-    appendCardList(review, runtime.open_review_findings, (item) => {
+    const review = appendStateSection(runtimeStateContent, 'Review Findings + Backflow Tasks', '审核 finding 不直接重写全文，而是映射到最近责任物料和局部 repair task；已闭合 finding 显示 closed_by。');
+    appendCardList(review, [...runtime.open_review_findings, ...runtime.closed_review_findings], (item) => {
       const card = stateCard(item.id, 'review');
       appendKeyValue(card, 'failure', item.failure_type);
       appendKeyValue(card, 'target', item.primary_target);
+      appendKeyValue(card, 'closure status', item.closure_status || 'open');
+      appendKeyValue(card, 'closed by', (item.closed_by || []).join(', ') || 'none');
       appendKeyValue(card, 'classified repair', item.classified_repair);
       appendKeyValue(card, 'repair tasks', (item.repair_tasks || []).join(', ') || 'none');
       return card;

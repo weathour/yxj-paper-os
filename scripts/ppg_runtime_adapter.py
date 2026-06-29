@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Read-only operator-facing runtime adapter for PPG graph state.
+"""Graph-state-read-only operator-facing adapter for PPG runtime state.
 
 The adapter intentionally wraps the proven graph store/controller helpers instead
-of becoming a second runtime. It validates input first, then emits deterministic
-JSON or Markdown state reports for the main agent and the frontend viewer.
+of becoming a second runtime. It validates input graph state first, never mutates
+that graph, and then emits deterministic JSON or Markdown reports for the main
+agent and the frontend viewer.
 """
 from __future__ import annotations
 
@@ -30,6 +31,7 @@ REQUIRED_JSON_KEYS = [
     "candidate_materials",
     "owner_decisions",
     "open_review_findings",
+    "closed_review_findings",
     "backflow_tasks",
     "delivery_gates",
     "review_closures",
@@ -135,13 +137,31 @@ def _owner_decisions(store: GraphStore) -> list[dict[str, Any]]:
     return [_base_node(node) for node in _sorted_nodes(store.nodes) if node.get("node_type") == "owner_decision"]
 
 
-def _review_findings(store: GraphStore) -> list[dict[str, Any]]:
+def _review_closure_map(store: GraphStore) -> dict[str, list[str]]:
+    closure_by_finding: dict[str, list[str]] = {}
+    for node in _validation_reports(store, token="closure"):
+        closure_id = str(node.get("id", ""))
+        for target_id in node.get("validates", []):
+            target = store.nodes_by_id.get(str(target_id), {})
+            if target.get("node_type") == "review_finding":
+                closure_by_finding.setdefault(str(target_id), []).append(closure_id)
+    return {key: sorted(value) for key, value in sorted(closure_by_finding.items())}
+
+
+def _review_finding_entries(store: GraphStore) -> list[dict[str, Any]]:
+    closure_by_finding = _review_closure_map(store)
     findings: list[dict[str, Any]] = []
-    for node in store.open_review_findings():
+    for node in _sorted_nodes(store.nodes):
+        if node.get("node_type") != "review_finding" or node.get("status") == "rejected":
+            continue
+        node_id = _node_id(node)
+        closed_by = closure_by_finding.get(node_id, [])
         entry = _base_node(node)
-        entry["classified_repair"] = store.has_classified_repair(_node_id(node))
-        entry["repair_tasks"] = _edge_target_ids(store, _node_id(node), edge_types={"produces", "repairs"})
-        entry["invalidates"] = _edge_target_ids(store, _node_id(node), edge_types={"invalidates"})
+        entry["classified_repair"] = store.has_classified_repair(node_id)
+        entry["closure_status"] = "closed" if closed_by else "open"
+        entry["closed_by"] = closed_by
+        entry["repair_tasks"] = _edge_target_ids(store, node_id, edge_types={"produces", "repairs"})
+        entry["invalidates"] = _edge_target_ids(store, node_id, edge_types={"invalidates"})
         findings.append(entry)
     return findings
 
@@ -152,6 +172,7 @@ def build_runtime_state(graph_path: Path) -> dict[str, Any]:
         raise ValueError("; ".join(errors))
 
     store = GraphStore(graph_path)
+    review_findings = _review_finding_entries(store)
     state = {
         "schema_version": "ppg-runtime-state-report/v0.1",
         "graph": {
@@ -175,7 +196,8 @@ def build_runtime_state(graph_path: Path) -> dict[str, Any]:
         "stale_materials": [_material_entry(store, node) for node in store.stale_materials()],
         "candidate_materials": [_material_entry(store, node) for node in store.candidate_materials()],
         "owner_decisions": _owner_decisions(store),
-        "open_review_findings": _review_findings(store),
+        "open_review_findings": [entry for entry in review_findings if entry.get("closure_status") == "open"],
+        "closed_review_findings": [entry for entry in review_findings if entry.get("closure_status") == "closed"],
         "backflow_tasks": _backflow_tasks(store),
         "delivery_gates": _validation_reports(store, token="delivery_gate"),
         "review_closures": _validation_reports(store, token="closure"),
@@ -231,10 +253,16 @@ def render_markdown(state: dict[str, Any]) -> str:
         "## Owner Decisions",
         _table_or_none([f"- {item['id']}: {item.get('status', '')} — {item.get('label', '')}" for item in state["owner_decisions"]]),
         "",
-        "## Review Findings",
+        "## Open Review Findings",
         _table_or_none([
-            f"- {item['id']}: {item.get('failure_type', '')}; classified_repair={str(item.get('classified_repair', False)).lower()}; repair_tasks={','.join(item.get('repair_tasks', [])) or 'none'}"
+            f"- {item['id']}: {item.get('failure_type', '')}; closure_status={item.get('closure_status', 'open')}; classified_repair={str(item.get('classified_repair', False)).lower()}; repair_tasks={','.join(item.get('repair_tasks', [])) or 'none'}"
             for item in state["open_review_findings"]
+        ]),
+        "",
+        "## Closed Review Findings",
+        _table_or_none([
+            f"- {item['id']}: {item.get('failure_type', '')}; closed_by={','.join(item.get('closed_by', [])) or 'none'}; repair_tasks={','.join(item.get('repair_tasks', [])) or 'none'}"
+            for item in state["closed_review_findings"]
         ]),
         "",
         "## Backflow Tasks",
@@ -262,15 +290,18 @@ def write_output(text: str, out: Path | None) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Emit a deterministic read-only PPG runtime state report.")
+    parser = argparse.ArgumentParser(description="Emit a deterministic graph-state-read-only PPG runtime state report.")
     parser.add_argument("--graph", required=True, type=Path, help="PPG graph JSON fixture to inspect.")
     parser.add_argument("--format", choices=["json", "markdown"], default="json", help="Report output format.")
-    parser.add_argument("--out", type=Path, help="Write output to path instead of stdout.")
+    parser.add_argument("--out", type=Path, help="Write report to path instead of stdout; refuses to overwrite the input graph.")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.out is not None and args.out.resolve() == args.graph.resolve():
+        print(f"INVALID {args.out}: --out must not overwrite the input graph", file=sys.stderr)
+        return 1
     try:
         state = build_runtime_state(args.graph)
     except Exception as exc:  # noqa: BLE001 - CLI adapter reports validation failures uniformly

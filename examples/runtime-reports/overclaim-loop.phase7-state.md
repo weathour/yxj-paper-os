@@ -27,9 +27,11 @@
 ## Owner Decisions
 - none
 
-## Review Findings
-- finding_overclaim_v1: claim_overreach; classified_repair=true; repair_tasks=repair_claim_boundary_task_v1
-- phase7_overclaim_review_finding_v1: claim_overreach; classified_repair=true; repair_tasks=phase7_overclaim_review_finding_v1_backflow_v1
+## Open Review Findings
+- finding_overclaim_v1: claim_overreach; closure_status=open; classified_repair=true; repair_tasks=repair_claim_boundary_task_v1
+
+## Closed Review Findings
+- phase7_overclaim_review_finding_v1: claim_overreach; closed_by=phase7_overclaim_closure_v1; repair_tasks=phase7_overclaim_review_finding_v1_backflow_v1
 
 ## Backflow Tasks
 - phase7_overclaim_review_finding_v1_backflow_v1: planned; artifact=examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml

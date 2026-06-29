@@ -28,6 +28,7 @@ required = [
     "candidate_materials",
     "owner_decisions",
     "open_review_findings",
+    "closed_review_findings",
     "backflow_tasks",
     "delivery_gates",
     "review_closures",
@@ -47,7 +48,15 @@ for key in ["id", "kind", "priority", "reason"]:
 if not payload.get("stale_materials"):
     raise SystemExit("PHASE8_EXPECTED_STALE_MATERIALS")
 if not payload.get("open_review_findings"):
-    raise SystemExit("PHASE8_EXPECTED_REVIEW_FINDINGS")
+    raise SystemExit("PHASE8_EXPECTED_OPEN_REVIEW_FINDINGS")
+if not payload.get("closed_review_findings"):
+    raise SystemExit("PHASE8_EXPECTED_CLOSED_REVIEW_FINDINGS")
+for finding in payload.get("open_review_findings", []):
+    if finding.get("closure_status") != "open":
+        raise SystemExit("PHASE8_OPEN_FINDING_BAD_CLOSURE_STATUS")
+for finding in payload.get("closed_review_findings", []):
+    if finding.get("closure_status") != "closed" or not finding.get("closed_by"):
+        raise SystemExit("PHASE8_CLOSED_FINDING_MISSING_CLOSURE")
 if not payload.get("backflow_tasks"):
     raise SystemExit("PHASE8_EXPECTED_BACKFLOW_TASKS")
 if not payload.get("delivery_gates"):
@@ -64,7 +73,8 @@ required_sections = [
     "## Next Frontier",
     "## Active Versions",
     "## Stale Materials",
-    "## Review Findings",
+    "## Open Review Findings",
+    "## Closed Review Findings",
     "## Backflow Tasks",
     "## Owner Decisions",
     "## Delivery Gates",
@@ -81,8 +91,25 @@ if python3 scripts/ppg_runtime_adapter.py --graph examples/runtime/invalid-activ
   exit 1
 fi
 
+if python3 scripts/ppg_runtime_adapter.py --graph examples/runtime/overclaim-loop.phase7-after.json --format json --out examples/runtime/overclaim-loop.phase7-after.json >"$tmp_dir/out-guard.json" 2>"$tmp_dir/out-guard.err"; then
+  echo "PHASE8_OUT_GUARD_UNEXPECTED_PASS" >&2
+  exit 1
+fi
+
 diff -u examples/runtime-reports/overclaim-loop.phase7-state.json "$json_out"
 diff -u examples/runtime-reports/overclaim-loop.phase7-state.md "$md_out"
+node - <<'JS'
+const fs = require('fs');
+global.window = {};
+require(process.cwd() + '/docs/runtime-viewer/runtime-graph-data.js');
+const embedded = global.window.PPG_RUNTIME_GRAPH.runtimeState;
+const fixture = JSON.parse(fs.readFileSync('examples/runtime-reports/overclaim-loop.phase7-state.json', 'utf8'));
+if (JSON.stringify(embedded) !== JSON.stringify(fixture)) {
+  console.error('PHASE8_FRONTEND_RUNTIME_STATE_DRIFT');
+  process.exit(1);
+}
+console.log('PHASE8_FRONTEND_RUNTIME_STATE_SYNC_OK');
+JS
 node --check docs/runtime-viewer/runtime-graph-data.js
 node --check docs/runtime-viewer/app.js
 if grep -q 'runtimeStateContent\.innerHTML' docs/runtime-viewer/app.js; then
@@ -92,5 +119,8 @@ fi
 grep -q 'runtimeStateContent.textContent' docs/runtime-viewer/app.js
 grep -q 'createTextElement' docs/runtime-viewer/app.js
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 scripts/run_fixture_suite.py examples/runtime/overclaim-loop.v1.json
+bash scripts/verify_phase6_task_packets.sh
 
 echo "PHASE8_PLUGIN_SURFACE_VERIFY_OK"

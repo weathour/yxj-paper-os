@@ -178,6 +178,30 @@ window.PPG_RUNTIME_GRAPH = (() => {
       "version": "v3-candidate"
     }
   ],
+  "closed_review_findings": [
+    {
+      "artifact_path": "examples/review_findings/phase7_overclaim.v1.yaml",
+      "classified_repair": true,
+      "closed_by": [
+        "phase7_overclaim_closure_v1"
+      ],
+      "closure_status": "closed",
+      "failure_type": "claim_overreach",
+      "id": "phase7_overclaim_review_finding_v1",
+      "invalidates": [
+        "claim_boundary_map_v1"
+      ],
+      "label": "Phase7 finding: intro overclaim v1",
+      "node_type": "review_finding",
+      "primary_target": "claim_boundary_map_v1",
+      "repair_tasks": [
+        "phase7_overclaim_review_finding_v1_backflow_v1"
+      ],
+      "status": "validated",
+      "summary": "Mock reviewer found universal safety overclaim in intro_draft_v1.",
+      "version": "v1"
+    }
+  ],
   "completion_blockers": [
     "candidate claim_boundary_map_candidate_v3 cannot commit: candidate status must be validated before commit; candidate must declare supersedes=claim_boundary_map_v2; candidate must have supersedes edge claim_boundary_map_candidate_v3 -> claim_boundary_map_v2; candidate-specific validator edge is required; candidate-specific validation report reference is required"
   ],
@@ -211,6 +235,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
   "open_review_findings": [
     {
       "classified_repair": true,
+      "closed_by": [],
+      "closure_status": "open",
       "failure_type": "claim_overreach",
       "id": "finding_overclaim_v1",
       "invalidates": [
@@ -224,24 +250,6 @@ window.PPG_RUNTIME_GRAPH = (() => {
       ],
       "status": "candidate",
       "summary": "Draft states stronger guarantee than evidence supports.",
-      "version": "v1"
-    },
-    {
-      "artifact_path": "examples/review_findings/phase7_overclaim.v1.yaml",
-      "classified_repair": true,
-      "failure_type": "claim_overreach",
-      "id": "phase7_overclaim_review_finding_v1",
-      "invalidates": [
-        "claim_boundary_map_v1"
-      ],
-      "label": "Phase7 finding: intro overclaim v1",
-      "node_type": "review_finding",
-      "primary_target": "claim_boundary_map_v1",
-      "repair_tasks": [
-        "phase7_overclaim_review_finding_v1_backflow_v1"
-      ],
-      "status": "validated",
-      "summary": "Mock reviewer found universal safety overclaim in intro_draft_v1.",
       "version": "v1"
     }
   ],

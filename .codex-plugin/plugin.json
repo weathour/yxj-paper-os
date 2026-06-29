@@ -1,7 +1,7 @@
 {
   "name": "yxj-paper-ppg-runtime",
   "version": "0.1.0",
-  "description": "Codex-native paper production graph runtime with read-only graph-state adapter, local backflow, and human-owner state surface.",
+  "description": "Codex-native paper production graph runtime with graph-state-read-only adapter, local backflow, and human-owner state surface.",
   "author": {
     "name": "Local developer"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "yxj Paper PPG Runtime",
     "shortDescription": "Inspect paper production as a visible material graph runtime.",
-    "longDescription": "A local, non-publishing Codex plugin surface for academic paper production using explicit material graphs, read-only runtime state reports, local backpropagation, validation, and main-agent dispatch.",
+    "longDescription": "A local, non-publishing Codex plugin surface for academic paper production using explicit material graphs, graph-state-read-only runtime state reports, local backpropagation, validation, and main-agent dispatch.",
     "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [
