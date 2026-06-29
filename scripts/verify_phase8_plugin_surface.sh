@@ -4,10 +4,9 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo_root"
 
-tmp_dir="${TMPDIR:-/tmp}/phase8-plugin-surface-$$"
+tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/phase8-plugin-surface.XXXXXX")"
 cleanup() { rm -rf "$tmp_dir"; }
 trap cleanup EXIT
-mkdir -p "$tmp_dir"
 json_out="$tmp_dir/runtime-state.json"
 md_out="$tmp_dir/runtime-state.md"
 
