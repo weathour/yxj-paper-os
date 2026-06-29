@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path, PurePosixPath
+import tempfile
 import sys
 from typing import Any
 
@@ -46,6 +47,27 @@ FORBIDDEN_OVERCLAIM_PHRASES = (
     "always safe under v2x authority loss",
 )
 REQUIRED_BOUNDED_CLAIM_TERMS = ("bounded", "authority")
+ALLOWED_SECTION_DRAFT_FIELDS = {
+    "schema_version",
+    "draft_id",
+    "status",
+    "section_id",
+    "packet_id",
+    "source_materials",
+    "evidence_anchors",
+    "graph_completion_claimed",
+    "recursive_dispatch_requested",
+}
+FORBIDDEN_AUTHORITY_ESCAPE_FIELDS = {
+    "dispatch_subagents",
+    "write_outside_allowed_paths",
+    "writes_outside_allowed_paths",
+    "paper_complete",
+    "paper_completion_claimed",
+    "runtime_complete",
+    "graph_complete",
+    "mark_graph_complete",
+}
 
 
 def _print_result(path: Path, errors: list[ValidationIssue]) -> int:
@@ -86,12 +108,10 @@ def _split_frontmatter(path: Path) -> tuple[dict[str, Any] | None, str, list[Val
         return None, text, [issue("E_SECTION_FRONTMATTER_REQUIRED", "section draft front matter closing delimiter is missing")]
     frontmatter_text = "\n".join(lines[1:closing_index]) + "\n"
     body = "\n".join(lines[closing_index + 1 :]).strip()
-    tmp = path.with_suffix(path.suffix + ".frontmatter.tmp.yaml")
-    try:
+    with tempfile.TemporaryDirectory(prefix="ppg-section-frontmatter-") as tmp_dir:
+        tmp = Path(tmp_dir) / "frontmatter.yaml"
         tmp.write_text(frontmatter_text, encoding="utf-8")
         metadata, parse_errors = load_document(tmp)
-    finally:
-        tmp.unlink(missing_ok=True)
     if parse_errors:
         return None, body, parse_errors
     if not isinstance(metadata, dict):
@@ -104,6 +124,13 @@ def validate(path: Path) -> list[ValidationIssue]:
     if errors:
         return errors
     assert isinstance(metadata, dict)
+
+    unknown_fields = sorted(set(metadata) - ALLOWED_SECTION_DRAFT_FIELDS)
+    if unknown_fields:
+        errors.append(issue("E_SECTION_UNKNOWN_FIELD", f"unknown SectionDraft front matter fields are not allowed: {', '.join(unknown_fields)}"))
+    authority_escape_fields = sorted(set(metadata) & FORBIDDEN_AUTHORITY_ESCAPE_FIELDS)
+    if authority_escape_fields:
+        errors.append(issue("E_SECTION_AUTHORITY_ESCAPE_FIELD", f"authority escape fields are forbidden: {', '.join(authority_escape_fields)}"))
 
     errors.extend(require_string_fields(metadata, ["schema_version", "draft_id", "status", "section_id", "packet_id"], "E_SECTION_FIELD_REQUIRED"))
     if metadata.get("schema_version") and metadata.get("schema_version") != "ppg-section-draft/v0.1":

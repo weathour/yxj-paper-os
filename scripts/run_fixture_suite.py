@@ -311,6 +311,21 @@ def run_suite(graph_path: Path, *, update_after_graph: bool = False) -> int:
         _require_file_equal(intro_return, REPO_ROOT / "examples/candidate_returns/intro_candidate_return.phase7.yaml")
         _run([PYTHON, "scripts/validate_section_draft.py", "examples/candidate-artifacts/intro_draft.v2.md"])
 
+        invalid_section_cases = {
+            "examples/candidate-artifacts/invalid-section-draft-missing-frontmatter.md": "E_SECTION_FRONTMATTER_REQUIRED",
+            "examples/candidate-artifacts/invalid-section-draft-overclaim.md": "E_SECTION_FORBIDDEN_OVERCLAIM",
+            "examples/candidate-artifacts/invalid-section-draft-completion-claimed.md": "E_SECTION_COMPLETION_FORBIDDEN",
+            "examples/candidate-artifacts/invalid-section-draft-missing-evidence.md": "E_SECTION_EVIDENCE_REQUIRED",
+            "examples/candidate-artifacts/invalid-section-draft-authority-escape.md": "E_SECTION_UNKNOWN_FIELD",
+        }
+        for invalid_fixture, expected_code in invalid_section_cases.items():
+            result = _run([PYTHON, "scripts/validate_section_draft.py", invalid_fixture], expect_success=False)
+            combined_output = f"{result.stdout}\n{result.stderr}"
+            if expected_code not in combined_output:
+                print(f"NEGATIVE_SECTION_CODE_MISSING fixture={invalid_fixture} expected={expected_code}", file=sys.stderr)
+                print(combined_output, file=sys.stderr)
+                return 1
+
         _run([PYTHON, "scripts/mock_reviewer.py", "--mode", "closure", "--draft", "examples/candidate-artifacts/intro_draft.v2.md", "--closure-out", str(closure_out), "--gate-out", str(gate_out)])
         _run([PYTHON, "scripts/validate_delivery_gate.py", str(closure_out)])
         _run([PYTHON, "scripts/validate_delivery_gate.py", str(gate_out)])
