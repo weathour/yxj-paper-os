@@ -30,6 +30,7 @@ This repository intentionally replaces the failed department-self-loop model wit
 11. [`docs/HUMAN_NEED_TO_PAPER_FLOW.md`](docs/HUMAN_NEED_TO_PAPER_FLOW.md) — human-need-centered paper production dimensions and flow diagram.
 12. [`docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md`](docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md) — inventory of yxj-paper-os paper-production layers, dimensions, and materials.
 13. [`docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md`](docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md) — all yxj-paper-os materials reorganized into neural-network-like paper-production layers.
+14. [`docs/SUBAGENT_STAGE_BLUEPRINT.md`](docs/SUBAGENT_STAGE_BLUEPRINT.md) — dispatchable subagent stages with consumed bundles, outputs, validators, and backflow targets.
 
 ## Minimal artifacts
 
