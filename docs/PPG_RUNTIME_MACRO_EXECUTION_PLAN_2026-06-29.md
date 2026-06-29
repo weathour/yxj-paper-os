@@ -756,6 +756,18 @@ Validators:
 | Strict review | `docs/RUNTIME_STRICT_REVIEW_ROUND2_2026-06-29.md` | P0 gating backlog |
 | Plugin OS pattern | `yxj-plugin-incubator` references | single public manager entry later |
 
+## 6.5 Phase-scoped Autopilot execution protocol
+
+The detailed ideal-state eight-phase roadmap and the recommended phase-scoped `$autopilot` / `$ralplan -> $ultragoal` cycle are recorded in [`PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md`](PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md).
+
+Key rule:
+
+```text
+Do not run one project-wide Autopilot over all phases.
+Use one phase-scoped Autopilot or Ralplan/Ultragoal cycle per promoted phase.
+Each phase needs its own plan, Ultragoal ledger evidence, validation output, review gate, and promotion record.
+```
+
 ## 7. Concrete execution order for next sessions
 
 ### Session 1: graph core and schemas
