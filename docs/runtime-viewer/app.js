@@ -8,8 +8,10 @@
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
   };
   const primaryRoadmapEdges = new Set(['r-01','r-02','r-03','r-04','r-05','r-06','r-07','r-08','r-09','r-10','r-11','r-12','r-13','r-14','r-15']);
+  const ROADMAP_FLOW_RAIL_X = 150;
+  const GRAPH_FLOW_RAIL_X = 160;
   const state = {
-    mode: 'roadmap', selectedId: 'CTRL', query: '',
+    mode: 'roadmap', selectedId: 'S00', query: '',
     zooms: { roadmap: 0.72, graph: 0.62 },
     visibleKinds: new Set(graph.defaultVisibleKinds || edgeKinds),
     activePreset: 'all', focusSet: new Set(graph.presets.find((preset) => preset.id === 'all').nodes), stepIndex: 1,
@@ -150,34 +152,41 @@
     if (side === 'bottom') return { x: midX, y: box.y + box.h };
     return { x: midX, y: midY };
   }
-  function edgePath(edge, boxById, canvasWidth) {
-    const source = boxById.get(edge.source); const target = boxById.get(edge.target);
-    const start = anchorPoint(source, target, edge.sourceAnchor); const end = anchorPoint(target, source, edge.targetAnchor);
-    if (edge.route === 'leftRail' || edge.route === 'backRail') return `M ${start.x} ${start.y} H 160 V ${end.y} H ${end.x}`;
-    if (edge.route === 'rightRail') return `M ${start.x} ${start.y} H ${canvasWidth - 80} V ${end.y} H ${end.x}`;
-    if (Math.abs(start.x - end.x) < 40 || Math.abs(start.y - end.y) < 40) return `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
-    const midX = Math.round((start.x + end.x) / 2);
-    return `M ${start.x} ${start.y} H ${midX} V ${end.y} H ${end.x}`;
+  function railFlowPath(edge, boxById, railX) {
+    const source = boxById.get(edge.source);
+    const target = boxById.get(edge.target);
+    const sourceX = source.x + source.w / 2;
+    const sourceY = source.y + source.h;
+    const targetX = target.x + target.w / 2;
+    const targetY = target.y;
+    const spread = (Math.abs(hashId(edge.id)) % 5) * 4;
+    const exitY = sourceY + 18 + spread;
+    const entryY = targetY - 18 - spread;
+    return `M ${sourceX} ${sourceY} V ${exitY} H ${railX} V ${entryY} H ${targetX} V ${targetY}`;
   }
-  function labelPoint(edge, boxById) {
-    const source = boxById.get(edge.source); const target = boxById.get(edge.target);
-    return { x: Math.round((source.x + source.w / 2 + target.x + target.w / 2) / 2), y: Math.round((source.y + source.h / 2 + target.y + target.h / 2) / 2) - 6 };
+  function edgePath(edge, boxById, canvasWidth, modeClass) {
+    const railX = modeClass === 'roadmap-edge' ? ROADMAP_FLOW_RAIL_X : GRAPH_FLOW_RAIL_X;
+    return railFlowPath(edge, boxById, railX);
   }
-  function markerDefs() {
-    return `<defs>${edgeKinds.map((kind) => `<marker id="arrow-${kind}" markerWidth="14" markerHeight="14" refX="11" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,8 L11,4 z" fill="${kindColors[kind]}" /></marker>`).join('')}</defs>`;
+  function labelPoint(edge, boxById, modeClass) {
+    const source = boxById.get(edge.source); const target = boxById.get(edge.target);
+    const railX = modeClass === 'roadmap-edge' ? ROADMAP_FLOW_RAIL_X : GRAPH_FLOW_RAIL_X;
+    return { x: railX + 12, y: Math.round((source.y + source.h + target.y) / 2) - 4 };
+  }
+  function hashId(value) {
+    return [...value].reduce((total, char) => total + char.charCodeAt(0), 0);
   }
   function renderEdgeSet(svg, edges, boxById, canvasWidth, modeClass) {
-    svg.innerHTML = markerDefs();
+    svg.innerHTML = '';
     edges.forEach((edge) => {
       const kind = edgeKinds.includes(edge.kind) ? edge.kind : 'governance';
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('id', edge.id); path.setAttribute('class', `edge-path ${modeClass} kind-${kind}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`);
-      path.setAttribute('d', edgePath(edge, boxById, canvasWidth)); path.setAttribute('stroke', kindColors[kind]);
-      if (modeClass === 'graph-edge') path.setAttribute('marker-end', `url(#arrow-${kind})`);
+      path.setAttribute('d', edgePath(edge, boxById, canvasWidth, modeClass)); path.setAttribute('stroke', kindColors[kind]);
       path.dataset.kind = kind; path.dataset.source = edge.source; path.dataset.target = edge.target;
       svg.appendChild(path);
       if (edge.label) {
-        const point = labelPoint(edge, boxById);
+        const point = labelPoint(edge, boxById, modeClass);
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('class', `edge-label ${modeClass}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`); text.setAttribute('x', point.x); text.setAttribute('y', point.y);
         text.textContent = modeClass === 'roadmap-edge' && primaryRoadmapEdges.has(edge.id) ? `→ ${edge.label}` : (modeClass === 'roadmap-edge' && kind === 'backflow' ? `↩ ${edge.label}` : edge.label); text.dataset.kind = kind; text.dataset.source = edge.source; text.dataset.target = edge.target;
@@ -244,7 +253,8 @@
       const related = source === state.selectedId || target === state.selectedId;
       const inFocus = state.focusSet.has(source) && state.focusSet.has(target);
       const hasFocus = state.focusSet && state.focusSet.size && state.activePreset !== 'all';
-      element.style.display = visibleByKind ? '' : 'none';
+      const localOnly = state.mode === 'roadmap' && element.classList.contains('roadmap-edge');
+      element.style.display = visibleByKind && (!localOnly || related) ? '' : 'none';
       element.classList.toggle('is-related', related);
       element.classList.toggle('is-dimmed', hasFocus ? !inFocus : false);
     });

@@ -126,46 +126,74 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .route-card .node-subtitle { font-size: 10px; }
 .route-card .io-preview { font-size: 10px; line-height: 1.3; }
 .route-card.is-related-card:not(.is-selected) { outline: 2px solid oklch(0.76 0.08 150 / 0.55); }
-.edge-path.roadmap-edge { opacity: 0.66; stroke-width: 2.4; }
-.edge-path.roadmap-edge.kind-backflow { stroke-width: 2.8; stroke-dasharray: 8 5; }
-.edge-path.roadmap-edge.kind-validation { stroke-dasharray: 4 4; opacity: 0.46; }
-.edge-label.roadmap-edge { opacity: 0.92; font-size: 10.5px; }
-.edge-label.roadmap-edge.is-dimmed { opacity: 0.32; }
-.edge-path.roadmap-edge.is-related { stroke-width: 3.4; opacity: 1; }
-.edge-label.roadmap-edge.is-related { opacity: 1; font-weight: 700; }
+/* Roadmap mode: global order is shown by the compact route strip; the canvas shows the selected node's local flow only. */
 .edge-label.graph-edge { opacity: 0; }
 .edge-label.graph-edge.is-related { opacity: 1; }
 #roadmapFrame .runtime-lane::after { left: 130px; }
 #roadmapFrame .lane-label { width: 104px; }
 #roadmapFrame .lane-label strong { font-size: 13px; }
 #roadmapFrame .lane-label span { font-size: 11px; }
-.edge-path.roadmap-edge.primary-edge { opacity: 0.92; stroke-width: 3.1; }
-.edge-label.roadmap-edge.primary-edge { opacity: 1; font-weight: 700; fill: var(--ink); font-size: 11px; }
-.edge-path.roadmap-edge.primary-edge.is-dimmed { opacity: 0.5; }
-.edge-label.roadmap-edge.primary-edge.is-dimmed { opacity: 0.55; }
-.edge-path.roadmap-edge.kind-material { opacity: 0.92; stroke-width: 3.2; }
-.edge-path.roadmap-edge.kind-material.primary-edge { opacity: 1; stroke-width: 3.8; }
-.edge-path.roadmap-edge.kind-backflow { opacity: 0.98; stroke-width: 3.6; }
-.edge-path.roadmap-edge.kind-governance { opacity: 0.78; stroke-width: 2.6; }
-.edge-label.roadmap-edge { font-size: 11.5px; fill: oklch(0.28 0.035 255); }
 .roadmap-guide { display: grid; gap: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); padding: 10px 12px; margin-bottom: 12px; }
+.flow-rule { margin: 0; color: var(--muted); font-size: 13px; }
+.flow-rule strong { color: var(--ink); margin-right: 8px; }
 .guide-row { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 10px; align-items: start; }
 .guide-row strong { font-size: 13px; color: var(--ink); padding-top: 4px; }
 .route-strip { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
 .route-strip button { min-height: 28px; padding: 3px 8px; font-size: 12px; background: var(--bg); }
 .backflow-strip button { border-color: oklch(0.72 0.12 25); background: oklch(0.96 0.04 25); }
-.edge-path.roadmap-edge { stroke-linecap: round; stroke-linejoin: round; }
-.edge-path.roadmap-edge.primary-edge { stroke-linecap: round; }
-.edge-path.roadmap-edge.kind-material:not(.primary-edge) { opacity: 0.24; stroke-width: 2; }
-.edge-path.roadmap-edge.primary-edge { stroke: oklch(0.34 0.12 150) !important; stroke-width: 5.2; opacity: 1; }
-.edge-label.roadmap-edge.primary-edge { font-size: 12px; fill: oklch(0.23 0.06 150); font-weight: 800; }
-.edge-path.roadmap-edge.kind-backflow { stroke: oklch(0.47 0.18 25) !important; stroke-width: 4.6; opacity: 0.92; }
-.edge-label.roadmap-edge.kind-backflow { fill: oklch(0.42 0.16 25); font-weight: 800; }
-.edge-path.roadmap-edge.kind-governance { opacity: 0.36; stroke-width: 2; }
-.edge-label.roadmap-edge.kind-governance { opacity: 0.42; }
-/* Roadmap clarity override: keep the canvas clean. The route strips above carry global direction. */
-#roadmapEdgeLayer .edge-path.roadmap-edge,
+.roadmap-canvas::before {
+  content: "统一左侧汇流总线";
+  position: absolute;
+  left: 144px;
+  top: 176px;
+  bottom: 44px;
+  border-left: 2px solid oklch(0.44 0.06 255 / 0.54);
+  color: oklch(0.34 0.04 255);
+  font-size: 11px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding-left: 7px;
+  z-index: 1;
+  pointer-events: none;
+}
+.route-card::before,
+.route-card::after {
+  position: absolute;
+  left: calc(50% - 13px);
+  width: 26px;
+  height: 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+  z-index: 4;
+}
+.route-card::before { content: "IN"; top: -8px; }
+.route-card::after { content: "OUT"; bottom: -8px; }
+#roadmapEdgeLayer .edge-path.roadmap-edge {
+  opacity: 0;
+  stroke-width: 0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 #roadmapEdgeLayer .edge-label.roadmap-edge { opacity: 0; }
-#roadmapEdgeLayer .edge-path.roadmap-edge.is-related { opacity: 0.88; stroke-width: 3; }
-#roadmapEdgeLayer .edge-label.roadmap-edge.is-related { opacity: 1; font-weight: 700; }
-#roadmapEdgeLayer .edge-path.roadmap-edge.kind-backflow.is-related { stroke-width: 3.4; }
+#roadmapEdgeLayer .edge-path.roadmap-edge.is-related {
+  opacity: 0.98;
+  stroke-width: 3.2;
+}
+#roadmapEdgeLayer .edge-path.roadmap-edge.primary-edge.is-related {
+  stroke: oklch(0.31 0.12 150) !important;
+  stroke-width: 3.6;
+}
+#roadmapEdgeLayer .edge-path.roadmap-edge.kind-backflow.is-related {
+  stroke: oklch(0.48 0.16 25) !important;
+  stroke-width: 3.5;
+  stroke-dasharray: 8 5;
+}
+#roadmapEdgeLayer .edge-label.roadmap-edge.is-related {
+  opacity: 0;
+}
