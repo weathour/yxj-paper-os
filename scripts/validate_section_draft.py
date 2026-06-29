@@ -120,6 +120,7 @@ def validate(path: Path) -> list[ValidationIssue]:
         errors.append(issue("E_SECTION_SOURCE_MATERIALS_REQUIRED", "source_materials must be a non-empty list of strings"))
         source_material_set: set[str] = set()
     else:
+        assert isinstance(source_materials, list)
         source_material_set = {str(item) for item in source_materials}
 
     evidence_anchors = metadata.get("evidence_anchors")
@@ -127,6 +128,7 @@ def validate(path: Path) -> list[ValidationIssue]:
         errors.append(issue("E_SECTION_EVIDENCE_REQUIRED", "evidence_anchors must be a non-empty list of strings"))
         evidence_anchor_set: set[str] = set()
     else:
+        assert isinstance(evidence_anchors, list)
         evidence_anchor_set = {str(item) for item in evidence_anchors}
         for anchor in evidence_anchor_set:
             if not _safe_repo_path(anchor) or not anchor.startswith("examples/materials/"):
