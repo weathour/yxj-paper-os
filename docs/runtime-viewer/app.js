@@ -172,14 +172,15 @@
       const kind = edgeKinds.includes(edge.kind) ? edge.kind : 'governance';
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('id', edge.id); path.setAttribute('class', `edge-path ${modeClass} kind-${kind}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`);
-      path.setAttribute('d', edgePath(edge, boxById, canvasWidth)); path.setAttribute('stroke', kindColors[kind]); path.setAttribute('marker-end', `url(#arrow-${kind})`);
+      path.setAttribute('d', edgePath(edge, boxById, canvasWidth)); path.setAttribute('stroke', kindColors[kind]);
+      if (modeClass === 'graph-edge') path.setAttribute('marker-end', `url(#arrow-${kind})`);
       path.dataset.kind = kind; path.dataset.source = edge.source; path.dataset.target = edge.target;
       svg.appendChild(path);
       if (edge.label) {
         const point = labelPoint(edge, boxById);
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('class', `edge-label ${modeClass}${primaryRoadmapEdges.has(edge.id) ? ' primary-edge' : ''}`); text.setAttribute('x', point.x); text.setAttribute('y', point.y);
-        text.textContent = edge.label; text.dataset.kind = kind; text.dataset.source = edge.source; text.dataset.target = edge.target;
+        text.textContent = modeClass === 'roadmap-edge' && primaryRoadmapEdges.has(edge.id) ? `→ ${edge.label}` : (modeClass === 'roadmap-edge' && kind === 'backflow' ? `↩ ${edge.label}` : edge.label); text.dataset.kind = kind; text.dataset.source = edge.source; text.dataset.target = edge.target;
         svg.appendChild(text);
       }
     });

@@ -154,3 +154,18 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .route-strip { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
 .route-strip button { min-height: 28px; padding: 3px 8px; font-size: 12px; background: var(--bg); }
 .backflow-strip button { border-color: oklch(0.72 0.12 25); background: oklch(0.96 0.04 25); }
+.edge-path.roadmap-edge { stroke-linecap: round; stroke-linejoin: round; }
+.edge-path.roadmap-edge.primary-edge { stroke-linecap: round; }
+.edge-path.roadmap-edge.kind-material:not(.primary-edge) { opacity: 0.24; stroke-width: 2; }
+.edge-path.roadmap-edge.primary-edge { stroke: oklch(0.34 0.12 150) !important; stroke-width: 5.2; opacity: 1; }
+.edge-label.roadmap-edge.primary-edge { font-size: 12px; fill: oklch(0.23 0.06 150); font-weight: 800; }
+.edge-path.roadmap-edge.kind-backflow { stroke: oklch(0.47 0.18 25) !important; stroke-width: 4.6; opacity: 0.92; }
+.edge-label.roadmap-edge.kind-backflow { fill: oklch(0.42 0.16 25); font-weight: 800; }
+.edge-path.roadmap-edge.kind-governance { opacity: 0.36; stroke-width: 2; }
+.edge-label.roadmap-edge.kind-governance { opacity: 0.42; }
+/* Roadmap clarity override: keep the canvas clean. The route strips above carry global direction. */
+#roadmapEdgeLayer .edge-path.roadmap-edge,
+#roadmapEdgeLayer .edge-label.roadmap-edge { opacity: 0; }
+#roadmapEdgeLayer .edge-path.roadmap-edge.is-related { opacity: 0.88; stroke-width: 3; }
+#roadmapEdgeLayer .edge-label.roadmap-edge.is-related { opacity: 1; font-weight: 700; }
+#roadmapEdgeLayer .edge-path.roadmap-edge.kind-backflow.is-related { stroke-width: 3.4; }
