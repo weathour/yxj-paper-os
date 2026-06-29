@@ -1,7 +1,12 @@
 window.PPG_RUNTIME_GRAPH = (() => {
   const meta = {
     title: 'PPG Runtime 人工把握视图',
-    subtitle: '显式物料图 + 局部反向传播 + 主 Agent 调度',
+    subtitle: '环节/物料 taxonomy v0.2 已确认，执行物料图仍待实现',
+    status: {
+      baseline: '环节与物料分类可作为 v0.2 设计基线',
+      scope: '当前视图展示 stage taxonomy / transform map，不代表 runnable runtime 已完成',
+      next: '下一阶段实现 Material@vN、supersedes、stale propagation、ReviewClosure 与 DeliveryGate',
+    },
     canvas: { width: 2260, height: 1680 },
   };
   const legend = {
@@ -104,6 +109,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     { id: 'figures', label: '图表支路', nodes: ['S01','S04','S05','S06','S08','S11','S12'] },
     { id: 'review', label: '审核回流', nodes: ['S12','S13','S14','S15','S04','S07','S09A','S09B','S10'] },
     { id: 'control', label: '控制面', nodes: ['OWNER','CTRL','GRAPH','VALIDATORS','BUS','G01'] },
+    { id: 'runtime-core', label: '执行核心', nodes: ['CTRL','GRAPH','VALIDATORS','BUS','S09A','S09B','S13','S14','S15','S16'] },
   ];
   return { meta, legend, defaultVisibleKinds, layers, nodes, edges, presets, roadmap };
 })();
