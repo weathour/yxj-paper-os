@@ -26,6 +26,7 @@ This repository intentionally replaces the failed department-self-loop model wit
 7. [`docs/VALIDATION_AND_TESTING.md`](docs/VALIDATION_AND_TESTING.md) — validator plan and closed-loop tests.
 8. [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation roadmap.
 9. [`docs/RELATED_FRAMEWORKS.md`](docs/RELATED_FRAMEWORKS.md) — OMX pipeline and related graph/agent framework survey.
+10. [`docs/IMPLEMENTATION_FLOW.md`](docs/IMPLEMENTATION_FLOW.md) — concrete core-first implementation flow before OMX Pipeline wrapping.
 
 ## Minimal artifacts
 
