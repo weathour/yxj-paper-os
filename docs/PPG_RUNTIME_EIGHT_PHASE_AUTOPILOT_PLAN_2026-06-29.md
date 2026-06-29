@@ -188,7 +188,7 @@ What is the next phase's allowed starting state?
 
 Purpose: freeze the human-facing ontology of paper production: materials, stages, flows, review backflow, and unused sidecars.
 
-Current status: mostly complete as v0.2 baseline.
+Current status: complete / promoted as v0.2 baseline. See [`phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md`](phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md).
 
 Consumes:
 
@@ -650,7 +650,7 @@ Autopilot recommendation: yes, but with explicit gates: no live install, no mark
 Use this phase order:
 
 ```text
-Phase 1: already mostly complete; keep frozen.
+Phase 1: promoted; keep frozen.
 Phase 2: start next; graph core.
 Phase 3: controller/frontier semantics.
 Phase 4: schemas and validators.

@@ -52,7 +52,7 @@ The stage IDs `S00-S16` remain useful as transform families and viewer labels, b
 
 ### Phase 0 — Baseline freeze: stage/material taxonomy
 
-Status: complete enough for now.
+Status: promoted. See [`phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md`](phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md).
 
 Accepted baseline:
 
