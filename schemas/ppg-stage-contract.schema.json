@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ppg-stage-contract.schema.json",
+  "title": "PPG StageContract",
+  "type": "object",
+  "required": [
+    "schema_version", "stage_id", "stage_name", "purpose", "execution_mode", "recommended_agent_type", "requires_worker_task_packet", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "activation_policy", "coverage_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "ppg-stage-contract/v0.1"},
+    "stage_id": {"type": "string"},
+    "stage_name": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "execution_mode": {"enum": ["owner_gated", "script_generated", "agent_generated", "hybrid_generated"]},
+    "recommended_agent_type": {"type": "string", "minLength": 1},
+    "requires_worker_task_packet": {"type": "boolean"},
+    "consumes": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+    "produces": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+    "validators": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+    "backflow_targets": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "completion_gate": {"type": "string", "minLength": 1},
+    "activation_policy": {"type": "string", "minLength": 1},
+    "coverage_status": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}
