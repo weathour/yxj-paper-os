@@ -1,6 +1,6 @@
-# AGENTS.md — yxj-paper-ppg-runtime
+# AGENTS.md — yxj-paper-os
 
-This repository develops a Codex-native paper production graph runtime.
+This repository is the active `yxj-paper-os` plugin, implemented as a Codex-native paper production graph runtime.
 
 ## Operating model
 
@@ -10,7 +10,7 @@ Do not revive the department-self-loop model. Departments may appear only as met
 
 ## Current goal
 
-Create a documented, testable plugin design for paper production management:
+Maintain and operate the installed, documented, testable `yxj-paper-os` PPG runtime for paper production management:
 
 1. graph topology;
 2. front-end visualization contract;
@@ -22,8 +22,8 @@ Create a documented, testable plugin design for paper production management:
 
 ## Constraints
 
-- Do not mutate or install the existing `yxj-paper-os` plugin from this repository.
-- Do not publish, marketplace-register, or enable live plugin behavior without explicit user authorization.
+- Do not revive the legacy department-self-loop `yxj-paper-os` design.
+- Plugin install/cachebuster updates are allowed only as explicit lifecycle operations; publication/submission claims remain owner-gated.
 - Prefer docs, schemas, examples, and local validators first.
 - No new dependencies unless explicitly requested.
 - Keep each change small, reviewable, and backed by validation.

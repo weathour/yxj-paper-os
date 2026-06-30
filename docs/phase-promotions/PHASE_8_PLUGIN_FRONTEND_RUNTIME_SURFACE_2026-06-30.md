@@ -66,7 +66,7 @@ The adapter reports:
 ### Plugin manager surface
 
 - `.codex-plugin/plugin.json` describes the Phase8 local runtime-surface capability with valid manifest fields.
-- `skills/yxj-paper-ppg-runtime/SKILL.md` is the one public manager entry and records safe operating boundaries.
+- `skills/yxj-paper-os/SKILL.md` is the one public manager entry and records safe operating boundaries.
 - `README.md` records Phase8 promoted status and the new adapter/frontend artifacts.
 
 ## Key invariants
@@ -84,7 +84,7 @@ Commands run before promotion:
 
 ```bash
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 node --check docs/runtime-viewer/runtime-graph-data.js
 node --check docs/runtime-viewer/app.js
 python3 scripts/run_fixture_suite.py examples/runtime/overclaim-loop.v1.json
@@ -113,7 +113,7 @@ PHASE6_TASK_PACKET_VERIFY_OK
 
 - No live plugin install.
 - No marketplace registration or cachebuster update.
-- No mutation of old `$yxj-paper-os`.
+- No revival of the legacy department-loop `$yxj-paper-os` operating model.
 - No `$yxj-plugin-incubator` route.
 - No `$team` launch.
 - Future live graph import/server/marketplace work requires explicit owner approval.

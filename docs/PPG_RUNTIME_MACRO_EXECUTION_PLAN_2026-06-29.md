@@ -8,7 +8,7 @@ Non-reference baseline: this project must not inherit or cite `$yxj-plugin-incub
 
 ## 0. Executive decision
 
-Continue in the new `yxj-paper-ppg-runtime` repository. Do not perform a large in-place rewrite of `$yxj-paper-os` yet.
+Continue in the new `yxj-paper-os` repository. Do not perform a large in-place rewrite of `$yxj-paper-os` yet.
 
 The current stage graph is now a stable **human-facing transform taxonomy**. The next goal is to build an executable **versioned material graph runtime** under it.
 
@@ -348,9 +348,9 @@ visible active frontier / stale / backflow / delivery state
 Likely future layout:
 
 ```text
-yxj-paper-ppg-runtime-plugin/
+yxj-paper-os-plugin/
   .codex-plugin/plugin.json
-  entry-skills/yxj-paper-ppg-runtime/SKILL.md  # thin runtime entry
+  entry-skills/yxj-paper-os/SKILL.md  # thin runtime entry
   runtime/graph-core/
   runtime/task-packet/
   runtime/backflow/
@@ -832,7 +832,7 @@ Main agent continues autonomously when:
 Main agent must ask or stop before:
 
 - live installing plugin;
-- mutating old `$yxj-paper-os`;
+- reviving legacy department-loop `$yxj-paper-os` behavior;
 - publishing marketplace entries;
 - external submission/upload;
 - credentialed external services;

@@ -61,7 +61,7 @@ Observed result:
 
 ```text
 VALID examples/minimal-paper-production-graph.json
-Plugin validation passed: /home/weathour/文档/yxj-paper-ppg-runtime
+Plugin validation passed: /home/weathour/plugins/yxj-paper-os
 ```
 
 `node --check` commands completed with exit code 0 and no diagnostics.

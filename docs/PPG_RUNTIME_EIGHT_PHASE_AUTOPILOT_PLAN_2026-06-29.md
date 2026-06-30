@@ -1,7 +1,7 @@
 # PPG Runtime Eight-Phase Autopilot Execution Plan
 
 Date: 2026-06-29  
-Scope: record the ideal eight-phase path for advancing `yxj-paper-ppg-runtime`, and decide how `$autopilot`, `$ralplan`, and `$ultragoal` should be used to drive each phase.
+Scope: record the ideal eight-phase path for advancing `yxj-paper-os`, and decide how `$autopilot`, `$ralplan`, and `$ultragoal` should be used to drive each phase.
 
 Non-reference baseline: do not use `$yxj-plugin-incubator`, Plugin OS v2+, hidden-department IO, seven-artifact incubation packages, or PUA-style managed-agent governance as references for this runtime. The eight phases are governed by the PPG model itself: explicit material graph, main-agent controller, validators, task packets, and local backflow.
 
@@ -685,7 +685,7 @@ This prevents the old failure mode where a department/subagent claims progress w
 Use a bounded activation prompt rather than a broad request.
 
 ```text
-$autopilot Phase <N> of yxj-paper-ppg-runtime.
+$autopilot Phase <N> of yxj-paper-os.
 
 Objective:
 <one phase objective>
@@ -697,7 +697,7 @@ Allowed scope:
 <files/dirs to edit>
 
 Non-goals:
-- do not mutate old $yxj-paper-os
+- do not revive the legacy department-loop yxj-paper-os route
 - do not live-install plugin
 - do not publish marketplace entries
 - do not launch $team unless explicitly approved
@@ -734,7 +734,7 @@ Even with Autopilot, the main agent must stop or ask before:
 
 - changing the core philosophy of the runtime;
 - treating a stage taxonomy change as user-approved when it changes paper production semantics;
-- mutating old `$yxj-paper-os`;
+- reviving legacy department-loop `$yxj-paper-os` behavior;
 - live installing or publishing a plugin;
 - launching `$team` for a phase;
 - using credentialed external services;

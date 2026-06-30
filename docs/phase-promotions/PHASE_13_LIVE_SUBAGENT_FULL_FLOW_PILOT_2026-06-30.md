@@ -4,7 +4,7 @@ Date: 2026-06-30
 
 ## Promotion decision
 
-Phase 13 promotes `yxj-paper-ppg-runtime` from a deterministic formal full-flow runtime-test harness to a **live native-subagent full-flow pilot**.
+Phase 13 promotes `yxj-paper-os` from a deterministic formal full-flow runtime-test harness to a **live native-subagent full-flow pilot**.
 
 This phase proves that the main agent can plan and dispatch bounded task packets to real Codex native subagents for every canonical paper-production stage, collect raw producer returns, dispatch independent verifier subagents, ingest the paired results into run-owned stage-effect and validation records, and pass safety/negative verification gates. It remains a runtime pilot only; it is not a final manuscript, submission-readiness, or publication-readiness claim.
 
@@ -50,7 +50,7 @@ native_subagent=true
 
 Stages that do not require worker task packets remain `assessment_only`: `S00`, `S01`, `S09A`, `S09B`, `S14`, `S16`, `G01`, and `G02`.
 
-The term "zero trust" remains scoped to the local paper's controller-side zero-default authority for degraded V2X evidence. Phase 13 does not revive old `$yxj-paper-os` department loops or use `$yxj-plugin-incubator` as a design source.
+The term "zero trust" remains scoped to the local paper's controller-side zero-default authority for degraded V2X evidence. Phase 13 does not revive legacy `$yxj-paper-os` department loops or use `$yxj-plugin-incubator` as a design source.
 
 ## Core artifacts
 
@@ -71,7 +71,7 @@ python3 scripts/ingest_phase13_live_pilot.py
 python3 scripts/verify_phase13_live_subagent_pilot.py
 python3 -m compileall -q scripts
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 git diff --check -- .
 ```
 
@@ -96,7 +96,7 @@ PHASE13_LIVE_SUBAGENT_PILOT_VERIFY_OK
 - No final manuscript, final paper, submission-readiness, or publication-readiness claim.
 - No verifier-owned or worker-owned completion authority.
 - No recursive subagent orchestration by stage lanes.
-- No revival of `$yxj-paper-os` or `$yxj-plugin-incubator` as active routes.
+- No revival of legacy `$yxj-paper-os` department-loop routes or `$yxj-plugin-incubator` as active routes.
 
 ## Next phase
 

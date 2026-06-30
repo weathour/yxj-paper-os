@@ -173,7 +173,7 @@ python3 scripts/run_fixture_suite.py examples/runtime/overclaim-loop.v1.json
 bash scripts/verify_phase8_plugin_surface.sh
 bash scripts/verify_phase6_task_packets.sh
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 node --check docs/runtime-viewer/runtime-graph-data.js
 node --check docs/runtime-viewer/app.js
 git diff --check -- .

@@ -1,9 +1,9 @@
 ---
-name: yxj-paper-ppg-runtime
-description: "Operate the yxj Paper Production Graph Runtime as one public manager surface: inspect explicit material graph state, local backflow, task packets, validation gates, and frontend runtime reports for Codex-native academic paper production. Local development surface only; not live-installed or published by default."
+name: yxj-paper-os
+description: "Operate the yxj Paper OS / Paper Production Graph Runtime as one public manager surface: inspect explicit material graph state, local backflow, task packets, validation gates, and frontend runtime reports for Codex-native academic paper production. Installed public manager surface; publication/submission claims remain explicitly gated."
 ---
 
-# yxj-paper-ppg-runtime
+# yxj-paper-os
 
 Use this skill when the user wants to design, inspect, or operate a Codex-native paper production graph runtime.
 
@@ -19,7 +19,7 @@ The main agent controls a versioned graph of materials, task packets, validators
 
 ## Current repository status
 
-This repository is a local Phase13 plugin/runtime-pilot surface. It provides:
+This repository is the active `yxj-paper-os` plugin implemented as a Phase13 PPG runtime-pilot surface. It provides:
 
 - graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
 - deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
@@ -36,7 +36,7 @@ This repository is a local Phase13 plugin/runtime-pilot surface. It provides:
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
 
-Do **not** mutate old `$yxj-paper-os`, use `$yxj-plugin-incubator` as a design source, live-install this plugin, publish it, update a cachebuster, or edit marketplace entries unless the user explicitly authorizes that external/plugin lifecycle step.
+Do **not** revive the legacy department-loop `$yxj-paper-os` design or use `$yxj-plugin-incubator` as a design source. Plugin install/cachebuster updates are allowed only as explicit lifecycle operations for this PPG-backed `yxj-paper-os`; publication/submission claims remain owner-gated.
 
 ## First documents to read
 

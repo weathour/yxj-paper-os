@@ -373,7 +373,7 @@ echo NEGATIVE_PHASE12_ABSOLUTE_BACKFLOW_REF_NO_READ_OK
 
 python3 -m compileall -q scripts
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 
 # Phase10 inherited gate contains its own clean-worktree assertion; remove
 # Phase12 negative fixtures before invoking it so only real repository diffs

@@ -4,7 +4,7 @@ Date: 2026-06-30
 
 ## Promotion decision
 
-Phase 11 promotes `yxj-paper-ppg-runtime` from Phase10 real-subagent-run readiness to a Nature-experience-aware runtime surface.
+Phase 11 promotes `yxj-paper-os` from Phase10 real-subagent-run readiness to a Nature-experience-aware runtime surface.
 
 The Nature skill experience is absorbed as `nature_expert_writing`, a **stage-local overlay** on existing PPG stages. It does not create a new department, does not change the stage topology, does not dispatch workers, and does not own graph/manuscript/submission completion.
 
@@ -82,7 +82,7 @@ The aggregate gate now includes Nature overlay validation and negative probes fo
 ## Explicit non-goals
 
 - No live install, marketplace registration, publish, or cachebuster update.
-- No replacement of the PPG runtime with `$yxj-paper-os` department loops.
+- No replacement of the PPG runtime with legacy `$yxj-paper-os` department loops.
 - No design dependency on `$yxj-plugin-incubator`.
 - No claim that Nature overlay absorption means a real paper-production run has occurred.
 - No final manuscript, submission-ready, or publication-ready claim.

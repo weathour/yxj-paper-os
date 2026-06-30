@@ -4,7 +4,7 @@ Date: 2026-06-30
 
 ## Promotion decision
 
-Phase 12 promotes `yxj-paper-ppg-runtime` from Phase10/11 readiness to a deterministic formal full-flow runtime-test harness.
+Phase 12 promotes `yxj-paper-os` from Phase10/11 readiness to a deterministic formal full-flow runtime-test harness.
 
 This phase proves that the controller can create a run-owned full-stage flow over the local paper, record candidate/validation/dispatch/material/frontier/backflow/delivery ledgers, preserve source-read-only boundaries, and falsify its own safety claims through negative probes. It is not a manuscript-quality or submission-readiness claim.
 
@@ -53,7 +53,7 @@ python3 scripts/generate_phase12_full_flow_run.py --check
 python3 scripts/verify_phase12_full_flow_run.py
 python3 -m compileall -q scripts
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 git diff --check -- .
 ```
 

@@ -4,7 +4,7 @@ Date: 2026-06-29
 
 ## Promoted state
 
-Phase 6 is promoted as the first executable subagent-boundary layer of `yxj-paper-ppg-runtime`.
+Phase 6 is promoted as the first executable subagent-boundary layer of `yxj-paper-os`.
 
 The runtime can now compile strict, bounded task packets from validated graph state and validate worker-style returns without trusting worker self-certification.
 
@@ -154,6 +154,6 @@ git diff --check -- .
 
 ## Phase 6 limits
 
-Phase 6 does **not** run a real writer/verifier subagent pilot. It does **not** commit candidate outputs to the graph. It does **not** update the frontend and does **not** mutate existing `$yxj-paper-os`.
+Phase 6 does **not** run a real writer/verifier subagent pilot. It does **not** commit candidate outputs to the graph. It does **not** update the frontend and does **not** revive legacy department-loop `$yxj-paper-os` behavior.
 
 The next phase should use these strict packets for a single real subagent pilot and ingest only validator-backed candidate artifacts.

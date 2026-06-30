@@ -1,15 +1,15 @@
 {
-  "name": "yxj-paper-ppg-runtime",
+  "name": "yxj-paper-os",
   "version": "0.1.0",
-  "description": "Codex-native paper production graph runtime with stage-local Nature writing overlays, local backflow, and human-owner state surface.",
+  "description": "Codex-native yxj Paper OS implemented as a Paper Production Graph runtime with stage-local Nature writing overlays, local backflow, and human-owner state surface.",
   "author": {
     "name": "Local developer"
   },
   "skills": "./skills/",
   "interface": {
-    "displayName": "yxj Paper PPG Runtime",
-    "shortDescription": "Inspect paper production as a visible material graph runtime with stage-local overlays.",
-    "longDescription": "A local, non-publishing Codex plugin surface for academic paper production using explicit material graphs, stage-local expert-writing overlays, graph-state-read-only runtime state reports, local backpropagation, validation, and main-agent dispatch.",
+    "displayName": "yxj Paper OS",
+    "shortDescription": "Run paper production as a visible material graph runtime with stage-local overlays.",
+    "longDescription": "yxj-paper-os is now a Codex-native Paper Production Graph runtime: explicit material graphs, stage-local expert-writing overlays, graph-state-read-only runtime reports, local backpropagation, validation, and main-agent dispatch under one public paper manager entry.",
     "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [
@@ -19,9 +19,9 @@
       "Stage-local Nature overlay validation"
     ],
     "defaultPrompt": [
-      "Inspect a paper production graph runtime state.",
-      "Plan a local backflow repair from review findings.",
-      "Show active frontier, stale materials, and delivery gates."
+      "Act as yxj-paper-os: inspect the current paper production graph runtime state and report GraphState, frontier, stale materials, and delivery gates.",
+      "Use the PPG runtime to plan a local backflow repair from review findings.",
+      "Manage this paper through explicit material graph, TaskPackets, validators, and main-agent dispatch."
     ]
   }
 }

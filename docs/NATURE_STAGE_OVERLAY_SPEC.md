@@ -119,7 +119,7 @@ The validator locks these failure classes:
 
 ## Non-goals
 
-- No migration back to `$yxj-paper-os` departments.
+- No migration back to legacy `$yxj-paper-os` departments.
 - No use of `$yxj-plugin-incubator` as design source.
 - No live install, marketplace registration, publication, or cachebuster update.
 - No claim that Nature skill absorption makes the paper complete or submission-ready.

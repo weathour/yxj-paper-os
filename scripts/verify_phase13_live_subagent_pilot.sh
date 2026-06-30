@@ -274,7 +274,7 @@ assert_fails_with E_PHASE13_DISPATCH_MISSING python3 scripts/verify_phase13_live
 echo NEGATIVE_PHASE13_DISPATCH_RECORD_MISSING_OK
 
 negative_run=$(make_negative_run legacy-revival)
-printf '\n$yxj-paper-os revived as active route\n' >> "$negative_run/returns/producer/S02.producer-return.md"
+printf '\nlegacy department yxj-paper-os route revived as active route\n' >> "$negative_run/returns/producer/S02.producer-return.md"
 assert_fails_with E_PHASE13_LEGACY_ROUTE_REVIVAL python3 scripts/verify_phase13_live_subagent_pilot.py "$negative_run"
 echo NEGATIVE_PHASE13_LEGACY_ROUTE_REVIVAL_OK
 
@@ -316,7 +316,7 @@ echo NEGATIVE_PHASE13_SOURCE_SNAPSHOT_DRIFT_OK
 cleanup
 python3 -m compileall -q scripts
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 bash scripts/verify_phase12_formal_full_flow.sh
 
 git diff --check -- .

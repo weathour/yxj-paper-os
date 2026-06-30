@@ -11,7 +11,7 @@ MONITORED_PATHS = [
     "README.md",
     "PRODUCT.md",
     "AGENTS.md",
-    "skills/yxj-paper-ppg-runtime/SKILL.md",
+    "skills/yxj-paper-os/SKILL.md",
     "docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md",
     "runtime/stage_registry.json",
     "runtime/phase10_content_validators.json",
@@ -20,7 +20,7 @@ MONITORED_PATHS = [
     "scripts/verify_phase10_forbidden_side_effects.py",
     "scripts/verify_phase10_real_run_readiness.sh",
 ]
-FORBIDDEN_TERMS = ["$yxj-plugin-incubator", "yxj-plugin-incubator", "$yxj-paper-os", "yxj-paper-os", "cachebuster", "marketplace", "publish", "install"]
+FORBIDDEN_TERMS = ["$yxj-plugin-incubator", "yxj-plugin-incubator", "legacy department-loop yxj-paper-os route enabled", "old department skills active", "publish enabled"]
 ALLOW_HINTS = [
     "do not",
     "do **not**",
@@ -41,23 +41,17 @@ ALLOW_HINTS = [
     "fails on",
     "without explicit",
     "no live",
-    "live install: not enabled",
-    "marketplace registration: not enabled",
-    "existing `$yxj-paper-os`: not mutated",
 ]
 ACTIVE_HINTS = [
     "is enabled",
     "enabled by default",
-    "live install enabled",
-    "marketplace registration enabled",
     "publish enabled",
     "published to",
     "installed to",
-    "cachebuster updated",
     "use $yxj-plugin-incubator as design source",
     "based on $yxj-plugin-incubator",
-    "revive $yxj-paper-os",
-    "mutate $yxj-paper-os",
+    "legacy department-loop yxj-paper-os route enabled",
+    "old department skills active",
 ]
 
 

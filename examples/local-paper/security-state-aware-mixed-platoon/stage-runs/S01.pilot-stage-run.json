@@ -65,7 +65,7 @@
   "source_projection_boundary": {
     "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
     "read_only_source": true,
-    "runtime_output_root": "/home/weathour/文档/yxj-paper-ppg-runtime/examples/local-paper/security-state-aware-mixed-platoon",
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
     "runtime_output_under_source": false,
     "selected_source_fingerprints_unchanged": true,
     "source_git_status_after": "?? docs/runtime-viewer/\n",

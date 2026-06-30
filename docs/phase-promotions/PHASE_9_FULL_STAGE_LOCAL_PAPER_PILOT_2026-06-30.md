@@ -4,7 +4,7 @@ Date: 2026-06-30
 
 ## Promotion decision
 
-Phase 9 is promoted as the first full-stage coverage baseline for `yxj-paper-ppg-runtime`.
+Phase 9 is promoted as the first full-stage coverage baseline for `yxj-paper-os`.
 
 This phase does **not** claim that a paper has been fully written, reviewed, or made submission-ready. It claims that the runtime now has a verified full-stage local-paper pilot surface: every canonical stage has a StageContract, a PilotStageRun record, produced pilot artifacts, validator evidence, and an explicit completion boundary.
 

@@ -100,7 +100,7 @@ def _active_department_route_detected(value: Any, key: str = "") -> bool:
         lowered = value.lower()
         if key in active_keys and any(token in lowered for token in ("department_loop", "autonomous_department", "self_certifying", "self_managed_department")):
             return True
-        if "$yxj-paper-os" in lowered or "$yxj-plugin-incubator" in lowered:
+        if "legacy department-loop yxj-paper-os" in lowered or "$yxj-plugin-incubator" in lowered:
             return True
     return False
 

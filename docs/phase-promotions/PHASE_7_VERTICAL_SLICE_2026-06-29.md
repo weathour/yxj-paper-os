@@ -95,6 +95,6 @@ after_graph_valid: true
 
 - No `$team` launch in Phase7.
 - No plugin publish/install/marketplace step in Phase7.
-- No mutation of old `$yxj-paper-os`.
+- No revival of the legacy department-loop `$yxj-paper-os` operating model.
 - No `$yxj-plugin-incubator` design route.
 - Real native subagent pilot remains optional non-gating shadow evidence after deterministic suite stability.

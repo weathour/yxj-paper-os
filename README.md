@@ -1,21 +1,21 @@
-# yxj-paper-ppg-runtime
+# yxj-paper-os
 
-`yxj-paper-ppg-runtime` is a planning and implementation repository for a Codex-native paper production management plugin.
+`yxj-paper-os` is the active Codex plugin for paper production management, implemented as a Paper Production Graph runtime.
 
 The target model is:
 
 > **Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch**
 
-This repository intentionally replaces the failed department-self-loop model with a graph runtime model: the main Codex agent controls a versioned paper-production graph, specialist agents or scripts operate on bounded graph nodes, validators decide node status, and review findings produce targeted backflow instead of whole-paper rewrites.
+This plugin intentionally replaces the failed department-self-loop model with a graph runtime model: the main Codex agent controls a versioned paper-production graph, specialist agents or scripts operate on bounded graph nodes, validators decide node status, and review findings produce targeted backflow instead of whole-paper rewrites.
 
 This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. Its control model is the PPG runtime itself: material versions, transform tasks, validators, local backflow, and a main-agent controller.
 
 ## Current status
 
 - Phase: Phase 13 promoted — live native-subagent full-flow pilot on top of the Phase 12 formal harness, followed by post-Phase13 main-agent lane-policy hardening. The runtime records 40 real native-subagent lanes in strict QA mode, and the canonical stage registry now tells the main agent when production should use mandatory producer+verifier lanes, conditional verifier escalation, or one lane plus deterministic validation. It remains a runtime-pilot capability, not a manuscript or submission-readiness claim.
-- Live install: not enabled.
-- Marketplace registration: not enabled.
-- Existing `$yxj-paper-os`: not mutated by this repository.
+- Local install: enabled through the personal-local marketplace as `yxj-paper-os`.
+- Marketplace source: local personal marketplace entry pointing at `/home/weathour/plugins/yxj-paper-os`.
+- Legacy `$yxj-paper-os` department-loop design: preserved only through git history/archive provenance, not active runtime behavior.
 
 ## Core documents
 

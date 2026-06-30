@@ -56,11 +56,8 @@ BANNED_CLAIMS = [
     "publication ready",
 ]
 POSITIVE_FORBIDDEN_BOUNDARY_PHRASES = [
-    "live install enabled",
-    "marketplace registration enabled",
-    "cachebuster completed",
     "publish lifecycle completed",
-    "$yxj-paper-os revived",
+    "legacy department yxj-paper-os route revived",
     "$yxj-plugin-incubator used as a design source",
 ]
 EXPECTED_OVERLAY_AUTHORITY = {
@@ -202,7 +199,7 @@ def scan_boundary_files(run_root: Path) -> list[str]:
     errors: list[str] = []
     paths = [
         ROOT / "README.md",
-        ROOT / "skills/yxj-paper-ppg-runtime/SKILL.md",
+        ROOT / "skills/yxj-paper-os/SKILL.md",
         ROOT / "docs/VALIDATION_AND_TESTING.md",
         ROOT / "docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md",
     ]

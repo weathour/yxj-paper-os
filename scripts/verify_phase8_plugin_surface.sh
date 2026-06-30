@@ -153,7 +153,7 @@ fi
 grep -q 'runtimeStateContent.textContent' docs/runtime-viewer/app.js
 grep -q 'createTextElement' docs/runtime-viewer/app.js
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-ppg-runtime
+python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
 python3 scripts/run_fixture_suite.py examples/runtime/overclaim-loop.v1.json
 bash scripts/verify_phase6_task_packets.sh
 

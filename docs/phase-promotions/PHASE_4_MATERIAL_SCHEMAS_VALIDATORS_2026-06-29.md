@@ -1,7 +1,7 @@
 # Phase 4 Promotion — Material Schemas and Validators
 
-Date: 2026-06-29  
-Repository: `yxj-paper-ppg-runtime`  
+Date: 2026-06-29
+Repository: `yxj-paper-os`
 Baseline: Phase 3 promoted in commit `ea698ba`.
 
 ## Promotion decision

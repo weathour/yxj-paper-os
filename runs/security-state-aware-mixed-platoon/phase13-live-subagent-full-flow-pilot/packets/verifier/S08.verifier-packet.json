@@ -19,7 +19,7 @@
   ],
   "lane": "verifier",
   "legacy_routes_forbidden": [
-    "$yxj-paper-os",
+    "legacy department-loop yxj-paper-os route",
     "$yxj-plugin-incubator"
   ],
   "no_recursive_orchestration": true,
@@ -79,7 +79,7 @@
   ],
   "producer_return_ref": "returns/producer/S08.producer-return.md",
   "producer_return_sha256": "2caf51380ecfd926d75cd1c6a5c54b7f1a0a4f0a9ee0d0c58d150ae1d2152397",
-  "producer_thread_id": "019f17f2-1da3-7de3-8af5-839fc29b06f9",
+  "producer_thread_id": null,
   "produces": [
     "visual budget",
     "figure contract",

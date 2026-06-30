@@ -2,7 +2,7 @@
   "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
   "project_slug": "security-state-aware-mixed-platoon",
   "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-  "runtime_output_root": "/home/weathour/文档/yxj-paper-ppg-runtime/examples/local-paper/security-state-aware-mixed-platoon",
+  "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
   "read_only_source": true,
   "claim_boundary": {
     "active_method": "zt_md_mpc_full",

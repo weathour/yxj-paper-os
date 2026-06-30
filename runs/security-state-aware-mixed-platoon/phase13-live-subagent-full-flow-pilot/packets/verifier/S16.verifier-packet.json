@@ -21,7 +21,7 @@
   ],
   "lane": "verifier",
   "legacy_routes_forbidden": [
-    "$yxj-paper-os",
+    "legacy department-loop yxj-paper-os route",
     "$yxj-plugin-incubator"
   ],
   "no_recursive_orchestration": true,
@@ -85,7 +85,7 @@
   ],
   "producer_return_ref": "returns/producer/S16.producer-return.md",
   "producer_return_sha256": "8a55f8da27c6dffaae9d74f75b66a06a5d0b01ddbfc7b5fbc5d890c2481db810",
-  "producer_thread_id": "019f17fb-863c-75c2-8fad-6039d7dba740",
+  "producer_thread_id": null,
   "produces": [
     "export manifest",
     "repository hygiene report",

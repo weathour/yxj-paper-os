@@ -21,7 +21,7 @@
   ],
   "lane": "verifier",
   "legacy_routes_forbidden": [
-    "$yxj-paper-os",
+    "legacy department-loop yxj-paper-os route",
     "$yxj-plugin-incubator"
   ],
   "no_recursive_orchestration": true,
@@ -80,7 +80,7 @@
   ],
   "producer_return_ref": "returns/producer/S09B.producer-return.md",
   "producer_return_sha256": "7a14cb03dfd44fc27bcc534c48907be991e1fdabe2a2a46401d31168e4ad789c",
-  "producer_thread_id": "019f17f2-a9b3-7ec0-80ea-6fcc4f060870",
+  "producer_thread_id": null,
   "produces": [
     "task packet",
     "section move plan",

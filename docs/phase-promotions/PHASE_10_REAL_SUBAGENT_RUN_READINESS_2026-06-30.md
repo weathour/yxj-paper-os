@@ -4,7 +4,7 @@ Date: 2026-06-30
 
 ## Promotion decision
 
-Phase 10 promotes `yxj-paper-ppg-runtime` from full-stage pilot coverage to real-subagent-run readiness.
+Phase 10 promotes `yxj-paper-os` from full-stage pilot coverage to real-subagent-run readiness.
 
 This phase does **not** start a formal paper-production run, does **not** produce a final manuscript, and does **not** claim submission readiness. It proves that the plugin/runtime can safely prepare a later full-flow subagent execution campaign under main-agent control.
 
@@ -67,9 +67,9 @@ The aggregate gate includes positive checks and negative probes for wrong-stage 
 
 ## Explicit non-goals
 
-- Forbidden boundary: do not mutate or revive old `$yxj-paper-os` as an operating model.
+- Forbidden boundary: do not revive the legacy department-loop `$yxj-paper-os` operating model.
 - Forbidden boundary: do not use `$yxj-plugin-incubator` as a design source or active route.
-- Live install: not enabled.
+- Local plugin install/cachebuster lifecycle: enabled only through explicit owner-authorized plugin maintenance; this promotion itself remains a runtime-readiness gate, not a publication/submission claim.
 - Marketplace registration: not enabled.
 - Publish/cachebuster lifecycle: not enabled.
 - No final manuscript or submission-ready claim.

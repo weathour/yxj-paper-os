@@ -7,7 +7,7 @@
   "project_slug": "security-state-aware-mixed-platoon",
   "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
   "run_root": "runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot",
-  "runtime_root": "/home/weathour/文档/yxj-paper-ppg-runtime",
+  "runtime_root": "/home/weathour/plugins/yxj-paper-os",
   "schema_version": "ppg-phase13-run-manifest/v0.1",
   "source_read_only": true,
   "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",

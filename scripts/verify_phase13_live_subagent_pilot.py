@@ -22,7 +22,7 @@ RUN_SCHEMA_VERSION = "ppg-phase13-run-state/v0.1"
 VERDICTS = {"accept", "accept_with_limitations", "needs_repair", "reject"}
 VERDICT_PARSE_ORDER = ["accept_with_limitations", "needs_repair", "reject", "accept"]
 BANNED_CLAIMS = ["final manuscript complete", "final paper complete", "submission ready", "ready to submit", "publication ready"]
-LEGACY_ACTIVE = ["$yxj-paper-os revived", "$yxj-plugin-incubator used", "$yxj-plugin-incubator revived"]
+LEGACY_ACTIVE = ["legacy department yxj-paper-os route revived", "legacy department-loop yxj-paper-os route revived", "$yxj-plugin-incubator used", "$yxj-plugin-incubator revived"]
 RECURSIVE_CLAIMS = ["i will dispatch", "i can dispatch", "spawn subagents", "mark this stage complete", "mark final completion", "controller completion authority"]
 WEAK_GENERIC = ["looks good", "seems fine", "generic analysis", "no specific evidence", "not enough context but"]
 

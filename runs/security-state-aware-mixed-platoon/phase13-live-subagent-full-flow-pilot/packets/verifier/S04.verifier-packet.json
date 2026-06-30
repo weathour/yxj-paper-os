@@ -16,11 +16,11 @@
     "Return text only; do not edit files.",
     "Do not dispatch agents, do not mark final completion, do not claim manuscript/submission/publication readiness.",
     "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs.",
-    "Read and assess producer return returns/producer/S04.producer-return.md with sha256 b5f43db48c1b77582a447dc5406c69cf8d99b5d98f27d6ef981747bd7649c8a8."
+    "Read and assess producer return returns/producer/S04.producer-return.md with sha256 e48eff6b0465f23c32b73e130bac4f97c0d9e59d34e376edab4058e68bf8ed5b."
   ],
   "lane": "verifier",
   "legacy_routes_forbidden": [
-    "$yxj-paper-os",
+    "legacy department-loop yxj-paper-os route",
     "$yxj-plugin-incubator"
   ],
   "no_recursive_orchestration": true,
@@ -84,8 +84,8 @@
     }
   ],
   "producer_return_ref": "returns/producer/S04.producer-return.md",
-  "producer_return_sha256": "b5f43db48c1b77582a447dc5406c69cf8d99b5d98f27d6ef981747bd7649c8a8",
-  "producer_thread_id": "019f17ef-c1d1-7561-b87e-e4237e507a98",
+  "producer_return_sha256": "e48eff6b0465f23c32b73e130bac4f97c0d9e59d34e376edab4058e68bf8ed5b",
+  "producer_thread_id": null,
   "produces": [
     "claim citation capsules",
     "result packages",
