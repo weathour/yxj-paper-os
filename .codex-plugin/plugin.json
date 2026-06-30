@@ -1,6 +1,6 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.1.0",
+  "version": "0.1.0+codex.20260630132633",
   "description": "Codex-native yxj Paper OS implemented as a Paper Production Graph runtime with stage-local Nature writing overlays, local backflow, and human-owner state surface.",
   "author": {
     "name": "Local developer"
