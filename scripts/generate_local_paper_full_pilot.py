@@ -21,6 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
+OVERLAY_REGISTRY_REF = "runtime/stage_overlay_registry.json"
+NATURE_OVERLAY_ID = "nature_expert_writing"
 SCHEMA_VERSION = "ppg-pilot-stage-run/v0.1"
 SUMMARY_SCHEMA_VERSION = "ppg-local-paper-full-pilot/v0.1"
 COVERAGE_KIND_BY_STAGE = {
@@ -238,6 +240,31 @@ def worker_packet_evidence(contract: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def stage_local_overlays(contract: dict[str, Any]) -> list[dict[str, Any]]:
+    overlays = contract.get("stage_local_overlays", [])
+    if not isinstance(overlays, list):
+        return []
+    projected: list[dict[str, Any]] = []
+    for item in overlays:
+        if not isinstance(item, dict):
+            continue
+        overlay_id = item.get("overlay_id")
+        stage_id = item.get("stage_id") or contract.get("stage_id")
+        if not isinstance(overlay_id, str) or not isinstance(stage_id, str):
+            continue
+        projected.append(
+            {
+                "overlay_id": overlay_id,
+                "stage_id": stage_id,
+                "binding_strength": item.get("binding_strength"),
+                "registry_ref": item.get("registry_ref", OVERLAY_REGISTRY_REF),
+                "validator_ref": f"stage_overlay:{overlay_id}:{stage_id}",
+                "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            }
+        )
+    return projected
+
+
 def build_artifact(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[str, Any], consumed: list[dict[str, str]]) -> dict[str, Any]:
     sid = stage["stage_id"]
     claim_boundary = manifest.get("claim_boundary", {})
@@ -249,6 +276,7 @@ def build_artifact(stage: dict[str, Any], contract: dict[str, Any], manifest: di
         "source_project": manifest.get("project_slug"),
         "purpose": stage.get("purpose"),
         "contract_ref": stage.get("contract_ref"),
+        "stage_local_overlays": stage_local_overlays(contract),
         "consumed_ref_count": len(consumed),
         "projected_outputs": list(stage.get("produces", [])),
         "claim_boundary_snapshot": {
@@ -276,6 +304,7 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
     consumed = consumed_materials(stage, pilot_root, artifact_refs)
     fingerprints_match = manifest.get("source_fingerprint_before") == manifest.get("source_fingerprint_after")
     status_match = manifest.get("source_git_status_before") == manifest.get("source_git_status_after")
+    overlays = stage_local_overlays(contract)
     output_under_source = False
     source_root = Path(str(manifest.get("source_root", ""))).resolve()
     try:
@@ -292,6 +321,7 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
         "stage_name": stage["stage_name"],
         "execution_mode": stage["execution_mode"],
         "recommended_agent_type": stage["recommended_agent_type"],
+        "stage_local_overlays": overlays,
         "consumed_materials": consumed,
         "produced_artifacts": [
             {
@@ -317,6 +347,11 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
                 "validator": "coverage_boundary",
                 "status": "pass",
                 "evidence": f"coverage_kind={coverage_kind}; exercise_level={stage_exercise_level}; no source manuscript write claimed",
+            },
+            {
+                "validator": "stage_local_overlay_binding",
+                "status": "pass" if any(item.get("overlay_id") == NATURE_OVERLAY_ID for item in overlays) else "blocked",
+                "evidence": f"{sid} has Nature expert-writing overlay binding as stage-local metadata only",
             },
         ],
         "source_projection_boundary": {
@@ -344,6 +379,7 @@ def build_graph(registry: dict[str, Any], pilot_root: Path) -> dict[str, Any]:
             "execution_mode": stage["execution_mode"],
             "requires_worker_task_packet": stage["requires_worker_task_packet"],
             "contract_ref": stage["contract_ref"],
+            "stage_local_overlays": stage_local_overlays(load_json(ROOT / stage["contract_ref"])),
             "run_ref": f"stage-runs/{stage['stage_id']}.pilot-stage-run.json",
         }
         for stage in stages
@@ -374,19 +410,26 @@ def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_ro
     by_kind: dict[str, int] = {}
     by_level: dict[str, int] = {}
     worker_packet_status: dict[str, int] = {}
+    overlay_binding_status: dict[str, int] = {}
     for run in runs:
         by_kind[run["coverage_kind"]] = by_kind.get(run["coverage_kind"], 0) + 1
         by_level[run["exercise_level"]] = by_level.get(run["exercise_level"], 0) + 1
         status = run["worker_task_packet_evidence"]["status"]
         worker_packet_status[status] = worker_packet_status.get(status, 0) + 1
+        overlay_ids = [item.get("overlay_id") for item in run.get("stage_local_overlays", []) if isinstance(item, dict)]
+        overlay_status = "nature_bound" if NATURE_OVERLAY_ID in overlay_ids else "missing_nature_binding"
+        overlay_binding_status[overlay_status] = overlay_binding_status.get(overlay_status, 0) + 1
     return {
         "schema_version": SUMMARY_SCHEMA_VERSION,
         "project_slug": "security-state-aware-mixed-platoon",
+        "stage_overlay_registry_ref": OVERLAY_REGISTRY_REF,
+        "active_stage_overlays": [NATURE_OVERLAY_ID],
         "canonical_stage_count": len(registry["canonical_stage_ids"]),
         "pilot_stage_run_count": len(runs),
         "coverage_kind_counts": dict(sorted(by_kind.items())),
         "exercise_level_counts": dict(sorted(by_level.items())),
         "worker_task_packet_status_counts": dict(sorted(worker_packet_status.items())),
+        "stage_overlay_binding_counts": dict(sorted(overlay_binding_status.items())),
         "stage_runs": [
             {
                 "stage_id": run["stage_id"],
@@ -396,6 +439,7 @@ def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_ro
                 "exercise_level": run["exercise_level"],
                 "contract_ref": run["contract_ref"],
                 "worker_packet_status": run["worker_task_packet_evidence"]["status"],
+                "stage_local_overlays": run.get("stage_local_overlays", []),
                 "run_ref": f"stage-runs/{run['stage_id']}.pilot-stage-run.json",
             }
             for run in runs

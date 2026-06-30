@@ -1,21 +1,42 @@
 {
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S07",
+      "validator_ref": "stage_overlay:nature_expert_writing:S07"
+    }
+  ],
   "completion_boundary": "validation proves run readiness only; controller retains completion authority",
-  "dimension_count": 3,
+  "dimension_count": 4,
   "evidence": [
     "S07 StageContract is linked",
     "S07 PilotStageRun is present",
-    "S07 content validator dimensions are present"
+    "S07 content validator dimensions are present",
+    "S07 Nature overlay binding is present"
   ],
   "required_checks": [
     "source_or_material_trace",
     "completion_boundary_explicit",
     "controller_owned_status",
     "candidate_return_or_missing_material_path",
-    "worker_authority_boundary"
+    "worker_authority_boundary",
+    "stage_overlay_binding",
+    "no_department_route",
+    "stage_overlay_packet_clause"
   ],
   "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
   "schema_version": "ppg-phase10-stage-validation/v0.1",
   "stage_id": "S07",
+  "stage_overlay_checks": [
+    "nature_overlay_binding:S07",
+    "controller_owned_completion",
+    "no_department_route",
+    "no_submission_ready_overclaim"
+  ],
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "status": "pass",
   "validator_id": "phase10_s07_content_validator"
 }

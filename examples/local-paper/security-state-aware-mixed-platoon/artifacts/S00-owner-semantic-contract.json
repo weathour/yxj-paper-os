@@ -18,5 +18,15 @@
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "security-state-aware-mixed-platoon",
   "stage_id": "S00",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "light",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S00",
+      "validator_ref": "stage_overlay:nature_expert_writing:S00"
+    }
+  ],
   "stage_name": "Owner semantic contract"
 }

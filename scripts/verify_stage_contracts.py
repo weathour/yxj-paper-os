@@ -22,6 +22,7 @@ SCHEMA = ROOT / "schemas" / "ppg-stage-contract.schema.json"
 REQUIRED_FIELDS = {
     "schema_version", "stage_id", "stage_name", "purpose", "execution_mode", "recommended_agent_type", "requires_worker_task_packet", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "activation_policy", "coverage_status", "registry_ref", "worker_authority_boundary", "worker_packet_coverage"
 }
+REQUIRED_FIELDS.add("stage_local_overlays")
 EXECUTION_MODES = {"owner_gated", "script_generated", "agent_generated", "hybrid_generated"}
 WORKER_COVERAGE = {"linked_strict_packet", "planned_with_blocker", "not_required"}
 NEGATIVE_EXPECTATIONS = {
@@ -34,6 +35,7 @@ NEGATIVE_EXPECTATIONS = {
     "invalid-absolute-worker-packet.json": "E_STAGE_CONTRACT_PACKET_REF_SCOPE",
     "invalid-traversal-worker-packet.json": "E_STAGE_CONTRACT_PACKET_REF_SCOPE",
     "invalid-return-contract-ref.json": "E_STAGE_CONTRACT_RETURN_CONTRACT_REF_SCOPE",
+    "invalid-missing-stage-local-overlays.json": "E_STAGE_CONTRACT_FIELD_MISSING",
 }
 
 
@@ -92,6 +94,19 @@ def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] |
         value = contract.get(key)
         if not isinstance(value, list) or not value or not all(isinstance(item, str) and item.strip() for item in value):
             errors.append(issue("E_STAGE_CONTRACT_LIST_FIELD", f"{sid}.{key}"))
+    overlays = contract.get("stage_local_overlays")
+    if not isinstance(overlays, list) or not overlays:
+        errors.append(issue("E_STAGE_CONTRACT_STAGE_OVERLAY_LINK", f"{sid}.stage_local_overlays"))
+    else:
+        expected_validator = f"stage_overlay:nature_expert_writing:{sid}"
+        if not any(
+            isinstance(item, dict)
+            and item.get("overlay_id") == "nature_expert_writing"
+            and item.get("registry_ref") == "runtime/stage_overlay_registry.json"
+            and item.get("packet_clause_validator") == expected_validator
+            for item in overlays
+        ):
+            errors.append(issue("E_STAGE_CONTRACT_STAGE_OVERLAY_LINK", f"{sid} missing nature_expert_writing overlay link"))
     boundary = contract.get("worker_authority_boundary")
     if not isinstance(boundary, dict) or boundary.get("completion_forbidden") is not True or boundary.get("no_recursive_orchestration") is not True or boundary.get("controller_owned_completion") is not True:
         errors.append(issue("E_STAGE_CONTRACT_AUTHORITY_BOUNDARY", f"{sid} worker boundary must forbid completion and recursive orchestration"))

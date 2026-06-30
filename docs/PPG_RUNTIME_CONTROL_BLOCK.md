@@ -44,7 +44,30 @@ Main Agent / Runtime Controller
 | S15 Repair/local regeneration | backflow task, target material, stale downstream set | revised material/text/figure, regenerated task packet when needed, updated validator report |
 | S16 Export/handoff/delivery | clean final candidate from S12, review closure from S13, repair-complete package from S15, figures, repository state | export manifest, repository hygiene report, manager handoff reports |
 | G01 Runtime governance | state, permissions, department metadata | skill registry, route/governance records, state controls |
-| G02 Derivative/post-paper outputs | stable paper, owner request | presentation plan, patent boundary, Nature absorption package |
+| G02 Derivative/post-paper outputs | stable paper, owner request | presentation plan, patent boundary, profile-specific derivative package |
+
+## Stage-local overlay lane
+
+Phase 11 adds a cross-cutting overlay lane without changing the stage topology:
+
+```text
+runtime/stage_overlay_registry.json
+  -> StageContract.stage_local_overlays
+  -> TaskPacket.mandatory_controls.nature_overlay_*
+  -> stage_overlay:nature_expert_writing:<stage_id> validator
+  -> Phase10 dispatch/validation/candidate/run-state evidence
+```
+
+The active overlay is `nature_expert_writing`. It contributes Nature-style expert writing controls to existing stages, but it is not a department and cannot dispatch workers or certify completion.
+
+Typical stage effects:
+
+- S02: venue/article-type profile, exemplar boundary, search/SOTA expectations.
+- S04: claim-strength calibration, allowed/forbidden wording, evidence visibility, data availability.
+- S05-S07: reader spine, object granularity, paragraph/rhetorical/surface controls.
+- S08/S11: figure contract, panel evidence, caption/legend discipline, source-data trace.
+- S10/S12/S13: candidate prose, integration consistency, reviewer/editorial risk checks.
+- S14/S15: local repair routing and regeneration without whole-paper rewrite.
 
 ## Key control rules
 
@@ -53,6 +76,7 @@ Main Agent / Runtime Controller
 3. Reviewers emit findings; they do not rewrite the whole paper directly.
 4. Backflow is local: it targets the nearest responsible upstream node and regenerates only affected downstream outputs.
 5. The bundle can be large, but it must be structured into mandatory controls, evidence/source anchors, local context, optional background, forbidden routes, validators, and return format.
+6. Stage-local overlays may add controls and validators inside the existing packet boundary; they must not add a new dispatch loop or completion authority.
 
 ## 2026-06-29 strict-review stage-edge corrections
 

@@ -38,6 +38,19 @@ The goal is not to minimize context at all costs. The goal is to prevent undiffe
 
 Phase 6 strict packets add explicit `allowed_read_paths`, `allowed_write_paths`, `output_artifact_path`, `worker_boot_clause`, `completion_forbidden: true`, `no_recursive_orchestration: true`, and `owner_gate_required: false`. A worker return is only a candidate: it cannot mark graph completion or widen its write surface.
 
+## Stage-local overlay policy
+
+Phase 11 adds `nature_expert_writing` as a stage-local overlay. It is not a department and not a separate worker route.
+
+When a stage uses this overlay, the subagent receives it only through existing packet channels:
+
+- `mandatory_controls.nature_overlay_ref`;
+- `mandatory_controls.nature_overlay_stage_binding`;
+- `mandatory_controls.nature_overlay_packet_clauses`;
+- `validators: stage_overlay:nature_expert_writing:<stage_id>`.
+
+The overlay may add expert-writing controls, expected outputs, and review checks to the stage. It may not add a top-level TaskPacket field, dispatch another subagent, mark completion, or bypass the main-agent controller.
+
 ## Important dispatchable stages
 
 ### S00 — Owner semantic contract
@@ -57,7 +70,7 @@ Phase 6 strict packets add explicit `allowed_read_paths`, `allowed_write_paths`,
 - **Agent type:** `explore` for local lookup; `researcher` for external source lookup; `verifier` for support checks.
 - **Mode:** `hybrid_generated`.
 - **Consumes:** initial files, result dirs, BibTeX/citation files, source locators, owner source policy.
-- **Produces:** `source-map.yaml`, `citation-bank.yaml`, `evidence-bank.yaml`, `nature-source-inventory.yaml` when Nature absorption applies.
+- **Produces:** `source-map.yaml`, `citation-bank.yaml`, `evidence-bank.yaml`, `nature-source-inventory.yaml` when the `nature_expert_writing` overlay applies.
 - **Validators:** source locator resolution, privacy boundary check, evidence artifact existence, citation bank structural check.
 - **Backflow targets:** owner source policy, evidence inventory, citation support.
 - **Completion gate:** every claim-relevant source is locator-backed or explicitly unresolved.
@@ -249,12 +262,14 @@ These are important but not part of the main paper cognition forward pass.
 - **Agent type:** main agent / `verifier`.
 - **Use:** before enabling automation, not before every writing task.
 
-### G02 — Nature absorption and derivative outputs
+### G02 — Post-paper derivative outputs
 
-- **Consumes/produces:** `nature-absorption-package.yaml`, `presentation-plan.yaml`, `patent-draft-boundary.yaml`.
+- **Consumes/produces:** `presentation-plan.yaml`, `patent-draft-boundary.yaml`, optional profile-specific derivative package.
 - **Purpose:** manage post-paper or external derivative capabilities.
 - **Agent type:** `planner`, `writer`, `verifier` depending on derivative.
 - **Use:** after paper content is stable or when explicitly requested.
+
+Nature writing expertise for the current manuscript is **not** routed through G02. It is the stage-local `nature_expert_writing` overlay on the active stage.
 
 ## Minimal stage chain for first implementation
 

@@ -11,6 +11,8 @@
     "completion_boundary",
     "canonical_stage_ids",
     "stages",
+    "stage_overlay_registry_ref",
+    "active_stage_overlays",
     "ledger_ref"
   ],
   "properties": {
@@ -21,6 +23,12 @@
     "completion_boundary": {"type": "string", "minLength": 1},
     "canonical_stage_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
     "stages": {"type": "array", "items": {"type": "object"}, "minItems": 1},
+    "stage_overlay_registry_ref": {"const": "runtime/stage_overlay_registry.json"},
+    "active_stage_overlays": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    },
     "ledger_ref": {"type": "string", "minLength": 1}
   },
   "additionalProperties": true

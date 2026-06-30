@@ -1,13 +1,24 @@
 {
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "derivative",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "G02",
+      "validator_ref": "stage_overlay:nature_expert_writing:G02"
+    }
+  ],
   "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
   "expected_outputs": [
     "presentation plan",
     "patent boundary",
-    "Nature absorption package"
+    "profile-specific derivative package"
   ],
   "packet_ref": null,
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "G02",
   "stage_name": "Derivative and post-paper outputs",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "validator_id": "phase10_g02_content_validator"
 }

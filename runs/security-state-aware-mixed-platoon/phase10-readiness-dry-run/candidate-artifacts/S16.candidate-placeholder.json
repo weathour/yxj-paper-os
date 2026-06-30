@@ -1,4 +1,14 @@
 {
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S16",
+      "validator_ref": "stage_overlay:nature_expert_writing:S16"
+    }
+  ],
   "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
   "expected_outputs": [
     "export manifest",
@@ -9,5 +19,6 @@
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S16",
   "stage_name": "Export repository hygiene and handoff",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "validator_id": "phase10_s16_content_validator"
 }

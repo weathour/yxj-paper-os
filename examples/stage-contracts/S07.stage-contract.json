@@ -1,45 +1,53 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S07",
-  "stage_name": "Rhetoric terminology and surface-control synthesis",
-  "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
-  "execution_mode": "hybrid_generated",
-  "recommended_agent_type": "writer",
-  "requires_worker_task_packet": true,
-  "consumes": [
-    "object representation",
-    "claim visibility",
-    "evidence wording"
-  ],
-  "produces": [
-    "construction matrix",
-    "rhetorical matrix",
-    "terminology register",
-    "surface rules"
-  ],
-  "validators": [
-    "terminology coverage",
-    "forbidden internal ids",
-    "rhetorical move coverage"
-  ],
+  "activation_policy": "activate before writing execution",
   "backflow_targets": [
     "S06",
     "S04",
     "S05"
   ],
   "completion_gate": "main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell",
-  "activation_policy": "activate before writing execution",
+  "consumes": [
+    "object representation",
+    "claim visibility",
+    "evidence wording"
+  ],
   "coverage_status": "planned_with_worker_packet",
+  "execution_mode": "hybrid_generated",
+  "produces": [
+    "construction matrix",
+    "rhetorical matrix",
+    "terminology register",
+    "surface rules"
+  ],
+  "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+  "recommended_agent_type": "writer",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S07",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S07",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Rhetoric terminology and surface-control synthesis",
+  "validators": [
+    "terminology coverage",
+    "forbidden internal ids",
+    "rhetorical move coverage"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/phase10_s07_rhetoric_surface_control_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

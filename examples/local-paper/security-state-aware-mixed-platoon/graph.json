@@ -294,7 +294,17 @@
       "id": "S00",
       "label": "Owner semantic contract",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/S00.pilot-stage-run.json"
+      "run_ref": "stage-runs/S00.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "light",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S00",
+          "validator_ref": "stage_overlay:nature_expert_writing:S00"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S01.stage-contract.json",
@@ -302,7 +312,17 @@
       "id": "S01",
       "label": "Source citation evidence inventory",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/S01.pilot-stage-run.json"
+      "run_ref": "stage-runs/S01.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "light",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S01",
+          "validator_ref": "stage_overlay:nature_expert_writing:S01"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
@@ -310,7 +330,17 @@
       "id": "S02",
       "label": "Research scene exemplar SOTA analysis",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S02.pilot-stage-run.json"
+      "run_ref": "stage-runs/S02.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S02",
+          "validator_ref": "stage_overlay:nature_expert_writing:S02"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S03.stage-contract.json",
@@ -318,7 +348,17 @@
       "id": "S03",
       "label": "Novelty and contribution option analysis",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S03.pilot-stage-run.json"
+      "run_ref": "stage-runs/S03.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "support",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S03",
+          "validator_ref": "stage_overlay:nature_expert_writing:S03"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S04.stage-contract.json",
@@ -326,7 +366,17 @@
       "id": "S04",
       "label": "Evidence-to-claim admissibility",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S04.pilot-stage-run.json"
+      "run_ref": "stage-runs/S04.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S04",
+          "validator_ref": "stage_overlay:nature_expert_writing:S04"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S05.stage-contract.json",
@@ -334,7 +384,17 @@
       "id": "S05",
       "label": "Paper spine and reader-question synthesis",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S05.pilot-stage-run.json"
+      "run_ref": "stage-runs/S05.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S05",
+          "validator_ref": "stage_overlay:nature_expert_writing:S05"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S06.stage-contract.json",
@@ -342,7 +402,17 @@
       "id": "S06",
       "label": "Object representation and granularity design",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S06.pilot-stage-run.json"
+      "run_ref": "stage-runs/S06.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S06",
+          "validator_ref": "stage_overlay:nature_expert_writing:S06"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
@@ -350,7 +420,17 @@
       "id": "S07",
       "label": "Rhetoric terminology and surface-control synthesis",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S07.pilot-stage-run.json"
+      "run_ref": "stage-runs/S07.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S07",
+          "validator_ref": "stage_overlay:nature_expert_writing:S07"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
@@ -358,7 +438,17 @@
       "id": "S08",
       "label": "Visual and formal object planning",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S08.pilot-stage-run.json"
+      "run_ref": "stage-runs/S08.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S08",
+          "validator_ref": "stage_overlay:nature_expert_writing:S08"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
@@ -366,7 +456,17 @@
       "id": "S09A",
       "label": "Control-material selection",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/S09A.pilot-stage-run.json"
+      "run_ref": "stage-runs/S09A.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S09A",
+          "validator_ref": "stage_overlay:nature_expert_writing:S09A"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
@@ -374,7 +474,17 @@
       "id": "S09B",
       "label": "Per-unit task packet assembly",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/S09B.pilot-stage-run.json"
+      "run_ref": "stage-runs/S09B.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S09B",
+          "validator_ref": "stage_overlay:nature_expert_writing:S09B"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S10.stage-contract.json",
@@ -382,7 +492,17 @@
       "id": "S10",
       "label": "Main-text production",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S10.pilot-stage-run.json"
+      "run_ref": "stage-runs/S10.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S10",
+          "validator_ref": "stage_overlay:nature_expert_writing:S10"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
@@ -390,7 +510,17 @@
       "id": "S11",
       "label": "Figure caption formal artifact production",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S11.pilot-stage-run.json"
+      "run_ref": "stage-runs/S11.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S11",
+          "validator_ref": "stage_overlay:nature_expert_writing:S11"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
@@ -398,7 +528,17 @@
       "id": "S12",
       "label": "Integration and consistency pass",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S12.pilot-stage-run.json"
+      "run_ref": "stage-runs/S12.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S12",
+          "validator_ref": "stage_overlay:nature_expert_writing:S12"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
@@ -406,7 +546,17 @@
       "id": "S13",
       "label": "Adversarial manuscript review",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S13.pilot-stage-run.json"
+      "run_ref": "stage-runs/S13.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S13",
+          "validator_ref": "stage_overlay:nature_expert_writing:S13"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S14.stage-contract.json",
@@ -414,7 +564,17 @@
       "id": "S14",
       "label": "Backflow compilation and repair planning",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/S14.pilot-stage-run.json"
+      "run_ref": "stage-runs/S14.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S14",
+          "validator_ref": "stage_overlay:nature_expert_writing:S14"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S15.stage-contract.json",
@@ -422,7 +582,17 @@
       "id": "S15",
       "label": "Repair execution and local regeneration",
       "requires_worker_task_packet": true,
-      "run_ref": "stage-runs/S15.pilot-stage-run.json"
+      "run_ref": "stage-runs/S15.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S15",
+          "validator_ref": "stage_overlay:nature_expert_writing:S15"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/S16.stage-contract.json",
@@ -430,7 +600,17 @@
       "id": "S16",
       "label": "Export repository hygiene and handoff",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/S16.pilot-stage-run.json"
+      "run_ref": "stage-runs/S16.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S16",
+          "validator_ref": "stage_overlay:nature_expert_writing:S16"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/G01.stage-contract.json",
@@ -438,7 +618,17 @@
       "id": "G01",
       "label": "Runtime governance registry",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/G01.pilot-stage-run.json"
+      "run_ref": "stage-runs/G01.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "governance",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "G01",
+          "validator_ref": "stage_overlay:nature_expert_writing:G01"
+        }
+      ]
     },
     {
       "contract_ref": "examples/stage-contracts/G02.stage-contract.json",
@@ -446,7 +636,17 @@
       "id": "G02",
       "label": "Derivative and post-paper outputs",
       "requires_worker_task_packet": false,
-      "run_ref": "stage-runs/G02.pilot-stage-run.json"
+      "run_ref": "stage-runs/G02.pilot-stage-run.json",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "derivative",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "G02",
+          "validator_ref": "stage_overlay:nature_expert_writing:G02"
+        }
+      ]
     }
   ],
   "pilot_root": "examples/local-paper/security-state-aware-mixed-platoon",

@@ -1,0 +1,896 @@
+{
+  "completion_boundary": "Overlay readiness only; it does not claim final manuscript, publication, or submission readiness.",
+  "description": "Generic stage overlay registry. The Nature profile is an expert writing overlay, not a department or independent execution route.",
+  "overlays": [
+    {
+      "authority_model": {
+        "controller_owned_completion": true,
+        "no_new_department": true,
+        "no_recursive_orchestration": true,
+        "overlay_dispatch_allowed": false,
+        "route_kind": "stage_local_overlay",
+        "stage_local_only": true,
+        "worker_completion_forbidden": false
+      },
+      "description": "Nature-style expert writing, figure, review, and submission-preflight knowledge encoded as passive stage-local controls.",
+      "overlay_id": "nature_expert_writing",
+      "primary_stage_bindings": [
+        "S02",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09A",
+        "S09B",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16"
+      ],
+      "profile_kind": "stage_local_writing_expertise_overlay",
+      "required_stage_bindings": [
+        "S00",
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09A",
+        "S09B",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "G01",
+        "G02"
+      ],
+      "stage_bindings": [
+        {
+          "backflow_targets": [
+            "S00"
+          ],
+          "binding_strength": "light",
+          "input_controls": [
+            "target_journal_family",
+            "article_type",
+            "owner_expectation",
+            "nature_ambition_level"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_route_decision",
+            "nature_ambition_boundary",
+            "nature_forbidden_route_list"
+          ],
+          "overlay_role": "owner-gated Nature route, article type, ambition, and forbidden-route decision boundary",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S00",
+            "nature_overlay_role:light"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S00",
+          "validator_checks": [
+            "nature_overlay_binding:S00",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S00",
+            "S01"
+          ],
+          "binding_strength": "light",
+          "input_controls": [
+            "citation_files",
+            "data_artifacts",
+            "figure_source_data",
+            "supplementary_material_paths"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_citation_bank",
+            "data_availability_inventory",
+            "figure_source_data_inventory",
+            "supplementary_material_inventory"
+          ],
+          "overlay_role": "citation, data availability, figure-source, supplement, and read-only provenance inventory",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S01",
+            "nature_overlay_role:light"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S01",
+          "validator_checks": [
+            "nature_overlay_binding:S01",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S00",
+            "S01"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "target_journal_family",
+            "article_type",
+            "source_inventory",
+            "exemplar_boundary_policy"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_venue_profile",
+            "reader_expectation_map",
+            "article_type_constraint_profile",
+            "exemplar_boundary_report"
+          ],
+          "overlay_role": "venue/profile, article-type constraints, exemplar boundary, search/SOTA expectations",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S02",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S02",
+          "validator_checks": [
+            "nature_overlay_binding:S02",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S02",
+            "S04"
+          ],
+          "binding_strength": "support",
+          "input_controls": [
+            "nature_originality_threshold",
+            "nature_significance_expectation",
+            "sota_map",
+            "evidence_inventory"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_contribution_option_map",
+            "significance_risk_report",
+            "novelty_weakness_map"
+          ],
+          "overlay_role": "support/light novelty and significance option risk, always gated through S04 before writing",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S03",
+            "nature_overlay_role:support"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S03",
+          "validator_checks": [
+            "nature_overlay_binding:S03",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S01",
+            "S03",
+            "S00"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_claim_strength_policy",
+            "nature_overclaim_patterns",
+            "evidence_inventory",
+            "data_availability_policy"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_claim_boundary_map",
+            "allowed_wording_map",
+            "forbidden_wording_map",
+            "evidence_visibility_map",
+            "data_availability_plan"
+          ],
+          "overlay_role": "claim-strength calibration, evidence visibility, allowed/forbidden wording, data availability",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S04",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S04",
+          "validator_checks": [
+            "nature_overlay_binding:S04",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "claim_boundary_preserved"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S04",
+            "S03",
+            "S00"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_reader_expectation_map",
+            "admitted_claim_boundary",
+            "article_type_constraints",
+            "contribution_risk_map"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_reader_spine",
+            "front_half_promise_map",
+            "reviewer_question_map",
+            "story_arc_matrix"
+          ],
+          "overlay_role": "reader promise, story arc, reviewer question map, front-half expectation control",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S05",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S05",
+          "validator_checks": [
+            "nature_overlay_binding:S05",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S05",
+            "S04"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_reader_spine",
+            "cross_disciplinary_accessibility_rules",
+            "claim_visibility",
+            "article_type_constraints"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "object_representation_matrix",
+            "granularity_progression_map",
+            "cognitive_load_budget",
+            "explanation_ladder"
+          ],
+          "overlay_role": "object granularity, explanation ladder, cognitive load, cross-disciplinary accessibility",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S06",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S06",
+          "validator_checks": [
+            "nature_overlay_binding:S06",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S06",
+            "S04",
+            "S05"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_section_move_rules",
+            "paragraph_job_rules",
+            "terminology_policy",
+            "forbidden_expression_list"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "rhetorical_move_matrix",
+            "paragraph_job_map",
+            "terminology_register",
+            "surface_rules",
+            "forbidden_expression_list"
+          ],
+          "overlay_role": "rhetorical moves, paragraph jobs, terminology, surface constraints, forbidden expression control",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S07",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S07",
+          "validator_checks": [
+            "nature_overlay_binding:S07",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S05",
+            "S06",
+            "S04"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_figure_panel_policy",
+            "visual_hierarchy_rules",
+            "claim_evidence_map",
+            "source_data_inventory"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "figure_contract",
+            "panel_evidence_map",
+            "main_supplement_split_plan",
+            "caption_legend_brief",
+            "backend_route_map"
+          ],
+          "overlay_role": "figure contract, panel evidence map, main/supplement split, visual and caption planning",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S08",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S08",
+          "validator_checks": [
+            "nature_overlay_binding:S08",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S04",
+            "S05",
+            "S06",
+            "S07"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "claim_controls",
+            "reader_spine_controls",
+            "granularity_controls",
+            "surface_rules",
+            "target_unit"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "selected_nature_control_bundle",
+            "control_priority_map",
+            "missing_control_report"
+          ],
+          "overlay_role": "selected Nature overlay control bundle and conflict priority for a target unit",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S09A",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S09A",
+          "validator_checks": [
+            "nature_overlay_binding:S09A",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S09A",
+            "S14",
+            "S15"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "selected_control_bundle",
+            "evidence_anchors",
+            "nature_overlay_packet_clauses",
+            "validator_refs"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "strict_task_packet_with_overlay_clauses",
+            "section_move_plan",
+            "single_writer_lock"
+          ],
+          "overlay_role": "per-unit Nature overlay packet clauses without expanding worker authority",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S09B",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S09B",
+          "validator_checks": [
+            "nature_overlay_binding:S09B",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S09B",
+            "S07",
+            "S04"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_writing_task_packet",
+            "section_move_profile",
+            "paragraph_job_map",
+            "claim_evidence_boundary"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "section_draft_candidate",
+            "move_trace",
+            "claim_evidence_trace",
+            "candidate_return"
+          ],
+          "overlay_role": "candidate text obeys overlay controls and returns trace/risk evidence",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S10",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S10",
+          "validator_checks": [
+            "nature_overlay_binding:S10",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "claim_boundary_preserved"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S08",
+            "S04",
+            "S01"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_figure_contract",
+            "panel_evidence_map",
+            "caption_legend_brief",
+            "figure_source_data_inventory"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "figure_export_bundle",
+            "caption_legend_draft",
+            "image_integrity_record",
+            "panel_claim_trace"
+          ],
+          "overlay_role": "figure/caption bundle obeys claim boundary, source data, render and image integrity",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S11",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S11",
+          "validator_checks": [
+            "nature_overlay_binding:S11",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "claim_boundary_preserved"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S10",
+            "S11",
+            "S07",
+            "S04"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "front_half_promise_map",
+            "section_move_matrix",
+            "figure_text_alignment_rules",
+            "claim_boundary_map"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "integrated_manuscript_candidate",
+            "promise_satisfaction_report",
+            "figure_text_alignment_report"
+          ],
+          "overlay_role": "cross-section promise, terminology, figure-text, and claim consistency",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S12",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S12",
+          "validator_checks": [
+            "nature_overlay_binding:S12",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S14"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_reviewer_panel_profile",
+            "desk_reject_risk_checklist",
+            "reader_accessibility_checklist",
+            "figure_legend_checklist"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "reviewer_panel_report",
+            "desk_reject_risk_report",
+            "reader_experience_report",
+            "review_findings"
+          ],
+          "overlay_role": "adversarial reviewer, desk-risk, reader-surface, figure/caption review findings",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S13",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S13",
+          "validator_checks": [
+            "nature_overlay_binding:S13",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "claim_boundary_preserved",
+            "local_backflow_route"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S04",
+            "S07",
+            "S08",
+            "S09A",
+            "S15"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_review_findings",
+            "revision_priority_map",
+            "material_graph_state",
+            "failure_type_map"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "nature_backflow_task",
+            "repair_packet",
+            "control_reselection_task",
+            "response_action_map"
+          ],
+          "overlay_role": "nearest-responsible backflow compilation for Nature overlay findings",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S14",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S14",
+          "validator_checks": [
+            "nature_overlay_binding:S14",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "local_backflow_route"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S09B",
+            "S10",
+            "S11",
+            "S12",
+            "S15"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "nature_backflow_task",
+            "target_material",
+            "affected_downstream_set",
+            "nature_validator_refs"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "revised_control_material",
+            "regenerated_task_packet",
+            "revised_text_or_figure",
+            "updated_validator_report"
+          ],
+          "overlay_role": "scoped repair/regeneration with unrelated-node preservation",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S15",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S15",
+          "validator_checks": [
+            "nature_overlay_binding:S15",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "claim_boundary_preserved",
+            "local_backflow_route"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S12",
+            "S13",
+            "S15",
+            "S00"
+          ],
+          "binding_strength": "primary",
+          "input_controls": [
+            "submission_preflight_checklist",
+            "data_availability_plan",
+            "figure_export_bundle",
+            "review_closure"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "submission_preflight_report",
+            "data_availability_statement_check",
+            "figure_file_checklist",
+            "manager_handoff_report"
+          ],
+          "overlay_role": "export/handoff/data/figure/supplement preflight without submission overclaim",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:S16",
+            "nature_overlay_role:primary"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "S16",
+          "validator_checks": [
+            "nature_overlay_binding:S16",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "owner_gate_or_export_hygiene"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "G01"
+          ],
+          "binding_strength": "governance",
+          "input_controls": [
+            "overlay_registry",
+            "authority_limits",
+            "stage_registry"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "overlay_registry_records",
+            "authority_boundary_records",
+            "runtime_invariant_report"
+          ],
+          "overlay_role": "overlay registry and governance sidecar only",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:G01",
+            "nature_overlay_role:governance"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "G01",
+          "validator_checks": [
+            "nature_overlay_binding:G01",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim"
+          ]
+        },
+        {
+          "backflow_targets": [
+            "S16",
+            "G02"
+          ],
+          "binding_strength": "derivative",
+          "input_controls": [
+            "stable_paper",
+            "owner_request",
+            "reviewer_comments_or_derivative_goal"
+          ],
+          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "output_materials": [
+            "rebuttal_response_plan",
+            "presentation_plan",
+            "patent_boundary_draft"
+          ],
+          "overlay_role": "owner-gated rebuttal/derivative sidecar only after paper stabilization",
+          "packet_clauses": [
+            "nature_overlay_ref:nature_expert_writing",
+            "nature_stage_binding:G02",
+            "nature_overlay_role:derivative"
+          ],
+          "prohibited_routes": [
+            "mark_graph_complete",
+            "dispatch_subagents",
+            "write_outside_allowed_write_paths",
+            "change_owner_intent",
+            "self_certifying_department_route"
+          ],
+          "stage_id": "G02",
+          "validator_checks": [
+            "nature_overlay_binding:G02",
+            "controller_owned_completion",
+            "no_department_route",
+            "no_submission_ready_overclaim",
+            "owner_gate_or_export_hygiene"
+          ]
+        }
+      ],
+      "support_stage_bindings": [
+        "S03"
+      ]
+    }
+  ],
+  "packet_clause_transport": {
+    "mandatory_controls_keys": [
+      "nature_overlay_ref",
+      "nature_overlay_stage_binding",
+      "nature_overlay_packet_clauses"
+    ],
+    "top_level_packet_fields_forbidden": true,
+    "validator_prefix": "stage_overlay:nature_expert_writing:"
+  },
+  "registry_ref": "runtime/stage_registry.json",
+  "schema_version": "ppg-stage-overlay-registry/v0.1"
+}

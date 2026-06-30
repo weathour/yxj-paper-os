@@ -1,28 +1,5 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S14",
-  "stage_name": "Backflow compilation and repair planning",
-  "purpose": "Convert review/loss signals into local repair tasks.",
-  "execution_mode": "hybrid_generated",
-  "recommended_agent_type": "planner",
-  "requires_worker_task_packet": false,
-  "consumes": [
-    "review outputs",
-    "validator reports",
-    "affected materials graph"
-  ],
-  "produces": [
-    "narrative backflow task",
-    "repair task packets",
-    "control reselection tasks",
-    "response action map"
-  ],
-  "validators": [
-    "target layer/material",
-    "affected downstream nodes",
-    "repair mission",
-    "owner gate status"
-  ],
+  "activation_policy": "activate when review finding exists",
   "backflow_targets": [
     "S04",
     "S07",
@@ -31,18 +8,49 @@
     "S15"
   ],
   "completion_gate": "no accepted finding remains unrouted",
-  "activation_policy": "activate when review finding exists",
+  "consumes": [
+    "review outputs",
+    "validator reports",
+    "affected materials graph"
+  ],
   "coverage_status": "implemented_partial_phase5_phase7",
+  "execution_mode": "hybrid_generated",
+  "produces": [
+    "narrative backflow task",
+    "repair task packets",
+    "control reselection tasks",
+    "response action map"
+  ],
+  "purpose": "Convert review/loss signals into local repair tasks.",
+  "recommended_agent_type": "planner",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": false,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S14",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S14",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Backflow compilation and repair planning",
+  "validators": [
+    "target layer/material",
+    "affected downstream nodes",
+    "repair mission",
+    "owner gate status"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "not_required",
+    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
     "packet_ref": null,
     "return_contract_ref": null,
-    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden."
+    "status": "not_required"
   }
 }

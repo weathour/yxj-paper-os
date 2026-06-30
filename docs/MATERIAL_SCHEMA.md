@@ -59,6 +59,20 @@ A subagent can propose `candidate` output. It cannot commit material. The main a
 - `RhetoricalMoveMatrix`
 - `ClaimEvidenceVisibilityMap`
 
+### Stage-local overlay materials
+
+Stage-local overlays are profile/control materials consumed by existing stages. They do not create new stages or departments.
+
+- `StageOverlayRegistry`
+- `StageOverlayBinding`
+- `NatureVenueProfile`
+- `NatureClaimBoundaryMap`
+- `NatureFigureContract`
+- `NatureReaderExperienceRubric`
+- `NatureSurfaceControlProfile`
+
+The first active overlay is `nature_expert_writing` in `runtime/stage_overlay_registry.json`. Its controls are transported through existing TaskPacket `mandatory_controls` and `validators`, not through new top-level worker authority fields.
+
 ### Production materials
 
 - `WritingTaskPacket`
@@ -143,7 +157,16 @@ The full material ontology remains larger than the executable MVP. Phase 4 freez
 
 `ClaimEvidenceVisibilityMap`, selected control bundles, section-draft shape, and figure contract/panel evidence maps are deferred until a later phase chooses them as concrete backflow or writing targets.
 
+## Phase 11 stage-overlay registry subset
+
+Phase 11 adds a machine-checkable stage-local overlay registry for expert writing profiles:
+
+- `runtime/stage_overlay_registry.json` stores overlay authority, per-stage input controls, output materials, packet clauses, validator checks, and backflow targets.
+- `schemas/ppg-stage-overlay-registry.schema.json` defines the registry shape.
+- `scripts/verify_stage_overlays.py` enforces canonical stage bindings, bare-`S09` rejection, no-department authority, StageContract links, TaskPacket overlay clauses, and content-validator coverage.
+
+Overlay bindings may shape stage-specific materials, but they cannot mark graph nodes complete or dispatch workers.
+
 ### Sidecar pollution rule
 
 Phase 4 lints only paper-facing text fields such as `draft_text`, `caption_text`, `claim_text`, `summary_for_reader`, `paragraph`, or blocks explicitly marked `paper_facing: true`. It does not fail registry/control fields such as `stale_terms`, `forbidden_terms`, ids, schema names, provenance, or validator metadata merely because those fields name internal runtime terms.
-

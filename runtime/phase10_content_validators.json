@@ -1,5 +1,4 @@
 {
-  "schema_version": "ppg-phase10-content-validators/v0.1",
   "canonical_stage_ids": [
     "S00",
     "S01",
@@ -22,12 +21,10 @@
     "G01",
     "G02"
   ],
+  "completion_boundary": "content validators prove real-run readiness only; no final manuscript completion claim",
+  "schema_version": "ppg-phase10-content-validators/v0.1",
   "validators": [
     {
-      "stage_id": "S00",
-      "stage_name": "Owner semantic contract",
-      "validator_id": "phase10_s00_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s00_1",
@@ -43,20 +40,27 @@
           "dimension_id": "s00_3",
           "name": "human need trace",
           "required_evidence": "S00 evidence for human need trace"
+        },
+        {
+          "dimension_id": "s00_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S00 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
-        "controller_owned_status"
+        "controller_owned_status",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S00",
+      "stage_name": "Owner semantic contract",
+      "validator_id": "phase10_s00_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S01",
-      "stage_name": "Source citation evidence inventory",
-      "validator_id": "phase10_s01_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s01_1",
@@ -72,20 +76,27 @@
           "dimension_id": "s01_3",
           "name": "read-only provenance",
           "required_evidence": "S01 evidence for read-only provenance"
+        },
+        {
+          "dimension_id": "s01_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S01 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
-        "controller_owned_status"
+        "controller_owned_status",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S01",
+      "stage_name": "Source citation evidence inventory",
+      "validator_id": "phase10_s01_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S02",
-      "stage_name": "Research scene exemplar SOTA analysis",
-      "validator_id": "phase10_s02_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s02_1",
@@ -101,22 +112,30 @@
           "dimension_id": "s02_3",
           "name": "citation verification",
           "required_evidence": "S02 evidence for citation verification"
+        },
+        {
+          "dimension_id": "s02_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S02 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S02",
+      "stage_name": "Research scene exemplar SOTA analysis",
+      "validator_id": "phase10_s02_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S03",
-      "stage_name": "Novelty and contribution option analysis",
-      "validator_id": "phase10_s03_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s03_1",
@@ -132,22 +151,30 @@
           "dimension_id": "s03_3",
           "name": "owner semantic-shift gate",
           "required_evidence": "S03 evidence for owner semantic-shift gate"
+        },
+        {
+          "dimension_id": "s03_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S03 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S03",
+      "stage_name": "Novelty and contribution option analysis",
+      "validator_id": "phase10_s03_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S04",
-      "stage_name": "Evidence-to-claim admissibility",
-      "validator_id": "phase10_s04_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s04_1",
@@ -163,22 +190,30 @@
           "dimension_id": "s04_3",
           "name": "evidence locator visibility",
           "required_evidence": "S04 evidence for evidence locator visibility"
+        },
+        {
+          "dimension_id": "s04_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S04 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S04",
+      "stage_name": "Evidence-to-claim admissibility",
+      "validator_id": "phase10_s04_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S05",
-      "stage_name": "Paper spine and reader-question synthesis",
-      "validator_id": "phase10_s05_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s05_1",
@@ -194,22 +229,30 @@
           "dimension_id": "s05_3",
           "name": "owner decision surfacing",
           "required_evidence": "S05 evidence for owner decision surfacing"
+        },
+        {
+          "dimension_id": "s05_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S05 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S05",
+      "stage_name": "Paper spine and reader-question synthesis",
+      "validator_id": "phase10_s05_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S06",
-      "stage_name": "Object representation and granularity design",
-      "validator_id": "phase10_s06_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s06_1",
@@ -225,22 +268,30 @@
           "dimension_id": "s06_3",
           "name": "cognitive load control",
           "required_evidence": "S06 evidence for cognitive load control"
+        },
+        {
+          "dimension_id": "s06_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S06 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S06",
+      "stage_name": "Object representation and granularity design",
+      "validator_id": "phase10_s06_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S07",
-      "stage_name": "Rhetoric terminology and surface-control synthesis",
-      "validator_id": "phase10_s07_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s07_1",
@@ -256,22 +307,30 @@
           "dimension_id": "s07_3",
           "name": "forbidden internal id leakage",
           "required_evidence": "S07 evidence for forbidden internal id leakage"
+        },
+        {
+          "dimension_id": "s07_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S07 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S07",
+      "stage_name": "Rhetoric terminology and surface-control synthesis",
+      "validator_id": "phase10_s07_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S08",
-      "stage_name": "Visual and formal object planning",
-      "validator_id": "phase10_s08_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s08_1",
@@ -287,22 +346,30 @@
           "dimension_id": "s08_3",
           "name": "backend/source route",
           "required_evidence": "S08 evidence for backend/source route"
+        },
+        {
+          "dimension_id": "s08_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S08 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S08",
+      "stage_name": "Visual and formal object planning",
+      "validator_id": "phase10_s08_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S09A",
-      "stage_name": "Control-material selection",
-      "validator_id": "phase10_s09a_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s09a_1",
@@ -318,20 +385,27 @@
           "dimension_id": "s09a_3",
           "name": "backflow reselection boundary",
           "required_evidence": "S09A evidence for backflow reselection boundary"
+        },
+        {
+          "dimension_id": "s09a_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S09A evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
-        "controller_owned_status"
+        "controller_owned_status",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S09A",
+      "stage_name": "Control-material selection",
+      "validator_id": "phase10_s09a_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S09B",
-      "stage_name": "Per-unit task packet assembly",
-      "validator_id": "phase10_s09b_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s09b_1",
@@ -347,20 +421,27 @@
           "dimension_id": "s09b_3",
           "name": "worker non-recursion clause",
           "required_evidence": "S09B evidence for worker non-recursion clause"
+        },
+        {
+          "dimension_id": "s09b_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S09B evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
-        "controller_owned_status"
+        "controller_owned_status",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S09B",
+      "stage_name": "Per-unit task packet assembly",
+      "validator_id": "phase10_s09b_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S10",
-      "stage_name": "Main-text production",
-      "validator_id": "phase10_s10_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s10_1",
@@ -376,22 +457,30 @@
           "dimension_id": "s10_3",
           "name": "candidate return completeness",
           "required_evidence": "S10 evidence for candidate return completeness"
+        },
+        {
+          "dimension_id": "s10_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S10 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S10",
+      "stage_name": "Main-text production",
+      "validator_id": "phase10_s10_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S11",
-      "stage_name": "Figure caption formal artifact production",
-      "validator_id": "phase10_s11_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s11_1",
@@ -407,22 +496,30 @@
           "dimension_id": "s11_3",
           "name": "export/render integrity",
           "required_evidence": "S11 evidence for export/render integrity"
+        },
+        {
+          "dimension_id": "s11_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S11 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S11",
+      "stage_name": "Figure caption formal artifact production",
+      "validator_id": "phase10_s11_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S12",
-      "stage_name": "Integration and consistency pass",
-      "validator_id": "phase10_s12_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s12_1",
@@ -438,22 +535,30 @@
           "dimension_id": "s12_3",
           "name": "promise satisfaction",
           "required_evidence": "S12 evidence for promise satisfaction"
+        },
+        {
+          "dimension_id": "s12_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S12 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "candidate_return_or_missing_material_path",
-        "worker_authority_boundary"
+        "worker_authority_boundary",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S12",
+      "stage_name": "Integration and consistency pass",
+      "validator_id": "phase10_s12_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S13",
-      "stage_name": "Adversarial manuscript review",
-      "validator_id": "phase10_s13_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s13_1",
@@ -469,8 +574,14 @@
           "dimension_id": "s13_3",
           "name": "nearest backflow target routing",
           "required_evidence": "S13 evidence for nearest backflow target routing"
+        },
+        {
+          "dimension_id": "s13_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S13 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
@@ -478,15 +589,17 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "local_backflow_route",
-        "repair_locality"
+        "repair_locality",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S13",
+      "stage_name": "Adversarial manuscript review",
+      "validator_id": "phase10_s13_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S14",
-      "stage_name": "Backflow compilation and repair planning",
-      "validator_id": "phase10_s14_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s14_1",
@@ -502,22 +615,29 @@
           "dimension_id": "s14_3",
           "name": "upstream target precision",
           "required_evidence": "S14 evidence for upstream target precision"
+        },
+        {
+          "dimension_id": "s14_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S14 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
         "local_backflow_route",
-        "repair_locality"
+        "repair_locality",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S14",
+      "stage_name": "Backflow compilation and repair planning",
+      "validator_id": "phase10_s14_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S15",
-      "stage_name": "Repair execution and local regeneration",
-      "validator_id": "phase10_s15_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s15_1",
@@ -533,8 +653,14 @@
           "dimension_id": "s15_3",
           "name": "finding resolution evidence",
           "required_evidence": "S15 evidence for finding resolution evidence"
+        },
+        {
+          "dimension_id": "s15_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S15 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
@@ -542,15 +668,17 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "local_backflow_route",
-        "repair_locality"
+        "repair_locality",
+        "stage_overlay_binding",
+        "no_department_route",
+        "stage_overlay_packet_clause"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S15",
+      "stage_name": "Repair execution and local regeneration",
+      "validator_id": "phase10_s15_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "S16",
-      "stage_name": "Export repository hygiene and handoff",
-      "validator_id": "phase10_s16_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "s16_1",
@@ -566,21 +694,28 @@
           "dimension_id": "s16_3",
           "name": "no submission-ready overclaim",
           "required_evidence": "S16 evidence for no submission-ready overclaim"
+        },
+        {
+          "dimension_id": "s16_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "S16 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
-        "owner_gate_or_export_hygiene"
+        "owner_gate_or_export_hygiene",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "S16",
+      "stage_name": "Export repository hygiene and handoff",
+      "validator_id": "phase10_s16_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "G01",
-      "stage_name": "Runtime governance registry",
-      "validator_id": "phase10_g01_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "g01_1",
@@ -596,20 +731,27 @@
           "dimension_id": "g01_3",
           "name": "runtime invariant coverage",
           "required_evidence": "G01 evidence for runtime invariant coverage"
+        },
+        {
+          "dimension_id": "g01_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "G01 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
-        "controller_owned_status"
+        "controller_owned_status",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "G01",
+      "stage_name": "Runtime governance registry",
+      "validator_id": "phase10_g01_content_validator",
+      "validator_kind": "content_readiness"
     },
     {
-      "stage_id": "G02",
-      "stage_name": "Derivative and post-paper outputs",
-      "validator_id": "phase10_g02_content_validator",
-      "validator_kind": "content_readiness",
       "dimensions": [
         {
           "dimension_id": "g02_1",
@@ -625,16 +767,26 @@
           "dimension_id": "g02_3",
           "name": "no automatic dissemination",
           "required_evidence": "G02 evidence for no automatic dissemination"
+        },
+        {
+          "dimension_id": "g02_nature_overlay",
+          "name": "Nature expert-writing overlay binding",
+          "required_evidence": "G02 evidence for stage-local Nature overlay binding without department route"
         }
       ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
       "required_checks": [
         "source_or_material_trace",
         "completion_boundary_explicit",
         "controller_owned_status",
-        "owner_gate_or_export_hygiene"
+        "owner_gate_or_export_hygiene",
+        "stage_overlay_binding",
+        "no_department_route"
       ],
-      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+      "stage_id": "G02",
+      "stage_name": "Derivative and post-paper outputs",
+      "validator_id": "phase10_g02_content_validator",
+      "validator_kind": "content_readiness"
     }
-  ],
-  "completion_boundary": "content validators prove real-run readiness only; no final manuscript completion claim"
+  ]
 }

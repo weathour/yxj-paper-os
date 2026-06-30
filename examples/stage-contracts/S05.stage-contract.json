@@ -1,45 +1,53 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S05",
-  "stage_name": "Paper spine and reader-question synthesis",
-  "purpose": "Synthesize paper argument path and reader/reviewer questions.",
-  "execution_mode": "agent_generated",
-  "recommended_agent_type": "architect",
-  "requires_worker_task_packet": true,
-  "consumes": [
-    "motivation",
-    "contribution options",
-    "template profile",
-    "claim materials"
-  ],
-  "produces": [
-    "reader spine",
-    "reviewer question map",
-    "rationale matrix"
-  ],
-  "validators": [
-    "claim appears in spine",
-    "section answers reader question",
-    "owner decisions explicit"
-  ],
+  "activation_policy": "activate for new section or major rewrite",
   "backflow_targets": [
     "S00",
     "S03",
     "S04"
   ],
   "completion_gate": "spine is coherent and claim-bounded before writing begins",
-  "activation_policy": "activate for new section or major rewrite",
+  "consumes": [
+    "motivation",
+    "contribution options",
+    "template profile",
+    "claim materials"
+  ],
   "coverage_status": "planned_with_worker_packet",
+  "execution_mode": "agent_generated",
+  "produces": [
+    "reader spine",
+    "reviewer question map",
+    "rationale matrix"
+  ],
+  "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+  "recommended_agent_type": "architect",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S05",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S05",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Paper spine and reader-question synthesis",
+  "validators": [
+    "claim appears in spine",
+    "section answers reader question",
+    "owner decisions explicit"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/phase10_s05_paper_spine_synthesis_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

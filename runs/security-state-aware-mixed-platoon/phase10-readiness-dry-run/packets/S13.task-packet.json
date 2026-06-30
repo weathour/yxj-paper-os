@@ -45,6 +45,13 @@
   "mandatory_controls": {
     "claim_boundary": "claim_boundary_map_v2",
     "evidence_inventory": "evidence_inventory_v1",
+    "nature_overlay_packet_clauses": [
+      "nature_overlay_ref:nature_expert_writing",
+      "nature_stage_binding:S13",
+      "nature_overlay_role:primary"
+    ],
+    "nature_overlay_ref": "runtime/stage_overlay_registry.json#nature_expert_writing",
+    "nature_overlay_stage_binding": "S13",
     "reader_spine": "reader_spine_v1",
     "reference_sidecar": "reference_sidecar_v1",
     "terminology_register": "terminology_register_v1"
@@ -69,7 +76,8 @@
   "task_kind": "adversarial_review",
   "validators": [
     "validate_packet:phase10_stage_binding",
-    "content_validator:S13"
+    "content_validator:S13",
+    "stage_overlay:nature_expert_writing:S13"
   ],
   "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only."
 }

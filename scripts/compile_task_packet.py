@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
+import json
 from pathlib import Path
 import sys
 from typing import Any
@@ -31,6 +32,9 @@ except ImportError:  # pragma: no cover - direct script fallback
 
 INTRO_TARGET_ALIASES = {"section_draft_intro.v1", "section_draft_intro.v2", "intro_draft_v2"}
 CLAIM_REPAIR_TARGET_ALIASES = {"claim_boundary_map_candidate_v3", "claim_boundary_repair.v1"}
+ROOT = Path(__file__).resolve().parents[1]
+OVERLAY_REGISTRY = ROOT / "runtime" / "stage_overlay_registry.json"
+NATURE_OVERLAY_ID = "nature_expert_writing"
 
 COMMON_FORBIDDEN_ROUTES = [
     "mark_graph_complete",
@@ -262,6 +266,33 @@ def _base_packet() -> dict[str, Any]:
     }
 
 
+def _nature_overlay_binding(stage_id: str) -> dict[str, Any]:
+    registry = json.loads(OVERLAY_REGISTRY.read_text(encoding="utf-8"))
+    for overlay in registry.get("overlays", []):
+        if not isinstance(overlay, dict) or overlay.get("overlay_id") != NATURE_OVERLAY_ID:
+            continue
+        for binding in overlay.get("stage_bindings", []):
+            if isinstance(binding, dict) and binding.get("stage_id") == stage_id:
+                return binding
+    raise ValueError(f"missing Nature overlay binding for {stage_id}")
+
+
+def _apply_nature_overlay(packet: dict[str, Any]) -> dict[str, Any]:
+    stage_id = str(packet["stage_id"])
+    binding = _nature_overlay_binding(stage_id)
+    controls = packet.setdefault("mandatory_controls", {})
+    if not isinstance(controls, dict):
+        raise ValueError("mandatory_controls must be a mapping")
+    controls["nature_overlay_ref"] = f"runtime/stage_overlay_registry.json#{NATURE_OVERLAY_ID}"
+    controls["nature_overlay_stage_binding"] = stage_id
+    controls["nature_overlay_packet_clauses"] = list(binding.get("packet_clauses", []))
+    validators = packet.setdefault("validators", [])
+    expected_validator = f"stage_overlay:{NATURE_OVERLAY_ID}:{stage_id}"
+    if isinstance(validators, list) and expected_validator not in validators:
+        validators.append(expected_validator)
+    return packet
+
+
 def _intro_packet() -> dict[str, Any]:
     packet = _base_packet()
     packet.update(
@@ -304,7 +335,7 @@ def _intro_packet() -> dict[str, Any]:
             "stop_condition": "Return candidate artifact and evidence only; do not mark graph completion.",
         }
     )
-    return packet
+    return _apply_nature_overlay(packet)
 
 
 def _claim_repair_packet() -> dict[str, Any]:
@@ -354,7 +385,7 @@ def _claim_repair_packet() -> dict[str, Any]:
             "stop_condition": "Return candidate material and evidence only; do not commit the graph.",
         }
     )
-    return packet
+    return _apply_nature_overlay(packet)
 
 
 def _missing_report(packet_id: str, missing_materials: list[str]) -> dict[str, Any]:

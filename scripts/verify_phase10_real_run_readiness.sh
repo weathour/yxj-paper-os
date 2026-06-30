@@ -48,6 +48,19 @@ assert_fails_with() {
 
 python3 scripts/verify_phase10_forbidden_side_effects.py
 python3 scripts/verify_stage_contracts.py
+python3 scripts/verify_stage_overlays.py
+python3 - <<'PY'
+import json
+from pathlib import Path
+stage_contract_required = set(json.loads(Path('schemas/ppg-stage-contract.schema.json').read_text())['required'])
+run_state_required = set(json.loads(Path('schemas/ppg-run-state.schema.json').read_text())['required'])
+if 'stage_local_overlays' not in stage_contract_required:
+    raise SystemExit('PHASE11_STAGE_CONTRACT_SCHEMA_OVERLAY_REQUIRED_MISSING')
+missing_run = {'stage_overlay_registry_ref', 'active_stage_overlays'} - run_state_required
+if missing_run:
+    raise SystemExit(f'PHASE11_RUN_STATE_SCHEMA_OVERLAY_REQUIRED_MISSING {sorted(missing_run)}')
+print('PHASE11_SCHEMA_OVERLAY_REQUIRED_FIELDS_OK')
+PY
 python3 scripts/generate_local_paper_full_pilot.py --pilot-root examples/local-paper/security-state-aware-mixed-platoon --check
 python3 scripts/generate_phase10_run_dry_run.py --check
 python3 scripts/verify_phase10_run_readiness.py
@@ -113,6 +126,20 @@ p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\
 PY
 assert_fails_with E_PHASE10_BARE_S09 python3 scripts/verify_phase10_run_readiness.py "$negative_bare"
 
+# Negative: run-state must keep Nature overlay registry linkage.
+make_negative_run run-state-overlay
+negative_run_state_overlay=$negative_run
+python3 - "$negative_run_state_overlay/run_state.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data.pop('stage_overlay_registry_ref', None)
+data.pop('active_stage_overlays', None)
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_STAGE_OVERLAY_LINK python3 scripts/verify_phase10_run_readiness.py "$negative_run_state_overlay"
+
 # Negative: source snapshot drift inside a pre-existing untracked source path must fail.
 make_negative_run source-drift
 negative_source=$negative_run
@@ -176,6 +203,19 @@ p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\
 PY
 assert_fails_with E_PHASE10_VALIDATION_CONTENT python3 scripts/verify_phase10_run_readiness.py "$negative_validation"
 
+# Negative: dispatch records must keep Nature overlay linkage explicit.
+make_negative_run stage-overlay-dispatch
+negative_stage_overlay_dispatch=$negative_run
+python3 - "$negative_stage_overlay_dispatch/dispatch/S02.dispatch.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data.pop('active_stage_overlays', None)
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_STAGE_OVERLAY_LINK python3 scripts/verify_phase10_run_readiness.py "$negative_stage_overlay_dispatch"
+
 # Negative: candidate placeholders must not overclaim manuscript completion.
 make_negative_run candidate
 negative_candidate=$negative_run
@@ -202,6 +242,20 @@ data['allowed_write_paths'] = ['examples/materials/phase10_s02_research_dossier.
 p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
 PY
 assert_fails_with E_PHASE10_RUN_PACKET_OUTPUT_BOUNDARY python3 scripts/verify_phase10_run_readiness.py "$negative_run_packet"
+
+# Negative: per-run TaskPackets must carry the Nature overlay clause and validator.
+make_negative_run run-packet-overlay
+negative_run_packet_overlay=$negative_run
+python3 - "$negative_run_packet_overlay/packets/S02.task-packet.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data['mandatory_controls'].pop('nature_overlay_ref', None)
+data['validators'] = [item for item in data.get('validators', []) if not str(item).startswith('stage_overlay:')]
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_STAGE_OVERLAY_LINK python3 scripts/verify_phase10_run_readiness.py "$negative_run_packet_overlay"
 
 # Negative: source-contained run output must be rejected before writes.
 forbidden_source_run="$source_root/phase10-forbidden-run"

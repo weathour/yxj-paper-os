@@ -465,14 +465,16 @@
     renderCountChips(counts, coverage.coverage_kind_counts);
     renderCountChips(counts, coverage.exercise_level_counts);
     renderCountChips(counts, coverage.worker_task_packet_status_counts);
+    renderCountChips(counts, coverage.stage_overlay_binding_counts);
 
-    const stages = appendStateSection(stageCoverageContent, 'Stage Runs', '点击左侧 stage 图可看拓扑；这里看每个 stage 的实际 pilot 覆盖、任务包状态和 contract ref。');
+    const stages = appendStateSection(stageCoverageContent, 'Stage Runs', '点击左侧 stage 图可看拓扑；这里看每个 stage 的实际 pilot 覆盖、任务包状态、stage-local overlay 和 contract ref。');
     appendCardList(stages, coverage.stage_runs, (item) => {
       const card = stateCard(`${item.stage_id} ${item.stage_name}`, toneForCoverage(item));
       appendKeyValue(card, 'status', item.status);
       appendKeyValue(card, 'coverage', item.coverage_kind);
       appendKeyValue(card, 'exercise', item.exercise_level);
       appendKeyValue(card, 'worker packet', item.worker_packet_status);
+      appendKeyValue(card, 'overlay', (item.stage_local_overlays || []).map((overlay) => `${overlay.overlay_id}:${overlay.binding_strength}`).join(', ') || 'none');
       appendKeyValue(card, 'contract', item.contract_ref);
       appendKeyValue(card, 'run', item.run_ref);
       return card;

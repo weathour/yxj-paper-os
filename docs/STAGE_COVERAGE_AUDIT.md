@@ -169,6 +169,18 @@ Action: record as optional profile stage `S04E` for empirical/computational pape
 
 This is acceptable. It does not need a new stage unless citation-heavy literature reviews become a target profile.
 
+### M6 — Nature / journal-expert writing knowledge is a stage-local overlay
+
+Nature-style expert writing knowledge should not become a new department or another stage chain. It cuts across existing responsibilities:
+
+- venue/profile and exemplar constraints in S02;
+- claim-strength and evidence visibility in S04;
+- reader spine, object granularity, rhetoric, and surface controls in S05-S07;
+- figure/caption/formal contracts in S08/S11;
+- writing, integration, review, and repair in S10-S15.
+
+Action: keep it in `runtime/stage_overlay_registry.json` as `nature_expert_writing`, linked to StageContracts and TaskPackets. It may shape controls and validators, but completion authority remains with the main-agent controller.
+
 ## Recommended stage sets
 
 ### MVP chain: 10 logical responsibilities / 11 dispatch nodes
@@ -232,7 +244,8 @@ Use only activated stages per project state.
 | review finding exists | S14/S15 |
 | handoff/export requested | S16 |
 | automation/permissions/state changes needed | G01 |
-| presentation/patent/Nature absorption requested | G02 |
+| presentation/patent/profile-specific derivative requested after paper stability | G02 |
+| Nature expert-writing guidance requested during current manuscript work | existing active stage + `nature_expert_writing` stage-local overlay |
 
 ## Final judgment
 

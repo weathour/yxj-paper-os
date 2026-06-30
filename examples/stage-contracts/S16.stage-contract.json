@@ -1,29 +1,5 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S16",
-  "stage_name": "Export repository hygiene and handoff",
-  "purpose": "Package final paper and prove delivery cleanliness.",
-  "execution_mode": "hybrid_generated",
-  "recommended_agent_type": "verifier",
-  "requires_worker_task_packet": false,
-  "consumes": [
-    "clean final candidate",
-    "review closure",
-    "repair-complete package",
-    "figures/captions",
-    "repository state"
-  ],
-  "produces": [
-    "export manifest",
-    "repository hygiene report",
-    "manager handoff report"
-  ],
-  "validators": [
-    "build success",
-    "rendered surface checks",
-    "manifest hashes",
-    "dirty worktree classification"
-  ],
+  "activation_policy": "activate when export/handoff requested",
   "backflow_targets": [
     "S12",
     "S13",
@@ -31,18 +7,50 @@
     "owner"
   ],
   "completion_gate": "content-ready and delivery-clean states are separately proven; external submission remains owner-gated",
-  "activation_policy": "activate when export/handoff requested",
+  "consumes": [
+    "clean final candidate",
+    "review closure",
+    "repair-complete package",
+    "figures/captions",
+    "repository state"
+  ],
   "coverage_status": "planned_full_stage",
+  "execution_mode": "hybrid_generated",
+  "produces": [
+    "export manifest",
+    "repository hygiene report",
+    "manager handoff report"
+  ],
+  "purpose": "Package final paper and prove delivery cleanliness.",
+  "recommended_agent_type": "verifier",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": false,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S16",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S16",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Export repository hygiene and handoff",
+  "validators": [
+    "build success",
+    "rendered surface checks",
+    "manifest hashes",
+    "dirty worktree classification"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "not_required",
+    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
     "packet_ref": null,
     "return_contract_ref": null,
-    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden."
+    "status": "not_required"
   }
 }

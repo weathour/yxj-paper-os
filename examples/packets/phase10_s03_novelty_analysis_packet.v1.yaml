@@ -19,6 +19,12 @@ mandatory_controls:
   reader_spine: reader_spine_v1
   terminology_register: terminology_register_v1
   reference_sidecar: reference_sidecar_v1
+  nature_overlay_ref: runtime/stage_overlay_registry.json#nature_expert_writing
+  nature_overlay_stage_binding: S03
+  nature_overlay_packet_clauses:
+    - "nature_overlay_ref:nature_expert_writing"
+    - "nature_stage_binding:S03"
+    - "nature_overlay_role:support"
 evidence_anchors:
   - examples/materials/evidence_inventory.v1.yaml
   - examples/materials/claim_boundary_map.v2.yaml
@@ -49,6 +55,7 @@ expected_output_schema: ppg-material/v0.1
 validators:
   - "validate_packet:phase10_stage_binding"
   - "content_validator:S03"
+  - "stage_overlay:nature_expert_writing:S03"
 return_format:
   candidate_artifact: required
   evidence: required

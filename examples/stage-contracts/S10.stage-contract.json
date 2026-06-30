@@ -1,44 +1,52 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S10",
-  "stage_name": "Main-text production",
-  "purpose": "Produce candidate manuscript modules from task packets.",
-  "execution_mode": "agent_generated",
-  "recommended_agent_type": "writer",
-  "requires_worker_task_packet": true,
-  "consumes": [
-    "S09B task packet",
-    "construction matrix",
-    "terminology register",
-    "claim visibility"
-  ],
-  "produces": [
-    "candidate text unit",
-    "CandidateArtifactReturn"
-  ],
-  "validators": [
-    "section draft validator",
-    "candidate return validator",
-    "claim boundary check"
-  ],
+  "activation_policy": "activate when writing execution is needed",
   "backflow_targets": [
     "S09B",
     "S07",
     "S04"
   ],
   "completion_gate": "candidate text is validated and collected; graph completion remains controller-owned",
-  "activation_policy": "activate when writing execution is needed",
+  "consumes": [
+    "S09B task packet",
+    "construction matrix",
+    "terminology register",
+    "claim visibility"
+  ],
   "coverage_status": "implemented_partial_phase7",
+  "execution_mode": "agent_generated",
+  "produces": [
+    "candidate text unit",
+    "CandidateArtifactReturn"
+  ],
+  "purpose": "Produce candidate manuscript modules from task packets.",
+  "recommended_agent_type": "writer",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S10",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S10",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Main-text production",
+  "validators": [
+    "section draft validator",
+    "candidate return validator",
+    "claim boundary check"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

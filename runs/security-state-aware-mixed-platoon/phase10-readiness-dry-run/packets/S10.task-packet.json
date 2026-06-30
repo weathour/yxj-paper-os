@@ -39,6 +39,13 @@
   "mandatory_controls": {
     "claim_boundary": "claim_boundary_map_v2",
     "evidence_inventory": "evidence_inventory_v1",
+    "nature_overlay_packet_clauses": [
+      "nature_overlay_ref:nature_expert_writing",
+      "nature_stage_binding:S10",
+      "nature_overlay_role:primary"
+    ],
+    "nature_overlay_ref": "runtime/stage_overlay_registry.json#nature_expert_writing",
+    "nature_overlay_stage_binding": "S10",
     "reader_spine": "reader_spine_v1"
   },
   "mission": "Draft a candidate introduction section from bounded claim and reader-spine materials.",
@@ -61,7 +68,8 @@
   "task_kind": "writing",
   "validators": [
     "validate_packet:phase6",
-    "validate_material:claim_boundary_map_v2"
+    "validate_material:claim_boundary_map_v2",
+    "stage_overlay:nature_expert_writing:S10"
   ],
   "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only."
 }

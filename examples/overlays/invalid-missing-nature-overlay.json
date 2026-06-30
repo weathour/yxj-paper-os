@@ -1,0 +1,16 @@
+{
+  "completion_boundary": "Overlay readiness only; it does not claim final manuscript, publication, or submission readiness.",
+  "description": "Generic stage overlay registry. The Nature profile is an expert writing overlay, not a department or independent execution route.",
+  "overlays": [],
+  "packet_clause_transport": {
+    "mandatory_controls_keys": [
+      "nature_overlay_ref",
+      "nature_overlay_stage_binding",
+      "nature_overlay_packet_clauses"
+    ],
+    "top_level_packet_fields_forbidden": true,
+    "validator_prefix": "stage_overlay:nature_expert_writing:"
+  },
+  "registry_ref": "runtime/stage_registry.json",
+  "schema_version": "ppg-stage-overlay-registry/v0.1"
+}

@@ -1,46 +1,54 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S08",
-  "stage_name": "Visual and formal object planning",
-  "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
-  "execution_mode": "hybrid_generated",
-  "recommended_agent_type": "designer",
-  "requires_worker_task_packet": true,
-  "consumes": [
-    "reader spine",
-    "section function budget",
-    "claim evidence materials"
-  ],
-  "produces": [
-    "visual budget",
-    "figure contract",
-    "panel evidence map",
-    "backend route"
-  ],
-  "validators": [
-    "reader question",
-    "supported claim",
-    "evidence refs",
-    "backend route"
-  ],
+  "activation_policy": "activate when figure/table/algorithm/formula is touched",
   "backflow_targets": [
     "S05",
     "S04",
     "S06"
   ],
   "completion_gate": "no final/export-facing figure proceeds without contract, evidence, and backend route",
-  "activation_policy": "activate when figure/table/algorithm/formula is touched",
+  "consumes": [
+    "reader spine",
+    "section function budget",
+    "claim evidence materials"
+  ],
   "coverage_status": "planned_with_worker_packet",
+  "execution_mode": "hybrid_generated",
+  "produces": [
+    "visual budget",
+    "figure contract",
+    "panel evidence map",
+    "backend route"
+  ],
+  "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+  "recommended_agent_type": "designer",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S08",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S08",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Visual and formal object planning",
+  "validators": [
+    "reader question",
+    "supported claim",
+    "evidence refs",
+    "backend route"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/phase10_s08_visual_formal_planning_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

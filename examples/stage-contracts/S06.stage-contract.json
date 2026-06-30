@@ -1,45 +1,53 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S06",
-  "stage_name": "Object representation and granularity design",
-  "purpose": "Decide how paper objects appear across sections and at what granularity.",
-  "execution_mode": "agent_generated",
-  "recommended_agent_type": "architect",
-  "requires_worker_task_packet": true,
+  "activation_policy": "activate for full paper route or when object repetition risk exists",
+  "backflow_targets": [
+    "S05",
+    "S04"
+  ],
+  "completion_gate": "writing units can consume explicit object and granularity instructions",
   "consumes": [
     "reader spine",
     "reviewer question map",
     "template profile",
     "claim visibility"
   ],
+  "coverage_status": "planned_with_worker_packet",
+  "execution_mode": "agent_generated",
   "produces": [
     "object representation matrix",
     "section function budget",
     "load budget",
     "explanation ladder"
   ],
+  "purpose": "Decide how paper objects appear across sections and at what granularity.",
+  "recommended_agent_type": "architect",
+  "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S06",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S06",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Object representation and granularity design",
   "validators": [
     "granularity progression",
     "no flat repetition",
     "load budget present"
   ],
-  "backflow_targets": [
-    "S05",
-    "S04"
-  ],
-  "completion_gate": "writing units can consume explicit object and granularity instructions",
-  "activation_policy": "activate for full paper route or when object repetition risk exists",
-  "coverage_status": "planned_with_worker_packet",
-  "registry_ref": "runtime/stage_registry.json",
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/phase10_s06_object_granularity_design_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

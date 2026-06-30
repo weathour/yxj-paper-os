@@ -24,9 +24,11 @@ DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-
 DEFAULT_RUN_ROOT = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase10-readiness-dry-run"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 VALIDATORS = ROOT / "runtime" / "phase10_content_validators.json"
+OVERLAY_REGISTRY = ROOT / "runtime" / "stage_overlay_registry.json"
 SCHEMA_VERSION = "ppg-run-state/v0.1"
 RUN_ID = "security-state-aware-mixed-platoon.phase10-readiness-dry-run"
 FIXED_GENERATED_AT = "2026-06-30T00:00:00Z"
+NATURE_OVERLAY_ID = "nature_expert_writing"
 
 BANNED_COMPLETION_PHRASES = [
     "final manuscript complete",
@@ -170,6 +172,36 @@ def validator_by_stage(validators: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {item["stage_id"]: item for item in validators.get("validators", []) if isinstance(item, dict) and "stage_id" in item}
 
 
+def overlay_binding_by_stage(overlays: dict[str, Any], overlay_id: str = NATURE_OVERLAY_ID) -> dict[str, dict[str, Any]]:
+    """Return stage-local overlay bindings keyed by canonical stage id."""
+    overlay = next(
+        (item for item in overlays.get("overlays", []) if isinstance(item, dict) and item.get("overlay_id") == overlay_id),
+        None,
+    )
+    if not isinstance(overlay, dict):
+        raise ValueError(f"required stage overlay not found: {overlay_id}")
+    bindings = overlay.get("stage_bindings")
+    if not isinstance(bindings, list):
+        raise ValueError(f"stage overlay has no stage_bindings list: {overlay_id}")
+    return {
+        str(binding["stage_id"]): binding
+        for binding in bindings
+        if isinstance(binding, dict) and isinstance(binding.get("stage_id"), str)
+    }
+
+
+def stage_overlay_summary(stage_id: str, binding: dict[str, Any]) -> dict[str, Any]:
+    """Small run-artifact summary; detailed content stays in the overlay registry."""
+    return {
+        "overlay_id": NATURE_OVERLAY_ID,
+        "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+        "stage_id": stage_id,
+        "binding_strength": binding.get("binding_strength"),
+        "validator_ref": f"stage_overlay:{NATURE_OVERLAY_ID}:{stage_id}",
+        "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+    }
+
+
 def pilot_run_by_stage(pilot_root: Path, stage_id: str) -> dict[str, Any]:
     return load_json(pilot_root / "stage-runs" / f"{stage_id}.pilot-stage-run.json")
 
@@ -181,13 +213,15 @@ def stage_completion_claim(stage_id: str) -> str:
     )
 
 
-def build_candidate_placeholder(stage: dict[str, Any], validator: dict[str, Any], packet_ref: str | None) -> dict[str, Any]:
+def build_candidate_placeholder(stage: dict[str, Any], validator: dict[str, Any], packet_ref: str | None, overlay_summary: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
         "stage_id": stage["stage_id"],
         "stage_name": stage["stage_name"],
         "packet_ref": packet_ref,
         "validator_id": validator["validator_id"],
+        "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+        "active_stage_overlays": [overlay_summary],
         "expected_outputs": stage.get("produces", []),
         "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
     }
@@ -231,7 +265,9 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
 
     registry = load_json(REGISTRY)
     validators = load_json(VALIDATORS)
+    overlays = load_json(OVERLAY_REGISTRY)
     by_validator = validator_by_stage(validators)
+    by_overlay_binding = overlay_binding_by_stage(overlays)
     before = compute_source_snapshot(source_root)
 
     dispatch_records: list[dict[str, Any]] = []
@@ -245,6 +281,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         sid = stage["stage_id"]
         contract = load_json(ROOT / stage["contract_ref"])
         validator = by_validator[sid]
+        overlay_binding = by_overlay_binding[sid]
+        overlay_summary = stage_overlay_summary(sid, overlay_binding)
         pilot_run = pilot_run_by_stage(pilot_root, sid)
         packet_ref = contract.get("worker_packet_coverage", {}).get("packet_ref")
         packet_template_ref = packet_ref
@@ -266,6 +304,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
             "packet_template_ref": packet_template_ref,
             "content_validator_ref": "runtime/phase10_content_validators.json",
             "content_validator_id": validator["validator_id"],
+            "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+            "active_stage_overlays": [overlay_summary],
             "source_read_only": True,
             "consumed_materials": pilot_run.get("consumed_materials", []),
             "candidate_output_path": candidate_ref,
@@ -281,6 +321,9 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
             "run_id": RUN_ID,
             "stage_id": sid,
             "validator_id": validator["validator_id"],
+            "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+            "active_stage_overlays": [overlay_summary],
+            "stage_overlay_checks": overlay_binding.get("validator_checks", []),
             "dimension_count": len(validator.get("dimensions", [])),
             "required_checks": validator.get("required_checks", []),
             "status": "pass" if sid != "G02" else "owner_gated",
@@ -288,10 +331,11 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
                 f"{sid} StageContract is linked",
                 f"{sid} PilotStageRun is present",
                 f"{sid} content validator dimensions are present",
+                f"{sid} Nature overlay binding is present",
             ],
             "completion_boundary": "validation proves run readiness only; controller retains completion authority",
         }
-        candidate = build_candidate_placeholder(stage, validator, run_packet_ref)
+        candidate = build_candidate_placeholder(stage, validator, run_packet_ref, overlay_summary)
         write_json(run_root / dispatch_ref, dispatch, run_root, source_root)
         write_json(run_root / validation_ref, validation, run_root, source_root)
         write_json(run_root / candidate_ref, candidate, run_root, source_root)
@@ -310,6 +354,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
                 "validation_ref": validation_ref,
                 "candidate_ref": candidate_ref,
                 "content_validator_id": validator["validator_id"],
+                "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+                "active_stage_overlays": [overlay_summary],
                 "completion_claim": completion_claim,
             }
         )
@@ -330,6 +376,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         "source_snapshot_scope": "all files, directories, and symlinks below source_root excluding .git and volatile .omx runtime state; git status is scoped to source_root",
         "source_read_only": True,
         "writes_to_source_allowed": False,
+        "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+        "active_stage_overlays": [NATURE_OVERLAY_ID],
         "source_snapshot_before": before,
         "source_snapshot_after": after,
         "completion_boundary": "dry-run fixture for runtime readiness only; no worker execution and no final manuscript claim",
@@ -347,6 +395,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         "ledger_ref": "ledger.jsonl",
         "manifest_ref": "manifest.json",
         "content_validators_ref": "runtime/phase10_content_validators.json",
+        "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+        "active_stage_overlays": [NATURE_OVERLAY_ID],
     }
     write_json(run_root / "manifest.json", manifest, run_root, source_root)
     write_json(run_root / "run_state.json", run_state, run_root, source_root)

@@ -1,28 +1,5 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S15",
-  "stage_name": "Repair execution and local regeneration",
-  "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
-  "execution_mode": "hybrid_generated",
-  "recommended_agent_type": "executor",
-  "requires_worker_task_packet": true,
-  "consumes": [
-    "backflow task packet",
-    "target material",
-    "stale downstream set"
-  ],
-  "produces": [
-    "revised material",
-    "regenerated task packet",
-    "revised text/figure",
-    "updated validator report"
-  ],
-  "validators": [
-    "scoped stale propagation",
-    "unrelated nodes unchanged",
-    "finding resolved",
-    "no new high severity finding"
-  ],
+  "activation_policy": "activate when repair task exists",
   "backflow_targets": [
     "S09B",
     "S10",
@@ -31,18 +8,49 @@
     "S15"
   ],
   "completion_gate": "graph records new version and affected nodes are revalidated",
-  "activation_policy": "activate when repair task exists",
+  "consumes": [
+    "backflow task packet",
+    "target material",
+    "stale downstream set"
+  ],
   "coverage_status": "implemented_partial_phase7",
+  "execution_mode": "hybrid_generated",
+  "produces": [
+    "revised material",
+    "regenerated task packet",
+    "revised text/figure",
+    "updated validator report"
+  ],
+  "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
+  "recommended_agent_type": "executor",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S15",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S15",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Repair execution and local regeneration",
+  "validators": [
+    "scoped stale propagation",
+    "unrelated nodes unchanged",
+    "finding resolved",
+    "no new high severity finding"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

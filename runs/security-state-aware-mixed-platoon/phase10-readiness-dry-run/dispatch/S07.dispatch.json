@@ -1,4 +1,14 @@
 {
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S07",
+      "validator_ref": "stage_overlay:nature_expert_writing:S07"
+    }
+  ],
   "candidate_output_path": "candidate-artifacts/S07.candidate-placeholder.json",
   "completion_claim": "S07 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
   "consumed_materials": [
@@ -55,6 +65,7 @@
   "stage_contract_ref": "examples/stage-contracts/S07.stage-contract.json",
   "stage_id": "S07",
   "stage_name": "Rhetoric terminology and surface-control synthesis",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "worker_authority": {
     "completion_forbidden": true,
     "controller_owned_completion": true,

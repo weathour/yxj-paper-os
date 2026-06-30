@@ -1,4 +1,7 @@
 {
+  "active_stage_overlays": [
+    "nature_expert_writing"
+  ],
   "canonical_stage_ids": [
     "S00",
     "S01",
@@ -30,8 +33,19 @@
   "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
   "schema_version": "ppg-run-state/v0.1",
   "source_read_only": true,
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "stages": [
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "light",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S00",
+          "validator_ref": "stage_overlay:nature_expert_writing:S00"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S00.candidate-placeholder.json",
       "completion_claim": "S00 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s00_content_validator",
@@ -42,10 +56,21 @@
       "stage_contract_ref": "examples/stage-contracts/S00.stage-contract.json",
       "stage_id": "S00",
       "stage_name": "Owner semantic contract",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S00.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "light",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S01",
+          "validator_ref": "stage_overlay:nature_expert_writing:S01"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S01.candidate-placeholder.json",
       "completion_claim": "S01 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s01_content_validator",
@@ -56,10 +81,21 @@
       "stage_contract_ref": "examples/stage-contracts/S01.stage-contract.json",
       "stage_id": "S01",
       "stage_name": "Source citation evidence inventory",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S01.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S02",
+          "validator_ref": "stage_overlay:nature_expert_writing:S02"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S02.candidate-placeholder.json",
       "completion_claim": "S02 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s02_content_validator",
@@ -70,10 +106,21 @@
       "stage_contract_ref": "examples/stage-contracts/S02.stage-contract.json",
       "stage_id": "S02",
       "stage_name": "Research scene exemplar SOTA analysis",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S02.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "support",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S03",
+          "validator_ref": "stage_overlay:nature_expert_writing:S03"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S03.candidate-placeholder.json",
       "completion_claim": "S03 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s03_content_validator",
@@ -84,10 +131,21 @@
       "stage_contract_ref": "examples/stage-contracts/S03.stage-contract.json",
       "stage_id": "S03",
       "stage_name": "Novelty and contribution option analysis",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S03.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S04",
+          "validator_ref": "stage_overlay:nature_expert_writing:S04"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S04.candidate-placeholder.json",
       "completion_claim": "S04 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s04_content_validator",
@@ -98,10 +156,21 @@
       "stage_contract_ref": "examples/stage-contracts/S04.stage-contract.json",
       "stage_id": "S04",
       "stage_name": "Evidence-to-claim admissibility",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S04.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S05",
+          "validator_ref": "stage_overlay:nature_expert_writing:S05"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S05.candidate-placeholder.json",
       "completion_claim": "S05 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s05_content_validator",
@@ -112,10 +181,21 @@
       "stage_contract_ref": "examples/stage-contracts/S05.stage-contract.json",
       "stage_id": "S05",
       "stage_name": "Paper spine and reader-question synthesis",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S05.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S06",
+          "validator_ref": "stage_overlay:nature_expert_writing:S06"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S06.candidate-placeholder.json",
       "completion_claim": "S06 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s06_content_validator",
@@ -126,10 +206,21 @@
       "stage_contract_ref": "examples/stage-contracts/S06.stage-contract.json",
       "stage_id": "S06",
       "stage_name": "Object representation and granularity design",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S06.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S07",
+          "validator_ref": "stage_overlay:nature_expert_writing:S07"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S07.candidate-placeholder.json",
       "completion_claim": "S07 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s07_content_validator",
@@ -140,10 +231,21 @@
       "stage_contract_ref": "examples/stage-contracts/S07.stage-contract.json",
       "stage_id": "S07",
       "stage_name": "Rhetoric terminology and surface-control synthesis",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S07.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S08",
+          "validator_ref": "stage_overlay:nature_expert_writing:S08"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S08.candidate-placeholder.json",
       "completion_claim": "S08 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s08_content_validator",
@@ -154,10 +256,21 @@
       "stage_contract_ref": "examples/stage-contracts/S08.stage-contract.json",
       "stage_id": "S08",
       "stage_name": "Visual and formal object planning",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S08.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S09A",
+          "validator_ref": "stage_overlay:nature_expert_writing:S09A"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S09A.candidate-placeholder.json",
       "completion_claim": "S09A phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s09a_content_validator",
@@ -168,10 +281,21 @@
       "stage_contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
       "stage_id": "S09A",
       "stage_name": "Control-material selection",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S09A.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S09B",
+          "validator_ref": "stage_overlay:nature_expert_writing:S09B"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S09B.candidate-placeholder.json",
       "completion_claim": "S09B phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s09b_content_validator",
@@ -182,10 +306,21 @@
       "stage_contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
       "stage_id": "S09B",
       "stage_name": "Per-unit task packet assembly",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S09B.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S10",
+          "validator_ref": "stage_overlay:nature_expert_writing:S10"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S10.candidate-placeholder.json",
       "completion_claim": "S10 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s10_content_validator",
@@ -196,10 +331,21 @@
       "stage_contract_ref": "examples/stage-contracts/S10.stage-contract.json",
       "stage_id": "S10",
       "stage_name": "Main-text production",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S10.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S11",
+          "validator_ref": "stage_overlay:nature_expert_writing:S11"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S11.candidate-placeholder.json",
       "completion_claim": "S11 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s11_content_validator",
@@ -210,10 +356,21 @@
       "stage_contract_ref": "examples/stage-contracts/S11.stage-contract.json",
       "stage_id": "S11",
       "stage_name": "Figure caption formal artifact production",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S11.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S12",
+          "validator_ref": "stage_overlay:nature_expert_writing:S12"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S12.candidate-placeholder.json",
       "completion_claim": "S12 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s12_content_validator",
@@ -224,10 +381,21 @@
       "stage_contract_ref": "examples/stage-contracts/S12.stage-contract.json",
       "stage_id": "S12",
       "stage_name": "Integration and consistency pass",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S12.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S13",
+          "validator_ref": "stage_overlay:nature_expert_writing:S13"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S13.candidate-placeholder.json",
       "completion_claim": "S13 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s13_content_validator",
@@ -238,10 +406,21 @@
       "stage_contract_ref": "examples/stage-contracts/S13.stage-contract.json",
       "stage_id": "S13",
       "stage_name": "Adversarial manuscript review",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S13.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S14",
+          "validator_ref": "stage_overlay:nature_expert_writing:S14"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S14.candidate-placeholder.json",
       "completion_claim": "S14 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s14_content_validator",
@@ -252,10 +431,21 @@
       "stage_contract_ref": "examples/stage-contracts/S14.stage-contract.json",
       "stage_id": "S14",
       "stage_name": "Backflow compilation and repair planning",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S14.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S15",
+          "validator_ref": "stage_overlay:nature_expert_writing:S15"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S15.candidate-placeholder.json",
       "completion_claim": "S15 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s15_content_validator",
@@ -266,10 +456,21 @@
       "stage_contract_ref": "examples/stage-contracts/S15.stage-contract.json",
       "stage_id": "S15",
       "stage_name": "Repair execution and local regeneration",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S15.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S16",
+          "validator_ref": "stage_overlay:nature_expert_writing:S16"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/S16.candidate-placeholder.json",
       "completion_claim": "S16 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_s16_content_validator",
@@ -280,10 +481,21 @@
       "stage_contract_ref": "examples/stage-contracts/S16.stage-contract.json",
       "stage_id": "S16",
       "stage_name": "Export repository hygiene and handoff",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/S16.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "governance",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "G01",
+          "validator_ref": "stage_overlay:nature_expert_writing:G01"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/G01.candidate-placeholder.json",
       "completion_claim": "G01 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_g01_content_validator",
@@ -294,10 +506,21 @@
       "stage_contract_ref": "examples/stage-contracts/G01.stage-contract.json",
       "stage_id": "G01",
       "stage_name": "Runtime governance registry",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "ready_for_real_subagent_run",
       "validation_ref": "validation/G01.validation.json"
     },
     {
+      "active_stage_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "derivative",
+          "overlay_id": "nature_expert_writing",
+          "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "G02",
+          "validator_ref": "stage_overlay:nature_expert_writing:G02"
+        }
+      ],
       "candidate_ref": "candidate-artifacts/G02.candidate-placeholder.json",
       "completion_claim": "G02 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
       "content_validator_id": "phase10_g02_content_validator",
@@ -308,6 +531,7 @@
       "stage_contract_ref": "examples/stage-contracts/G02.stage-contract.json",
       "stage_id": "G02",
       "stage_name": "Derivative and post-paper outputs",
+      "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
       "status": "owner_gated_ready",
       "validation_ref": "validation/G02.validation.json"
     }

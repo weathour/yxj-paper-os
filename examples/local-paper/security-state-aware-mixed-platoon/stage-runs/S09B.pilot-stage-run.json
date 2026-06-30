@@ -76,6 +76,16 @@
     "writes_to_source_allowed": false
   },
   "stage_id": "S09B",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S09B",
+      "validator_ref": "stage_overlay:nature_expert_writing:S09B"
+    }
+  ],
   "stage_name": "Per-unit task packet assembly",
   "status": "validated",
   "validator_evidence": [
@@ -93,6 +103,11 @@
       "evidence": "coverage_kind=script_checked; exercise_level=full_stage_exercised; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
+    },
+    {
+      "evidence": "S09B has Nature expert-writing overlay binding as stage-local metadata only",
+      "status": "pass",
+      "validator": "stage_local_overlay_binding"
     }
   ],
   "worker_task_packet_evidence": {

@@ -1,23 +1,38 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S13",
-  "stage_name": "Adversarial manuscript review",
-  "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
-  "execution_mode": "agent_generated",
-  "recommended_agent_type": "critic",
-  "requires_worker_task_packet": true,
+  "activation_policy": "activate when candidate manuscript/module exists",
+  "backflow_targets": [
+    "S14"
+  ],
+  "completion_gate": "accepted findings are actionable and routed to nearest responsible upstream material",
   "consumes": [
     "integrated candidate",
     "evidence/claim materials",
     "reader/terminology/rhetoric materials",
     "figure/export artifacts"
   ],
+  "coverage_status": "implemented_partial_phase7",
+  "execution_mode": "agent_generated",
   "produces": [
     "reviewer panel report",
     "reader experience report",
     "validator report",
     "review findings"
   ],
+  "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+  "recommended_agent_type": "critic",
+  "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S13",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S13",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Adversarial manuscript review",
   "validators": [
     "finding severity",
     "evidence",
@@ -25,22 +40,15 @@
     "backflow target",
     "resolution status"
   ],
-  "backflow_targets": [
-    "S14"
-  ],
-  "completion_gate": "accepted findings are actionable and routed to nearest responsible upstream material",
-  "activation_policy": "activate when candidate manuscript/module exists",
-  "coverage_status": "implemented_partial_phase7",
-  "registry_ref": "runtime/stage_registry.json",
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/phase10_s13_adversarial_review_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

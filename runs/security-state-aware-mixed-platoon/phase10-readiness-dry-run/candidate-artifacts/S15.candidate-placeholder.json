@@ -1,4 +1,14 @@
 {
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S15",
+      "validator_ref": "stage_overlay:nature_expert_writing:S15"
+    }
+  ],
   "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
   "expected_outputs": [
     "revised material",
@@ -10,5 +20,6 @@
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S15",
   "stage_name": "Repair execution and local regeneration",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "validator_id": "phase10_s15_content_validator"
 }

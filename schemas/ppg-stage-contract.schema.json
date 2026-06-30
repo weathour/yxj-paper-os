@@ -19,6 +19,7 @@
     "activation_policy",
     "coverage_status",
     "registry_ref",
+    "stage_local_overlays",
     "worker_authority_boundary",
     "worker_packet_coverage"
   ],
@@ -38,6 +39,20 @@
     "activation_policy": {"type": "string", "minLength": 1},
     "coverage_status": {"type": "string", "minLength": 1},
     "registry_ref": {"const": "runtime/stage_registry.json"},
+    "stage_local_overlays": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["overlay_id", "binding_strength", "registry_ref", "packet_clause_validator"],
+        "properties": {
+          "overlay_id": {"type": "string", "minLength": 1},
+          "binding_strength": {"enum": ["primary", "support", "light", "governance", "derivative"]},
+          "registry_ref": {"const": "runtime/stage_overlay_registry.json"},
+          "packet_clause_validator": {"type": "string", "pattern": "^stage_overlay:[^:]+:(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"}
+        }
+      }
+    },
     "worker_authority_boundary": {
       "type": "object",
       "additionalProperties": false,

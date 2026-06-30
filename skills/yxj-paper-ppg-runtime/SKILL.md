@@ -19,7 +19,7 @@ The main agent controls a versioned graph of materials, task packets, validators
 
 ## Current repository status
 
-This repository is a local Phase10 plugin/runtime readiness surface. It provides:
+This repository is a local Phase11 plugin/runtime readiness surface. It provides:
 
 - graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
 - deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
@@ -27,6 +27,7 @@ This repository is a local Phase10 plugin/runtime readiness surface. It provides
 - full-stage local-paper pilot fixtures under `examples/local-paper/security-state-aware-mixed-platoon/`;
 - one `PilotStageRun` for every canonical stage `S00-S16/G01/G02`, with explicit completion boundaries;
 - strict linked TaskPacket templates for every dispatchable worker stage plus run-owned packet materialization in the Phase10 dry-run;
+- Nature expert-writing stage-local overlay registry, StageContract links, TaskPacket overlay controls, and overlay validators;
 - Phase10 content validators and a runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
 - source-read-only filesystem snapshot proof excluding `.git/.omx` plus forbidden-side-effect guards;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
@@ -44,9 +45,11 @@ Do **not** mutate old `$yxj-paper-os`, use `$yxj-plugin-incubator` as a design s
 6. `docs/RUNTIME_PROTOCOL.md`
 7. `docs/BACKFLOW_PROTOCOL.md`
 8. `docs/VALIDATION_AND_TESTING.md`
-9. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
-10. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
-11. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
+9. `docs/NATURE_STAGE_OVERLAY_SPEC.md`
+10. `docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`
+11. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
+12. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
+13. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
 
 ## Runtime inspection commands
 
@@ -83,11 +86,19 @@ python3 scripts/ppg_runtime_adapter.py \
   --format json
 ```
 
-For the complete local Phase10 readiness gate:
+For the complete local Phase10/Phase11 readiness gate:
 
 ```bash
 bash scripts/verify_phase10_real_run_readiness.sh
 ```
+For Nature stage-overlay checks:
+
+```bash
+python3 scripts/verify_stage_overlays.py
+python3 scripts/generate_phase10_run_dry_run.py --check
+python3 scripts/verify_phase10_run_readiness.py
+```
+
 
 For the inherited Phase9 pilot gate:
 
@@ -106,3 +117,4 @@ A paper-production node is not complete because an agent produced text. It is co
 - Treat frontend state as human-owner observability, not as a commit surface.
 - Keep graph-operation modules bounded by material/task/validator/backflow/delivery contracts.
 - Preserve existing validation gates before promoting any phase or manuscript state.
+- Treat `nature_expert_writing` as a stage-local overlay only; it may shape controls and validators but must not become a department, dispatcher, or completion authority.

@@ -1,47 +1,55 @@
 {
-  "schema_version": "ppg-stage-contract/v0.1",
-  "stage_id": "S11",
-  "stage_name": "Figure caption formal artifact production",
-  "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
-  "execution_mode": "hybrid_generated",
-  "recommended_agent_type": "executor",
-  "requires_worker_task_packet": true,
-  "consumes": [
-    "figure contracts",
-    "panel evidence packages",
-    "source data locators",
-    "caption brief"
-  ],
-  "produces": [
-    "figure statistics",
-    "image integrity record",
-    "caption brief",
-    "figure export bundle"
-  ],
-  "validators": [
-    "build/render",
-    "source data",
-    "image integrity",
-    "caption claim boundary"
-  ],
+  "activation_policy": "activate when figure/caption/formal artifacts are touched",
   "backflow_targets": [
     "S08",
     "S04",
     "S01"
   ],
   "completion_gate": "figure/caption has editable source, rendered output, provenance, QA route, and claim support",
-  "activation_policy": "activate when figure/caption/formal artifacts are touched",
+  "consumes": [
+    "figure contracts",
+    "panel evidence packages",
+    "source data locators",
+    "caption brief"
+  ],
   "coverage_status": "planned_with_worker_packet",
+  "execution_mode": "hybrid_generated",
+  "produces": [
+    "figure statistics",
+    "image integrity record",
+    "caption brief",
+    "figure export bundle"
+  ],
+  "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+  "recommended_agent_type": "executor",
   "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": true,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S11",
+  "stage_local_overlays": [
+    {
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "packet_clause_validator": "stage_overlay:nature_expert_writing:S11",
+      "registry_ref": "runtime/stage_overlay_registry.json"
+    }
+  ],
+  "stage_name": "Figure caption formal artifact production",
+  "validators": [
+    "build/render",
+    "source data",
+    "image integrity",
+    "caption claim boundary"
+  ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
-    "no_recursive_orchestration": true,
-    "controller_owned_completion": true
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "status": "linked_strict_packet",
+    "blocker": null,
     "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": null
+    "status": "linked_strict_packet"
   }
 }

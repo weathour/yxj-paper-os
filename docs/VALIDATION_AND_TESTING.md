@@ -247,3 +247,40 @@ Negative return fixtures prove no self-certification:
 - `examples/candidate_returns/invalid-unknown-field.yaml` -> `E_RETURN_UNKNOWN_FIELD`.
 
 Phase 6 remains a compiler/contract phase. It intentionally does not run a real writer/verifier subagent pilot; that begins in Phase 7.
+
+## Phase 11 stage-local overlay validation
+
+Phase 11 absorbs Nature expert-writing practice as a registry-backed stage-local overlay.
+
+Core commands:
+
+```bash
+python3 scripts/verify_stage_overlays.py
+python3 scripts/generate_phase10_run_dry_run.py --check
+python3 scripts/verify_phase10_run_readiness.py
+```
+
+The overlay validator proves:
+
+- `nature_expert_writing` is present and bound to every canonical stage;
+- bare `S09` is rejected in favor of `S09A/S09B`;
+- S03 remains `support` or `light`, gated through S04 before writing;
+- active department/self-certifying route semantics are rejected while documentation prose such as “not a department” is allowed;
+- worker stages have overlay clauses under `mandatory_controls` and a `stage_overlay:nature_expert_writing:<stage_id>` validator;
+- Phase10 content validators include `stage_overlay_binding`, `no_department_route`, and worker-stage `stage_overlay_packet_clause`;
+- Phase10 dry-run dispatch, validation, candidate placeholder, run-state, manifest, and per-run TaskPackets all link back to `runtime/stage_overlay_registry.json`.
+
+Negative fixtures under `examples/overlays/` lock the expected error codes:
+
+- `invalid-unknown-stage.json` -> `E_STAGE_OVERLAY_UNKNOWN_STAGE`;
+- `invalid-bare-s09.json` -> `E_STAGE_OVERLAY_BARE_S09`;
+- `invalid-authority-expansion.json` -> `E_STAGE_OVERLAY_AUTHORITY`;
+- `invalid-packet-clause-transport.json` -> `E_STAGE_OVERLAY_PACKET_TRANSPORT`;
+- `invalid-missing-worker-packet-clause.json` -> `E_STAGE_OVERLAY_PACKET_CLAUSE`;
+- `invalid-missing-validator-coverage.json` -> `E_STAGE_OVERLAY_VALIDATOR_COVERAGE`;
+- `invalid-active-department-loop.json` -> `E_STAGE_OVERLAY_DEPARTMENT_ROUTE`;
+- `invalid-backflow-target.json` -> `E_STAGE_OVERLAY_BACKFLOW_TARGET`;
+- `invalid-missing-nature-overlay.json` -> `E_STAGE_OVERLAY_REQUIRED_OVERLAY`;
+- `invalid-missing-primary-stage-binding.json` -> `E_STAGE_OVERLAY_REQUIRED_STAGE_BINDING`;
+- `invalid-duplicate-stage-binding.json` -> `E_STAGE_OVERLAY_DUPLICATE_BINDING`;
+- `invalid-primary-binding-mismatch.json` -> `E_STAGE_OVERLAY_PRIMARY_BINDING_MISMATCH`.

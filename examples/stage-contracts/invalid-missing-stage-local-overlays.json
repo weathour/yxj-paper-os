@@ -1,0 +1,42 @@
+{
+  "activation_policy": "activate when owner motivation, venue, claim scope, or private-source policy is unclear",
+  "backflow_targets": [
+    "owner"
+  ],
+  "completion_gate": "confirmed owner decision or recorded owner-gated assumption; no worker may silently change this stage",
+  "consumes": [
+    "human need",
+    "paper profile",
+    "evidence summary"
+  ],
+  "coverage_status": "planned_full_stage",
+  "execution_mode": "owner_gated",
+  "produces": [
+    "paper-profile",
+    "motivation",
+    "decisions",
+    "forbidden routes"
+  ],
+  "purpose": "Convert human need into bounded paper commitments and owner decisions.",
+  "recommended_agent_type": "main",
+  "registry_ref": "runtime/stage_registry.json",
+  "requires_worker_task_packet": false,
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S00",
+  "stage_name": "Owner semantic contract",
+  "validators": [
+    "owner confirmation",
+    "forbidden route check"
+  ],
+  "worker_authority_boundary": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
+  },
+  "worker_packet_coverage": {
+    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "packet_ref": null,
+    "return_contract_ref": null,
+    "status": "not_required"
+  }
+}

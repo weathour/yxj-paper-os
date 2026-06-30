@@ -1,4 +1,14 @@
 {
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "derivative",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "G02",
+      "validator_ref": "stage_overlay:nature_expert_writing:G02"
+    }
+  ],
   "candidate_output_path": "candidate-artifacts/G02.candidate-placeholder.json",
   "completion_claim": "G02 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
   "consumed_materials": [
@@ -34,6 +44,7 @@
   "stage_contract_ref": "examples/stage-contracts/G02.stage-contract.json",
   "stage_id": "G02",
   "stage_name": "Derivative and post-paper outputs",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "worker_authority": {
     "completion_forbidden": true,
     "controller_owned_completion": true,

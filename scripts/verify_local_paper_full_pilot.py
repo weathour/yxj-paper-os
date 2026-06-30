@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
+OVERLAY_REGISTRY_REF = "runtime/stage_overlay_registry.json"
+NATURE_OVERLAY_ID = "nature_expert_writing"
 RUN_SCHEMA_VERSION = "ppg-pilot-stage-run/v0.1"
 SUMMARY_SCHEMA_VERSION = "ppg-local-paper-full-pilot/v0.1"
 ALLOWED_COVERAGE_KINDS = {"source_projected", "fixture_generated", "script_checked", "owner_gated_deferred", "not_applicable_with_reason"}
@@ -25,6 +27,7 @@ ALLOWED_EXERCISE_LEVELS = {"full_stage_exercised", "contract_only", "deferred_wi
 REQUIRED_RUN_FIELDS = {
     "stage_id", "contract_ref", "status", "coverage_kind", "exercise_level", "consumed_materials",
     "produced_artifacts", "validator_evidence", "source_projection_boundary", "completion_claim",
+    "stage_local_overlays",
 }
 BANNED_CLAIM_PHRASES = [
     "final paper complete",
@@ -98,6 +101,23 @@ def validate_run(
         errors.append(issue("E_PILOT_RUN_G02_GATE", "G02 must be deferred_with_gate"))
     if run.get("coverage_kind") == "not_applicable_with_reason" and run.get("exercise_level") != "not_applicable":
         errors.append(issue("E_PILOT_RUN_NA_LEVEL", f"{sid} not_applicable coverage must have not_applicable level"))
+    expected_overlays = contract.get("stage_local_overlays", [])
+    run_overlays = run.get("stage_local_overlays")
+    if run_overlays != [
+        {
+            "overlay_id": item.get("overlay_id"),
+            "stage_id": item.get("stage_id", sid),
+            "binding_strength": item.get("binding_strength"),
+            "registry_ref": item.get("registry_ref", OVERLAY_REGISTRY_REF),
+            "validator_ref": f"stage_overlay:{item.get('overlay_id')}:{item.get('stage_id', sid)}",
+            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+        }
+        for item in expected_overlays
+        if isinstance(item, dict)
+    ]:
+        errors.append(issue("E_PILOT_RUN_STAGE_OVERLAY_LINK", f"{sid} stage_local_overlays mismatch"))
+    if not isinstance(run_overlays, list) or not any(isinstance(item, dict) and item.get("overlay_id") == NATURE_OVERLAY_ID for item in run_overlays):
+        errors.append(issue("E_PILOT_RUN_STAGE_OVERLAY_LINK", f"{sid} missing Nature overlay binding"))
     consumed = run.get("consumed_materials")
     if not isinstance(consumed, list) or not consumed:
         errors.append(issue("E_PILOT_RUN_CONSUMED_EMPTY", sid))
@@ -147,6 +167,8 @@ def validate_run(
         errors.append(issue("E_PILOT_RUN_VALIDATORS_NO_PASS", sid))
     elif any(item.get("status") == "blocked" for item in validators if isinstance(item, dict)):
         errors.append(issue("E_PILOT_RUN_VALIDATORS_BLOCKED", sid))
+    elif not any(item.get("validator") == "stage_local_overlay_binding" for item in validators if isinstance(item, dict)):
+        errors.append(issue("E_PILOT_RUN_STAGE_OVERLAY_LINK", f"{sid} missing overlay validator evidence"))
     boundary = run.get("source_projection_boundary")
     if not isinstance(boundary, dict):
         errors.append(issue("E_PILOT_RUN_BOUNDARY_SHAPE", sid))
@@ -210,6 +232,11 @@ def validate_graph(graph: dict[str, Any], expected_stage_ids: list[str]) -> list
     for source, target in edge_pairs:
         if source == "S09" or target == "S09":
             errors.append(issue("E_PILOT_GRAPH_BARE_S09_EDGE", f"{source}->{target}"))
+    for node in graph.get("nodes", []):
+        if isinstance(node, dict):
+            overlays = node.get("stage_local_overlays")
+            if not isinstance(overlays, list) or not any(isinstance(item, dict) and item.get("overlay_id") == NATURE_OVERLAY_ID for item in overlays):
+                errors.append(issue("E_PILOT_GRAPH_STAGE_OVERLAY_LINK", str(node.get("id"))))
     return errors
 
 
@@ -280,6 +307,15 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
         errors.append(issue("E_PILOT_SUMMARY_COUNT", f"{summary.get('pilot_stage_run_count')} != {len(expected_stage_ids)}"))
     if len(summary.get("stage_runs", [])) != len(expected_stage_ids):
         errors.append(issue("E_PILOT_SUMMARY_RUNS", "stage_runs length mismatch"))
+    if summary.get("stage_overlay_registry_ref") != OVERLAY_REGISTRY_REF or summary.get("active_stage_overlays") != [NATURE_OVERLAY_ID]:
+        errors.append(issue("E_PILOT_SUMMARY_STAGE_OVERLAY_LINK", "summary missing Nature overlay registry link"))
+    if summary.get("stage_overlay_binding_counts", {}).get("nature_bound") != len(expected_stage_ids):
+        errors.append(issue("E_PILOT_SUMMARY_STAGE_OVERLAY_LINK", f"stage_overlay_binding_counts={summary.get('stage_overlay_binding_counts')}"))
+    for item in summary.get("stage_runs", []):
+        if isinstance(item, dict):
+            overlays = item.get("stage_local_overlays")
+            if not isinstance(overlays, list) or not any(isinstance(overlay, dict) and overlay.get("overlay_id") == NATURE_OVERLAY_ID for overlay in overlays):
+                errors.append(issue("E_PILOT_SUMMARY_STAGE_OVERLAY_LINK", str(item.get("stage_id"))))
     if "all canonical stages" not in str(summary.get("completion_boundary", "")).lower() or "not a final" not in str(summary.get("completion_boundary", "")).lower():
         errors.append(issue("E_PILOT_SUMMARY_COMPLETION_BOUNDARY", "summary completion boundary must be explicit"))
     errors.extend(validate_graph(graph, expected_stage_ids))

@@ -9,14 +9,40 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import DEFAULT_PILOT, DEFAULT_RUN_ROOT, ROOT, RUN_ID, compute_source_snapshot, is_relative_to, load_json
+    from generate_phase10_run_dry_run import (
+        DEFAULT_PILOT,
+        DEFAULT_RUN_ROOT,
+        NATURE_OVERLAY_ID,
+        OVERLAY_REGISTRY,
+        ROOT,
+        RUN_ID,
+        compute_source_snapshot,
+        is_relative_to,
+        load_json,
+        overlay_binding_by_stage,
+        stage_overlay_summary,
+    )
     from ppg_validate_common import load_document
     from validate_packet import validate as validate_packet
+    from verify_stage_overlays import validate_overlay_registry
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import DEFAULT_PILOT, DEFAULT_RUN_ROOT, ROOT, RUN_ID, compute_source_snapshot, is_relative_to, load_json  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import (  # type: ignore  # noqa: E402
+        DEFAULT_PILOT,
+        DEFAULT_RUN_ROOT,
+        NATURE_OVERLAY_ID,
+        OVERLAY_REGISTRY,
+        ROOT,
+        RUN_ID,
+        compute_source_snapshot,
+        is_relative_to,
+        load_json,
+        overlay_binding_by_stage,
+        stage_overlay_summary,
+    )
     from ppg_validate_common import load_document  # type: ignore  # noqa: E402
     from validate_packet import validate as validate_packet  # type: ignore  # noqa: E402
+    from verify_stage_overlays import validate_overlay_registry  # type: ignore  # noqa: E402
 
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 VALIDATORS = ROOT / "runtime" / "phase10_content_validators.json"
@@ -194,7 +220,14 @@ def check_no_overclaim(text: Any, context: str) -> list[str]:
     return [issue("E_PHASE10_COMPLETION_OVERCLAIM", f"{context} contains {phrase!r}") for phrase in BANNED_CLAIM_PHRASES if phrase in lowered]
 
 
-def validate_run_packet(run_root: Path, stage: dict[str, Any], contract: dict[str, Any], packet_ref: Any, candidate_ref: str) -> list[str]:
+def validate_stage_overlay_record(value: Any, sid: str, overlay_binding: dict[str, Any], context: str) -> list[str]:
+    expected = stage_overlay_summary(sid, overlay_binding)
+    if value != [expected]:
+        return [issue("E_PHASE10_STAGE_OVERLAY_LINK", f"{context} expected={expected!r} actual={value!r}")]
+    return []
+
+
+def validate_run_packet(run_root: Path, stage: dict[str, Any], contract: dict[str, Any], packet_ref: Any, candidate_ref: str, overlay_binding: dict[str, Any]) -> list[str]:
     sid = str(stage.get("stage_id"))
     packet_path, ref_errors = safe_run_ref(run_root, packet_ref, "E_PHASE10_RUN_PACKET_REF", f"{sid}.packet_ref")
     errors = list(ref_errors)
@@ -217,12 +250,27 @@ def validate_run_packet(run_root: Path, stage: dict[str, Any], contract: dict[st
     output_path = ROOT / expected_output
     if not inside_run_file(output_path, run_root):
         errors.append(issue("E_PHASE10_RUN_PACKET_OUTPUT_BOUNDARY", f"{sid} output escapes run root"))
+    controls = packet_data.get("mandatory_controls")
+    if (
+        not isinstance(controls, dict)
+        or controls.get("nature_overlay_ref") != f"runtime/stage_overlay_registry.json#{NATURE_OVERLAY_ID}"
+        or controls.get("nature_overlay_stage_binding") != sid
+    ):
+        errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", f"{sid} run packet missing mandatory_controls overlay binding"))
+    clauses = controls.get("nature_overlay_packet_clauses") if isinstance(controls, dict) else None
+    required_clauses = set(overlay_binding.get("packet_clauses", [])) if isinstance(overlay_binding.get("packet_clauses"), list) else set()
+    if not isinstance(clauses, list) or required_clauses - {str(item) for item in clauses}:
+        errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", f"{sid} run packet missing overlay packet clauses"))
+    expected_validator = f"stage_overlay:{NATURE_OVERLAY_ID}:{sid}"
+    validators = packet_data.get("validators")
+    if not isinstance(validators, list) or expected_validator not in validators:
+        errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", f"{sid} run packet missing overlay validator {expected_validator}"))
     if contract.get("requires_worker_task_packet") is not True:
         errors.append(issue("E_PHASE10_RUN_PACKET_UNEXPECTED", sid))
     return errors
 
 
-def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage: dict[str, Any], contract: dict[str, Any], validator: dict[str, Any]) -> list[str]:
+def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage: dict[str, Any], contract: dict[str, Any], validator: dict[str, Any], overlay_binding: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     sid = str(stage.get("stage_id"))
     dispatch_path, dispatch_ref_errors = safe_run_ref(run_root, stage.get("dispatch_ref"), "E_PHASE10_RUN_REF", f"{sid}.dispatch_ref")
@@ -245,6 +293,7 @@ def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage
             "stage_contract_ref": stage.get("stage_contract_ref"),
             "content_validator_ref": "runtime/phase10_content_validators.json",
             "content_validator_id": validator.get("validator_id"),
+            "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
             "source_read_only": True,
             "candidate_output_path": candidate_ref,
         }
@@ -259,6 +308,7 @@ def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage
             errors.append(issue("E_PHASE10_DISPATCH_PACKET_LINK", sid))
         if dispatch.get("packet_template_ref") != stage.get("packet_template_ref"):
             errors.append(issue("E_PHASE10_DISPATCH_PACKET_TEMPLATE_LINK", sid))
+        errors.extend(validate_stage_overlay_record(dispatch.get("active_stage_overlays"), sid, overlay_binding, f"{sid}.dispatch.active_stage_overlays"))
 
     if isinstance(validation, dict):
         expected_validation = {
@@ -266,6 +316,8 @@ def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage
             "run_id": RUN_ID,
             "stage_id": sid,
             "validator_id": validator.get("validator_id"),
+            "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+            "stage_overlay_checks": overlay_binding.get("validator_checks", []),
             "dimension_count": len(validator.get("dimensions", [])),
             "required_checks": validator.get("required_checks", []),
             "status": "owner_gated" if sid == "G02" else "pass",
@@ -274,6 +326,7 @@ def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage
             if validation.get(key) != expected:
                 errors.append(issue("E_PHASE10_VALIDATION_CONTENT", f"{sid}.{key} expected={expected!r} actual={validation.get(key)!r}"))
         errors.extend(check_no_overclaim(validation.get("completion_boundary", ""), f"{sid}.validation.completion_boundary"))
+        errors.extend(validate_stage_overlay_record(validation.get("active_stage_overlays"), sid, overlay_binding, f"{sid}.validation.active_stage_overlays"))
 
     if isinstance(candidate, dict):
         expected_candidate = {
@@ -282,21 +335,23 @@ def verify_stage_artifacts(run_root: Path, stage: dict[str, Any], registry_stage
             "stage_name": registry_stage.get("stage_name"),
             "packet_ref": stage.get("packet_ref"),
             "validator_id": validator.get("validator_id"),
+            "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
             "expected_outputs": registry_stage.get("produces", []),
         }
         for key, expected in expected_candidate.items():
             if candidate.get(key) != expected:
                 errors.append(issue("E_PHASE10_CANDIDATE_CONTENT", f"{sid}.{key} expected={expected!r} actual={candidate.get(key)!r}"))
         errors.extend(check_no_overclaim(candidate.get("completion_boundary", ""), f"{sid}.candidate.completion_boundary"))
+        errors.extend(validate_stage_overlay_record(candidate.get("active_stage_overlays"), sid, overlay_binding, f"{sid}.candidate.active_stage_overlays"))
 
     if contract.get("requires_worker_task_packet"):
-        errors.extend(validate_run_packet(run_root, stage, contract, stage.get("packet_ref"), candidate_ref))
+        errors.extend(validate_run_packet(run_root, stage, contract, stage.get("packet_ref"), candidate_ref, overlay_binding))
     elif stage.get("packet_ref") is not None or stage.get("packet_template_ref") is not None:
         errors.append(issue("E_PHASE10_RUN_PACKET_UNEXPECTED", sid))
     return errors
 
 
-def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dict[str, Any], pilot_root: Path = DEFAULT_PILOT) -> list[str]:
+def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dict[str, Any], overlays: dict[str, Any], pilot_root: Path = DEFAULT_PILOT) -> list[str]:
     errors: list[str] = []
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
     manifest = load_json_file(run_root / "manifest.json", errors, "E_PHASE10_RUN_MANIFEST_MISSING")
@@ -319,6 +374,8 @@ def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dic
         errors.append(issue("E_PHASE10_RUN_ROOT_UNDER_SOURCE", str(run_root)))
     if manifest.get("source_read_only") is not True or manifest.get("writes_to_source_allowed") is not False:
         errors.append(issue("E_PHASE10_SOURCE_READ_ONLY", "manifest source boundary must be read-only"))
+    if manifest.get("stage_overlay_registry_ref") != "runtime/stage_overlay_registry.json" or manifest.get("active_stage_overlays") != [NATURE_OVERLAY_ID]:
+        errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", "manifest missing Nature stage overlay registry link"))
     before = manifest.get("source_snapshot_before")
     after = manifest.get("source_snapshot_after")
     if before != after:
@@ -338,6 +395,8 @@ def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dic
         errors.append(issue("E_PHASE10_RUN_STATE_SCHEMA", str(run_state.get("schema_version"))))
     if run_state.get("canonical_stage_ids") != expected_ids:
         errors.append(issue("E_PHASE10_RUN_STAGE_IDS", "canonical_stage_ids mismatch"))
+    if run_state.get("stage_overlay_registry_ref") != "runtime/stage_overlay_registry.json" or run_state.get("active_stage_overlays") != [NATURE_OVERLAY_ID]:
+        errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", "run_state missing Nature stage overlay registry link"))
     if "S09" in run_state.get("canonical_stage_ids", []) or any(stage.get("stage_id") == "S09" for stage in run_state.get("stages", []) if isinstance(stage, dict)):
         errors.append(issue("E_PHASE10_BARE_S09", "bare S09 is forbidden"))
     errors.extend(check_no_overclaim(run_state.get("completion_boundary", ""), "run_state.completion_boundary"))
@@ -347,6 +406,7 @@ def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dic
         return errors
     by_validator = {entry["stage_id"]: entry for entry in validators.get("validators", []) if isinstance(entry, dict) and "stage_id" in entry}
     registry_by_id = {stage["stage_id"]: stage for stage in registry.get("stages", []) if isinstance(stage, dict) and "stage_id" in stage}
+    by_overlay_binding = overlay_binding_by_stage(overlays)
     stage_ids = [stage.get("stage_id") for stage in stages if isinstance(stage, dict)]
     if stage_ids != expected_ids:
         errors.append(issue("E_PHASE10_RUN_STAGE_ORDER", f"expected={expected_ids} actual={stage_ids}"))
@@ -367,9 +427,13 @@ def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dic
         errors.extend(check_no_overclaim(stage.get("completion_claim", ""), f"{sid}.completion_claim"))
         if stage.get("content_validator_id") != by_validator.get(sid, {}).get("validator_id"):
             errors.append(issue("E_PHASE10_RUN_VALIDATOR_LINK", sid))
+        if stage.get("stage_overlay_registry_ref") != "runtime/stage_overlay_registry.json":
+            errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", f"{sid} stage state missing overlay registry ref"))
+        if sid in by_overlay_binding:
+            errors.extend(validate_stage_overlay_record(stage.get("active_stage_overlays"), sid, by_overlay_binding[sid], f"{sid}.run_state.active_stage_overlays"))
         contract = load_json(ROOT / str(stage.get("stage_contract_ref"))) if isinstance(stage.get("stage_contract_ref"), str) and (ROOT / str(stage.get("stage_contract_ref"))).is_file() else None
-        if contract and sid in registry_by_id:
-            errors.extend(verify_stage_artifacts(run_root, stage, registry_by_id[sid], contract, by_validator.get(sid, {})))
+        if contract and sid in registry_by_id and sid in by_overlay_binding:
+            errors.extend(verify_stage_artifacts(run_root, stage, registry_by_id[sid], contract, by_validator.get(sid, {}), by_overlay_binding[sid]))
     if ledger_events:
         dispatch_count = sum(1 for event in ledger_events if event.get("event") == "stage_dispatch")
         validation_count = sum(1 for event in ledger_events if event.get("event") == "stage_validation")
@@ -384,9 +448,11 @@ def verify_run_readiness(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = D
     errors: list[str] = []
     registry = load_json(REGISTRY)
     validators = load_json(VALIDATORS)
+    overlays = load_json(OVERLAY_REGISTRY)
+    errors.extend(validate_overlay_registry(overlays, registry, validators, check_repo_integration=True))
     errors.extend(verify_validator_registry(registry, validators))
     errors.extend(verify_contracts_and_packets(registry))
-    errors.extend(verify_run_fixture(run_root, registry, validators, pilot_root))
+    errors.extend(verify_run_fixture(run_root, registry, validators, overlays, pilot_root))
     return errors
 
 

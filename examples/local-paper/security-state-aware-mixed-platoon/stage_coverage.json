@@ -1,4 +1,7 @@
 {
+  "active_stage_overlays": [
+    "nature_expert_writing"
+  ],
   "canonical_stage_count": 20,
   "completion_boundary": "all canonical stages have PilotStageRun coverage; this is not a final manuscript/submission claim",
   "coverage_kind_counts": {
@@ -16,6 +19,10 @@
   "pilot_stage_run_count": 20,
   "project_slug": "security-state-aware-mixed-platoon",
   "schema_version": "ppg-local-paper-full-pilot/v0.1",
+  "stage_overlay_binding_counts": {
+    "nature_bound": 20
+  },
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
   "stage_runs": [
     {
       "contract_ref": "examples/stage-contracts/S00.stage-contract.json",
@@ -23,6 +30,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S00.pilot-stage-run.json",
       "stage_id": "S00",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "light",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S00",
+          "validator_ref": "stage_overlay:nature_expert_writing:S00"
+        }
+      ],
       "stage_name": "Owner semantic contract",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -33,6 +50,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S01.pilot-stage-run.json",
       "stage_id": "S01",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "light",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S01",
+          "validator_ref": "stage_overlay:nature_expert_writing:S01"
+        }
+      ],
       "stage_name": "Source citation evidence inventory",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -43,6 +70,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S02.pilot-stage-run.json",
       "stage_id": "S02",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S02",
+          "validator_ref": "stage_overlay:nature_expert_writing:S02"
+        }
+      ],
       "stage_name": "Research scene exemplar SOTA analysis",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -53,6 +90,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S03.pilot-stage-run.json",
       "stage_id": "S03",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "support",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S03",
+          "validator_ref": "stage_overlay:nature_expert_writing:S03"
+        }
+      ],
       "stage_name": "Novelty and contribution option analysis",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -63,6 +110,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S04.pilot-stage-run.json",
       "stage_id": "S04",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S04",
+          "validator_ref": "stage_overlay:nature_expert_writing:S04"
+        }
+      ],
       "stage_name": "Evidence-to-claim admissibility",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -73,6 +130,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S05.pilot-stage-run.json",
       "stage_id": "S05",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S05",
+          "validator_ref": "stage_overlay:nature_expert_writing:S05"
+        }
+      ],
       "stage_name": "Paper spine and reader-question synthesis",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -83,6 +150,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S06.pilot-stage-run.json",
       "stage_id": "S06",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S06",
+          "validator_ref": "stage_overlay:nature_expert_writing:S06"
+        }
+      ],
       "stage_name": "Object representation and granularity design",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -93,6 +170,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S07.pilot-stage-run.json",
       "stage_id": "S07",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S07",
+          "validator_ref": "stage_overlay:nature_expert_writing:S07"
+        }
+      ],
       "stage_name": "Rhetoric terminology and surface-control synthesis",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -103,6 +190,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S08.pilot-stage-run.json",
       "stage_id": "S08",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S08",
+          "validator_ref": "stage_overlay:nature_expert_writing:S08"
+        }
+      ],
       "stage_name": "Visual and formal object planning",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -113,6 +210,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S09A.pilot-stage-run.json",
       "stage_id": "S09A",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S09A",
+          "validator_ref": "stage_overlay:nature_expert_writing:S09A"
+        }
+      ],
       "stage_name": "Control-material selection",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -123,6 +230,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S09B.pilot-stage-run.json",
       "stage_id": "S09B",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S09B",
+          "validator_ref": "stage_overlay:nature_expert_writing:S09B"
+        }
+      ],
       "stage_name": "Per-unit task packet assembly",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -133,6 +250,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S10.pilot-stage-run.json",
       "stage_id": "S10",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S10",
+          "validator_ref": "stage_overlay:nature_expert_writing:S10"
+        }
+      ],
       "stage_name": "Main-text production",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -143,6 +270,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S11.pilot-stage-run.json",
       "stage_id": "S11",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S11",
+          "validator_ref": "stage_overlay:nature_expert_writing:S11"
+        }
+      ],
       "stage_name": "Figure caption formal artifact production",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -153,6 +290,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S12.pilot-stage-run.json",
       "stage_id": "S12",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S12",
+          "validator_ref": "stage_overlay:nature_expert_writing:S12"
+        }
+      ],
       "stage_name": "Integration and consistency pass",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -163,6 +310,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S13.pilot-stage-run.json",
       "stage_id": "S13",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S13",
+          "validator_ref": "stage_overlay:nature_expert_writing:S13"
+        }
+      ],
       "stage_name": "Adversarial manuscript review",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -173,6 +330,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S14.pilot-stage-run.json",
       "stage_id": "S14",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S14",
+          "validator_ref": "stage_overlay:nature_expert_writing:S14"
+        }
+      ],
       "stage_name": "Backflow compilation and repair planning",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -183,6 +350,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S15.pilot-stage-run.json",
       "stage_id": "S15",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S15",
+          "validator_ref": "stage_overlay:nature_expert_writing:S15"
+        }
+      ],
       "stage_name": "Repair execution and local regeneration",
       "status": "validated",
       "worker_packet_status": "linked_strict_packet"
@@ -193,6 +370,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/S16.pilot-stage-run.json",
       "stage_id": "S16",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "primary",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "S16",
+          "validator_ref": "stage_overlay:nature_expert_writing:S16"
+        }
+      ],
       "stage_name": "Export repository hygiene and handoff",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -203,6 +390,16 @@
       "exercise_level": "full_stage_exercised",
       "run_ref": "stage-runs/G01.pilot-stage-run.json",
       "stage_id": "G01",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "governance",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "G01",
+          "validator_ref": "stage_overlay:nature_expert_writing:G01"
+        }
+      ],
       "stage_name": "Runtime governance registry",
       "status": "validated",
       "worker_packet_status": "not_required"
@@ -213,6 +410,16 @@
       "exercise_level": "deferred_with_gate",
       "run_ref": "stage-runs/G02.pilot-stage-run.json",
       "stage_id": "G02",
+      "stage_local_overlays": [
+        {
+          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "binding_strength": "derivative",
+          "overlay_id": "nature_expert_writing",
+          "registry_ref": "runtime/stage_overlay_registry.json",
+          "stage_id": "G02",
+          "validator_ref": "stage_overlay:nature_expert_writing:G02"
+        }
+      ],
       "stage_name": "Derivative and post-paper outputs",
       "status": "owner_gated",
       "worker_packet_status": "not_required"
