@@ -1,0 +1,93 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S12",
+      "validator_ref": "stage_overlay:nature_expert_writing:S12"
+    }
+  ],
+  "candidate_output_path": "candidate-artifacts/S12.candidate.json",
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_1",
+      "ref": "candidate text modules"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_2",
+      "ref": "figures/captions"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_3",
+      "ref": "section move plan"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_4",
+      "ref": "terminology register"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_5",
+      "ref": "claim visibility"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s12_source_ref_manuscript-main-tex",
+      "ref": "manuscript/main.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s12_source_ref_manuscript-sections-01-introduction-tex",
+      "ref": "manuscript/sections/01_introduction.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s12_source_ref_manuscript-sections-06-results-discussion-tex",
+      "ref": "manuscript/sections/06_results_discussion.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s10_pilot_output",
+      "producer_stage_id": "S10",
+      "ref": "artifacts/S10-main-text-production.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s11_pilot_output",
+      "producer_stage_id": "S11",
+      "ref": "artifacts/S11-figure-caption-formal-artifact-production.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s15_pilot_output",
+      "producer_stage_id": "S15",
+      "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
+    }
+  ],
+  "content_validator_id": "phase10_s12_content_validator",
+  "content_validator_ref": "runtime/phase10_content_validators.json",
+  "owner_decision_refs": [
+    "owner_decision_log.jsonl#source_write_policy"
+  ],
+  "packet_ref": "packets/S12.task-packet.json",
+  "packet_template_ref": "examples/packets/phase10_s12_integration_consistency_packet.v1.yaml",
+  "run_id": "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-dispatch-record/v0.1",
+  "source_read_only": true,
+  "stage_contract_ref": "examples/stage-contracts/S12.stage-contract.json",
+  "stage_id": "S12",
+  "stage_name": "Integration and consistency pass",
+  "worker_authority": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true,
+    "source_write_forbidden": true
+  }
+}

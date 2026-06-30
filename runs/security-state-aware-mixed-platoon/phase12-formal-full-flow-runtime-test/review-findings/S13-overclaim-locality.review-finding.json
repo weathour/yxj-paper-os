@@ -1,0 +1,15 @@
+{
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "failure_type": "claim_overreach",
+  "finding_id": "phase12_overclaim_locality_finding_v1",
+  "locality_scope": [
+    "phase12_s04_material_v1",
+    "phase12_s10_material_v1"
+  ],
+  "run_id": "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-review-finding/v0.1",
+  "severity": "medium",
+  "source_stage_id": "S13",
+  "target_material_id": "phase12_s04_material_v1",
+  "whole_paper_rewrite_authorized": false
+}

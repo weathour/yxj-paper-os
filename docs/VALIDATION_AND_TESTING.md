@@ -284,3 +284,28 @@ Negative fixtures under `examples/overlays/` lock the expected error codes:
 - `invalid-missing-primary-stage-binding.json` -> `E_STAGE_OVERLAY_REQUIRED_STAGE_BINDING`;
 - `invalid-duplicate-stage-binding.json` -> `E_STAGE_OVERLAY_DUPLICATE_BINDING`;
 - `invalid-primary-binding-mismatch.json` -> `E_STAGE_OVERLAY_PRIMARY_BINDING_MISMATCH`.
+
+## Phase 12 formal full-flow runtime-test validation
+
+Phase 12 adds a deterministic full-flow runtime-test harness. It does not claim manuscript quality or submission-readiness. It proves the controller can generate and verify a run-owned paper-production flow over all canonical stages while preserving source-read-only boundaries.
+
+Core commands:
+
+```bash
+python3 scripts/generate_phase12_full_flow_run.py --check
+python3 scripts/verify_phase12_full_flow_run.py
+bash scripts/verify_phase12_formal_full_flow.sh
+```
+
+The verifier checks:
+
+- all 20 canonical stages are present, with `S09A/S09B` preserved and bare `S09` rejected;
+- every stage has candidate, dispatch, validation, stage-status, and material evidence;
+- every worker stage has a strict run-owned TaskPacket with Nature overlay controls;
+- every candidate remains `candidate_only`, `controller_commit_required`, and `worker_completion_forbidden`;
+- source snapshots are referenced files, `source_snapshot.before.json` and `source_snapshot.after.json`, and both match the recomputed current source snapshot;
+- the exact local backflow sequence is `review_finding_recorded -> backflow_task_compiled -> repair_candidate_recorded -> review_closure_recorded`;
+- the delivery gate is `pass_for_runtime_test_only` and consumes all 20 stage records plus the review closure;
+- documentation and run artifacts avoid unbounded final-paper, submission-readiness, install, publish, incubator, or old-department-loop claims.
+
+The aggregate wrapper includes exact-code negative probes for backflow chain removal, bare `S09`, overlay link removal, candidate authority violations, controller-commit disablement, worker completion authority, non-worker fake packets, owner-ledger source-write tampering, overlay authority expansion, doc-boundary overclaims, packet output escape, source snapshot drift, current source drift, and symlink refs.

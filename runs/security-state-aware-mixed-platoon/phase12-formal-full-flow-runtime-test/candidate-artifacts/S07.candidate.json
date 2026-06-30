@@ -1,0 +1,75 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S07",
+      "validator_ref": "stage_overlay:nature_expert_writing:S07"
+    }
+  ],
+  "candidate_only": true,
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s07_declared_input_1",
+      "ref": "object representation"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s07_declared_input_2",
+      "ref": "claim visibility"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s07_declared_input_3",
+      "ref": "evidence wording"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s07_source_ref_manuscript-main-tex",
+      "ref": "manuscript/main.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s07_source_ref_manuscript-sections-01-introduction-tex",
+      "ref": "manuscript/sections/01_introduction.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s07_source_ref_manuscript-sections-07-conclusion-tex",
+      "ref": "manuscript/sections/07_conclusion.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s06_pilot_output",
+      "producer_stage_id": "S06",
+      "ref": "artifacts/S06-object-representation-and-granularity-design.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s14_pilot_output",
+      "producer_stage_id": "S14",
+      "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+    }
+  ],
+  "content_summary": "Phase12 formal runtime-test candidate for S07 (Rhetoric terminology and surface-control synthesis). Consumes pilot materials 8; records bounded controller-owned candidate evidence only.",
+  "controller_commit_required": true,
+  "no_recursive_orchestration": true,
+  "packet_ref": "packets/S07.task-packet.json",
+  "produced_materials": [
+    "phase12_s07_material_v1"
+  ],
+  "run_id": "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-stage-candidate/v0.1",
+  "source_write_forbidden": true,
+  "stage_id": "S07",
+  "stage_name": "Rhetoric terminology and surface-control synthesis",
+  "validator_refs": [
+    "phase10_s07_content_validator",
+    "stage_overlay:nature_expert_writing:S07"
+  ],
+  "worker_completion_forbidden": true
+}

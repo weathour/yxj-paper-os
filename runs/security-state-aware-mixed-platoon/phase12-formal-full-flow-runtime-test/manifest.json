@@ -1,0 +1,20 @@
+{
+  "active_stage_overlays": [
+    "nature_expert_writing"
+  ],
+  "completion_boundary": "Phase12 formal runtime-test fixture only; no manuscript, submission, or publication readiness claim.",
+  "generated_at": "2026-06-30T00:00:00Z",
+  "pilot_root": "examples/local-paper/security-state-aware-mixed-platoon",
+  "project_slug": "security-state-aware-mixed-platoon",
+  "run_id": "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test",
+  "run_root": "runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test",
+  "runtime_root": "/home/weathour/文档/yxj-paper-ppg-runtime",
+  "schema_version": "ppg-phase12-run-manifest/v0.1",
+  "source_read_only": true,
+  "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
+  "source_snapshot_after_ref": "source_snapshot.after.json",
+  "source_snapshot_before_ref": "source_snapshot.before.json",
+  "source_snapshot_scope": "referenced snapshot files cover all files, directories, and symlinks below source_root excluding .git and volatile .omx runtime state; git status is scoped to source_root",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+  "writes_to_source_allowed": false
+}

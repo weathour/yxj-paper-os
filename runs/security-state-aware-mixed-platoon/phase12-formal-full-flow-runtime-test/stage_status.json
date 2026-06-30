@@ -1,0 +1,357 @@
+{
+  "run_id": "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-stage-status/v0.1",
+  "stages": [
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S00.candidate.json",
+      "next_frontier_hint": "S01",
+      "produced_materials": [
+        "phase12_s00_material_v1"
+      ],
+      "ready_inputs": [
+        {
+          "kind": "contract_declared",
+          "material_id": "s00_declared_input_1",
+          "ref": "human need"
+        },
+        {
+          "kind": "contract_declared",
+          "material_id": "s00_declared_input_2",
+          "ref": "paper profile"
+        },
+        {
+          "kind": "contract_declared",
+          "material_id": "s00_declared_input_3",
+          "ref": "evidence summary"
+        }
+      ],
+      "stage_id": "S00",
+      "stale_materials": [],
+      "status": "owner_boundary_validated",
+      "validation_ref": "validation/S00.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S01.candidate.json",
+      "next_frontier_hint": "S02",
+      "produced_materials": [
+        "phase12_s01_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s00_material_v1"
+      ],
+      "stage_id": "S01",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S01.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S02.candidate.json",
+      "next_frontier_hint": "S03",
+      "produced_materials": [
+        "phase12_s02_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s00_material_v1",
+        "phase12_s01_material_v1"
+      ],
+      "stage_id": "S02",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S02.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S03.candidate.json",
+      "next_frontier_hint": "S04",
+      "produced_materials": [
+        "phase12_s03_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s00_material_v1",
+        "phase12_s01_material_v1",
+        "phase12_s02_material_v1"
+      ],
+      "stage_id": "S03",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S03.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S04.candidate.json",
+      "next_frontier_hint": "S05",
+      "produced_materials": [
+        "phase12_s04_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s01_material_v1",
+        "phase12_s02_material_v1",
+        "phase12_s03_material_v1"
+      ],
+      "stage_id": "S04",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S04.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S05.candidate.json",
+      "next_frontier_hint": "S06",
+      "produced_materials": [
+        "phase12_s05_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s02_material_v1",
+        "phase12_s03_material_v1",
+        "phase12_s04_material_v1"
+      ],
+      "stage_id": "S05",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S05.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S06.candidate.json",
+      "next_frontier_hint": "S07",
+      "produced_materials": [
+        "phase12_s06_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s03_material_v1",
+        "phase12_s04_material_v1",
+        "phase12_s05_material_v1"
+      ],
+      "stage_id": "S06",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S06.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S07.candidate.json",
+      "next_frontier_hint": "S08",
+      "produced_materials": [
+        "phase12_s07_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s04_material_v1",
+        "phase12_s05_material_v1",
+        "phase12_s06_material_v1"
+      ],
+      "stage_id": "S07",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S07.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S08.candidate.json",
+      "next_frontier_hint": "S09A",
+      "produced_materials": [
+        "phase12_s08_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s05_material_v1",
+        "phase12_s06_material_v1",
+        "phase12_s07_material_v1"
+      ],
+      "stage_id": "S08",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S08.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S09A.candidate.json",
+      "next_frontier_hint": "S09B",
+      "produced_materials": [
+        "phase12_s09a_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s06_material_v1",
+        "phase12_s07_material_v1",
+        "phase12_s08_material_v1"
+      ],
+      "stage_id": "S09A",
+      "stale_materials": [],
+      "status": "script_validated",
+      "validation_ref": "validation/S09A.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S09B.candidate.json",
+      "next_frontier_hint": "S10",
+      "produced_materials": [
+        "phase12_s09b_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s07_material_v1",
+        "phase12_s08_material_v1",
+        "phase12_s09a_material_v1"
+      ],
+      "stage_id": "S09B",
+      "stale_materials": [],
+      "status": "script_validated",
+      "validation_ref": "validation/S09B.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S10.candidate.json",
+      "next_frontier_hint": "S11",
+      "produced_materials": [
+        "phase12_s10_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s08_material_v1",
+        "phase12_s09a_material_v1",
+        "phase12_s09b_material_v1"
+      ],
+      "stage_id": "S10",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S10.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S11.candidate.json",
+      "next_frontier_hint": "S12",
+      "produced_materials": [
+        "phase12_s11_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s09a_material_v1",
+        "phase12_s09b_material_v1",
+        "phase12_s10_material_v1"
+      ],
+      "stage_id": "S11",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S11.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S12.candidate.json",
+      "next_frontier_hint": "S13",
+      "produced_materials": [
+        "phase12_s12_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s09b_material_v1",
+        "phase12_s10_material_v1",
+        "phase12_s11_material_v1"
+      ],
+      "stage_id": "S12",
+      "stale_materials": [],
+      "status": "candidate_validated",
+      "validation_ref": "validation/S12.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S13.candidate.json",
+      "next_frontier_hint": "S14",
+      "produced_materials": [
+        "phase12_s13_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s10_material_v1",
+        "phase12_s11_material_v1",
+        "phase12_s12_material_v1"
+      ],
+      "stage_id": "S13",
+      "stale_materials": [],
+      "status": "review_finding_recorded",
+      "validation_ref": "validation/S13.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S14.candidate.json",
+      "next_frontier_hint": "S15",
+      "produced_materials": [
+        "phase12_s14_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s11_material_v1",
+        "phase12_s12_material_v1",
+        "phase12_s13_material_v1"
+      ],
+      "stage_id": "S14",
+      "stale_materials": [],
+      "status": "backflow_task_compiled",
+      "validation_ref": "validation/S14.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S15.candidate.json",
+      "next_frontier_hint": "S16",
+      "produced_materials": [
+        "phase12_s15_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s12_material_v1",
+        "phase12_s13_material_v1",
+        "phase12_s14_material_v1"
+      ],
+      "stage_id": "S15",
+      "stale_materials": [
+        "phase12_s10_material_v1"
+      ],
+      "status": "backflow_closed",
+      "validation_ref": "validation/S15.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/S16.candidate.json",
+      "next_frontier_hint": "G01",
+      "produced_materials": [
+        "phase12_s16_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s13_material_v1",
+        "phase12_s14_material_v1",
+        "phase12_s15_material_v1"
+      ],
+      "stage_id": "S16",
+      "stale_materials": [],
+      "status": "delivery_gate_passed",
+      "validation_ref": "validation/S16.validation.json"
+    },
+    {
+      "blocked_reason": null,
+      "candidate_ref": "candidate-artifacts/G01.candidate.json",
+      "next_frontier_hint": "G02",
+      "produced_materials": [
+        "phase12_g01_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s14_material_v1",
+        "phase12_s15_material_v1",
+        "phase12_s16_material_v1"
+      ],
+      "stage_id": "G01",
+      "stale_materials": [],
+      "status": "governance_boundary_validated",
+      "validation_ref": "validation/G01.validation.json"
+    },
+    {
+      "blocked_reason": "post-paper derivative outputs require explicit owner request",
+      "candidate_ref": "candidate-artifacts/G02.candidate.json",
+      "next_frontier_hint": "delivery-gate/delivery_gate.json",
+      "produced_materials": [
+        "phase12_g02_material_v1"
+      ],
+      "ready_inputs": [
+        "phase12_s15_material_v1",
+        "phase12_s16_material_v1",
+        "phase12_g01_material_v1"
+      ],
+      "stage_id": "G02",
+      "stale_materials": [],
+      "status": "owner_gated_deferred",
+      "validation_ref": "validation/G02.validation.json"
+    }
+  ]
+}

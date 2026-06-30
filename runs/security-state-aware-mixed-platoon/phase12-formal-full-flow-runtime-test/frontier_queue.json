@@ -1,0 +1,296 @@
+{
+  "frontier_events": [
+    {
+      "consumed_materials": [
+        {
+          "kind": "contract_declared",
+          "material_id": "s00_declared_input_1",
+          "ref": "human need"
+        },
+        {
+          "kind": "contract_declared",
+          "material_id": "s00_declared_input_2",
+          "ref": "paper profile"
+        },
+        {
+          "kind": "contract_declared",
+          "material_id": "s00_declared_input_3",
+          "ref": "evidence summary"
+        }
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-001-S00",
+      "produced_materials": [
+        "phase12_s00_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S00"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s00_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-002-S01",
+      "produced_materials": [
+        "phase12_s01_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S01"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s00_material_v1",
+        "phase12_s01_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-003-S02",
+      "produced_materials": [
+        "phase12_s02_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S02"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s00_material_v1",
+        "phase12_s01_material_v1",
+        "phase12_s02_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-004-S03",
+      "produced_materials": [
+        "phase12_s03_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S03"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s01_material_v1",
+        "phase12_s02_material_v1",
+        "phase12_s03_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-005-S04",
+      "produced_materials": [
+        "phase12_s04_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S04"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s02_material_v1",
+        "phase12_s03_material_v1",
+        "phase12_s04_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-006-S05",
+      "produced_materials": [
+        "phase12_s05_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S05"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s03_material_v1",
+        "phase12_s04_material_v1",
+        "phase12_s05_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-007-S06",
+      "produced_materials": [
+        "phase12_s06_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S06"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s04_material_v1",
+        "phase12_s05_material_v1",
+        "phase12_s06_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-008-S07",
+      "produced_materials": [
+        "phase12_s07_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S07"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s05_material_v1",
+        "phase12_s06_material_v1",
+        "phase12_s07_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-009-S08",
+      "produced_materials": [
+        "phase12_s08_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S08"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s06_material_v1",
+        "phase12_s07_material_v1",
+        "phase12_s08_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-010-S09A",
+      "produced_materials": [
+        "phase12_s09a_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S09A"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s07_material_v1",
+        "phase12_s08_material_v1",
+        "phase12_s09a_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-011-S09B",
+      "produced_materials": [
+        "phase12_s09b_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S09B"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s08_material_v1",
+        "phase12_s09a_material_v1",
+        "phase12_s09b_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-012-S10",
+      "produced_materials": [
+        "phase12_s10_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S10"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s09a_material_v1",
+        "phase12_s09b_material_v1",
+        "phase12_s10_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-013-S11",
+      "produced_materials": [
+        "phase12_s11_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S11"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s09b_material_v1",
+        "phase12_s10_material_v1",
+        "phase12_s11_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-014-S12",
+      "produced_materials": [
+        "phase12_s12_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S12"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s10_material_v1",
+        "phase12_s11_material_v1",
+        "phase12_s12_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-015-S13",
+      "produced_materials": [
+        "phase12_s13_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S13"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s11_material_v1",
+        "phase12_s12_material_v1",
+        "phase12_s13_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-016-S14",
+      "produced_materials": [
+        "phase12_s14_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S14"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s12_material_v1",
+        "phase12_s13_material_v1",
+        "phase12_s14_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-017-S15",
+      "produced_materials": [
+        "phase12_s15_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S15"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s13_material_v1",
+        "phase12_s14_material_v1",
+        "phase12_s15_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-018-S16",
+      "produced_materials": [
+        "phase12_s16_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "S16"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s14_material_v1",
+        "phase12_s15_material_v1",
+        "phase12_s16_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-019-G01",
+      "produced_materials": [
+        "phase12_g01_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "G01"
+    },
+    {
+      "consumed_materials": [
+        "phase12_s15_material_v1",
+        "phase12_s16_material_v1",
+        "phase12_g01_material_v1"
+      ],
+      "controller_decision": "record deterministic Phase12 runtime-test candidate and validator evidence",
+      "event_id": "frontier-020-G02",
+      "produced_materials": [
+        "phase12_g02_material_v1"
+      ],
+      "reason": "dependency_topology_then_blocker_then_owner_gate_then_frontier",
+      "stage_id": "G02"
+    }
+  ],
+  "run_id": "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-frontier-queue/v0.1",
+  "selection_policy": "dependency_topology_then_blocker_then_owner_gate_then_frontier"
+}
