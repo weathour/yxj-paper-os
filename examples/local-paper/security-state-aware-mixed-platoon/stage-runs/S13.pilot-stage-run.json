@@ -39,6 +39,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s12_pilot_output",
+      "producer_stage_id": "S12",
       "ref": "artifacts/S12-integration-and-consistency-pass.json"
     }
   ],

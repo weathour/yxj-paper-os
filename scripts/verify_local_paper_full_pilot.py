@@ -63,7 +63,14 @@ def rel_repo(path: Path) -> str:
         return str(path)
 
 
-def validate_run(run: dict[str, Any], stage: dict[str, Any], contract: dict[str, Any], pilot_root: Path, produced_artifact_refs: set[str]) -> list[str]:
+def validate_run(
+    run: dict[str, Any],
+    stage: dict[str, Any],
+    contract: dict[str, Any],
+    pilot_root: Path,
+    produced_artifact_refs_by_stage: dict[str, set[str]],
+    expected_upstream_by_stage: dict[str, set[str]],
+) -> list[str]:
     sid = stage["stage_id"]
     errors: list[str] = []
     missing = sorted(REQUIRED_RUN_FIELDS - set(run))
@@ -94,9 +101,18 @@ def validate_run(run: dict[str, Any], stage: dict[str, Any], contract: dict[str,
         for item in consumed:
             ref = str(item["ref"])
             if item.get("kind") == "upstream_stage_output":
+                producer_stage_id = item.get("producer_stage_id")
+                if not isinstance(producer_stage_id, str) or not producer_stage_id:
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_PRODUCER_MISSING", f"{sid} {ref}"))
+                    continue
+                if producer_stage_id not in expected_upstream_by_stage.get(sid, set()):
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_PRODUCER_UNEXPECTED", f"{sid} producer={producer_stage_id}"))
+                if item.get("material_id") != f"{producer_stage_id.lower()}_pilot_output":
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_MATERIAL_ID", f"{sid} producer={producer_stage_id} material_id={item.get('material_id')}"))
+                expected_refs = produced_artifact_refs_by_stage.get(producer_stage_id, set())
                 ref_path = pilot_root / ref
-                if ref not in produced_artifact_refs:
-                    errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_UNKNOWN", f"{sid} {ref}"))
+                if ref not in expected_refs:
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_WRONG_PRODUCER", f"{sid} producer={producer_stage_id} ref={ref}"))
                 if not is_inside(ref_path, pilot_root):
                     errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_ESCAPE", f"{sid} {ref}"))
                 if not ref_path.is_file():
@@ -192,6 +208,15 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
         return errors
     registry = load_json(REGISTRY)
     manifest = load_json(pilot_root / "manifest.json")
+    graph = load_json(pilot_root / "graph.json")
+    expected_upstream_by_stage: dict[str, set[str]] = {}
+    for edge in graph.get("edges", []):
+        if not isinstance(edge, dict):
+            continue
+        source = str(edge.get("source", ""))
+        target = str(edge.get("target", ""))
+        if source and target and source != "G01":
+            expected_upstream_by_stage.setdefault(target, set()).add(source)
     if manifest.get("read_only_source") is not True:
         errors.append(issue("E_PILOT_MANIFEST_READ_ONLY", "manifest.read_only_source must be true"))
     if manifest.get("source_git_status_before") != manifest.get("source_git_status_after"):
@@ -209,7 +234,7 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
     if actual_stage_ids != sorted(expected_stage_ids):
         errors.append(issue("E_PILOT_RUN_SET", f"expected {sorted(expected_stage_ids)}, got {actual_stage_ids}"))
     loaded_runs: dict[str, dict[str, Any]] = {}
-    produced_artifact_refs: set[str] = set()
+    produced_artifact_refs_by_stage: dict[str, set[str]] = {}
     for stage in stages:
         sid = stage["stage_id"]
         run_path = pilot_root / "stage-runs" / f"{sid}.pilot-stage-run.json"
@@ -220,7 +245,7 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
             if isinstance(produced, list):
                 for item in produced:
                     if isinstance(item, dict) and isinstance(item.get("artifact_path"), str):
-                        produced_artifact_refs.add(item["artifact_path"])
+                        produced_artifact_refs_by_stage.setdefault(sid, set()).add(item["artifact_path"])
     for stage in stages:
         sid = stage["stage_id"]
         contract_path = ROOT / stage["contract_ref"]
@@ -235,7 +260,7 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
             errors.append(issue("E_PILOT_RUN_MISSING", sid))
             continue
         run = loaded_runs.get(sid) or load_json(run_path)
-        errors.extend(validate_run(run, stage, contract, pilot_root, produced_artifact_refs))
+        errors.extend(validate_run(run, stage, contract, pilot_root, produced_artifact_refs_by_stage, expected_upstream_by_stage))
     summary = load_json(pilot_root / "stage_coverage.json")
     if summary.get("schema_version") != SUMMARY_SCHEMA_VERSION:
         errors.append(issue("E_PILOT_SUMMARY_SCHEMA", str(summary.get("schema_version"))))
@@ -245,7 +270,6 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
         errors.append(issue("E_PILOT_SUMMARY_RUNS", "stage_runs length mismatch"))
     if "all canonical stages" not in str(summary.get("completion_boundary", "")).lower() or "not a final" not in str(summary.get("completion_boundary", "")).lower():
         errors.append(issue("E_PILOT_SUMMARY_COMPLETION_BOUNDARY", "summary completion boundary must be explicit"))
-    graph = load_json(pilot_root / "graph.json")
     errors.extend(validate_graph(graph, expected_stage_ids))
     # Negative local-copy mutation probes: output path must not escape via traversal or source-root containment.
     source_root = Path(str(manifest.get("source_root", "")))

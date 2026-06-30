@@ -33,6 +33,7 @@
         "properties": {
           "material_id": {"type": "string", "minLength": 1},
           "kind": {"type": "string", "minLength": 1},
+          "producer_stage_id": {"type": "string", "pattern": "^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"},
           "ref": {"type": "string", "minLength": 1}
         }
       }

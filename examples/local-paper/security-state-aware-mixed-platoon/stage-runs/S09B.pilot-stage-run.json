@@ -39,11 +39,13 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s09a_pilot_output",
+      "producer_stage_id": "S09A",
       "ref": "artifacts/S09A-control-material-selection.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s15_pilot_output",
+      "producer_stage_id": "S15",
       "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
     }
   ],

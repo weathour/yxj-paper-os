@@ -39,16 +39,19 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s01_pilot_output",
+      "producer_stage_id": "S01",
       "ref": "artifacts/S01-source-citation-evidence-inventory.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s03_pilot_output",
+      "producer_stage_id": "S03",
       "ref": "artifacts/S03-novelty-and-contribution-option-analysis.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s14_pilot_output",
+      "producer_stage_id": "S14",
       "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
     }
   ],

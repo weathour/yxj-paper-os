@@ -39,6 +39,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s02_pilot_output",
+      "producer_stage_id": "S02",
       "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
     }
   ],

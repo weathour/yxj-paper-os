@@ -34,6 +34,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s01_pilot_output",
+      "producer_stage_id": "S01",
       "ref": "artifacts/S01-source-citation-evidence-inventory.json"
     }
   ],

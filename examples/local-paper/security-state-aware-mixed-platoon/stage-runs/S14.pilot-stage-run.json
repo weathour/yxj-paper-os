@@ -29,6 +29,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s13_pilot_output",
+      "producer_stage_id": "S13",
       "ref": "artifacts/S13-adversarial-manuscript-review.json"
     }
   ],

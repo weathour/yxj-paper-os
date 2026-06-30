@@ -29,16 +29,19 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s01_pilot_output",
+      "producer_stage_id": "S01",
       "ref": "artifacts/S01-source-citation-evidence-inventory.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s04_pilot_output",
+      "producer_stage_id": "S04",
       "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s08_pilot_output",
+      "producer_stage_id": "S08",
       "ref": "artifacts/S08-visual-and-formal-object-planning.json"
     }
   ],

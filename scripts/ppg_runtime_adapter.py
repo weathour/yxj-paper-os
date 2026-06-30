@@ -347,6 +347,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.out is not None and (args.out.resolve() == args.graph.resolve() or _same_existing_file(args.out, args.graph)):
         print(f"INVALID {args.out}: --out must not overwrite the input graph", file=sys.stderr)
         return 1
+    if args.out is not None and args.stage_coverage is not None and (args.out.resolve() == args.stage_coverage.resolve() or _same_existing_file(args.out, args.stage_coverage)):
+        print(f"INVALID {args.out}: --out must not overwrite the stage coverage input", file=sys.stderr)
+        return 1
     try:
         state = build_runtime_state(args.graph)
         if args.stage_coverage is not None:

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -126,9 +127,39 @@ def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def write_json(path: Path, payload: Any) -> None:
+def ensure_output_file_safe(path: Path, pilot_root: Path, source_root: Path) -> None:
+    pilot_resolved = pilot_root.resolve(strict=True)
+    path_resolved = path.resolve(strict=False)
+    if not is_relative_to(path_resolved, pilot_resolved):
+        raise ValueError(f"output path must remain inside pilot_root: {path}")
+    if is_relative_to(path_resolved, source_root) or path_resolved == source_root:
+        raise ValueError(f"output path must not point into source paper repository: {path}")
+    if path.is_symlink():
+        raise ValueError(f"output file must not be a symlink: {path}")
+    if path.exists() and not path.is_file():
+        raise ValueError(f"output path must be a regular file: {path}")
+
+
+def ensure_output_files_safe(paths: list[Path], pilot_root: Path, source_root: Path) -> None:
+    for path in paths:
+        ensure_output_file_safe(path, pilot_root, source_root)
+
+
+def write_json(path: Path, payload: Any, *, pilot_root: Path | None = None, source_root: Path | None = None) -> None:
+    if pilot_root is not None and source_root is not None:
+        ensure_output_file_safe(path, pilot_root, source_root)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+    if pilot_root is not None and source_root is not None:
+        ensure_output_file_safe(path, pilot_root, source_root)
+    tmp_path = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    if tmp_path.exists() or tmp_path.is_symlink():
+        raise ValueError(f"temporary output path already exists: {tmp_path}")
+    try:
+        tmp_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+        os.replace(tmp_path, path)
+    finally:
+        if tmp_path.exists():
+            tmp_path.unlink()
 
 
 def is_relative_to(child: Path, parent: Path) -> bool:
@@ -190,7 +221,7 @@ def consumed_materials(stage: dict[str, Any], pilot_root: Path, artifact_refs: d
     if sid not in {"S00", "G01"}:
         previous = [edge[0] for edge in FLOW_EDGES if edge[1] == sid and edge[0] not in {"G01"}]
         for prev in sorted(set(previous)):
-            values.append({"material_id": f"{prev.lower()}_pilot_output", "kind": "upstream_stage_output", "ref": artifact_refs[prev]})
+            values.append({"material_id": f"{prev.lower()}_pilot_output", "kind": "upstream_stage_output", "producer_stage_id": prev, "ref": artifact_refs[prev]})
     if not values:
         values.append({"material_id": f"{sid.lower()}_pilot_context", "kind": "pilot_context", "ref": repo_rel(pilot_root / "manifest.json")})
     return values
@@ -378,9 +409,14 @@ def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_ro
 def generate(pilot_root: Path) -> dict[str, Any]:
     manifest = load_json(pilot_root / "manifest.json")
     ensure_pilot_root_safe(manifest, pilot_root)
+    source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
     registry = load_json(REGISTRY)
     stage_run_dir = pilot_root / "stage-runs"
     artifact_refs = {stage["stage_id"]: f"artifacts/{stage['stage_id']}-{slug(stage['stage_name'])}.json" for stage in registry["stages"]}
+    expected_output_paths = [pilot_root / artifact_ref for artifact_ref in artifact_refs.values()]
+    expected_output_paths.extend(stage_run_dir / f"{stage['stage_id']}.pilot-stage-run.json" for stage in registry["stages"])
+    expected_output_paths.extend([pilot_root / "graph.json", pilot_root / "stage_coverage.json"])
+    ensure_output_files_safe(expected_output_paths, pilot_root, source_root)
     runs: list[dict[str, Any]] = []
     for stage in registry["stages"]:
         sid = stage["stage_id"]
@@ -388,14 +424,14 @@ def generate(pilot_root: Path) -> dict[str, Any]:
         artifact_rel = artifact_refs[sid]
         consumed = consumed_materials(stage, pilot_root, artifact_refs)
         artifact = build_artifact(stage, contract, manifest, consumed)
-        write_json(pilot_root / artifact_rel, artifact)
+        write_json(pilot_root / artifact_rel, artifact, pilot_root=pilot_root, source_root=source_root)
         run = build_run(stage, contract, manifest, pilot_root, artifact_rel, artifact_refs)
-        write_json(stage_run_dir / f"{sid}.pilot-stage-run.json", run)
+        write_json(stage_run_dir / f"{sid}.pilot-stage-run.json", run, pilot_root=pilot_root, source_root=source_root)
         runs.append(run)
     graph = build_graph(registry, pilot_root)
     summary = build_summary(registry, runs, pilot_root)
-    write_json(pilot_root / "graph.json", graph)
-    write_json(pilot_root / "stage_coverage.json", summary)
+    write_json(pilot_root / "graph.json", graph, pilot_root=pilot_root, source_root=source_root)
+    write_json(pilot_root / "stage_coverage.json", summary, pilot_root=pilot_root, source_root=source_root)
     return summary
 
 

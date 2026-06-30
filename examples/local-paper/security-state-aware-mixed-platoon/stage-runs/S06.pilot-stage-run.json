@@ -39,6 +39,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s05_pilot_output",
+      "producer_stage_id": "S05",
       "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
     }
   ],

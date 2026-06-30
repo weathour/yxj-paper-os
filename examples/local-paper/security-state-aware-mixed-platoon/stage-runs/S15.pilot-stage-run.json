@@ -29,6 +29,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s14_pilot_output",
+      "producer_stage_id": "S14",
       "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
     }
   ],

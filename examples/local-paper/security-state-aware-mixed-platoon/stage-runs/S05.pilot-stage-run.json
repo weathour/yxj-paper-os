@@ -39,6 +39,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s04_pilot_output",
+      "producer_stage_id": "S04",
       "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
     }
   ],

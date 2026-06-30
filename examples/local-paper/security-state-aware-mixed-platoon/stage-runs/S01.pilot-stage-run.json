@@ -44,6 +44,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s00_pilot_output",
+      "producer_stage_id": "S00",
       "ref": "artifacts/S00-owner-semantic-contract.json"
     }
   ],

@@ -44,16 +44,19 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s10_pilot_output",
+      "producer_stage_id": "S10",
       "ref": "artifacts/S10-main-text-production.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s11_pilot_output",
+      "producer_stage_id": "S11",
       "ref": "artifacts/S11-figure-caption-formal-artifact-production.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s15_pilot_output",
+      "producer_stage_id": "S15",
       "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
     }
   ],
