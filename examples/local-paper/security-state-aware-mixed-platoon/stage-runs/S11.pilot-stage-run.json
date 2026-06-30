@@ -1,0 +1,98 @@
+{
+  "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_1",
+      "ref": "figure contracts"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_2",
+      "ref": "panel evidence packages"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_3",
+      "ref": "source data locators"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_4",
+      "ref": "caption brief"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s11_source_ref_docs-l3-method-faithful-non-text-evidence-checkl",
+      "ref": "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s01_pilot_output",
+      "ref": "artifacts/S01-s01.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s04_pilot_output",
+      "ref": "artifacts/S04-s04.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s08_pilot_output",
+      "ref": "artifacts/S08-s08.json"
+    }
+  ],
+  "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
+  "coverage_kind": "source_projected",
+  "execution_mode": "hybrid_generated",
+  "exercise_level": "full_stage_exercised",
+  "produced_artifacts": [
+    {
+      "artifact_id": "s11_pilot_output",
+      "artifact_path": "artifacts/S11-figure-caption-formal-artifact-production.json",
+      "artifact_type": "candidate_or_repair_projection",
+      "description": "figure statistics; image integrity record; caption brief; figure export bundle"
+    }
+  ],
+  "recommended_agent_type": "executor",
+  "schema_version": "ppg-pilot-stage-run/v0.1",
+  "source_projection_boundary": {
+    "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+    "read_only_source": true,
+    "runtime_output_root": "/home/weathour/文档/yxj-paper-ppg-runtime/examples/local-paper/security-state-aware-mixed-platoon",
+    "runtime_output_under_source": false,
+    "selected_source_fingerprints_unchanged": true,
+    "source_git_status_after": "?? docs/runtime-viewer/\n",
+    "source_git_status_before": "?? docs/runtime-viewer/\n",
+    "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
+    "source_status_unchanged": true,
+    "writes_to_source_allowed": false
+  },
+  "stage_id": "S11",
+  "stage_name": "Figure caption formal artifact production",
+  "status": "validated",
+  "validator_evidence": [
+    {
+      "evidence": "S11 links to examples/stage-contracts/S11.stage-contract.json with completion_gate present",
+      "status": "pass",
+      "validator": "stage_contract_link"
+    },
+    {
+      "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+      "status": "pass",
+      "validator": "source_read_only_fingerprint"
+    },
+    {
+      "evidence": "coverage_kind=source_projected; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "status": "pass",
+      "validator": "coverage_boundary"
+    }
+  ],
+  "worker_task_packet_evidence": {
+    "blocker": "S11 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage.",
+    "packet_ref": null,
+    "required": true,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "status": "planned_with_blocker"
+  }
+}

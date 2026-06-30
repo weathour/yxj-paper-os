@@ -1,0 +1,455 @@
+{
+  "claim_boundary": "pilot graph does not contain bare S09 and does not claim final submission completion",
+  "edges": [
+    {
+      "id": "e01",
+      "kind": "material",
+      "label": "profile/forbidden routes",
+      "source": "S00",
+      "target": "S01"
+    },
+    {
+      "id": "e02",
+      "kind": "material",
+      "label": "source map",
+      "source": "S01",
+      "target": "S02"
+    },
+    {
+      "id": "e03",
+      "kind": "material",
+      "label": "research dossier",
+      "source": "S02",
+      "target": "S03"
+    },
+    {
+      "id": "e04",
+      "kind": "material",
+      "label": "evidence bank",
+      "source": "S01",
+      "target": "S04"
+    },
+    {
+      "id": "e05",
+      "kind": "material",
+      "label": "contribution options",
+      "source": "S03",
+      "target": "S04"
+    },
+    {
+      "id": "e06",
+      "kind": "material",
+      "label": "admissible claims",
+      "source": "S04",
+      "target": "S05"
+    },
+    {
+      "id": "e07",
+      "kind": "material",
+      "label": "reader spine",
+      "source": "S05",
+      "target": "S06"
+    },
+    {
+      "id": "e08",
+      "kind": "material",
+      "label": "object/granularity controls",
+      "source": "S06",
+      "target": "S07"
+    },
+    {
+      "id": "e09",
+      "kind": "material",
+      "label": "visual questions",
+      "source": "S05",
+      "target": "S08"
+    },
+    {
+      "id": "e10",
+      "kind": "material",
+      "label": "function budget",
+      "source": "S06",
+      "target": "S08"
+    },
+    {
+      "id": "e11",
+      "kind": "material",
+      "label": "panel evidence",
+      "source": "S04",
+      "target": "S08"
+    },
+    {
+      "id": "e12",
+      "kind": "material",
+      "label": "claim control",
+      "source": "S04",
+      "target": "S09A"
+    },
+    {
+      "id": "e13",
+      "kind": "material",
+      "label": "spine control",
+      "source": "S05",
+      "target": "S09A"
+    },
+    {
+      "id": "e14",
+      "kind": "material",
+      "label": "granularity control",
+      "source": "S06",
+      "target": "S09A"
+    },
+    {
+      "id": "e15",
+      "kind": "material",
+      "label": "surface control",
+      "source": "S07",
+      "target": "S09A"
+    },
+    {
+      "id": "e16",
+      "kind": "material",
+      "label": "selected control bundle",
+      "source": "S09A",
+      "target": "S09B"
+    },
+    {
+      "id": "e17",
+      "kind": "material",
+      "label": "text task packet",
+      "source": "S09B",
+      "target": "S10"
+    },
+    {
+      "id": "e18",
+      "kind": "material",
+      "label": "source data locators",
+      "source": "S01",
+      "target": "S11"
+    },
+    {
+      "id": "e19",
+      "kind": "material",
+      "label": "panel evidence/result package",
+      "source": "S04",
+      "target": "S11"
+    },
+    {
+      "id": "e20",
+      "kind": "material",
+      "label": "figure contract",
+      "source": "S08",
+      "target": "S11"
+    },
+    {
+      "id": "e21",
+      "kind": "material",
+      "label": "candidate text",
+      "source": "S10",
+      "target": "S12"
+    },
+    {
+      "id": "e22",
+      "kind": "material",
+      "label": "figure bundle",
+      "source": "S11",
+      "target": "S12"
+    },
+    {
+      "id": "e23",
+      "kind": "material",
+      "label": "integrated candidate",
+      "source": "S12",
+      "target": "S13"
+    },
+    {
+      "id": "e24",
+      "kind": "material",
+      "label": "clean review closure route",
+      "source": "S13",
+      "target": "S16"
+    },
+    {
+      "id": "e25",
+      "kind": "material",
+      "label": "findings/loss",
+      "source": "S13",
+      "target": "S14"
+    },
+    {
+      "id": "e26",
+      "kind": "material",
+      "label": "repair packets",
+      "source": "S14",
+      "target": "S15"
+    },
+    {
+      "id": "e27",
+      "kind": "backflow",
+      "label": "local text regeneration",
+      "source": "S15",
+      "target": "S10"
+    },
+    {
+      "id": "e28",
+      "kind": "material",
+      "label": "re-integration",
+      "source": "S15",
+      "target": "S12"
+    },
+    {
+      "id": "e29",
+      "kind": "backflow",
+      "label": "claim/evidence backflow",
+      "source": "S14",
+      "target": "S04"
+    },
+    {
+      "id": "e30",
+      "kind": "backflow",
+      "label": "terminology/surface backflow",
+      "source": "S14",
+      "target": "S07"
+    },
+    {
+      "id": "e31",
+      "kind": "backflow",
+      "label": "control-material reselection",
+      "source": "S14",
+      "target": "S09A"
+    },
+    {
+      "id": "e32",
+      "kind": "backflow",
+      "label": "task packet regeneration",
+      "source": "S15",
+      "target": "S09B"
+    },
+    {
+      "id": "e33",
+      "kind": "material",
+      "label": "repair-complete delivery package",
+      "source": "S15",
+      "target": "S16"
+    },
+    {
+      "id": "e34",
+      "kind": "material",
+      "label": "post-paper derivative gate",
+      "source": "S16",
+      "target": "G02"
+    },
+    {
+      "id": "e35",
+      "kind": "material",
+      "label": "governance boot",
+      "source": "G01",
+      "target": "S00"
+    },
+    {
+      "id": "e36",
+      "kind": "material",
+      "label": "packet authority boundary",
+      "source": "G01",
+      "target": "S09B"
+    },
+    {
+      "id": "e37",
+      "kind": "material",
+      "label": "completion authority boundary",
+      "source": "G01",
+      "target": "S16"
+    }
+  ],
+  "graph_id": "security-state-aware-mixed-platoon.phase9-full-stage-pilot",
+  "must_contain_routes": [
+    [
+      "S09A",
+      "S09B",
+      "S10"
+    ],
+    [
+      "S13",
+      "S14",
+      "S15",
+      "S12"
+    ],
+    [
+      "S14",
+      "S04"
+    ],
+    [
+      "S14",
+      "S07"
+    ],
+    [
+      "S15",
+      "S09B"
+    ]
+  ],
+  "nodes": [
+    {
+      "contract_ref": "examples/stage-contracts/S00.stage-contract.json",
+      "execution_mode": "owner_gated",
+      "id": "S00",
+      "label": "Owner semantic contract",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/S00.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S01.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S01",
+      "label": "Source citation evidence inventory",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/S01.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
+      "execution_mode": "agent_generated",
+      "id": "S02",
+      "label": "Research scene exemplar SOTA analysis",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S02.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S03.stage-contract.json",
+      "execution_mode": "agent_generated",
+      "id": "S03",
+      "label": "Novelty and contribution option analysis",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S03.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S04.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S04",
+      "label": "Evidence-to-claim admissibility",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S04.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S05.stage-contract.json",
+      "execution_mode": "agent_generated",
+      "id": "S05",
+      "label": "Paper spine and reader-question synthesis",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S05.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S06.stage-contract.json",
+      "execution_mode": "agent_generated",
+      "id": "S06",
+      "label": "Object representation and granularity design",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S06.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S07",
+      "label": "Rhetoric terminology and surface-control synthesis",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S07.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S08",
+      "label": "Visual and formal object planning",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S08.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S09A",
+      "label": "Control-material selection",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/S09A.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
+      "execution_mode": "script_generated",
+      "id": "S09B",
+      "label": "Per-unit task packet assembly",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/S09B.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S10.stage-contract.json",
+      "execution_mode": "agent_generated",
+      "id": "S10",
+      "label": "Main-text production",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S10.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S11",
+      "label": "Figure caption formal artifact production",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S11.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S12",
+      "label": "Integration and consistency pass",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S12.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
+      "execution_mode": "agent_generated",
+      "id": "S13",
+      "label": "Adversarial manuscript review",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S13.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S14.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S14",
+      "label": "Backflow compilation and repair planning",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/S14.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S15.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S15",
+      "label": "Repair execution and local regeneration",
+      "requires_worker_task_packet": true,
+      "run_ref": "stage-runs/S15.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/S16.stage-contract.json",
+      "execution_mode": "hybrid_generated",
+      "id": "S16",
+      "label": "Export repository hygiene and handoff",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/S16.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/G01.stage-contract.json",
+      "execution_mode": "script_generated",
+      "id": "G01",
+      "label": "Runtime governance registry",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/G01.pilot-stage-run.json"
+    },
+    {
+      "contract_ref": "examples/stage-contracts/G02.stage-contract.json",
+      "execution_mode": "owner_gated",
+      "id": "G02",
+      "label": "Derivative and post-paper outputs",
+      "requires_worker_task_packet": false,
+      "run_ref": "stage-runs/G02.pilot-stage-run.json"
+    }
+  ],
+  "pilot_root": "examples/local-paper/security-state-aware-mixed-platoon",
+  "project_slug": "security-state-aware-mixed-platoon",
+  "schema_version": "ppg-pilot-stage-flow/v0.1"
+}
