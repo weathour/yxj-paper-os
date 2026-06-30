@@ -1,0 +1,12 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "candidate text unit",
+    "CandidateArtifactReturn"
+  ],
+  "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S10",
+  "stage_name": "Main-text production",
+  "validator_id": "phase10_s10_content_validator"
+}

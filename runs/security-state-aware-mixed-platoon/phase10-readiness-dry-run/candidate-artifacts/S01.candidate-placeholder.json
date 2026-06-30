@@ -1,0 +1,13 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "source map",
+    "citation bank",
+    "evidence bank"
+  ],
+  "packet_ref": null,
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S01",
+  "stage_name": "Source citation evidence inventory",
+  "validator_id": "phase10_s01_content_validator"
+}

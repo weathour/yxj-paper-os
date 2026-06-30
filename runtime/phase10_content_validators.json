@@ -1,0 +1,640 @@
+{
+  "schema_version": "ppg-phase10-content-validators/v0.1",
+  "canonical_stage_ids": [
+    "S00",
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09A",
+    "S09B",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "G01",
+    "G02"
+  ],
+  "validators": [
+    {
+      "stage_id": "S00",
+      "stage_name": "Owner semantic contract",
+      "validator_id": "phase10_s00_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s00_1",
+          "name": "owner semantic boundary",
+          "required_evidence": "S00 evidence for owner semantic boundary"
+        },
+        {
+          "dimension_id": "s00_2",
+          "name": "forbidden route acknowledgement",
+          "required_evidence": "S00 evidence for forbidden route acknowledgement"
+        },
+        {
+          "dimension_id": "s00_3",
+          "name": "human need trace",
+          "required_evidence": "S00 evidence for human need trace"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S01",
+      "stage_name": "Source citation evidence inventory",
+      "validator_id": "phase10_s01_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s01_1",
+          "name": "source locator completeness",
+          "required_evidence": "S01 evidence for source locator completeness"
+        },
+        {
+          "dimension_id": "s01_2",
+          "name": "citation/evidence inventory trace",
+          "required_evidence": "S01 evidence for citation/evidence inventory trace"
+        },
+        {
+          "dimension_id": "s01_3",
+          "name": "read-only provenance",
+          "required_evidence": "S01 evidence for read-only provenance"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S02",
+      "stage_name": "Research scene exemplar SOTA analysis",
+      "validator_id": "phase10_s02_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s02_1",
+          "name": "SOTA comparator coverage",
+          "required_evidence": "S02 evidence for SOTA comparator coverage"
+        },
+        {
+          "dimension_id": "s02_2",
+          "name": "template/exemplar boundary",
+          "required_evidence": "S02 evidence for template/exemplar boundary"
+        },
+        {
+          "dimension_id": "s02_3",
+          "name": "citation verification",
+          "required_evidence": "S02 evidence for citation verification"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S03",
+      "stage_name": "Novelty and contribution option analysis",
+      "validator_id": "phase10_s03_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s03_1",
+          "name": "novelty option classification",
+          "required_evidence": "S03 evidence for novelty option classification"
+        },
+        {
+          "dimension_id": "s03_2",
+          "name": "unsupported claim rejection",
+          "required_evidence": "S03 evidence for unsupported claim rejection"
+        },
+        {
+          "dimension_id": "s03_3",
+          "name": "owner semantic-shift gate",
+          "required_evidence": "S03 evidence for owner semantic-shift gate"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S04",
+      "stage_name": "Evidence-to-claim admissibility",
+      "validator_id": "phase10_s04_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s04_1",
+          "name": "claim support strength",
+          "required_evidence": "S04 evidence for claim support strength"
+        },
+        {
+          "dimension_id": "s04_2",
+          "name": "allowed/forbidden wording",
+          "required_evidence": "S04 evidence for allowed/forbidden wording"
+        },
+        {
+          "dimension_id": "s04_3",
+          "name": "evidence locator visibility",
+          "required_evidence": "S04 evidence for evidence locator visibility"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S05",
+      "stage_name": "Paper spine and reader-question synthesis",
+      "validator_id": "phase10_s05_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s05_1",
+          "name": "reader question progression",
+          "required_evidence": "S05 evidence for reader question progression"
+        },
+        {
+          "dimension_id": "s05_2",
+          "name": "claim-to-section spine",
+          "required_evidence": "S05 evidence for claim-to-section spine"
+        },
+        {
+          "dimension_id": "s05_3",
+          "name": "owner decision surfacing",
+          "required_evidence": "S05 evidence for owner decision surfacing"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S06",
+      "stage_name": "Object representation and granularity design",
+      "validator_id": "phase10_s06_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s06_1",
+          "name": "object granularity progression",
+          "required_evidence": "S06 evidence for object granularity progression"
+        },
+        {
+          "dimension_id": "s06_2",
+          "name": "section function budget",
+          "required_evidence": "S06 evidence for section function budget"
+        },
+        {
+          "dimension_id": "s06_3",
+          "name": "cognitive load control",
+          "required_evidence": "S06 evidence for cognitive load control"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S07",
+      "stage_name": "Rhetoric terminology and surface-control synthesis",
+      "validator_id": "phase10_s07_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s07_1",
+          "name": "terminology consistency",
+          "required_evidence": "S07 evidence for terminology consistency"
+        },
+        {
+          "dimension_id": "s07_2",
+          "name": "rhetorical move coverage",
+          "required_evidence": "S07 evidence for rhetorical move coverage"
+        },
+        {
+          "dimension_id": "s07_3",
+          "name": "forbidden internal id leakage",
+          "required_evidence": "S07 evidence for forbidden internal id leakage"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S08",
+      "stage_name": "Visual and formal object planning",
+      "validator_id": "phase10_s08_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s08_1",
+          "name": "figure proof role",
+          "required_evidence": "S08 evidence for figure proof role"
+        },
+        {
+          "dimension_id": "s08_2",
+          "name": "panel evidence mapping",
+          "required_evidence": "S08 evidence for panel evidence mapping"
+        },
+        {
+          "dimension_id": "s08_3",
+          "name": "backend/source route",
+          "required_evidence": "S08 evidence for backend/source route"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S09A",
+      "stage_name": "Control-material selection",
+      "validator_id": "phase10_s09a_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s09a_1",
+          "name": "control bundle selection",
+          "required_evidence": "S09A evidence for control bundle selection"
+        },
+        {
+          "dimension_id": "s09a_2",
+          "name": "upstream material freshness",
+          "required_evidence": "S09A evidence for upstream material freshness"
+        },
+        {
+          "dimension_id": "s09a_3",
+          "name": "backflow reselection boundary",
+          "required_evidence": "S09A evidence for backflow reselection boundary"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S09B",
+      "stage_name": "Per-unit task packet assembly",
+      "validator_id": "phase10_s09b_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s09b_1",
+          "name": "packet authority boundary",
+          "required_evidence": "S09B evidence for packet authority boundary"
+        },
+        {
+          "dimension_id": "s09b_2",
+          "name": "material bundle completeness",
+          "required_evidence": "S09B evidence for material bundle completeness"
+        },
+        {
+          "dimension_id": "s09b_3",
+          "name": "worker non-recursion clause",
+          "required_evidence": "S09B evidence for worker non-recursion clause"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S10",
+      "stage_name": "Main-text production",
+      "validator_id": "phase10_s10_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s10_1",
+          "name": "candidate text consumes controls",
+          "required_evidence": "S10 evidence for candidate text consumes controls"
+        },
+        {
+          "dimension_id": "s10_2",
+          "name": "claim boundary compliance",
+          "required_evidence": "S10 evidence for claim boundary compliance"
+        },
+        {
+          "dimension_id": "s10_3",
+          "name": "candidate return completeness",
+          "required_evidence": "S10 evidence for candidate return completeness"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S11",
+      "stage_name": "Figure caption formal artifact production",
+      "validator_id": "phase10_s11_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s11_1",
+          "name": "caption claim support",
+          "required_evidence": "S11 evidence for caption claim support"
+        },
+        {
+          "dimension_id": "s11_2",
+          "name": "figure source provenance",
+          "required_evidence": "S11 evidence for figure source provenance"
+        },
+        {
+          "dimension_id": "s11_3",
+          "name": "export/render integrity",
+          "required_evidence": "S11 evidence for export/render integrity"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S12",
+      "stage_name": "Integration and consistency pass",
+      "validator_id": "phase10_s12_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s12_1",
+          "name": "cross-section consistency",
+          "required_evidence": "S12 evidence for cross-section consistency"
+        },
+        {
+          "dimension_id": "s12_2",
+          "name": "figure-text alignment",
+          "required_evidence": "S12 evidence for figure-text alignment"
+        },
+        {
+          "dimension_id": "s12_3",
+          "name": "promise satisfaction",
+          "required_evidence": "S12 evidence for promise satisfaction"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S13",
+      "stage_name": "Adversarial manuscript review",
+      "validator_id": "phase10_s13_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s13_1",
+          "name": "adversarial coverage breadth",
+          "required_evidence": "S13 evidence for adversarial coverage breadth"
+        },
+        {
+          "dimension_id": "s13_2",
+          "name": "finding actionability",
+          "required_evidence": "S13 evidence for finding actionability"
+        },
+        {
+          "dimension_id": "s13_3",
+          "name": "nearest backflow target routing",
+          "required_evidence": "S13 evidence for nearest backflow target routing"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary",
+        "local_backflow_route",
+        "repair_locality"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S14",
+      "stage_name": "Backflow compilation and repair planning",
+      "validator_id": "phase10_s14_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s14_1",
+          "name": "review finding compilation",
+          "required_evidence": "S14 evidence for review finding compilation"
+        },
+        {
+          "dimension_id": "s14_2",
+          "name": "repair locality",
+          "required_evidence": "S14 evidence for repair locality"
+        },
+        {
+          "dimension_id": "s14_3",
+          "name": "upstream target precision",
+          "required_evidence": "S14 evidence for upstream target precision"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "local_backflow_route",
+        "repair_locality"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S15",
+      "stage_name": "Repair execution and local regeneration",
+      "validator_id": "phase10_s15_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s15_1",
+          "name": "scoped regeneration",
+          "required_evidence": "S15 evidence for scoped regeneration"
+        },
+        {
+          "dimension_id": "s15_2",
+          "name": "unrelated node preservation",
+          "required_evidence": "S15 evidence for unrelated node preservation"
+        },
+        {
+          "dimension_id": "s15_3",
+          "name": "finding resolution evidence",
+          "required_evidence": "S15 evidence for finding resolution evidence"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "candidate_return_or_missing_material_path",
+        "worker_authority_boundary",
+        "local_backflow_route",
+        "repair_locality"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "S16",
+      "stage_name": "Export repository hygiene and handoff",
+      "validator_id": "phase10_s16_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "s16_1",
+          "name": "repository hygiene",
+          "required_evidence": "S16 evidence for repository hygiene"
+        },
+        {
+          "dimension_id": "s16_2",
+          "name": "handoff completeness",
+          "required_evidence": "S16 evidence for handoff completeness"
+        },
+        {
+          "dimension_id": "s16_3",
+          "name": "no submission-ready overclaim",
+          "required_evidence": "S16 evidence for no submission-ready overclaim"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "owner_gate_or_export_hygiene"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "G01",
+      "stage_name": "Runtime governance registry",
+      "validator_id": "phase10_g01_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "g01_1",
+          "name": "registry canonicality",
+          "required_evidence": "G01 evidence for registry canonicality"
+        },
+        {
+          "dimension_id": "g01_2",
+          "name": "authority boundary enforcement",
+          "required_evidence": "G01 evidence for authority boundary enforcement"
+        },
+        {
+          "dimension_id": "g01_3",
+          "name": "runtime invariant coverage",
+          "required_evidence": "G01 evidence for runtime invariant coverage"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    },
+    {
+      "stage_id": "G02",
+      "stage_name": "Derivative and post-paper outputs",
+      "validator_id": "phase10_g02_content_validator",
+      "validator_kind": "content_readiness",
+      "dimensions": [
+        {
+          "dimension_id": "g02_1",
+          "name": "owner-gated derivative boundary",
+          "required_evidence": "G02 evidence for owner-gated derivative boundary"
+        },
+        {
+          "dimension_id": "g02_2",
+          "name": "post-paper output consent",
+          "required_evidence": "G02 evidence for post-paper output consent"
+        },
+        {
+          "dimension_id": "g02_3",
+          "name": "no automatic dissemination",
+          "required_evidence": "G02 evidence for no automatic dissemination"
+        }
+      ],
+      "required_checks": [
+        "source_or_material_trace",
+        "completion_boundary_explicit",
+        "controller_owned_status",
+        "owner_gate_or_export_hygiene"
+      ],
+      "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete."
+    }
+  ],
+  "completion_boundary": "content validators prove real-run readiness only; no final manuscript completion claim"
+}

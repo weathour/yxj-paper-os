@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ppg-run-state.schema.json",
+  "title": "PPG Phase10 Run State",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "project_slug",
+    "source_read_only",
+    "completion_boundary",
+    "canonical_stage_ids",
+    "stages",
+    "ledger_ref"
+  ],
+  "properties": {
+    "schema_version": {"const": "ppg-run-state/v0.1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "project_slug": {"type": "string", "minLength": 1},
+    "source_read_only": {"const": true},
+    "completion_boundary": {"type": "string", "minLength": 1},
+    "canonical_stage_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "stages": {"type": "array", "items": {"type": "object"}, "minItems": 1},
+    "ledger_ref": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

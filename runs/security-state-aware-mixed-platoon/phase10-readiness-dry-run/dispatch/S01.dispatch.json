@@ -1,0 +1,66 @@
+{
+  "candidate_output_path": "candidate-artifacts/S01.candidate-placeholder.json",
+  "completion_claim": "S01 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_1",
+      "ref": "initial files"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_2",
+      "ref": "result dirs"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_3",
+      "ref": "BibTeX"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_4",
+      "ref": "source locators"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_readme-md",
+      "ref": "README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_handoff-md",
+      "ref": "HANDOFF.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_docs-current-plan-md",
+      "ref": "docs/CURRENT_PLAN.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_docs-latest-sync-brief-md",
+      "ref": "docs/LATEST_SYNC_BRIEF.md"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s00_pilot_output",
+      "producer_stage_id": "S00",
+      "ref": "artifacts/S00-owner-semantic-contract.json"
+    }
+  ],
+  "content_validator_id": "phase10_s01_content_validator",
+  "content_validator_ref": "runtime/phase10_content_validators.json",
+  "packet_ref": null,
+  "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
+  "schema_version": "ppg-phase10-dispatch-record/v0.1",
+  "source_read_only": true,
+  "stage_contract_ref": "examples/stage-contracts/S01.stage-contract.json",
+  "stage_id": "S01",
+  "stage_name": "Source citation evidence inventory",
+  "worker_authority": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "paper-profile",
+    "motivation",
+    "decisions",
+    "forbidden routes"
+  ],
+  "packet_ref": null,
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S00",
+  "stage_name": "Owner semantic contract",
+  "validator_id": "phase10_s00_content_validator"
+}

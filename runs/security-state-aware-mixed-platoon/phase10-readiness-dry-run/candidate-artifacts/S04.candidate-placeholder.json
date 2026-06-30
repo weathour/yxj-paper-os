@@ -1,0 +1,14 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "claim citation capsules",
+    "result packages",
+    "claim evidence visibility",
+    "data availability plan"
+  ],
+  "packet_ref": "examples/packets/phase10_s04_evidence_claim_admissibility_packet.v1.yaml",
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S04",
+  "stage_name": "Evidence-to-claim admissibility",
+  "validator_id": "phase10_s04_content_validator"
+}

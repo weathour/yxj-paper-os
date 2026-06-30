@@ -1,0 +1,21 @@
+{
+  "completion_boundary": "validation proves run readiness only; controller retains completion authority",
+  "dimension_count": 3,
+  "evidence": [
+    "S14 StageContract is linked",
+    "S14 PilotStageRun is present",
+    "S14 content validator dimensions are present"
+  ],
+  "required_checks": [
+    "source_or_material_trace",
+    "completion_boundary_explicit",
+    "controller_owned_status",
+    "local_backflow_route",
+    "repair_locality"
+  ],
+  "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
+  "schema_version": "ppg-phase10-stage-validation/v0.1",
+  "stage_id": "S14",
+  "status": "pass",
+  "validator_id": "phase10_s14_content_validator"
+}

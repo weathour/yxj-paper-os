@@ -1,0 +1,14 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "object representation matrix",
+    "section function budget",
+    "load budget",
+    "explanation ladder"
+  ],
+  "packet_ref": "examples/packets/phase10_s06_object_granularity_design_packet.v1.yaml",
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S06",
+  "stage_name": "Object representation and granularity design",
+  "validator_id": "phase10_s06_content_validator"
+}

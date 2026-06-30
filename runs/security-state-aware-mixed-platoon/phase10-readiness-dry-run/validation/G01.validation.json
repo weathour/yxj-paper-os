@@ -1,0 +1,19 @@
+{
+  "completion_boundary": "validation proves run readiness only; controller retains completion authority",
+  "dimension_count": 3,
+  "evidence": [
+    "G01 StageContract is linked",
+    "G01 PilotStageRun is present",
+    "G01 content validator dimensions are present"
+  ],
+  "required_checks": [
+    "source_or_material_trace",
+    "completion_boundary_explicit",
+    "controller_owned_status"
+  ],
+  "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
+  "schema_version": "ppg-phase10-stage-validation/v0.1",
+  "stage_id": "G01",
+  "status": "pass",
+  "validator_id": "phase10_g01_content_validator"
+}

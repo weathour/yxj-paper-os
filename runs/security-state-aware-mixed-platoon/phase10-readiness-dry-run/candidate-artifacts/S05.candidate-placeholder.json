@@ -1,0 +1,13 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "reader spine",
+    "reviewer question map",
+    "rationale matrix"
+  ],
+  "packet_ref": "examples/packets/phase10_s05_paper_spine_synthesis_packet.v1.yaml",
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S05",
+  "stage_name": "Paper spine and reader-question synthesis",
+  "validator_id": "phase10_s05_content_validator"
+}

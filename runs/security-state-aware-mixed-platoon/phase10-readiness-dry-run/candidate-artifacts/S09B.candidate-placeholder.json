@@ -1,0 +1,14 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "task packet",
+    "section move plan",
+    "single-writer lock",
+    "missing material report"
+  ],
+  "packet_ref": null,
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S09B",
+  "stage_name": "Per-unit task packet assembly",
+  "validator_id": "phase10_s09b_content_validator"
+}

@@ -1,0 +1,41 @@
+{
+  "candidate_output_path": "candidate-artifacts/G02.candidate-placeholder.json",
+  "completion_claim": "G02 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "g02_declared_input_1",
+      "ref": "stable paper"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "g02_declared_input_2",
+      "ref": "owner request"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "g02_source_ref_project-status-md",
+      "ref": "PROJECT_STATUS.md"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s16_pilot_output",
+      "producer_stage_id": "S16",
+      "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
+    }
+  ],
+  "content_validator_id": "phase10_g02_content_validator",
+  "content_validator_ref": "runtime/phase10_content_validators.json",
+  "packet_ref": null,
+  "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
+  "schema_version": "ppg-phase10-dispatch-record/v0.1",
+  "source_read_only": true,
+  "stage_contract_ref": "examples/stage-contracts/G02.stage-contract.json",
+  "stage_id": "G02",
+  "stage_name": "Derivative and post-paper outputs",
+  "worker_authority": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
+  }
+}

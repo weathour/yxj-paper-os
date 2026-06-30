@@ -1,0 +1,73 @@
+{
+  "candidate_output_path": "candidate-artifacts/S04.candidate-placeholder.json",
+  "completion_claim": "S04 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s04_declared_input_1",
+      "ref": "evidence bank"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s04_declared_input_2",
+      "ref": "citation bank"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s04_declared_input_3",
+      "ref": "result artifacts"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s04_declared_input_4",
+      "ref": "contribution options"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s04_source_ref_docs-l3-method-faithful-unified-scene-rerun-2026",
+      "ref": "docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s04_source_ref_docs-l3-method-faithful-non-text-evidence-checkl",
+      "ref": "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s04_source_ref_manuscript-sections-05-experiments-tex",
+      "ref": "manuscript/sections/05_experiments.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s01_pilot_output",
+      "producer_stage_id": "S01",
+      "ref": "artifacts/S01-source-citation-evidence-inventory.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s03_pilot_output",
+      "producer_stage_id": "S03",
+      "ref": "artifacts/S03-novelty-and-contribution-option-analysis.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s14_pilot_output",
+      "producer_stage_id": "S14",
+      "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+    }
+  ],
+  "content_validator_id": "phase10_s04_content_validator",
+  "content_validator_ref": "runtime/phase10_content_validators.json",
+  "packet_ref": "examples/packets/phase10_s04_evidence_claim_admissibility_packet.v1.yaml",
+  "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
+  "schema_version": "ppg-phase10-dispatch-record/v0.1",
+  "source_read_only": true,
+  "stage_contract_ref": "examples/stage-contracts/S04.stage-contract.json",
+  "stage_id": "S04",
+  "stage_name": "Evidence-to-claim admissibility",
+  "worker_authority": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
+  }
+}

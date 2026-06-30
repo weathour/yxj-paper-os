@@ -1,0 +1,14 @@
+{
+  "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
+  "expected_outputs": [
+    "visual budget",
+    "figure contract",
+    "panel evidence map",
+    "backend route"
+  ],
+  "packet_ref": "examples/packets/phase10_s08_visual_formal_planning_packet.v1.yaml",
+  "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
+  "stage_id": "S08",
+  "stage_name": "Visual and formal object planning",
+  "validator_id": "phase10_s08_content_validator"
+}
