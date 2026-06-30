@@ -1,0 +1,256 @@
+{
+  "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
+  "project_slug": "security-state-aware-mixed-platoon",
+  "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
+  "runtime_output_root": "/home/weathour/文档/yxj-paper-ppg-runtime/examples/local-paper/security-state-aware-mixed-platoon",
+  "read_only_source": true,
+  "claim_boundary": {
+    "active_method": "zt_md_mpc_full",
+    "method_name": "Zero-Trust Memory-Degradation MPC",
+    "zero_trust_boundary": "controller-side zero-default authority for degraded V2X evidence; not cryptographic/network zero trust",
+    "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+    "non_text_evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/",
+    "external_rows_claim_class": "shared-lab L3 method-mechanism comparators; not exact source-paper scenario/result reproductions",
+    "validation_scope": "17 methods × 9 scenarios × 200 held-out validation seeds = 30600 raw rows",
+    "raw_safety_boundary": "ACC-only leads raw gap/TTC; ZT-MD-MPC wins aggregate score and is collision-free in validation suite",
+    "source_excerpt_sha256": "f7f1699982e2759a8bd4a469158aab9f360f28eff1828f15155319588bdd1b54"
+  },
+  "source_files": [
+    {
+      "path": "README.md",
+      "exists": true
+    },
+    {
+      "path": "HANDOFF.md",
+      "exists": true
+    },
+    {
+      "path": "PROJECT_STATUS.md",
+      "exists": true
+    },
+    {
+      "path": "docs/CURRENT_PLAN.md",
+      "exists": true
+    },
+    {
+      "path": "docs/LATEST_SYNC_BRIEF.md",
+      "exists": true
+    },
+    {
+      "path": "docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md",
+      "exists": true
+    },
+    {
+      "path": "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md",
+      "exists": true
+    },
+    {
+      "path": "manuscript/main.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/01_introduction.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/02_related_work.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/03_problem_formulation.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/04_method.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/05_experiments.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/06_results_discussion.tex",
+      "exists": true
+    },
+    {
+      "path": "manuscript/sections/07_conclusion.tex",
+      "exists": true
+    }
+  ],
+  "evidence_locators": [
+    {
+      "path": "experiments/results/L3_method_faithful_unified_scene_20260625",
+      "exists": true
+    },
+    {
+      "path": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements",
+      "exists": true
+    },
+    {
+      "path": "experiments/baselines/method_faithful_final_claim_classes_20260625_l3.csv",
+      "exists": true
+    }
+  ],
+  "verification_commands": [
+    "python experiments/src/verify_method_faithful_baselines.py --json",
+    "python experiments/src/verify_sota_baseline_method_faithful_experiment.py --results experiments/results/L3_method_faithful_unified_scene_20260625 --mode validate --expected-seeds 200",
+    "python scripts/generate_sota_non_text_evidence_supplements.py --source experiments/results/L3_method_faithful_unified_scene_20260625 --out experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements --docs-out docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md --check",
+    "cd manuscript && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex"
+  ],
+  "source_git_status_before": "?? docs/runtime-viewer/\n",
+  "source_git_status_after": "?? docs/runtime-viewer/\n",
+  "source_fingerprint_before": {
+    "README.md": {
+      "size": 5362,
+      "mtime_ns": 1782477176752363892,
+      "sha256": "6aab3cd38c6c7269e3c7e46f9a0189713954bcb0fd85153e02db7a95cf7e8cd0"
+    },
+    "HANDOFF.md": {
+      "size": 11936,
+      "mtime_ns": 1782472665497138454,
+      "sha256": "3d88f451b8ad5056030cb15e22b2790fb492531442034e49ba461f31960c800b"
+    },
+    "PROJECT_STATUS.md": {
+      "size": 4825,
+      "mtime_ns": 1782472665497078560,
+      "sha256": "719e95c9373eb88ad2b0159a23ef693ef14d7608a020f5eef1e8a31d64014cfa"
+    },
+    "docs/CURRENT_PLAN.md": {
+      "size": 2912,
+      "mtime_ns": 1782488919813157294,
+      "sha256": "15449b2b96aa0a3f9a42d5c87d69f71fcdaf78d382edca32f8418b527476d55c"
+    },
+    "docs/LATEST_SYNC_BRIEF.md": {
+      "size": 2708,
+      "mtime_ns": 1782488919813203511,
+      "sha256": "00018bbf632ccf45bb46a851e257626c74e1487daabb09fec48cfda2f405f90e"
+    },
+    "docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md": {
+      "size": 4931,
+      "mtime_ns": 1782488919813244984,
+      "sha256": "0ef9e909dba4b2dc697107aa1eb75c612890342db14f879a14af2e55836a9260"
+    },
+    "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md": {
+      "size": 5209,
+      "mtime_ns": 1782540006252183705,
+      "sha256": "f578d948f01a8f9ae44c0c67f9e25e926300088ab3b05d61f3ab30997e0157f8"
+    },
+    "manuscript/main.tex": {
+      "size": 3862,
+      "mtime_ns": 1782408936861327277,
+      "sha256": "c485ef39450c71d60d99c4d7f7a73b0893739310b0016dbb872a6e78c98e32c8"
+    },
+    "manuscript/sections/01_introduction.tex": {
+      "size": 5390,
+      "mtime_ns": 1782391918458659351,
+      "sha256": "6acbef1e1669fc0784604ae70cec2da1c795361633e3e1a73797fe104000a8ce"
+    },
+    "manuscript/sections/02_related_work.tex": {
+      "size": 4786,
+      "mtime_ns": 1782439165822327320,
+      "sha256": "6cfbe9e76f0ae4478311d3c2e10a2df8f50ae05f785bddc83c94b21f7524a0a3"
+    },
+    "manuscript/sections/03_problem_formulation.tex": {
+      "size": 6226,
+      "mtime_ns": 1782408949156573530,
+      "sha256": "fe97a550d40afc643f28f1df26556a268fe22b5ac5263e8017497b728da35f7c"
+    },
+    "manuscript/sections/04_method.tex": {
+      "size": 13279,
+      "mtime_ns": 1782409412077780492,
+      "sha256": "180056ae6f743c2eb15e110b5fb0d742264fd53323f2dfc048d48a1b538291e3"
+    },
+    "manuscript/sections/05_experiments.tex": {
+      "size": 10052,
+      "mtime_ns": 1782439283574785875,
+      "sha256": "9592a401e271f40c3bffc92b97932b179e2edafd4113ae0459ed963a004d1f85"
+    },
+    "manuscript/sections/06_results_discussion.tex": {
+      "size": 14721,
+      "mtime_ns": 1782409047306474170,
+      "sha256": "5b0063c8d50e3b42c4f9b570eb7d2f8b87e55d9b92fdd0e33b9056b3288cbd37"
+    },
+    "manuscript/sections/07_conclusion.tex": {
+      "size": 1223,
+      "mtime_ns": 1782409058082676330,
+      "sha256": "d59bb66fde87c6ef8b7550726cfb8641d12cbf2476cf55a0fe755b5ffffdf4ac"
+    }
+  },
+  "source_fingerprint_after": {
+    "README.md": {
+      "size": 5362,
+      "mtime_ns": 1782477176752363892,
+      "sha256": "6aab3cd38c6c7269e3c7e46f9a0189713954bcb0fd85153e02db7a95cf7e8cd0"
+    },
+    "HANDOFF.md": {
+      "size": 11936,
+      "mtime_ns": 1782472665497138454,
+      "sha256": "3d88f451b8ad5056030cb15e22b2790fb492531442034e49ba461f31960c800b"
+    },
+    "PROJECT_STATUS.md": {
+      "size": 4825,
+      "mtime_ns": 1782472665497078560,
+      "sha256": "719e95c9373eb88ad2b0159a23ef693ef14d7608a020f5eef1e8a31d64014cfa"
+    },
+    "docs/CURRENT_PLAN.md": {
+      "size": 2912,
+      "mtime_ns": 1782488919813157294,
+      "sha256": "15449b2b96aa0a3f9a42d5c87d69f71fcdaf78d382edca32f8418b527476d55c"
+    },
+    "docs/LATEST_SYNC_BRIEF.md": {
+      "size": 2708,
+      "mtime_ns": 1782488919813203511,
+      "sha256": "00018bbf632ccf45bb46a851e257626c74e1487daabb09fec48cfda2f405f90e"
+    },
+    "docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md": {
+      "size": 4931,
+      "mtime_ns": 1782488919813244984,
+      "sha256": "0ef9e909dba4b2dc697107aa1eb75c612890342db14f879a14af2e55836a9260"
+    },
+    "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md": {
+      "size": 5209,
+      "mtime_ns": 1782540006252183705,
+      "sha256": "f578d948f01a8f9ae44c0c67f9e25e926300088ab3b05d61f3ab30997e0157f8"
+    },
+    "manuscript/main.tex": {
+      "size": 3862,
+      "mtime_ns": 1782408936861327277,
+      "sha256": "c485ef39450c71d60d99c4d7f7a73b0893739310b0016dbb872a6e78c98e32c8"
+    },
+    "manuscript/sections/01_introduction.tex": {
+      "size": 5390,
+      "mtime_ns": 1782391918458659351,
+      "sha256": "6acbef1e1669fc0784604ae70cec2da1c795361633e3e1a73797fe104000a8ce"
+    },
+    "manuscript/sections/02_related_work.tex": {
+      "size": 4786,
+      "mtime_ns": 1782439165822327320,
+      "sha256": "6cfbe9e76f0ae4478311d3c2e10a2df8f50ae05f785bddc83c94b21f7524a0a3"
+    },
+    "manuscript/sections/03_problem_formulation.tex": {
+      "size": 6226,
+      "mtime_ns": 1782408949156573530,
+      "sha256": "fe97a550d40afc643f28f1df26556a268fe22b5ac5263e8017497b728da35f7c"
+    },
+    "manuscript/sections/04_method.tex": {
+      "size": 13279,
+      "mtime_ns": 1782409412077780492,
+      "sha256": "180056ae6f743c2eb15e110b5fb0d742264fd53323f2dfc048d48a1b538291e3"
+    },
+    "manuscript/sections/05_experiments.tex": {
+      "size": 10052,
+      "mtime_ns": 1782439283574785875,
+      "sha256": "9592a401e271f40c3bffc92b97932b179e2edafd4113ae0459ed963a004d1f85"
+    },
+    "manuscript/sections/06_results_discussion.tex": {
+      "size": 14721,
+      "mtime_ns": 1782409047306474170,
+      "sha256": "5b0063c8d50e3b42c4f9b570eb7d2f8b87e55d9b92fdd0e33b9056b3288cbd37"
+    },
+    "manuscript/sections/07_conclusion.tex": {
+      "size": 1223,
+      "mtime_ns": 1782409058082676330,
+      "sha256": "d59bb66fde87c6ef8b7550726cfb8641d12cbf2476cf55a0fe755b5ffffdf4ac"
+    }
+  }
+}

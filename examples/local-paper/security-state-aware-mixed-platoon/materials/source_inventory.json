@@ -1,0 +1,26 @@
+{
+  "schema_version": "ppg-pilot-material/v0.1",
+  "material_id": "pilot_source_inventory",
+  "source_refs": [
+    "README.md",
+    "HANDOFF.md",
+    "PROJECT_STATUS.md",
+    "docs/CURRENT_PLAN.md",
+    "docs/LATEST_SYNC_BRIEF.md",
+    "docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md",
+    "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md",
+    "manuscript/main.tex",
+    "manuscript/sections/01_introduction.tex",
+    "manuscript/sections/02_related_work.tex",
+    "manuscript/sections/03_problem_formulation.tex",
+    "manuscript/sections/04_method.tex",
+    "manuscript/sections/05_experiments.tex",
+    "manuscript/sections/06_results_discussion.tex",
+    "manuscript/sections/07_conclusion.tex"
+  ],
+  "evidence_locators": [
+    "experiments/results/L3_method_faithful_unified_scene_20260625",
+    "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements",
+    "experiments/baselines/method_faithful_final_claim_classes_20260625_l3.csv"
+  ]
+}
