@@ -65,6 +65,32 @@ if not any('E_PHASE10_VALIDATOR_DIMENSIONS' in error for error in errors):
 print('NEGATIVE_PHASE10_VALIDATOR_DIMENSIONS_OK')
 PY
 
+# Negative: StageContract packet refs must reject symlinked packet files.
+python3 - <<'PY'
+import json
+from pathlib import Path
+import sys
+sys.path.insert(0, 'scripts')
+from verify_stage_contracts import validate_contract
+
+link = Path('examples/packets/.phase10-negative-symlink.yaml')
+try:
+    if link.exists() or link.is_symlink():
+        link.unlink()
+    link.symlink_to('phase10_s02_sota_analysis_packet.v1.yaml')
+    registry = json.load(open('runtime/stage_registry.json'))
+    stage = next(item for item in registry['stages'] if item['stage_id'] == 'S02')
+    contract = json.load(open('examples/stage-contracts/S02.stage-contract.json'))
+    contract['worker_packet_coverage']['packet_ref'] = str(link)
+    errors = validate_contract(contract, stage)
+    if not any('E_STAGE_CONTRACT_PACKET_REF_SCOPE' in error for error in errors):
+        raise SystemExit(f'NEGATIVE_PACKET_SYMLINK_MISSING: {errors}')
+    print('NEGATIVE_PHASE10_PACKET_SYMLINK_SCOPE_OK')
+finally:
+    if link.exists() or link.is_symlink():
+        link.unlink()
+PY
+
 # Negative: bare S09 injected into a run fixture must fail.
 negative_bare=$(mktemp -d "$repo_root/runs/.phase10-negative-bare-s09.XXXXXX")
 cleanup_paths+=("$negative_bare")
@@ -97,12 +123,86 @@ p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\
 PY
 assert_fails_with E_PHASE10_SOURCE_SNAPSHOT_DRIFT python3 scripts/verify_phase10_run_readiness.py "$negative_source"
 
-# Negative: source-contained run output must be rejected before writes.
 source_root=$(python3 - <<'PY'
 import json
 print(json.load(open('examples/local-paper/security-state-aware-mixed-platoon/manifest.json'))['source_root'])
 PY
 )
+
+# Negative: manifest source_root must remain bound to the pilot manifest source root.
+negative_wrong_source_root=$(mktemp -d "$repo_root/runs/.phase10-negative-wrong-source-root.XXXXXX")
+cleanup_paths+=("$negative_wrong_source_root")
+cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_wrong_source_root/"
+python3 - "$negative_wrong_source_root/manifest.json" "$source_root/docs" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data['source_root'] = sys.argv[2]
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_SOURCE_ROOT python3 scripts/verify_phase10_run_readiness.py "$negative_wrong_source_root"
+
+# Negative: dispatch content must keep source-read-only and worker authority boundaries.
+negative_dispatch=$(mktemp -d "$repo_root/runs/.phase10-negative-dispatch.XXXXXX")
+cleanup_paths+=("$negative_dispatch")
+cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_dispatch/"
+python3 - "$negative_dispatch/dispatch/S02.dispatch.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data['source_read_only'] = False
+data['worker_authority']['completion_forbidden'] = False
+data['completion_claim'] = 'ready to submit final manuscript complete'
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_DISPATCH_CONTENT python3 scripts/verify_phase10_run_readiness.py "$negative_dispatch"
+
+# Negative: validation records must match the stage content-validator registry.
+negative_validation=$(mktemp -d "$repo_root/runs/.phase10-negative-validation.XXXXXX")
+cleanup_paths+=("$negative_validation")
+cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_validation/"
+python3 - "$negative_validation/validation/S02.validation.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data['dimension_count'] = 0
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_VALIDATION_CONTENT python3 scripts/verify_phase10_run_readiness.py "$negative_validation"
+
+# Negative: candidate placeholders must not overclaim manuscript completion.
+negative_candidate=$(mktemp -d "$repo_root/runs/.phase10-negative-candidate.XXXXXX")
+cleanup_paths+=("$negative_candidate")
+cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_candidate/"
+python3 - "$negative_candidate/candidate-artifacts/S02.candidate-placeholder.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data['completion_boundary'] = 'final manuscript complete'
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_COMPLETION_OVERCLAIM python3 scripts/verify_phase10_run_readiness.py "$negative_candidate"
+
+# Negative: per-run TaskPackets must write only to the run-owned candidate artifact path.
+negative_run_packet=$(mktemp -d "$repo_root/runs/.phase10-negative-run-packet.XXXXXX")
+cleanup_paths+=("$negative_run_packet")
+cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_run_packet/"
+python3 - "$negative_run_packet/packets/S02.task-packet.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+data['output_artifact_path'] = 'examples/materials/phase10_s02_research_dossier.yaml'
+data['allowed_write_paths'] = ['examples/materials/phase10_s02_research_dossier.yaml']
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_RUN_PACKET_OUTPUT_BOUNDARY python3 scripts/verify_phase10_run_readiness.py "$negative_run_packet"
+
+# Negative: source-contained run output must be rejected before writes.
 forbidden_source_run="$source_root/phase10-forbidden-run"
 rm -rf -- "$forbidden_source_run"
 assert_fails_with PHASE10_DRY_RUN_GENERATE_INVALID python3 scripts/generate_phase10_run_dry_run.py --run-root "$forbidden_source_run"

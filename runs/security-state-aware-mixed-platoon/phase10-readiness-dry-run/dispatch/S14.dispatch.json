@@ -37,6 +37,7 @@
   "content_validator_id": "phase10_s14_content_validator",
   "content_validator_ref": "runtime/phase10_content_validators.json",
   "packet_ref": null,
+  "packet_template_ref": null,
   "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
   "schema_version": "ppg-phase10-dispatch-record/v0.1",
   "source_read_only": true,

@@ -5,7 +5,7 @@
     "reviewer question map",
     "rationale matrix"
   ],
-  "packet_ref": "examples/packets/phase10_s05_paper_spine_synthesis_packet.v1.yaml",
+  "packet_ref": "packets/S05.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S05",
   "stage_name": "Paper spine and reader-question synthesis",

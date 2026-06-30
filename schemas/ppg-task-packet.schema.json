@@ -162,7 +162,7 @@
       "minItems": 1,
       "items": {
         "type": "string",
-        "pattern": "^(?!.*(?:^|/)\\.\\.?(?:/|$))(?!~)(?![A-Za-z]:)(examples/candidate-artifacts|examples/materials)/[^\\s\\\\]+\\.[^/\\s\\\\]+$"
+        "pattern": "^(?!.*(?:^|/)\\.\\.?(?:/|$))(?!~)(?![A-Za-z]:)(examples/candidate-artifacts|examples/materials|runs)/[^\\s\\\\]+\\.[^/\\s\\\\]+$"
       },
       "maxItems": 1,
       "uniqueItems": true
@@ -179,7 +179,7 @@
     "output_artifact_path": {
       "type": "string",
       "minLength": 1,
-      "pattern": "^(?!.*(?:^|/)\\.\\.?(?:/|$))(?!~)(?![A-Za-z]:)(examples/candidate-artifacts|examples/materials)/[^\\s\\\\]+\\.[^/\\s\\\\]+$"
+      "pattern": "^(?!.*(?:^|/)\\.\\.?(?:/|$))(?!~)(?![A-Za-z]:)(examples/candidate-artifacts|examples/materials|runs)/[^\\s\\\\]+\\.[^/\\s\\\\]+$"
     },
     "expected_output_schema": {
       "type": "string",

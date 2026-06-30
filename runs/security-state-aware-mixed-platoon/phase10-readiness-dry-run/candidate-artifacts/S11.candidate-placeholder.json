@@ -6,7 +6,7 @@
     "caption brief",
     "figure export bundle"
   ],
-  "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
+  "packet_ref": "packets/S11.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S11",
   "stage_name": "Figure caption formal artifact production",

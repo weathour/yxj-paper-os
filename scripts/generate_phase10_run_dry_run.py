@@ -17,6 +17,8 @@ import subprocess
 import sys
 from typing import Any
 
+from ppg_validate_common import load_document
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
 DEFAULT_RUN_ROOT = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase10-readiness-dry-run"
@@ -59,11 +61,15 @@ def run_git(source_root: Path, args: list[str]) -> str:
 
 
 def source_file_list(source_root: Path) -> list[str]:
-    raw = subprocess.check_output(
-        ["git", "-C", str(source_root), "ls-files", "-co", "--exclude-standard", "-z", "--", "."],
-        text=False,
-    )
-    return sorted(item.decode("utf-8") for item in raw.split(b"\0") if item)
+    source_root = source_root.resolve(strict=True)
+    rels: list[str] = []
+    for path in source_root.rglob("*"):
+        rel = path.relative_to(source_root)
+        if ".git" in rel.parts or ".omx" in rel.parts:
+            continue
+        if path.is_file() or path.is_dir() or path.is_symlink():
+            rels.append(rel.as_posix())
+    return sorted(rels)
 
 
 def sha256_file(path: Path) -> str:
@@ -90,6 +96,8 @@ def compute_source_snapshot(source_root: Path) -> dict[str, Any]:
             entries[rel] = {"kind": "symlink", "target": os.readlink(path), "size": stat.st_size}
         elif path.is_file():
             entries[rel] = {"kind": "file", "size": stat.st_size, "sha256": sha256_file(path)}
+        elif path.is_dir():
+            entries[rel] = {"kind": "directory", "size": stat.st_size}
         else:
             entries[rel] = {"kind": "other", "size": stat.st_size}
     status = run_git(source_root, ["status", "--porcelain=v1", "--untracked-files=all", "--", "."]).splitlines()
@@ -185,6 +193,33 @@ def build_candidate_placeholder(stage: dict[str, Any], validator: dict[str, Any]
     }
 
 
+def load_task_packet_template(packet_ref: str) -> dict[str, Any]:
+    packet, errors = load_document(ROOT / packet_ref)
+    if errors:
+        raise ValueError(f"cannot load template packet {packet_ref}: {errors[0].message}")
+    if not isinstance(packet, dict):
+        raise ValueError(f"template packet must be a mapping: {packet_ref}")
+    return dict(packet)
+
+
+def build_run_task_packet(template_packet: dict[str, Any], sid: str, candidate_ref: str, run_root: Path) -> dict[str, Any]:
+    packet = dict(template_packet)
+    output_repo_path = repo_rel(run_root / candidate_ref)
+    packet["packet_id"] = f"{template_packet.get('packet_id')}.phase10_run"
+    packet["allowed_write_paths"] = [output_repo_path]
+    packet["output_artifact_path"] = output_repo_path
+    packet["ingestion_target"] = output_repo_path
+    packet["stop_condition"] = (
+        f"{sid} candidate artifact written to the run-owned path only; "
+        "return evidence without claiming graph, manuscript, or submission completion."
+    )
+    packet["failure_report_format"] = (
+        "MissingMaterialReport with run-owned candidate path, consumed material ids, "
+        "validator evidence, and no source-repository writes"
+    )
+    return packet
+
+
 def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
@@ -212,17 +247,23 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         validator = by_validator[sid]
         pilot_run = pilot_run_by_stage(pilot_root, sid)
         packet_ref = contract.get("worker_packet_coverage", {}).get("packet_ref")
+        packet_template_ref = packet_ref
         dispatch_ref = f"dispatch/{sid}.dispatch.json"
         validation_ref = f"validation/{sid}.validation.json"
         candidate_ref = f"candidate-artifacts/{sid}.candidate-placeholder.json"
+        run_packet_ref = f"packets/{sid}.task-packet.json" if packet_template_ref else None
         completion_claim = stage_completion_claim(sid)
+        if packet_template_ref:
+            run_packet = build_run_task_packet(load_task_packet_template(str(packet_template_ref)), sid, candidate_ref, run_root)
+            write_json(run_root / str(run_packet_ref), run_packet, run_root, source_root)
         dispatch = {
             "schema_version": "ppg-phase10-dispatch-record/v0.1",
             "run_id": RUN_ID,
             "stage_id": sid,
             "stage_name": stage["stage_name"],
             "stage_contract_ref": stage["contract_ref"],
-            "packet_ref": packet_ref,
+            "packet_ref": run_packet_ref,
+            "packet_template_ref": packet_template_ref,
             "content_validator_ref": "runtime/phase10_content_validators.json",
             "content_validator_id": validator["validator_id"],
             "source_read_only": True,
@@ -250,7 +291,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
             ],
             "completion_boundary": "validation proves run readiness only; controller retains completion authority",
         }
-        candidate = build_candidate_placeholder(stage, validator, packet_ref)
+        candidate = build_candidate_placeholder(stage, validator, run_packet_ref)
         write_json(run_root / dispatch_ref, dispatch, run_root, source_root)
         write_json(run_root / validation_ref, validation, run_root, source_root)
         write_json(run_root / candidate_ref, candidate, run_root, source_root)
@@ -262,7 +303,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
                 "stage_name": stage["stage_name"],
                 "status": "owner_gated_ready" if sid == "G02" else "ready_for_real_subagent_run",
                 "requires_worker_task_packet": stage["requires_worker_task_packet"],
-                "packet_ref": packet_ref,
+                "packet_ref": run_packet_ref,
+                "packet_template_ref": packet_template_ref,
                 "stage_contract_ref": stage["contract_ref"],
                 "dispatch_ref": dispatch_ref,
                 "validation_ref": validation_ref,
@@ -284,6 +326,8 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         "runtime_root": str(ROOT),
         "run_root": repo_rel(run_root),
         "source_root": str(source_root),
+        "pilot_root": repo_rel(pilot_root),
+        "source_snapshot_scope": "all files, directories, and symlinks below source_root excluding .git and volatile .omx runtime state; git status is scoped to source_root",
         "source_read_only": True,
         "writes_to_source_allowed": False,
         "source_snapshot_before": before,
@@ -327,7 +371,7 @@ def main(argv: list[str] | None = None) -> int:
         except ImportError:  # pragma: no cover
             sys.path.insert(0, str(Path(__file__).resolve().parent))
             from verify_phase10_run_readiness import verify_run_readiness  # type: ignore  # noqa: E402
-        errors = verify_run_readiness(args.run_root if args.run_root.is_absolute() else ROOT / args.run_root)
+        errors = verify_run_readiness(args.run_root if args.run_root.is_absolute() else ROOT / args.run_root, args.pilot_root)
         if errors:
             print("INVALID Phase10 run readiness", file=sys.stderr)
             for error in errors:

@@ -10,9 +10,9 @@ Primary users are human paper authors and Codex main-agent operators designing a
 
 ## Product Purpose
 
-This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, inspect full-stage local-paper pilot coverage, inspect Phase10 run-readiness state, and identify whether a later real subagent execution campaign can safely start.
+This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, inspect full-stage local-paper pilot coverage, locate Phase10 run-readiness artifacts, and identify whether a later real subagent execution campaign can safely start.
 
-Success means the user can open the viewer and immediately understand what is confirmed, what is only a pilot projection, what is ready for bounded subagent dispatch, what is still owner-gated, and why this is not yet a final-paper or submission-readiness claim.
+Success means the user can open the viewer and immediately understand what is confirmed, what is only a pilot projection, what has strict worker-packet coverage, what is still owner-gated, where the Phase10 run-readiness proof lives, and why this is not yet a final-paper or submission-readiness claim.
 
 ## Brand Personality
 

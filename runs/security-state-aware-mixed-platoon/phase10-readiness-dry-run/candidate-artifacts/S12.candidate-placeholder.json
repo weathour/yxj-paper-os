@@ -5,7 +5,7 @@
     "consistency findings",
     "validator report"
   ],
-  "packet_ref": "examples/packets/phase10_s12_integration_consistency_packet.v1.yaml",
+  "packet_ref": "packets/S12.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S12",
   "stage_name": "Integration and consistency pass",

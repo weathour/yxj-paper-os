@@ -31,6 +31,9 @@ NEGATIVE_EXPECTATIONS = {
     "invalid-missing-validators.json": "E_STAGE_CONTRACT_LIST_FIELD",
     "invalid-wrong-stage-packet.json": "E_STAGE_CONTRACT_PACKET_STAGE_BINDING",
     "invalid-missing-worker-packet.json": "E_STAGE_CONTRACT_WORKER_PACKET_MISSING",
+    "invalid-absolute-worker-packet.json": "E_STAGE_CONTRACT_PACKET_REF_SCOPE",
+    "invalid-traversal-worker-packet.json": "E_STAGE_CONTRACT_PACKET_REF_SCOPE",
+    "invalid-return-contract-ref.json": "E_STAGE_CONTRACT_RETURN_CONTRACT_REF_SCOPE",
 }
 
 
@@ -40,6 +43,32 @@ def issue(code: str, message: str) -> str:
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def is_relative_to(child: Path, parent: Path) -> bool:
+    try:
+        child.relative_to(parent)
+        return True
+    except ValueError:
+        return False
+
+
+def scoped_repo_path(ref: Any, prefix: str, code: str, sid: str) -> tuple[Path | None, list[str]]:
+    if not isinstance(ref, str) or not ref.strip():
+        return None, [issue(code, f"{sid} {ref}")]
+    raw = Path(ref)
+    if raw.is_absolute() or ref.startswith("~") or "\\" in ref or "\x00" in ref or any(part in {"", ".", ".."} for part in ref.split("/")):
+        return None, [issue(code, f"{sid} {ref}")]
+    raw_path = ROOT / ref
+    if raw_path.is_symlink():
+        return None, [issue(code, f"{sid} {ref}")]
+    path = raw_path.resolve(strict=False)
+    allowed_root = (ROOT / prefix).resolve(strict=True)
+    if not is_relative_to(path, allowed_root):
+        return None, [issue(code, f"{sid} {ref}")]
+    if path.is_symlink() or any(parent.is_symlink() for parent in path.parents if parent != ROOT.parent):
+        return None, [issue(code, f"{sid} {ref}")]
+    return path, []
 
 
 def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] | None) -> list[str]:
@@ -79,8 +108,13 @@ def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] |
             errors.append(issue("E_STAGE_CONTRACT_WORKER_PACKET_MISSING", f"{sid} requires worker coverage"))
         if status == "linked_strict_packet":
             packet_ref = coverage.get("packet_ref")
-            packet_path = ROOT / str(packet_ref) if isinstance(packet_ref, str) else None
-            if not isinstance(packet_ref, str) or packet_path is None or not packet_path.is_file():
+            packet_path, scope_errors = scoped_repo_path(packet_ref, "examples/packets", "E_STAGE_CONTRACT_PACKET_REF_SCOPE", str(sid))
+            errors.extend(scope_errors)
+            return_contract_path, return_scope_errors = scoped_repo_path(coverage.get("return_contract_ref"), "schemas", "E_STAGE_CONTRACT_RETURN_CONTRACT_REF_SCOPE", str(sid))
+            errors.extend(return_scope_errors)
+            if return_contract_path and return_contract_path.name != "ppg-candidate-return.schema.json":
+                errors.append(issue("E_STAGE_CONTRACT_RETURN_CONTRACT_REF_SCOPE", f"{sid} {coverage.get('return_contract_ref')}"))
+            if packet_path is None or not packet_path.is_file():
                 errors.append(issue("E_STAGE_CONTRACT_LINKED_PACKET_MISSING", f"{sid} {packet_ref}"))
             elif registry_stage is not None:
                 packet_data, packet_load_errors = load_document(packet_path)
@@ -122,6 +156,12 @@ def validate_schema_contract(schema: dict[str, Any]) -> list[str]:
     coverage_statuses = set(coverage.get("properties", {}).get("status", {}).get("enum", []))
     if coverage_statuses != WORKER_COVERAGE:
         errors.append(issue("E_STAGE_CONTRACT_SCHEMA_WORKER_COVERAGE_ENUM", f"{sorted(coverage_statuses)}"))
+    packet_ref_schema = str(coverage.get("properties", {}).get("packet_ref", {}))
+    return_ref_schema = str(coverage.get("properties", {}).get("return_contract_ref", {}))
+    if "examples/packets" not in packet_ref_schema:
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_WORKER_PACKET_REF", "packet_ref must be scoped to examples/packets"))
+    if "schemas/ppg-candidate-return" not in return_ref_schema:
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_RETURN_CONTRACT_REF", "return_contract_ref must be scoped to candidate return schema"))
     return errors
 
 

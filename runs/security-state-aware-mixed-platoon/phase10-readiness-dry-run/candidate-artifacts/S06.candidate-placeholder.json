@@ -6,7 +6,7 @@
     "load budget",
     "explanation ladder"
   ],
-  "packet_ref": "examples/packets/phase10_s06_object_granularity_design_packet.v1.yaml",
+  "packet_ref": "packets/S06.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S06",
   "stage_name": "Object representation and granularity design",

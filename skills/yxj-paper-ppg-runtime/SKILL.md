@@ -26,9 +26,9 @@ This repository is a local Phase10 plugin/runtime readiness surface. It provides
 - interactive frontend: `docs/runtime-viewer/index.html` with roadmap, detailed graph, Runtime State, and Stage Coverage modes;
 - full-stage local-paper pilot fixtures under `examples/local-paper/security-state-aware-mixed-platoon/`;
 - one `PilotStageRun` for every canonical stage `S00-S16/G01/G02`, with explicit completion boundaries;
-- strict linked TaskPackets for every dispatchable worker stage;
+- strict linked TaskPacket templates for every dispatchable worker stage plus run-owned packet materialization in the Phase10 dry-run;
 - Phase10 content validators and a runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
-- untracked-aware source-read-only proof and forbidden-side-effect guards;
+- source-read-only filesystem snapshot proof excluding `.git/.omx` plus forbidden-side-effect guards;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
 

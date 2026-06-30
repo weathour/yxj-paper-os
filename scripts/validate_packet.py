@@ -49,6 +49,7 @@ SAFE_READ_PREFIXES = (
 SAFE_WRITE_PREFIXES = (
     "examples/candidate-artifacts/",
     "examples/materials/",
+    "runs/",
 )
 REQUIRED_FORBIDDEN_ROUTES = {
     "mark_graph_complete",

@@ -6,7 +6,7 @@
     "revised text/figure",
     "updated validator report"
   ],
-  "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+  "packet_ref": "packets/S15.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S15",
   "stage_name": "Repair execution and local regeneration",

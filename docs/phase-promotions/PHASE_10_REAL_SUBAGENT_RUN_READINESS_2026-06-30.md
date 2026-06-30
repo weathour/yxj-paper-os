@@ -12,11 +12,12 @@ This phase does **not** start a formal paper-production run, does **not** produc
 
 Phase 10 covers:
 
-- strict linked TaskPackets for every dispatchable worker stage;
+- strict linked TaskPacket templates for every dispatchable worker stage;
+- run-owned TaskPacket materialization for dispatchable worker stages;
 - semantic packet-stage binding through `stage_id` and `stage_contract_ref`;
 - content validator registry for every canonical stage;
 - runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
-- untracked-aware source-read-only snapshot proof;
+- source-read-only filesystem snapshot proof excluding `.git/.omx` runtime state;
 - forbidden-side-effect guard for old-runtime, incubator, live lifecycle, and false-readiness boundaries;
 - aggregate verification over Phase10 plus inherited Phase9/8/7/6 gates.
 
@@ -28,13 +29,13 @@ After Phase 10:
 - `planned_with_blocker=0`
 - `not_required=8`
 
-Every dispatchable stage has a strict packet and every non-worker stage remains non-worker. Subagents still do not own graph completion, manuscript completion, recursive dispatch, source repository writes, or owner-intent changes.
+Every dispatchable stage has a strict template packet, and the Phase10 dry-run materializes a per-run packet whose allowed write path is the run-owned candidate artifact. Every non-worker stage remains non-worker. Subagents still do not own graph completion, manuscript completion, recursive dispatch, source repository writes, or owner-intent changes.
 
 ## Dry-run boundary
 
-The Phase10 dry-run fixture records dispatch, validation, candidate-placeholder, ledger, and run-state evidence. It is a controller/readiness fixture, not worker-produced content.
+The Phase10 dry-run fixture records dispatch, validation, candidate-placeholder, per-run TaskPacket, ledger, and run-state evidence. It is a controller/readiness fixture, not worker-produced content.
 
-The source paper repository remains read-only. The verifier recomputes a source snapshot that includes untracked files, so mutation inside existing untracked source paths is detectable.
+The source paper repository remains read-only. The verifier recomputes a source filesystem snapshot below the paper source root, excluding `.git/.omx` runtime state, so tracked, untracked, ignored, directory, and symlink mutations in paper content paths are detectable.
 
 ## Core artifacts
 
@@ -45,6 +46,7 @@ The source paper repository remains read-only. The verifier recomputes a source 
 - `scripts/verify_phase10_forbidden_side_effects.py`
 - `scripts/verify_phase10_real_run_readiness.sh`
 - `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`
+- `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/packets/*.task-packet.json`
 - `examples/packets/phase10_*.yaml`
 
 ## Verification
@@ -61,7 +63,7 @@ Expected terminal marker:
 PHASE10_REAL_RUN_READINESS_VERIFY_OK
 ```
 
-The aggregate gate includes positive checks and negative probes for wrong-stage packet binding, missing validator dimensions, source-contained output, symlink run roots, untracked source snapshot drift, bare `S09`, final/submission overclaim, misleading success markers, inherited gates, plugin validation, skill validation, Python compilation, whitespace checks, and clean-worktree assertion.
+The aggregate gate includes positive checks and negative probes for wrong-stage packet binding, missing validator dimensions, source-contained output, symlink run roots, source snapshot drift, wrong source-root binding, dispatch/validation/candidate tampering, run-packet output escape, bare `S09`, final/submission overclaim, misleading success markers, inherited gates, plugin validation, skill validation, Python compilation, whitespace checks, and clean-worktree assertion.
 
 ## Explicit non-goals
 

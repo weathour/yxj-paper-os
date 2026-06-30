@@ -6,7 +6,7 @@
     "claim evidence visibility",
     "data availability plan"
   ],
-  "packet_ref": "examples/packets/phase10_s04_evidence_claim_admissibility_packet.v1.yaml",
+  "packet_ref": "packets/S04.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S04",
   "stage_name": "Evidence-to-claim admissibility",

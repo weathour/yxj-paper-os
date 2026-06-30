@@ -6,7 +6,7 @@
     "template profile",
     "citation verification report"
   ],
-  "packet_ref": "examples/packets/phase10_s02_sota_analysis_packet.v1.yaml",
+  "packet_ref": "packets/S02.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S02",
   "stage_name": "Research scene exemplar SOTA analysis",

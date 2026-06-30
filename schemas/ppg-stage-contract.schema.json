@@ -54,8 +54,18 @@
       "required": ["status", "packet_ref", "return_contract_ref", "blocker"],
       "properties": {
         "status": {"enum": ["linked_strict_packet", "planned_with_blocker", "not_required"]},
-        "packet_ref": {"type": ["string", "null"], "minLength": 1},
-        "return_contract_ref": {"type": ["string", "null"], "minLength": 1},
+        "packet_ref": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^examples/packets/[^\\s\\\\]+\\.(yaml|yml|json)$"}
+          ]
+        },
+        "return_contract_ref": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^schemas/ppg-candidate-return\\.schema\\.json$"}
+          ]
+        },
         "blocker": {"type": ["string", "null"], "minLength": 1}
       }
     }

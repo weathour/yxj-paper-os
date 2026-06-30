@@ -6,7 +6,7 @@
     "validator report",
     "review findings"
   ],
-  "packet_ref": "examples/packets/phase10_s13_adversarial_review_packet.v1.yaml",
+  "packet_ref": "packets/S13.task-packet.json",
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",
   "stage_id": "S13",
   "stage_name": "Adversarial manuscript review",
