@@ -55,6 +55,8 @@ VALIDATORS = ROOT / "runtime" / "phase10_content_validators.json"
 RUN_ID = "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test"
 SCHEMA_VERSION = "ppg-phase12-run-state/v0.1"
 FIXED_GENERATED_AT = "2026-06-30T00:00:00Z"
+OWNERSHIP_MARKER = ".phase12-run-root.json"
+NEGATIVE_RUN_PREFIXES = (".phase12-negative-", ".phase12-negative.")
 
 STAGE_STATUS_BY_ID = {
     "S00": "owner_boundary_validated",
@@ -90,18 +92,73 @@ def pilot_run_by_stage(pilot_root: Path, stage_id: str) -> dict[str, Any]:
     return load_json(pilot_root / "stage-runs" / f"{stage_id}.pilot-stage-run.json")
 
 
+def _phase12_owner_doc(path: Path) -> dict[str, Any] | None:
+    if not path.exists() or path.is_symlink() or not path.is_file():
+        return None
+    try:
+        value = load_json(path)
+    except Exception:  # noqa: BLE001
+        return None
+    return value if isinstance(value, dict) and value.get("run_id") == RUN_ID else None
+
+
+def phase12_cleanup_scope_allowed(run_root: Path) -> tuple[bool, str]:
+    runs_root = (ROOT / "runs").resolve(strict=False)
+    resolved = run_root.resolve(strict=False)
+    if resolved == runs_root:
+        return False, "run root must not be the runtime runs container"
+    try:
+        rel_parts = resolved.relative_to(runs_root).parts
+    except ValueError:
+        return False, "run root must remain below runtime runs directory"
+    if not rel_parts:
+        return False, "run root must not be the runtime runs container"
+    is_negative_probe = len(rel_parts) == 1 and rel_parts[0].startswith(NEGATIVE_RUN_PREFIXES)
+    if len(rel_parts) < 2 and not is_negative_probe:
+        return False, "run root must not be a broad project/container directory"
+    return True, "ok"
+
+
+def phase12_owned_existing_run_root(run_root: Path) -> bool:
+    marker = _phase12_owner_doc(run_root / OWNERSHIP_MARKER)
+    if marker is not None and marker.get("schema_version") == "ppg-phase12-run-root-owner/v0.1":
+        return True
+    manifest = _phase12_owner_doc(run_root / "manifest.json")
+    return manifest is not None and manifest.get("schema_version") == "ppg-phase12-run-manifest/v0.1"
+
+
+def write_ownership_marker(run_root: Path, source_root: Path) -> None:
+    marker = {
+        "schema_version": "ppg-phase12-run-root-owner/v0.1",
+        "run_id": RUN_ID,
+        "run_root": repo_rel(run_root),
+        "ownership": "phase12-formal-full-flow-runtime-test",
+        "cleanup_authority": "this directory may be cleaned only by Phase12 after this marker or a matching Phase12 manifest is present",
+    }
+    write_json(run_root / OWNERSHIP_MARKER, marker, run_root, source_root)
+
+
 def clean_run_root(run_root: Path, source_root: Path) -> None:
     ensure_run_root_safe(run_root, source_root)
+    scope_allowed, scope_reason = phase12_cleanup_scope_allowed(run_root)
+    if not scope_allowed:
+        raise ValueError(f"unsafe Phase12 run root cleanup target: {run_root}: {scope_reason}")
     if run_root.exists():
         if run_root.is_symlink():
             raise ValueError(f"run root must not be a symlink: {run_root}")
+        if not run_root.is_dir():
+            raise ValueError(f"run root must be a directory: {run_root}")
         resolved = run_root.resolve(strict=True)
         runs_root = (ROOT / "runs").resolve(strict=True)
         if not is_relative_to(resolved, runs_root) or is_relative_to(resolved, source_root.resolve(strict=True)):
             raise ValueError(f"unsafe Phase12 run root cleanup target: {run_root}")
+        has_existing_content = any(run_root.iterdir())
+        if has_existing_content and not phase12_owned_existing_run_root(run_root):
+            raise ValueError(f"refusing to delete non-Phase12-owned run root: {run_root}")
         shutil.rmtree(run_root)
     run_root.mkdir(parents=True, exist_ok=True)
     ensure_run_root_safe(run_root, source_root)
+    write_ownership_marker(run_root, source_root)
 
 
 def build_phase12_task_packet(template_packet: dict[str, Any], sid: str, candidate_ref: str, run_root: Path) -> dict[str, Any]:

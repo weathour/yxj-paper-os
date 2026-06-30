@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import stat
 import sys
 from typing import Any
 
@@ -84,8 +85,16 @@ def rel(path: Path) -> str:
         return str(path)
 
 
+def is_regular_file_no_symlink(path: Path) -> bool:
+    try:
+        st = path.lstat()
+    except FileNotFoundError:
+        return False
+    return not path.is_symlink() and stat.S_ISREG(st.st_mode)
+
+
 def load_json_file(path: Path, errors: list[str], code: str) -> Any | None:
-    if not path.is_file():
+    if not is_regular_file_no_symlink(path):
         errors.append(issue(code, rel(path)))
         return None
     try:
@@ -97,7 +106,7 @@ def load_json_file(path: Path, errors: list[str], code: str) -> Any | None:
 
 def jsonl_events(path: Path, errors: list[str], code: str) -> list[dict[str, Any]]:
     events: list[dict[str, Any]] = []
-    if not path.is_file():
+    if not is_regular_file_no_symlink(path):
         errors.append(issue(code, rel(path)))
         return events
     for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
@@ -136,8 +145,8 @@ def safe_run_ref(run_root: Path, ref: Any, code: str, context: str) -> tuple[Pat
 def run_owned_existing_file(run_root: Path, ref: Any, code: str, context: str, errors: list[str]) -> Path | None:
     path, ref_errors = safe_run_ref(run_root, ref, code, context)
     errors.extend(ref_errors)
-    if path is not None and not path.is_file():
-        errors.append(issue(code, f"{context} missing file {ref}"))
+    if path is not None and not is_regular_file_no_symlink(path):
+        errors.append(issue(code, f"{context} missing safe regular file {ref}"))
         return None
     return path
 
@@ -178,7 +187,12 @@ def scan_boundary_files(run_root: Path) -> list[str]:
         if path.exists():
             errors.extend(scan_text_boundary(path.read_text(encoding="utf-8", errors="ignore"), rel(path)))
     for path in run_root.rglob("*"):
-        if path.is_file() and path.suffix.lower() in {".json", ".jsonl", ".md", ".txt"}:
+        if path.suffix.lower() not in {".json", ".jsonl", ".md", ".txt"}:
+            continue
+        if path.is_symlink():
+            errors.append(issue("E_PHASE12_RUN_REF", f"boundary scan symlink {rel(path)}"))
+            continue
+        if is_regular_file_no_symlink(path):
             errors.extend(scan_text_boundary(path.read_text(encoding="utf-8", errors="ignore"), rel(path)))
     return errors
 
@@ -337,8 +351,14 @@ def validate_backflow_chain(run_root: Path, delivery: dict[str, Any]) -> list[st
         (repair_ref, "repair-artifacts", "repair_candidate_ref"),
         (closure_ref, "closures", "closure_ref"),
     ]
-    for ref, _prefix, context in refs:
-        run_owned_existing_file(run_root, ref, "E_PHASE12_BACKFLOW_CHAIN", context, errors)
+    safe_paths: dict[str, Path] = {}
+    for ref, prefix, context in refs:
+        if not isinstance(ref, str) or not ref.startswith(f"{prefix}/"):
+            errors.append(issue("E_PHASE12_BACKFLOW_CHAIN", f"{context} must stay under {prefix}/"))
+            continue
+        path = run_owned_existing_file(run_root, ref, "E_PHASE12_BACKFLOW_CHAIN", context, errors)
+        if path is not None:
+            safe_paths[context] = path
     if second.get("source_finding_ref") != finding_ref:
         errors.append(issue("E_PHASE12_BACKFLOW_CHAIN", "task source_finding_ref mismatch"))
     if third.get("source_backflow_task_ref") != task_ref:
@@ -348,10 +368,12 @@ def validate_backflow_chain(run_root: Path, delivery: dict[str, Any]) -> list[st
     consumed = delivery.get("consumed_closure_refs")
     if not isinstance(consumed, list) or closure_ref not in consumed:
         errors.append(issue("E_PHASE12_BACKFLOW_CHAIN", "delivery gate missing closure ref"))
-    finding = load_json_file(run_root / str(finding_ref), errors, "E_PHASE12_BACKFLOW_CHAIN") if isinstance(finding_ref, str) else None
-    task = load_json_file(run_root / str(task_ref), errors, "E_PHASE12_BACKFLOW_CHAIN") if isinstance(task_ref, str) else None
-    repair = load_json_file(run_root / str(repair_ref), errors, "E_PHASE12_BACKFLOW_CHAIN") if isinstance(repair_ref, str) else None
-    closure = load_json_file(run_root / str(closure_ref), errors, "E_PHASE12_BACKFLOW_CHAIN") if isinstance(closure_ref, str) else None
+    if len(safe_paths) != len(refs):
+        return errors
+    finding = load_json_file(safe_paths["finding_ref"], errors, "E_PHASE12_BACKFLOW_CHAIN")
+    task = load_json_file(safe_paths["backflow_task_ref"], errors, "E_PHASE12_BACKFLOW_CHAIN")
+    repair = load_json_file(safe_paths["repair_candidate_ref"], errors, "E_PHASE12_BACKFLOW_CHAIN")
+    closure = load_json_file(safe_paths["closure_ref"], errors, "E_PHASE12_BACKFLOW_CHAIN")
     if isinstance(finding, dict) and finding.get("whole_paper_rewrite_authorized") is not False:
         errors.append(issue("E_PHASE12_BACKFLOW_CHAIN", "whole paper rewrite not forbidden"))
     if isinstance(task, dict):
