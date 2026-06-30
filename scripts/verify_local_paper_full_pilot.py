@@ -8,6 +8,12 @@ from pathlib import Path
 import sys
 from typing import Any
 
+try:
+    from generate_local_paper_full_pilot import FLOW_EDGES
+except ImportError:  # pragma: no cover
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from generate_local_paper_full_pilot import FLOW_EDGES  # type: ignore  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
@@ -98,6 +104,7 @@ def validate_run(
     elif not all(isinstance(item, dict) and item.get("material_id") and item.get("kind") and item.get("ref") for item in consumed):
         errors.append(issue("E_PILOT_RUN_CONSUMED_SHAPE", sid))
     else:
+        actual_upstream_producers: set[str] = set()
         for item in consumed:
             ref = str(item["ref"])
             if item.get("kind") == "upstream_stage_output":
@@ -105,6 +112,7 @@ def validate_run(
                 if not isinstance(producer_stage_id, str) or not producer_stage_id:
                     errors.append(issue("E_PILOT_RUN_UPSTREAM_PRODUCER_MISSING", f"{sid} {ref}"))
                     continue
+                actual_upstream_producers.add(producer_stage_id)
                 if producer_stage_id not in expected_upstream_by_stage.get(sid, set()):
                     errors.append(issue("E_PILOT_RUN_UPSTREAM_PRODUCER_UNEXPECTED", f"{sid} producer={producer_stage_id}"))
                 if item.get("material_id") != f"{producer_stage_id.lower()}_pilot_output":
@@ -117,6 +125,9 @@ def validate_run(
                     errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_ESCAPE", f"{sid} {ref}"))
                 if not ref_path.is_file():
                     errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_MISSING", f"{sid} {ref}"))
+        expected_producers = expected_upstream_by_stage.get(sid, set())
+        if actual_upstream_producers != expected_producers:
+            errors.append(issue("E_PILOT_RUN_UPSTREAM_PRODUCER_SET", f"{sid} expected={sorted(expected_producers)} actual={sorted(actual_upstream_producers)}"))
     produced = run.get("produced_artifacts")
     if not isinstance(produced, list) or not produced:
         errors.append(issue("E_PILOT_RUN_PRODUCED_EMPTY", sid))
@@ -188,6 +199,11 @@ def validate_graph(graph: dict[str, Any], expected_stage_ids: list[str]) -> list
     if "S09" in node_ids:
         errors.append(issue("E_PILOT_GRAPH_BARE_S09", "bare S09 node is forbidden; use S09A/S09B"))
     edge_pairs = {(str(edge.get("source")), str(edge.get("target"))) for edge in graph.get("edges", []) if isinstance(edge, dict)}
+    canonical_edge_pairs = {(source, target) for source, target, _label in FLOW_EDGES}
+    if edge_pairs != canonical_edge_pairs:
+        missing = sorted(canonical_edge_pairs - edge_pairs)
+        extra = sorted(edge_pairs - canonical_edge_pairs)
+        errors.append(issue("E_PILOT_GRAPH_EDGE_SET", f"missing={missing} extra={extra}"))
     for source, target in REQUIRED_ROUTES:
         if (source, target) not in edge_pairs:
             errors.append(issue("E_PILOT_GRAPH_ROUTE_MISSING", f"{source}->{target}"))
@@ -210,11 +226,7 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
     manifest = load_json(pilot_root / "manifest.json")
     graph = load_json(pilot_root / "graph.json")
     expected_upstream_by_stage: dict[str, set[str]] = {}
-    for edge in graph.get("edges", []):
-        if not isinstance(edge, dict):
-            continue
-        source = str(edge.get("source", ""))
-        target = str(edge.get("target", ""))
+    for source, target, _label in FLOW_EDGES:
         if source and target and source != "G01":
             expected_upstream_by_stage.setdefault(target, set()).add(source)
     if manifest.get("read_only_source") is not True:

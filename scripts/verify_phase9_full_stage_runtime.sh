@@ -105,6 +105,34 @@ if python3 scripts/verify_local_paper_full_pilot.py "$tmp_dir/wrong-ref-pilot" >
   exit 1
 fi
 grep -q "E_PILOT_RUN_UPSTREAM_REF_WRONG_PRODUCER" "$tmp_dir/wrong-ref.err"
+cp -a "$pilot_root" "$tmp_dir/coordinated-wrong-ref-pilot"
+python3 - "$tmp_dir/coordinated-wrong-ref-pilot" <<'PY'
+import json
+import sys
+from pathlib import Path
+pilot = Path(sys.argv[1])
+graph_path = pilot / "graph.json"
+graph = json.loads(graph_path.read_text(encoding="utf-8"))
+edges = graph["edges"]
+edges.append({"id": "negative-extra-edge", "source": "S00", "target": "S10", "kind": "material", "label": "malicious coordinated graph drift"})
+graph_path.write_text(json.dumps(graph, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+run_path = pilot / "stage-runs" / "S10.pilot-stage-run.json"
+payload = json.loads(run_path.read_text(encoding="utf-8"))
+for item in payload["consumed_materials"]:
+    if item.get("kind") == "upstream_stage_output" and item.get("producer_stage_id") == "S09B":
+        item["producer_stage_id"] = "S00"
+        item["material_id"] = "s00_pilot_output"
+        item["ref"] = "artifacts/S00-owner-semantic-contract.json"
+        break
+else:
+    raise SystemExit("PHASE9_NEGATIVE_COORDINATED_WRONG_REF_FIXTURE_MISSING")
+run_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+PY
+if python3 scripts/verify_local_paper_full_pilot.py "$tmp_dir/coordinated-wrong-ref-pilot" >"$tmp_dir/coordinated-wrong-ref.out" 2>"$tmp_dir/coordinated-wrong-ref.err"; then
+  echo "PHASE9_NEGATIVE_COORDINATED_WRONG_REF_UNEXPECTED_PASS" >&2
+  exit 1
+fi
+grep -Eq "E_PILOT_GRAPH_EDGE_SET|E_PILOT_RUN_UPSTREAM_PRODUCER_UNEXPECTED|E_PILOT_RUN_UPSTREAM_PRODUCER_SET" "$tmp_dir/coordinated-wrong-ref.err"
 
 python3 scripts/ppg_runtime_adapter.py \
   --graph examples/runtime/overclaim-loop.phase7-after.json \
