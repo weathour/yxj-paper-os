@@ -91,7 +91,7 @@
   ],
   "producer_return_ref": "returns/producer/S12.producer-return.md",
   "producer_return_sha256": "980cd1e9685cf98a9974fcfc56a2e83c488a32d2baff769325520b9c51c092c9",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17f6-b6d3-7dc1-a71f-b98ba495da4d",
   "produces": [
     "integrated manuscript candidate",
     "consistency findings",

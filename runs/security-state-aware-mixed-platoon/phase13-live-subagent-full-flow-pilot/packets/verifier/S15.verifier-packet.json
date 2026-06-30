@@ -62,7 +62,7 @@
   ],
   "producer_return_ref": "returns/producer/S15.producer-return.md",
   "producer_return_sha256": "f95ba17d4cfbf2f6355a52e1dacf9dc28e0bd66c6efc98bf1e1e7e03353cb431",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17f7-3104-76b1-b7ad-49c946dcac89",
   "produces": [
     "revised material",
     "regenerated task packet",

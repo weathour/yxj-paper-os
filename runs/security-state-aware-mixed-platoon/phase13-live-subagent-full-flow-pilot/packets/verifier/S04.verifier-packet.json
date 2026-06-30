@@ -85,7 +85,7 @@
   ],
   "producer_return_ref": "returns/producer/S04.producer-return.md",
   "producer_return_sha256": "e48eff6b0465f23c32b73e130bac4f97c0d9e59d34e376edab4058e68bf8ed5b",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17ef-c1d1-7561-b87e-e4237e507a98",
   "produces": [
     "claim citation capsules",
     "result packages",

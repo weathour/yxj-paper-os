@@ -73,7 +73,7 @@
   ],
   "producer_return_ref": "returns/producer/S13.producer-return.md",
   "producer_return_sha256": "a492f9df95a30f79aab83ad56c893c8d6db4a61fb0c339dd8858f0da6225f139",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17f6-b8cc-7251-a4a5-2b619f055e46",
   "produces": [
     "reviewer panel report",
     "reader experience report",

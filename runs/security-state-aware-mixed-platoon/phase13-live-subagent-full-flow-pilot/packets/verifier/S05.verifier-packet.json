@@ -73,7 +73,7 @@
   ],
   "producer_return_ref": "returns/producer/S05.producer-return.md",
   "producer_return_sha256": "a35ef863fe568509135388d1205eed63111c636c0582d6486df6353493e51085",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17ef-c3da-7200-b9fe-919cd9c6ac40",
   "produces": [
     "reader spine",
     "reviewer question map",

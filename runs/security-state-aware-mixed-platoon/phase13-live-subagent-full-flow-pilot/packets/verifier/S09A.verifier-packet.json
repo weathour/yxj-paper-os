@@ -98,7 +98,7 @@
   ],
   "producer_return_ref": "returns/producer/S09A.producer-return.md",
   "producer_return_sha256": "5c53b800f5e9e18a20130b7ba20ebd2bc1485e567ec1b8922a5cf2c193aab8ce",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17f2-1fce-7ed0-8de6-2c72b00ec2be",
   "produces": [
     "selected control bundle",
     "control priority map",

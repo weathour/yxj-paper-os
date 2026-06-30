@@ -51,7 +51,7 @@
   ],
   "producer_return_ref": "returns/producer/G02.producer-return.md",
   "producer_return_sha256": "4fdc49ff18c8df14f251518cdee5067272edf60db49fb1656470cc2c50d3be42",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17fb-8a97-76b2-bbd3-bd2df960a66c",
   "produces": [
     "presentation plan",
     "patent boundary",

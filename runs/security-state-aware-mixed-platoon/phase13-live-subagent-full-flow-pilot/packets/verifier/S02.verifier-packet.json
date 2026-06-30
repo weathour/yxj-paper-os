@@ -68,7 +68,7 @@
   ],
   "producer_return_ref": "returns/producer/S02.producer-return.md",
   "producer_return_sha256": "fcb5235e7c163e9eef1ba845f0f7e8f9bc106f44afe09ae9ac99d54619509ff8",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17ec-d79a-7b03-afa0-be45f7dfa522",
   "produces": [
     "research dossier",
     "reader package",

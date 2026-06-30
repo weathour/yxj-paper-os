@@ -73,7 +73,7 @@
   ],
   "producer_return_ref": "returns/producer/S07.producer-return.md",
   "producer_return_sha256": "b449db1a80774941c5f9a01c0711e70702fd82f5a488f329c984e85fddde5357",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17f0-c695-7650-80c1-63257964b1f9",
   "produces": [
     "construction matrix",
     "rhetorical matrix",

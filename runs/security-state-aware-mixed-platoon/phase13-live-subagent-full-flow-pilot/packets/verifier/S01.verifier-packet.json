@@ -78,7 +78,7 @@
   ],
   "producer_return_ref": "returns/producer/S01.producer-return.md",
   "producer_return_sha256": "e6119a85e5b9095fc6b8121a638232095c3325346ddc6d0984c90e1a4dcdad94",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17ec-d550-7280-8843-0df4ae917f6d",
   "produces": [
     "source map",
     "citation bank",

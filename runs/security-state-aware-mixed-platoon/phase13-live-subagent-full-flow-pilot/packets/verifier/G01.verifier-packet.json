@@ -56,7 +56,7 @@
   ],
   "producer_return_ref": "returns/producer/G01.producer-return.md",
   "producer_return_sha256": "b6aac4b5895cf4437e3ec94029c66142049598f81d2a55b637980044eed7ee6b",
-  "producer_thread_id": null,
+  "producer_thread_id": "019f17fb-8892-75d3-96ef-c8523c56bcd7",
   "produces": [
     "route governance records",
     "state controls",
