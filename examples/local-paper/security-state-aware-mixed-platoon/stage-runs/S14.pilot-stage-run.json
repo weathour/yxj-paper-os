@@ -29,7 +29,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s13_pilot_output",
-      "ref": "artifacts/S13-s13.json"
+      "ref": "artifacts/S13-adversarial-manuscript-review.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S14.stage-contract.json",

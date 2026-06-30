@@ -4,11 +4,27 @@
   "title": "PPG StageContract",
   "type": "object",
   "required": [
-    "schema_version", "stage_id", "stage_name", "purpose", "execution_mode", "recommended_agent_type", "requires_worker_task_packet", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "activation_policy", "coverage_status"
+    "schema_version",
+    "stage_id",
+    "stage_name",
+    "purpose",
+    "execution_mode",
+    "recommended_agent_type",
+    "requires_worker_task_packet",
+    "consumes",
+    "produces",
+    "validators",
+    "backflow_targets",
+    "completion_gate",
+    "activation_policy",
+    "coverage_status",
+    "registry_ref",
+    "worker_authority_boundary",
+    "worker_packet_coverage"
   ],
   "properties": {
     "schema_version": {"const": "ppg-stage-contract/v0.1"},
-    "stage_id": {"type": "string"},
+    "stage_id": {"type": "string", "pattern": "^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"},
     "stage_name": {"type": "string", "minLength": 1},
     "purpose": {"type": "string", "minLength": 1},
     "execution_mode": {"enum": ["owner_gated", "script_generated", "agent_generated", "hybrid_generated"]},
@@ -20,7 +36,29 @@
     "backflow_targets": {"type": "array", "items": {"type": "string", "minLength": 1}},
     "completion_gate": {"type": "string", "minLength": 1},
     "activation_policy": {"type": "string", "minLength": 1},
-    "coverage_status": {"type": "string", "minLength": 1}
+    "coverage_status": {"type": "string", "minLength": 1},
+    "registry_ref": {"const": "runtime/stage_registry.json"},
+    "worker_authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["completion_forbidden", "no_recursive_orchestration", "controller_owned_completion"],
+      "properties": {
+        "completion_forbidden": {"const": true},
+        "no_recursive_orchestration": {"const": true},
+        "controller_owned_completion": {"const": true}
+      }
+    },
+    "worker_packet_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "packet_ref", "return_contract_ref", "blocker"],
+      "properties": {
+        "status": {"enum": ["linked_strict_packet", "planned_with_blocker", "not_required"]},
+        "packet_ref": {"type": ["string", "null"], "minLength": 1},
+        "return_contract_ref": {"type": ["string", "null"], "minLength": 1},
+        "blocker": {"type": ["string", "null"], "minLength": 1}
+      }
+    }
   },
   "additionalProperties": true
 }

@@ -29,7 +29,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s14_pilot_output",
-      "ref": "artifacts/S14-s14.json"
+      "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S15.stage-contract.json",

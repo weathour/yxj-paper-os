@@ -63,7 +63,7 @@ def rel_repo(path: Path) -> str:
         return str(path)
 
 
-def validate_run(run: dict[str, Any], stage: dict[str, Any], contract: dict[str, Any], pilot_root: Path) -> list[str]:
+def validate_run(run: dict[str, Any], stage: dict[str, Any], contract: dict[str, Any], pilot_root: Path, produced_artifact_refs: set[str]) -> list[str]:
     sid = stage["stage_id"]
     errors: list[str] = []
     missing = sorted(REQUIRED_RUN_FIELDS - set(run))
@@ -90,6 +90,17 @@ def validate_run(run: dict[str, Any], stage: dict[str, Any], contract: dict[str,
         errors.append(issue("E_PILOT_RUN_CONSUMED_EMPTY", sid))
     elif not all(isinstance(item, dict) and item.get("material_id") and item.get("kind") and item.get("ref") for item in consumed):
         errors.append(issue("E_PILOT_RUN_CONSUMED_SHAPE", sid))
+    else:
+        for item in consumed:
+            ref = str(item["ref"])
+            if item.get("kind") == "upstream_stage_output":
+                ref_path = pilot_root / ref
+                if ref not in produced_artifact_refs:
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_UNKNOWN", f"{sid} {ref}"))
+                if not is_inside(ref_path, pilot_root):
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_ESCAPE", f"{sid} {ref}"))
+                if not ref_path.is_file():
+                    errors.append(issue("E_PILOT_RUN_UPSTREAM_REF_MISSING", f"{sid} {ref}"))
     produced = run.get("produced_artifacts")
     if not isinstance(produced, list) or not produced:
         errors.append(issue("E_PILOT_RUN_PRODUCED_EMPTY", sid))
@@ -146,6 +157,10 @@ def validate_run(run: dict[str, Any], stage: dict[str, Any], contract: dict[str,
                 errors.append(issue("E_PILOT_RUN_WORKER_PACKET_LINK", f"{sid} {ref}"))
         if coverage.get("status") == "planned_with_blocker" and not packet.get("blocker"):
             errors.append(issue("E_PILOT_RUN_WORKER_BLOCKER", sid))
+        if coverage.get("status") == "planned_with_blocker" and run.get("exercise_level") != "contract_only":
+            errors.append(issue("E_PILOT_RUN_PLANNED_WORKER_LEVEL", f"{sid} planned worker packets must remain contract_only"))
+        if coverage.get("status") == "linked_strict_packet" and run.get("exercise_level") != "full_stage_exercised":
+            errors.append(issue("E_PILOT_RUN_LINKED_WORKER_LEVEL", f"{sid} linked strict packets should be full_stage_exercised"))
     return errors
 
 
@@ -193,6 +208,19 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
     actual_stage_ids = [path.name.removesuffix(".pilot-stage-run.json") for path in actual_run_paths]
     if actual_stage_ids != sorted(expected_stage_ids):
         errors.append(issue("E_PILOT_RUN_SET", f"expected {sorted(expected_stage_ids)}, got {actual_stage_ids}"))
+    loaded_runs: dict[str, dict[str, Any]] = {}
+    produced_artifact_refs: set[str] = set()
+    for stage in stages:
+        sid = stage["stage_id"]
+        run_path = pilot_root / "stage-runs" / f"{sid}.pilot-stage-run.json"
+        if run_path.is_file():
+            run = load_json(run_path)
+            loaded_runs[sid] = run
+            produced = run.get("produced_artifacts", [])
+            if isinstance(produced, list):
+                for item in produced:
+                    if isinstance(item, dict) and isinstance(item.get("artifact_path"), str):
+                        produced_artifact_refs.add(item["artifact_path"])
     for stage in stages:
         sid = stage["stage_id"]
         contract_path = ROOT / stage["contract_ref"]
@@ -206,8 +234,8 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
         if not run_path.is_file():
             errors.append(issue("E_PILOT_RUN_MISSING", sid))
             continue
-        run = load_json(run_path)
-        errors.extend(validate_run(run, stage, contract, pilot_root))
+        run = loaded_runs.get(sid) or load_json(run_path)
+        errors.extend(validate_run(run, stage, contract, pilot_root, produced_artifact_refs))
     summary = load_json(pilot_root / "stage_coverage.json")
     if summary.get("schema_version") != SUMMARY_SCHEMA_VERSION:
         errors.append(issue("E_PILOT_SUMMARY_SCHEMA", str(summary.get("schema_version"))))

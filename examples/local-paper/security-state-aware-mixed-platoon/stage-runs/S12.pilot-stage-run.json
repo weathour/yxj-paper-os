@@ -44,23 +44,23 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s10_pilot_output",
-      "ref": "artifacts/S10-s10.json"
+      "ref": "artifacts/S10-main-text-production.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s11_pilot_output",
-      "ref": "artifacts/S11-s11.json"
+      "ref": "artifacts/S11-figure-caption-formal-artifact-production.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s15_pilot_output",
-      "ref": "artifacts/S15-s15.json"
+      "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
   "coverage_kind": "fixture_generated",
   "execution_mode": "hybrid_generated",
-  "exercise_level": "full_stage_exercised",
+  "exercise_level": "contract_only",
   "produced_artifacts": [
     {
       "artifact_id": "s12_pilot_output",
@@ -98,7 +98,7 @@
       "validator": "source_read_only_fingerprint"
     },
     {
-      "evidence": "coverage_kind=fixture_generated; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "evidence": "coverage_kind=fixture_generated; exercise_level=contract_only; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
     }

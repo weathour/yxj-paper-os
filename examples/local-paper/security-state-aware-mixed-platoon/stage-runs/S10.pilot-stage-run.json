@@ -39,12 +39,12 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s09b_pilot_output",
-      "ref": "artifacts/S09B-s09b.json"
+      "ref": "artifacts/S09B-per-unit-task-packet-assembly.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s15_pilot_output",
-      "ref": "artifacts/S15-s15.json"
+      "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S10.stage-contract.json",

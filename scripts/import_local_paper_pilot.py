@@ -88,20 +88,21 @@ def is_relative_to(child: Path, parent: Path) -> bool:
 
 def ensure_output_safe(source: Path, out: Path) -> None:
     source_resolved = source.resolve(strict=True)
-    out_parent = out.parent
-    out_parent.mkdir(parents=True, exist_ok=True)
-    out_parent_resolved = out_parent.resolve(strict=True)
+    runtime_root = ROOT.resolve(strict=True)
+    out_parent_resolved = out.parent.resolve(strict=False)
     out_resolved = out.resolve(strict=False)
     if is_relative_to(out_resolved, source_resolved) or out_resolved == source_resolved:
         raise ValueError("output path must not be inside the source paper repository")
+    if is_relative_to(out_parent_resolved, source_resolved) or out_parent_resolved == source_resolved:
+        raise ValueError("output parent must not be inside the source paper repository")
+    if not is_relative_to(out_parent_resolved, runtime_root):
+        raise ValueError("output parent must be inside the runtime repository")
     if out.exists() or out.is_symlink():
         existing_target = out.resolve(strict=True)
         if is_relative_to(existing_target, source_resolved) or existing_target == source_resolved:
             raise ValueError("output path symlink/write-through target must not point into source paper repository")
-        if not is_relative_to(existing_target, ROOT.resolve(strict=True)):
+        if not is_relative_to(existing_target, runtime_root):
             raise ValueError("existing output path must remain inside the runtime repository")
-    if not is_relative_to(out_parent_resolved, ROOT.resolve(strict=True)):
-        raise ValueError("output parent must be inside the runtime repository")
 
 
 def extract_claim_boundary(readme: str, status: str) -> dict[str, Any]:
@@ -185,13 +186,23 @@ def project(source: Path, out: Path, *, check: bool) -> int:
         if before_fingerprints != after_fingerprints:
             return fail("E_PHASE9_LOCAL_PAPER_SOURCE_FINGERPRINT_CHANGED", "source fingerprints changed during import")
         with tempfile.TemporaryDirectory(prefix="phase9-import-guard-") as tmp:
+            tmp_path = Path(tmp)
+            fake_source = tmp_path / "fake-source"
+            fake_source.mkdir()
+            rejected_parent = fake_source / "new-parent"
+            try:
+                ensure_output_safe(fake_source, rejected_parent / "pilot")
+            except ValueError:
+                if rejected_parent.exists():
+                    return fail("E_PHASE9_LOCAL_PAPER_NEGATIVE_PARENT_CREATED", "rejected source-contained output parent was created")
+            else:
+                return fail("E_PHASE9_LOCAL_PAPER_NEGATIVE_NEW_PARENT_UNDER_SOURCE", "new output parent under source was not rejected")
             try:
                 ensure_output_safe(source, source / "phase9-output-negative")
             except ValueError:
                 pass
             else:
                 return fail("E_PHASE9_LOCAL_PAPER_NEGATIVE_UNDER_SOURCE", "output-under-source was not rejected")
-            tmp_path = Path(tmp)
             escape = tmp_path / "escape"
             escape.symlink_to(source, target_is_directory=True)
             try:

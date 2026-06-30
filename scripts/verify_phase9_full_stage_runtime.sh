@@ -12,6 +12,37 @@ pilot_root="examples/local-paper/security-state-aware-mixed-platoon"
 source_root="/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon"
 stage_coverage="$pilot_root/stage_coverage.json"
 
+negative_source="$tmp_dir/fake-source"
+negative_pilot="$negative_source/pilot-under-source"
+mkdir -p "$negative_pilot"
+python3 - "$negative_source" "$negative_pilot" <<'PY'
+import json
+import sys
+from pathlib import Path
+source = Path(sys.argv[1]).resolve()
+pilot = Path(sys.argv[2]).resolve()
+(pilot / "manifest.json").write_text(json.dumps({
+    "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
+    "project_slug": "negative-source-contained",
+    "source_root": str(source),
+    "runtime_output_root": str(pilot),
+    "read_only_source": True,
+    "claim_boundary": {},
+    "source_git_status_before": "",
+    "source_git_status_after": "",
+    "source_fingerprint_before": {},
+    "source_fingerprint_after": {}
+}, indent=2) + "\n", encoding="utf-8")
+PY
+if python3 scripts/generate_local_paper_full_pilot.py --pilot-root "$negative_pilot" --check >"$tmp_dir/negative-generator.out" 2>"$tmp_dir/negative-generator.err"; then
+  echo "PHASE9_NEGATIVE_SOURCE_CONTAINED_GENERATOR_UNEXPECTED_PASS" >&2
+  exit 1
+fi
+if [ -e "$negative_pilot/stage-runs" ] || [ -e "$negative_pilot/artifacts" ] || [ -e "$negative_pilot/graph.json" ] || [ -e "$negative_pilot/stage_coverage.json" ]; then
+  echo "PHASE9_NEGATIVE_SOURCE_CONTAINED_GENERATOR_WROTE_OUTPUTS" >&2
+  exit 1
+fi
+
 python3 scripts/verify_phase9_archive_guard.py
 python3 scripts/verify_stage_registry.py
 python3 scripts/verify_stage_contracts.py
@@ -19,6 +50,7 @@ python3 scripts/import_local_paper_pilot.py --source "$source_root" --out "$pilo
 python3 scripts/generate_local_paper_full_pilot.py --pilot-root "$pilot_root" --check
 python3 scripts/verify_local_paper_full_pilot.py "$pilot_root"
 python3 scripts/verify_phase9_frontend_stage_coverage.py
+git diff --exit-code -- "$pilot_root" docs/runtime-viewer/runtime-graph-data.js
 
 python3 scripts/ppg_runtime_adapter.py \
   --graph examples/runtime/overclaim-loop.phase7-after.json \

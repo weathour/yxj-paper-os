@@ -301,8 +301,9 @@ window.PPG_RUNTIME_GRAPH = (() => {
     "source_projected": 10
   },
   "exercise_level_counts": {
+    "contract_only": 10,
     "deferred_with_gate": 1,
-    "full_stage_exercised": 19
+    "full_stage_exercised": 9
   },
   "graph_ref": "graph.json",
   "pilot_root": "examples/local-paper/security-state-aware-mixed-platoon",
@@ -333,7 +334,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S02.pilot-stage-run.json",
       "stage_id": "S02",
       "stage_name": "Research scene exemplar SOTA analysis",
@@ -343,7 +344,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S03.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S03.pilot-stage-run.json",
       "stage_id": "S03",
       "stage_name": "Novelty and contribution option analysis",
@@ -353,7 +354,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S04.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S04.pilot-stage-run.json",
       "stage_id": "S04",
       "stage_name": "Evidence-to-claim admissibility",
@@ -363,7 +364,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S05.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S05.pilot-stage-run.json",
       "stage_id": "S05",
       "stage_name": "Paper spine and reader-question synthesis",
@@ -373,7 +374,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S06.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S06.pilot-stage-run.json",
       "stage_id": "S06",
       "stage_name": "Object representation and granularity design",
@@ -383,7 +384,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
       "coverage_kind": "fixture_generated",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S07.pilot-stage-run.json",
       "stage_id": "S07",
       "stage_name": "Rhetoric terminology and surface-control synthesis",
@@ -393,7 +394,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S08.pilot-stage-run.json",
       "stage_id": "S08",
       "stage_name": "Visual and formal object planning",
@@ -433,7 +434,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
       "coverage_kind": "source_projected",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S11.pilot-stage-run.json",
       "stage_id": "S11",
       "stage_name": "Figure caption formal artifact production",
@@ -443,7 +444,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
       "coverage_kind": "fixture_generated",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S12.pilot-stage-run.json",
       "stage_id": "S12",
       "stage_name": "Integration and consistency pass",
@@ -453,7 +454,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
       "coverage_kind": "fixture_generated",
-      "exercise_level": "full_stage_exercised",
+      "exercise_level": "contract_only",
       "run_ref": "stage-runs/S13.pilot-stage-run.json",
       "stage_id": "S13",
       "stage_name": "Adversarial manuscript review",

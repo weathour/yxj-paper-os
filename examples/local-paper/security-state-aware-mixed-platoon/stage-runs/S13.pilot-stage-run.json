@@ -39,13 +39,13 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s12_pilot_output",
-      "ref": "artifacts/S12-s12.json"
+      "ref": "artifacts/S12-integration-and-consistency-pass.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
   "coverage_kind": "fixture_generated",
   "execution_mode": "agent_generated",
-  "exercise_level": "full_stage_exercised",
+  "exercise_level": "contract_only",
   "produced_artifacts": [
     {
       "artifact_id": "s13_pilot_output",
@@ -83,7 +83,7 @@
       "validator": "source_read_only_fingerprint"
     },
     {
-      "evidence": "coverage_kind=fixture_generated; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "evidence": "coverage_kind=fixture_generated; exercise_level=contract_only; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
     }

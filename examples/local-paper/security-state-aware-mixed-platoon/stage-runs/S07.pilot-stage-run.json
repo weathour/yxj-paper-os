@@ -34,18 +34,18 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s06_pilot_output",
-      "ref": "artifacts/S06-s06.json"
+      "ref": "artifacts/S06-object-representation-and-granularity-design.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s14_pilot_output",
-      "ref": "artifacts/S14-s14.json"
+      "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
   "coverage_kind": "fixture_generated",
   "execution_mode": "hybrid_generated",
-  "exercise_level": "full_stage_exercised",
+  "exercise_level": "contract_only",
   "produced_artifacts": [
     {
       "artifact_id": "s07_pilot_output",
@@ -83,7 +83,7 @@
       "validator": "source_read_only_fingerprint"
     },
     {
-      "evidence": "coverage_kind=fixture_generated; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "evidence": "coverage_kind=fixture_generated; exercise_level=contract_only; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
     }

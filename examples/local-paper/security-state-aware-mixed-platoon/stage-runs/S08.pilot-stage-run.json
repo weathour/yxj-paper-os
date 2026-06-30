@@ -34,23 +34,23 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s04_pilot_output",
-      "ref": "artifacts/S04-s04.json"
+      "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s05_pilot_output",
-      "ref": "artifacts/S05-s05.json"
+      "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s06_pilot_output",
-      "ref": "artifacts/S06-s06.json"
+      "ref": "artifacts/S06-object-representation-and-granularity-design.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
   "coverage_kind": "source_projected",
   "execution_mode": "hybrid_generated",
-  "exercise_level": "full_stage_exercised",
+  "exercise_level": "contract_only",
   "produced_artifacts": [
     {
       "artifact_id": "s08_pilot_output",
@@ -88,7 +88,7 @@
       "validator": "source_read_only_fingerprint"
     },
     {
-      "evidence": "coverage_kind=source_projected; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "evidence": "coverage_kind=source_projected; exercise_level=contract_only; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
     }

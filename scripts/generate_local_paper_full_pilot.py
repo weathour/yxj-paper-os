@@ -131,6 +131,41 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def is_relative_to(child: Path, parent: Path) -> bool:
+    try:
+        child.relative_to(parent)
+        return True
+    except ValueError:
+        return False
+
+
+def ensure_pilot_root_safe(manifest: dict[str, Any], pilot_root: Path) -> None:
+    """Reject source-contained or write-through pilot roots before writes."""
+
+    runtime_root = ROOT.resolve(strict=True)
+    pilot_resolved = pilot_root.resolve(strict=True)
+    source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
+    manifest_output_root = Path(str(manifest.get("runtime_output_root", ""))).expanduser().resolve(strict=False)
+    if is_relative_to(pilot_resolved, source_root) or pilot_resolved == source_root:
+        raise ValueError("pilot_root must not be inside the source paper repository")
+    if pilot_resolved != manifest_output_root:
+        raise ValueError("pilot_root must match manifest.runtime_output_root")
+    if not is_relative_to(pilot_resolved, runtime_root):
+        raise ValueError("pilot_root must remain inside the runtime repository")
+    if pilot_root.is_symlink():
+        raise ValueError("pilot_root must not be a symlink")
+    for child_name in ["artifacts", "stage-runs"]:
+        child = pilot_root / child_name
+        if child.is_symlink():
+            raise ValueError(f"{child_name} directory must not be a symlink")
+        if child.exists():
+            child_resolved = child.resolve(strict=True)
+            if not is_relative_to(child_resolved, pilot_resolved):
+                raise ValueError(f"{child_name} directory must resolve inside pilot_root")
+            if is_relative_to(child_resolved, source_root) or child_resolved == source_root:
+                raise ValueError(f"{child_name} directory must not point into source paper repository")
+
+
 def stage_output_kind(stage: dict[str, Any]) -> str:
     mode = stage["execution_mode"]
     if mode == "owner_gated":
@@ -144,7 +179,7 @@ def stage_output_kind(stage: dict[str, Any]) -> str:
     return "analysis_material_projection"
 
 
-def consumed_materials(stage: dict[str, Any], pilot_root: Path) -> list[dict[str, str]]:
+def consumed_materials(stage: dict[str, Any], pilot_root: Path, artifact_refs: dict[str, str]) -> list[dict[str, str]]:
     sid = stage["stage_id"]
     values: list[dict[str, str]] = []
     for idx, item in enumerate(stage.get("consumes", []), start=1):
@@ -155,7 +190,7 @@ def consumed_materials(stage: dict[str, Any], pilot_root: Path) -> list[dict[str
     if sid not in {"S00", "G01"}:
         previous = [edge[0] for edge in FLOW_EDGES if edge[1] == sid and edge[0] not in {"G01"}]
         for prev in sorted(set(previous)):
-            values.append({"material_id": f"{prev.lower()}_pilot_output", "kind": "upstream_stage_output", "ref": f"artifacts/{prev}-{slug(prev)}.json"})
+            values.append({"material_id": f"{prev.lower()}_pilot_output", "kind": "upstream_stage_output", "ref": artifact_refs[prev]})
     if not values:
         values.append({"material_id": f"{sid.lower()}_pilot_context", "kind": "pilot_context", "ref": repo_rel(pilot_root / "manifest.json")})
     return values
@@ -194,11 +229,20 @@ def build_artifact(stage: dict[str, Any], contract: dict[str, Any], manifest: di
     }
 
 
-def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[str, Any], pilot_root: Path, artifact_rel: str) -> dict[str, Any]:
+def exercise_level(stage: dict[str, Any], contract: dict[str, Any]) -> str:
+    sid = stage["stage_id"]
+    if sid in EXERCISE_LEVEL_BY_STAGE:
+        return EXERCISE_LEVEL_BY_STAGE[sid]
+    if contract.get("worker_packet_coverage", {}).get("status") == "planned_with_blocker":
+        return "contract_only"
+    return "full_stage_exercised"
+
+
+def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[str, Any], pilot_root: Path, artifact_rel: str, artifact_refs: dict[str, str]) -> dict[str, Any]:
     sid = stage["stage_id"]
     coverage_kind = COVERAGE_KIND_BY_STAGE[sid]
-    exercise_level = EXERCISE_LEVEL_BY_STAGE.get(sid, "full_stage_exercised")
-    consumed = consumed_materials(stage, pilot_root)
+    stage_exercise_level = exercise_level(stage, contract)
+    consumed = consumed_materials(stage, pilot_root, artifact_refs)
     fingerprints_match = manifest.get("source_fingerprint_before") == manifest.get("source_fingerprint_after")
     status_match = manifest.get("source_git_status_before") == manifest.get("source_git_status_after")
     output_under_source = False
@@ -213,7 +257,7 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
         "contract_ref": stage["contract_ref"],
         "status": "owner_gated" if sid == "G02" else "validated",
         "coverage_kind": coverage_kind,
-        "exercise_level": exercise_level,
+        "exercise_level": stage_exercise_level,
         "stage_name": stage["stage_name"],
         "execution_mode": stage["execution_mode"],
         "recommended_agent_type": stage["recommended_agent_type"],
@@ -241,7 +285,7 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
             {
                 "validator": "coverage_boundary",
                 "status": "pass",
-                "evidence": f"coverage_kind={coverage_kind}; exercise_level={exercise_level}; no source manuscript write claimed",
+                "evidence": f"coverage_kind={coverage_kind}; exercise_level={stage_exercise_level}; no source manuscript write claimed",
             },
         ],
         "source_projection_boundary": {
@@ -333,17 +377,19 @@ def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_ro
 
 def generate(pilot_root: Path) -> dict[str, Any]:
     manifest = load_json(pilot_root / "manifest.json")
+    ensure_pilot_root_safe(manifest, pilot_root)
     registry = load_json(REGISTRY)
     stage_run_dir = pilot_root / "stage-runs"
+    artifact_refs = {stage["stage_id"]: f"artifacts/{stage['stage_id']}-{slug(stage['stage_name'])}.json" for stage in registry["stages"]}
     runs: list[dict[str, Any]] = []
     for stage in registry["stages"]:
         sid = stage["stage_id"]
         contract = load_json(ROOT / stage["contract_ref"])
-        artifact_rel = f"artifacts/{sid}-{slug(stage['stage_name'])}.json"
-        consumed = consumed_materials(stage, pilot_root)
+        artifact_rel = artifact_refs[sid]
+        consumed = consumed_materials(stage, pilot_root, artifact_refs)
         artifact = build_artifact(stage, contract, manifest, consumed)
         write_json(pilot_root / artifact_rel, artifact)
-        run = build_run(stage, contract, manifest, pilot_root, artifact_rel)
+        run = build_run(stage, contract, manifest, pilot_root, artifact_rel, artifact_refs)
         write_json(stage_run_dir / f"{sid}.pilot-stage-run.json", run)
         runs.append(run)
     graph = build_graph(registry, pilot_root)
@@ -362,7 +408,11 @@ def main(argv: list[str] | None = None) -> int:
     if not pilot_root.is_dir():
         print(f"PILOT_ROOT_MISSING {pilot_root}", file=sys.stderr)
         return 1
-    summary = generate(pilot_root)
+    try:
+        summary = generate(pilot_root)
+    except ValueError as exc:
+        print(f"PILOT_ROOT_UNSAFE: {exc}", file=sys.stderr)
+        return 1
     if args.check:
         try:
             from verify_local_paper_full_pilot import verify_pilot

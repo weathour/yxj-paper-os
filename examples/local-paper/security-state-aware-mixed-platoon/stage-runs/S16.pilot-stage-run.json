@@ -44,12 +44,12 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s13_pilot_output",
-      "ref": "artifacts/S13-s13.json"
+      "ref": "artifacts/S13-adversarial-manuscript-review.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s15_pilot_output",
-      "ref": "artifacts/S15-s15.json"
+      "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S16.stage-contract.json",

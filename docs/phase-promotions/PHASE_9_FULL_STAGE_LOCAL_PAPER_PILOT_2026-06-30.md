@@ -44,7 +44,7 @@ Current coverage summary from `stage_coverage.json`:
 - canonical stages: 20
 - PilotStageRun records: 20
 - coverage kinds: `source_projected=10`, `script_checked=5`, `fixture_generated=4`, `owner_gated_deferred=1`
-- exercise levels: `full_stage_exercised=19`, `deferred_with_gate=1`
+- exercise levels: `full_stage_exercised=9`, `contract_only=10`, `deferred_with_gate=1`
 - worker task packet status: `linked_strict_packet=2`, `planned_with_blocker=10`, `not_required=8`
 
 This is intentionally honest: Phase 9 proves full-stage runtime coverage and local-paper projection, not that all future worker subagent task packets are already implemented.

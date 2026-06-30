@@ -39,27 +39,27 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s04_pilot_output",
-      "ref": "artifacts/S04-s04.json"
+      "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s05_pilot_output",
-      "ref": "artifacts/S05-s05.json"
+      "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s06_pilot_output",
-      "ref": "artifacts/S06-s06.json"
+      "ref": "artifacts/S06-object-representation-and-granularity-design.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s07_pilot_output",
-      "ref": "artifacts/S07-s07.json"
+      "ref": "artifacts/S07-rhetoric-terminology-and-surface-control-synthesis.json"
     },
     {
       "kind": "upstream_stage_output",
       "material_id": "s14_pilot_output",
-      "ref": "artifacts/S14-s14.json"
+      "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",

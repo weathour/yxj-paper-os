@@ -19,7 +19,7 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s16_pilot_output",
-      "ref": "artifacts/S16-s16.json"
+      "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/G02.stage-contract.json",

@@ -34,13 +34,13 @@
     {
       "kind": "upstream_stage_output",
       "material_id": "s01_pilot_output",
-      "ref": "artifacts/S01-s01.json"
+      "ref": "artifacts/S01-source-citation-evidence-inventory.json"
     }
   ],
   "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
   "coverage_kind": "source_projected",
   "execution_mode": "agent_generated",
-  "exercise_level": "full_stage_exercised",
+  "exercise_level": "contract_only",
   "produced_artifacts": [
     {
       "artifact_id": "s02_pilot_output",
@@ -78,7 +78,7 @@
       "validator": "source_read_only_fingerprint"
     },
     {
-      "evidence": "coverage_kind=source_projected; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "evidence": "coverage_kind=source_projected; exercise_level=contract_only; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
     }

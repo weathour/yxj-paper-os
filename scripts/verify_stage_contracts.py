@@ -10,6 +10,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
+SCHEMA = ROOT / "schemas" / "ppg-stage-contract.schema.json"
 REQUIRED_FIELDS = {
     "schema_version", "stage_id", "stage_name", "purpose", "execution_mode", "recommended_agent_type", "requires_worker_task_packet", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "activation_policy", "coverage_status", "registry_ref", "worker_authority_boundary", "worker_packet_coverage"
 }
@@ -75,11 +76,37 @@ def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] |
     return errors
 
 
+def validate_schema_contract(schema: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    required = set(schema.get("required", []))
+    missing = sorted(REQUIRED_FIELDS - required)
+    if missing:
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_REQUIRED", f"schema missing required fields {missing}"))
+    stage_id = schema.get("properties", {}).get("stage_id", {})
+    if "09A" not in str(stage_id.get("pattern", "")) or "09B" not in str(stage_id.get("pattern", "")) or "S09)" in str(stage_id.get("pattern", "")):
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_STAGE_ID", "schema must encode canonical S09A/S09B and reject bare S09"))
+    boundary = schema.get("properties", {}).get("worker_authority_boundary", {})
+    boundary_required = set(boundary.get("required", []))
+    expected_boundary = {"completion_forbidden", "no_recursive_orchestration", "controller_owned_completion"}
+    if not expected_boundary.issubset(boundary_required):
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_BOUNDARY", "schema must require worker authority boundary fields"))
+    coverage = schema.get("properties", {}).get("worker_packet_coverage", {})
+    coverage_required = set(coverage.get("required", []))
+    expected_coverage = {"status", "packet_ref", "return_contract_ref", "blocker"}
+    if not expected_coverage.issubset(coverage_required):
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_WORKER_COVERAGE", "schema must require worker packet coverage fields"))
+    coverage_statuses = set(coverage.get("properties", {}).get("status", {}).get("enum", []))
+    if coverage_statuses != WORKER_COVERAGE:
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_WORKER_COVERAGE_ENUM", f"{sorted(coverage_statuses)}"))
+    return errors
+
+
 def main() -> int:
     registry = load_json(REGISTRY)
+    errors: list[str] = []
+    errors.extend(validate_schema_contract(load_json(SCHEMA)))
     stages = registry.get("stages", [])
     by_id = {stage["stage_id"]: stage for stage in stages}
-    errors: list[str] = []
     for sid, stage in by_id.items():
         path = CONTRACT_DIR / f"{sid}.stage-contract.json"
         if not path.is_file():
