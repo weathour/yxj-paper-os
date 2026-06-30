@@ -23,6 +23,18 @@
   ],
   "purpose": "Assemble modules and check cross-section dependencies.",
   "recommended_agent_type": "verifier",
+  "subagent_lane_policy": {
+    "policy": "mandatory_double",
+    "default_lane_count": 2,
+    "producer_agent_type": "verifier",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "always for normal paper-facing production",
+      "full-flow QA mode",
+      "milestone or freeze gate"
+    ],
+    "rationale": "Integration can create cross-section contradictions, so independent consistency verification is mandatory."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",

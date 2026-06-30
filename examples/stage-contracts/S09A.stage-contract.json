@@ -23,6 +23,18 @@
   ],
   "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
   "recommended_agent_type": "planner",
+  "subagent_lane_policy": {
+    "policy": "single_with_deterministic_validation",
+    "default_lane_count": 1,
+    "producer_agent_type": "planner",
+    "verifier_agent_type": null,
+    "escalate_to_double_when": [
+      "owner requests audit of control selection",
+      "full-flow QA mode",
+      "control selection changes high-risk claim inputs"
+    ],
+    "rationale": "Control-material selection is a controller/script-like routing step and is primarily proven by deterministic validation."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

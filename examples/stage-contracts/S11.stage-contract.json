@@ -22,6 +22,18 @@
   ],
   "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
   "recommended_agent_type": "executor",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "executor",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "artifact is paper-facing or data-backed",
+      "caption makes a claim",
+      "pre-export figure/caption freeze"
+    ],
+    "rationale": "Artifact production is often deterministic but paper-facing; independent QA is required when it becomes final/export-facing."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",

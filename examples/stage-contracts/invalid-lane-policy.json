@@ -22,16 +22,14 @@
   "purpose": "Understand field scene, template expectations, exemplar structure, and related-work positioning.",
   "recommended_agent_type": "researcher",
   "subagent_lane_policy": {
-    "policy": "mandatory_double",
-    "default_lane_count": 2,
+    "policy": "single_with_deterministic_validation",
+    "default_lane_count": 1,
     "producer_agent_type": "researcher",
-    "verifier_agent_type": "verifier",
+    "verifier_agent_type": null,
     "escalate_to_double_when": [
-      "always for normal paper-facing production",
-      "full-flow QA mode",
-      "milestone or freeze gate"
+      "invalid downgrade of mandatory double stage"
     ],
-    "rationale": "Research/SOTA materials shape all downstream claims, so producer output must be independently checked before commit."
+    "rationale": "Negative fixture: S02 must not be downgraded to a single deterministic lane."
   },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,

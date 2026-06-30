@@ -20,11 +20,15 @@ REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
 SCHEMA = ROOT / "schemas" / "ppg-stage-contract.schema.json"
 REQUIRED_FIELDS = {
-    "schema_version", "stage_id", "stage_name", "purpose", "execution_mode", "recommended_agent_type", "requires_worker_task_packet", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "activation_policy", "coverage_status", "registry_ref", "worker_authority_boundary", "worker_packet_coverage"
+    "schema_version", "stage_id", "stage_name", "purpose", "execution_mode", "recommended_agent_type", "subagent_lane_policy", "requires_worker_task_packet", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "activation_policy", "coverage_status", "registry_ref", "worker_authority_boundary", "worker_packet_coverage"
 }
 REQUIRED_FIELDS.add("stage_local_overlays")
 EXECUTION_MODES = {"owner_gated", "script_generated", "agent_generated", "hybrid_generated"}
 WORKER_COVERAGE = {"linked_strict_packet", "planned_with_blocker", "not_required"}
+LANE_POLICIES = {"mandatory_double", "conditional_double", "single_with_deterministic_validation"}
+MANDATORY_DOUBLE_STAGES = {"S02", "S03", "S04", "S05", "S10", "S12", "S13", "S15"}
+CONDITIONAL_DOUBLE_STAGES = {"S00", "S01", "S06", "S07", "S08", "S11", "S14", "S16"}
+SINGLE_WITH_VALIDATION_STAGES = {"S09A", "S09B", "G01", "G02"}
 NEGATIVE_EXPECTATIONS = {
     "invalid-missing-completion-gate.json": "E_STAGE_CONTRACT_FIELD_MISSING",
     "invalid-execution-mode.json": "E_STAGE_CONTRACT_MODE",
@@ -36,6 +40,7 @@ NEGATIVE_EXPECTATIONS = {
     "invalid-traversal-worker-packet.json": "E_STAGE_CONTRACT_PACKET_REF_SCOPE",
     "invalid-return-contract-ref.json": "E_STAGE_CONTRACT_RETURN_CONTRACT_REF_SCOPE",
     "invalid-missing-stage-local-overlays.json": "E_STAGE_CONTRACT_FIELD_MISSING",
+    "invalid-lane-policy.json": "E_STAGE_CONTRACT_LANE_POLICY",
 }
 
 
@@ -73,6 +78,57 @@ def scoped_repo_path(ref: Any, prefix: str, code: str, sid: str) -> tuple[Path |
     return path, []
 
 
+def validate_lane_policy(stage_id: Any, recommended_agent_type: Any, policy: Any) -> list[str]:
+    sid = str(stage_id)
+    errors: list[str] = []
+    if not isinstance(policy, dict):
+        return [issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid}.subagent_lane_policy must be object")]
+
+    missing = sorted({
+        "policy",
+        "default_lane_count",
+        "producer_agent_type",
+        "verifier_agent_type",
+        "escalate_to_double_when",
+        "rationale",
+    } - set(policy))
+    if missing:
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid}.subagent_lane_policy missing {missing}"))
+
+    lane_policy = policy.get("policy")
+    if lane_policy not in LANE_POLICIES:
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid} invalid lane policy {lane_policy!r}"))
+    if policy.get("default_lane_count") not in {1, 2}:
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid} invalid default_lane_count"))
+    if policy.get("producer_agent_type") != recommended_agent_type:
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid} producer_agent_type must match recommended_agent_type"))
+    verifier = policy.get("verifier_agent_type")
+    if verifier is not None and (not isinstance(verifier, str) or not verifier.strip()):
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid} verifier_agent_type must be non-empty string or null"))
+    triggers = policy.get("escalate_to_double_when")
+    if not isinstance(triggers, list) or not triggers or not all(isinstance(item, str) and item.strip() for item in triggers):
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid} escalate_to_double_when must be non-empty string list"))
+    if not isinstance(policy.get("rationale"), str) or not policy["rationale"].strip():
+        errors.append(issue("E_STAGE_CONTRACT_LANE_POLICY", f"{sid} rationale is required"))
+
+    if sid in MANDATORY_DOUBLE_STAGES:
+        expected = ("mandatory_double", 2, "verifier")
+    elif sid in CONDITIONAL_DOUBLE_STAGES:
+        expected = ("conditional_double", 1, "verifier")
+    elif sid in SINGLE_WITH_VALIDATION_STAGES:
+        expected = ("single_with_deterministic_validation", 1, None)
+    else:
+        return errors
+
+    expected_policy, expected_lanes, expected_verifier = expected
+    if lane_policy != expected_policy or policy.get("default_lane_count") != expected_lanes or verifier != expected_verifier:
+        errors.append(issue(
+            "E_STAGE_CONTRACT_LANE_POLICY",
+            f"{sid} expected policy={expected_policy} default_lane_count={expected_lanes} verifier_agent_type={expected_verifier!r}",
+        ))
+    return errors
+
+
 def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] | None) -> list[str]:
     errors: list[str] = []
     sid = contract.get("stage_id", "<missing>")
@@ -82,7 +138,7 @@ def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] |
     if contract.get("schema_version") != "ppg-stage-contract/v0.1":
         errors.append(issue("E_STAGE_CONTRACT_SCHEMA", f"{sid} bad schema_version"))
     if registry_stage is not None:
-        for key in ["stage_id", "stage_name", "execution_mode", "requires_worker_task_packet", "completion_gate", "activation_policy", "coverage_status"]:
+        for key in ["stage_id", "stage_name", "execution_mode", "requires_worker_task_packet", "completion_gate", "activation_policy", "coverage_status", "subagent_lane_policy"]:
             if contract.get(key) != registry_stage.get(key):
                 errors.append(issue("E_STAGE_CONTRACT_REGISTRY_MISMATCH", f"{sid}.{key}"))
     if contract.get("execution_mode") not in EXECUTION_MODES:
@@ -94,6 +150,7 @@ def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] |
         value = contract.get(key)
         if not isinstance(value, list) or not value or not all(isinstance(item, str) and item.strip() for item in value):
             errors.append(issue("E_STAGE_CONTRACT_LIST_FIELD", f"{sid}.{key}"))
+    errors.extend(validate_lane_policy(contract.get("stage_id"), contract.get("recommended_agent_type"), contract.get("subagent_lane_policy")))
     overlays = contract.get("stage_local_overlays")
     if not isinstance(overlays, list) or not overlays:
         errors.append(issue("E_STAGE_CONTRACT_STAGE_OVERLAY_LINK", f"{sid}.stage_local_overlays"))
@@ -177,6 +234,14 @@ def validate_schema_contract(schema: dict[str, Any]) -> list[str]:
         errors.append(issue("E_STAGE_CONTRACT_SCHEMA_WORKER_PACKET_REF", "packet_ref must be scoped to examples/packets"))
     if "schemas/ppg-candidate-return" not in return_ref_schema:
         errors.append(issue("E_STAGE_CONTRACT_SCHEMA_RETURN_CONTRACT_REF", "return_contract_ref must be scoped to candidate return schema"))
+    lane_policy = schema.get("properties", {}).get("subagent_lane_policy", {})
+    lane_required = set(lane_policy.get("required", []))
+    expected_lane_required = {"policy", "default_lane_count", "producer_agent_type", "verifier_agent_type", "escalate_to_double_when", "rationale"}
+    if not expected_lane_required.issubset(lane_required):
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_LANE_POLICY", "schema must require subagent lane policy fields"))
+    lane_statuses = set(lane_policy.get("properties", {}).get("policy", {}).get("enum", []))
+    if lane_statuses != LANE_POLICIES:
+        errors.append(issue("E_STAGE_CONTRACT_SCHEMA_LANE_POLICY_ENUM", f"{sorted(lane_statuses)}"))
     return errors
 
 

@@ -27,6 +27,7 @@ This repository is a local Phase13 plugin/runtime-pilot surface. It provides:
 - full-stage local-paper pilot fixtures under `examples/local-paper/security-state-aware-mixed-platoon/`;
 - one `PilotStageRun` for every canonical stage `S00-S16/G01/G02`, with explicit completion boundaries;
 - strict linked TaskPacket templates for every dispatchable worker stage plus run-owned packet materialization in the Phase10 dry-run;
+- explicit main-agent subagent lane policy in the canonical stage registry and StageContracts, classifying each stage as mandatory double-lane, conditional double-lane, or single-lane with deterministic validation;
 - Nature expert-writing stage-local overlay registry, StageContract links, TaskPacket overlay controls, and overlay validators;
 - Phase10 content validators and a runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
 - Phase12 formal full-flow runtime-test artifacts under `runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/`;
@@ -118,6 +119,13 @@ For Nature stage-overlay checks:
 python3 scripts/verify_stage_overlays.py
 python3 scripts/generate_phase10_run_dry_run.py --check
 python3 scripts/verify_phase10_run_readiness.py
+```
+
+For the canonical registry, StageContract, and main-agent lane-policy gate:
+
+```bash
+python3 scripts/verify_stage_registry.py
+python3 scripts/verify_stage_contracts.py
 ```
 
 

@@ -18,6 +18,18 @@
   ],
   "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
   "recommended_agent_type": "planner",
+  "subagent_lane_policy": {
+    "policy": "single_with_deterministic_validation",
+    "default_lane_count": 1,
+    "producer_agent_type": "planner",
+    "verifier_agent_type": null,
+    "escalate_to_double_when": [
+      "post-paper derivative output is owner-facing",
+      "external-use boundary changes",
+      "owner requests derivative audit"
+    ],
+    "rationale": "Derivative outputs are outside the main paper cognition path and should stay single-lane until an owner-facing derivative is active."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

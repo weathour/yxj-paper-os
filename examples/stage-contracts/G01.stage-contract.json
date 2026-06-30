@@ -19,6 +19,18 @@
   ],
   "purpose": "Define permissions, route governance, and state controls before automation.",
   "recommended_agent_type": "verifier",
+  "subagent_lane_policy": {
+    "policy": "single_with_deterministic_validation",
+    "default_lane_count": 1,
+    "producer_agent_type": "verifier",
+    "verifier_agent_type": null,
+    "escalate_to_double_when": [
+      "runtime governance registry or validator semantics change",
+      "full-flow QA mode",
+      "owner requests governance audit"
+    ],
+    "rationale": "Governance records are registry/validator-controlled and should default to deterministic validation rather than extra agents."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

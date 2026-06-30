@@ -23,6 +23,18 @@
   ],
   "purpose": "Convert review/loss signals into local repair tasks.",
   "recommended_agent_type": "planner",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "planner",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "repair changes upstream claim/spine/material semantics",
+      "review finding severity is high",
+      "repair plan affects multiple downstream nodes"
+    ],
+    "rationale": "Backflow planning is controller-owned routing; single planner lane is enough unless severe or multi-node repairs are involved."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

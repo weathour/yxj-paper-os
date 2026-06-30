@@ -170,6 +170,34 @@ Use hybrid mode for:
 - review finding classification;
 - backflow task compilation.
 
+## Main-agent subagent lane policy
+
+The main agent now treats single-vs-double subagent use as an explicit stage contract, not an ad hoc choice. The source of truth is `runtime/stage_registry.json[*].subagent_lane_policy`, mirrored by every `examples/stage-contracts/*.stage-contract.json` and checked by `scripts/verify_stage_registry.py` plus `scripts/verify_stage_contracts.py`.
+
+Decision order:
+
+```text
+read stage.subagent_lane_policy
+  -> if policy == mandatory_double:
+       dispatch producer lane + independent verifier lane
+  -> if policy == conditional_double:
+       dispatch one producer lane by default;
+       add verifier lane when any escalate_to_double_when trigger is active
+  -> if policy == single_with_deterministic_validation:
+       keep one controller/script lane by default;
+       rely on deterministic validators unless an audit trigger is active
+  -> collect CandidateArtifactReturn / validator evidence
+  -> controller alone accepts, rejects, or routes backflow
+```
+
+Current default classification:
+
+- **Mandatory double:** S02, S03, S04, S05, S10, S12, S13, S15.
+- **Conditional double:** S00, S01, S06, S07, S08, S11, S14, S16.
+- **Single with deterministic validation:** S09A, S09B, G01, G02.
+
+Phase 13 intentionally ran all canonical stages with producer + verifier lanes as a strict live-pilot QA mode. Production runtime is more selective: it keeps mandatory semantic/paper-facing stages double-lane, uses conditional verifier lanes at freezes or high-risk branch points, and keeps compiler/governance stages primarily script-validated.
+
 ## Commit protocol
 
 ```text

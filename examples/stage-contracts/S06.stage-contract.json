@@ -21,6 +21,18 @@
   ],
   "purpose": "Decide how paper objects appear across sections and at what granularity.",
   "recommended_agent_type": "architect",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "architect",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "new object family or granularity ladder is introduced",
+      "multi-section object reuse is planned",
+      "pre-writing design freeze"
+    ],
+    "rationale": "Object/granularity design is reusable control material; single production is enough unless it changes multi-section semantics."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",

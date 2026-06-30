@@ -20,6 +20,18 @@
   ],
   "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
   "recommended_agent_type": "critic",
+  "subagent_lane_policy": {
+    "policy": "mandatory_double",
+    "default_lane_count": 2,
+    "producer_agent_type": "critic",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "always for normal paper-facing production",
+      "full-flow QA mode",
+      "milestone or freeze gate"
+    ],
+    "rationale": "Adversarial review itself produces loss signals that must be independently validated for actionability and routing."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",

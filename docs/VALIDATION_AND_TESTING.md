@@ -248,6 +248,23 @@ Negative return fixtures prove no self-certification:
 
 Phase 6 remains a compiler/contract phase. It intentionally does not run a real writer/verifier subagent pilot; that begins in Phase 7.
 
+## Phase 9 stage registry and lane-policy validation
+
+The canonical stage registry and every valid StageContract must carry `subagent_lane_policy`. This field makes the main-agent dispatch choice executable:
+
+- `mandatory_double` stages must default to two lanes and name `verifier` as the independent verifier;
+- `conditional_double` stages must default to one lane, name `verifier` as the escalation lane, and list non-empty escalation triggers;
+- `single_with_deterministic_validation` stages must default to one lane with no default verifier and rely on deterministic validators unless an audit trigger is active.
+
+Core commands:
+
+```bash
+python3 scripts/verify_stage_registry.py
+python3 scripts/verify_stage_contracts.py
+```
+
+The registry negative suite includes `invalid_lane_policy`; the StageContract negative suite includes `examples/stage-contracts/invalid-lane-policy.json`. Together they reject accidental downgrades of mandatory semantic stages to single-lane operation and reject drift between registry and contract lane decisions.
+
 ## Phase 11 stage-local overlay validation
 
 Phase 11 absorbs Nature expert-writing practice as a registry-backed stage-local overlay.

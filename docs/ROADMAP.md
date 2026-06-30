@@ -5,6 +5,7 @@
 
 - [x] Phase 12 deterministic formal full-flow runtime-test harness.
 - [x] Phase 13 live native-subagent full-flow pilot: 20 producer lanes + 20 independent verifier lanes, run-owned evidence, source-read-only snapshots, and exact-code negative probes.
+- [x] Post-Phase13 main-agent lane policy: canonical stages now encode whether they are mandatory double-subagent, conditional double-subagent, or single-lane with deterministic validation.
 
 ## M0 — Repository and documentation spine
 

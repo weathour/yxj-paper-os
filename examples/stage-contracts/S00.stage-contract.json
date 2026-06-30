@@ -19,6 +19,18 @@
   ],
   "purpose": "Convert human need into bounded paper commitments and owner decisions.",
   "recommended_agent_type": "main",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "main",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "owner semantic contract changes",
+      "venue or claim-scope freeze",
+      "owner requests independent challenge"
+    ],
+    "rationale": "Owner semantics are controller-owned; a second lane is needed only when commitments change or freeze."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

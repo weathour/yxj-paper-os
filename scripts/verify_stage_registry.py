@@ -14,8 +14,12 @@ REQUIRED_STAGE_IDS = [
     "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "G01", "G02"
 ]
 EXECUTION_MODES = {"owner_gated", "script_generated", "agent_generated", "hybrid_generated"}
+LANE_POLICIES = {"mandatory_double", "conditional_double", "single_with_deterministic_validation"}
+MANDATORY_DOUBLE_STAGES = {"S02", "S03", "S04", "S05", "S10", "S12", "S13", "S15"}
+CONDITIONAL_DOUBLE_STAGES = {"S00", "S01", "S06", "S07", "S08", "S11", "S14", "S16"}
+SINGLE_WITH_VALIDATION_STAGES = {"S09A", "S09B", "G01", "G02"}
 REQUIRED_STAGE_FIELDS = {
-    "stage_id", "stage_name", "purpose", "execution_mode", "requires_worker_task_packet", "recommended_agent_type", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "coverage_status", "pilot_required", "activation_policy", "contract_ref"
+    "stage_id", "stage_name", "purpose", "execution_mode", "requires_worker_task_packet", "recommended_agent_type", "subagent_lane_policy", "consumes", "produces", "validators", "backflow_targets", "completion_gate", "coverage_status", "pilot_required", "activation_policy", "contract_ref"
 }
 
 
@@ -25,6 +29,61 @@ def load_registry(path: Path = REGISTRY) -> dict[str, Any]:
 
 def issue(code: str, message: str) -> str:
     return f"{code}: {message}"
+
+
+def validate_lane_policy(stage_id: str, recommended_agent_type: Any, policy: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(policy, dict):
+        return [issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id}.subagent_lane_policy must be object")]
+
+    missing = sorted({
+        "policy",
+        "default_lane_count",
+        "producer_agent_type",
+        "verifier_agent_type",
+        "escalate_to_double_when",
+        "rationale",
+    } - set(policy))
+    if missing:
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id}.subagent_lane_policy missing {missing}"))
+
+    lane_policy = policy.get("policy")
+    if lane_policy not in LANE_POLICIES:
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id} invalid lane policy {lane_policy!r}"))
+
+    if policy.get("default_lane_count") not in {1, 2}:
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id} invalid default_lane_count"))
+
+    if policy.get("producer_agent_type") != recommended_agent_type:
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id} producer_agent_type must match recommended_agent_type"))
+
+    verifier = policy.get("verifier_agent_type")
+    if verifier is not None and (not isinstance(verifier, str) or not verifier.strip()):
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id} verifier_agent_type must be non-empty string or null"))
+
+    triggers = policy.get("escalate_to_double_when")
+    if not isinstance(triggers, list) or not triggers or not all(isinstance(item, str) and item.strip() for item in triggers):
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id} escalate_to_double_when must be non-empty string list"))
+
+    if not isinstance(policy.get("rationale"), str) or not policy["rationale"].strip():
+        errors.append(issue("E_STAGE_REGISTRY_LANE_POLICY", f"{stage_id} rationale is required"))
+
+    if stage_id in MANDATORY_DOUBLE_STAGES:
+        expected = ("mandatory_double", 2, "verifier")
+    elif stage_id in CONDITIONAL_DOUBLE_STAGES:
+        expected = ("conditional_double", 1, "verifier")
+    elif stage_id in SINGLE_WITH_VALIDATION_STAGES:
+        expected = ("single_with_deterministic_validation", 1, None)
+    else:
+        return errors
+
+    expected_policy, expected_lanes, expected_verifier = expected
+    if lane_policy != expected_policy or policy.get("default_lane_count") != expected_lanes or verifier != expected_verifier:
+        errors.append(issue(
+            "E_STAGE_REGISTRY_LANE_POLICY",
+            f"{stage_id} expected policy={expected_policy} default_lane_count={expected_lanes} verifier_agent_type={expected_verifier!r}",
+        ))
+    return errors
 
 
 def validate_registry(data: dict[str, Any]) -> list[str]:
@@ -69,6 +128,7 @@ def validate_registry(data: dict[str, Any]) -> list[str]:
             value = stage.get(field)
             if not isinstance(value, list) or not value or not all(isinstance(item, str) and item.strip() for item in value):
                 errors.append(issue("E_STAGE_REGISTRY_LIST_FIELD", f"{stage_id}.{field}"))
+        errors.extend(validate_lane_policy(stage_id, stage.get("recommended_agent_type"), stage.get("subagent_lane_policy")))
         if "$yxj-plugin-incubator" in json.dumps(stage, ensure_ascii=False) or "legacy $yxj-paper-os" in json.dumps(stage, ensure_ascii=False):
             errors.append(issue("E_STAGE_REGISTRY_FORBIDDEN_ROUTE", stage_id))
     if ids != REQUIRED_STAGE_IDS:
@@ -100,6 +160,11 @@ def run_negative_cases(valid: dict[str, Any]) -> list[str]:
     bare_s09 = copy.deepcopy(valid)
     bare_s09["stages"][9]["stage_id"] = "S09"
     cases.append(("bare_s09", bare_s09, "E_STAGE_REGISTRY_BARE_S09"))
+    invalid_lane_policy = copy.deepcopy(valid)
+    invalid_lane_policy["stages"][2]["subagent_lane_policy"]["policy"] = "single_with_deterministic_validation"
+    invalid_lane_policy["stages"][2]["subagent_lane_policy"]["default_lane_count"] = 1
+    invalid_lane_policy["stages"][2]["subagent_lane_policy"]["verifier_agent_type"] = None
+    cases.append(("invalid_lane_policy", invalid_lane_policy, "E_STAGE_REGISTRY_LANE_POLICY"))
     for name, data, expected in cases:
         errors = validate_registry(data)
         if not any(expected in error for error in errors):

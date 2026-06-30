@@ -20,6 +20,18 @@
   ],
   "purpose": "Make raw paper inputs locatable and support-safe.",
   "recommended_agent_type": "explore",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "explore",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "new source family is admitted",
+      "citation/evidence support is uncertain",
+      "pre-writing inventory freeze"
+    ],
+    "rationale": "Inventory work is mostly structural but needs independent verification when source support or evidence admissibility is uncertain."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

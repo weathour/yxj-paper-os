@@ -21,6 +21,18 @@
   ],
   "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
   "recommended_agent_type": "designer",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "designer",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "figure/table/formula object will be paper-facing",
+      "visual claim support is uncertain",
+      "pre-export visual-plan freeze"
+    ],
+    "rationale": "Visual/formal planning is often design-led and evidence-linked; escalate before paper-facing visual commitments freeze."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",

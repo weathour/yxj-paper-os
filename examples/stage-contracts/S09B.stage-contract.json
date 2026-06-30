@@ -23,6 +23,18 @@
   ],
   "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
   "recommended_agent_type": "main",
+  "subagent_lane_policy": {
+    "policy": "single_with_deterministic_validation",
+    "default_lane_count": 1,
+    "producer_agent_type": "main",
+    "verifier_agent_type": null,
+    "escalate_to_double_when": [
+      "packet compiler or authority-boundary code changes",
+      "full-flow QA mode",
+      "owner requests task-packet audit"
+    ],
+    "rationale": "Task-packet assembly is an authority-boundary compiler step and is primarily proven by deterministic validation."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

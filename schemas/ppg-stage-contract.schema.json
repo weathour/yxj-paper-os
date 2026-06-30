@@ -10,6 +10,7 @@
     "purpose",
     "execution_mode",
     "recommended_agent_type",
+    "subagent_lane_policy",
     "requires_worker_task_packet",
     "consumes",
     "produces",
@@ -30,6 +31,19 @@
     "purpose": {"type": "string", "minLength": 1},
     "execution_mode": {"enum": ["owner_gated", "script_generated", "agent_generated", "hybrid_generated"]},
     "recommended_agent_type": {"type": "string", "minLength": 1},
+    "subagent_lane_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "default_lane_count", "producer_agent_type", "verifier_agent_type", "escalate_to_double_when", "rationale"],
+      "properties": {
+        "policy": {"type": "string", "enum": ["mandatory_double", "conditional_double", "single_with_deterministic_validation"]},
+        "default_lane_count": {"type": "integer", "enum": [1, 2]},
+        "producer_agent_type": {"type": "string", "minLength": 1},
+        "verifier_agent_type": {"type": ["string", "null"]},
+        "escalate_to_double_when": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    },
     "requires_worker_task_packet": {"type": "boolean"},
     "consumes": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
     "produces": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},

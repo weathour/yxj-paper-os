@@ -23,6 +23,18 @@
   ],
   "purpose": "Package final paper and prove delivery cleanliness.",
   "recommended_agent_type": "verifier",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "verifier",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "handoff/export is owner-facing",
+      "dirty-worktree or build hygiene is ambiguous",
+      "release/submission boundary is near"
+    ],
+    "rationale": "Export/handoff is mostly deterministic hygiene; escalate when the output is owner-facing or boundary-sensitive."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": false,
   "schema_version": "ppg-stage-contract/v0.1",

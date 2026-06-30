@@ -21,6 +21,13 @@ stage_id:
 stage_name:
 purpose:
 recommended_agent_type:
+subagent_lane_policy:
+  policy: mandatory_double | conditional_double | single_with_deterministic_validation
+  default_lane_count: 1 | 2
+  producer_agent_type:
+  verifier_agent_type:
+  escalate_to_double_when: []
+  rationale:
 mode: agent_generated | script_generated | hybrid_generated | owner_gated
 consumes:
 produces:
@@ -28,6 +35,14 @@ validators:
 backflow_targets:
 completion_gate:
 ```
+
+`subagent_lane_policy` is the main-agent dispatch judgment. It determines whether the controller should use one producer/script lane, one producer plus deterministic validation, or producer + independent verifier lanes before accepting a material.
+
+- `mandatory_double` is for semantic, paper-facing, or repair-critical stages where a producer and an independent verifier are both part of normal operation.
+- `conditional_double` starts as one producer lane but escalates to a verifier lane at freeze gates, owner-facing boundaries, high-severity findings, or when the stage-specific triggers fire.
+- `single_with_deterministic_validation` is for controller/compiler/governance steps whose main correctness proof is a deterministic validator; a second subagent is an audit mode, not the default.
+
+The registry and stage-contract validators reject drift between this policy and the canonical stage classification.
 
 
 ## Context bundle policy

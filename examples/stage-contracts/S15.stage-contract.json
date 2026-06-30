@@ -23,6 +23,18 @@
   ],
   "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
   "recommended_agent_type": "executor",
+  "subagent_lane_policy": {
+    "policy": "mandatory_double",
+    "default_lane_count": 2,
+    "producer_agent_type": "executor",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "always for normal paper-facing production",
+      "full-flow QA mode",
+      "milestone or freeze gate"
+    ],
+    "rationale": "Repair execution changes accepted materials; independent verification is mandatory to prove the finding is resolved without regressions."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",

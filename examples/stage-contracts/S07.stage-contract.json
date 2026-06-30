@@ -21,6 +21,18 @@
   ],
   "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
   "recommended_agent_type": "writer",
+  "subagent_lane_policy": {
+    "policy": "conditional_double",
+    "default_lane_count": 1,
+    "producer_agent_type": "writer",
+    "verifier_agent_type": "verifier",
+    "escalate_to_double_when": [
+      "terminology affects claim strength",
+      "surface rules govern multiple writing units",
+      "pre-writing expression freeze"
+    ],
+    "rationale": "Surface and terminology controls are broad but usually locally checkable; escalate when they constrain claims across sections."
+  },
   "registry_ref": "runtime/stage_registry.json",
   "requires_worker_task_packet": true,
   "schema_version": "ppg-stage-contract/v0.1",
