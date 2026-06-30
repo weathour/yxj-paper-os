@@ -1,0 +1,47 @@
+{
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S11",
+  "stage_name": "Figure caption formal artifact production",
+  "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+  "execution_mode": "hybrid_generated",
+  "recommended_agent_type": "executor",
+  "requires_worker_task_packet": true,
+  "consumes": [
+    "figure contracts",
+    "panel evidence packages",
+    "source data locators",
+    "caption brief"
+  ],
+  "produces": [
+    "figure statistics",
+    "image integrity record",
+    "caption brief",
+    "figure export bundle"
+  ],
+  "validators": [
+    "build/render",
+    "source data",
+    "image integrity",
+    "caption claim boundary"
+  ],
+  "backflow_targets": [
+    "S08",
+    "S04",
+    "S01"
+  ],
+  "completion_gate": "figure/caption has editable source, rendered output, provenance, QA route, and claim support",
+  "activation_policy": "activate when figure/caption/formal artifacts are touched",
+  "coverage_status": "planned_with_worker_packet",
+  "registry_ref": "runtime/stage_registry.json",
+  "worker_authority_boundary": {
+    "completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "controller_owned_completion": true
+  },
+  "worker_packet_coverage": {
+    "status": "planned_with_blocker",
+    "packet_ref": null,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "blocker": "S11 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage."
+  }
+}

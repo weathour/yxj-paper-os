@@ -1,0 +1,45 @@
+{
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S03",
+  "stage_name": "Novelty and contribution option analysis",
+  "purpose": "Identify viable contribution framings without treating speculation as evidence.",
+  "execution_mode": "agent_generated",
+  "recommended_agent_type": "critic",
+  "requires_worker_task_packet": true,
+  "consumes": [
+    "research dossier",
+    "evidence inventory",
+    "motivation",
+    "SOTA map"
+  ],
+  "produces": [
+    "contribution options",
+    "novelty readiness",
+    "risk list"
+  ],
+  "validators": [
+    "evidence readiness score",
+    "source anchors",
+    "owner semantic-shift gate"
+  ],
+  "backflow_targets": [
+    "S00",
+    "S02",
+    "S04"
+  ],
+  "completion_gate": "viable options are classified as supported, owner-gated, or rejected",
+  "activation_policy": "activate when contribution is unstable or weak",
+  "coverage_status": "planned_with_worker_packet",
+  "registry_ref": "runtime/stage_registry.json",
+  "worker_authority_boundary": {
+    "completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "controller_owned_completion": true
+  },
+  "worker_packet_coverage": {
+    "status": "planned_with_blocker",
+    "packet_ref": null,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "blocker": "S03 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage."
+  }
+}

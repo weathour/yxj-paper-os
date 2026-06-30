@@ -1,0 +1,45 @@
+{
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S05",
+  "stage_name": "Paper spine and reader-question synthesis",
+  "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+  "execution_mode": "agent_generated",
+  "recommended_agent_type": "architect",
+  "requires_worker_task_packet": true,
+  "consumes": [
+    "motivation",
+    "contribution options",
+    "template profile",
+    "claim materials"
+  ],
+  "produces": [
+    "reader spine",
+    "reviewer question map",
+    "rationale matrix"
+  ],
+  "validators": [
+    "claim appears in spine",
+    "section answers reader question",
+    "owner decisions explicit"
+  ],
+  "backflow_targets": [
+    "S00",
+    "S03",
+    "S04"
+  ],
+  "completion_gate": "spine is coherent and claim-bounded before writing begins",
+  "activation_policy": "activate for new section or major rewrite",
+  "coverage_status": "planned_with_worker_packet",
+  "registry_ref": "runtime/stage_registry.json",
+  "worker_authority_boundary": {
+    "completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "controller_owned_completion": true
+  },
+  "worker_packet_coverage": {
+    "status": "planned_with_blocker",
+    "packet_ref": null,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "blocker": "S05 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage."
+  }
+}

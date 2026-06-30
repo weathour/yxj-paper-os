@@ -1,0 +1,45 @@
+{
+  "schema_version": "ppg-stage-contract/v0.1",
+  "stage_id": "S07",
+  "stage_name": "Rhetoric terminology and surface-control synthesis",
+  "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+  "execution_mode": "hybrid_generated",
+  "recommended_agent_type": "writer",
+  "requires_worker_task_packet": true,
+  "consumes": [
+    "object representation",
+    "claim visibility",
+    "evidence wording"
+  ],
+  "produces": [
+    "construction matrix",
+    "rhetorical matrix",
+    "terminology register",
+    "surface rules"
+  ],
+  "validators": [
+    "terminology coverage",
+    "forbidden internal ids",
+    "rhetorical move coverage"
+  ],
+  "backflow_targets": [
+    "S06",
+    "S04",
+    "S05"
+  ],
+  "completion_gate": "main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell",
+  "activation_policy": "activate before writing execution",
+  "coverage_status": "planned_with_worker_packet",
+  "registry_ref": "runtime/stage_registry.json",
+  "worker_authority_boundary": {
+    "completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "controller_owned_completion": true
+  },
+  "worker_packet_coverage": {
+    "status": "planned_with_blocker",
+    "packet_ref": null,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "blocker": "S07 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage."
+  }
+}
