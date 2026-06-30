@@ -5,6 +5,7 @@ repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$repo_root"
 
 cleanup_paths=()
+negative_run=""
 cleanup() {
   for path in "${cleanup_paths[@]:-}"; do
     if [[ "$path" == "$repo_root/runs/.phase10-negative-"* || "$path" == "$repo_root/runs/.phase10-negative."* ]]; then
@@ -13,6 +14,13 @@ cleanup() {
   done
 }
 trap cleanup EXIT
+
+make_negative_run() {
+  local label=$1
+  negative_run=$(mktemp -d "$repo_root/runs/.phase10-negative-${label}.XXXXXX")
+  cleanup_paths+=("$negative_run")
+  python3 scripts/generate_phase10_run_dry_run.py --run-root "$negative_run" --check >/dev/null
+}
 
 assert_fails_with() {
   local expected=$1
@@ -92,9 +100,8 @@ finally:
 PY
 
 # Negative: bare S09 injected into a run fixture must fail.
-negative_bare=$(mktemp -d "$repo_root/runs/.phase10-negative-bare-s09.XXXXXX")
-cleanup_paths+=("$negative_bare")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_bare/"
+make_negative_run bare-s09
+negative_bare=$negative_run
 python3 - "$negative_bare/run_state.json" <<'PY'
 import json, sys
 from pathlib import Path
@@ -107,9 +114,8 @@ PY
 assert_fails_with E_PHASE10_BARE_S09 python3 scripts/verify_phase10_run_readiness.py "$negative_bare"
 
 # Negative: source snapshot drift inside a pre-existing untracked source path must fail.
-negative_source=$(mktemp -d "$repo_root/runs/.phase10-negative-source-drift.XXXXXX")
-cleanup_paths+=("$negative_source")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_source/"
+make_negative_run source-drift
+negative_source=$negative_run
 python3 - "$negative_source/manifest.json" <<'PY'
 import json, sys
 from pathlib import Path
@@ -130,9 +136,8 @@ PY
 )
 
 # Negative: manifest source_root must remain bound to the pilot manifest source root.
-negative_wrong_source_root=$(mktemp -d "$repo_root/runs/.phase10-negative-wrong-source-root.XXXXXX")
-cleanup_paths+=("$negative_wrong_source_root")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_wrong_source_root/"
+make_negative_run wrong-source-root
+negative_wrong_source_root=$negative_run
 python3 - "$negative_wrong_source_root/manifest.json" "$source_root/docs" <<'PY'
 import json, sys
 from pathlib import Path
@@ -144,9 +149,8 @@ PY
 assert_fails_with E_PHASE10_SOURCE_ROOT python3 scripts/verify_phase10_run_readiness.py "$negative_wrong_source_root"
 
 # Negative: dispatch content must keep source-read-only and worker authority boundaries.
-negative_dispatch=$(mktemp -d "$repo_root/runs/.phase10-negative-dispatch.XXXXXX")
-cleanup_paths+=("$negative_dispatch")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_dispatch/"
+make_negative_run dispatch
+negative_dispatch=$negative_run
 python3 - "$negative_dispatch/dispatch/S02.dispatch.json" <<'PY'
 import json, sys
 from pathlib import Path
@@ -160,9 +164,8 @@ PY
 assert_fails_with E_PHASE10_DISPATCH_CONTENT python3 scripts/verify_phase10_run_readiness.py "$negative_dispatch"
 
 # Negative: validation records must match the stage content-validator registry.
-negative_validation=$(mktemp -d "$repo_root/runs/.phase10-negative-validation.XXXXXX")
-cleanup_paths+=("$negative_validation")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_validation/"
+make_negative_run validation
+negative_validation=$negative_run
 python3 - "$negative_validation/validation/S02.validation.json" <<'PY'
 import json, sys
 from pathlib import Path
@@ -174,9 +177,8 @@ PY
 assert_fails_with E_PHASE10_VALIDATION_CONTENT python3 scripts/verify_phase10_run_readiness.py "$negative_validation"
 
 # Negative: candidate placeholders must not overclaim manuscript completion.
-negative_candidate=$(mktemp -d "$repo_root/runs/.phase10-negative-candidate.XXXXXX")
-cleanup_paths+=("$negative_candidate")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_candidate/"
+make_negative_run candidate
+negative_candidate=$negative_run
 python3 - "$negative_candidate/candidate-artifacts/S02.candidate-placeholder.json" <<'PY'
 import json, sys
 from pathlib import Path
@@ -188,9 +190,8 @@ PY
 assert_fails_with E_PHASE10_COMPLETION_OVERCLAIM python3 scripts/verify_phase10_run_readiness.py "$negative_candidate"
 
 # Negative: per-run TaskPackets must write only to the run-owned candidate artifact path.
-negative_run_packet=$(mktemp -d "$repo_root/runs/.phase10-negative-run-packet.XXXXXX")
-cleanup_paths+=("$negative_run_packet")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_run_packet/"
+make_negative_run run-packet
+negative_run_packet=$negative_run
 python3 - "$negative_run_packet/packets/S02.task-packet.json" <<'PY'
 import json, sys
 from pathlib import Path
@@ -215,9 +216,8 @@ ln -s "$source_root" "$negative_symlink"
 assert_fails_with PHASE10_DRY_RUN_GENERATE_INVALID python3 scripts/generate_phase10_run_dry_run.py --run-root "$negative_symlink"
 
 # Negative: final/submission overclaim must fail.
-negative_overclaim=$(mktemp -d "$repo_root/runs/.phase10-negative-overclaim.XXXXXX")
-cleanup_paths+=("$negative_overclaim")
-cp -a runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/. "$negative_overclaim/"
+make_negative_run overclaim
+negative_overclaim=$negative_run
 python3 - "$negative_overclaim/run_state.json" <<'PY'
 import json, sys
 from pathlib import Path
