@@ -42,7 +42,7 @@ source_write_forbidden=true
 no_recursive_orchestration=true
 ```
 
-Nature writing expertise remains a passive stage-local overlay. It does not dispatch workers, become a department, or own graph/manuscript completion.
+Nature writing expertise remains a passive stage-local overlay. It does not dispatch workers, become a route, or own graph/manuscript completion.
 
 ## Verification
 
@@ -73,8 +73,8 @@ PHASE12_FORMAL_FULL_FLOW_VERIFY_OK
 
 - No source-paper repository writes.
 - This Phase12 formal runtime test itself did not perform live install, marketplace registration, publish lifecycle, or cachebuster update; lifecycle changes require a separate owner-authorized replacement workflow.
-- No replacement of the PPG runtime with old department loops.
-- No design dependency on incubator routes.
+- The PPG runtime remains the completion authority.
+- No design dependency on external routes.
 - No journal-quality, final-paper, or submission-readiness claim.
 
 ## Next phase

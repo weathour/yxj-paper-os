@@ -273,10 +273,10 @@ rm -f "$negative_run/dispatch/producer/S02.producer-dispatch.json"
 assert_fails_with E_PHASE13_DISPATCH_MISSING python3 scripts/verify_phase13_live_subagent_pilot.py "$negative_run"
 echo NEGATIVE_PHASE13_DISPATCH_RECORD_MISSING_OK
 
-negative_run=$(make_negative_run legacy-revival)
-printf '\nlegacy department yxj-paper-os route revived as active route\n' >> "$negative_run/returns/producer/S02.producer-return.md"
-assert_fails_with E_PHASE13_LEGACY_ROUTE_REVIVAL python3 scripts/verify_phase13_live_subagent_pilot.py "$negative_run"
-echo NEGATIVE_PHASE13_LEGACY_ROUTE_REVIVAL_OK
+negative_run=$(make_negative_run unauthorized-route)
+printf '\nunauthorized recursive route activated as active route\n' >> "$negative_run/returns/producer/S02.producer-return.md"
+assert_fails_with E_PHASE13_UNAUTHORIZED_ROUTE python3 scripts/verify_phase13_live_subagent_pilot.py "$negative_run"
+echo NEGATIVE_PHASE13_UNAUTHORIZED_ROUTE_OK
 
 negative_run=$(make_negative_run recursive-claim)
 printf '\nI will dispatch additional agents and mark final completion.\n' >> "$negative_run/returns/producer/S02.producer-return.md"

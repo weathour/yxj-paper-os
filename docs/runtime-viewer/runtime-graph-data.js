@@ -32,10 +32,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
     ['CTRL','controller','control',520,72,400,112,'Main Agent / Runtime Controller','主 Agent / Runtime 控制器','观察物料图，选择前沿节点，编译任务包，调度 subagent 或程序，收集候选产物，执行验证和提交。',['Owner 决策','物料图状态','验证报告','回流任务'],['TaskPacket','MaterialBundle','调度命令','提交或回滚决策'],['只有主 Agent 可以宣布图节点完成'],['任意 stale 节点']],
     ['GRAPH','graph','control',980,72,360,112,'Versioned Material Graph / Ledger','版本化物料图 / Ledger','保存节点、边、版本、依赖、验证器、来源锚点、stale 传播和 sidecar 状态。',['候选产物','验证结果','依赖变化','回流标记'],['可执行前沿','物料版本','stale 集合','可视化数据'],['schema 校验','依赖完整性校验','版本一致性校验'],['CTRL']],
     ['VALIDATORS','validator','control',1400,72,330,112,'Validator Registry','验证器注册表','集中管理 schema、证据、引用、stage-local overlay、审稿体验、渲染、导出和仓库卫生检查。',['候选物料','目标节点契约','期刊模板','证据锚点'],['通过/失败','错误定位','严重度','回流建议'],['主 Agent 选择并解释验证器'],['S14']],
-    ['G01','sidecar','governance',1785,72,300,112,'Runtime governance sidecar','G01 Runtime 治理 sidecar','保存权限、技能、部门元数据、路线记录和状态控制，不直接进入正文认知链。',['state','permissions','department metadata'],['skill registry','route/governance records','state controls','authority limits'],['是否越权','是否污染写作物料'],['CTRL']],
+    ['G01','sidecar','governance',1785,72,300,112,'Runtime governance sidecar','G01 Runtime 治理 sidecar','保存权限、技能、部门元数据、路线记录和状态控制，不直接进入正文认知链。',['state','permissions','route metadata'],['skill registry','route/governance records','state controls','authority limits'],['是否越权','是否污染写作物料'],['CTRL']],
     ['BUS','bus','control',520,212,1210,70,'TaskPacket + Structured MaterialBundle Bus','任务包 + 结构化物料包总线','把大上下文变成结构化包，而不是压缩成摘要。每个环节只负责一个有边界的产物。',['任务目标','强制控制项','Nature stage-local overlay clause','证据和来源锚点','局部上下文','可选背景','禁用路线','验证器','返回格式'],['可派发任务包','subagent 输入包','程序转换输入'],['字段完整性','上下文边界','禁止路线存在性'],['CTRL']],
 
-    ['S00','stage','root',210,360,300,126,'Owner semantic contract','S00 人类需求与语义契约','把人的真实写作目的转成论文 runtime 可执行的约束，确定什么能自动推进，什么必须回到人类。',['human need','paper profile','evidence summary'],['profile','motivation','core decisions','forbidden routes'],['目标具体','禁用路线显式','证据足以进入后续阶段'],['OWNER']],
+    ['S00','stage','root',210,360,300,126,'Owner semantic contract','S00 人类需求与语义契约','把人的真实写作目的转成论文 runtime 可执行的约束，确定什么能自动推进，什么必须回到人类。',['human need','paper profile','evidence summary'],['profile','motivation','core decisions','blocked routes'],['目标具体','禁用路线显式','证据足以进入后续阶段'],['OWNER']],
     ['S01','stage','inventory',560,360,300,126,'Source/citation/evidence inventory','S01 来源、引用、证据盘点','建立论文能够使用的真实材料边界，防止后续写作脱离证据。',['files','BibTeX','result dirs','locators'],['source map','citation bank','evidence bank','Nature source inventory'],['路径可访问','引用字段完整','证据可追溯'],['S00']],
 
     ['S02','analysis','research',210,560,300,126,'Research / scene / template / SOTA','S02 研究场景、模板、SOTA 分析','把材料放入读者、期刊模板、领域争论和相关工作的位置中。',['source map','venue','exemplars'],['research dossier','reader package','search strategy','template or journal profile'],['场景覆盖读者问题','模板约束可执行','SOTA 可引用'],['S01']],
@@ -93,7 +93,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     ].map(([id,x,y,w,h]) => ({ id,x,y,w,h })),
     edges: [
       ['r-c1','OWNER','CTRL','需求/批准','governance'], ['r-c2','CTRL','BUS','编译任务包','dispatch'], ['r-c3','BUS','VALIDATORS','验证规则','validation'], ['r-c4','VALIDATORS','GRAPH','验证报告','validation'], ['r-c5','GRAPH','CTRL','图状态','graph'], ['r-c6','G01','CTRL','治理边界','governance'],
-      ['r-01','S00','S01','profile / forbidden routes','material'], ['r-02','S01','S02','source map','material'], ['r-03','S02','S03','research dossier','material'], ['r-04','S03','S04','贡献候选进入证据门','material'], ['r-05','S04','S05','可写 claim','material'], ['r-06','S05','S06','reader spine','material'], ['r-07','S06','S07','对象与颗粒度','material'], ['r-08','S07','S09A','表层控制进入控制选择','material'], ['r-09','S09A','S09B','选定控制物料','material'], ['r-10','S09B','S10','正文任务包','material'], ['r-11','S10','S12','候选文本','material'], ['r-12','S12','S13','集成候选稿','material'], ['r-clean','S13','S16','review closure / clean export','material'], ['r-15','S16','FINAL','最终论文包','material'],
+      ['r-01','S00','S01','profile / blocked routes','material'], ['r-02','S01','S02','source map','material'], ['r-03','S02','S03','research dossier','material'], ['r-04','S03','S04','贡献候选进入证据门','material'], ['r-05','S04','S05','可写 claim','material'], ['r-06','S05','S06','reader spine','material'], ['r-07','S06','S07','对象与颗粒度','material'], ['r-08','S07','S09A','表层控制进入控制选择','material'], ['r-09','S09A','S09B','选定控制物料','material'], ['r-10','S09B','S10','正文任务包','material'], ['r-11','S10','S12','候选文本','material'], ['r-12','S12','S13','集成候选稿','material'], ['r-clean','S13','S16','review closure / clean export','material'], ['r-15','S16','FINAL','最终论文包','material'],
       ['r-repair1','S13','S14','findings / loss','material'], ['r-repair2','S14','S15','repair packets','material'], ['r-repair3','S15','S16','repair-complete delivery-ready','material'],
       ['r-b0','S06','S08','section/function budget','material'], ['r-b1','S05','S08','图表/形式计划','material'], ['r-b1a','S04','S08','claim/evidence to visual plan','material'], ['r-b2a','S01','S11','source data locators','material'], ['r-b2b','S04','S11','panel evidence/result package','material'], ['r-b2','S08','S11','figure contract','material'], ['r-b3','S11','S12','图表与 caption','material'], ['r-f1','S04','S09A','claim control','material'], ['r-f2','S05','S09A','spine control','material'], ['r-f3','S06','S09A','granularity control','material'],
       ['r-v1','S04','VALIDATORS','claim gate','validation','rightRail'], ['r-v2','S12','VALIDATORS','consistency gate','validation','rightRail'], ['r-v3','S13','VALIDATORS','review gate','validation','rightRail'], ['r-v4','S16','VALIDATORS','export gate','validation','rightRail'],
@@ -285,7 +285,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
       "on_active_control_path": false,
       "stale_reason": "Superseded by claim_boundary_map_v2 after overclaim review finding.",
       "status": "stale",
-      "summary": "Old claim boundary version preserved for provenance.",
+      "summary": "Superseded claim boundary version preserved for provenance.",
       "version": "v1"
     }
   ]
@@ -325,7 +325,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S00",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "light",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -345,7 +345,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S01",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "light",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -365,7 +365,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S02",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -385,7 +385,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S03",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "support",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -405,7 +405,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S04",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -425,7 +425,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S05",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -445,7 +445,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S06",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -465,7 +465,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S07",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -485,7 +485,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S08",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -505,7 +505,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S09A",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -525,7 +525,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S09B",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -545,7 +545,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S10",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -565,7 +565,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S11",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -585,7 +585,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S12",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -605,7 +605,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S13",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -625,7 +625,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S14",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -645,7 +645,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S15",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -665,7 +665,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "S16",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "primary",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -685,7 +685,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "G01",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "governance",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",
@@ -705,7 +705,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "stage_id": "G02",
         "stage_local_overlays": [
           {
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             "binding_strength": "derivative",
             "overlay_id": "nature_expert_writing",
             "registry_ref": "runtime/stage_overlay_registry.json",

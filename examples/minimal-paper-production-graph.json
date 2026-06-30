@@ -10,7 +10,7 @@
       "status": "committed",
       "version": "v1",
       "layer": 0,
-      "summary": "Human-approved topic, method boundary, and forbidden routes."
+      "summary": "Human-approved topic, method boundary, and blocked routes."
     },
     {
       "id": "evidence_inventory_v1",

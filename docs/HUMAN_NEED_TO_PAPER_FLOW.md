@@ -2,7 +2,7 @@
 
 This document defines the first human-centered paper-production flow for PPG Runtime.
 
-The starting point is not a framework, department, or material schema. The starting point is a concrete human need:
+The starting point is not a framework, route, or material schema. The starting point is a concrete human need:
 
 > I want to produce a paper that makes a specific contribution credible, readable, reviewable, and publishable.
 
@@ -37,7 +37,7 @@ Typical inputs:
 - target reader or venue route;
 - available evidence or experiments;
 - desired contribution;
-- hard constraints and forbidden routes;
+- hard constraints and blocked routes;
 - author preference and risk tolerance.
 
 Output:
@@ -67,7 +67,7 @@ This layer remains owner-gated when it changes core semantics.
 
 ## Layer 2 — Parallel analysis/design dimensions
 
-These are not departments. They are dimensions that must be considered before serious writing.
+These are not routes. They are dimensions that must be considered before serious writing.
 
 ### 2.1 Topic and contribution design
 

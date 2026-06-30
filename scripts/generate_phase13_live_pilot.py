@@ -182,7 +182,7 @@ def build_packet(stage: dict[str, Any], lane: str, pilot_run: dict[str, Any], va
         "worker_completion_forbidden": True,
         "no_recursive_orchestration": True,
         "source_write_forbidden": True,
-        "legacy_routes_forbidden": ["legacy department-loop yxj-paper-os route", "$yxj-plugin-incubator"],
+        "unauthorized_routes_forbidden": ["unauthorized recursive route", "unregistered external route"],
         "completion_boundary": BANNED_COMPLETION,
         "instructions": [
             f"Cite this packet path exactly: {packet_ref}",
@@ -231,7 +231,7 @@ Hard boundaries:
 - Mention stage `{sid}` and `{stage['stage_name']}`.
 - Do not claim final manuscript completion, submission readiness, or publication readiness.
 - Do not dispatch agents or claim controller completion authority.
-- Do not revive the legacy department-loop yxj-paper-os route or $yxj-plugin-incubator as active routes.
+- Do not activate unauthorized recursive or unregistered external routes.
 - If authority mode is assessment_only, only assess/report; do not authorize owner/script/control outputs.
 
 Packet JSON:

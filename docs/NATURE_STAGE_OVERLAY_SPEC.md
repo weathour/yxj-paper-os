@@ -4,7 +4,7 @@ Date: 2026-06-30
 
 ## Purpose
 
-The Nature-related writing expertise is absorbed as a **stage-local overlay**, not as a new department, not as a second orchestration loop, and not as a replacement for the PPG runtime controller.
+The Nature-related writing expertise is absorbed as a **stage-local overlay**, not as a new route, not as a second orchestration loop, and not as a replacement for the PPG runtime controller.
 
 The invariant remains:
 
@@ -19,7 +19,7 @@ The overlay contributes expert-writing controls to existing stages. It never dis
 - Registry: `runtime/stage_overlay_registry.json`
 - Schema: `schemas/ppg-stage-overlay-registry.schema.json`
 - Validator: `scripts/verify_stage_overlays.py`
-- Positive fixtures: `examples/overlays/nature_stage_overlay.valid.json`, `examples/overlays/valid-doc-negation-not-department.json`
+- Positive fixtures: `examples/overlays/nature_stage_overlay.valid.json`, `examples/overlays/valid-controller-boundary-note.json`
 - Negative fixtures: `examples/overlays/invalid-*.json`
 - Contract links: `examples/stage-contracts/*.stage-contract.json` field `stage_local_overlays`
 - TaskPacket transport: `mandatory_controls.nature_overlay_*` plus `validators: stage_overlay:nature_expert_writing:<stage_id>`
@@ -30,7 +30,7 @@ The overlay contributes expert-writing controls to existing stages. It never dis
 `nature_expert_writing` is valid only when all of these are true:
 
 - `stage_local_only=true`
-- `no_new_department=true`
+- `no_independent_route=true`
 - `controller_owned_completion=true`
 - `worker_completion_forbidden=true`
 - `no_recursive_orchestration=true`
@@ -60,7 +60,7 @@ Each registry binding declares:
 - `packet_clauses`: mandatory clauses that must appear inside worker TaskPacket `mandatory_controls`, not top-level packet fields;
 - `validator_checks`: stage-local checks consumed by validator registries and run artifacts;
 - `backflow_targets`: nearest stages to revisit when the overlay finds a problem;
-- `prohibited_routes`: authority boundaries that prevent self-certifying department behavior.
+- `prohibited_routes`: authority boundaries that prevent controller-bypassing route behavior.
 
 Examples:
 
@@ -109,17 +109,17 @@ The validator locks these failure classes:
 
 - unknown stage id;
 - bare `S09`;
-- authority expansion or autonomous department route;
+- authority expansion or autonomous execution route;
 - missing worker packet clause;
 - missing content-validator coverage;
 - invalid backflow target;
 - missing required Nature overlay;
 - missing primary binding;
-- false positive prevention for documentation text that says “not a department”.
+- false positive prevention for documentation text that states controller-only stage-local boundaries.
 
 ## Non-goals
 
-- No migration back to legacy `$yxj-paper-os` departments.
-- No use of `$yxj-plugin-incubator` as design source.
+- No migration back to controller-bypassing routes.
+- Only controller-authorized PPG runtime routes are active.
 - No lifecycle mutation inside the Nature overlay absorption itself; owner-authorized plugin replacement may update install/cachebuster through the controller workflow.
 - No claim that Nature skill absorption makes the paper complete or submission-ready.

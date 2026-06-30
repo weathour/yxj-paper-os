@@ -15,7 +15,7 @@
       "status": "committed",
       "version": "v1",
       "layer": 0,
-      "summary": "Human-approved PPG runtime fixture scope and no-incubator boundary."
+      "summary": "Human-approved PPG runtime fixture scope and no-external route boundary."
     },
     {
       "id": "evidence_inventory_v1",
@@ -40,7 +40,7 @@
       "layer": 2,
       "artifact_path": "examples/materials/claim_boundary_map.v1.yaml",
       "stale_reason": "Superseded by claim_boundary_map_v2 after overclaim review finding.",
-      "summary": "Old claim boundary version preserved for provenance."
+      "summary": "Superseded claim boundary version preserved for provenance."
     },
     {
       "id": "reader_spine_v1",
@@ -253,7 +253,7 @@
       "target": "claim_boundary_map_v1",
       "edge_type": "supersedes",
       "dependency_strength": "provenance",
-      "label": "new version supersedes old version"
+      "label": "new version supersedes superseded version"
     },
     {
       "id": "e13",

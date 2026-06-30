@@ -14,8 +14,8 @@ Two independent read-only subagents reviewed the repository:
 
 | Question | Verdict | Reason |
 | --- | --- | --- |
-| Has the design moved away from yxj-paper-os-style department self-loops? | Yes, architecturally | The controller/graph/validator/bus model correctly places the main agent in charge and treats subagents as bounded stage workers. |
-| Are the adjusted stage flows reasonable as a taxonomy/view? | Yes | `S03 -> S04`, `S06 -> S08`, `S01/S04 -> S11`, `S09A -> S09B -> S10`, and `S14/S15 -> S09A/S09B` fix the previous worst stage-level ambiguities. |
+| Has the design moved away from yxj-paper-os-style controller-bypassing loops? | Yes, architecturally | The controller/graph/validator/bus model correctly places the main agent in charge and treats subagents as bounded stage workers. |
+| Are the adjusted stage flows reasonable as a taxonomy/view? | Yes | `S03 -> S04`, `S06 -> S08`, `S01/S04 -> S11`, `S09A -> S09B -> S10`, and `S14/S15 -> S09A/S09B` fix the stage-level ambiguities. |
 | Is it a runnable runtime now? | No | It is still a stage taxonomy, visual roadmap, and protocol draft; it lacks executable versioned material graph semantics. |
 | Can review backflow truly perform local reverse propagation? | Not yet | Current examples and validators do not prove `material@v2 --supersedes--> material@v1`, scoped stale propagation, or regenerated downstream packets/drafts. |
 | Can real subagents safely execute from the current material packets? | Not yet | `WritingTaskPacket`, `BackflowTask`, `ReviewFinding`, `ReviewClosure`, and validator reports need hard schemas and Codex dispatch fields. |

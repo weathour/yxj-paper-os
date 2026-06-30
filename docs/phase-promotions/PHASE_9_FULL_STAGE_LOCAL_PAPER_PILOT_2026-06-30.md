@@ -68,7 +68,7 @@ bash scripts/verify_phase9_full_stage_runtime.sh
 
 The wrapper verifies:
 
-1. legacy archive guard;
+1. runtime material guard;
 2. stage registry and StageContract fixtures;
 3. read-only local-paper import;
 4. generated full-stage PilotStageRun coverage;

@@ -20,12 +20,12 @@ human owner <-> main Codex agent
 
 The main agent owns process control. Subagents and scripts operate only on explicit task packets.
 
-## Why this replaces the department model
+## Why this replaces the route model
 
-The previous department model failed because it encouraged hidden self-loops:
+The upstream route model failed because it encouraged hidden self-loops:
 
 ```text
-department -> internal analysis -> internal review -> department declares progress
+route -> internal analysis -> internal review -> route claims progress
 ```
 
 The new model uses explicit graph state:
@@ -143,7 +143,7 @@ Only after the graph/runtime loop is validated, design:
 These are phase-local boundaries, not permanent bans on an owner-authorized plugin replacement workflow.
 
 - unapproved live install or marketplace publication outside the controller-owned replacement workflow;
-- revival or mutation of the legacy department-loop `yxj-paper-os` route;
+- activation or mutation of the unauthorized recursive route;
 - full front-end app implementation;
 - whole-paper autonomous generation;
 - external submission/upload;

@@ -73,7 +73,7 @@ STAGE_SOURCE_REFS = {
     "G02": ["PROJECT_STATUS.md"],
 }
 FLOW_EDGES = [
-    ("S00", "S01", "profile/forbidden routes"),
+    ("S00", "S01", "profile/blocked routes"),
     ("S01", "S02", "source map"),
     ("S02", "S03", "research dossier"),
     ("S01", "S04", "evidence bank"),
@@ -221,8 +221,8 @@ def consumed_materials(stage: dict[str, Any], pilot_root: Path, artifact_refs: d
     for ref in source_refs:
         values.append({"material_id": f"{sid.lower()}_source_ref_{slug(ref)[:48]}", "kind": "source_or_runtime_ref", "ref": ref})
     if sid not in {"S00", "G01"}:
-        previous = [edge[0] for edge in FLOW_EDGES if edge[1] == sid and edge[0] not in {"G01"}]
-        for prev in sorted(set(previous)):
+        upstream = [edge[0] for edge in FLOW_EDGES if edge[1] == sid and edge[0] not in {"G01"}]
+        for prev in sorted(set(upstream)):
             values.append({"material_id": f"{prev.lower()}_pilot_output", "kind": "upstream_stage_output", "producer_stage_id": prev, "ref": artifact_refs[prev]})
     if not values:
         values.append({"material_id": f"{sid.lower()}_pilot_context", "kind": "pilot_context", "ref": repo_rel(pilot_root / "manifest.json")})
@@ -259,7 +259,7 @@ def stage_local_overlays(contract: dict[str, Any]) -> list[dict[str, Any]]:
                 "binding_strength": item.get("binding_strength"),
                 "registry_ref": item.get("registry_ref", OVERLAY_REGISTRY_REF),
                 "validator_ref": f"stage_overlay:{overlay_id}:{stage_id}",
-                "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
             }
         )
     return projected

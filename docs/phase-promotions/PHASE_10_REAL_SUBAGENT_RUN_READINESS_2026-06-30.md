@@ -18,7 +18,7 @@ Phase 10 covers:
 - content validator registry for every canonical stage;
 - runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
 - source-read-only filesystem snapshot proof excluding `.git/.omx` runtime state;
-- forbidden-side-effect guard for old-runtime, incubator, live lifecycle, and false-readiness boundaries;
+- forbidden-side-effect guard for unapproved-runtime, external route, live lifecycle, and false-readiness boundaries;
 - aggregate verification over Phase10 plus inherited Phase9/8/7/6 gates.
 
 ## Worker packet readiness
@@ -67,8 +67,8 @@ The aggregate gate includes positive checks and negative probes for wrong-stage 
 
 ## Explicit non-goals
 
-- Forbidden boundary: do not revive the legacy department-loop `$yxj-paper-os` operating model.
-- Forbidden boundary: do not use `$yxj-plugin-incubator` as a design source or active route.
+- Boundary: do not activate the controller-bypassing route behavior.
+- Boundary: only controller-authorized PPG runtime routes are active.
 - Local plugin install/cachebuster lifecycle: enabled only through explicit owner-authorized plugin maintenance; this promotion itself remains a runtime-readiness gate, not a publication/submission claim.
 - Marketplace registration: not enabled.
 - Publish/cachebuster lifecycle: not enabled.

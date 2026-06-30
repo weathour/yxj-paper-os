@@ -6,16 +6,15 @@ The target model is:
 
 > **Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch**
 
-This plugin intentionally replaces the failed department-self-loop model with a graph runtime model: the main Codex agent controls a versioned paper-production graph, specialist agents or scripts operate on bounded graph nodes, validators decide node status, and review findings produce targeted backflow instead of whole-paper rewrites.
+This plugin uses a graph runtime model: the main Codex agent controls a versioned paper-production graph, specialist agents or scripts operate on bounded graph nodes, validators decide node status, and review findings produce targeted backflow instead of whole-paper rewrites.
 
-This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. Its control model is the PPG runtime itself: material versions, transform tasks, validators, local backflow, and a main-agent controller.
+Its control model is the PPG runtime itself: material versions, transform tasks, validators, local backflow, and a main-agent controller.
 
 ## Current status
 
 - Phase: Phase 13 promoted — live native-subagent full-flow pilot on top of the Phase 12 formal harness, followed by post-Phase13 main-agent lane-policy hardening. The runtime records 40 real native-subagent lanes in strict QA mode, and the canonical stage registry now tells the main agent when production should use mandatory producer+verifier lanes, conditional verifier escalation, or one lane plus deterministic validation. It remains a runtime-pilot capability, not a manuscript or submission-readiness claim.
 - Local install: enabled through the personal-local marketplace as `yxj-paper-os`.
 - Marketplace source: local personal marketplace entry pointing at `/home/weathour/plugins/yxj-paper-os`.
-- Legacy `$yxj-paper-os` department-loop design: preserved only through git history/archive provenance, not active runtime behavior.
 
 ## Core documents
 
@@ -52,10 +51,6 @@ This project is not based on `$yxj-plugin-incubator` or Plugin OS v2+ concepts. 
 31. [`docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`](docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md) — formal promotion record for the full-flow runtime-test harness.
 32. [`docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`](docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md) — formal promotion record for the live native-subagent full-flow pilot with producer/verifier lanes.
 
-## Archived provenance
-
-Historical yxj-paper-os process inventory and neural-layer map artifacts are preserved under [`archive/legacy-yxj-paper-os-design-20260630/MANIFEST.md`](archive/legacy-yxj-paper-os-design-20260630/MANIFEST.md). They are provenance only and are not active runtime instructions.
-
 ## Minimal artifacts
 
 - [`schemas/ppg-graph.schema.json`](schemas/ppg-graph.schema.json): graph data schema for front-end/runtime exchange, now including Phase 2 runtime material fields.
@@ -84,12 +79,12 @@ Historical yxj-paper-os process inventory and neural-layer map artifacts are pre
 - [`scripts/generate_phase12_full_flow_run.py`](scripts/generate_phase12_full_flow_run.py), [`scripts/verify_phase12_full_flow_run.py`](scripts/verify_phase12_full_flow_run.py), [`scripts/verify_phase12_formal_full_flow.sh`](scripts/verify_phase12_formal_full_flow.sh), and [`runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/`](runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/): Phase 12 deterministic formal full-flow runtime-test harness with run-owned candidates, dispatch/validation/material/frontier ledgers, local backflow closure, delivery-gate evidence, source snapshot refs, and exact-code negative probes.
 - [`scripts/generate_phase13_live_pilot.py`](scripts/generate_phase13_live_pilot.py), [`scripts/record_phase13_subagent_return.py`](scripts/record_phase13_subagent_return.py), [`scripts/ingest_phase13_live_pilot.py`](scripts/ingest_phase13_live_pilot.py), [`scripts/verify_phase13_live_subagent_pilot.py`](scripts/verify_phase13_live_subagent_pilot.py), [`scripts/verify_phase13_live_subagent_pilot.sh`](scripts/verify_phase13_live_subagent_pilot.sh), and [`runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot/`](runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot/): Phase 13 live native-subagent pilot with 20 producer lanes, 20 independent verifier lanes, thread/hash provenance, run-owned stage effects, live validations, source-read-only snapshots, delivery-gate evidence, and exact-code negative probes.
 - [`scripts/import_local_paper_pilot.py`](scripts/import_local_paper_pilot.py), [`scripts/generate_local_paper_full_pilot.py`](scripts/generate_local_paper_full_pilot.py), [`scripts/verify_local_paper_full_pilot.py`](scripts/verify_local_paper_full_pilot.py), [`scripts/verify_phase9_frontend_stage_coverage.py`](scripts/verify_phase9_frontend_stage_coverage.py), and [`scripts/verify_phase9_full_stage_runtime.sh`](scripts/verify_phase9_full_stage_runtime.sh): Phase 9 read-only import, PilotStageRun generation, frontend sync, and aggregate verification gates.
-- [`examples/packets/intro_writing_packet.v2.yaml`](examples/packets/intro_writing_packet.v2.yaml), [`examples/packets/claim_repair_packet.v1.yaml`](examples/packets/claim_repair_packet.v1.yaml), [`examples/missing_material_reports/intro_missing_reader_spine.v1.yaml`](examples/missing_material_reports/intro_missing_reader_spine.v1.yaml), and [`examples/candidate_returns/intro_candidate_return.v1.yaml`](examples/candidate_returns/intro_candidate_return.v1.yaml): Phase 6 positive evidence for strict packets, blocked compilation, and non-self-certifying candidate return.
+- [`examples/packets/intro_writing_packet.v2.yaml`](examples/packets/intro_writing_packet.v2.yaml), [`examples/packets/claim_repair_packet.v1.yaml`](examples/packets/claim_repair_packet.v1.yaml), [`examples/missing_material_reports/intro_missing_reader_spine.v1.yaml`](examples/missing_material_reports/intro_missing_reader_spine.v1.yaml), and [`examples/candidate_returns/intro_candidate_return.v1.yaml`](examples/candidate_returns/intro_candidate_return.v1.yaml): Phase 6 positive evidence for strict packets, blocked compilation, and controller-bounded candidate return.
 - [`examples/runtime/overclaim-loop.phase7-after.json`](examples/runtime/overclaim-loop.phase7-after.json): Phase 7 closed-loop after graph consumed by the Phase 8 runtime adapter/frontend state surface.
 
 ## Design principle
 
-The main agent is not a department manager. It is the runtime controller of a paper-production graph:
+The main agent is the runtime controller of a paper-production graph:
 
 ```text
 observe graph -> select frontier -> compile packet -> dispatch/execute -> collect -> validate -> commit/stale/backflow -> repeat

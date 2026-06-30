@@ -339,7 +339,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     ]
 
     canonical_ids = list(registry["canonical_stage_ids"])
-    previous_materials: list[str] = []
+    upstream_materials: list[str] = []
     for index, stage in enumerate(registry["stages"], start=1):
         sid = stage["stage_id"]
         contract = load_json(ROOT / stage["contract_ref"])
@@ -388,7 +388,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         }
         materials.append(material)
 
-        ready_inputs = list(previous_materials[-3:]) or pilot_run.get("consumed_materials", [])[:3]
+        ready_inputs = list(upstream_materials[-3:]) or pilot_run.get("consumed_materials", [])[:3]
         stage_statuses.append(
             {
                 "stage_id": sid,
@@ -462,7 +462,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
                 {"event_id": f"{index:03d}-{sid}-validation", "event": "validation_recorded", "run_id": RUN_ID, "stage_id": sid, "artifact_ref": validation_ref},
             ]
         )
-        previous_materials.append(produced_material)
+        upstream_materials.append(produced_material)
 
     finding_ref = "review-findings/S13-overclaim-locality.review-finding.json"
     task_ref = "backflow-tasks/S14-overclaim-locality.backflow-task.json"

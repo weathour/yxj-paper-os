@@ -22,7 +22,7 @@ Phase 13 covers:
 - source-read-only snapshot comparison before/after/current against the local paper source root;
 - final-state source snapshot equality as the Phase 13 source-write proof; it does not claim process-level immutable mounts for subagent processes;
 - delivery gate verdict `pass_for_live_runtime_pilot_only` with 20 `accept_with_limitations`, 0 `needs_repair`, and 0 `reject` outcomes;
-- exact-code negative probes for missing returns, duplicate thread ids, weak/generic returns, missing packet citation, verifier parroting, worker-role misuse, authority-mode mismatch, legacy-route revival, recursive orchestration claims, rejected stages, unresolved repairs, and source snapshot drift, non-worker agent-type mismatch, exact thread-coverage loss, verifier producer-return grounding tamper, missing/tampered dispatch and validation ledgers, dispatch authority tamper, raw verifier verdict tamper, validation status mismatch, effect/controller-acceptance mismatch, and missing dispatch records.
+- exact-code negative probes for missing returns, duplicate thread ids, weak/generic returns, missing packet citation, verifier parroting, worker-role misuse, authority-mode mismatch, unauthorized-route activation, recursive orchestration claims, rejected stages, unresolved repairs, and source snapshot drift, non-worker agent-type mismatch, exact thread-coverage loss, verifier producer-return grounding tamper, missing/tampered dispatch and validation ledgers, dispatch authority tamper, raw verifier verdict tamper, validation status mismatch, effect/controller-acceptance mismatch, and missing dispatch records.
 
 ## Double-agent stage model
 
@@ -31,7 +31,7 @@ Each stage is exercised with a two-lane contract:
 1. **Producer subagent** consumes the stage producer packet and emits a stage-local candidate/effect assessment.
 2. **Verifier subagent** consumes the verifier packet plus the producer return and emits an independent verdict and critique.
 
-The verifier does not become the controller. Every verifier return is evidence for the main-agent/controller delivery gate, not a self-certifying completion decision.
+The verifier does not become the controller. Every verifier return is evidence for the main-agent/controller delivery gate, not a controller-owned completion decision.
 
 The per-stage effect scores are pilot triage scores derived from bounded return properties and verifier verdicts. They support controller routing and repair-locality inspection, but they are not manuscript-quality metrics and do not certify semantic paper progress.
 
@@ -50,7 +50,7 @@ native_subagent=true
 
 Stages that do not require worker task packets remain `assessment_only`: `S00`, `S01`, `S09A`, `S09B`, `S14`, `S16`, `G01`, and `G02`.
 
-The term "zero trust" remains scoped to the local paper's controller-side zero-default authority for degraded V2X evidence. Phase 13 does not revive legacy `$yxj-paper-os` department loops or use `$yxj-plugin-incubator` as a design source.
+The term "zero trust" remains scoped to the local paper's controller-side zero-default authority for degraded V2X evidence. Phase 13 keeps controller-owned completion and source-read-only boundaries.
 
 ## Core artifacts
 
@@ -96,7 +96,7 @@ PHASE13_LIVE_SUBAGENT_PILOT_VERIFY_OK
 - No final manuscript, final paper, submission-readiness, or publication-readiness claim.
 - No verifier-owned or worker-owned completion authority.
 - No recursive subagent orchestration by stage lanes.
-- No revival of legacy `$yxj-paper-os` department-loop routes or `$yxj-plugin-incubator` as active routes.
+- Only controller-authorized PPG runtime routes are active routes.
 
 ## Next phase
 

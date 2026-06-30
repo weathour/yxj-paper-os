@@ -96,6 +96,6 @@ Phase 5 does not:
 - validate or commit the expected output material;
 - update frontend visualization;
 - install or publish the plugin;
-- revive legacy department-loop `$yxj-paper-os` behavior.
+- activate controller-bypassing route behavior.
 
 Those belong to later phases.

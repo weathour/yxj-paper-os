@@ -110,7 +110,7 @@ def validate_run(
             "binding_strength": item.get("binding_strength"),
             "registry_ref": item.get("registry_ref", OVERLAY_REGISTRY_REF),
             "validator_ref": f"stage_overlay:{item.get('overlay_id')}:{item.get('stage_id', sid)}",
-            "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
         }
         for item in expected_overlays
         if isinstance(item, dict)

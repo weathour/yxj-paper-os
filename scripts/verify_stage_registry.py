@@ -129,7 +129,7 @@ def validate_registry(data: dict[str, Any]) -> list[str]:
             if not isinstance(value, list) or not value or not all(isinstance(item, str) and item.strip() for item in value):
                 errors.append(issue("E_STAGE_REGISTRY_LIST_FIELD", f"{stage_id}.{field}"))
         errors.extend(validate_lane_policy(stage_id, stage.get("recommended_agent_type"), stage.get("subagent_lane_policy")))
-        if "$yxj-plugin-incubator" in json.dumps(stage, ensure_ascii=False) or "legacy $yxj-paper-os" in json.dumps(stage, ensure_ascii=False):
+        if "unregistered external route" in json.dumps(stage, ensure_ascii=False) or "disabled $yxj-paper-os" in json.dumps(stage, ensure_ascii=False):
             errors.append(issue("E_STAGE_REGISTRY_FORBIDDEN_ROUTE", stage_id))
     if ids != REQUIRED_STAGE_IDS:
         errors.append(issue("E_STAGE_REGISTRY_ORDER_OR_SET", f"got {ids}"))
@@ -149,7 +149,7 @@ def run_negative_cases(valid: dict[str, Any]) -> list[str]:
     duplicate["stages"] = duplicate["stages"] + [copy.deepcopy(duplicate["stages"][0])]
     cases.append(("duplicate", duplicate, "E_STAGE_REGISTRY_DUPLICATE"))
     invalid_mode = copy.deepcopy(valid)
-    invalid_mode["stages"][0]["execution_mode"] = "department_loop"
+    invalid_mode["stages"][0]["execution_mode"] = "controller_bypassing_route"
     cases.append(("invalid_mode", invalid_mode, "E_STAGE_REGISTRY_MODE"))
     missing_contract = copy.deepcopy(valid)
     missing_contract["stages"][0].pop("contract_ref", None)

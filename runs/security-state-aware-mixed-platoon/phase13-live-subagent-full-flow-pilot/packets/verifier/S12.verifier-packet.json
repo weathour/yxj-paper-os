@@ -17,13 +17,10 @@
     "Return text only; do not edit files.",
     "Do not dispatch agents, do not mark final completion, do not claim manuscript/submission/publication readiness.",
     "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs.",
-    "Read and assess producer return returns/producer/S12.producer-return.md with sha256 980cd1e9685cf98a9974fcfc56a2e83c488a32d2baff769325520b9c51c092c9."
+    "Read and assess producer return returns/producer/S12.producer-return.md with sha256 980cd1e9685cf98a9974fcfc56a2e83c488a32d2baff769325520b9c51c092c9.",
+    "Read and assess producer return returns/producer/S12.producer-return.md with sha256 c2e6d132037b05abbc1b4e60e420b16de71557c894e681c9b67becdc8bb74c05."
   ],
   "lane": "verifier",
-  "legacy_routes_forbidden": [
-    "legacy department-loop yxj-paper-os route",
-    "$yxj-plugin-incubator"
-  ],
   "no_recursive_orchestration": true,
   "output_return_ref": "returns/verifier/S12.verifier-return.md",
   "packet_id": "phase13.S12.verifier",
@@ -90,7 +87,7 @@
     }
   ],
   "producer_return_ref": "returns/producer/S12.producer-return.md",
-  "producer_return_sha256": "980cd1e9685cf98a9974fcfc56a2e83c488a32d2baff769325520b9c51c092c9",
+  "producer_return_sha256": "c2e6d132037b05abbc1b4e60e420b16de71557c894e681c9b67becdc8bb74c05",
   "producer_thread_id": "019f17f6-b6d3-7dc1-a71f-b98ba495da4d",
   "produces": [
     "integrated manuscript candidate",
@@ -113,5 +110,9 @@
   "stage_contract_ref": "examples/stage-contracts/S12.stage-contract.json",
   "stage_id": "S12",
   "stage_name": "Integration and consistency pass",
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
+  ],
   "worker_completion_forbidden": true
 }

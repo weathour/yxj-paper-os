@@ -33,8 +33,8 @@
         },
         {
           "dimension_id": "s00_2",
-          "name": "forbidden route acknowledgement",
-          "required_evidence": "S00 evidence for forbidden route acknowledgement"
+          "name": "blocked route acknowledgement",
+          "required_evidence": "S00 evidence for blocked route acknowledgement"
         },
         {
           "dimension_id": "s00_3",
@@ -44,7 +44,7 @@
         {
           "dimension_id": "s00_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S00 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S00 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -53,7 +53,7 @@
         "completion_boundary_explicit",
         "controller_owned_status",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "S00",
       "stage_name": "Owner semantic contract",
@@ -80,7 +80,7 @@
         {
           "dimension_id": "s01_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S01 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S01 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -89,7 +89,7 @@
         "completion_boundary_explicit",
         "controller_owned_status",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "S01",
       "stage_name": "Source citation evidence inventory",
@@ -116,7 +116,7 @@
         {
           "dimension_id": "s02_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S02 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S02 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -127,7 +127,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S02",
@@ -155,7 +155,7 @@
         {
           "dimension_id": "s03_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S03 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S03 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -166,7 +166,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S03",
@@ -194,7 +194,7 @@
         {
           "dimension_id": "s04_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S04 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S04 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -205,7 +205,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S04",
@@ -233,7 +233,7 @@
         {
           "dimension_id": "s05_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S05 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S05 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -244,7 +244,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S05",
@@ -272,7 +272,7 @@
         {
           "dimension_id": "s06_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S06 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S06 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -283,7 +283,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S06",
@@ -311,7 +311,7 @@
         {
           "dimension_id": "s07_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S07 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S07 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -322,7 +322,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S07",
@@ -350,7 +350,7 @@
         {
           "dimension_id": "s08_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S08 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S08 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -361,7 +361,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S08",
@@ -389,7 +389,7 @@
         {
           "dimension_id": "s09a_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S09A evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S09A evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -398,7 +398,7 @@
         "completion_boundary_explicit",
         "controller_owned_status",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "S09A",
       "stage_name": "Control-material selection",
@@ -425,7 +425,7 @@
         {
           "dimension_id": "s09b_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S09B evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S09B evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -434,7 +434,7 @@
         "completion_boundary_explicit",
         "controller_owned_status",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "S09B",
       "stage_name": "Per-unit task packet assembly",
@@ -461,7 +461,7 @@
         {
           "dimension_id": "s10_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S10 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S10 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -472,7 +472,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S10",
@@ -500,7 +500,7 @@
         {
           "dimension_id": "s11_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S11 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S11 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -511,7 +511,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S11",
@@ -539,7 +539,7 @@
         {
           "dimension_id": "s12_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S12 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S12 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -550,7 +550,7 @@
         "candidate_return_or_missing_material_path",
         "worker_authority_boundary",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S12",
@@ -578,7 +578,7 @@
         {
           "dimension_id": "s13_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S13 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S13 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -591,7 +591,7 @@
         "local_backflow_route",
         "repair_locality",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S13",
@@ -619,7 +619,7 @@
         {
           "dimension_id": "s14_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S14 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S14 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -630,7 +630,7 @@
         "local_backflow_route",
         "repair_locality",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "S14",
       "stage_name": "Backflow compilation and repair planning",
@@ -657,7 +657,7 @@
         {
           "dimension_id": "s15_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S15 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S15 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -670,7 +670,7 @@
         "local_backflow_route",
         "repair_locality",
         "stage_overlay_binding",
-        "no_department_route",
+        "controller_route_only",
         "stage_overlay_packet_clause"
       ],
       "stage_id": "S15",
@@ -698,7 +698,7 @@
         {
           "dimension_id": "s16_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "S16 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "S16 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -708,7 +708,7 @@
         "controller_owned_status",
         "owner_gate_or_export_hygiene",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "S16",
       "stage_name": "Export repository hygiene and handoff",
@@ -735,7 +735,7 @@
         {
           "dimension_id": "g01_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "G01 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "G01 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -744,7 +744,7 @@
         "completion_boundary_explicit",
         "controller_owned_status",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "G01",
       "stage_name": "Runtime governance registry",
@@ -771,7 +771,7 @@
         {
           "dimension_id": "g02_nature_overlay",
           "name": "Nature expert-writing overlay binding",
-          "required_evidence": "G02 evidence for stage-local Nature overlay binding without department route"
+          "required_evidence": "G02 evidence for stage-local Nature overlay binding with controller-only routing"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -781,7 +781,7 @@
         "controller_owned_status",
         "owner_gate_or_export_hygiene",
         "stage_overlay_binding",
-        "no_department_route"
+        "controller_route_only"
       ],
       "stage_id": "G02",
       "stage_name": "Derivative and post-paper outputs",

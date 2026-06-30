@@ -6,4 +6,4 @@ material_type: TerminologyRegister
 summary: Stale terminology register on the active control path; used to test stale frontier priority.
 payload:
   stale_terms:
-    - autonomous department
+    - autonomous route

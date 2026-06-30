@@ -10,7 +10,7 @@ Strict TaskPacket + consumed material bundle
   -> main-agent commit/backflow decision
 ```
 
-A ring is not a department. It is a repeatable transform over explicit inputs and outputs.
+A ring is a repeatable transform over explicit inputs and outputs.
 
 ## Stage interface
 
@@ -47,7 +47,7 @@ The registry and stage-contract validators reject drift between this policy and 
 
 ## Context bundle policy
 
-Use ADR-0003: subagents may receive relatively large material bundles, but the bundle must be structured rather than lossy-compressed. The task packet compiler should organize materials into mandatory controls, evidence/source anchors, local context, optional background, forbidden routes, validator refs, and return format.
+Use ADR-0003: subagents may receive relatively large material bundles, but the bundle must be structured rather than lossy-compressed. The task packet compiler should organize materials into mandatory controls, evidence/source anchors, local context, optional background, blocked routes, validator refs, and return format.
 
 The goal is not to minimize context at all costs. The goal is to prevent undifferentiated context dumps and to make the packet an authority boundary.
 
@@ -55,7 +55,7 @@ Phase 6 strict packets add explicit `allowed_read_paths`, `allowed_write_paths`,
 
 ## Stage-local overlay policy
 
-Phase 11 adds `nature_expert_writing` as a stage-local overlay. It is not a department and not a separate worker route.
+Phase 11 adds `nature_expert_writing` as a stage-local overlay. It is stage-local control and not a separate worker route.
 
 When a stage uses this overlay, the subagent receives it only through existing packet channels:
 
@@ -74,7 +74,7 @@ The overlay may add expert-writing controls, expected outputs, and review checks
 - **Agent type:** main agent; optionally `analyst` / `planner` for interview synthesis.
 - **Mode:** `owner_gated` + `hybrid_generated`.
 - **Consumes:** human prompt, existing paper profile, source/evidence summary.
-- **Produces:** `paper-profile.yaml`, `motivation.yaml`, decision records, forbidden routes, success criteria.
+- **Produces:** `paper-profile.yaml`, `motivation.yaml`, decision records, blocked routes, success criteria.
 - **Validators:** owner confirmation for core motivation, venue, claim scope, private-source policy.
 - **Backflow targets:** human owner; no subagent may silently change this layer.
 - **Completion gate:** explicit confirmed decision or recorded assumption with owner-gated status.
@@ -272,7 +272,7 @@ These are important but not part of the main paper cognition forward pass.
 
 ### G01 — Runtime governance registry
 
-- **Consumes/produces:** `state.yaml`, `manager-boot-checklist.yaml`, department/governance templates, `company-skill-registry.yaml`.
+- **Consumes/produces:** `state.yaml`, `manager-boot-checklist.yaml`, route/governance templates, `company-skill-registry.yaml`.
 - **Purpose:** define permissions, lane ownership, state control, skill-as-SOP registry.
 - **Agent type:** main agent / `verifier`.
 - **Use:** before enabling automation, not before every writing task.

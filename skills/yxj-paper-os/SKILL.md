@@ -9,7 +9,7 @@ Use this skill when the user wants to design, inspect, or operate a Codex-native
 
 ## Public surface
 
-Expose exactly one public manager surface: the main Codex agent manages the paper-production graph. Internal graph operations, validators, task-packet compilers, mock workers, and frontend panels are implementation lanes, not user-facing departments.
+Expose exactly one public manager surface: the main Codex agent manages the paper-production graph. Internal graph operations, validators, task-packet compilers, mock workers, and frontend panels are implementation lanes, not user-facing routes.
 
 The runtime model is:
 
@@ -36,7 +36,7 @@ This repository is the active `yxj-paper-os` plugin implemented as a Phase13 PPG
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
 
-Do **not** revive the legacy department-loop `$yxj-paper-os` design or use `$yxj-plugin-incubator` as a design source. Plugin install/cachebuster updates are allowed only as explicit lifecycle operations for this PPG-backed `yxj-paper-os`; publication/submission claims remain owner-gated.
+Use the PPG-backed `yxj-paper-os` manager surface as the single public entry. Plugin install/cachebuster updates are explicit lifecycle operations; publication/submission claims remain owner-gated.
 
 ## First documents to read
 
@@ -146,4 +146,4 @@ A paper-production node is not complete because an agent produced text. It is co
 - Treat frontend state as human-owner observability, not as a commit surface.
 - Keep graph-operation modules bounded by material/task/validator/backflow/delivery contracts.
 - Preserve existing validation gates before promoting any phase or manuscript state.
-- Treat `nature_expert_writing` as a stage-local overlay only; it may shape controls and validators but must not become a department, dispatcher, or completion authority.
+- Treat `nature_expert_writing` as a stage-local overlay only; it may shape controls and validators but must not become a route, dispatcher, or completion authority.

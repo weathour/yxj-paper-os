@@ -25,7 +25,7 @@ Main Agent / Runtime Controller
 
 | Stage | Input bundle | Output materials |
 | --- | --- | --- |
-| S00 Owner semantic contract | human need, paper profile, evidence summary | paper profile, motivation, decisions, forbidden routes |
+| S00 Owner semantic contract | human need, paper profile, evidence summary | paper profile, motivation, decisions, blocked routes |
 | S01 Source/citation/evidence inventory | files, BibTeX, result dirs, locators | source map, citation bank, evidence bank, Nature source inventory |
 | S02 Research/scene/template/SOTA | source map, venue, exemplars | research dossier, reader package, search strategy, template/journal profile |
 | S03 Novelty/contribution options | research, evidence, SOTA, motivation | contribution options, evidence-readiness, risk list |
@@ -43,7 +43,7 @@ Main Agent / Runtime Controller
 | S14 Backflow compilation | review findings, graph state, affected materials | narrative backflow task, repair packets, control-reselection/packet-regeneration tasks, polishing/response plans |
 | S15 Repair/local regeneration | backflow task, target material, stale downstream set | revised material/text/figure, regenerated task packet when needed, updated validator report |
 | S16 Export/handoff/delivery | clean final candidate from S12, review closure from S13, repair-complete package from S15, figures, repository state | export manifest, repository hygiene report, manager handoff reports |
-| G01 Runtime governance | state, permissions, department metadata | skill registry, route/governance records, state controls |
+| G01 Runtime governance | state, permissions, route metadata | skill registry, route/governance records, state controls |
 | G02 Derivative/post-paper outputs | stable paper, owner request | presentation plan, patent boundary, profile-specific derivative package |
 
 ## Stage-local overlay lane
@@ -58,7 +58,7 @@ runtime/stage_overlay_registry.json
   -> Phase10 dispatch/validation/candidate/run-state evidence
 ```
 
-The active overlay is `nature_expert_writing`. It contributes Nature-style expert writing controls to existing stages, but it is not a department and cannot dispatch workers or certify completion.
+The active overlay is `nature_expert_writing`. It contributes Nature-style expert writing controls to existing stages, but it is stage-local control and cannot dispatch workers or certify completion.
 
 Typical stage effects:
 
@@ -75,7 +75,7 @@ Typical stage effects:
 2. Validators and graph commits are owned by the main-agent runtime controller.
 3. Reviewers emit findings; they do not rewrite the whole paper directly.
 4. Backflow is local: it targets the nearest responsible upstream node and regenerates only affected downstream outputs.
-5. The bundle can be large, but it must be structured into mandatory controls, evidence/source anchors, local context, optional background, forbidden routes, validators, and return format.
+5. The bundle can be large, but it must be structured into mandatory controls, evidence/source anchors, local context, optional background, blocked routes, validators, and return format.
 6. Stage-local overlays may add controls and validators inside the existing packet boundary; they must not add a new dispatch loop or completion authority.
 
 ## 2026-06-29 strict-review stage-edge corrections
@@ -92,4 +92,4 @@ S14 -> S09A           # review can force control-material reselection
 S15 -> S09B/S16       # repair can regenerate task packets or deliver repaired package
 ```
 
-`G01` remains an inert governance sidecar: it may constrain routing and authority, but it must not inject department metadata into paper-facing cognition.
+`G01` remains an inert governance sidecar: it may constrain routing and authority, but it must not inject route metadata into paper-facing cognition.

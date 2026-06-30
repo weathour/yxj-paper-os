@@ -20,7 +20,7 @@ Precise, sober, operational. The interface should feel like a control-room tool 
 
 ## Anti-references
 
-- Department-style dashboards that imply autonomous teams self-run without a main controller.
+- Route-style dashboards that imply autonomous teams self-run without a main controller.
 - Decorative graph viewers that look impressive but hide execution state.
 - Marketing-style runtime claims that blur design taxonomy with runnable implementation.
 - Overloaded diagrams where every line is visible at once and flow direction becomes unreadable.

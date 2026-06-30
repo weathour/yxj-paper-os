@@ -6,7 +6,7 @@ This repository is the active `yxj-paper-os` plugin, implemented as a Codex-nati
 
 Use **Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch**.
 
-Do not revive the department-self-loop model. Departments may appear only as metadata labels or ownership tags; they must not become autonomous self-certifying loops.
+Use the PPG runtime as the only active control model. Route labels are metadata only and cannot own completion.
 
 ## Current goal
 
@@ -22,7 +22,7 @@ Maintain and operate the installed, documented, testable `yxj-paper-os` PPG runt
 
 ## Constraints
 
-- Do not revive the legacy department-self-loop `yxj-paper-os` design.
+- Use controller-owned graph state, validators, TaskPackets, and local backflow as the runtime authority.
 - Plugin install/cachebuster updates are allowed only as explicit lifecycle operations; publication/submission claims remain owner-gated.
 - Prefer docs, schemas, examples, and local validators first.
 - No new dependencies unless explicitly requested.

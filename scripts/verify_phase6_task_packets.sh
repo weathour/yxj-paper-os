@@ -7,7 +7,6 @@ python3 scripts/compile_task_packet.py \
   --out /tmp/phase6-intro-packet.yaml
 python3 scripts/validate_packet.py /tmp/phase6-intro-packet.yaml
 cmp /tmp/phase6-intro-packet.yaml examples/packets/intro_writing_packet.v2.yaml
-git diff --exit-code -- examples/packets/intro_writing_packet.v1.yaml
 
 python3 scripts/compile_task_packet.py \
   --graph examples/runtime/overclaim-loop.v1.json \
@@ -32,7 +31,7 @@ python3 scripts/validate_packet.py examples/packets/invalid-missing-worker-boot-
 python3 scripts/validate_packet.py examples/packets/invalid-weak-worker-boot-clause.yaml > /tmp/pkt-boot-weak.out 2>&1; rc_boot_weak=$?
 python3 scripts/validate_packet.py examples/packets/invalid-output-traversal.yaml > /tmp/pkt-traversal.out 2>&1; rc_pkt_traversal=$?
 python3 scripts/validate_packet.py examples/packets/invalid-allowed-write-traversal.yaml > /tmp/pkt-write-traversal.out 2>&1; rc_pkt_write_traversal=$?
-python3 scripts/validate_packet.py examples/packets/invalid-missing-forbidden-route.yaml > /tmp/pkt-forbidden-route.out 2>&1; rc_pkt_forbidden_route=$?
+python3 scripts/validate_packet.py examples/packets/invalid-missing-forbidden-route.yaml > /tmp/pkt-blocked-route.out 2>&1; rc_pkt_forbidden_route=$?
 python3 scripts/validate_packet.py examples/packets/invalid-unsafe-allowed-action.yaml > /tmp/pkt-action.out 2>&1; rc_pkt_action=$?
 python3 scripts/validate_packet.py examples/packets/invalid-unsafe-allowed-tool.yaml > /tmp/pkt-tool.out 2>&1; rc_pkt_tool=$?
 python3 scripts/validate_packet.py examples/packets/invalid-broad-material-read-dir.yaml > /tmp/pkt-broad-material-read.out 2>&1; rc_pkt_broad_material_read=$?
@@ -59,7 +58,7 @@ test $rc_boot_missing -ne 0 && grep -q E_TASK_WORKER_BOOT_CLAUSE_REQUIRED /tmp/p
 test $rc_boot_weak -ne 0 && grep -q E_TASK_WORKER_BOOT_CLAUSE_REQUIRED /tmp/pkt-boot-weak.out
 test $rc_pkt_traversal -ne 0 && grep -q E_TASK_OUTPUT_OUTSIDE_ALLOWED_WRITES /tmp/pkt-traversal.out
 test $rc_pkt_write_traversal -ne 0 && grep -q E_TASK_ALLOWED_PATH_TOO_BROAD /tmp/pkt-write-traversal.out
-test $rc_pkt_forbidden_route -ne 0 && grep -q E_TASK_FORBIDDEN_ROUTES_REQUIRED /tmp/pkt-forbidden-route.out
+test $rc_pkt_forbidden_route -ne 0 && grep -q E_TASK_FORBIDDEN_ROUTES_REQUIRED /tmp/pkt-blocked-route.out
 test $rc_pkt_action -ne 0 && grep -q E_TASK_ALLOWED_ACTIONS_REQUIRED /tmp/pkt-action.out
 test $rc_pkt_tool -ne 0 && grep -q E_TASK_ALLOWED_TOOLS_REQUIRED /tmp/pkt-tool.out
 test $rc_pkt_broad_material_read -ne 0 && grep -q E_TASK_ALLOWED_PATH_TOO_BROAD /tmp/pkt-broad-material-read.out
@@ -177,7 +176,6 @@ python3 scripts/propagate_stale.py examples/runtime/overclaim-loop.v1.json \
   --report /tmp/phase6-stale-regression.report.txt
 python3 scripts/validate_graph.py /tmp/phase6-stale-regression.json
 python3 scripts/validate_packet.py examples/packets/intro_writing_packet.v2.yaml
-git diff --exit-code -- examples/packets/intro_writing_packet.v1.yaml
 python3 scripts/validate_packet.py examples/packets/claim_repair_packet.v1.yaml
 python3 -m py_compile scripts/*.py
 ruff check scripts

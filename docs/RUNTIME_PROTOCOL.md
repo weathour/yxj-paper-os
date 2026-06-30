@@ -2,7 +2,7 @@
 
 ## Main-agent identity
 
-The main agent is the **Paper Production Graph Runtime Controller**. It owns process control, not department self-management.
+The main agent is the **Paper Production Graph Runtime Controller**. It owns process control, not route self-management.
 
 ## Runtime loop
 
@@ -89,7 +89,7 @@ Strict packet validation also enforces safe authority semantics for Phase 6 work
 
 - strict packet `status` is exactly `planned`;
 - unknown TaskPacket fields are rejected;
-- required forbidden routes include `mark_graph_complete`, `dispatch_subagents`, `write_outside_allowed_write_paths`, and `change_owner_intent`;
+- required blocked routes include `mark_graph_complete`, `dispatch_subagents`, `write_outside_allowed_write_paths`, and `change_owner_intent`;
 - allowed actions must exactly match the safe set `read_material_bundle`, `draft_candidate_artifact`, and `return_evidence`;
 - allowed tools must be exactly `none`;
 - allowed paths and return paths must be safe repo-relative file paths, with no absolute paths, root-like broad paths, home/drive-style prefixes, control characters, or `.` / `..` traversal components;
@@ -98,7 +98,7 @@ Strict packet validation also enforces safe authority semantics for Phase 6 work
 
 If required materials are absent, the compiler must emit a `MissingMaterialReport` and no task packet. It must not guess missing controls.
 
-Historical `examples/packets/intro_writing_packet.v1.yaml` is a legacy fixture tied to stale `claim_boundary_map_v1`; Phase 6 strict validation starts with `intro_writing_packet.v2.yaml` and `claim_repair_packet.v1.yaml`.
+Historical `examples/packets/intro_writing_packet.v1.yaml` is a stale fixture tied to stale `claim_boundary_map_v1`; Phase 6 strict validation starts with `intro_writing_packet.v2.yaml` and `claim_repair_packet.v1.yaml`.
 
 ## Phase 6 packet compiler
 

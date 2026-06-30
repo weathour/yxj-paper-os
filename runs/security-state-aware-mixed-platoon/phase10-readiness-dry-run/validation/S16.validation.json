@@ -1,7 +1,7 @@
 {
   "active_stage_overlays": [
     {
-      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
       "binding_strength": "primary",
       "overlay_id": "nature_expert_writing",
       "overlay_registry_ref": "runtime/stage_overlay_registry.json",
@@ -23,7 +23,7 @@
     "controller_owned_status",
     "owner_gate_or_export_hygiene",
     "stage_overlay_binding",
-    "no_department_route"
+    "controller_route_only"
   ],
   "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
   "schema_version": "ppg-phase10-stage-validation/v0.1",
@@ -31,7 +31,7 @@
   "stage_overlay_checks": [
     "nature_overlay_binding:S16",
     "controller_owned_completion",
-    "no_department_route",
+    "controller_route_only",
     "no_submission_ready_overclaim",
     "owner_gate_or_export_hygiene"
   ],

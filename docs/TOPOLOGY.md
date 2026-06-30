@@ -14,7 +14,7 @@ MaterialNode(v2) --supersedes--> MaterialNode(v1)
 
 | Node type | Purpose | Examples |
 | --- | --- | --- |
-| `owner_intent` | Human semantic root and hard constraints | topic, venue, forbidden routes |
+| `owner_intent` | Human semantic root and hard constraints | topic, venue, blocked routes |
 | `material` | Analysis/design/control material | ClaimBoundaryMap, TerminologyRegister |
 | `transform_task` | Converts inputs to candidate outputs | compile ReviewerQuestionMap |
 | `agent_run` | Provenance record for a specialist run | writer/verifier/researcher run |
@@ -35,7 +35,7 @@ MaterialNode(v2) --supersedes--> MaterialNode(v1)
 | `reports` | validator/review emits report | no by itself |
 | `invalidates` | finding marks node stale/rejected | yes |
 | `repairs` | backflow task repairs target | creates new version |
-| `supersedes` | new version replaces old version | yes for downstream consumers of old active version |
+| `supersedes` | new version replaces superseded version | yes for downstream consumers of superseded active version |
 | `references` | weak reference/provenance only | warning, not automatic stale |
 
 ## Layer topology

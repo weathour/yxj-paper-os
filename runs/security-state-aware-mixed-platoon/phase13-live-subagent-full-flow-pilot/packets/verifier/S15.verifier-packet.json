@@ -18,10 +18,6 @@
     "Read and assess producer return returns/producer/S15.producer-return.md with sha256 f95ba17d4cfbf2f6355a52e1dacf9dc28e0bd66c6efc98bf1e1e7e03353cb431."
   ],
   "lane": "verifier",
-  "legacy_routes_forbidden": [
-    "legacy department-loop yxj-paper-os route",
-    "$yxj-plugin-incubator"
-  ],
   "no_recursive_orchestration": true,
   "output_return_ref": "returns/verifier/S15.verifier-return.md",
   "packet_id": "phase13.S15.verifier",
@@ -85,5 +81,9 @@
   "stage_contract_ref": "examples/stage-contracts/S15.stage-contract.json",
   "stage_id": "S15",
   "stage_name": "Repair execution and local regeneration",
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
+  ],
   "worker_completion_forbidden": true
 }

@@ -1,7 +1,7 @@
 {
   "active_stage_overlays": [
     {
-      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
       "binding_strength": "support",
       "overlay_id": "nature_expert_writing",
       "overlay_registry_ref": "runtime/stage_overlay_registry.json",
@@ -24,7 +24,7 @@
     "candidate_return_or_missing_material_path",
     "worker_authority_boundary",
     "stage_overlay_binding",
-    "no_department_route",
+    "controller_route_only",
     "stage_overlay_packet_clause"
   ],
   "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
@@ -33,7 +33,7 @@
   "stage_overlay_checks": [
     "nature_overlay_binding:S03",
     "controller_owned_completion",
-    "no_department_route",
+    "controller_route_only",
     "no_submission_ready_overclaim"
   ],
   "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",

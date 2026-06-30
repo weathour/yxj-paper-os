@@ -75,7 +75,7 @@
           "additionalProperties": false,
           "required": [
             "stage_local_only",
-            "no_new_department",
+            "no_independent_route",
             "controller_owned_completion",
             "worker_completion_forbidden",
             "no_recursive_orchestration",
@@ -84,7 +84,7 @@
           ],
           "properties": {
             "stage_local_only": {"const": true},
-            "no_new_department": {"const": true},
+            "no_independent_route": {"const": true},
             "controller_owned_completion": {"const": true},
             "worker_completion_forbidden": {"const": true},
             "no_recursive_orchestration": {"const": true},

@@ -1,7 +1,7 @@
 {
   "active_stage_overlays": [
     {
-      "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
       "binding_strength": "light",
       "overlay_id": "nature_expert_writing",
       "overlay_registry_ref": "runtime/stage_overlay_registry.json",
@@ -14,7 +14,7 @@
     "paper-profile",
     "motivation",
     "decisions",
-    "forbidden routes"
+    "blocked routes"
   ],
   "packet_ref": null,
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",

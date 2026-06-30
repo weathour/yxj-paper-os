@@ -59,12 +59,12 @@ BANNED_CLAIMS = [
 ]
 POSITIVE_FORBIDDEN_BOUNDARY_PHRASES = [
     "publish lifecycle completed",
-    "legacy department yxj-paper-os route revived",
-    "$yxj-plugin-incubator used as a design source",
+    "unauthorized recursive route activated",
+    "unregistered external route used as a design source",
 ]
 EXPECTED_OVERLAY_AUTHORITY = {
     "stage_local_only": True,
-    "no_new_department": True,
+    "no_independent_route": True,
     "controller_owned_completion": True,
     "worker_completion_forbidden": True,
     "no_recursive_orchestration": True,

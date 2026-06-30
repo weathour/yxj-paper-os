@@ -3,7 +3,7 @@
 Date: 2026-06-29  
 Scope: record the ideal eight-phase path for advancing `yxj-paper-os`, and decide how `$autopilot`, `$ralplan`, and `$ultragoal` should be used to drive each phase.
 
-Non-reference baseline: do not use `$yxj-plugin-incubator`, Plugin OS v2+, hidden-department IO, seven-artifact incubation packages, or PUA-style managed-agent governance as references for this runtime. The eight phases are governed by the PPG model itself: explicit material graph, main-agent controller, validators, task packets, and local backflow.
+Runtime baseline: the eight phases are governed by the PPG model itself: explicit material graph, main-agent controller, validators, task packets, and local backflow.
 
 ## 0. Executive conclusion
 
@@ -192,7 +192,6 @@ Current status: complete / promoted as v0.2 baseline. See [`phase-promotions/PHA
 
 Consumes:
 
-- existing yxj-paper-os process inventory;
 - stage taxonomy S00-S16;
 - runtime viewer feedback;
 - Architect/Critic strict review notes.
@@ -459,7 +458,7 @@ Autopilot recommendation: yes, full phase-scoped Autopilot is appropriate. This 
 
 ### Phase 6 — 建立 subagent 任务包机制
 
-Purpose: make subagent work bounded, auditable, and non-self-certifying.
+Purpose: make subagent work bounded, auditable, and controller-bounded.
 
 Consumes:
 
@@ -574,7 +573,7 @@ Autopilot recommendation: yes, and this should be treated as the first major rel
 
 ### Phase 8 — 扩展成 runtime adapter 与前端 state surface
 
-Purpose: expose the proven PPG runtime through a thin operator-facing adapter and make material-graph state visible to the human owner. This phase must not import Plugin OS / incubator concepts; it only wraps the already-proven runtime controller.
+Purpose: expose the proven PPG runtime through a thin operator-facing adapter and make material-graph state visible to the human owner. This phase must not import external orchestration concepts; it only wraps the already-proven runtime controller.
 
 Consumes:
 
@@ -586,7 +585,7 @@ Consumes:
 Produces:
 
 - one operator-facing runtime entry;
-- runtime modules organized by graph operation, not departments;
+- runtime modules organized by graph operation, not routes;
 - frontend material graph mode;
 - active frontier view;
 - stale/backflow visualization;
@@ -630,7 +629,7 @@ and shows the human owner where active frontier, stale materials,
 review findings, backflow tasks, owner decisions, and delivery gates are.
 ```
 
-Autopilot recommendation: yes, but with explicit gates: no unapproved live install, no marketplace publishing without owner approval, no revival or mutation of the legacy department-loop `$yxj-paper-os` route, and no `$team` launch without approval.
+Autopilot recommendation: yes, but with explicit gates: no unapproved live install, no marketplace publishing without owner approval, no activation or mutation of the unauthorized recursive route, and no `$team` launch without approval.
 
 ## 4. Recommended cadence
 
@@ -662,7 +661,7 @@ Phase 8: plugin/frontend runtime surface.
 | 7. Vertical slice | `$autopilot` | end-to-end proof with QA |
 | 8. Plugin/frontend | `$autopilot` with explicit gates | product/runtime surface, plugin boundaries |
 
-### 4.3 One phase should not start until the previous phase leaves evidence
+### 4.3 One phase should not start until the upstream phase leaves evidence
 
 Minimum promotion evidence:
 
@@ -678,7 +677,7 @@ known_gaps:
 next_phase_start_state:
 ```
 
-This prevents the old failure mode where a department/subagent claims progress without validated state transition.
+This prevents the invalid failure mode where a route/subagent claims progress without validated state transition.
 
 ## 5. Autopilot prompt template for a phase
 
@@ -691,13 +690,13 @@ Objective:
 <one phase objective>
 
 Known baseline:
-<links to docs and accepted previous phase promotion record>
+<links to docs and accepted upstream phase promotion record>
 
 Allowed scope:
 <files/dirs to edit>
 
 Non-goals:
-- do not revive the legacy department-loop yxj-paper-os route
+- do not activate the unauthorized recursive route
 - do not live-install plugin unless the owner explicitly authorizes the lifecycle/replacement workflow
 - do not publish marketplace entries unless the owner explicitly authorizes the lifecycle/replacement workflow
 - do not launch $team unless explicitly approved
@@ -734,7 +733,7 @@ Even with Autopilot, the main agent must stop or ask before:
 
 - changing the core philosophy of the runtime;
 - treating a stage taxonomy change as user-approved when it changes paper production semantics;
-- reviving legacy department-loop `$yxj-paper-os` behavior;
+- activating controller-bypassing route behavior;
 - live installing or publishing a plugin without explicit owner authorization;
 - launching `$team` for a phase;
 - using credentialed external services;

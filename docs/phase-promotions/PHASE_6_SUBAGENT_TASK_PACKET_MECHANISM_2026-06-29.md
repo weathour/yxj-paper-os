@@ -41,14 +41,14 @@ scripts/verify_phase6_task_packets.sh
 - `completion_forbidden: true`;
 - `no_recursive_orchestration: true`;
 - `owner_gate_required: false`.
-- exact required forbidden routes for no graph completion, no recursive dispatch, no outside writes, and no owner-intent mutation;
+- exact required blocked routes for no graph completion, no recursive dispatch, no outside writes, and no owner-intent mutation;
 - exact canonical safe allowed actions only;
 - `allowed_tools: [none]`;
 - safe repo-relative paths with no absolute/root-like/traversal components.
 - file-level read/write paths only: reads are limited to current Phase 6 fixture evidence surfaces, and writes must be the single exact output file under the candidate-artifact/material surfaces.
 - no unknown TaskPacket fields.
 
-The historical `examples/packets/intro_writing_packet.v1.yaml` remains a byte-preserved legacy fixture tied to stale `claim_boundary_map_v1`. Phase 6 strict evidence starts with `examples/packets/intro_writing_packet.v2.yaml` and `examples/packets/claim_repair_packet.v1.yaml`.
+The `examples/packets/intro_writing_packet.v1.yaml` remains a byte-preserved stale fixture tied to stale `claim_boundary_map_v1`. Phase 6 strict evidence starts with `examples/packets/intro_writing_packet.v2.yaml` and `examples/packets/claim_repair_packet.v1.yaml`.
 
 ### Missing-material and candidate-return contracts
 
@@ -80,7 +80,7 @@ Negative fixture families:
 - path traversal in packet output or allowed writes;
 - broad-but-lexically-valid read/write directories;
 - home/drive-style path prefixes;
-- missing required forbidden route;
+- missing required blocked route;
 - unsafe allowed action/tool;
 - duplicate `none` tool entries;
 - committed/candidate/stale packet status;
@@ -154,6 +154,6 @@ git diff --check -- .
 
 ## Phase 6 limits
 
-Phase 6 does **not** run a real writer/verifier subagent pilot. It does **not** commit candidate outputs to the graph. It does **not** update the frontend and does **not** revive legacy department-loop `$yxj-paper-os` behavior.
+Phase 6 does **not** run a real writer/verifier subagent pilot. It does **not** commit candidate outputs to the graph. It does **not** update the frontend and does **not** activate controller-bypassing route behavior.
 
 The next phase should use these strict packets for a single real subagent pilot and ingest only validator-backed candidate artifacts.

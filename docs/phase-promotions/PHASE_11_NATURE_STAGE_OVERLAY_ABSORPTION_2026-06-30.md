@@ -6,7 +6,7 @@ Date: 2026-06-30
 
 Phase 11 promotes `yxj-paper-os` from Phase10 real-subagent-run readiness to a Nature-experience-aware runtime surface.
 
-The Nature skill experience is absorbed as `nature_expert_writing`, a **stage-local overlay** on existing PPG stages. It does not create a new department, does not change the stage topology, does not dispatch workers, and does not own graph/manuscript/submission completion.
+The Nature skill experience is absorbed as `nature_expert_writing`, a **stage-local overlay** on existing PPG stages. It does not create a new route, does not change the stage topology, does not dispatch workers, and does not own graph/manuscript/submission completion.
 
 ## Scope
 
@@ -19,7 +19,7 @@ Phase 11 covers:
 - strict worker TaskPacket overlay transport through `mandatory_controls` plus `stage_overlay:nature_expert_writing:<stage_id>` validators;
 - Phase10 dry-run linkage in dispatch records, validation records, candidate placeholders, run-state, manifest, and per-run TaskPackets;
 - local-paper stage coverage and frontend display of overlay bindings;
-- positive and negative validator fixtures proving the overlay cannot become a department/self-certifying route.
+- positive and negative validator fixtures proving the overlay cannot become a route/controller-bypassing route.
 
 ## Core artifacts
 
@@ -43,7 +43,7 @@ The overlay is valid only as a passive, stage-local expert-writing profile:
 
 ```text
 stage_local_only=true
-no_new_department=true
+no_independent_route=true
 controller_owned_completion=true
 worker_completion_forbidden=true
 no_recursive_orchestration=true
@@ -82,8 +82,8 @@ The aggregate gate now includes Nature overlay validation and negative probes fo
 ## Explicit non-goals
 
 - This Phase11 overlay absorption itself did not perform live install, marketplace registration, publish, or cachebuster update; lifecycle changes require a separate owner-authorized replacement workflow.
-- No replacement of the PPG runtime with legacy `$yxj-paper-os` department loops.
-- No design dependency on `$yxj-plugin-incubator`.
+- The PPG runtime remains the completion authority.
+- Only controller-authorized PPG runtime routes are active.
 - No claim that Nature overlay absorption means a real paper-production run has occurred.
 - No final manuscript, submission-ready, or publication-ready claim.
 

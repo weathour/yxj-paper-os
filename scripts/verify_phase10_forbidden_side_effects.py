@@ -20,7 +20,7 @@ MONITORED_PATHS = [
     "scripts/verify_phase10_forbidden_side_effects.py",
     "scripts/verify_phase10_real_run_readiness.sh",
 ]
-FORBIDDEN_TERMS = ["$yxj-plugin-incubator", "yxj-plugin-incubator", "legacy department-loop yxj-paper-os route enabled", "old department skills active", "publish enabled"]
+FORBIDDEN_TERMS = ["unregistered external route", "unregistered-external-route", "unauthorized recursive route enabled", "old route skills active", "publish enabled"]
 ALLOW_HINTS = [
     "do not",
     "do **not**",
@@ -48,10 +48,10 @@ ACTIVE_HINTS = [
     "publish enabled",
     "published to",
     "installed to",
-    "use $yxj-plugin-incubator as design source",
-    "based on $yxj-plugin-incubator",
-    "legacy department-loop yxj-paper-os route enabled",
-    "old department skills active",
+    "use unregistered external route as design source",
+    "based on unregistered external route",
+    "unauthorized recursive route enabled",
+    "old route skills active",
 ]
 
 

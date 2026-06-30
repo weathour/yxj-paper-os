@@ -61,7 +61,7 @@ A subagent can propose `candidate` output. It cannot commit material. The main a
 
 ### Stage-local overlay materials
 
-Stage-local overlays are profile/control materials consumed by existing stages. They do not create new stages or departments.
+Stage-local overlays are profile/control materials consumed by existing stages. They do not create new stages or routes.
 
 - `StageOverlayRegistry`
 - `StageOverlayBinding`
@@ -163,7 +163,7 @@ Phase 11 adds a machine-checkable stage-local overlay registry for expert writin
 
 - `runtime/stage_overlay_registry.json` stores overlay authority, per-stage input controls, output materials, packet clauses, validator checks, and backflow targets.
 - `schemas/ppg-stage-overlay-registry.schema.json` defines the registry shape.
-- `scripts/verify_stage_overlays.py` enforces canonical stage bindings, bare-`S09` rejection, no-department authority, StageContract links, TaskPacket overlay clauses, and content-validator coverage.
+- `scripts/verify_stage_overlays.py` enforces canonical stage bindings, bare-`S09` rejection, no-route authority, StageContract links, TaskPacket overlay clauses, and content-validator coverage.
 
 Overlay bindings may shape stage-specific materials, but they cannot mark graph nodes complete or dispatch workers.
 

@@ -171,7 +171,7 @@ This is acceptable. It does not need a new stage unless citation-heavy literatur
 
 ### M6 — Nature / journal-expert writing knowledge is a stage-local overlay
 
-Nature-style expert writing knowledge should not become a new department or another stage chain. It cuts across existing responsibilities:
+Nature-style expert writing knowledge should not become a new route or another stage chain. It cuts across existing responsibilities:
 
 - venue/profile and exemplar constraints in S02;
 - claim-strength and evidence visibility in S04;

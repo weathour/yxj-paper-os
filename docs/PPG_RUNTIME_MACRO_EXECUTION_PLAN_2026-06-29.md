@@ -4,7 +4,7 @@ Date: 2026-06-29
 Scope: macro推进目标、工程流程、实现参考、subagent task packet 设定、主 agent 调度原则。  
 Baseline: stage/material taxonomy v0.2 has been accepted as a design baseline, but runnable runtime is not proven.
 
-Non-reference baseline: this project must not inherit or cite `$yxj-plugin-incubator`, Plugin OS v2+, hidden-department IO, seven-artifact incubation packages, or PUA-style managed-agent governance as design sources. The governing model is only the Codex-native paper production graph runtime: versioned materials, transform tasks, validators, local backflow, and main-agent control.
+Runtime baseline: the governing model is the Codex-native paper production graph runtime: versioned materials, transform tasks, validators, local backflow, and main-agent control.
 
 ## 0. Executive decision
 
@@ -19,7 +19,7 @@ Build the runtime core that proves one vertical paper-production loop.
 
 ## 1. North-star runtime target
 
-The target runtime is not a department manager and not a chatroom of agents. It is:
+The target runtime is a controller-owned material graph runtime:
 
 ```text
 Main Agent / Runtime Controller
@@ -91,7 +91,7 @@ Required behavior:
 - load graph;
 - resolve material by id and active version;
 - list upstream/downstream;
-- preserve old versions;
+- preserve superseded versions;
 - represent `supersedes` explicitly;
 - record candidates separately from committed material;
 - reject invalid endpoint references.
@@ -209,7 +209,7 @@ python3 scripts/validate_backflow.py /tmp/backflow.yaml
 
 ### Phase 4 — Task packet compiler and subagent boundary
 
-Goal: make subagent work bounded and non-self-certifying.
+Goal: make subagent work bounded and controller-bounded.
 
 Deliverables:
 
@@ -332,7 +332,7 @@ Exit gate:
 
 ### Phase 7 — Runtime adapter and human-facing surface
 
-Goal: expose the proven material-graph runtime through a small operator-facing adapter and a human-readable state surface. This is not a Plugin OS / incubator manager layer. It is a thin interface over the runtime controller and graph store.
+Goal: expose the proven material-graph runtime through a small operator-facing adapter and a human-readable state surface. This is not a external orchestration manager layer. It is a thin interface over the runtime controller and graph store.
 
 Public model:
 
@@ -361,7 +361,7 @@ yxj-paper-os-plugin/
   fixtures/
 ```
 
-Do not turn runtime modules into autonomous public departments. The user interacts with the runtime entry; the main agent/controller reads graph state and chooses bounded transforms.
+Do not turn runtime modules into autonomous public routes. The user interacts with the runtime entry; the main agent/controller reads graph state and chooses bounded transforms.
 
 ## 3. Main agent principles
 
@@ -832,7 +832,7 @@ Main agent continues autonomously when:
 Main agent must ask or stop before:
 
 - live installing plugin;
-- reviving legacy department-loop `$yxj-paper-os` behavior;
+- activating controller-bypassing route behavior;
 - publishing marketplace entries;
 - external submission/upload;
 - credentialed external services;

@@ -3,7 +3,7 @@
   "stage_id": "S00",
   "stage_name": "Owner semantic contract",
   "purpose": "Convert human need into bounded paper commitments and owner decisions.",
-  "execution_mode": "department_loop",
+  "execution_mode": "controller_bypassing_route",
   "recommended_agent_type": "main",
   "requires_worker_task_packet": false,
   "consumes": [
@@ -15,11 +15,11 @@
     "paper-profile",
     "motivation",
     "decisions",
-    "forbidden routes"
+    "blocked routes"
   ],
   "validators": [
     "owner confirmation",
-    "forbidden route check"
+    "blocked route check"
   ],
   "backflow_targets": [
     "owner"

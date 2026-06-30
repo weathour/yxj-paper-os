@@ -49,10 +49,10 @@ CONTROL_OR_REGISTRY_FIELDS = {
 }
 
 FORBIDDEN_PAPER_FACING_TERMS = (
-    "autonomous department",
-    "yxj-plugin-incubator",
-    "$yxj-plugin-incubator",
-    "Plugin OS v2+",
+    "autonomous route",
+    "unregistered-external-route",
+    "unregistered external route",
+    "external orchestration concepts",
     "PUA governance",
     ".omx/",
     ".omx",

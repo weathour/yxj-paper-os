@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate Phase 6 strict TaskPacket fixtures.
 
-Historical minimal packets may remain as legacy fixtures, but Phase 6 strict
+Stale minimal packets may remain as fixtures, but Phase 6 strict
 validation is intended for generated/migrated packets such as intro v2 and
 claim-repair packets.
 """

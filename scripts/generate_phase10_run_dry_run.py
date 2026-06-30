@@ -239,7 +239,7 @@ def stage_overlay_summary(stage_id: str, binding: dict[str, Any]) -> dict[str, A
         "stage_id": stage_id,
         "binding_strength": binding.get("binding_strength"),
         "validator_ref": f"stage_overlay:{NATURE_OVERLAY_ID}:{stage_id}",
-        "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+        "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
     }
 
 

@@ -1,6 +1,6 @@
 {
   "completion_boundary": "Overlay readiness only; it does not claim final manuscript, publication, or submission readiness.",
-  "description": "Generic stage overlay registry. The Nature profile is an expert writing overlay, not a department or independent execution route.",
+  "description": "Generic stage overlay registry. The Nature profile is an expert writing overlay, not a independent execution route.",
   "overlays": [],
   "packet_clause_transport": {
     "mandatory_controls_keys": [

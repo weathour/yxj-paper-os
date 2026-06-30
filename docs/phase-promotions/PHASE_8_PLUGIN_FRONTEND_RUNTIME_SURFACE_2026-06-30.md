@@ -112,7 +112,7 @@ PHASE6_TASK_PACKET_VERIFY_OK
 ## Deferred items
 
 - This Phase8 promotion itself did not perform plugin install, marketplace registration, or cachebuster update; lifecycle changes require a separate owner-authorized replacement workflow.
-- No revival of the legacy department-loop `$yxj-paper-os` operating model.
-- No `$yxj-plugin-incubator` route.
+- No activation of the controller-bypassing route behavior.
+- Only controller-authorized PPG runtime routes are active.
 - No `$team` launch.
 - Future live graph import/server/marketplace work requires explicit owner approval.

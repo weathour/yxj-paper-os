@@ -116,7 +116,7 @@ python3 scripts/validate_backflow.py examples/backflow_tasks/overclaim_repair.v1
 python3 scripts/validate_delivery_gate.py examples/delivery/review_closure.pass.yaml
 ```
 
-`examples/packets/intro_writing_packet.v1.yaml` was the Phase 4/5 minimal packet fixture. After Phase 6 it is kept only as byte-preserved legacy provenance; strict packet validation uses `intro_writing_packet.v2.yaml`.
+`examples/packets/intro_writing_packet.v1.yaml` was the Phase 4/5 minimal packet fixture. After Phase 6 it is kept only as byte-preserved disabled provenance; strict packet validation uses `intro_writing_packet.v2.yaml`.
 
 Semantic-negative fixtures prove that validation is not syntax-only:
 
@@ -158,7 +158,7 @@ Phase 6 upgrades `TaskPacket` from a loose context bundle to an authority bounda
 - `examples/packets/intro_writing_packet.v2.yaml`;
 - `examples/packets/claim_repair_packet.v1.yaml`.
 
-The historical `examples/packets/intro_writing_packet.v1.yaml` remains a byte-preserved legacy fixture tied to stale graph provenance and is not used as Phase 6 strict-validation evidence.
+The `examples/packets/intro_writing_packet.v1.yaml` remains a byte-preserved stale fixture tied to stale graph provenance and is not used as Phase 6 strict-validation evidence.
 
 Core compile/validate commands:
 
@@ -199,7 +199,7 @@ Strict packet negative fixtures lock the authority boundary:
 - `examples/packets/invalid-missing-worker-boot-clause.yaml` and `examples/packets/invalid-weak-worker-boot-clause.yaml` -> `E_TASK_WORKER_BOOT_CLAUSE_REQUIRED`.
 - `examples/packets/invalid-output-traversal.yaml` -> `E_TASK_OUTPUT_OUTSIDE_ALLOWED_WRITES`;
 - `examples/packets/invalid-allowed-write-traversal.yaml` -> `E_TASK_ALLOWED_PATH_TOO_BROAD`;
-- `examples/packets/invalid-missing-forbidden-route.yaml` -> `E_TASK_FORBIDDEN_ROUTES_REQUIRED`;
+- `examples/packets/invalid-missing-blocked-route.yaml` -> `E_TASK_FORBIDDEN_ROUTES_REQUIRED`;
 - `examples/packets/invalid-unsafe-allowed-action.yaml` -> `E_TASK_ALLOWED_ACTIONS_REQUIRED`;
 - `examples/packets/invalid-unsafe-allowed-tool.yaml` -> `E_TASK_ALLOWED_TOOLS_REQUIRED`.
 - `examples/packets/invalid-broad-material-read-dir.yaml` and `examples/packets/invalid-broad-candidate-write-dir.yaml` -> `E_TASK_ALLOWED_PATH_TOO_BROAD`;
@@ -282,9 +282,9 @@ The overlay validator proves:
 - `nature_expert_writing` is present and bound to every canonical stage;
 - bare `S09` is rejected in favor of `S09A/S09B`;
 - S03 remains `support` or `light`, gated through S04 before writing;
-- active department/self-certifying route semantics are rejected while documentation prose such as “not a department” is allowed;
+- active route/controller-bypassing route semantics are rejected while documentation prose such as “stage-local boundary text is allowed;
 - worker stages have overlay clauses under `mandatory_controls` and a `stage_overlay:nature_expert_writing:<stage_id>` validator;
-- Phase10 content validators include `stage_overlay_binding`, `no_department_route`, and worker-stage `stage_overlay_packet_clause`;
+- Phase10 content validators include `stage_overlay_binding`, `controller_route_only`, and worker-stage `stage_overlay_packet_clause`;
 - Phase10 dry-run dispatch, validation, candidate placeholder, run-state, manifest, and per-run TaskPackets all link back to `runtime/stage_overlay_registry.json`.
 
 Negative fixtures under `examples/overlays/` lock the expected error codes:
@@ -295,7 +295,7 @@ Negative fixtures under `examples/overlays/` lock the expected error codes:
 - `invalid-packet-clause-transport.json` -> `E_STAGE_OVERLAY_PACKET_TRANSPORT`;
 - `invalid-missing-worker-packet-clause.json` -> `E_STAGE_OVERLAY_PACKET_CLAUSE`;
 - `invalid-missing-validator-coverage.json` -> `E_STAGE_OVERLAY_VALIDATOR_COVERAGE`;
-- `invalid-active-department-loop.json` -> `E_STAGE_OVERLAY_DEPARTMENT_ROUTE`;
+- `invalid-active-controller-bypassing-route.json` -> `E_STAGE_OVERLAY_ROUTE_AUTHORITY`;
 - `invalid-backflow-target.json` -> `E_STAGE_OVERLAY_BACKFLOW_TARGET`;
 - `invalid-missing-nature-overlay.json` -> `E_STAGE_OVERLAY_REQUIRED_OVERLAY`;
 - `invalid-missing-primary-stage-binding.json` -> `E_STAGE_OVERLAY_REQUIRED_STAGE_BINDING`;
@@ -323,7 +323,7 @@ The verifier checks:
 - source snapshots are referenced files, `source_snapshot.before.json` and `source_snapshot.after.json`, and both match the recomputed current source snapshot;
 - the exact local backflow sequence is `review_finding_recorded -> backflow_task_compiled -> repair_candidate_recorded -> review_closure_recorded`;
 - the delivery gate is `pass_for_runtime_test_only` and consumes all 20 stage records plus the review closure;
-- documentation and run artifacts avoid unbounded final-paper, submission-readiness, install, publish, incubator, or old-department-loop claims.
+- documentation and run artifacts avoid unbounded final-paper, submission-readiness, install, publish, external route, or old-controller-bypassing route claims.
 
 The aggregate wrapper includes exact-code negative probes for backflow chain removal, bare `S09`, overlay link removal, candidate authority violations, controller-commit disablement, worker completion authority, non-worker fake packets, owner-ledger source-write tampering, overlay authority expansion, doc-boundary overclaims, packet output escape, source snapshot drift, current source drift, and symlink refs.
 
@@ -352,6 +352,6 @@ The live pilot verifier checks:
 - stage-effect scores remain pilot-only triage evidence and are not accepted as production manuscript-quality metrics;
 - delivery-gate verdict is `pass_for_live_runtime_pilot_only` only when no stage is rejected or needs unresolved repair;
 - source snapshots before/after/current match the local paper source tree;
-- forbidden legacy-route, recursive-orchestration, final-manuscript, submission-ready, and publication-ready claims are rejected unless explicitly negated as boundaries.
+- forbidden unauthorized-route, recursive-orchestration, final-manuscript, submission-ready, and publication-ready claims are rejected unless explicitly negated as boundaries.
 
-The aggregate wrapper also runs exact-code negative probes for missing producer returns, missing verifier returns, duplicate thread ids, weak/generic returns, missing packet citations, verifier parroting, worker-role misuse, non-worker agent-type mismatch, exact thread-coverage loss, authority-mode mismatch, verifier producer-return grounding tamper, dispatch/validation ledger loss or content tamper, dispatch authority tamper, raw verifier verdict tamper, validation status mismatch, effect/controller-acceptance mismatch, dispatch-record loss, legacy-route revival, recursive orchestration claims, rejected stages, unresolved repairs, and source snapshot drift. It then runs Python compilation, plugin validation, skill validation, inherited Phase12 verification, whitespace checks, and a clean-worktree assertion.
+The aggregate wrapper also runs exact-code negative probes for missing producer returns, missing verifier returns, duplicate thread ids, weak/generic returns, missing packet citations, verifier parroting, worker-role misuse, non-worker agent-type mismatch, exact thread-coverage loss, authority-mode mismatch, verifier producer-return grounding tamper, dispatch/validation ledger loss or content tamper, dispatch authority tamper, raw verifier verdict tamper, validation status mismatch, effect/controller-acceptance mismatch, dispatch-record loss, unauthorized-route activation, recursive orchestration claims, rejected stages, unresolved repairs, and source snapshot drift. It then runs Python compilation, plugin validation, skill validation, inherited Phase12 verification, whitespace checks, and a clean-worktree assertion.

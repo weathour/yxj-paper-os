@@ -3,7 +3,7 @@
 This review consolidates two independent read-only subagent reviews:
 
 - `architect`: system structure, stage boundaries, material contracts, validation/backflow feasibility.
-- `critic`: adversarial review of over-design, hidden department recursion, material vagueness, execution risk.
+- `critic`: adversarial review of over-design, hidden route recursion, material vagueness, execution risk.
 
 ## Executive judgment
 
@@ -13,7 +13,7 @@ The runtime direction is correct for a Codex-native paper production system:
 Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch
 ```
 
-The model correctly rejects department self-loops. It gives the main agent runtime authority, treats subagents as bounded transforms, and routes review findings into local backflow instead of whole-paper rewrites.
+The model correctly rejects controller-bypassing loops. It gives the main agent runtime authority, treats subagents as bounded transforms, and routes review findings into local backflow instead of whole-paper rewrites.
 
 However, the current repository is still a **stage taxonomy and visualization prototype**, not yet a runnable paper-production runtime. The main gap is that the claimed “explicit material graph” is not yet implemented at the level of versioned material nodes. Most current diagrams show stage nodes (`S00`-`S16`) rather than concrete material/version nodes such as `ClaimEvidenceMatrix@v1`, `WritingTaskPacket@v1`, `SectionDraft@v1`, `ReviewFinding@v1`, `BackflowTask@v1`, and repaired `@v2` materials.
 
@@ -128,11 +128,11 @@ This is acceptable only if the task packet compiler enforces layers such as:
 - evidence anchors;
 - local context;
 - optional background;
-- forbidden routes;
+- blocked routes;
 - validator references;
 - exact output path/format.
 
-Without this, the writing stage becomes a large undifferentiated prompt and will reproduce the previous yxj-paper-os failure mode.
+Without this, the writing stage becomes a large undifferentiated prompt and will create an undifferentiated prompt with no controller-visible validation boundary.
 
 ### 6. Figure branch is still under-specified semantically
 
@@ -167,14 +167,14 @@ S15 -> S16   repair-complete candidate only when repairs occurred
 
 Current simplified path over-emphasizes `S15 -> S16`.
 
-### 8. Department self-loop residue still needs hard isolation
+### 8. Route-authority boundary still needs hard isolation
 
-Historical yxj-paper-os department concepts remain in inventory/layer documents and sidecar governance materials. They are acceptable only as inert metadata.
+PPG runtime route concepts remain in inventory/layer documents and sidecar governance materials. They are acceptable only as inert metadata.
 
 Required invariant:
 
 ```text
-department-* artifacts may label responsibilities, but must not create frontier nodes,
+route-* artifacts may label responsibilities, but must not create frontier nodes,
 must not commit graph state, must not dispatch subagents, and must not close findings.
 ```
 

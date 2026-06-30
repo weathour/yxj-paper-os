@@ -32,7 +32,7 @@
       "stage_id": "S00",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "light",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -52,7 +52,7 @@
       "stage_id": "S01",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "light",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -72,7 +72,7 @@
       "stage_id": "S02",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -92,7 +92,7 @@
       "stage_id": "S03",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "support",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -112,7 +112,7 @@
       "stage_id": "S04",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -132,7 +132,7 @@
       "stage_id": "S05",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -152,7 +152,7 @@
       "stage_id": "S06",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -172,7 +172,7 @@
       "stage_id": "S07",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -192,7 +192,7 @@
       "stage_id": "S08",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -212,7 +212,7 @@
       "stage_id": "S09A",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -232,7 +232,7 @@
       "stage_id": "S09B",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -252,7 +252,7 @@
       "stage_id": "S10",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -272,7 +272,7 @@
       "stage_id": "S11",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -292,7 +292,7 @@
       "stage_id": "S12",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -312,7 +312,7 @@
       "stage_id": "S13",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -332,7 +332,7 @@
       "stage_id": "S14",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -352,7 +352,7 @@
       "stage_id": "S15",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -372,7 +372,7 @@
       "stage_id": "S16",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "primary",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -392,7 +392,7 @@
       "stage_id": "G01",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "governance",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",
@@ -412,7 +412,7 @@
       "stage_id": "G02",
       "stage_local_overlays": [
         {
-          "authority_boundary": "stage-local overlay only; no department route; controller retains completion authority",
+          "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
           "binding_strength": "derivative",
           "overlay_id": "nature_expert_writing",
           "registry_ref": "runtime/stage_overlay_registry.json",

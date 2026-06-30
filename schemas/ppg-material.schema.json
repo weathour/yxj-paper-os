@@ -27,7 +27,7 @@
     },
     "supersedes": {
       "type": "string",
-      "description": "Concrete node id of the old version superseded by this version. Direction: new -> old."
+      "description": "Concrete node id of the superseded version superseded by this version. Direction: new -> old."
     },
     "candidate_for": {
       "type": "string",

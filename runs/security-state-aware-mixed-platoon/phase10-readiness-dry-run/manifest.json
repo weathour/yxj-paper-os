@@ -36,8 +36,8 @@
       },
       "HANDOFF.md": {
         "kind": "file",
-        "sha256": "3d88f451b8ad5056030cb15e22b2790fb492531442034e49ba461f31960c800b",
-        "size": 11936
+        "sha256": "74071d997117c1fe55db63e622fbe6498804044d184a9dc1327bf5038e4318df",
+        "size": 11830
       },
       "NEXT-SESSION-START.md": {
         "kind": "file",
@@ -471,7 +471,7 @@
       },
       "experiments/src/__pycache__/core_sota_baseline_method_faithful_experiment.cpython-312.pyc": {
         "kind": "file",
-        "sha256": "75bb19e073bf06ed4d6e436dec00fbf35628a3334bf0256995d14fb15fae676c",
+        "sha256": "eabd5b783f904b8d8b20a1bfe451ab46c15d72f3954a39dc34696b943a5c6582",
         "size": 45745
       },
       "experiments/src/__pycache__/sota_baseline_adapters.cpython-312.pyc": {
@@ -652,8 +652,8 @@
       },
       "figures/README.md": {
         "kind": "file",
-        "sha256": "f8cf8b5a06b9afe95900b1605706b343c7d372999089c95ae99f230bb9bfd2ec",
-        "size": 441
+        "sha256": "8621e228e450b6a8388cbca884c33241bcd2881dfdcf1e4871d128691dc5a175",
+        "size": 296
       },
       "figures/generated": {
         "kind": "directory",
@@ -680,8 +680,8 @@
       },
       "figures/generated/F0-authority-allocation-schematic/provenance.json": {
         "kind": "file",
-        "sha256": "1696330cbb4b511688329af4fd3d8977b880d15c901db3f987d48f32020e2e7c",
-        "size": 5540
+        "sha256": "93d38ea331c7bbb1f68b5e8cf8777f48f49540016296af85442306a3a1ddd140",
+        "size": 3759
       },
       "figures/generated/F0a-mixed-platoon-authority-source-scene": {
         "kind": "directory",
@@ -704,8 +704,8 @@
       },
       "figures/generated/F0a-mixed-platoon-authority-source-scene/provenance.json": {
         "kind": "file",
-        "sha256": "dac3337388bd4cfd9756a8de0beeeb97c85feea9822f687af23fb260c8777dcf",
-        "size": 3809
+        "sha256": "e147202c7eef4b5eba43f78f548d45c1434c9eb6503424213c6c1636ad19e3e5",
+        "size": 3497
       },
       "figures/generated/F1-rank-comparison": {
         "kind": "directory",
@@ -728,8 +728,8 @@
       },
       "figures/generated/F1-rank-comparison/provenance.json": {
         "kind": "file",
-        "sha256": "60eec62bc8d8c36cb8ecf2412a4d5bcbb67d7d20146e600bd3d1f620b2695322",
-        "size": 4764
+        "sha256": "bc4aa1df6235f9c9fe6fcf287d2e655992025338f98a35213ce69946344f7ca8",
+        "size": 3577
       },
       "figures/generated/F2-scenario-ci-margins": {
         "kind": "directory",
@@ -752,8 +752,8 @@
       },
       "figures/generated/F2-scenario-ci-margins/provenance.json": {
         "kind": "file",
-        "sha256": "df115983d0acf21a2e617a69875673b4fcf7a14d4eaa9dc405633032c5526fac",
-        "size": 4776
+        "sha256": "7db4c913147887bea77674172563b73fec67182dec18766fd45085e666cc1b48",
+        "size": 3589
       },
       "figures/generated/F3-safety-tradeoff-honesty": {
         "kind": "directory",
@@ -776,8 +776,8 @@
       },
       "figures/generated/F3-safety-tradeoff-honesty/provenance.json": {
         "kind": "file",
-        "sha256": "087dc3d5cfee623aaf9c8d5c94ac828ab892d8401b8cd433b8725513a6f08595",
-        "size": 4769
+        "sha256": "87a2d33575876a552f85da479837debee8926820b8b8ff7d586328eae3f2175e",
+        "size": 3582
       },
       "figures/generated/F4-baseline-boundary-matrix": {
         "kind": "directory",
@@ -800,8 +800,8 @@
       },
       "figures/generated/F4-baseline-boundary-matrix/provenance.json": {
         "kind": "file",
-        "sha256": "356e2b655d07ee958e635b922bff34ad872554f69b2fdb03c96b55210d2647b9",
-        "size": 3749
+        "sha256": "ba2dc188fd2a330f5aa4f557e705600ae0bbd3a9e27dd45596bfec22b7bad273",
+        "size": 2663
       },
       "figures/generated/F5-s8-proxy-stability": {
         "kind": "directory",
@@ -824,8 +824,8 @@
       },
       "figures/generated/F5-s8-proxy-stability/provenance.json": {
         "kind": "file",
-        "sha256": "f352bc6d5ea0b43c93c1e3c400bd952399f777a1e435d41d0cbfe3228e64cde0",
-        "size": 4625
+        "sha256": "4858b2f591ba7d8816db6bc3a6ef361f7c576fada2528249ae6e568fd7ab7c9a",
+        "size": 3438
       },
       "figures/generated/F6-authority-memory-transition": {
         "kind": "directory",
@@ -848,8 +848,8 @@
       },
       "figures/generated/F6-authority-memory-transition/provenance.json": {
         "kind": "file",
-        "sha256": "ab04bf072fe5c683568b8825263b0dfc97d582d27cca26febc6ed858da3027a0",
-        "size": 3696
+        "sha256": "cdc0562e2e6327920bf60d40ac152015ce2eaf4bdca9dfd747f526f172753268",
+        "size": 3384
       },
       "figures/generated/F6-authority-memory-transition/visual_self_check.md": {
         "kind": "file",
@@ -1188,507 +1188,8 @@
       },
       "notes/README.md": {
         "kind": "file",
-        "sha256": "c57ffe61a8bd1010f6b74d828773bf1cbbb3476265196839013d999d562acecc",
-        "size": 539
-      },
-      "notes/yxj-paper-os": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/README.md": {
-        "kind": "file",
-        "sha256": "1d35cfef72eb3f671840c8d4c604b9e876066f7aba539952748420b4d5b398a5",
-        "size": 2707
-      },
-      "notes/yxj-paper-os/evidence": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/evidence/README.md": {
-        "kind": "file",
-        "sha256": "2ac50c08fb5b09d5bc31b7c8b5ddd12cf78957ccac293a6093e2651e5e930c35",
-        "size": 1472
-      },
-      "notes/yxj-paper-os/evidence/allowed-forbidden-wording-l3-20260625.md": {
-        "kind": "file",
-        "sha256": "aae2155aa5f3ff438ff6091b5b1231bf1fa8162cc8e54049a19de8d46b64310e",
-        "size": 20619
-      },
-      "notes/yxj-paper-os/evidence/citation-support-bank-l3-delta-20260625.yaml": {
-        "kind": "file",
-        "sha256": "20be054c4c907a6dd94fa9fe83615ada6adc19b7d2aa1ee243d45ff171c19a5b",
-        "size": 34222
-      },
-      "notes/yxj-paper-os/evidence/claim-support-map-l3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "8223e60276ab72e56c81f6235a328862043a53439055b619ec63b5593b5cfaa7",
-        "size": 24921
-      },
-      "notes/yxj-paper-os/figures": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/figures/FigureBackendRoute-20260627.yaml": {
-        "kind": "file",
-        "sha256": "c4bde11e6948d842739028a3435bdc9dbbe58fba522f5e1201383e6cad9d799c",
-        "size": 19654
-      },
-      "notes/yxj-paper-os/figures/FigureExportBundle-20260627.yaml": {
-        "kind": "file",
-        "sha256": "0441522b66a67e3cb4086807284c16d5782bfc69df459ec4ffb787da4c2da828",
-        "size": 23461
-      },
-      "notes/yxj-paper-os/figures/FigureImageIntegrityRecord-20260627.yaml": {
-        "kind": "file",
-        "sha256": "77d44eb72a93f7ce8b71e4b997f679823da6809228635c52c2794a485609b43a",
-        "size": 19269
-      },
-      "notes/yxj-paper-os/figures/FigureSourceDataStatistics-20260627.yaml": {
-        "kind": "file",
-        "sha256": "e2c1e02d59dda5e26309f3c54120080dd70ec52c1d1bc07c3df359002c539f3b",
-        "size": 20673
-      },
-      "notes/yxj-paper-os/figures/NatureCaptionLegendBrief-20260627.yaml": {
-        "kind": "file",
-        "sha256": "2aed08f077d280e7f9b6c11c0ab85960eec3c5360f479d66580e658f390bb001",
-        "size": 24239
-      },
-      "notes/yxj-paper-os/figures/NatureFigureAestheticProfile-20260627.yaml": {
-        "kind": "file",
-        "sha256": "e8adaba95b3986faad4d59300735845df1c0570f9e9f82ffe83585c28bcdc588",
-        "size": 17468
-      },
-      "notes/yxj-paper-os/figures/NatureFigureContract-20260627.yaml": {
-        "kind": "file",
-        "sha256": "46f37a5bada0246ce5f2823535b8ee61caf2f5ac6ff6d11e78595774c6490237",
-        "size": 27662
-      },
-      "notes/yxj-paper-os/figures/NatureFigureQAReport-20260627.yaml": {
-        "kind": "file",
-        "sha256": "ae6b64dbb0c941b8299ab4d607ff092847372e8ca1c7a0fddc81429037c565f0",
-        "size": 16769
-      },
-      "notes/yxj-paper-os/figures/NaturePanelEvidenceMap-20260627.yaml": {
-        "kind": "file",
-        "sha256": "bb47987a33b970dc31affdb52356d6a5862af25969b3ed1302c04aca39e0ea77",
-        "size": 20247
-      },
-      "notes/yxj-paper-os/figures/VisualTableAlgorithmFormulaBudget-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "d682c856a9758fad7028c533f90a31f0facfd3ea5a17e499d3cdbb49d8dfadd6",
-        "size": 42753
-      },
-      "notes/yxj-paper-os/figures/figure-caption-boundary-plan-l3-20260625.md": {
-        "kind": "file",
-        "sha256": "fbbc1c1c81c8936157dffb7e5298a52f97701bf54197c42b37e12adbefa1ab4e",
-        "size": 18210
-      },
-      "notes/yxj-paper-os/ledger-snapshot": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/ledger-snapshot/README.md": {
-        "kind": "file",
-        "sha256": "565a7719fa8049524ec51dc292ed364bee6bfe18844463c6e0c7a5e96df056aa",
-        "size": 276
-      },
-      "notes/yxj-paper-os/ledger-snapshot/artifact-ledger.yaml": {
-        "kind": "file",
-        "sha256": "006a5a565b2b80fadc92c4086ba6fac3f1b4af27b45c5c165887531adf31b5a8",
-        "size": 91897
-      },
-      "notes/yxj-paper-os/ledger-snapshot/decision-ledger.yaml": {
-        "kind": "file",
-        "sha256": "6da3619c49f8efe97542bcbf6647bd4f3bf3ebf2ff2c74f12752889785a53ca6",
-        "size": 6500
-      },
-      "notes/yxj-paper-os/ledger-snapshot/evidence-ledger.yaml": {
-        "kind": "file",
-        "sha256": "1b269da5c6d4844c929f1d015f980bade90a6aa9359ed216673c58cfab2a5d56",
-        "size": 32358
-      },
-      "notes/yxj-paper-os/ledger-snapshot/export-ledger.yaml": {
-        "kind": "file",
-        "sha256": "4c8974f2cdc53ad7e4a865ee56cb2e24bc85c350ec46abf546d8eb33ba9d09ca",
-        "size": 7872
-      },
-      "notes/yxj-paper-os/ledger-snapshot/review-ledger.yaml": {
-        "kind": "file",
-        "sha256": "aa0447d8a781a368cb63f42367557732e5c5fdc9009d238bc720cd0a34221e21",
-        "size": 56115
-      },
-      "notes/yxj-paper-os/ledger-snapshot/snapshot-manifest.yaml": {
-        "kind": "file",
-        "sha256": "1c6548f7da8312409843f8c806cbd75c74850cfae7f88cfdc6c0612a0c4e3d81",
-        "size": 898
-      },
-      "notes/yxj-paper-os/ledger-snapshot/state.yaml": {
-        "kind": "file",
-        "sha256": "6d35a4365c925504315e24515b0ca587800a52bc3c98c4fe8cf1265d60a39d0d",
-        "size": 16225
-      },
-      "notes/yxj-paper-os/ledger-snapshot/task-ledger.yaml": {
-        "kind": "file",
-        "sha256": "dc49c1b21f0183d4336ffa3048d1750fa75453146eea576594d44eae801f6e78",
-        "size": 177084
-      },
-      "notes/yxj-paper-os/management": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/management/DepartmentCharterRegistry-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "84974da7e53a10cbc0345898923816924830620b51ccb8c4e5b12df3d5a52e21",
-        "size": 21699
-      },
-      "notes/yxj-paper-os/management/DepartmentLaneRegistry-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "ca62907e06e990aaed52b1f7dc0dcfdb98e4f0803b9732fec7bdafaa04654566",
-        "size": 19692
-      },
-      "notes/yxj-paper-os/management/DepartmentMaterialManifest-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "938ac4f4fc0e713cb80afbfaa1e1dd88b29f2e301e1ce37999386a99d83d66e4",
-        "size": 36902
-      },
-      "notes/yxj-paper-os/management/DepartmentState-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "ce145798d45d6878b683ffcfd0bf151d148d84a6c8b3531abc93655da95eef99",
-        "size": 28470
-      },
-      "notes/yxj-paper-os/management/ManagerBootChecklist-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "cca7592a2025aa299569529f3f2b1d351ea1978c0a13e55762e7ae4093d7be9d",
-        "size": 21537
-      },
-      "notes/yxj-paper-os/management/RequiredFunctionMaterialMap-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "eb7d7f56f5003eb248506af14e6987b6fc975ffb79ad035daa63c3e775721a9a",
-        "size": 19640
-      },
-      "notes/yxj-paper-os/management/autopilot": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/management/autopilot/TaskPacketV2Plus-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "937a34c1b3e1f2207e1782c3c1a4ecd1f7e2ad07778b06c427690af750989870",
-        "size": 45476
-      },
-      "notes/yxj-paper-os/planning": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/planning/paperspine": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/planning/paperspine/ClaimEvidenceVisibilityMap-20260627.yaml": {
-        "kind": "file",
-        "sha256": "6f6a4a1197a7010ce7fdbc71f0cdfbf3513f7e009c8c6cee72f591defda3442f",
-        "size": 18129
-      },
-      "notes/yxj-paper-os/planning/paperspine/CognitiveLoadBudget-20260627.yaml": {
-        "kind": "file",
-        "sha256": "cb3964e9a56aaab4101406da4d34d80b3337ce0d3277d348e4f208c2f1d88ec0",
-        "size": 17511
-      },
-      "notes/yxj-paper-os/planning/paperspine/DepartmentFunctionImplementationMatrix-20260625.yaml": {
-        "kind": "file",
-        "sha256": "43e7f8ecda313644843629eea5dadbde37ac10a43b4e293421180d11218ee6aa",
-        "size": 15160
-      },
-      "notes/yxj-paper-os/planning/paperspine/DesignMaterialDepartmentFunctionClosureTaskPacket-20260625.yaml": {
-        "kind": "file",
-        "sha256": "eb43cdc5b073030524d4218ba7d54b9b2057fc993d9bc7df180782a68897ad2a",
-        "size": 6786
-      },
-      "notes/yxj-paper-os/planning/paperspine/DesignMaterialFunctionImplementationAdjustment-20260625.yaml": {
-        "kind": "file",
-        "sha256": "e4aa7855afda7855f69343717817bc99ce47d9f482790f96d572fa1170577736",
-        "size": 7806
-      },
-      "notes/yxj-paper-os/planning/paperspine/ExplanationLadder-20260627.yaml": {
-        "kind": "file",
-        "sha256": "85058fe10616482ec2fbaccdbfccb8395a85f6ea2ab18f6490bdb9ddd7a4a2a7",
-        "size": 17091
-      },
-      "notes/yxj-paper-os/planning/paperspine/ExpressionDesignBundle-20260627.yaml": {
-        "kind": "file",
-        "sha256": "c51141fed26e8761e9bc52c675c64b2001791d02863d80c02b93fb1181f1938c",
-        "size": 16328
-      },
-      "notes/yxj-paper-os/planning/paperspine/FullMaterialDrivenManuscriptRewritePatchset-20260625.md": {
-        "kind": "file",
-        "sha256": "011b5a990eb99eb71ef754af5ca1b356df94087f0c2c207d56747278010320f3",
-        "size": 4407
-      },
-      "notes/yxj-paper-os/planning/paperspine/FullMaterialDrivenManuscriptRewriteValidation-20260625.yaml": {
-        "kind": "file",
-        "sha256": "a0b46f76dfe93a5f7219582cde1ffccfb0e46d2a52dad56b370d90b0a705060c",
-        "size": 5312
-      },
-      "notes/yxj-paper-os/planning/paperspine/FullMaterialDrivenWritingTaskPacket-20260625.yaml": {
-        "kind": "file",
-        "sha256": "13ab7537895fa741174cdc61bce98dd531bcc92bfa7f0dadaab59fc98e9c4d67",
-        "size": 6914
-      },
-      "notes/yxj-paper-os/planning/paperspine/MainTextSurfaceRules-20260626.yaml": {
-        "kind": "file",
-        "sha256": "533ad2eff0fdc725cbc747b3fbf7d21337461d6bc60f7c991bee1e46f019de33",
-        "size": 3613
-      },
-      "notes/yxj-paper-os/planning/paperspine/MainTextSurfaceRules-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "f945a17f3d9b16d0900f0a8ce82e9b4b1bfc237b5a7de0bd41d119cbcc247ff1",
-        "size": 6744
-      },
-      "notes/yxj-paper-os/planning/paperspine/ManuscriptRevisionPatchset-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "c5239cd5302c823bc38df48d25d6827d9748d4e1fe22d382c6e059fb611f62cc",
-        "size": 12140
-      },
-      "notes/yxj-paper-os/planning/paperspine/ManuscriptRevisionPatchset-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "cabff2ba3ed60d3907127eea61e889db4ae38d6cd95533cb96f5169f87ed6916",
-        "size": 2562
-      },
-      "notes/yxj-paper-os/planning/paperspine/ManuscriptSurfaceRewritePatchset-20260626.md": {
-        "kind": "file",
-        "sha256": "d676b7ebfeaed2597344cf01af453b6e691a604bf108d977aac98e9cbffc9635",
-        "size": 2487
-      },
-      "notes/yxj-paper-os/planning/paperspine/ObjectRepresentationMatrix-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "99c58b4eea88acf5adf761b60862b8aaf6f54b214282bc6cb9b17aeab6ee9bef",
-        "size": 11748
-      },
-      "notes/yxj-paper-os/planning/paperspine/README.md": {
-        "kind": "file",
-        "sha256": "42f04284d882a7d52ecee19f395121090dfd62603f206009f31aa69d6f4cc3aa",
-        "size": 1786
-      },
-      "notes/yxj-paper-os/planning/paperspine/ReaderSpineBrief-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "65a39af8deb444f42b57fc0f3729a6603a8417b941c0c3eba90c678b62a38567",
-        "size": 10854
-      },
-      "notes/yxj-paper-os/planning/paperspine/ReaderSurfaceTerminologyMap-20260625.yaml": {
-        "kind": "file",
-        "sha256": "d0e9a8230f736fdbbcc636abf04072dd99ee3568110aaf9956f84026471e4bff",
-        "size": 5647
-      },
-      "notes/yxj-paper-os/planning/paperspine/ReaderTransitionMap-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "ee31a95ee056c12ebdb79f4d499bbe27606cd6a33e6457b78ecc5804d26089a5",
-        "size": 10732
-      },
-      "notes/yxj-paper-os/planning/paperspine/RhetoricalMoveMatrix-20260627.yaml": {
-        "kind": "file",
-        "sha256": "58897bc55d901e1e68b883e4d06e9a74d7d04c12d01aa8d92abe526ba8dce6df",
-        "size": 17367
-      },
-      "notes/yxj-paper-os/planning/paperspine/SectionFunctionBudget-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "79df7571dc7b83dae9dd85bb526f8a93ac5b339c26bde48230e70aad7b098bc1",
-        "size": 10380
-      },
-      "notes/yxj-paper-os/planning/paperspine/Stage1-4MaterialObjectValidation-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "c0439cc882f22e0cf3a7fbfe2b1bf05920db8a72fd68f9a4a5d45fc5236deac6",
-        "size": 15593
-      },
-      "notes/yxj-paper-os/planning/paperspine/Stage5ArtifactPathDecision-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "4fcfe683de7ab0846efd38c818b399feb2243b057efc6c87e1e8df244a019205",
-        "size": 2495
-      },
-      "notes/yxj-paper-os/planning/paperspine/Stage5WritingValidation-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "5f46b3683572314c6f4723c095ed09649e50093bcfe35cc7660577444aac2a9b",
-        "size": 9939
-      },
-      "notes/yxj-paper-os/planning/paperspine/TemplateDeepeningAndSurfaceBackflow-20260626.yaml": {
-        "kind": "file",
-        "sha256": "8e8784fe662aa81232d4fe2e482608051a3f6157cbe2bdd032eb0f939ffc5ee3",
-        "size": 9012
-      },
-      "notes/yxj-paper-os/planning/paperspine/TemplateQuantProfile-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "109ce42905bd7e5710f7a745e9d6d6eaab0505c2d3ccdc1876a099a23cdf8f24",
-        "size": 14698
-      },
-      "notes/yxj-paper-os/planning/paperspine/TerminologyRegister-20260627.yaml": {
-        "kind": "file",
-        "sha256": "8f5c01d2490cd4995b66630d330d949eae07bd324267d4622b962e7f2587aacf",
-        "size": 17113
-      },
-      "notes/yxj-paper-os/planning/paperspine/l3-template-workflow-source-freeze-2026-06-25.yaml": {
-        "kind": "file",
-        "sha256": "fc5f8072882cbe559b5c700440516e069bc02f2fcf6070776145c84f5e4a7a74",
-        "size": 14644
-      },
-      "notes/yxj-paper-os/planning/paperspine/template-gap-audit-l3-20260625.md": {
-        "kind": "file",
-        "sha256": "21a1acb2e814b70208d7e70b85cf511ca600a31cfd91767661ffe4ca62f199fe",
-        "size": 13980
-      },
-      "notes/yxj-paper-os/repository-hygiene": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/repository-hygiene/README.md": {
-        "kind": "file",
-        "sha256": "4db88e902405d87f6ab9c072a1eef1b407c6c1c229726168e90fd51a3390dd05",
-        "size": 573
-      },
-      "notes/yxj-paper-os/repository-hygiene/RepositoryHygieneReport-material-normalization-20260627.md": {
-        "kind": "file",
-        "sha256": "fe2a58c5c28548cdc5c4f25998375209b7b7b52d087e0ef7e859ad6c162f5a7c",
-        "size": 6293
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-cleanup-inventory-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "143fff0de44933567a0b1ade09f73e5297ea55b0f4a5198e493fe291a7226a60",
-        "size": 4737
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-cleanup-pass2-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "5ceedcac2eb5a600a28b3e4d0eba8b31744e31e570af1b9c7961960c8866e5aa",
-        "size": 3946
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-intermediate-provenance-prune-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "33ccfec71b569504eb3e9cd1e85122b470fd8fb951c67ef919a9c41c4644f181",
-        "size": 2926
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-internal-naming-cleanup-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "d25b83b5f4612ee6137a41886ac14175ec65bfc97031a06b3e24e84d5301c4c2",
-        "size": 3427
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-old-gain-scheduled-route-prune-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "feaa9e566af0a16cd75a3ec930b310b4254f092b2572b57e1fd4220f2ae1e23b",
-        "size": 2482
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-old-runner-verifier-prune-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "e6368f1c3b122c62308fb37c61906d8565a63cdcf96efa9129cb0479683e2d03",
-        "size": 2376
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-runtime-cache-cleanup-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "19e490e64d63448fc462fe5da3ed862b731baa91d6839acd017c09582d673f8c",
-        "size": 3095
-      },
-      "notes/yxj-paper-os/review": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/review/AISlopCleanerNoopReport-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "e1e16545f7375bc1cd4ced4b3b306f8da9ee83ac048859718190761fb9aeb789",
-        "size": 2010
-      },
-      "notes/yxj-paper-os/review/BackflowClosureMemo-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "8114ceaa9f66a09fda53baa03e257566b63a36ca82911d45445e31e865f86998",
-        "size": 1831
-      },
-      "notes/yxj-paper-os/review/BackflowClosureMemo-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "83eae4f6e157828c6d74656ab0fc484a121ab8390cc79d88181fc187b221f3fc",
-        "size": 5474
-      },
-      "notes/yxj-paper-os/review/DesignMaterialAdjustmentVerification-20260625.md": {
-        "kind": "file",
-        "sha256": "7dddba08cc5a5072352ba42084c4e4ae1cc797f62eda4b6b53cd788565f48f8a",
-        "size": 3146
-      },
-      "notes/yxj-paper-os/review/DesignMaterialDetailedAudit-20260625.md": {
-        "kind": "file",
-        "sha256": "b2d5319f94a5670061157e4dc3bd7e6e24b82170f65725e528f7616d0c37e5d5",
-        "size": 6371
-      },
-      "notes/yxj-paper-os/review/FullMaterialDrivenManuscriptRewriteIndependentReview-20260625.md": {
-        "kind": "file",
-        "sha256": "a03b99c64577e258737669a24c099efb8c8a2012de674ee910c94afd89ce1d46",
-        "size": 3405
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-L3-template-workflow-20260625.md": {
-        "kind": "file",
-        "sha256": "91ac2b009521cf3e563e3d4790856f2c1b1a31d0e51c03d448b733cbddbe253a",
-        "size": 6285
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-L3-template-workflow-20260625.yaml": {
-        "kind": "file",
-        "sha256": "961fbccf6339e0c6eeaf1551644689cbb250c2c6bf9213885d17c613138614b7",
-        "size": 12657
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-material-normalization-20260627.md": {
-        "kind": "file",
-        "sha256": "23067eb8ba01b3b9cbf136e71233df877063dfc74f7c20d1955953878cf9e13a",
-        "size": 8443
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "84fe5124fd92ce195f4ba0ed89073dcf1fcc3f502f24cbb019635d07379a20c2",
-        "size": 31693
-      },
-      "notes/yxj-paper-os/review/MultiRoleReviewBackflowTaskSet-20260626.yaml": {
-        "kind": "file",
-        "sha256": "f88d8cded7f8d6455399facebd37d792d32ecde4fe6cfa502fb9643dda0448c4",
-        "size": 6352
-      },
-      "notes/yxj-paper-os/review/MultiRoleReviewClosureValidation-20260626.yaml": {
-        "kind": "file",
-        "sha256": "eb046a825d36fb15f9986b8a1ab4f640e4c64816502cf9193594a15d7d87fe0b",
-        "size": 1590
-      },
-      "notes/yxj-paper-os/review/MultiRoleReviewReport-20260626.md": {
-        "kind": "file",
-        "sha256": "543fbe42f79d7caa33ce3698ac64e95ad8b2c9a153107889e0f30225115637ad",
-        "size": 8464
-      },
-      "notes/yxj-paper-os/review/NarrativeBackflowTaskSet-20260626.yaml": {
-        "kind": "file",
-        "sha256": "36517e495bf96b9f9920df6a5239e6aedd3a345e8f5cd90b2367a753c3693b7f",
-        "size": 4820
-      },
-      "notes/yxj-paper-os/review/NarrativeBackflowTaskSet-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "7af35c980216aa0c4938cbb34ed3c5ca00d5ceef6a4921e9d65b6a2c72df8215",
-        "size": 11897
-      },
-      "notes/yxj-paper-os/review/ReaderExperienceReviewReport-20260626.md": {
-        "kind": "file",
-        "sha256": "689efcbfa867e2cba83c67a0e71c40348bb036f8f88dd3419e4293ba83404039",
-        "size": 4604
-      },
-      "notes/yxj-paper-os/review/ReaderExperienceReviewReport-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "c2e07d82728c336c78eb12f2fe3f4926b87dc2cb89b5a4d21ac8a9105f97076d",
-        "size": 12358
-      },
-      "notes/yxj-paper-os/review/ReviewerFeedbackAdjustmentReport-20260626.md": {
-        "kind": "file",
-        "sha256": "3858b3315a8e66b8a3e51be8c333578835b801a5d05e3112a78fb495e2bbc4a2",
-        "size": 6166
-      },
-      "notes/yxj-paper-os/review/ReviewerFeedbackAdjustmentTaskSet-20260626.yaml": {
-        "kind": "file",
-        "sha256": "233ca49561431b08c80bbb1785efaf5e5eb54b570b3a6822ccc24c1283704da0",
-        "size": 5292
-      },
-      "notes/yxj-paper-os/review/ReviewerFeedbackAdjustmentValidation-20260626.yaml": {
-        "kind": "file",
-        "sha256": "d5694c66948c2dac6b043f9d5ede268f5df0e183d74b4283d5d99f2c75785705",
-        "size": 1637
-      },
-      "notes/yxj-paper-os/validation": {
-        "kind": "directory",
-        "size": 4096
+        "sha256": "603e5e40367e3cce4d90665618fcd000a2933171d4e2d2292350b768b2bda031",
+        "size": 168
       },
       "references": {
         "kind": "directory",
@@ -1701,8 +1202,8 @@
       },
       "references/citation-workspace-map.md": {
         "kind": "file",
-        "sha256": "3fb3fb6222802fb80a0602aa7e6db308d515df4239c623de8c5443ca8242fc08",
-        "size": 1613
+        "sha256": "ec7444e20035dd236c1c489424e9bf3915c3ded41f74538926fd40db17c98f8d",
+        "size": 1304
       },
       "references/journal_templates": {
         "kind": "directory",
@@ -1873,14 +1374,9 @@
         "kind": "file",
         "sha256": "97f01eedcd1b0aa7ccb98d0ddbb7694c42b0a2ed27d0832de26ff0b24c5c36bb",
         "size": 13898
-      },
-      "scripts/yxj_paper_os_ledger_guard.py": {
-        "kind": "file",
-        "sha256": "e724ad11e10bff6efb59f5854edcc836ef7cc3b86ebe1c7e895b9e8cd7115dbc",
-        "size": 1590
       }
     },
-    "entry_count": 386,
+    "entry_count": 283,
     "git_status_porcelain_v1": [],
     "schema_version": "ppg-source-snapshot/v0.1",
     "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon"
@@ -1909,8 +1405,8 @@
       },
       "HANDOFF.md": {
         "kind": "file",
-        "sha256": "3d88f451b8ad5056030cb15e22b2790fb492531442034e49ba461f31960c800b",
-        "size": 11936
+        "sha256": "74071d997117c1fe55db63e622fbe6498804044d184a9dc1327bf5038e4318df",
+        "size": 11830
       },
       "NEXT-SESSION-START.md": {
         "kind": "file",
@@ -2344,7 +1840,7 @@
       },
       "experiments/src/__pycache__/core_sota_baseline_method_faithful_experiment.cpython-312.pyc": {
         "kind": "file",
-        "sha256": "75bb19e073bf06ed4d6e436dec00fbf35628a3334bf0256995d14fb15fae676c",
+        "sha256": "eabd5b783f904b8d8b20a1bfe451ab46c15d72f3954a39dc34696b943a5c6582",
         "size": 45745
       },
       "experiments/src/__pycache__/sota_baseline_adapters.cpython-312.pyc": {
@@ -2525,8 +2021,8 @@
       },
       "figures/README.md": {
         "kind": "file",
-        "sha256": "f8cf8b5a06b9afe95900b1605706b343c7d372999089c95ae99f230bb9bfd2ec",
-        "size": 441
+        "sha256": "8621e228e450b6a8388cbca884c33241bcd2881dfdcf1e4871d128691dc5a175",
+        "size": 296
       },
       "figures/generated": {
         "kind": "directory",
@@ -2553,8 +2049,8 @@
       },
       "figures/generated/F0-authority-allocation-schematic/provenance.json": {
         "kind": "file",
-        "sha256": "1696330cbb4b511688329af4fd3d8977b880d15c901db3f987d48f32020e2e7c",
-        "size": 5540
+        "sha256": "93d38ea331c7bbb1f68b5e8cf8777f48f49540016296af85442306a3a1ddd140",
+        "size": 3759
       },
       "figures/generated/F0a-mixed-platoon-authority-source-scene": {
         "kind": "directory",
@@ -2577,8 +2073,8 @@
       },
       "figures/generated/F0a-mixed-platoon-authority-source-scene/provenance.json": {
         "kind": "file",
-        "sha256": "dac3337388bd4cfd9756a8de0beeeb97c85feea9822f687af23fb260c8777dcf",
-        "size": 3809
+        "sha256": "e147202c7eef4b5eba43f78f548d45c1434c9eb6503424213c6c1636ad19e3e5",
+        "size": 3497
       },
       "figures/generated/F1-rank-comparison": {
         "kind": "directory",
@@ -2601,8 +2097,8 @@
       },
       "figures/generated/F1-rank-comparison/provenance.json": {
         "kind": "file",
-        "sha256": "60eec62bc8d8c36cb8ecf2412a4d5bcbb67d7d20146e600bd3d1f620b2695322",
-        "size": 4764
+        "sha256": "bc4aa1df6235f9c9fe6fcf287d2e655992025338f98a35213ce69946344f7ca8",
+        "size": 3577
       },
       "figures/generated/F2-scenario-ci-margins": {
         "kind": "directory",
@@ -2625,8 +2121,8 @@
       },
       "figures/generated/F2-scenario-ci-margins/provenance.json": {
         "kind": "file",
-        "sha256": "df115983d0acf21a2e617a69875673b4fcf7a14d4eaa9dc405633032c5526fac",
-        "size": 4776
+        "sha256": "7db4c913147887bea77674172563b73fec67182dec18766fd45085e666cc1b48",
+        "size": 3589
       },
       "figures/generated/F3-safety-tradeoff-honesty": {
         "kind": "directory",
@@ -2649,8 +2145,8 @@
       },
       "figures/generated/F3-safety-tradeoff-honesty/provenance.json": {
         "kind": "file",
-        "sha256": "087dc3d5cfee623aaf9c8d5c94ac828ab892d8401b8cd433b8725513a6f08595",
-        "size": 4769
+        "sha256": "87a2d33575876a552f85da479837debee8926820b8b8ff7d586328eae3f2175e",
+        "size": 3582
       },
       "figures/generated/F4-baseline-boundary-matrix": {
         "kind": "directory",
@@ -2673,8 +2169,8 @@
       },
       "figures/generated/F4-baseline-boundary-matrix/provenance.json": {
         "kind": "file",
-        "sha256": "356e2b655d07ee958e635b922bff34ad872554f69b2fdb03c96b55210d2647b9",
-        "size": 3749
+        "sha256": "ba2dc188fd2a330f5aa4f557e705600ae0bbd3a9e27dd45596bfec22b7bad273",
+        "size": 2663
       },
       "figures/generated/F5-s8-proxy-stability": {
         "kind": "directory",
@@ -2697,8 +2193,8 @@
       },
       "figures/generated/F5-s8-proxy-stability/provenance.json": {
         "kind": "file",
-        "sha256": "f352bc6d5ea0b43c93c1e3c400bd952399f777a1e435d41d0cbfe3228e64cde0",
-        "size": 4625
+        "sha256": "4858b2f591ba7d8816db6bc3a6ef361f7c576fada2528249ae6e568fd7ab7c9a",
+        "size": 3438
       },
       "figures/generated/F6-authority-memory-transition": {
         "kind": "directory",
@@ -2721,8 +2217,8 @@
       },
       "figures/generated/F6-authority-memory-transition/provenance.json": {
         "kind": "file",
-        "sha256": "ab04bf072fe5c683568b8825263b0dfc97d582d27cca26febc6ed858da3027a0",
-        "size": 3696
+        "sha256": "cdc0562e2e6327920bf60d40ac152015ce2eaf4bdca9dfd747f526f172753268",
+        "size": 3384
       },
       "figures/generated/F6-authority-memory-transition/visual_self_check.md": {
         "kind": "file",
@@ -3061,507 +2557,8 @@
       },
       "notes/README.md": {
         "kind": "file",
-        "sha256": "c57ffe61a8bd1010f6b74d828773bf1cbbb3476265196839013d999d562acecc",
-        "size": 539
-      },
-      "notes/yxj-paper-os": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/README.md": {
-        "kind": "file",
-        "sha256": "1d35cfef72eb3f671840c8d4c604b9e876066f7aba539952748420b4d5b398a5",
-        "size": 2707
-      },
-      "notes/yxj-paper-os/evidence": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/evidence/README.md": {
-        "kind": "file",
-        "sha256": "2ac50c08fb5b09d5bc31b7c8b5ddd12cf78957ccac293a6093e2651e5e930c35",
-        "size": 1472
-      },
-      "notes/yxj-paper-os/evidence/allowed-forbidden-wording-l3-20260625.md": {
-        "kind": "file",
-        "sha256": "aae2155aa5f3ff438ff6091b5b1231bf1fa8162cc8e54049a19de8d46b64310e",
-        "size": 20619
-      },
-      "notes/yxj-paper-os/evidence/citation-support-bank-l3-delta-20260625.yaml": {
-        "kind": "file",
-        "sha256": "20be054c4c907a6dd94fa9fe83615ada6adc19b7d2aa1ee243d45ff171c19a5b",
-        "size": 34222
-      },
-      "notes/yxj-paper-os/evidence/claim-support-map-l3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "8223e60276ab72e56c81f6235a328862043a53439055b619ec63b5593b5cfaa7",
-        "size": 24921
-      },
-      "notes/yxj-paper-os/figures": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/figures/FigureBackendRoute-20260627.yaml": {
-        "kind": "file",
-        "sha256": "c4bde11e6948d842739028a3435bdc9dbbe58fba522f5e1201383e6cad9d799c",
-        "size": 19654
-      },
-      "notes/yxj-paper-os/figures/FigureExportBundle-20260627.yaml": {
-        "kind": "file",
-        "sha256": "0441522b66a67e3cb4086807284c16d5782bfc69df459ec4ffb787da4c2da828",
-        "size": 23461
-      },
-      "notes/yxj-paper-os/figures/FigureImageIntegrityRecord-20260627.yaml": {
-        "kind": "file",
-        "sha256": "77d44eb72a93f7ce8b71e4b997f679823da6809228635c52c2794a485609b43a",
-        "size": 19269
-      },
-      "notes/yxj-paper-os/figures/FigureSourceDataStatistics-20260627.yaml": {
-        "kind": "file",
-        "sha256": "e2c1e02d59dda5e26309f3c54120080dd70ec52c1d1bc07c3df359002c539f3b",
-        "size": 20673
-      },
-      "notes/yxj-paper-os/figures/NatureCaptionLegendBrief-20260627.yaml": {
-        "kind": "file",
-        "sha256": "2aed08f077d280e7f9b6c11c0ab85960eec3c5360f479d66580e658f390bb001",
-        "size": 24239
-      },
-      "notes/yxj-paper-os/figures/NatureFigureAestheticProfile-20260627.yaml": {
-        "kind": "file",
-        "sha256": "e8adaba95b3986faad4d59300735845df1c0570f9e9f82ffe83585c28bcdc588",
-        "size": 17468
-      },
-      "notes/yxj-paper-os/figures/NatureFigureContract-20260627.yaml": {
-        "kind": "file",
-        "sha256": "46f37a5bada0246ce5f2823535b8ee61caf2f5ac6ff6d11e78595774c6490237",
-        "size": 27662
-      },
-      "notes/yxj-paper-os/figures/NatureFigureQAReport-20260627.yaml": {
-        "kind": "file",
-        "sha256": "ae6b64dbb0c941b8299ab4d607ff092847372e8ca1c7a0fddc81429037c565f0",
-        "size": 16769
-      },
-      "notes/yxj-paper-os/figures/NaturePanelEvidenceMap-20260627.yaml": {
-        "kind": "file",
-        "sha256": "bb47987a33b970dc31affdb52356d6a5862af25969b3ed1302c04aca39e0ea77",
-        "size": 20247
-      },
-      "notes/yxj-paper-os/figures/VisualTableAlgorithmFormulaBudget-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "d682c856a9758fad7028c533f90a31f0facfd3ea5a17e499d3cdbb49d8dfadd6",
-        "size": 42753
-      },
-      "notes/yxj-paper-os/figures/figure-caption-boundary-plan-l3-20260625.md": {
-        "kind": "file",
-        "sha256": "fbbc1c1c81c8936157dffb7e5298a52f97701bf54197c42b37e12adbefa1ab4e",
-        "size": 18210
-      },
-      "notes/yxj-paper-os/ledger-snapshot": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/ledger-snapshot/README.md": {
-        "kind": "file",
-        "sha256": "565a7719fa8049524ec51dc292ed364bee6bfe18844463c6e0c7a5e96df056aa",
-        "size": 276
-      },
-      "notes/yxj-paper-os/ledger-snapshot/artifact-ledger.yaml": {
-        "kind": "file",
-        "sha256": "006a5a565b2b80fadc92c4086ba6fac3f1b4af27b45c5c165887531adf31b5a8",
-        "size": 91897
-      },
-      "notes/yxj-paper-os/ledger-snapshot/decision-ledger.yaml": {
-        "kind": "file",
-        "sha256": "6da3619c49f8efe97542bcbf6647bd4f3bf3ebf2ff2c74f12752889785a53ca6",
-        "size": 6500
-      },
-      "notes/yxj-paper-os/ledger-snapshot/evidence-ledger.yaml": {
-        "kind": "file",
-        "sha256": "1b269da5c6d4844c929f1d015f980bade90a6aa9359ed216673c58cfab2a5d56",
-        "size": 32358
-      },
-      "notes/yxj-paper-os/ledger-snapshot/export-ledger.yaml": {
-        "kind": "file",
-        "sha256": "4c8974f2cdc53ad7e4a865ee56cb2e24bc85c350ec46abf546d8eb33ba9d09ca",
-        "size": 7872
-      },
-      "notes/yxj-paper-os/ledger-snapshot/review-ledger.yaml": {
-        "kind": "file",
-        "sha256": "aa0447d8a781a368cb63f42367557732e5c5fdc9009d238bc720cd0a34221e21",
-        "size": 56115
-      },
-      "notes/yxj-paper-os/ledger-snapshot/snapshot-manifest.yaml": {
-        "kind": "file",
-        "sha256": "1c6548f7da8312409843f8c806cbd75c74850cfae7f88cfdc6c0612a0c4e3d81",
-        "size": 898
-      },
-      "notes/yxj-paper-os/ledger-snapshot/state.yaml": {
-        "kind": "file",
-        "sha256": "6d35a4365c925504315e24515b0ca587800a52bc3c98c4fe8cf1265d60a39d0d",
-        "size": 16225
-      },
-      "notes/yxj-paper-os/ledger-snapshot/task-ledger.yaml": {
-        "kind": "file",
-        "sha256": "dc49c1b21f0183d4336ffa3048d1750fa75453146eea576594d44eae801f6e78",
-        "size": 177084
-      },
-      "notes/yxj-paper-os/management": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/management/DepartmentCharterRegistry-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "84974da7e53a10cbc0345898923816924830620b51ccb8c4e5b12df3d5a52e21",
-        "size": 21699
-      },
-      "notes/yxj-paper-os/management/DepartmentLaneRegistry-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "ca62907e06e990aaed52b1f7dc0dcfdb98e4f0803b9732fec7bdafaa04654566",
-        "size": 19692
-      },
-      "notes/yxj-paper-os/management/DepartmentMaterialManifest-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "938ac4f4fc0e713cb80afbfaa1e1dd88b29f2e301e1ce37999386a99d83d66e4",
-        "size": 36902
-      },
-      "notes/yxj-paper-os/management/DepartmentState-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "ce145798d45d6878b683ffcfd0bf151d148d84a6c8b3531abc93655da95eef99",
-        "size": 28470
-      },
-      "notes/yxj-paper-os/management/ManagerBootChecklist-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "cca7592a2025aa299569529f3f2b1d351ea1978c0a13e55762e7ae4093d7be9d",
-        "size": 21537
-      },
-      "notes/yxj-paper-os/management/RequiredFunctionMaterialMap-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "eb7d7f56f5003eb248506af14e6987b6fc975ffb79ad035daa63c3e775721a9a",
-        "size": 19640
-      },
-      "notes/yxj-paper-os/management/autopilot": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/management/autopilot/TaskPacketV2Plus-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "937a34c1b3e1f2207e1782c3c1a4ecd1f7e2ad07778b06c427690af750989870",
-        "size": 45476
-      },
-      "notes/yxj-paper-os/planning": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/planning/paperspine": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/planning/paperspine/ClaimEvidenceVisibilityMap-20260627.yaml": {
-        "kind": "file",
-        "sha256": "6f6a4a1197a7010ce7fdbc71f0cdfbf3513f7e009c8c6cee72f591defda3442f",
-        "size": 18129
-      },
-      "notes/yxj-paper-os/planning/paperspine/CognitiveLoadBudget-20260627.yaml": {
-        "kind": "file",
-        "sha256": "cb3964e9a56aaab4101406da4d34d80b3337ce0d3277d348e4f208c2f1d88ec0",
-        "size": 17511
-      },
-      "notes/yxj-paper-os/planning/paperspine/DepartmentFunctionImplementationMatrix-20260625.yaml": {
-        "kind": "file",
-        "sha256": "43e7f8ecda313644843629eea5dadbde37ac10a43b4e293421180d11218ee6aa",
-        "size": 15160
-      },
-      "notes/yxj-paper-os/planning/paperspine/DesignMaterialDepartmentFunctionClosureTaskPacket-20260625.yaml": {
-        "kind": "file",
-        "sha256": "eb43cdc5b073030524d4218ba7d54b9b2057fc993d9bc7df180782a68897ad2a",
-        "size": 6786
-      },
-      "notes/yxj-paper-os/planning/paperspine/DesignMaterialFunctionImplementationAdjustment-20260625.yaml": {
-        "kind": "file",
-        "sha256": "e4aa7855afda7855f69343717817bc99ce47d9f482790f96d572fa1170577736",
-        "size": 7806
-      },
-      "notes/yxj-paper-os/planning/paperspine/ExplanationLadder-20260627.yaml": {
-        "kind": "file",
-        "sha256": "85058fe10616482ec2fbaccdbfccb8395a85f6ea2ab18f6490bdb9ddd7a4a2a7",
-        "size": 17091
-      },
-      "notes/yxj-paper-os/planning/paperspine/ExpressionDesignBundle-20260627.yaml": {
-        "kind": "file",
-        "sha256": "c51141fed26e8761e9bc52c675c64b2001791d02863d80c02b93fb1181f1938c",
-        "size": 16328
-      },
-      "notes/yxj-paper-os/planning/paperspine/FullMaterialDrivenManuscriptRewritePatchset-20260625.md": {
-        "kind": "file",
-        "sha256": "011b5a990eb99eb71ef754af5ca1b356df94087f0c2c207d56747278010320f3",
-        "size": 4407
-      },
-      "notes/yxj-paper-os/planning/paperspine/FullMaterialDrivenManuscriptRewriteValidation-20260625.yaml": {
-        "kind": "file",
-        "sha256": "a0b46f76dfe93a5f7219582cde1ffccfb0e46d2a52dad56b370d90b0a705060c",
-        "size": 5312
-      },
-      "notes/yxj-paper-os/planning/paperspine/FullMaterialDrivenWritingTaskPacket-20260625.yaml": {
-        "kind": "file",
-        "sha256": "13ab7537895fa741174cdc61bce98dd531bcc92bfa7f0dadaab59fc98e9c4d67",
-        "size": 6914
-      },
-      "notes/yxj-paper-os/planning/paperspine/MainTextSurfaceRules-20260626.yaml": {
-        "kind": "file",
-        "sha256": "533ad2eff0fdc725cbc747b3fbf7d21337461d6bc60f7c991bee1e46f019de33",
-        "size": 3613
-      },
-      "notes/yxj-paper-os/planning/paperspine/MainTextSurfaceRules-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "f945a17f3d9b16d0900f0a8ce82e9b4b1bfc237b5a7de0bd41d119cbcc247ff1",
-        "size": 6744
-      },
-      "notes/yxj-paper-os/planning/paperspine/ManuscriptRevisionPatchset-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "c5239cd5302c823bc38df48d25d6827d9748d4e1fe22d382c6e059fb611f62cc",
-        "size": 12140
-      },
-      "notes/yxj-paper-os/planning/paperspine/ManuscriptRevisionPatchset-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "cabff2ba3ed60d3907127eea61e889db4ae38d6cd95533cb96f5169f87ed6916",
-        "size": 2562
-      },
-      "notes/yxj-paper-os/planning/paperspine/ManuscriptSurfaceRewritePatchset-20260626.md": {
-        "kind": "file",
-        "sha256": "d676b7ebfeaed2597344cf01af453b6e691a604bf108d977aac98e9cbffc9635",
-        "size": 2487
-      },
-      "notes/yxj-paper-os/planning/paperspine/ObjectRepresentationMatrix-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "99c58b4eea88acf5adf761b60862b8aaf6f54b214282bc6cb9b17aeab6ee9bef",
-        "size": 11748
-      },
-      "notes/yxj-paper-os/planning/paperspine/README.md": {
-        "kind": "file",
-        "sha256": "42f04284d882a7d52ecee19f395121090dfd62603f206009f31aa69d6f4cc3aa",
-        "size": 1786
-      },
-      "notes/yxj-paper-os/planning/paperspine/ReaderSpineBrief-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "65a39af8deb444f42b57fc0f3729a6603a8417b941c0c3eba90c678b62a38567",
-        "size": 10854
-      },
-      "notes/yxj-paper-os/planning/paperspine/ReaderSurfaceTerminologyMap-20260625.yaml": {
-        "kind": "file",
-        "sha256": "d0e9a8230f736fdbbcc636abf04072dd99ee3568110aaf9956f84026471e4bff",
-        "size": 5647
-      },
-      "notes/yxj-paper-os/planning/paperspine/ReaderTransitionMap-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "ee31a95ee056c12ebdb79f4d499bbe27606cd6a33e6457b78ecc5804d26089a5",
-        "size": 10732
-      },
-      "notes/yxj-paper-os/planning/paperspine/RhetoricalMoveMatrix-20260627.yaml": {
-        "kind": "file",
-        "sha256": "58897bc55d901e1e68b883e4d06e9a74d7d04c12d01aa8d92abe526ba8dce6df",
-        "size": 17367
-      },
-      "notes/yxj-paper-os/planning/paperspine/SectionFunctionBudget-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "79df7571dc7b83dae9dd85bb526f8a93ac5b339c26bde48230e70aad7b098bc1",
-        "size": 10380
-      },
-      "notes/yxj-paper-os/planning/paperspine/Stage1-4MaterialObjectValidation-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "c0439cc882f22e0cf3a7fbfe2b1bf05920db8a72fd68f9a4a5d45fc5236deac6",
-        "size": 15593
-      },
-      "notes/yxj-paper-os/planning/paperspine/Stage5ArtifactPathDecision-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "4fcfe683de7ab0846efd38c818b399feb2243b057efc6c87e1e8df244a019205",
-        "size": 2495
-      },
-      "notes/yxj-paper-os/planning/paperspine/Stage5WritingValidation-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "5f46b3683572314c6f4723c095ed09649e50093bcfe35cc7660577444aac2a9b",
-        "size": 9939
-      },
-      "notes/yxj-paper-os/planning/paperspine/TemplateDeepeningAndSurfaceBackflow-20260626.yaml": {
-        "kind": "file",
-        "sha256": "8e8784fe662aa81232d4fe2e482608051a3f6157cbe2bdd032eb0f939ffc5ee3",
-        "size": 9012
-      },
-      "notes/yxj-paper-os/planning/paperspine/TemplateQuantProfile-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "109ce42905bd7e5710f7a745e9d6d6eaab0505c2d3ccdc1876a099a23cdf8f24",
-        "size": 14698
-      },
-      "notes/yxj-paper-os/planning/paperspine/TerminologyRegister-20260627.yaml": {
-        "kind": "file",
-        "sha256": "8f5c01d2490cd4995b66630d330d949eae07bd324267d4622b962e7f2587aacf",
-        "size": 17113
-      },
-      "notes/yxj-paper-os/planning/paperspine/l3-template-workflow-source-freeze-2026-06-25.yaml": {
-        "kind": "file",
-        "sha256": "fc5f8072882cbe559b5c700440516e069bc02f2fcf6070776145c84f5e4a7a74",
-        "size": 14644
-      },
-      "notes/yxj-paper-os/planning/paperspine/template-gap-audit-l3-20260625.md": {
-        "kind": "file",
-        "sha256": "21a1acb2e814b70208d7e70b85cf511ca600a31cfd91767661ffe4ca62f199fe",
-        "size": 13980
-      },
-      "notes/yxj-paper-os/repository-hygiene": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/repository-hygiene/README.md": {
-        "kind": "file",
-        "sha256": "4db88e902405d87f6ab9c072a1eef1b407c6c1c229726168e90fd51a3390dd05",
-        "size": 573
-      },
-      "notes/yxj-paper-os/repository-hygiene/RepositoryHygieneReport-material-normalization-20260627.md": {
-        "kind": "file",
-        "sha256": "fe2a58c5c28548cdc5c4f25998375209b7b7b52d087e0ef7e859ad6c162f5a7c",
-        "size": 6293
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-cleanup-inventory-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "143fff0de44933567a0b1ade09f73e5297ea55b0f4a5198e493fe291a7226a60",
-        "size": 4737
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-cleanup-pass2-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "5ceedcac2eb5a600a28b3e4d0eba8b31744e31e570af1b9c7961960c8866e5aa",
-        "size": 3946
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-intermediate-provenance-prune-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "33ccfec71b569504eb3e9cd1e85122b470fd8fb951c67ef919a9c41c4644f181",
-        "size": 2926
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-internal-naming-cleanup-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "d25b83b5f4612ee6137a41886ac14175ec65bfc97031a06b3e24e84d5301c4c2",
-        "size": 3427
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-old-gain-scheduled-route-prune-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "feaa9e566af0a16cd75a3ec930b310b4254f092b2572b57e1fd4220f2ae1e23b",
-        "size": 2482
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-old-runner-verifier-prune-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "e6368f1c3b122c62308fb37c61906d8565a63cdcf96efa9129cb0479683e2d03",
-        "size": 2376
-      },
-      "notes/yxj-paper-os/repository-hygiene/repository-runtime-cache-cleanup-2026-06-26.md": {
-        "kind": "file",
-        "sha256": "19e490e64d63448fc462fe5da3ed862b731baa91d6839acd017c09582d673f8c",
-        "size": 3095
-      },
-      "notes/yxj-paper-os/review": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "notes/yxj-paper-os/review/AISlopCleanerNoopReport-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "e1e16545f7375bc1cd4ced4b3b306f8da9ee83ac048859718190761fb9aeb789",
-        "size": 2010
-      },
-      "notes/yxj-paper-os/review/BackflowClosureMemo-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "8114ceaa9f66a09fda53baa03e257566b63a36ca82911d45445e31e865f86998",
-        "size": 1831
-      },
-      "notes/yxj-paper-os/review/BackflowClosureMemo-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "83eae4f6e157828c6d74656ab0fc484a121ab8390cc79d88181fc187b221f3fc",
-        "size": 5474
-      },
-      "notes/yxj-paper-os/review/DesignMaterialAdjustmentVerification-20260625.md": {
-        "kind": "file",
-        "sha256": "7dddba08cc5a5072352ba42084c4e4ae1cc797f62eda4b6b53cd788565f48f8a",
-        "size": 3146
-      },
-      "notes/yxj-paper-os/review/DesignMaterialDetailedAudit-20260625.md": {
-        "kind": "file",
-        "sha256": "b2d5319f94a5670061157e4dc3bd7e6e24b82170f65725e528f7616d0c37e5d5",
-        "size": 6371
-      },
-      "notes/yxj-paper-os/review/FullMaterialDrivenManuscriptRewriteIndependentReview-20260625.md": {
-        "kind": "file",
-        "sha256": "a03b99c64577e258737669a24c099efb8c8a2012de674ee910c94afd89ce1d46",
-        "size": 3405
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-L3-template-workflow-20260625.md": {
-        "kind": "file",
-        "sha256": "91ac2b009521cf3e563e3d4790856f2c1b1a31d0e51c03d448b733cbddbe253a",
-        "size": 6285
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-L3-template-workflow-20260625.yaml": {
-        "kind": "file",
-        "sha256": "961fbccf6339e0c6eeaf1551644689cbb250c2c6bf9213885d17c613138614b7",
-        "size": 12657
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-material-normalization-20260627.md": {
-        "kind": "file",
-        "sha256": "23067eb8ba01b3b9cbf136e71233df877063dfc74f7c20d1955953878cf9e13a",
-        "size": 8443
-      },
-      "notes/yxj-paper-os/review/ManagerHandoffReportV2-material-normalization-20260627.yaml": {
-        "kind": "file",
-        "sha256": "84fe5124fd92ce195f4ba0ed89073dcf1fcc3f502f24cbb019635d07379a20c2",
-        "size": 31693
-      },
-      "notes/yxj-paper-os/review/MultiRoleReviewBackflowTaskSet-20260626.yaml": {
-        "kind": "file",
-        "sha256": "f88d8cded7f8d6455399facebd37d792d32ecde4fe6cfa502fb9643dda0448c4",
-        "size": 6352
-      },
-      "notes/yxj-paper-os/review/MultiRoleReviewClosureValidation-20260626.yaml": {
-        "kind": "file",
-        "sha256": "eb046a825d36fb15f9986b8a1ab4f640e4c64816502cf9193594a15d7d87fe0b",
-        "size": 1590
-      },
-      "notes/yxj-paper-os/review/MultiRoleReviewReport-20260626.md": {
-        "kind": "file",
-        "sha256": "543fbe42f79d7caa33ce3698ac64e95ad8b2c9a153107889e0f30225115637ad",
-        "size": 8464
-      },
-      "notes/yxj-paper-os/review/NarrativeBackflowTaskSet-20260626.yaml": {
-        "kind": "file",
-        "sha256": "36517e495bf96b9f9920df6a5239e6aedd3a345e8f5cd90b2367a753c3693b7f",
-        "size": 4820
-      },
-      "notes/yxj-paper-os/review/NarrativeBackflowTaskSet-L3-20260625.yaml": {
-        "kind": "file",
-        "sha256": "7af35c980216aa0c4938cbb34ed3c5ca00d5ceef6a4921e9d65b6a2c72df8215",
-        "size": 11897
-      },
-      "notes/yxj-paper-os/review/ReaderExperienceReviewReport-20260626.md": {
-        "kind": "file",
-        "sha256": "689efcbfa867e2cba83c67a0e71c40348bb036f8f88dd3419e4293ba83404039",
-        "size": 4604
-      },
-      "notes/yxj-paper-os/review/ReaderExperienceReviewReport-L3-20260625.md": {
-        "kind": "file",
-        "sha256": "c2e07d82728c336c78eb12f2fe3f4926b87dc2cb89b5a4d21ac8a9105f97076d",
-        "size": 12358
-      },
-      "notes/yxj-paper-os/review/ReviewerFeedbackAdjustmentReport-20260626.md": {
-        "kind": "file",
-        "sha256": "3858b3315a8e66b8a3e51be8c333578835b801a5d05e3112a78fb495e2bbc4a2",
-        "size": 6166
-      },
-      "notes/yxj-paper-os/review/ReviewerFeedbackAdjustmentTaskSet-20260626.yaml": {
-        "kind": "file",
-        "sha256": "233ca49561431b08c80bbb1785efaf5e5eb54b570b3a6822ccc24c1283704da0",
-        "size": 5292
-      },
-      "notes/yxj-paper-os/review/ReviewerFeedbackAdjustmentValidation-20260626.yaml": {
-        "kind": "file",
-        "sha256": "d5694c66948c2dac6b043f9d5ede268f5df0e183d74b4283d5d99f2c75785705",
-        "size": 1637
-      },
-      "notes/yxj-paper-os/validation": {
-        "kind": "directory",
-        "size": 4096
+        "sha256": "603e5e40367e3cce4d90665618fcd000a2933171d4e2d2292350b768b2bda031",
+        "size": 168
       },
       "references": {
         "kind": "directory",
@@ -3574,8 +2571,8 @@
       },
       "references/citation-workspace-map.md": {
         "kind": "file",
-        "sha256": "3fb3fb6222802fb80a0602aa7e6db308d515df4239c623de8c5443ca8242fc08",
-        "size": 1613
+        "sha256": "ec7444e20035dd236c1c489424e9bf3915c3ded41f74538926fd40db17c98f8d",
+        "size": 1304
       },
       "references/journal_templates": {
         "kind": "directory",
@@ -3746,14 +2743,9 @@
         "kind": "file",
         "sha256": "97f01eedcd1b0aa7ccb98d0ddbb7694c42b0a2ed27d0832de26ff0b24c5c36bb",
         "size": 13898
-      },
-      "scripts/yxj_paper_os_ledger_guard.py": {
-        "kind": "file",
-        "sha256": "e724ad11e10bff6efb59f5854edcc836ef7cc3b86ebe1c7e895b9e8cd7115dbc",
-        "size": 1590
       }
     },
-    "entry_count": 386,
+    "entry_count": 283,
     "git_status_porcelain_v1": [],
     "schema_version": "ppg-source-snapshot/v0.1",
     "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon"

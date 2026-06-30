@@ -15,13 +15,10 @@
     "Return text only; do not edit files.",
     "Do not dispatch agents, do not mark final completion, do not claim manuscript/submission/publication readiness.",
     "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs.",
-    "Read and assess producer return returns/producer/S07.producer-return.md with sha256 b449db1a80774941c5f9a01c0711e70702fd82f5a488f329c984e85fddde5357."
+    "Read and assess producer return returns/producer/S07.producer-return.md with sha256 b449db1a80774941c5f9a01c0711e70702fd82f5a488f329c984e85fddde5357.",
+    "Read and assess producer return returns/producer/S07.producer-return.md with sha256 ee048e5c5525fffc8f805cc1a195e819b283d7d57d101f5f0c0a1d392bdf0284."
   ],
   "lane": "verifier",
-  "legacy_routes_forbidden": [
-    "legacy department-loop yxj-paper-os route",
-    "$yxj-plugin-incubator"
-  ],
   "no_recursive_orchestration": true,
   "output_return_ref": "returns/verifier/S07.verifier-return.md",
   "packet_id": "phase13.S07.verifier",
@@ -72,7 +69,7 @@
     }
   ],
   "producer_return_ref": "returns/producer/S07.producer-return.md",
-  "producer_return_sha256": "b449db1a80774941c5f9a01c0711e70702fd82f5a488f329c984e85fddde5357",
+  "producer_return_sha256": "ee048e5c5525fffc8f805cc1a195e819b283d7d57d101f5f0c0a1d392bdf0284",
   "producer_thread_id": "019f17f0-c695-7650-80c1-63257964b1f9",
   "produces": [
     "construction matrix",
@@ -96,5 +93,9 @@
   "stage_contract_ref": "examples/stage-contracts/S07.stage-contract.json",
   "stage_id": "S07",
   "stage_name": "Rhetoric terminology and surface-control synthesis",
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
+  ],
   "worker_completion_forbidden": true
 }

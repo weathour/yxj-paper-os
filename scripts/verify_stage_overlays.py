@@ -24,13 +24,13 @@ SCHEMA_VERSION = "ppg-stage-overlay-registry/v0.1"
 REQUIRED_OVERLAY_ID = "nature_expert_writing"
 REQUIRED_AUTHORITY_FLAGS = {
     "stage_local_only",
-    "no_new_department",
+    "no_independent_route",
     "controller_owned_completion",
     "worker_completion_forbidden",
     "no_recursive_orchestration",
 }
 BINDING_STRENGTHS = {"primary", "support", "light", "governance", "derivative"}
-BASE_OVERLAY_CHECKS = {"stage_overlay_binding", "no_department_route"}
+BASE_OVERLAY_CHECKS = {"stage_overlay_binding", "controller_route_only"}
 WORKER_OVERLAY_CHECKS = {"stage_overlay_packet_clause"}
 REQUIRED_NEGATIVE_CASES = {
     "invalid-unknown-stage.json": "E_STAGE_OVERLAY_UNKNOWN_STAGE",
@@ -39,14 +39,14 @@ REQUIRED_NEGATIVE_CASES = {
     "invalid-packet-clause-transport.json": "E_STAGE_OVERLAY_PACKET_TRANSPORT",
     "invalid-missing-worker-packet-clause.json": "E_STAGE_OVERLAY_PACKET_CLAUSE",
     "invalid-missing-validator-coverage.json": "E_STAGE_OVERLAY_VALIDATOR_COVERAGE",
-    "invalid-active-department-loop.json": "E_STAGE_OVERLAY_DEPARTMENT_ROUTE",
+    "invalid-active-controller-bypassing-route.json": "E_STAGE_OVERLAY_ROUTE_AUTHORITY",
     "invalid-backflow-target.json": "E_STAGE_OVERLAY_BACKFLOW_TARGET",
     "invalid-missing-nature-overlay.json": "E_STAGE_OVERLAY_REQUIRED_OVERLAY",
     "invalid-missing-primary-stage-binding.json": "E_STAGE_OVERLAY_REQUIRED_STAGE_BINDING",
     "invalid-duplicate-stage-binding.json": "E_STAGE_OVERLAY_DUPLICATE_BINDING",
     "invalid-primary-binding-mismatch.json": "E_STAGE_OVERLAY_PRIMARY_BINDING_MISMATCH",
 }
-POSITIVE_CASES = ["nature_stage_overlay.valid.json", "valid-doc-negation-not-department.json"]
+POSITIVE_CASES = ["nature_stage_overlay.valid.json", "valid-controller-boundary-note.json"]
 
 
 def issue(code: str, message: str) -> str:
@@ -73,14 +73,14 @@ def validator_by_id(validators: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {entry["stage_id"]: entry for entry in validators.get("validators", []) if isinstance(entry, dict) and isinstance(entry.get("stage_id"), str)}
 
 
-def _active_department_route_detected(value: Any, key: str = "") -> bool:
+def _active_authority_route_detected(value: Any, key: str = "") -> bool:
     """Reject active self-managing route semantics without rejecting explanatory prose.
 
-    Notes/descriptions may say "not a department". Active routing fields may not
-    describe autonomous departments or self-certifying execution.
+    Explanatory text may state controller-only boundaries. Active routing fields must not
+    describe autonomous routes or controller-bypassing execution.
     """
     if isinstance(value, dict):
-        if value.get("no_new_department") is False:
+        if value.get("no_independent_route") is False:
             return True
         if value.get("overlay_dispatch_allowed") is True:
             return True
@@ -88,19 +88,19 @@ def _active_department_route_detected(value: Any, key: str = "") -> bool:
             return True
         if value.get("controller_owned_completion") is False:
             return True
-        if value.get("completion_owner") in {"worker", "overlay", "department"}:
+        if value.get("completion_owner") in {"worker", "overlay", "route"}:
             return True
         for child_key, child_value in value.items():
-            if _active_department_route_detected(child_value, str(child_key)):
+            if _active_authority_route_detected(child_value, str(child_key)):
                 return True
     elif isinstance(value, list):
-        return any(_active_department_route_detected(item, key) for item in value)
+        return any(_active_authority_route_detected(item, key) for item in value)
     elif isinstance(value, str):
         active_keys = {"route_kind", "dispatch_model", "active_route", "execution_model", "completion_owner"}
         lowered = value.lower()
-        if key in active_keys and any(token in lowered for token in ("department_loop", "autonomous_department", "self_certifying", "self_managed_department")):
+        if key in active_keys and any(token in lowered for token in ("controller_bypassing_route", "controller_bypassing_route", "controller_bypassing", "controller_bypassing_route")):
             return True
-        if "legacy department-loop yxj-paper-os" in lowered or "$yxj-plugin-incubator" in lowered:
+        if "unauthorized recursive route" in lowered or "unregistered external route" in lowered:
             return True
     return False
 
@@ -129,7 +129,7 @@ def _validate_overlay_binding_shape(binding: dict[str, Any], canonical: set[str]
         if any(target not in canonical for target in target_list):
             errors.append(issue("E_STAGE_OVERLAY_BACKFLOW_TARGET", f"{sid} invalid targets={target_list}"))
     if sid == "G02" and binding.get("binding_strength") == "primary":
-        errors.append(issue("E_STAGE_OVERLAY_DEPARTMENT_ROUTE", "G02 cannot become the main writing cognition route"))
+        errors.append(issue("E_STAGE_OVERLAY_ROUTE_AUTHORITY", "G02 cannot become the main writing cognition route"))
     if sid == "S03" and binding.get("binding_strength") not in {"support", "light"}:
         errors.append(issue("E_STAGE_OVERLAY_REQUIRED_STAGE_BINDING", "S03 must remain support/light and gated through S04"))
     if stage_map.get(sid, {}).get("requires_worker_task_packet"):
@@ -188,9 +188,9 @@ def validate_overlay_registry(data: Any, stage_registry: dict[str, Any] | None =
         if authority.get("overlay_dispatch_allowed") is not False:
             errors.append(issue("E_STAGE_OVERLAY_AUTHORITY", "overlay_dispatch_allowed must be false"))
         if authority.get("route_kind") != "stage_local_overlay":
-            errors.append(issue("E_STAGE_OVERLAY_DEPARTMENT_ROUTE", f"route_kind={authority.get('route_kind')}"))
-    if _active_department_route_detected(data):
-        errors.append(issue("E_STAGE_OVERLAY_DEPARTMENT_ROUTE", "active autonomous department/self-certifying route semantics are forbidden"))
+            errors.append(issue("E_STAGE_OVERLAY_ROUTE_AUTHORITY", f"route_kind={authority.get('route_kind')}"))
+    if _active_authority_route_detected(data):
+        errors.append(issue("E_STAGE_OVERLAY_ROUTE_AUTHORITY", "active autonomous route/controller-bypassing route semantics are forbidden"))
 
     required_stage_bindings = overlay.get("required_stage_bindings")
     if required_stage_bindings != canonical_order:

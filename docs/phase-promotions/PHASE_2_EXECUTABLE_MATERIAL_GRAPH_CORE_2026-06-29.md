@@ -8,7 +8,7 @@ Precondition: Phase 1 abstract model freeze promoted in `PHASE_1_ABSTRACT_MODEL_
 
 Phase 2 is complete for implementation purposes.
 
-The repository now has a dependency-free executable material graph core that can load a runtime graph, resolve a logical material id to its active committed version, inspect direct dependencies, preserve old versions, represent `supersedes` explicitly, separate candidates from active committed material, and reject invalid endpoint or active-version references.
+The repository now has a dependency-free executable material graph core that can load a runtime graph, resolve a logical material id to its active committed version, inspect direct dependencies, preserve superseded versions, represent `supersedes` explicitly, separate candidates from active committed material, and reject invalid endpoint or active-version references.
 
 ## Autopilot / Ralplan evidence
 
@@ -111,7 +111,7 @@ Candidate material versions may exist in the graph, but they cannot be active. T
 
 ### Compatibility boundary
 
-Legacy/minimal graph examples remain valid. Artifact existence checks are scoped to Phase 2 runtime fixture paths under `examples/materials/`, so old documentation handles such as `materials/foo.yaml` do not force new files.
+Current/minimal graph examples remain valid. Artifact existence checks are scoped to Phase 2 runtime fixture paths under `examples/materials/`, so old documentation handles such as `materials/foo.yaml` do not force new files.
 
 ## Validation evidence
 
@@ -164,7 +164,7 @@ architect re-review: CLEAR
 old concrete material versions remain directly addressable
 supersedes direction and disagreement fixtures are rejected
 active committed-only material semantics preserved
-legacy minimal graph compatibility preserved
+disabled minimal graph compatibility preserved
 ```
 
 UltraQA disposition:

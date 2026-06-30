@@ -22,7 +22,7 @@ RUN_SCHEMA_VERSION = "ppg-phase13-run-state/v0.1"
 VERDICTS = {"accept", "accept_with_limitations", "needs_repair", "reject"}
 VERDICT_PARSE_ORDER = ["accept_with_limitations", "needs_repair", "reject", "accept"]
 BANNED_CLAIMS = ["final manuscript complete", "final paper complete", "submission ready", "ready to submit", "publication ready"]
-LEGACY_ACTIVE = ["legacy department yxj-paper-os route revived", "legacy department-loop yxj-paper-os route revived", "$yxj-plugin-incubator used", "$yxj-plugin-incubator revived"]
+UNAUTHORIZED_ACTIVE = ["unauthorized recursive route activated", "unauthorized recursive route activated", "unregistered external route used", "unregistered external route activated"]
 RECURSIVE_CLAIMS = ["i will dispatch", "i can dispatch", "spawn subagents", "mark this stage complete", "mark final completion", "controller completion authority"]
 WEAK_GENERIC = ["looks good", "seems fine", "generic analysis", "no specific evidence", "not enough context but"]
 
@@ -159,9 +159,9 @@ def scan_text(text: str, context: str) -> list[str]:
             errors.append(issue("E_PHASE13_WEAK_GENERIC_RETURN", f"{context} contains {phrase!r}"))
     for lineno, line in enumerate(text.splitlines(), start=1):
         lowered = line.lower()
-        for phrase in LEGACY_ACTIVE:
+        for phrase in UNAUTHORIZED_ACTIVE:
             if phrase in lowered and not boundary_line_allowed(line, phrase):
-                errors.append(issue("E_PHASE13_LEGACY_ROUTE_REVIVAL", f"{context}:{lineno} contains {phrase!r}"))
+                errors.append(issue("E_PHASE13_UNAUTHORIZED_ROUTE", f"{context}:{lineno} contains {phrase!r}"))
         for phrase in RECURSIVE_CLAIMS:
             if phrase in lowered and not boundary_line_allowed(line, phrase):
                 errors.append(issue("E_PHASE13_RECURSIVE_ORCHESTRATION_CLAIM", f"{context}:{lineno} contains {phrase!r}"))

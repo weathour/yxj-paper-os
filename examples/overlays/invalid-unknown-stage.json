@@ -1,11 +1,11 @@
 {
   "completion_boundary": "Overlay readiness only; it does not claim final manuscript, publication, or submission readiness.",
-  "description": "Generic stage overlay registry. The Nature profile is an expert writing overlay, not a department or independent execution route.",
+  "description": "Generic stage overlay registry. The Nature profile is an expert writing overlay, not a independent execution route.",
   "overlays": [
     {
       "authority_model": {
         "controller_owned_completion": true,
-        "no_new_department": true,
+        "no_independent_route": true,
         "no_recursive_orchestration": true,
         "overlay_dispatch_allowed": false,
         "route_kind": "stage_local_overlay",
@@ -66,13 +66,13 @@
             "owner_expectation",
             "nature_ambition_level"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_route_decision",
             "nature_ambition_boundary",
             "nature_forbidden_route_list"
           ],
-          "overlay_role": "owner-gated Nature route, article type, ambition, and forbidden-route decision boundary",
+          "overlay_role": "owner-gated Nature route, article type, ambition, and blocked-route decision boundary",
           "packet_clauses": [
             "nature_overlay_ref:nature_expert_writing",
             "nature_stage_binding:S00",
@@ -83,13 +83,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "SX",
           "validator_checks": [
             "nature_overlay_binding:S00",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -105,7 +105,7 @@
             "figure_source_data",
             "supplementary_material_paths"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_citation_bank",
             "data_availability_inventory",
@@ -123,13 +123,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S01",
           "validator_checks": [
             "nature_overlay_binding:S01",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -145,7 +145,7 @@
             "source_inventory",
             "exemplar_boundary_policy"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_venue_profile",
             "reader_expectation_map",
@@ -163,13 +163,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S02",
           "validator_checks": [
             "nature_overlay_binding:S02",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -185,7 +185,7 @@
             "sota_map",
             "evidence_inventory"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_contribution_option_map",
             "significance_risk_report",
@@ -202,13 +202,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S03",
           "validator_checks": [
             "nature_overlay_binding:S03",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -225,7 +225,7 @@
             "evidence_inventory",
             "data_availability_policy"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_claim_boundary_map",
             "allowed_wording_map",
@@ -244,13 +244,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S04",
           "validator_checks": [
             "nature_overlay_binding:S04",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "claim_boundary_preserved"
           ]
@@ -268,7 +268,7 @@
             "article_type_constraints",
             "contribution_risk_map"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_reader_spine",
             "front_half_promise_map",
@@ -286,13 +286,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S05",
           "validator_checks": [
             "nature_overlay_binding:S05",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -308,7 +308,7 @@
             "claim_visibility",
             "article_type_constraints"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "object_representation_matrix",
             "granularity_progression_map",
@@ -326,13 +326,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S06",
           "validator_checks": [
             "nature_overlay_binding:S06",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -349,7 +349,7 @@
             "terminology_policy",
             "forbidden_expression_list"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "rhetorical_move_matrix",
             "paragraph_job_map",
@@ -368,13 +368,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S07",
           "validator_checks": [
             "nature_overlay_binding:S07",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -391,7 +391,7 @@
             "claim_evidence_map",
             "source_data_inventory"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "figure_contract",
             "panel_evidence_map",
@@ -410,13 +410,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S08",
           "validator_checks": [
             "nature_overlay_binding:S08",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -435,7 +435,7 @@
             "surface_rules",
             "target_unit"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "selected_nature_control_bundle",
             "control_priority_map",
@@ -452,13 +452,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S09A",
           "validator_checks": [
             "nature_overlay_binding:S09A",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -475,7 +475,7 @@
             "nature_overlay_packet_clauses",
             "validator_refs"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "strict_task_packet_with_overlay_clauses",
             "section_move_plan",
@@ -492,13 +492,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S09B",
           "validator_checks": [
             "nature_overlay_binding:S09B",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -515,7 +515,7 @@
             "paragraph_job_map",
             "claim_evidence_boundary"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "section_draft_candidate",
             "move_trace",
@@ -533,13 +533,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S10",
           "validator_checks": [
             "nature_overlay_binding:S10",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "claim_boundary_preserved"
           ]
@@ -557,7 +557,7 @@
             "caption_legend_brief",
             "figure_source_data_inventory"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "figure_export_bundle",
             "caption_legend_draft",
@@ -575,13 +575,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S11",
           "validator_checks": [
             "nature_overlay_binding:S11",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "claim_boundary_preserved"
           ]
@@ -600,7 +600,7 @@
             "figure_text_alignment_rules",
             "claim_boundary_map"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "integrated_manuscript_candidate",
             "promise_satisfaction_report",
@@ -617,13 +617,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S12",
           "validator_checks": [
             "nature_overlay_binding:S12",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -638,7 +638,7 @@
             "reader_accessibility_checklist",
             "figure_legend_checklist"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "reviewer_panel_report",
             "desk_reject_risk_report",
@@ -656,13 +656,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S13",
           "validator_checks": [
             "nature_overlay_binding:S13",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "claim_boundary_preserved",
             "local_backflow_route"
@@ -683,7 +683,7 @@
             "material_graph_state",
             "failure_type_map"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "nature_backflow_task",
             "repair_packet",
@@ -701,13 +701,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S14",
           "validator_checks": [
             "nature_overlay_binding:S14",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "local_backflow_route"
           ]
@@ -727,7 +727,7 @@
             "affected_downstream_set",
             "nature_validator_refs"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "revised_control_material",
             "regenerated_task_packet",
@@ -745,13 +745,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S15",
           "validator_checks": [
             "nature_overlay_binding:S15",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "claim_boundary_preserved",
             "local_backflow_route"
@@ -771,7 +771,7 @@
             "figure_export_bundle",
             "review_closure"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "submission_preflight_report",
             "data_availability_statement_check",
@@ -789,13 +789,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "S16",
           "validator_checks": [
             "nature_overlay_binding:S16",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "owner_gate_or_export_hygiene"
           ]
@@ -810,7 +810,7 @@
             "authority_limits",
             "stage_registry"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "overlay_registry_records",
             "authority_boundary_records",
@@ -827,13 +827,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "G01",
           "validator_checks": [
             "nature_overlay_binding:G01",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim"
           ]
         },
@@ -848,7 +848,7 @@
             "owner_request",
             "reviewer_comments_or_derivative_goal"
           ],
-          "notes": "Passive stage-local expert-writing overlay. This note may say not a department; active autonomous department semantics are still forbidden.",
+          "notes": "Passive stage-local expert-writing overlay. This note may say stage-local control; autonomous execution semantics are rejected.",
           "output_materials": [
             "rebuttal_response_plan",
             "presentation_plan",
@@ -865,13 +865,13 @@
             "dispatch_subagents",
             "write_outside_allowed_write_paths",
             "change_owner_intent",
-            "self_certifying_department_route"
+            "controller_bypassing_route"
           ],
           "stage_id": "G02",
           "validator_checks": [
             "nature_overlay_binding:G02",
             "controller_owned_completion",
-            "no_department_route",
+            "controller_route_only",
             "no_submission_ready_overclaim",
             "owner_gate_or_export_hygiene"
           ]

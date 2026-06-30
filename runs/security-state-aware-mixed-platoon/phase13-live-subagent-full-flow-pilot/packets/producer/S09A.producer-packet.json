@@ -19,9 +19,9 @@
     "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs."
   ],
   "lane": "producer",
-  "legacy_routes_forbidden": [
-    "legacy department-loop yxj-paper-os route",
-    "$yxj-plugin-incubator"
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
   ],
   "no_recursive_orchestration": true,
   "output_return_ref": "returns/producer/S09A.producer-return.md",

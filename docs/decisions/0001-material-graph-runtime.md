@@ -1,4 +1,4 @@
-# ADR-0001 — Replace department self-loops with material graph runtime
+# ADR-0001 — Replace controller-bypassing loops with material graph runtime
 
 ## Status
 
@@ -6,7 +6,7 @@ Accepted for plugin design.
 
 ## Context
 
-The previous yxj-paper-os department model separated paper work into departments and attempted to let each department run internal loops. This caused hidden coordination, context overload, weak execution precision, and difficult debugging under Codex's main-agent/subagent runtime.
+The PPG runtime keeps paper work in explicit graph nodes and bounded transforms so coordination, context, execution precision, and debugging remain controller-visible.
 
 Codex is stronger when tasks are explicit, bounded, validated, and committed by the main agent after evidence collection.
 
@@ -14,7 +14,7 @@ Codex is stronger when tasks are explicit, bounded, validated, and committed by 
 
 Use **Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch**.
 
-Departments may remain as metadata labels, but runtime control is graph-based:
+Routes may remain as metadata labels, but runtime control is graph-based:
 
 - material nodes;
 - transform tasks;

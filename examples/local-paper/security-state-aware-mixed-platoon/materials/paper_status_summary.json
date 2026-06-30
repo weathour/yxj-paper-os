@@ -6,7 +6,7 @@
     "PROJECT_STATUS.md",
     "docs/CURRENT_PLAN.md"
   ],
-  "summary_sha256": "c5ebd365110e3c8c92ba1d7b3f9b04f2ea3ad958a3f719f48ed74adf0faff7d2",
+  "summary_sha256": "79a761bf326309b1b957dfab8f1826e26d2a412120539300c850cd0dbef27cb5",
   "active_method": "zt_md_mpc_full",
   "ready_for_runtime_pilot": true
 }

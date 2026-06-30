@@ -172,7 +172,7 @@
       "on_active_control_path": false,
       "stale_reason": "Superseded by claim_boundary_map_v2 after overclaim review finding.",
       "status": "stale",
-      "summary": "Old claim boundary version preserved for provenance.",
+      "summary": "Superseded claim boundary version preserved for provenance.",
       "version": "v1"
     }
   ]

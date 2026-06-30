@@ -15,11 +15,11 @@
     "paper-profile",
     "motivation",
     "decisions",
-    "forbidden routes"
+    "blocked routes"
   ],
   "validators": [
     "owner confirmation",
-    "forbidden route check"
+    "blocked route check"
   ],
   "backflow_targets": [
     "owner"

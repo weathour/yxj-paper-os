@@ -55,7 +55,7 @@ def _relative_to_repo(path_text: str) -> Path:
 def _requires_runtime_artifact_check(path_text: str) -> bool:
     """Only runtime fixture artifact handles are forced to exist.
 
-    Legacy examples intentionally use paths such as ``materials/foo.yaml`` that
+    Current examples intentionally use paths such as ``materials/foo.yaml`` that
     are documentation handles, not repo-root fixture paths. Stricter artifact
     existence checks apply to current runtime fixture folders under examples/.
     """
@@ -167,9 +167,9 @@ def validate(path: Path) -> list[str]:
                 material_nodes_by_id.setdefault(material_id, []).append(node_id)
             if material_id and version:
                 key = (material_id, version)
-                previous = material_versions.get(key)
-                if previous and previous != node_id:
-                    fail(errors, f"duplicate material version for {material_id}@{version}: {previous}, {node_id}")
+                upstream = material_versions.get(key)
+                if upstream and upstream != node_id:
+                    fail(errors, f"duplicate material version for {material_id}@{version}: {upstream}, {node_id}")
                 material_versions[key] = node_id
 
             artifact_path = node.get("artifact_path")

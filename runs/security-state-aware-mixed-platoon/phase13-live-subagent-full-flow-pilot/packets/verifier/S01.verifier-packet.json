@@ -19,10 +19,6 @@
     "Read and assess producer return returns/producer/S01.producer-return.md with sha256 e6119a85e5b9095fc6b8121a638232095c3325346ddc6d0984c90e1a4dcdad94."
   ],
   "lane": "verifier",
-  "legacy_routes_forbidden": [
-    "legacy department-loop yxj-paper-os route",
-    "$yxj-plugin-incubator"
-  ],
   "no_recursive_orchestration": true,
   "output_return_ref": "returns/verifier/S01.verifier-return.md",
   "packet_id": "phase13.S01.verifier",
@@ -100,5 +96,9 @@
   "stage_contract_ref": "examples/stage-contracts/S01.stage-contract.json",
   "stage_id": "S01",
   "stage_name": "Source citation evidence inventory",
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
+  ],
   "worker_completion_forbidden": true
 }

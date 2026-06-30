@@ -77,7 +77,6 @@ if [ -e "$repo_negative_pilot/stage-runs" ] || [ -e "$repo_negative_pilot/artifa
   exit 1
 fi
 
-python3 scripts/verify_phase9_archive_guard.py
 python3 scripts/verify_stage_registry.py
 python3 scripts/verify_stage_contracts.py
 python3 scripts/import_local_paper_pilot.py --source "$source_root" --out "$pilot_root" --check

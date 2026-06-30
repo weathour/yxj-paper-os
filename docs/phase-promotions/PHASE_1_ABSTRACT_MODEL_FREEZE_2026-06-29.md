@@ -21,15 +21,13 @@ The promoted baseline includes:
 - `S13 -> S14 -> S15` as review/backflow/repair split;
 - `S12/S13/S15 -> S16` as delivery entry paths;
 - `G01/G02` as inert sidecars that must not enter paper cognition unless explicitly authorized;
-- explicit non-reference boundary: do not use `$yxj-plugin-incubator`, Plugin OS v2+, hidden-department IO, seven-artifact incubation packages, or PUA-style managed-agent governance as design sources.
+- explicit runtime boundary: use only the Codex-native paper production graph runtime as the design source.
 
 ## Evidence artifacts
 
 Primary artifacts:
 
 - `docs/HUMAN_NEED_TO_PAPER_FLOW.md`
-- `archive/legacy-yxj-paper-os-design-20260630/docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md`
-- `archive/legacy-yxj-paper-os-design-20260630/docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md`
 - `docs/SUBAGENT_STAGE_BLUEPRINT.md`
 - `docs/STAGE_COVERAGE_AUDIT.md`
 - `docs/PPG_RUNTIME_CONTROL_BLOCK.md`

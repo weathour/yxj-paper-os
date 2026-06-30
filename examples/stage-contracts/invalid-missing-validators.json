@@ -15,7 +15,7 @@
     "paper-profile",
     "motivation",
     "decisions",
-    "forbidden routes"
+    "blocked routes"
   ],
   "validators": [],
   "backflow_targets": [

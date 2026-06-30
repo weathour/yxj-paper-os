@@ -70,7 +70,7 @@ better: large but layered bundle -> bounded task packet -> writer
 Recommended order:
 
 1. mission and exact output contract;
-2. hard constraints / forbidden routes;
+2. hard constraints / blocked routes;
 3. mandatory control materials;
 4. evidence anchors and allowed/forbidden wording;
 5. local manuscript context;
