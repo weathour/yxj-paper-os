@@ -2,7 +2,7 @@
 
 Date: 2026-06-30
 
-This archive preserves historical yxj-paper-os analysis material as provenance only. These files are not the active operating spine for `yxj-paper-ppg-runtime` Phase9.
+This archive preserves historical yxj-paper-os analysis material as provenance only. These files are not the active operating spine for the current PPG-backed `yxj-paper-os` runtime.
 
 Active spine replacement model:
 
