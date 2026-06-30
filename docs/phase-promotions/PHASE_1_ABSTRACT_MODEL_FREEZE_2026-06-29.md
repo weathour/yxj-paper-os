@@ -28,8 +28,8 @@ The promoted baseline includes:
 Primary artifacts:
 
 - `docs/HUMAN_NEED_TO_PAPER_FLOW.md`
-- `docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md`
-- `docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md`
+- `archive/legacy-yxj-paper-os-design-20260630/docs/YXJ_PAPER_OS_PROCESS_INVENTORY.md`
+- `archive/legacy-yxj-paper-os-design-20260630/docs/YXJ_PAPER_OS_NEURAL_LAYER_MAP.md`
 - `docs/SUBAGENT_STAGE_BLUEPRINT.md`
 - `docs/STAGE_COVERAGE_AUDIT.md`
 - `docs/PPG_RUNTIME_CONTROL_BLOCK.md`
