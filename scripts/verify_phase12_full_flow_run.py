@@ -151,6 +151,29 @@ def run_owned_existing_file(run_root: Path, ref: Any, code: str, context: str, e
     return path
 
 
+def validate_run_root_before_reads(run_root: Path, source_root: Path) -> tuple[Path | None, list[str]]:
+    errors: list[str] = []
+    if run_root.is_symlink():
+        return None, [issue("E_PHASE12_RUN_ROOT", f"run root must not be a symlink: {run_root}")]
+    try:
+        st = run_root.lstat()
+    except FileNotFoundError:
+        return None, [issue("E_PHASE12_RUN_ROOT", f"missing {run_root}")]
+    if not stat.S_ISDIR(st.st_mode):
+        return None, [issue("E_PHASE12_RUN_ROOT", f"not a directory: {run_root}")]
+    try:
+        resolved_run = run_root.resolve(strict=True)
+    except Exception as exc:  # noqa: BLE001
+        return None, [issue("E_PHASE12_RUN_ROOT", f"invalid {run_root}: {exc}")]
+    if not is_relative_to(resolved_run, (ROOT / "runs").resolve(strict=True)):
+        errors.append(issue("E_PHASE12_RUN_ROOT", f"outside runs: {run_root}"))
+    if is_relative_to(resolved_run, source_root) or resolved_run == source_root:
+        errors.append(issue("E_PHASE12_RUN_ROOT_UNDER_SOURCE", str(run_root)))
+    if errors:
+        return None, errors
+    return resolved_run, []
+
+
 def check_no_overclaim(value: Any, context: str) -> list[str]:
     lowered = str(value).lower()
     return [issue("E_PHASE12_COMPLETION_OVERCLAIM", f"{context} contains {phrase!r}") for phrase in BANNED_CLAIMS if phrase in lowered]
@@ -450,27 +473,23 @@ def verify_phase12_run(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEF
     by_overlay_binding = overlay_binding_by_stage(overlays)
     errors.extend(validate_overlay_authority(overlays))
 
+    expected_source_root = Path(str(load_json(pilot_root / "manifest.json")["source_root"])).resolve(strict=True)
+    _resolved_run, root_errors = validate_run_root_before_reads(run_root, expected_source_root)
+    errors.extend(root_errors)
+    if root_errors:
+        return errors
     manifest = load_json_file(run_root / "manifest.json", errors, "E_PHASE12_RUN_MANIFEST_MISSING")
     run_state = load_json_file(run_root / "run_state.json", errors, "E_PHASE12_RUN_STATE_MISSING")
     if manifest is None or run_state is None:
         return errors
     if manifest.get("source_snapshot_before") is not None or manifest.get("source_snapshot_after") is not None:
         errors.append(issue("E_PHASE12_SOURCE_SNAPSHOT_CONTRACT", "manifest must use refs, not embedded snapshots"))
-    expected_source_root = Path(str(load_json(pilot_root / "manifest.json")["source_root"])).resolve(strict=True)
     try:
         source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
     except Exception as exc:  # noqa: BLE001
         return errors + [issue("E_PHASE12_SOURCE_ROOT", f"invalid source_root {manifest.get('source_root')}: {exc}")]
     if source_root != expected_source_root:
         errors.append(issue("E_PHASE12_SOURCE_ROOT", f"expected {expected_source_root}"))
-    try:
-        resolved_run = run_root.resolve(strict=True)
-    except FileNotFoundError:
-        return errors + [issue("E_PHASE12_RUN_ROOT", f"missing {run_root}")]
-    if not is_relative_to(resolved_run, (ROOT / "runs").resolve(strict=True)):
-        errors.append(issue("E_PHASE12_RUN_ROOT", f"outside runs: {run_root}"))
-    if is_relative_to(resolved_run, source_root) or resolved_run == source_root:
-        errors.append(issue("E_PHASE12_RUN_ROOT_UNDER_SOURCE", str(run_root)))
     if manifest.get("schema_version") != "ppg-phase12-run-manifest/v0.1":
         errors.append(issue("E_PHASE12_MANIFEST_SCHEMA", str(manifest.get("schema_version"))))
     if manifest.get("run_id") != RUN_ID or run_state.get("run_id") != RUN_ID:

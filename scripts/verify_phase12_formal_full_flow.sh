@@ -6,6 +6,7 @@ cd "$repo_root"
 
 cleanup_paths=()
 cleanup_files=()
+cleanup_dirs=()
 negative_run=""
 cleanup() {
   for path in "${cleanup_paths[@]:-}"; do
@@ -16,6 +17,11 @@ cleanup() {
   for path in "${cleanup_files[@]:-}"; do
     if [[ "$path" == /tmp/* ]]; then
       rm -f -- "$path"
+    fi
+  done
+  for path in "${cleanup_dirs[@]:-}"; do
+    if [[ "$path" == /tmp/* ]]; then
+      rm -rf -- "$path"
     fi
   done
 }
@@ -78,6 +84,40 @@ for target in [gen.ROOT / 'runs', gen.ROOT / 'runs' / 'security-state-aware-mixe
         raise SystemExit(f'NEGATIVE_BROAD_RUN_ROOT_ATTEMPTED_DELETE: {called}')
 print('NEGATIVE_PHASE12_BROAD_RUN_ROOT_CLEANUP_OK')
 PY
+
+rootlink="$repo_root/runs/.phase12-negative-rootlink"
+rm -rf -- "$rootlink"
+external_root=$(mktemp -d)
+cleanup_paths+=("$rootlink")
+cleanup_dirs+=("$external_root")
+printf '{not-json: external sentinel}\n' > "$external_root/manifest.json"
+printf '{}\n' > "$external_root/run_state.json"
+ln -s "$external_root" "$rootlink"
+out=$(mktemp)
+set +e
+python3 scripts/verify_phase12_full_flow_run.py "$rootlink" >"$out" 2>&1
+rc=$?
+set -e
+if [[ $rc -eq 0 ]]; then
+  echo "EXPECTED_FAILURE_MISSING: run-root symlink" >&2
+  cat "$out" >&2
+  rm -f "$out"
+  exit 1
+fi
+if ! grep -q E_PHASE12_RUN_ROOT "$out"; then
+  echo "EXPECTED_ERROR_CODE_MISSING expected=E_PHASE12_RUN_ROOT run-root symlink" >&2
+  cat "$out" >&2
+  rm -f "$out"
+  exit 1
+fi
+if grep -q E_PHASE12_JSON_PARSE "$out"; then
+  echo "RUN_ROOT_VALIDATOR_READ_SYMLINK_TARGET" >&2
+  cat "$out" >&2
+  rm -f "$out"
+  exit 1
+fi
+rm -f "$out"
+echo NEGATIVE_PHASE12_RUN_ROOT_SYMLINK_NO_READ_OK
 
 make_negative_run backflow-chain
 : > "$negative_run/backflow_ledger.jsonl"
