@@ -19,11 +19,13 @@ The main agent controls a versioned graph of materials, task packets, validators
 
 ## Current repository status
 
-This repository is a local Phase8 plugin/runtime surface. It provides:
+This repository is a local Phase9 plugin/runtime surface. It provides:
 
 - graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
 - deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
-- interactive frontend: `docs/runtime-viewer/index.html` with roadmap, detailed graph, and Runtime State modes;
+- interactive frontend: `docs/runtime-viewer/index.html` with roadmap, detailed graph, Runtime State, and Stage Coverage modes;
+- full-stage local-paper pilot fixtures under `examples/local-paper/security-state-aware-mixed-platoon/`;
+- one `PilotStageRun` for every canonical stage `S00-S16/G01/G02`, with explicit completion boundaries;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
 
@@ -39,7 +41,8 @@ Do **not** mutate old `$yxj-paper-os`, use `$yxj-plugin-incubator` as a design s
 6. `docs/RUNTIME_PROTOCOL.md`
 7. `docs/BACKFLOW_PROTOCOL.md`
 8. `docs/VALIDATION_AND_TESTING.md`
-9. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
+9. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
+10. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
 
 ## Runtime inspection commands
 
@@ -55,13 +58,31 @@ python3 scripts/ppg_runtime_adapter.py \
   --format markdown
 ```
 
-For the complete local Phase8 gate:
+To inspect the Phase9 full-stage local-paper pilot:
 
 ```bash
-bash scripts/verify_phase8_plugin_surface.sh
-python3 scripts/run_fixture_suite.py examples/runtime/overclaim-loop.v1.json
-bash scripts/verify_phase6_task_packets.sh
-python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
+python3 scripts/import_local_paper_pilot.py \
+  --source /home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon \
+  --out examples/local-paper/security-state-aware-mixed-platoon \
+  --check
+
+python3 scripts/generate_local_paper_full_pilot.py \
+  --pilot-root examples/local-paper/security-state-aware-mixed-platoon \
+  --check
+
+python3 scripts/verify_local_paper_full_pilot.py \
+  examples/local-paper/security-state-aware-mixed-platoon
+
+python3 scripts/ppg_runtime_adapter.py \
+  --graph examples/runtime/overclaim-loop.phase7-after.json \
+  --stage-coverage examples/local-paper/security-state-aware-mixed-platoon/stage_coverage.json \
+  --format json
+```
+
+For the complete local Phase9 gate:
+
+```bash
+bash scripts/verify_phase9_full_stage_runtime.sh
 ```
 
 ## Completion rule

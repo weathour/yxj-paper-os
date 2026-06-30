@@ -10,9 +10,9 @@ Primary users are human paper authors and Codex main-agent operators designing a
 
 ## Product Purpose
 
-This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, and identify the next implementation slice for versioned material graphs and local backpropagation.
+This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, inspect full-stage local-paper pilot coverage, and identify the next implementation slice for stricter task packets, validators, and local backpropagation.
 
-Success means the user can open the viewer and immediately understand what is confirmed, what is only a stage-level view, what is not yet runnable, and where the next engineering work starts.
+Success means the user can open the viewer and immediately understand what is confirmed, what is only a pilot projection, what is not yet runnable as real paper execution, and where the next engineering work starts.
 
 ## Brand Personality
 
