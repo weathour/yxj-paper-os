@@ -39,6 +39,8 @@
   const referenceFigure = document.getElementById('referenceFigure');
   const runtimeStateFrame = document.getElementById('runtimeStateFrame');
   const runtimeStateContent = document.getElementById('runtimeStateContent');
+  const stageCoverageFrame = document.getElementById('stageCoverageFrame');
+  const stageCoverageContent = document.getElementById('stageCoverageContent');
 
   graphCanvas.style.width = `${graph.meta.canvas.width}px`;
   graphCanvas.style.height = `${graph.meta.canvas.height}px`;
@@ -417,6 +419,66 @@
     });
   }
 
+  function renderCountChips(parent, counts) {
+    const list = document.createElement('div');
+    list.className = 'coverage-chip-list';
+    Object.entries(counts || {}).forEach(([key, value]) => {
+      const chip = document.createElement('span');
+      chip.className = 'coverage-chip';
+      chip.appendChild(createTextElement('strong', '', key));
+      chip.appendChild(createTextElement('span', '', value));
+      list.appendChild(chip);
+    });
+    if (!list.children.length) appendEmpty(parent, '没有 coverage count。');
+    else parent.appendChild(list);
+  }
+
+  function toneForCoverage(item) {
+    if (item.coverage_kind === 'owner_gated_deferred') return 'owner';
+    if (item.worker_packet_status === 'planned_with_blocker') return 'blocker';
+    if (item.worker_packet_status === 'linked_strict_packet') return 'active';
+    if (item.coverage_kind === 'script_checked') return 'delivery';
+    return item.coverage_kind === 'source_projected' ? 'graph' : 'candidate';
+  }
+
+  function renderStageCoverage() {
+    const coverage = graph.stageCoverage;
+    stageCoverageContent.textContent = '';
+    if (!coverage) {
+      appendEmpty(stageCoverageContent, 'stageCoverage 数据未加载。');
+      return;
+    }
+    const summary = appendStateSection(stageCoverageContent, 'Coverage Summary', '每个 canonical stage 都必须有 PilotStageRun；completion boundary 防止把 pilot 误认为最终论文完成。');
+    const summaryGrid = document.createElement('div');
+    summaryGrid.className = 'state-summary-grid';
+    const countCard = stateCard('PilotStageRun Count', 'frontier');
+    appendKeyValue(countCard, 'project', coverage.project_slug);
+    appendKeyValue(countCard, 'stage runs', `${coverage.pilot_stage_run_count} / ${coverage.canonical_stage_count}`);
+    appendKeyValue(countCard, 'graph', coverage.graph_ref);
+    const boundaryCard = stateCard('Completion Boundary', 'delivery');
+    boundaryCard.appendChild(createTextElement('p', 'state-blocker-text', coverage.completion_boundary));
+    summaryGrid.appendChild(countCard);
+    summaryGrid.appendChild(boundaryCard);
+    summary.appendChild(summaryGrid);
+
+    const counts = appendStateSection(stageCoverageContent, 'Coverage Kinds + Worker Packets', 'source_projected/script_checked/fixture_generated 是 pilot 的证据类型；planned_with_blocker 显示仍需后续严格任务包。');
+    renderCountChips(counts, coverage.coverage_kind_counts);
+    renderCountChips(counts, coverage.exercise_level_counts);
+    renderCountChips(counts, coverage.worker_task_packet_status_counts);
+
+    const stages = appendStateSection(stageCoverageContent, 'Stage Runs', '点击左侧 stage 图可看拓扑；这里看每个 stage 的实际 pilot 覆盖、任务包状态和 contract ref。');
+    appendCardList(stages, coverage.stage_runs, (item) => {
+      const card = stateCard(`${item.stage_id} ${item.stage_name}`, toneForCoverage(item));
+      appendKeyValue(card, 'status', item.status);
+      appendKeyValue(card, 'coverage', item.coverage_kind);
+      appendKeyValue(card, 'exercise', item.exercise_level);
+      appendKeyValue(card, 'worker packet', item.worker_packet_status);
+      appendKeyValue(card, 'contract', item.contract_ref);
+      appendKeyValue(card, 'run', item.run_ref);
+      return card;
+    });
+  }
+
   function relationBlock(title, edges, directionKey) {
     if (!edges.length) return `<section class="detail-section"><h3>${title}</h3><div class="empty-state">没有直接关系。</div></section>`;
     const items = edges.map((edge) => {
@@ -436,7 +498,7 @@
 
   function activeCanvas() { return state.mode === 'graph' ? { canvas: graphCanvas, stage: graphStage, frame: graphFrame, width: graph.meta.canvas.width } : { canvas: roadmapCanvas, stage: roadmapStage, frame: roadmapFrame, width: graph.roadmap.canvas.width }; }
   function applyZoom() {
-    const zoom = state.mode === 'state' ? null : state.zooms[state.mode];
+    const zoom = state.mode === 'state' || state.mode === 'coverage' ? null : state.zooms[state.mode];
     const targets = [
       { canvas: roadmapCanvas, stage: roadmapStage, width: graph.roadmap.canvas.width, height: graph.roadmap.canvas.height, zoom: state.zooms.roadmap },
       { canvas: graphCanvas, stage: graphStage, width: graph.meta.canvas.width, height: graph.meta.canvas.height, zoom: state.zooms.graph },
@@ -496,9 +558,11 @@
     document.getElementById('roadmapMode').classList.toggle('is-active', state.mode === 'roadmap');
     document.getElementById('graphMode').classList.toggle('is-active', state.mode === 'graph');
     document.getElementById('runtimeStateMode').classList.toggle('is-active', state.mode === 'state');
+    document.getElementById('stageCoverageMode').classList.toggle('is-active', state.mode === 'coverage');
     roadmapFrame.classList.toggle('is-hidden', state.mode !== 'roadmap');
     graphFrame.classList.toggle('is-hidden', state.mode !== 'graph');
     runtimeStateFrame.classList.toggle('is-hidden', state.mode !== 'state');
+    stageCoverageFrame.classList.toggle('is-hidden', state.mode !== 'coverage');
     document.getElementById('roadmapGuide').classList.toggle('is-hidden', state.mode !== 'roadmap');
     renderDetail(); applyZoom();
   }
@@ -531,14 +595,15 @@
     document.getElementById('roadmapMode').addEventListener('click', () => { state.mode = 'roadmap'; update(); });
     document.getElementById('graphMode').addEventListener('click', () => { state.mode = 'graph'; update(); });
     document.getElementById('runtimeStateMode').addEventListener('click', () => { state.mode = 'state'; update(); });
-    document.getElementById('fitWidth').addEventListener('click', () => { if (state.mode === 'state') return; const active = activeCanvas(); state.zooms[state.mode] = Math.max(0.32, Math.min(1.25, Number(((active.frame.clientWidth - 32) / active.width).toFixed(2)))); applyZoom(); });
-    document.getElementById('zoomOut').addEventListener('click', () => { if (state.mode === 'state') return; state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
-    document.getElementById('zoomIn').addEventListener('click', () => { if (state.mode === 'state') return; state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('stageCoverageMode').addEventListener('click', () => { state.mode = 'coverage'; update(); });
+    document.getElementById('fitWidth').addEventListener('click', () => { if (state.mode === 'state' || state.mode === 'coverage') return; const active = activeCanvas(); state.zooms[state.mode] = Math.max(0.32, Math.min(1.25, Number(((active.frame.clientWidth - 32) / active.width).toFixed(2)))); applyZoom(); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if (state.mode === 'state' || state.mode === 'coverage') return; state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('zoomIn').addEventListener('click', () => { if (state.mode === 'state' || state.mode === 'coverage') return; state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
     document.querySelectorAll('[data-guide-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.guideJump, true)));
     document.querySelectorAll('[data-guide-preset]').forEach((button) => button.addEventListener('click', () => activatePreset(button.dataset.guidePreset)));
   }
 
   renderLanes(laneLayer, graph.layers || []); renderGraphNodes(); renderGraphEdges();
   renderLanes(roadmapLaneLayer, graph.roadmap.lanes || []); renderRoadmapNodes(); renderRoadmapEdges();
-  renderRuntimeState(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
+  renderRuntimeState(); renderStageCoverage(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
 })();

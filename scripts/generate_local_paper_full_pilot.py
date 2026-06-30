@@ -335,7 +335,6 @@ def generate(pilot_root: Path) -> dict[str, Any]:
     manifest = load_json(pilot_root / "manifest.json")
     registry = load_json(REGISTRY)
     stage_run_dir = pilot_root / "stage-runs"
-    artifact_dir = pilot_root / "artifacts"
     runs: list[dict[str, Any]] = []
     for stage in registry["stages"]:
         sid = stage["stage_id"]

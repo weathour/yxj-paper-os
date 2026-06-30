@@ -357,3 +357,7 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .state-card.tone-graph, .state-card.tone-owner { border-color: oklch(0.62 0.025 250); background: oklch(0.97 0.004 250); }
 .state-blocker-text { margin: 0; color: var(--ink); font-size: 13px; }
 @media (max-width: 720px) { .runtime-state-header { flex-direction: column; } .state-kv { grid-template-columns: 1fr; } }
+
+.coverage-chip-list { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 2px; }
+.coverage-chip { display: inline-flex; gap: 7px; align-items: center; border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; background: var(--panel-2); color: var(--ink); font-size: 12px; }
+.coverage-chip strong { font-family: var(--mono); color: var(--muted); }

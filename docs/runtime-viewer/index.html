@@ -11,7 +11,7 @@
     <div>
       <p class="kicker">Paper Production Graph Runtime</p>
       <h1>PPG Runtime 人工把握视图</h1>
-      <p class="subtitle">Phase8 将已验证的 material graph runtime 暴露为本地只读状态面板；仍不 live-install、不发布 marketplace。</p>
+      <p class="subtitle">Phase9 在 Phase8 只读 runtime surface 上增加全环节 PilotStageRun 覆盖面板；仍不 live-install、不发布 marketplace。</p>
     </div>
     <div class="topbar__actions">
       <a class="link-button" href="../RUNTIME_STRICT_REVIEW_ROUND2_2026-06-29.md">二轮严格审查</a>
@@ -28,13 +28,13 @@
       <section class="baseline-card" aria-label="当前确认状态">
         <div class="baseline-card__head">
           <span class="status-pill status-confirmed">已确认</span>
-          <strong>Phase8 本地 runtime surface</strong>
+          <strong>Phase9 本地 runtime + stage coverage surface</strong>
         </div>
-        <p>当前 surface 同时保留 stage/roadmap 视图，并显示 Phase7 fixture-backed graph state：frontier、stale、review、backflow、owner、delivery gate。</p>
+        <p>当前 surface 同时保留 stage/roadmap 视图、Phase7 fixture-backed graph state，并显示本地论文 pilot 的 S00-S16/G01/G02 全环节覆盖。</p>
         <ul>
           <li><strong>用途</strong>：人类把握 runtime 状态与任务包设计。</li>
-          <li><strong>边界</strong>：本地只读，不安装/发布插件。</li>
-          <li><strong>下一步</strong>：明确授权后才进入 live graph import 或 marketplace。</li>
+          <li><strong>边界</strong>：本地论文只读投影，不宣布最终投稿完成。</li>
+          <li><strong>下一步</strong>：补齐 planned_with_blocker 的严格任务包后，才进入更强的真实写作/审核执行。</li>
         </ul>
       </section>
 
@@ -64,6 +64,7 @@
           <button id="roadmapMode" type="button" class="is-active">路线图</button>
           <button id="graphMode" type="button">详细节点图</button>
           <button id="runtimeStateMode" type="button">Runtime State</button>
+          <button id="stageCoverageMode" type="button">Stage Coverage</button>
           <button id="resetFocus" type="button">重置聚焦</button>
           <button id="showReference" type="button">显示/隐藏原图</button>
         </div>
@@ -100,6 +101,18 @@
           <a class="link-button" href="../../examples/runtime-reports/overclaim-loop.phase7-state.md">打开 Markdown 报告</a>
         </div>
         <div id="runtimeStateContent" class="runtime-state-content"></div>
+      </section>
+
+      <section id="stageCoverageFrame" class="runtime-state-frame is-hidden" aria-label="Phase9 stage coverage surface">
+        <div class="runtime-state-header">
+          <div>
+            <p class="kicker">Phase9 Stage Coverage</p>
+            <h2>本地论文全环节 PilotStageRun 面板</h2>
+            <p>由 <code>scripts/generate_local_paper_full_pilot.py</code> 与 <code>scripts/verify_local_paper_full_pilot.py</code> 生成/验证；展示每个环节的输入投影、输出物料、任务包状态和完成边界。</p>
+          </div>
+          <a class="link-button" href="../../examples/local-paper/security-state-aware-mixed-platoon/stage_coverage.json">打开 stage_coverage.json</a>
+        </div>
+        <div id="stageCoverageContent" class="runtime-state-content"></div>
       </section>
 
       <div class="canvas-frame" id="roadmapFrame">

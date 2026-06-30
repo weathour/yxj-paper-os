@@ -212,6 +212,24 @@ def build_runtime_state(graph_path: Path) -> dict[str, Any]:
     return state
 
 
+def attach_stage_coverage(state: dict[str, Any], stage_coverage_path: Path) -> dict[str, Any]:
+    """Attach an already-generated PilotStageRun coverage summary.
+
+    This is optional so the Phase8 graph-state fixture remains byte-for-byte
+    stable by default. Phase9 callers opt in when they want a combined runtime
+    state + full-stage local-paper pilot report.
+    """
+
+    payload = json.loads(stage_coverage_path.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != "ppg-local-paper-full-pilot/v0.1":
+        raise ValueError(f"stage coverage has unsupported schema_version: {payload.get('schema_version')}")
+    if payload.get("pilot_stage_run_count") != payload.get("canonical_stage_count"):
+        raise ValueError("stage coverage does not cover every canonical stage")
+    merged = dict(state)
+    merged["stage_coverage"] = payload
+    return merged
+
+
 def _table_or_none(rows: list[str]) -> str:
     return "\n".join(rows) if rows else "- none"
 
@@ -281,6 +299,19 @@ def render_markdown(state: dict[str, Any]) -> str:
         _table_or_none([f"- {item}" for item in state["completion_blockers"]]),
         "",
     ]
+    if "stage_coverage" in state:
+        coverage = state["stage_coverage"]
+        sections.extend([
+            "## Phase9 Stage Coverage",
+            f"- project: {coverage.get('project_slug', '')}",
+            f"- stage runs: {coverage.get('pilot_stage_run_count', '')}/{coverage.get('canonical_stage_count', '')}",
+            f"- completion boundary: {coverage.get('completion_boundary', '')}",
+            "- coverage kinds: "
+            + ", ".join(f"{key}={value}" for key, value in sorted(coverage.get("coverage_kind_counts", {}).items())),
+            "- worker task packet statuses: "
+            + ", ".join(f"{key}={value}" for key, value in sorted(coverage.get("worker_task_packet_status_counts", {}).items())),
+            "",
+        ])
     return "\n".join(sections)
 
 
@@ -305,6 +336,7 @@ def write_output(text: str, out: Path | None) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Emit a deterministic graph-state-read-only PPG runtime state report.")
     parser.add_argument("--graph", required=True, type=Path, help="PPG graph JSON fixture to inspect.")
+    parser.add_argument("--stage-coverage", type=Path, help="Optional Phase9 local-paper stage_coverage.json to attach.")
     parser.add_argument("--format", choices=["json", "markdown"], default="json", help="Report output format.")
     parser.add_argument("--out", type=Path, help="Write report to path instead of stdout; refuses to overwrite the input graph.")
     return parser
@@ -317,6 +349,8 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     try:
         state = build_runtime_state(args.graph)
+        if args.stage_coverage is not None:
+            state = attach_stage_coverage(state, args.stage_coverage)
     except Exception as exc:  # noqa: BLE001 - CLI adapter reports validation failures uniformly
         print(f"INVALID {args.graph}: {exc}", file=sys.stderr)
         return 1
