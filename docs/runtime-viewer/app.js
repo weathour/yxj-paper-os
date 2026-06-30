@@ -461,7 +461,7 @@
     summaryGrid.appendChild(boundaryCard);
     summary.appendChild(summaryGrid);
 
-    const counts = appendStateSection(stageCoverageContent, 'Coverage Kinds + Worker Packets', 'source_projected/script_checked/fixture_generated 是 pilot 的证据类型；planned_with_blocker 显示仍需后续严格任务包。');
+    const counts = appendStateSection(stageCoverageContent, 'Coverage Kinds + Worker Packets', 'source_projected/script_checked/fixture_generated 是 pilot 的证据类型；linked_strict_packet 表示该 worker stage 已有严格任务包，not_required 表示非 worker stage。');
     renderCountChips(counts, coverage.coverage_kind_counts);
     renderCountChips(counts, coverage.exercise_level_counts);
     renderCountChips(counts, coverage.worker_task_packet_status_counts);

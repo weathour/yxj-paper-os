@@ -6,13 +6,13 @@ product
 
 ## Users
 
-Primary users are human paper authors and Codex main-agent operators designing a long-term paper-production runtime. They use the interface while reasoning about stage responsibilities, material flows, validation gates, and review backflow before implementing real agent execution.
+Primary users are human paper authors and Codex main-agent operators designing a long-term paper-production runtime. They use the interface while reasoning about stage responsibilities, material flows, validation gates, review backflow, and real-subagent-run readiness before starting formal paper production.
 
 ## Product Purpose
 
-This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, inspect full-stage local-paper pilot coverage, and identify the next implementation slice for stricter task packets, validators, and local backpropagation.
+This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, inspect full-stage local-paper pilot coverage, inspect Phase10 run-readiness state, and identify whether a later real subagent execution campaign can safely start.
 
-Success means the user can open the viewer and immediately understand what is confirmed, what is only a pilot projection, what is not yet runnable as real paper execution, and where the next engineering work starts.
+Success means the user can open the viewer and immediately understand what is confirmed, what is only a pilot projection, what is ready for bounded subagent dispatch, what is still owner-gated, and why this is not yet a final-paper or submission-readiness claim.
 
 ## Brand Personality
 

@@ -60,7 +60,7 @@ def run_git(source_root: Path, args: list[str]) -> str:
 
 def source_file_list(source_root: Path) -> list[str]:
     raw = subprocess.check_output(
-        ["git", "-C", str(source_root), "ls-files", "-co", "--exclude-standard", "-z"],
+        ["git", "-C", str(source_root), "ls-files", "-co", "--exclude-standard", "-z", "--", "."],
         text=False,
     )
     return sorted(item.decode("utf-8") for item in raw.split(b"\0") if item)
@@ -92,7 +92,7 @@ def compute_source_snapshot(source_root: Path) -> dict[str, Any]:
             entries[rel] = {"kind": "file", "size": stat.st_size, "sha256": sha256_file(path)}
         else:
             entries[rel] = {"kind": "other", "size": stat.st_size}
-    status = run_git(source_root, ["status", "--porcelain=v1", "--untracked-files=all"]).splitlines()
+    status = run_git(source_root, ["status", "--porcelain=v1", "--untracked-files=all", "--", "."]).splitlines()
     return {
         "schema_version": "ppg-source-snapshot/v0.1",
         "source_root": str(source_root),

@@ -85,9 +85,13 @@ def verify_validator_registry(registry: dict[str, Any], validators: dict[str, An
     entries = validators.get("validators")
     if not isinstance(entries, list):
         return [issue("E_PHASE10_VALIDATORS_SHAPE", "validators must be a list")]
-    by_id = {entry.get("stage_id"): entry for entry in entries if isinstance(entry, dict)}
-    if sorted(by_id) != sorted(expected_ids):
-        errors.append(issue("E_PHASE10_VALIDATORS_STAGE_SET", f"expected={expected_ids} actual={sorted(by_id)}"))
+    by_id: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        if isinstance(entry, dict) and isinstance(entry.get("stage_id"), str):
+            by_id[entry["stage_id"]] = entry
+    actual_ids = sorted(by_id)
+    if actual_ids != sorted(expected_ids):
+        errors.append(issue("E_PHASE10_VALIDATORS_STAGE_SET", f"expected={expected_ids} actual={actual_ids}"))
     stage_by_id = {stage["stage_id"]: stage for stage in registry.get("stages", [])}
     for sid in expected_ids:
         entry = by_id.get(sid)

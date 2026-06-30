@@ -30,6 +30,7 @@ NEGATIVE_EXPECTATIONS = {
     "invalid-owner-worker-packet.json": "E_STAGE_CONTRACT_FAKE_WORKER_PACKET",
     "invalid-missing-validators.json": "E_STAGE_CONTRACT_LIST_FIELD",
     "invalid-wrong-stage-packet.json": "E_STAGE_CONTRACT_PACKET_STAGE_BINDING",
+    "invalid-missing-worker-packet.json": "E_STAGE_CONTRACT_WORKER_PACKET_MISSING",
 }
 
 

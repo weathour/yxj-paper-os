@@ -19,13 +19,16 @@ The main agent controls a versioned graph of materials, task packets, validators
 
 ## Current repository status
 
-This repository is a local Phase9 plugin/runtime surface. It provides:
+This repository is a local Phase10 plugin/runtime readiness surface. It provides:
 
 - graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
 - deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
 - interactive frontend: `docs/runtime-viewer/index.html` with roadmap, detailed graph, Runtime State, and Stage Coverage modes;
 - full-stage local-paper pilot fixtures under `examples/local-paper/security-state-aware-mixed-platoon/`;
 - one `PilotStageRun` for every canonical stage `S00-S16/G01/G02`, with explicit completion boundaries;
+- strict linked TaskPackets for every dispatchable worker stage;
+- Phase10 content validators and a runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
+- untracked-aware source-read-only proof and forbidden-side-effect guards;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
 
@@ -41,8 +44,9 @@ Do **not** mutate old `$yxj-paper-os`, use `$yxj-plugin-incubator` as a design s
 6. `docs/RUNTIME_PROTOCOL.md`
 7. `docs/BACKFLOW_PROTOCOL.md`
 8. `docs/VALIDATION_AND_TESTING.md`
-9. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
-10. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
+9. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
+10. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
+11. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
 
 ## Runtime inspection commands
 
@@ -79,7 +83,13 @@ python3 scripts/ppg_runtime_adapter.py \
   --format json
 ```
 
-For the complete local Phase9 gate:
+For the complete local Phase10 readiness gate:
+
+```bash
+bash scripts/verify_phase10_real_run_readiness.sh
+```
+
+For the inherited Phase9 pilot gate:
 
 ```bash
 bash scripts/verify_phase9_full_stage_runtime.sh
