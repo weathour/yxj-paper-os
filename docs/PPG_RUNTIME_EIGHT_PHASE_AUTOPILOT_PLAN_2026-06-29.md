@@ -609,7 +609,7 @@ Ultragoal stories:
 3. add frontend runtime state mode beyond stage taxonomy;
 4. add owner decision and stale/backflow panels;
 5. add plugin validation and docs;
-6. prepare but do not publish live install/marketplace entries without explicit approval.
+6. prepare lifecycle/install/marketplace boundaries, and perform live install or marketplace changes only with explicit owner approval.
 
 Validation:
 
@@ -630,7 +630,7 @@ and shows the human owner where active frontier, stale materials,
 review findings, backflow tasks, owner decisions, and delivery gates are.
 ```
 
-Autopilot recommendation: yes, but with explicit gates: no live install, no marketplace publishing, no mutation of old `$yxj-paper-os`, and no `$team` launch without approval.
+Autopilot recommendation: yes, but with explicit gates: no unapproved live install, no marketplace publishing without owner approval, no revival or mutation of the legacy department-loop `$yxj-paper-os` route, and no `$team` launch without approval.
 
 ## 4. Recommended cadence
 
@@ -698,8 +698,8 @@ Allowed scope:
 
 Non-goals:
 - do not revive the legacy department-loop yxj-paper-os route
-- do not live-install plugin
-- do not publish marketplace entries
+- do not live-install plugin unless the owner explicitly authorizes the lifecycle/replacement workflow
+- do not publish marketplace entries unless the owner explicitly authorizes the lifecycle/replacement workflow
 - do not launch $team unless explicitly approved
 - do not weaken validators to pass fixtures
 
@@ -735,7 +735,7 @@ Even with Autopilot, the main agent must stop or ask before:
 - changing the core philosophy of the runtime;
 - treating a stage taxonomy change as user-approved when it changes paper production semantics;
 - reviving legacy department-loop `$yxj-paper-os` behavior;
-- live installing or publishing a plugin;
+- live installing or publishing a plugin without explicit owner authorization;
 - launching `$team` for a phase;
 - using credentialed external services;
 - making destructive cleanup;

@@ -156,6 +156,25 @@ p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\
 PY
 assert_fails_with E_PHASE10_SOURCE_SNAPSHOT_DRIFT python3 scripts/verify_phase10_run_readiness.py "$negative_source"
 
+# Negative: source snapshots must reject plugin/runtime viewer artifacts under source repo.
+make_negative_run source-runtime-artifact
+negative_source_runtime=$negative_run
+python3 - "$negative_source_runtime/manifest.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+entry = {"kind": "file", "size": 1, "sha256": "1" * 64}
+for key in ["source_snapshot_before", "source_snapshot_after"]:
+    data[key]["entries"]["docs/runtime-viewer/index.html"] = entry
+    rows = data[key].setdefault("git_status_porcelain_v1", [])
+    if "?? docs/runtime-viewer/index.html" not in rows:
+        rows.append("?? docs/runtime-viewer/index.html")
+p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + '\n')
+PY
+assert_fails_with E_PHASE10_SOURCE_RUNTIME_ARTIFACT python3 scripts/verify_phase10_run_readiness.py "$negative_source_runtime"
+echo NEGATIVE_PHASE10_SOURCE_RUNTIME_ARTIFACT_OK
+
 source_root=$(python3 - <<'PY'
 import json
 print(json.load(open('examples/local-paper/security-state-aware-mixed-platoon/manifest.json'))['source_root'])

@@ -20,6 +20,7 @@ try:
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        source_runtime_artifact_violations,
         stage_overlay_summary,
     )
     from ppg_validate_common import load_document
@@ -38,6 +39,7 @@ except ImportError:  # pragma: no cover
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        source_runtime_artifact_violations,
         stage_overlay_summary,
     )
     from ppg_validate_common import load_document  # type: ignore  # noqa: E402
@@ -378,9 +380,17 @@ def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dic
         errors.append(issue("E_PHASE10_STAGE_OVERLAY_LINK", "manifest missing Nature stage overlay registry link"))
     before = manifest.get("source_snapshot_before")
     after = manifest.get("source_snapshot_after")
+    for label, snapshot in [("before", before), ("after", after)]:
+        if isinstance(snapshot, dict):
+            violations = source_runtime_artifact_violations(snapshot)
+            if violations:
+                errors.append(issue("E_PHASE10_SOURCE_RUNTIME_ARTIFACT", f"{label}: {violations[:8]}"))
     if before != after:
         errors.append(issue("E_PHASE10_SOURCE_SNAPSHOT_DRIFT", "manifest before/after source snapshots differ"))
     current = compute_source_snapshot(source_root)
+    violations = source_runtime_artifact_violations(current)
+    if violations:
+        errors.append(issue("E_PHASE10_SOURCE_RUNTIME_ARTIFACT", f"current: {violations[:8]}"))
     if current != after:
         changed: list[str] = []
         if isinstance(after, dict):

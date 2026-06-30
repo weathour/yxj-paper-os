@@ -16,10 +16,10 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, is_relative_to, load_json, repo_rel, write_json, write_text
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, ensure_source_snapshot_no_runtime_artifacts, is_relative_to, load_json, repo_rel, write_json, write_text
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, is_relative_to, load_json, repo_rel, write_json, write_text  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, ensure_source_snapshot_no_runtime_artifacts, is_relative_to, load_json, repo_rel, write_json, write_text  # type: ignore  # noqa: E402
 
 DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
 DEFAULT_RUN_ROOT = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase13-live-subagent-full-flow-pilot"
@@ -251,6 +251,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     registry = load_json(REGISTRY)
     validators = validator_by_stage()
     source_snapshot_before = compute_source_snapshot(source_root)
+    ensure_source_snapshot_no_runtime_artifacts(source_snapshot_before, context="phase13 source snapshot before")
     write_json(run_root / "source_snapshot.before.json", source_snapshot_before, run_root, source_root)
 
     stages_out: list[dict[str, Any]] = []

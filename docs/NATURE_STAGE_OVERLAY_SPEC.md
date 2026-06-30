@@ -121,5 +121,5 @@ The validator locks these failure classes:
 
 - No migration back to legacy `$yxj-paper-os` departments.
 - No use of `$yxj-plugin-incubator` as design source.
-- No live install, marketplace registration, publication, or cachebuster update.
+- No lifecycle mutation inside the Nature overlay absorption itself; owner-authorized plugin replacement may update install/cachebuster through the controller workflow.
 - No claim that Nature skill absorption makes the paper complete or submission-ready.

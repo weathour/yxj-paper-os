@@ -55,7 +55,7 @@ This is intentionally honest: Phase 9 proves full-stage runtime coverage and loc
 - Pilot artifacts are written under this runtime repository, not inside the source paper repository.
 - `S09` remains forbidden; `S09A` and `S09B` are distinct control-material selection and task-packet assembly stages.
 - Worker stages may be `linked_strict_packet` or `planned_with_blocker`; non-worker stages must not fake worker packets.
-- No live plugin install, marketplace registration, cachebuster update, or `$yxj-paper-os` mutation is part of this promotion.
+- This Phase9 promotion itself did not perform plugin install, marketplace registration, cachebuster update, or public `yxj-paper-os` replacement; lifecycle changes require a separate owner-authorized replacement workflow.
 - The frontend is an observability surface, not a graph commit surface.
 
 ## Verification

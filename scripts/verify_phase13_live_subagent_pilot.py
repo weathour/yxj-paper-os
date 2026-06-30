@@ -11,11 +11,11 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json, source_runtime_artifact_violations
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, REGISTRY
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json, source_runtime_artifact_violations  # type: ignore  # noqa: E402
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, REGISTRY  # type: ignore  # noqa: E402
 
 RUN_SCHEMA_VERSION = "ppg-phase13-run-state/v0.1"
@@ -410,10 +410,20 @@ def verify_phase13_run(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEF
         return errors
     before = load_json_file(existing_file(run_root, state.get("source_snapshot_before_ref"), "E_PHASE13_UNSAFE_REF", "source_snapshot_before_ref", errors), errors, "E_PHASE13_SOURCE_SNAPSHOT_MISSING")
     after = load_json_file(existing_file(run_root, state.get("source_snapshot_after_ref"), "E_PHASE13_UNSAFE_REF", "source_snapshot_after_ref", errors), errors, "E_PHASE13_SOURCE_SNAPSHOT_MISSING")
+    for label, snapshot in [("before", before), ("after", after)]:
+        if isinstance(snapshot, dict):
+            violations = source_runtime_artifact_violations(snapshot)
+            if violations:
+                errors.append(issue("E_PHASE13_SOURCE_RUNTIME_ARTIFACT", f"{label}: {violations[:8]}"))
     if before is not None and after is not None and before != after:
         errors.append(issue("E_PHASE13_SOURCE_SNAPSHOT_DRIFT", "before/after differ"))
-    if after is not None and compute_source_snapshot(source_root) != after:
-        errors.append(issue("E_PHASE13_SOURCE_SNAPSHOT_CURRENT_DRIFT", "current differs from after"))
+    if after is not None:
+        current = compute_source_snapshot(source_root)
+        violations = source_runtime_artifact_violations(current)
+        if violations:
+            errors.append(issue("E_PHASE13_SOURCE_RUNTIME_ARTIFACT", f"current: {violations[:8]}"))
+        if current != after:
+            errors.append(issue("E_PHASE13_SOURCE_SNAPSHOT_CURRENT_DRIFT", "current differs from after"))
     threads_doc = load_json_file(existing_file(run_root, state.get("subagent_threads_ref"), "E_PHASE13_UNSAFE_REF", "subagent_threads_ref", errors), errors, "E_PHASE13_THREADS_MISSING")
     threads = threads_doc.get("threads", []) if isinstance(threads_doc, dict) else []
     threads_by: dict[tuple[str, str], dict[str, Any]] = {}

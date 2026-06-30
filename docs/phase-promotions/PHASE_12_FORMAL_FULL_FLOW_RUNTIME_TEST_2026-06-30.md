@@ -72,7 +72,7 @@ PHASE12_FORMAL_FULL_FLOW_VERIFY_OK
 ## Explicit non-goals
 
 - No source-paper repository writes.
-- No live install, marketplace registration, publish lifecycle, or cachebuster update.
+- This Phase12 formal runtime test itself did not perform live install, marketplace registration, publish lifecycle, or cachebuster update; lifecycle changes require a separate owner-authorized replacement workflow.
 - No replacement of the PPG runtime with old department loops.
 - No design dependency on incubator routes.
 - No journal-quality, final-paper, or submission-readiness claim.

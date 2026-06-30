@@ -81,7 +81,7 @@ The aggregate gate now includes Nature overlay validation and negative probes fo
 
 ## Explicit non-goals
 
-- No live install, marketplace registration, publish, or cachebuster update.
+- This Phase11 overlay absorption itself did not perform live install, marketplace registration, publish, or cachebuster update; lifecycle changes require a separate owner-authorized replacement workflow.
 - No replacement of the PPG runtime with legacy `$yxj-paper-os` department loops.
 - No design dependency on `$yxj-plugin-incubator`.
 - No claim that Nature overlay absorption means a real paper-production run has occurred.

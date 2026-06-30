@@ -91,7 +91,7 @@ PHASE13_LIVE_SUBAGENT_PILOT_VERIFY_OK
 
 - No source-paper repository writes.
 - No process-level immutable source mount claim; Phase 13 proves final-state source snapshot equality only.
-- No live plugin install, marketplace registration, publish lifecycle, or cachebuster update.
+- Phase 13 itself did not perform plugin install, marketplace registration, publish lifecycle, or cachebuster update; those lifecycle actions belong to a separate owner-authorized replacement workflow.
 - No production-grade semantic scoring claim; Phase 13 effect scores are pilot-only triage evidence.
 - No final manuscript, final paper, submission-readiness, or publication-readiness claim.
 - No verifier-owned or worker-owned completion authority.

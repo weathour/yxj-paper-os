@@ -38,6 +38,47 @@ BANNED_COMPLETION_PHRASES = [
     "publication ready",
 ]
 
+FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES = (
+    "docs/runtime-viewer",
+)
+
+
+def source_runtime_artifact_violations(snapshot: dict[str, Any]) -> list[str]:
+    """Return source-paper paths/status rows that look like runtime/plugin artifacts.
+
+    The local paper repository is a read-only source fixture. Runtime viewer,
+    run, plugin, and generated control artifacts must stay in this plugin repo.
+    """
+    violations: set[str] = set()
+    entries = snapshot.get("entries", {}) if isinstance(snapshot, dict) else {}
+    if isinstance(entries, dict):
+        for rel in entries:
+            norm = str(rel).strip("/")
+            for prefix in FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES:
+                if norm == prefix or norm.startswith(prefix + "/"):
+                    violations.add(norm)
+    status_rows = snapshot.get("git_status_porcelain_v1", []) if isinstance(snapshot, dict) else []
+    if isinstance(status_rows, list):
+        for row in status_rows:
+            text = str(row)
+            path_part = text[3:] if len(text) > 3 else text
+            candidates = [path_part]
+            if " -> " in path_part:
+                candidates.extend(path_part.split(" -> "))
+            for candidate in candidates:
+                norm = candidate.strip().strip("/")
+                for prefix in FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES:
+                    if norm == prefix or norm.startswith(prefix + "/"):
+                        violations.add(norm)
+    return sorted(violations)
+
+
+def ensure_source_snapshot_no_runtime_artifacts(snapshot: dict[str, Any], *, context: str = "source snapshot") -> None:
+    violations = source_runtime_artifact_violations(snapshot)
+    if violations:
+        joined = ", ".join(violations[:8])
+        raise ValueError(f"{context} contains runtime/plugin artifacts under source paper repository: {joined}")
+
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -269,6 +310,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     by_validator = validator_by_stage(validators)
     by_overlay_binding = overlay_binding_by_stage(overlays)
     before = compute_source_snapshot(source_root)
+    ensure_source_snapshot_no_runtime_artifacts(before, context="phase10 source snapshot before")
 
     dispatch_records: list[dict[str, Any]] = []
     validation_records: list[dict[str, Any]] = []
@@ -364,6 +406,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
 
     ledger_events.append({"event_id": "999-run-ready-boundary", "event": "run_ready_boundary", "run_id": RUN_ID, "completion_boundary": "Phase10 run readiness only; no final manuscript or submission-ready claim."})
     after = compute_source_snapshot(source_root)
+    ensure_source_snapshot_no_runtime_artifacts(after, context="phase10 source snapshot after")
     manifest = {
         "schema_version": "ppg-phase10-run-manifest/v0.1",
         "run_id": RUN_ID,

@@ -46,6 +46,10 @@ VERIFICATION_COMMANDS = [
     "cd manuscript && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex",
 ]
 
+FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES = (
+    "docs/runtime-viewer",
+)
+
 
 def fail(code: str, message: str) -> int:
     print(f"{code}: {message}", file=sys.stderr)
@@ -60,6 +64,28 @@ def run_git_status(source: Path) -> str:
     if proc.returncode != 0:
         return f"<git-status-error:{proc.stderr.strip()}>"
     return proc.stdout
+
+def source_runtime_artifact_violations(source: Path, git_status: str) -> list[str]:
+    violations: set[str] = set()
+    for path in source.rglob("*"):
+        rel = path.relative_to(source)
+        if ".git" in rel.parts or ".omx" in rel.parts:
+            continue
+        norm = rel.as_posix().strip("/")
+        for prefix in FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES:
+            if norm == prefix or norm.startswith(prefix + "/"):
+                violations.add(norm)
+    for row in git_status.splitlines():
+        path_part = row[3:] if len(row) > 3 else row
+        candidates = [path_part]
+        if " -> " in path_part:
+            candidates.extend(path_part.split(" -> "))
+        for candidate in candidates:
+            norm = candidate.strip().strip("/")
+            for prefix in FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES:
+                if norm == prefix or norm.startswith(prefix + "/"):
+                    violations.add(norm)
+    return sorted(violations)
 
 
 def file_fingerprint(path: Path) -> dict[str, Any]:
@@ -127,6 +153,9 @@ def project(source: Path, out: Path, *, check: bool) -> int:
     if missing:
         return fail("E_PHASE9_LOCAL_PAPER_SOURCE_MISSING", ", ".join(missing))
     before_status = run_git_status(source)
+    violations = source_runtime_artifact_violations(source, before_status)
+    if violations:
+        return fail("E_PHASE9_SOURCE_RUNTIME_ARTIFACT", ", ".join(violations[:8]))
     before_fingerprints = selected_fingerprints(source)
     if out.exists() and not out.is_symlink():
         shutil.rmtree(out)
@@ -176,6 +205,9 @@ def project(source: Path, out: Path, *, check: bool) -> int:
         "ready_for_runtime_pilot": True,
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     after_status = run_git_status(source)
+    violations = source_runtime_artifact_violations(source, after_status)
+    if violations:
+        return fail("E_PHASE9_SOURCE_RUNTIME_ARTIFACT", ", ".join(violations[:8]))
     after_fingerprints = selected_fingerprints(source)
     manifest["source_git_status_after"] = after_status
     manifest["source_fingerprint_after"] = after_fingerprints

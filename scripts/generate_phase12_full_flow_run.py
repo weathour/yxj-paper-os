@@ -20,6 +20,7 @@ try:
         OVERLAY_REGISTRY,
         ROOT,
         compute_source_snapshot,
+        ensure_source_snapshot_no_runtime_artifacts,
         ensure_run_root_safe,
         is_relative_to,
         load_json,
@@ -37,6 +38,7 @@ except ImportError:  # pragma: no cover
         OVERLAY_REGISTRY,
         ROOT,
         compute_source_snapshot,
+        ensure_source_snapshot_no_runtime_artifacts,
         ensure_run_root_safe,
         is_relative_to,
         load_json,
@@ -306,6 +308,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     by_validator = validator_by_stage(validators)
     by_overlay_binding = overlay_binding_by_stage(overlays)
     source_snapshot_before = compute_source_snapshot(source_root)
+    ensure_source_snapshot_no_runtime_artifacts(source_snapshot_before, context="phase12 source snapshot before")
 
     stage_states: list[dict[str, Any]] = []
     stage_statuses: list[dict[str, Any]] = []
@@ -547,6 +550,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     global_ledger.append({"event_id": "999-run-complete-runtime-test-only", "event": "run_complete_runtime_test_only", "run_id": RUN_ID, "artifact_ref": "final-report.md"})
 
     source_snapshot_after = compute_source_snapshot(source_root)
+    ensure_source_snapshot_no_runtime_artifacts(source_snapshot_after, context="phase12 source snapshot after")
     write_json(run_root / "source_snapshot.before.json", source_snapshot_before, run_root, source_root)
     write_json(run_root / "source_snapshot.after.json", source_snapshot_after, run_root, source_root)
 

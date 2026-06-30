@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PPG Runtime 人工把握视图</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="kicker">Paper Production Graph Runtime</p>
+      <h1>PPG Runtime 人工把握视图</h1>
+      <p class="subtitle">点击任一环节查看输入、输出、验证器、回流目标和相邻流程。</p>
+    </div>
+    <div class="topbar__actions">
+      <a class="link-button" href="../PPG_RUNTIME_CONTROL_BLOCK.md">说明文档</a>
+      <a class="link-button" href="../diagrams/ppg-runtime-control-block.png">原控制框图 PNG</a>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="side-panel" aria-label="流程导航">
+      <label class="search-label" for="searchInput">检索节点、输入或输出</label>
+      <input id="searchInput" class="search-input" type="search" placeholder="例如 claim、写作、S14、figure" />
+
+      <section class="panel-section">
+        <h2>聚焦路径</h2>
+        <div id="presetButtons" class="button-grid"></div>
+        <div class="stepper">
+          <button id="prevStep" class="small-button" type="button">上一步</button>
+          <button id="nextStep" class="small-button" type="button">下一步</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h2>边类型</h2>
+        <div id="edgeFilters" class="filter-list"></div>
+      </section>
+
+      <section class="panel-section node-index-section">
+        <h2>节点索引</h2>
+        <div id="nodeIndex" class="node-index"></div>
+      </section>
+    </aside>
+
+    <section class="workspace" aria-label="交互式 runtime 图">
+      <div class="workspace-toolbar">
+        <div class="toolbar-group">
+          <button id="resetFocus" type="button">重置聚焦</button>
+          <button id="showReference" type="button">显示/隐藏原图</button>
+        </div>
+        <div class="toolbar-group" aria-label="缩放控制">
+          <button id="zoomOut" type="button">缩小</button>
+          <output id="zoomLabel">85%</output>
+          <button id="zoomIn" type="button">放大</button>
+        </div>
+      </div>
+
+      <div class="canvas-frame" id="canvasFrame">
+        <div id="graphCanvas" class="graph-canvas">
+          <svg id="edgeLayer" class="edge-layer" aria-hidden="true"></svg>
+          <div id="nodeLayer" class="node-layer"></div>
+        </div>
+      </div>
+
+      <figure id="referenceFigure" class="reference-figure" hidden>
+        <img src="../diagrams/ppg-runtime-control-block.png" alt="PPG runtime 完整控制框图" />
+        <figcaption>静态 draw.io 控制框图，用于和交互视图交叉核对。</figcaption>
+      </figure>
+    </section>
+
+    <aside class="detail-panel" aria-live="polite">
+      <div id="detailContent" class="detail-content"></div>
+    </aside>
+  </main>
+
+  <script src="./runtime-graph-data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -138,11 +138,12 @@ Only after the graph/runtime loop is validated, design:
 - diff views;
 - multi-paper dashboards.
 
-## Non-goals for the current phase
+## Non-goals for this planning/design phase
 
-- live install;
-- marketplace publication;
-- mutation of existing `yxj-paper-os`;
+These are phase-local boundaries, not permanent bans on an owner-authorized plugin replacement workflow.
+
+- unapproved live install or marketplace publication outside the controller-owned replacement workflow;
+- revival or mutation of the legacy department-loop `yxj-paper-os` route;
 - full front-end app implementation;
 - whole-paper autonomous generation;
 - external submission/upload;

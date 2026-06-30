@@ -70,8 +70,8 @@
     "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
     "runtime_output_under_source": false,
     "selected_source_fingerprints_unchanged": true,
-    "source_git_status_after": "?? docs/runtime-viewer/\n",
-    "source_git_status_before": "?? docs/runtime-viewer/\n",
+    "source_git_status_after": "",
+    "source_git_status_before": "",
     "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
     "source_status_unchanged": true,
     "writes_to_source_allowed": false

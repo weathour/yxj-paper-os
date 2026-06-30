@@ -11,11 +11,11 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, load_json, write_json, write_text
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_source_snapshot_no_runtime_artifacts, load_json, write_json, write_text
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, BANNED_COMPLETION, build_prompt
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, load_json, write_json, write_text  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_source_snapshot_no_runtime_artifacts, load_json, write_json, write_text  # type: ignore  # noqa: E402
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, BANNED_COMPLETION, build_prompt  # type: ignore  # noqa: E402
 
 VERDICTS = ["accept_with_limitations", "needs_repair", "reject", "accept"]
@@ -224,6 +224,7 @@ def ingest(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEFAULT_PILOT) 
         })
 
     after = compute_source_snapshot(source_root)
+    ensure_source_snapshot_no_runtime_artifacts(after, context="phase13 source snapshot after")
     write_json(run_root / "source_snapshot.after.json", after, run_root, source_root)
     write_text(run_root / "validation_ledger.jsonl", "".join(json.dumps(e, ensure_ascii=False, sort_keys=True) + "\n" for e in validation_events), run_root, source_root)
     delivery = {

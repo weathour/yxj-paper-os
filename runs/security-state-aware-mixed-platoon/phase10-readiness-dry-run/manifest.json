@@ -106,20 +106,6 @@
         "sha256": "89405e909799f9999bc84a17445a391bfc068273ea859e208ffae9ce57960569",
         "size": 750
       },
-      "docs/runtime-viewer": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "docs/runtime-viewer/index.html": {
-        "kind": "file",
-        "sha256": "36facd106c922f10834832bec0da1b12107b849f9365fe737ba74e3ecb828eec",
-        "size": 3099
-      },
-      "docs/runtime-viewer/runtime-graph-data.js": {
-        "kind": "file",
-        "sha256": "c76ba6b00ac5ee0e7a777780fed058948d6e50628da89910026738559a4134c2",
-        "size": 19923
-      },
       "experiments": {
         "kind": "directory",
         "size": 4096
@@ -1894,11 +1880,8 @@
         "size": 1590
       }
     },
-    "entry_count": 389,
-    "git_status_porcelain_v1": [
-      "?? papers/security-state-aware-mixed-platoon/docs/runtime-viewer/index.html",
-      "?? papers/security-state-aware-mixed-platoon/docs/runtime-viewer/runtime-graph-data.js"
-    ],
+    "entry_count": 386,
+    "git_status_porcelain_v1": [],
     "schema_version": "ppg-source-snapshot/v0.1",
     "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon"
   },
@@ -1996,20 +1979,6 @@
         "sha256": "89405e909799f9999bc84a17445a391bfc068273ea859e208ffae9ce57960569",
         "size": 750
       },
-      "docs/runtime-viewer": {
-        "kind": "directory",
-        "size": 4096
-      },
-      "docs/runtime-viewer/index.html": {
-        "kind": "file",
-        "sha256": "36facd106c922f10834832bec0da1b12107b849f9365fe737ba74e3ecb828eec",
-        "size": 3099
-      },
-      "docs/runtime-viewer/runtime-graph-data.js": {
-        "kind": "file",
-        "sha256": "c76ba6b00ac5ee0e7a777780fed058948d6e50628da89910026738559a4134c2",
-        "size": 19923
-      },
       "experiments": {
         "kind": "directory",
         "size": 4096
@@ -3784,11 +3753,8 @@
         "size": 1590
       }
     },
-    "entry_count": 389,
-    "git_status_porcelain_v1": [
-      "?? papers/security-state-aware-mixed-platoon/docs/runtime-viewer/index.html",
-      "?? papers/security-state-aware-mixed-platoon/docs/runtime-viewer/runtime-graph-data.js"
-    ],
+    "entry_count": 386,
+    "git_status_porcelain_v1": [],
     "schema_version": "ppg-source-snapshot/v0.1",
     "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon"
   },

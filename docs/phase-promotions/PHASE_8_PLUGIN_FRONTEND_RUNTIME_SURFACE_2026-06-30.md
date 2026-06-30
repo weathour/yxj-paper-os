@@ -111,8 +111,7 @@ PHASE6_TASK_PACKET_VERIFY_OK
 
 ## Deferred items
 
-- No live plugin install.
-- No marketplace registration or cachebuster update.
+- This Phase8 promotion itself did not perform plugin install, marketplace registration, or cachebuster update; lifecycle changes require a separate owner-authorized replacement workflow.
 - No revival of the legacy department-loop `$yxj-paper-os` operating model.
 - No `$yxj-plugin-incubator` route.
 - No `$team` launch.

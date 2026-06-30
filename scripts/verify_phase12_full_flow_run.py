@@ -18,6 +18,7 @@ try:
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        source_runtime_artifact_violations,
         stage_overlay_summary,
     )
     from generate_phase12_full_flow_run import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID
@@ -33,6 +34,7 @@ except ImportError:  # pragma: no cover
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        source_runtime_artifact_violations,
         stage_overlay_summary,
     )
     from generate_phase12_full_flow_run import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID  # type: ignore  # noqa: E402
@@ -505,10 +507,18 @@ def verify_phase12_run(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEF
     after_path = run_owned_existing_file(run_root, after_ref, "E_PHASE12_RUN_REF", "source_snapshot_after_ref", errors)
     before = load_json_file(before_path, errors, "E_PHASE12_SOURCE_SNAPSHOT_MISSING") if before_path else None
     after = load_json_file(after_path, errors, "E_PHASE12_SOURCE_SNAPSHOT_MISSING") if after_path else None
+    for label, snapshot in [("before", before), ("after", after)]:
+        if isinstance(snapshot, dict):
+            violations = source_runtime_artifact_violations(snapshot)
+            if violations:
+                errors.append(issue("E_PHASE12_SOURCE_RUNTIME_ARTIFACT", f"{label}: {violations[:8]}"))
     if before is not None and after is not None and before != after:
         errors.append(issue("E_PHASE12_SOURCE_SNAPSHOT_DRIFT", "before/after source snapshots differ"))
     if after is not None:
         current = compute_source_snapshot(source_root)
+        violations = source_runtime_artifact_violations(current)
+        if violations:
+            errors.append(issue("E_PHASE12_SOURCE_RUNTIME_ARTIFACT", f"current: {violations[:8]}"))
         if current != after:
             errors.append(issue("E_PHASE12_SOURCE_SNAPSHOT_CURRENT_DRIFT", "current source snapshot differs from referenced snapshot"))
     if run_state.get("schema_version") != RUN_SCHEMA_VERSION:

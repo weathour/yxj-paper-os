@@ -313,6 +313,23 @@ PY
 assert_fails_with E_PHASE13_SOURCE_SNAPSHOT_DRIFT python3 scripts/verify_phase13_live_subagent_pilot.py "$negative_run"
 echo NEGATIVE_PHASE13_SOURCE_SNAPSHOT_DRIFT_OK
 
+negative_run=$(make_negative_run source-runtime-artifact)
+python3 - "$negative_run/source_snapshot.before.json" "$negative_run/source_snapshot.after.json" <<'PY'
+import json, sys
+from pathlib import Path
+entry = {"kind": "file", "size": 1, "sha256": "1" * 64}
+for arg in sys.argv[1:]:
+    p = Path(arg)
+    data = json.loads(p.read_text())
+    data["entries"]["docs/runtime-viewer/index.html"] = entry
+    rows = data.setdefault("git_status_porcelain_v1", [])
+    if "?? docs/runtime-viewer/index.html" not in rows:
+        rows.append("?? docs/runtime-viewer/index.html")
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
+PY
+assert_fails_with E_PHASE13_SOURCE_RUNTIME_ARTIFACT python3 scripts/verify_phase13_live_subagent_pilot.py "$negative_run"
+echo NEGATIVE_PHASE13_SOURCE_RUNTIME_ARTIFACT_OK
+
 cleanup
 python3 -m compileall -q scripts
 python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
