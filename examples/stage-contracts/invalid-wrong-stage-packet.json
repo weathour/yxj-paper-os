@@ -38,7 +38,7 @@
   },
   "worker_packet_coverage": {
     "status": "linked_strict_packet",
-    "packet_ref": "examples/packets/phase10_s02_sota_analysis_packet.v1.yaml",
+    "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "blocker": null
   }

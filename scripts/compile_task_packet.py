@@ -59,6 +59,8 @@ PACKET_KEY_ORDER = [
     "schema_version",
     "packet_id",
     "status",
+    "stage_id",
+    "stage_contract_ref",
     "task_kind",
     "agent_type",
     "mission",
@@ -265,6 +267,8 @@ def _intro_packet() -> dict[str, Any]:
     packet.update(
         {
             "packet_id": "intro_writing_packet_v2",
+            "stage_id": "S10",
+            "stage_contract_ref": "examples/stage-contracts/S10.stage-contract.json",
             "task_kind": "writing",
             "agent_type": "writer",
             "mission": "Draft a candidate introduction section from bounded claim and reader-spine materials.",
@@ -308,6 +312,8 @@ def _claim_repair_packet() -> dict[str, Any]:
     packet.update(
         {
             "packet_id": "claim_repair_packet_v1",
+            "stage_id": "S15",
+            "stage_contract_ref": "examples/stage-contracts/S15.stage-contract.json",
             "task_kind": "claim_boundary_repair",
             "agent_type": "planner",
             "mission": "Draft a candidate ClaimBoundaryMap repair from overclaim finding and active evidence.",

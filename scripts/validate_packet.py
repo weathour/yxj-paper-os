@@ -8,6 +8,7 @@ claim-repair packets.
 from __future__ import annotations
 
 from pathlib import Path, PurePosixPath
+import re
 import sys
 from typing import Any
 
@@ -61,10 +62,13 @@ SAFE_ALLOWED_ACTIONS = {
     "return_evidence",
 }
 SAFE_ALLOWED_TOOLS = {"none"}
+CANONICAL_STAGE_ID_RE = re.compile(r"^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$")
 ALLOWED_PACKET_FIELDS = {
     "schema_version",
     "packet_id",
     "status",
+    "stage_id",
+    "stage_contract_ref",
     "task_kind",
     "agent_type",
     "mission",
@@ -232,11 +236,20 @@ def validate(data: Any) -> list[ValidationIssue]:
     assert isinstance(data, dict)
 
     errors.extend(require_string_fields(data, ["schema_version", "packet_id", "status", "mission"], "E_ENVELOPE_REQUIRED"))
+    errors.extend(require_string_fields(data, ["stage_id", "stage_contract_ref"], "E_TASK_STAGE_BINDING_REQUIRED"))
     unknown_fields = sorted(set(data) - ALLOWED_PACKET_FIELDS)
     if unknown_fields:
         errors.append(issue("E_TASK_UNKNOWN_FIELD", f"unknown TaskPacket fields are not allowed: {', '.join(unknown_fields)}"))
     if data.get("schema_version") and data.get("schema_version") != "ppg-task-packet/v0.1":
         errors.append(issue("E_ENVELOPE_REQUIRED", "schema_version must be ppg-task-packet/v0.1"))
+    stage_id = data.get("stage_id")
+    stage_contract_ref = data.get("stage_contract_ref")
+    if isinstance(stage_id, str) and not CANONICAL_STAGE_ID_RE.fullmatch(stage_id):
+        errors.append(issue("E_TASK_STAGE_BINDING_STAGE_ID", f"stage_id is not canonical: {stage_id}"))
+    if isinstance(stage_id, str) and isinstance(stage_contract_ref, str):
+        expected_contract_ref = f"examples/stage-contracts/{stage_id}.stage-contract.json"
+        if stage_contract_ref != expected_contract_ref:
+            errors.append(issue("E_TASK_STAGE_BINDING_MISMATCH", f"stage_contract_ref must be {expected_contract_ref}"))
     errors.extend(validate_runtime_status(data))
     if data.get("status") and data.get("status") != "planned":
         errors.append(issue("E_TASK_STATUS_PLANNED_REQUIRED", "strict TaskPacket status must be planned"))

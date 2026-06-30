@@ -47,7 +47,7 @@
   "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
   "coverage_kind": "fixture_generated",
   "execution_mode": "hybrid_generated",
-  "exercise_level": "contract_only",
+  "exercise_level": "full_stage_exercised",
   "produced_artifacts": [
     {
       "artifact_id": "s07_pilot_output",
@@ -85,16 +85,16 @@
       "validator": "source_read_only_fingerprint"
     },
     {
-      "evidence": "coverage_kind=fixture_generated; exercise_level=contract_only; no source manuscript write claimed",
+      "evidence": "coverage_kind=fixture_generated; exercise_level=full_stage_exercised; no source manuscript write claimed",
       "status": "pass",
       "validator": "coverage_boundary"
     }
   ],
   "worker_task_packet_evidence": {
-    "blocker": "S07 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage.",
-    "packet_ref": null,
+    "blocker": null,
+    "packet_ref": "examples/packets/phase10_s07_rhetoric_surface_control_packet.v1.yaml",
     "required": true,
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "status": "planned_with_blocker"
+    "status": "linked_strict_packet"
   }
 }

@@ -38,9 +38,9 @@
     "controller_owned_completion": true
   },
   "worker_packet_coverage": {
-    "status": "planned_with_blocker",
-    "packet_ref": null,
+    "status": "linked_strict_packet",
+    "packet_ref": "examples/packets/phase10_s08_visual_formal_planning_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "blocker": "S08 has a StageContract and pilot coverage in Phase9; a strict worker TaskPacket template is deferred until a real worker execution lane is implemented for this stage."
+    "blocker": null
   }
 }

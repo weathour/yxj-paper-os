@@ -7,6 +7,14 @@ from pathlib import Path
 import sys
 from typing import Any
 
+try:
+    from ppg_validate_common import load_document
+    from validate_packet import validate as validate_packet
+except ImportError:  # pragma: no cover
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from ppg_validate_common import load_document  # type: ignore  # noqa: E402
+    from validate_packet import validate as validate_packet  # type: ignore  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
@@ -21,6 +29,7 @@ NEGATIVE_EXPECTATIONS = {
     "invalid-execution-mode.json": "E_STAGE_CONTRACT_MODE",
     "invalid-owner-worker-packet.json": "E_STAGE_CONTRACT_FAKE_WORKER_PACKET",
     "invalid-missing-validators.json": "E_STAGE_CONTRACT_LIST_FIELD",
+    "invalid-wrong-stage-packet.json": "E_STAGE_CONTRACT_PACKET_STAGE_BINDING",
 }
 
 
@@ -69,8 +78,22 @@ def validate_contract(contract: dict[str, Any], registry_stage: dict[str, Any] |
             errors.append(issue("E_STAGE_CONTRACT_WORKER_PACKET_MISSING", f"{sid} requires worker coverage"))
         if status == "linked_strict_packet":
             packet_ref = coverage.get("packet_ref")
-            if not isinstance(packet_ref, str) or not (ROOT / packet_ref).is_file():
+            packet_path = ROOT / str(packet_ref) if isinstance(packet_ref, str) else None
+            if not isinstance(packet_ref, str) or packet_path is None or not packet_path.is_file():
                 errors.append(issue("E_STAGE_CONTRACT_LINKED_PACKET_MISSING", f"{sid} {packet_ref}"))
+            elif registry_stage is not None:
+                packet_data, packet_load_errors = load_document(packet_path)
+                if packet_load_errors:
+                    errors.append(issue("E_STAGE_CONTRACT_PACKET_PARSE", f"{sid} {packet_ref}: {packet_load_errors[0].message}"))
+                elif not isinstance(packet_data, dict):
+                    errors.append(issue("E_STAGE_CONTRACT_PACKET_PARSE", f"{sid} {packet_ref}: packet must be a mapping"))
+                else:
+                    packet_errors = validate_packet(packet_data)
+                    if packet_errors:
+                        errors.append(issue("E_STAGE_CONTRACT_PACKET_INVALID", f"{sid} {packet_ref}: {packet_errors[0].code}"))
+                    expected_contract_ref = f"examples/stage-contracts/{sid}.stage-contract.json"
+                    if packet_data.get("stage_id") != sid or packet_data.get("stage_contract_ref") != expected_contract_ref:
+                        errors.append(issue("E_STAGE_CONTRACT_PACKET_STAGE_BINDING", f"{sid} linked packet stage_id={packet_data.get('stage_id')} stage_contract_ref={packet_data.get('stage_contract_ref')}"))
         if status == "planned_with_blocker" and not coverage.get("blocker"):
             errors.append(issue("E_STAGE_CONTRACT_BLOCKER_MISSING", f"{sid} planned worker packet needs blocker rationale"))
     return errors

@@ -8,6 +8,8 @@
     "schema_version",
     "packet_id",
     "status",
+    "stage_id",
+    "stage_contract_ref",
     "task_kind",
     "agent_type",
     "mission",
@@ -218,6 +220,14 @@
     },
     "owner_gate_required": {
       "const": false
+    },
+    "stage_id": {
+      "type": "string",
+      "pattern": "^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"
+    },
+    "stage_contract_ref": {
+      "type": "string",
+      "pattern": "^examples/stage-contracts/(S(0[0-8]|09A|09B|1[0-6])|G0[12])\\.stage-contract\\.json$"
     }
   }
 }
