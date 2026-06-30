@@ -1,0 +1,16 @@
+{
+  "agent_type": "architect",
+  "authority_mode": "production_candidate",
+  "dispatch_prompt_ref": "prompts/producer/S12.producer-prompt.md",
+  "dispatch_prompt_sha256": "6f84f170b6372284ac3e76bb1983aadb4d677b0045072855f83a66d8eac0c73c",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-014-S12-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S12.producer-packet.json",
+  "packet_sha256": "2b8fb0efaa693a94f6bce7c70f73c07172bfb0cf4924c7f407c7b08af6189153",
+  "raw_return_ref": "returns/producer/S12.producer-return.md",
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S12",
+  "status": "prepared"
+}

@@ -19,7 +19,7 @@ The main agent controls a versioned graph of materials, task packets, validators
 
 ## Current repository status
 
-This repository is a local Phase12 plugin/runtime-test surface. It provides:
+This repository is a local Phase13 plugin/runtime-pilot surface. It provides:
 
 - graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
 - deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
@@ -30,6 +30,7 @@ This repository is a local Phase12 plugin/runtime-test surface. It provides:
 - Nature expert-writing stage-local overlay registry, StageContract links, TaskPacket overlay controls, and overlay validators;
 - Phase10 content validators and a runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
 - Phase12 formal full-flow runtime-test artifacts under `runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/`;
+- Phase13 live native-subagent pilot artifacts under `runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot/`, with one producer and one independent verifier lane for every canonical stage;
 - source-read-only filesystem snapshot proof excluding `.git/.omx` plus forbidden-side-effect guards;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
@@ -47,11 +48,12 @@ Do **not** mutate old `$yxj-paper-os`, use `$yxj-plugin-incubator` as a design s
 7. `docs/BACKFLOW_PROTOCOL.md`
 8. `docs/VALIDATION_AND_TESTING.md`
 9. `docs/NATURE_STAGE_OVERLAY_SPEC.md`
-10. `docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`
-11. `docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`
-12. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
-13. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
-14. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
+10. `docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`
+11. `docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`
+12. `docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`
+13. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
+14. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
+15. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
 
 ## Runtime inspection commands
 
@@ -88,6 +90,14 @@ python3 scripts/ppg_runtime_adapter.py \
   --format json
 ```
 
+
+For the Phase13 live native-subagent pilot gate:
+
+```bash
+python3 scripts/ingest_phase13_live_pilot.py
+python3 scripts/verify_phase13_live_subagent_pilot.py
+bash scripts/verify_phase13_live_subagent_pilot.sh
+```
 
 For the Phase12 formal full-flow runtime-test gate:
 

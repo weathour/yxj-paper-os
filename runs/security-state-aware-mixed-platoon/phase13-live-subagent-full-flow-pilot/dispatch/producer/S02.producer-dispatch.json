@@ -1,0 +1,16 @@
+{
+  "agent_type": "researcher",
+  "authority_mode": "production_candidate",
+  "dispatch_prompt_ref": "prompts/producer/S02.producer-prompt.md",
+  "dispatch_prompt_sha256": "44d7c817e70330bc89c97131de49ccbef00d0e53d1be424a83f6f5fdf2313073",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-003-S02-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S02.producer-packet.json",
+  "packet_sha256": "069b6288714e53e1a062b8c8018a49b0d520aac3cec2961f3bc2df13685b16f5",
+  "raw_return_ref": "returns/producer/S02.producer-return.md",
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S02",
+  "status": "prepared"
+}

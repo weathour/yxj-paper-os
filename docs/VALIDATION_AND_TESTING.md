@@ -309,3 +309,32 @@ The verifier checks:
 - documentation and run artifacts avoid unbounded final-paper, submission-readiness, install, publish, incubator, or old-department-loop claims.
 
 The aggregate wrapper includes exact-code negative probes for backflow chain removal, bare `S09`, overlay link removal, candidate authority violations, controller-commit disablement, worker completion authority, non-worker fake packets, owner-ledger source-write tampering, overlay authority expansion, doc-boundary overclaims, packet output escape, source snapshot drift, current source drift, and symlink refs.
+
+## Phase 13 live native-subagent pilot validation
+
+Phase 13 replaces the Phase12 deterministic candidate fixture with real Codex native-subagent returns while retaining run-owned artifacts, source-read-only boundaries, and controller-owned completion. Its source-read-only proof is before/after/current source snapshot equality, not a process-level immutable mount claim. Its stage-effect scores are pilot triage signals for controller routing and repair locality, not manuscript-quality or semantic-progress metrics. It does not claim manuscript quality, final-paper completion, submission-readiness, or publication-readiness.
+
+Core commands:
+
+```bash
+python3 scripts/ingest_phase13_live_pilot.py
+python3 scripts/verify_phase13_live_subagent_pilot.py
+bash scripts/verify_phase13_live_subagent_pilot.sh
+```
+
+The live pilot verifier checks:
+
+- all 20 canonical stages are present, including `S09A/S09B`;
+- each stage has exactly two native-subagent lanes: producer and independent verifier;
+- `subagent_threads.json` has 40 non-empty, globally unique thread ids and records role, source, packet hash, dispatch prompt hash, raw-return hash, and `native_subagent=true`;
+- no lane uses the `worker` role outside team/swarm runtime;
+- every raw return is stage-specific, cites its exact packet path, is not weak/generic, and does not self-certify controller completion;
+- verifier returns contain an allowed verdict and are not near-identical parrots of producer returns;
+- stages without worker-task-packet authority remain `assessment_only` in run state, task packets, and stage-effect records;
+- stage-effect records and live-validation records exist for every stage and carry packet-citation, effect-score, authority-mode, repair, and verdict fields;
+- stage-effect scores remain pilot-only triage evidence and are not accepted as production manuscript-quality metrics;
+- delivery-gate verdict is `pass_for_live_runtime_pilot_only` only when no stage is rejected or needs unresolved repair;
+- source snapshots before/after/current match the local paper source tree;
+- forbidden legacy-route, recursive-orchestration, final-manuscript, submission-ready, and publication-ready claims are rejected unless explicitly negated as boundaries.
+
+The aggregate wrapper also runs exact-code negative probes for missing producer returns, missing verifier returns, duplicate thread ids, weak/generic returns, missing packet citations, verifier parroting, worker-role misuse, non-worker agent-type mismatch, exact thread-coverage loss, authority-mode mismatch, verifier producer-return grounding tamper, dispatch/validation ledger loss or content tamper, dispatch authority tamper, raw verifier verdict tamper, validation status mismatch, effect/controller-acceptance mismatch, dispatch-record loss, legacy-route revival, recursive orchestration claims, rejected stages, unresolved repairs, and source snapshot drift. It then runs Python compilation, plugin validation, skill validation, inherited Phase12 verification, whitespace checks, and a clean-worktree assertion.

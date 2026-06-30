@@ -1,0 +1,19 @@
+{
+  "agent_type": "verifier",
+  "authority_mode": "production_candidate",
+  "dispatch_prompt_ref": "prompts/verifier/S10.verifier-prompt.md",
+  "dispatch_prompt_sha256": "7d87000298716d1be11abe2b05781ef68b93c0c4dd5febc3e8f4029e81e097de",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-012-S10-verifier",
+  "lane": "verifier",
+  "packet_ref": "packets/verifier/S10.verifier-packet.json",
+  "packet_sha256": "7f0998d4e09fb2b1f0f12f9d8f3b0b6de23de3f35eda63c9380e4e33e2d65312",
+  "producer_return_ref": "returns/producer/S10.producer-return.md",
+  "producer_return_sha256": "40bd97198bbdcd08d62026a8cad48982ae116cbc8e28fd8c021083efb87f08c4",
+  "producer_thread_id": "019f17f3-7713-7971-9036-d52ded7768e9",
+  "raw_return_ref": "returns/verifier/S10.verifier-return.md",
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S10",
+  "status": "prepared"
+}

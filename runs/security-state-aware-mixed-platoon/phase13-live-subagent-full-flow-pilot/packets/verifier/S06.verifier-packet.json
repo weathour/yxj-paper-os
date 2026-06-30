@@ -1,0 +1,100 @@
+{
+  "agent_type": "verifier",
+  "authority_mode": "production_candidate",
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "consumes": [
+    "reader spine",
+    "reviewer question map",
+    "template profile",
+    "claim visibility"
+  ],
+  "content_validator_id": "phase10_s06_content_validator",
+  "controller_owned_completion": true,
+  "instructions": [
+    "Cite this packet path exactly: packets/verifier/S06.verifier-packet.json",
+    "Address stage S06: Object representation and granularity design specifically.",
+    "Return text only; do not edit files.",
+    "Do not dispatch agents, do not mark final completion, do not claim manuscript/submission/publication readiness.",
+    "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs.",
+    "Read and assess producer return returns/producer/S06.producer-return.md with sha256 f2b54dee9ab3d8208b29a2eef60682603a1dd1a2326441e14aa66400669374da."
+  ],
+  "lane": "verifier",
+  "legacy_routes_forbidden": [
+    "$yxj-paper-os",
+    "$yxj-plugin-incubator"
+  ],
+  "no_recursive_orchestration": true,
+  "output_return_ref": "returns/verifier/S06.verifier-return.md",
+  "packet_id": "phase13.S06.verifier",
+  "packet_ref": "packets/verifier/S06.verifier-packet.json",
+  "phase12_candidate_ref": "runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/candidate-artifacts/S06.candidate.json",
+  "pilot_consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_1",
+      "ref": "reader spine"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_2",
+      "ref": "reviewer question map"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_3",
+      "ref": "template profile"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_4",
+      "ref": "claim visibility"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s06_source_ref_manuscript-sections-03-problem-formulation-tex",
+      "ref": "manuscript/sections/03_problem_formulation.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s06_source_ref_manuscript-sections-04-method-tex",
+      "ref": "manuscript/sections/04_method.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s06_source_ref_manuscript-sections-06-results-discussion-tex",
+      "ref": "manuscript/sections/06_results_discussion.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s05_pilot_output",
+      "producer_stage_id": "S05",
+      "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+    }
+  ],
+  "producer_return_ref": "returns/producer/S06.producer-return.md",
+  "producer_return_sha256": "f2b54dee9ab3d8208b29a2eef60682603a1dd1a2326441e14aa66400669374da",
+  "producer_thread_id": "019f17f0-c459-7ef3-8749-4078c0807502",
+  "produces": [
+    "object representation matrix",
+    "section function budget",
+    "load budget",
+    "explanation ladder"
+  ],
+  "requires_worker_task_packet": true,
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-live-task-packet/v0.1",
+  "source_brief": {
+    "active_method": "zt_md_mpc_full",
+    "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+    "method_name": "Zero-Trust Memory-Degradation MPC",
+    "non_text_evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/",
+    "project_slug": "security-state-aware-mixed-platoon",
+    "validation_scope": "17 methods × 9 scenarios × 200 held-out validation seeds = 30600 raw rows",
+    "zero_trust_boundary": "controller-side zero-default authority for degraded V2X evidence; not cryptographic/network zero trust"
+  },
+  "source_write_forbidden": true,
+  "stage_contract_ref": "examples/stage-contracts/S06.stage-contract.json",
+  "stage_id": "S06",
+  "stage_name": "Object representation and granularity design",
+  "worker_completion_forbidden": true
+}

@@ -1,0 +1,11 @@
+{
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "effect_ref": "stage_effects/S09A.effect.json",
+  "producer_return_ref": "returns/producer/S09A.producer-return.md",
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-live-validation/v0.1",
+  "stage_id": "S09A",
+  "status": "pass",
+  "verifier_return_ref": "returns/verifier/S09A.verifier-return.md",
+  "verifier_verdict": "accept_with_limitations"
+}

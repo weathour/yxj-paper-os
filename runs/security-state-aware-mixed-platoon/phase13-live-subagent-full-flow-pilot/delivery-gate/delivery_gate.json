@@ -1,0 +1,15 @@
+{
+  "accepted": 0,
+  "accepted_with_limitations": 20,
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "lane_count": 40,
+  "needs_repair": 0,
+  "no_final_manuscript_claim": true,
+  "no_submission_ready_claim": true,
+  "rejected": 0,
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-delivery-gate/v0.1",
+  "source_read_only_verified": true,
+  "stage_count": 20,
+  "verdict": "pass_for_live_runtime_pilot_only"
+}

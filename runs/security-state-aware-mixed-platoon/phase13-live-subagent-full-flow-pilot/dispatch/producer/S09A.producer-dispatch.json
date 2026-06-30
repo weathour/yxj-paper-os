@@ -1,0 +1,16 @@
+{
+  "agent_type": "analyst",
+  "authority_mode": "assessment_only",
+  "dispatch_prompt_ref": "prompts/producer/S09A.producer-prompt.md",
+  "dispatch_prompt_sha256": "8c0a681424208b36c0c0b0dbce0ac0e9b6a8d6d0646c41230ffe8bc0db7beaad",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-010-S09A-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S09A.producer-packet.json",
+  "packet_sha256": "789a8a090a8aa538b05f4ecaf3da8a34580572e86b7ff1711eb70b0f516ff5a6",
+  "raw_return_ref": "returns/producer/S09A.producer-return.md",
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S09A",
+  "status": "prepared"
+}

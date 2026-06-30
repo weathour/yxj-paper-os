@@ -1,0 +1,32 @@
+{
+  "authority_mode": "production_candidate",
+  "controller_acceptance": "accept_with_limitations",
+  "dimensions": {
+    "actionability": 4,
+    "boundary_compliance": 5,
+    "downstream_usefulness": 4,
+    "input_grounding": 4,
+    "stage_specificity": 4
+  },
+  "downstream_usefulness": "S05 Paper spine and reader-question synthesis produced live pilot evidence that can inform downstream PPG controller decisions while remaining runtime-pilot-only.",
+  "effect_score": 4,
+  "evidence_refs": [
+    "packets/producer/S05.producer-packet.json",
+    "packets/verifier/S05.verifier-packet.json",
+    "returns/producer/S05.producer-return.md",
+    "returns/verifier/S05.verifier-return.md"
+  ],
+  "limitations": [
+    "pilot_not_manuscript_ready"
+  ],
+  "packet_citations_present": true,
+  "producer_return_ref": "returns/producer/S05.producer-return.md",
+  "repair_ref": null,
+  "repair_required": false,
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-stage-effect/v0.1",
+  "stage_id": "S05",
+  "stage_name": "Paper spine and reader-question synthesis",
+  "verifier_return_ref": "returns/verifier/S05.verifier-return.md",
+  "verifier_verdict": "accept_with_limitations"
+}

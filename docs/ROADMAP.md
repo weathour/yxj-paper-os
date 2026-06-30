@@ -1,5 +1,11 @@
 # Roadmap
 
+
+## Current promotion status
+
+- [x] Phase 12 deterministic formal full-flow runtime-test harness.
+- [x] Phase 13 live native-subagent full-flow pilot: 20 producer lanes + 20 independent verifier lanes, run-owned evidence, source-read-only snapshots, and exact-code negative probes.
+
 ## M0 — Repository and documentation spine
 
 - [x] create isolated repository;

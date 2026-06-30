@@ -1,0 +1,16 @@
+{
+  "agent_type": "git-master",
+  "authority_mode": "assessment_only",
+  "dispatch_prompt_ref": "prompts/producer/S16.producer-prompt.md",
+  "dispatch_prompt_sha256": "75d99b8d8d4e76f33c18fdeb540fbcf6663b0e5577cd200036d1c5ffd190c917",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-018-S16-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S16.producer-packet.json",
+  "packet_sha256": "0c82ffe6ed6b6ec2bab2e2f502039c1ddf5aa4e0fcc04410a565ec8cda4f15ea",
+  "raw_return_ref": "returns/producer/S16.producer-return.md",
+  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S16",
+  "status": "prepared"
+}
