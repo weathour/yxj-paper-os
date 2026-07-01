@@ -99,7 +99,8 @@ def source_runtime_artifact_violations(source: Path, git_status: str) -> list[st
 def file_fingerprint(path: Path) -> dict[str, Any]:
     st = path.stat()
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    return {"size": st.st_size, "mtime_ns": st.st_mtime_ns, "sha256": digest}
+    # Keep committed sample fingerprints checkout-portable: mtime/ctime vary across archives and clones.
+    return {"size": st.st_size, "sha256": digest}
 
 
 def selected_fingerprints(source: Path) -> dict[str, dict[str, Any]]:

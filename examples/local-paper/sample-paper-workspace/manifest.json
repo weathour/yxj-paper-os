@@ -138,174 +138,140 @@
   "source_fingerprint_before": {
     "README.md": {
       "size": 193,
-      "mtime_ns": 1782895870288678716,
       "sha256": "ee3e967aa178b6955eb44a1ca50abb1388ef1e002c4d31aea0e7ac391a544747"
     },
     "HANDOFF.md": {
       "size": 118,
-      "mtime_ns": 1782895870289592902,
       "sha256": "d3cc63fe947dc6a74b065e125f0a2b61d0712dcaece97d3907a6057396c59117"
     },
     "PROJECT_STATUS.md": {
       "size": 163,
-      "mtime_ns": 1782895870290424001,
       "sha256": "5b9a67bfc0aba3edd460efcc78198ee02695bdb29b710318b742bc071c0762f4"
     },
     "NEXT-SESSION-START.md": {
       "size": 77,
-      "mtime_ns": 1782895870290678749,
       "sha256": "81a3e8573d18ab2c352bf3b8d6aef7f27b1e1e09ca7c410c10ac9b9af9b65829"
     },
     "docs/CURRENT_PLAN.md": {
       "size": 95,
-      "mtime_ns": 1782895870291678766,
       "sha256": "ed3aa7e532c161aba8200d6fa915173153d836f2fa0d5a714383629ba7769cba"
     },
     "docs/LATEST_SYNC_BRIEF.md": {
       "size": 78,
-      "mtime_ns": 1782895870292678783,
       "sha256": "b75bbf7925c0336882d2400c8ffa6a5ffbac8bbf17295e3fbd5d4e72845789d5"
     },
     "paper-workspace.json": {
       "size": 258,
-      "mtime_ns": 1782895870293678800,
       "sha256": "2d7cbd3385555ab1d29e80f47be762af4570f6e6413da2e219e80b9abc8f2c01"
     },
     "paper-os/materials/current-material-index.json": {
       "size": 188,
-      "mtime_ns": 1782895870294678816,
       "sha256": "8c78bc17c1a6418e74e32770414a33588249c370eebdf0d1b0ce08c2b220081b"
     },
     "manuscript/README.md": {
       "size": 57,
-      "mtime_ns": 1782895870295678833,
       "sha256": "3deaec4b4d47e2658c34dec5c4f2f63ccf6014a13c4049639f240201b8f333be"
     },
     "manuscript/main.tex": {
       "size": 90,
-      "mtime_ns": 1782895870296667835,
       "sha256": "1ed262144343671691690de145e5063d1a6753eea56fb4bfea82c7e6901119dc"
     },
     "manuscript/sections/01_introduction.tex": {
       "size": 90,
-      "mtime_ns": 1782895870298678883,
       "sha256": "04b04719300402e95fbcdffa2eeb12fb8721be96c873a8bb2268bd901251e047"
     },
     "manuscript/sections/02_related_work.tex": {
       "size": 90,
-      "mtime_ns": 1782895870301519574,
       "sha256": "2378b705611c33611bc1a338d9bf0db72bb7696c07694c3a836ccec5079e86f4"
     },
     "manuscript/sections/03_problem_formulation.tex": {
       "size": 97,
-      "mtime_ns": 1782895870303678967,
       "sha256": "db3b7c6b083e907971b8610c163440911f627a55e476c62855541790dc759c21"
     },
     "manuscript/sections/04_method.tex": {
       "size": 84,
-      "mtime_ns": 1782895870305679001,
       "sha256": "8ce132e88cd97af1c24dd818d876c67aeed653f61397c663b4b4f55bde5c0b3d"
     },
     "manuscript/sections/05_experiments.tex": {
       "size": 89,
-      "mtime_ns": 1782895870307679034,
       "sha256": "762b1d944bae66965dbe47e0e762bdead75a3ab23e2a223de637b2b49c5aee00"
     },
     "manuscript/sections/06_results_discussion.tex": {
       "size": 96,
-      "mtime_ns": 1782895870309679068,
       "sha256": "d1a613251342b494ee24513891b1e4920b09bd9f73dec32fed86a4a010266d44"
     },
     "manuscript/sections/07_conclusion.tex": {
       "size": 88,
-      "mtime_ns": 1782895870311679102,
       "sha256": "4723269e9fcd10fc3864ee500ac679b6dabdb5da38714d4890c203ba2e988f5d"
     }
   },
   "source_fingerprint_after": {
     "README.md": {
       "size": 193,
-      "mtime_ns": 1782895870288678716,
       "sha256": "ee3e967aa178b6955eb44a1ca50abb1388ef1e002c4d31aea0e7ac391a544747"
     },
     "HANDOFF.md": {
       "size": 118,
-      "mtime_ns": 1782895870289592902,
       "sha256": "d3cc63fe947dc6a74b065e125f0a2b61d0712dcaece97d3907a6057396c59117"
     },
     "PROJECT_STATUS.md": {
       "size": 163,
-      "mtime_ns": 1782895870290424001,
       "sha256": "5b9a67bfc0aba3edd460efcc78198ee02695bdb29b710318b742bc071c0762f4"
     },
     "NEXT-SESSION-START.md": {
       "size": 77,
-      "mtime_ns": 1782895870290678749,
       "sha256": "81a3e8573d18ab2c352bf3b8d6aef7f27b1e1e09ca7c410c10ac9b9af9b65829"
     },
     "docs/CURRENT_PLAN.md": {
       "size": 95,
-      "mtime_ns": 1782895870291678766,
       "sha256": "ed3aa7e532c161aba8200d6fa915173153d836f2fa0d5a714383629ba7769cba"
     },
     "docs/LATEST_SYNC_BRIEF.md": {
       "size": 78,
-      "mtime_ns": 1782895870292678783,
       "sha256": "b75bbf7925c0336882d2400c8ffa6a5ffbac8bbf17295e3fbd5d4e72845789d5"
     },
     "paper-workspace.json": {
       "size": 258,
-      "mtime_ns": 1782895870293678800,
       "sha256": "2d7cbd3385555ab1d29e80f47be762af4570f6e6413da2e219e80b9abc8f2c01"
     },
     "paper-os/materials/current-material-index.json": {
       "size": 188,
-      "mtime_ns": 1782895870294678816,
       "sha256": "8c78bc17c1a6418e74e32770414a33588249c370eebdf0d1b0ce08c2b220081b"
     },
     "manuscript/README.md": {
       "size": 57,
-      "mtime_ns": 1782895870295678833,
       "sha256": "3deaec4b4d47e2658c34dec5c4f2f63ccf6014a13c4049639f240201b8f333be"
     },
     "manuscript/main.tex": {
       "size": 90,
-      "mtime_ns": 1782895870296667835,
       "sha256": "1ed262144343671691690de145e5063d1a6753eea56fb4bfea82c7e6901119dc"
     },
     "manuscript/sections/01_introduction.tex": {
       "size": 90,
-      "mtime_ns": 1782895870298678883,
       "sha256": "04b04719300402e95fbcdffa2eeb12fb8721be96c873a8bb2268bd901251e047"
     },
     "manuscript/sections/02_related_work.tex": {
       "size": 90,
-      "mtime_ns": 1782895870301519574,
       "sha256": "2378b705611c33611bc1a338d9bf0db72bb7696c07694c3a836ccec5079e86f4"
     },
     "manuscript/sections/03_problem_formulation.tex": {
       "size": 97,
-      "mtime_ns": 1782895870303678967,
       "sha256": "db3b7c6b083e907971b8610c163440911f627a55e476c62855541790dc759c21"
     },
     "manuscript/sections/04_method.tex": {
       "size": 84,
-      "mtime_ns": 1782895870305679001,
       "sha256": "8ce132e88cd97af1c24dd818d876c67aeed653f61397c663b4b4f55bde5c0b3d"
     },
     "manuscript/sections/05_experiments.tex": {
       "size": 89,
-      "mtime_ns": 1782895870307679034,
       "sha256": "762b1d944bae66965dbe47e0e762bdead75a3ab23e2a223de637b2b49c5aee00"
     },
     "manuscript/sections/06_results_discussion.tex": {
       "size": 96,
-      "mtime_ns": 1782895870309679068,
       "sha256": "d1a613251342b494ee24513891b1e4920b09bd9f73dec32fed86a4a010266d44"
     },
     "manuscript/sections/07_conclusion.tex": {
       "size": 88,
-      "mtime_ns": 1782895870311679102,
       "sha256": "4723269e9fcd10fc3864ee500ac679b6dabdb5da38714d4890c203ba2e988f5d"
     }
   }

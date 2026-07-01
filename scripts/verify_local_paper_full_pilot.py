@@ -57,6 +57,20 @@ def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def volatile_fingerprint_paths(value: Any, path: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            child_path = f"{path}.{key}" if path else str(key)
+            if str(key) in {"mtime", "mtime_ns", "ctime", "ctime_ns", "atime", "atime_ns"}:
+                paths.append(child_path)
+            paths.extend(volatile_fingerprint_paths(child, child_path))
+    elif isinstance(value, list):
+        for idx, child in enumerate(value):
+            paths.extend(volatile_fingerprint_paths(child, f"{path}[{idx}]"))
+    return paths
+
+
 def is_inside(path: Path, parent: Path) -> bool:
     try:
         path.resolve().relative_to(parent.resolve())
@@ -269,6 +283,12 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
         errors.append(issue("E_PILOT_MANIFEST_SOURCE_STATUS_DRIFT", "source git status changed during import"))
     if manifest.get("source_fingerprint_before") != manifest.get("source_fingerprint_after"):
         errors.append(issue("E_PILOT_MANIFEST_SOURCE_FINGERPRINT_DRIFT", "selected source fingerprints changed during import"))
+    volatile_paths = volatile_fingerprint_paths({
+        "source_fingerprint_before": manifest.get("source_fingerprint_before"),
+        "source_fingerprint_after": manifest.get("source_fingerprint_after"),
+    })
+    if volatile_paths:
+        errors.append(issue("E_PILOT_MANIFEST_VOLATILE_FINGERPRINT", ", ".join(volatile_paths[:8])))
     expected_stage_ids = list(registry.get("canonical_stage_ids", []))
     if "S09" in expected_stage_ids:
         errors.append(issue("E_STAGE_REGISTRY_BARE_S09", "canonical registry must not contain S09"))
