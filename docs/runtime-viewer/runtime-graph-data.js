@@ -139,7 +139,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "artifact_path": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml",
       "id": "phase7_overclaim_review_finding_v1_backflow_v1",
-      "label": "Overclaim backflow task v1",
+      "label": "Phase7 overclaim backflow task v1",
       "node_type": "backflow_task",
       "source_findings": [
         "phase7_overclaim_review_finding_v1"
@@ -191,7 +191,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
       "invalidates": [
         "claim_boundary_map_v1"
       ],
-      "label": "Finding: intro overclaim v1",
+      "label": "Phase7 finding: intro overclaim v1",
       "node_type": "review_finding",
       "primary_target": "claim_boundary_map_v1",
       "repair_tasks": [
@@ -209,7 +209,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "artifact_path": "examples/delivery/phase7_delivery_gate.pass.yaml",
       "id": "phase7_delivery_gate_v1",
-      "label": "DeliveryGate v1",
+      "label": "Phase7 DeliveryGate v1",
       "node_type": "validation_report",
       "report_id": "phase7_delivery_gate_v1",
       "reported_by": [],
@@ -224,7 +224,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     "graph_id": "phase2-overclaim-material-graph",
     "node_count": 22,
     "source_path": "examples/runtime/overclaim-loop.phase7-after.json",
-    "title": "Deterministic Overclaim Repair Fixture"
+    "title": "Phase 7 Deterministic Overclaim Repair Vertical Slice"
   },
   "next_frontier": {
     "id": "claim_boundary_map_candidate_v3",
@@ -258,7 +258,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     {
       "artifact_path": "examples/delivery/phase7_overclaim_closure.v1.yaml",
       "id": "phase7_overclaim_closure_v1",
-      "label": "Overclaim ReviewClosure v1",
+      "label": "Phase7 overclaim ReviewClosure v1",
       "node_type": "validation_report",
       "report_id": "phase7_overclaim_closure_v1",
       "reported_by": [
