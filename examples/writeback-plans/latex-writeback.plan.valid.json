@@ -1,8 +1,8 @@
 {
   "schema_version": "ppg-latex-writeback-plan/v0.1",
-  "plan_id": "security-state-aware-mixed-platoon.latex-writeback.template-adaptable.v1",
+  "plan_id": "sample-paper-workspace.latex-writeback.template-adaptable.v1",
   "workspace_manifest_ref": "examples/paper-workspaces/standard-paper-workspace.valid.json",
-  "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
+  "source_root": "examples/sample-paper-workspace",
   "mode": "staged_patch_promotion",
   "default_source_write_forbidden": true,
   "controller_commit_required": true,

@@ -27,7 +27,7 @@
 - whole-manuscript rewrite is owner-gated;
 - stage improvements require retrospective or repeated-failure evidence;
 - retrospectives cannot claim submission/publication readiness;
-- active contracts do not require OMX or host-local Codex paths.
+- active contracts do not require external orchestrators or host-local Codex paths.
 
 ### Manuscript validators
 

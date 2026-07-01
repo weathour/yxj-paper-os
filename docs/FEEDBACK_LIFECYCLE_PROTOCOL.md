@@ -131,4 +131,4 @@ The executable contract is checked by:
 python3 scripts/verify_lifecycle_contract.py
 ```
 
-The positive fixture proves the full path from feedback to stage improvement. Negative fixtures reject unrouted feedback, global rewrite repairs, recursive authority, premature system improvement, submission-readiness claims, and active OMX dependency claims.
+The positive fixture proves the full path from feedback to stage improvement. Negative fixtures reject unrouted feedback, global rewrite repairs, recursive authority, premature system improvement, submission-readiness claims, and active external-orchestrator dependency claims.

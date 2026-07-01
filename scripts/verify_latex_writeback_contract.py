@@ -179,8 +179,9 @@ def validate_plan(data: dict[str, Any]) -> list[str]:
     errors.extend(validate_local_apply_policy(data.get("local_apply_policy")))
     if not isinstance(data.get("workspace_manifest_ref"), str) or not safe_pattern(data["workspace_manifest_ref"]):
         errors.append(issue("E_WRITEBACK_WORKSPACE_REF", "workspace_manifest_ref must be safe repo-relative path"))
-    if not isinstance(data.get("source_root"), str) or not data["source_root"].strip():
-        errors.append(issue("E_WRITEBACK_SOURCE_ROOT", "source_root required"))
+    source_root = data.get("source_root")
+    if not isinstance(source_root, str) or not safe_pattern(source_root):
+        errors.append(issue("E_WRITEBACK_SOURCE_ROOT", "source_root must be a safe repo-relative path; pass absolute roots to the executor with --source-root"))
     errors.extend(validate_latex_profile(data.get("latex_profile")))
 
     allowed = data.get("allowed_source_write_paths")
@@ -233,7 +234,7 @@ def main() -> int:
 
     if not args.skip_negative:
         negative_errors = validate_plan(load_json(DEFAULT_NEGATIVE))
-        for expected in ["E_WRITEBACK_MODE", "E_WRITEBACK_DEFAULT_FORBIDDEN", "E_WRITEBACK_LOCAL_APPLY_POLICY", "E_WRITEBACK_ALLOWED_PATH_UNSAFE", "E_WRITEBACK_OWNER_GATE"]:
+        for expected in ["E_WRITEBACK_SOURCE_ROOT", "E_WRITEBACK_MODE", "E_WRITEBACK_DEFAULT_FORBIDDEN", "E_WRITEBACK_LOCAL_APPLY_POLICY", "E_WRITEBACK_ALLOWED_PATH_UNSAFE", "E_WRITEBACK_OWNER_GATE"]:
             if not any(error.startswith(expected) for error in negative_errors):
                 errors.append(issue("E_WRITEBACK_NEGATIVE_CASE", f"negative fixture did not trigger {expected}: {negative_errors}"))
 

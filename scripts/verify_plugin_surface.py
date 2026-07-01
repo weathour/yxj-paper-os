@@ -14,7 +14,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST_LOCAL_RE = re.compile(r"(/home/|/Users/|[A-Za-z]:\\\\|/\\.codex/|\\\\\\.codex\\\\)")
-ACTIVE_OMX_RE = re.compile(r"(^|\\b)(omx|oh-my-codex)(\\b|:|/)", re.IGNORECASE)
+ACTIVE_OMX_RE = re.compile(r"(^|[\s`\"'$(:/])(omx|oh-my-codex)([\s`\"'):/]|$)", re.IGNORECASE)
 PUBLIC_SCAN_PATHS = [
     ROOT / "AGENTS.md",
     ROOT / "README.md",
@@ -32,6 +32,9 @@ PUBLIC_SCAN_PATHS = [
     ROOT / "docs/runtime-viewer/runtime-graph-data.js",
     ROOT / "examples/local-paper/sample-paper-workspace/manifest.json",
     ROOT / "examples/local-paper/sample-paper-workspace/stage_coverage.json",
+    ROOT / "examples/paper-workspaces/standard-paper-workspace.valid.json",
+    ROOT / "examples/writeback-plans/latex-writeback.plan.valid.json",
+    ROOT / "examples/writeback-plans/fixture-latex-writeback.plan.valid.json",
 ]
 ACCEPTANCE_SCRIPTS = [
     ROOT / "scripts/import_local_paper_pilot.py",

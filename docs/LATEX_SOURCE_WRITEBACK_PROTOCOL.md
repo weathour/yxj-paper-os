@@ -58,7 +58,7 @@ This means the owner should not be asked for a separate “may I write the manus
 A `LatexWritebackPlan` must declare:
 
 - `workspace_manifest_ref`: the paper workspace manifest used for path roles;
-- `source_root`: the paper repository root;
+- `source_root`: repo-relative paper root in committed plans; actual absolute roots are supplied at execution time with `--source-root` when needed;
 - `latex_profile`: main file, engine, build commands, output PDF, template roots, and adapter policy;
 - `stage_writebacks`: scoped writeback entries for `S10`, `S11`, `S12`, `S15`, and `S16`;
 - `local_apply_policy`: default local execution mode, confirmation policy, rollback policy, and scoped git-commit policy;
