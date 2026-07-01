@@ -17,6 +17,8 @@ The runtime model is:
 
 The main agent controls a versioned graph of materials, task packets, validators, review findings, backflow tasks, owner decisions, review closures, and delivery gates. Specialist agents and scripts may return candidates or reports; only the main agent/controller commits graph state or claims completion.
 
+When this skill is active, the main agent must explicitly act as the Paper Production Graph Runtime Controller. It reports paper state as graph position plus material authority, not as a flat file summary; user feedback is routed to the nearest responsible stage/material before any task is dispatched. See `docs/MANAGER_SURFACE_PROTOCOL.md`.
+
 ## Current repository status
 
 This repository is the active `yxj-paper-os` plugin implemented as a Phase13 PPG runtime-pilot surface. It provides:
@@ -42,22 +44,23 @@ Use the PPG-backed `yxj-paper-os` manager surface as the single public entry. Pl
 ## First documents to read
 
 1. `README.md`
-2. `docs/PLAN.md`
-3. `docs/TOPOLOGY.md`
-4. `docs/VISUALIZATION_CONTRACT.md`
-5. `docs/MATERIAL_SCHEMA.md`
-6. `docs/RUNTIME_PROTOCOL.md`
-7. `docs/BACKFLOW_PROTOCOL.md`
-8. `docs/VALIDATION_AND_TESTING.md`
-9. `docs/NATURE_STAGE_OVERLAY_SPEC.md`
-10. `docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`
-11. `docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`
-12. `docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`
-13. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
-14. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
-15. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
-16. `docs/STANDARD_PAPER_WORKSPACE.md`
-17. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`
+2. `docs/MANAGER_SURFACE_PROTOCOL.md`
+3. `docs/PLAN.md`
+4. `docs/TOPOLOGY.md`
+5. `docs/VISUALIZATION_CONTRACT.md`
+6. `docs/MATERIAL_SCHEMA.md`
+7. `docs/RUNTIME_PROTOCOL.md`
+8. `docs/BACKFLOW_PROTOCOL.md`
+9. `docs/VALIDATION_AND_TESTING.md`
+10. `docs/NATURE_STAGE_OVERLAY_SPEC.md`
+11. `docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`
+12. `docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`
+13. `docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`
+14. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
+15. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
+16. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
+17. `docs/STANDARD_PAPER_WORKSPACE.md`
+18. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`
 
 ## Runtime inspection commands
 

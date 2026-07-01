@@ -23,8 +23,13 @@
     },
     {
       "kind": "source_or_runtime_ref",
-      "material_id": "s02_source_ref_manuscript-sections-02-related-work-tex",
-      "ref": "manuscript/sections/02_related_work.tex"
+      "material_id": "s02_source_ref_references-readme-md",
+      "ref": "references/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s02_source_ref_references-citation-workspace-map-md",
+      "ref": "references/citation-workspace-map.md"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -55,7 +60,7 @@
   "source_projection_boundary": {
     "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
     "read_only_source": true,
-    "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
     "runtime_output_under_source": false,
     "selected_source_fingerprints_unchanged": true,
     "source_git_status_after": "",

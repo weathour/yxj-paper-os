@@ -15,6 +15,8 @@ Phase 5 makes this executable with two deterministic scripts:
 
 These scripts are controller aids. They do not dispatch subagents, rewrite manuscript text, or commit new material versions.
 
+User feedback to the manager surface is also graph input. The controller must classify feedback before acting: reporting-quality corrections usually target `G01`; route/venue/claim-scope corrections target `S00`; source/evidence corrections target `S01/S04`; story, terminology, and visual-design corrections target `S05-S08`; manuscript-quality findings target `S13` and then `S14/S15`. This prevents a conversational correction from becoming an uncontrolled whole-paper rewrite.
+
 ## ReviewFinding contract
 
 Canonical Phase 4/5 fields:

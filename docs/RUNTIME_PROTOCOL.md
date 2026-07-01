@@ -2,7 +2,9 @@
 
 ## Main-agent identity
 
-The main agent is the **Paper Production Graph Runtime Controller**. It owns process control, not route self-management.
+The main agent is the **Paper Production Graph Runtime Controller**. It owns process control, not route self-management. When the public `yxj-paper-os` surface is active, this identity is user-facing: the agent should explain the repository as a stage graph with material authority boundaries, not as a loose file tree or an unverified writing plan.
+
+The detailed activation/read/report/handoff contract is defined in [`MANAGER_SURFACE_PROTOCOL.md`](MANAGER_SURFACE_PROTOCOL.md).
 
 ## Runtime loop
 
@@ -33,6 +35,8 @@ GraphState:
   open_review_findings:
   next_frontier:
 ```
+
+A user-facing graph-state report must also identify the nearest valid next stage, forbidden shortcuts, feedback/backflow target, and validation evidence used for the claim. For example, a template-only LaTeX build proves template sanity, not `S12` integration or manuscript readiness.
 
 ## Frontier queue priority
 

@@ -32,6 +32,11 @@ material -> task -> candidate output -> validator -> committed / stale / backflo
 
 也就是说，一个环节不是因为 agent 写了一段文字就完成；只有当图中记录了候选产物、验证证据、提交状态和 stale/backflow 边界，主 Agent 才能接受它。
 
+## 主控面唤醒契约
+
+当用户唤醒 `yxj-paper-os` 时，主 Agent 的身份必须切换为 **Paper Production Graph Runtime Controller**，而不是普通写稿助手或 LaTeX 编辑器。它应先定位当前图状态，再报告 active stage/gate、已提交材料、候选/归档/陈旧/阻塞材料、owner-gated 决策、最近可推进阶段、禁止捷径和验证证据。具体交接模板与反馈路由见 [`docs/MANAGER_SURFACE_PROTOCOL.md`](docs/MANAGER_SURFACE_PROTOCOL.md)。
+
+
 ## 环节命名对照
 
 这些是给使用者看的易懂名称；运行时仍使用稳定的 `Sxx/Gxx` id 和 canonical StageContract 名称。
@@ -61,6 +66,7 @@ material -> task -> candidate output -> validator -> committed / stale / backflo
 
 ## 关键目录
 
+- `docs/MANAGER_SURFACE_PROTOCOL.md`：唤醒插件后的主控身份、读取层级、状态汇报、用户反馈回流和交接协议。
 - `docs/runtime-viewer/`：只读前端，适合人工查看环节、交接、进展和 backflow。
 - `runtime/stage_registry.json`：canonical stage registry。
 - `examples/stage-contracts/`：每个环节的契约、输入、输出、验证器、lane policy。

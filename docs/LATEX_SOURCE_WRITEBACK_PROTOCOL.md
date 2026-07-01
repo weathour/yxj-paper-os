@@ -16,6 +16,8 @@ Real manuscript rewriting belongs inside the existing stage chain:
 
 A separate global LaTeX-writing route is forbidden because it would bypass claim, terminology, figure, and backflow gates.
 
+The manager-surface activation contract in [`MANAGER_SURFACE_PROTOCOL.md`](MANAGER_SURFACE_PROTOCOL.md) decides whether source writeback is legally reachable. A request to “write” does not by itself authorize `S10` or `S11`; the controller must first prove the required upstream controls and TaskPacket boundary.
+
 ## Promotion model
 
 The source-writeback model is a controller-owned state transition:

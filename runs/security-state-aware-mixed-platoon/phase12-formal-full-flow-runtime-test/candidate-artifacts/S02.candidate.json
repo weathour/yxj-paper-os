@@ -34,8 +34,13 @@
     },
     {
       "kind": "source_or_runtime_ref",
-      "material_id": "s02_source_ref_manuscript-sections-02-related-work-tex",
-      "ref": "manuscript/sections/02_related_work.tex"
+      "material_id": "s02_source_ref_references-readme-md",
+      "ref": "references/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s02_source_ref_references-citation-workspace-map-md",
+      "ref": "references/citation-workspace-map.md"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -49,7 +54,7 @@
       "ref": "artifacts/S01-source-citation-evidence-inventory.json"
     }
   ],
-  "content_summary": "Phase12 formal runtime-test candidate for S02 (Research scene exemplar SOTA analysis). Consumes pilot materials 7; records bounded controller-owned candidate evidence only.",
+  "content_summary": "Phase12 formal runtime-test candidate for S02 (Research scene exemplar SOTA analysis). Consumes pilot materials 8; records bounded controller-owned candidate evidence only.",
   "controller_commit_required": true,
   "no_recursive_orchestration": true,
   "packet_ref": "packets/S02.task-packet.json",

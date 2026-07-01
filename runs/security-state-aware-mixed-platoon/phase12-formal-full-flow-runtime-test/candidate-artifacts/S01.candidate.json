@@ -53,13 +53,18 @@
       "ref": "docs/LATEST_SYNC_BRIEF.md"
     },
     {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_paper-os-materials-current-material-index-json",
+      "ref": "paper-os/materials/current-material-index.json"
+    },
+    {
       "kind": "upstream_stage_output",
       "material_id": "s00_pilot_output",
       "producer_stage_id": "S00",
       "ref": "artifacts/S00-owner-semantic-contract.json"
     }
   ],
-  "content_summary": "Phase12 formal runtime-test candidate for S01 (Source citation evidence inventory). Consumes pilot materials 9; records bounded controller-owned candidate evidence only.",
+  "content_summary": "Phase12 formal runtime-test candidate for S01 (Source citation evidence inventory). Consumes pilot materials 10; records bounded controller-owned candidate evidence only.",
   "controller_commit_required": true,
   "no_recursive_orchestration": true,
   "packet_ref": null,

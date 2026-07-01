@@ -44,6 +44,11 @@
     },
     {
       "kind": "source_or_runtime_ref",
+      "material_id": "s03_source_ref_project-status-md",
+      "ref": "PROJECT_STATUS.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
       "material_id": "s03_source_ref_manuscript-sections-01-introduction-tex",
       "ref": "manuscript/sections/01_introduction.tex"
     },

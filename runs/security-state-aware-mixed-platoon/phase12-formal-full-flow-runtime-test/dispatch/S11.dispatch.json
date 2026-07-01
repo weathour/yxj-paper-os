@@ -34,8 +34,13 @@
     },
     {
       "kind": "source_or_runtime_ref",
-      "material_id": "s11_source_ref_docs-l3-method-faithful-non-text-evidence-checkl",
-      "ref": "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md"
+      "material_id": "s11_source_ref_figures-readme-md",
+      "ref": "figures/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s11_source_ref_experiments-results-l3-method-faithful-unified-s",
+      "ref": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json"
     },
     {
       "kind": "upstream_stage_output",

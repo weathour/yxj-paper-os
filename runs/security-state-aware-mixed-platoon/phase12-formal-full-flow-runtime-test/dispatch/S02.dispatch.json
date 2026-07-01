@@ -34,8 +34,13 @@
     },
     {
       "kind": "source_or_runtime_ref",
-      "material_id": "s02_source_ref_manuscript-sections-02-related-work-tex",
-      "ref": "manuscript/sections/02_related_work.tex"
+      "material_id": "s02_source_ref_references-readme-md",
+      "ref": "references/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s02_source_ref_references-citation-workspace-map-md",
+      "ref": "references/citation-workspace-map.md"
     },
     {
       "kind": "source_or_runtime_ref",

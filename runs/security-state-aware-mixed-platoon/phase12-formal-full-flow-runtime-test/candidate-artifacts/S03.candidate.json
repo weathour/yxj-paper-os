@@ -44,6 +44,11 @@
     },
     {
       "kind": "source_or_runtime_ref",
+      "material_id": "s03_source_ref_project-status-md",
+      "ref": "PROJECT_STATUS.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
       "material_id": "s03_source_ref_manuscript-sections-01-introduction-tex",
       "ref": "manuscript/sections/01_introduction.tex"
     },
@@ -54,7 +59,7 @@
       "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
     }
   ],
-  "content_summary": "Phase12 formal runtime-test candidate for S03 (Novelty and contribution option analysis). Consumes pilot materials 8; records bounded controller-owned candidate evidence only.",
+  "content_summary": "Phase12 formal runtime-test candidate for S03 (Novelty and contribution option analysis). Consumes pilot materials 9; records bounded controller-owned candidate evidence only.",
   "controller_commit_required": true,
   "no_recursive_orchestration": true,
   "packet_ref": "packets/S03.task-packet.json",

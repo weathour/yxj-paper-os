@@ -53,6 +53,11 @@
       "ref": "docs/LATEST_SYNC_BRIEF.md"
     },
     {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_paper-os-materials-current-material-index-json",
+      "ref": "paper-os/materials/current-material-index.json"
+    },
+    {
       "kind": "upstream_stage_output",
       "material_id": "s00_pilot_output",
       "producer_stage_id": "S00",

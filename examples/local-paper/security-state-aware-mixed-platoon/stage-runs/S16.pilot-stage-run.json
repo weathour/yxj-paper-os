@@ -71,7 +71,7 @@
   "source_projection_boundary": {
     "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
     "read_only_source": true,
-    "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
     "runtime_output_under_source": false,
     "selected_source_fingerprints_unchanged": true,
     "source_git_status_after": "",

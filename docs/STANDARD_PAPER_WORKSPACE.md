@@ -14,6 +14,8 @@ The runtime needs one stable directory grammar so that agents can tell the diffe
 
 The directory contract does **not** require every project to physically move files. A project can provide a `paper-workspace.json` manifest that maps its local paths to the canonical roles.
 
+When the manager surface is invoked for a local paper repository, the controller must combine this workspace manifest with [`MANAGER_SURFACE_PROTOCOL.md`](MANAGER_SURFACE_PROTOCOL.md): first determine current authority/candidate/archive/stale boundaries, then map the next task to `S00-S16/G01/G02`.
+
 ## Canonical top-level layout
 
 ```text

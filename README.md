@@ -12,6 +12,11 @@ This plugin uses a graph runtime model: the main Codex agent controls a versione
 
 Its control model is the PPG runtime itself: material versions, transform tasks, validators, local backflow, and a main-agent controller.
 
+## Manager-surface activation
+
+When `yxj-paper-os` is invoked, the main Codex agent must operate as the **Paper Production Graph Runtime Controller**. It should first locate the active graph/workspace state, then report stage position, material authority, candidate/provenance boundaries, stale or blocked nodes, owner-gated decisions, nearest valid next stage, forbidden shortcuts, and validation evidence. See [`docs/MANAGER_SURFACE_PROTOCOL.md`](docs/MANAGER_SURFACE_PROTOCOL.md).
+
+
 ## Current status
 
 - Phase: Phase 13 promoted — live native-subagent full-flow pilot on top of the Phase 12 formal harness, followed by post-Phase13 main-agent lane-policy hardening. The runtime records 40 real native-subagent lanes in strict QA mode, and the canonical stage registry now tells the main agent when production should use mandatory producer+verifier lanes, conditional verifier escalation, or one lane plus deterministic validation. It remains a runtime-pilot capability, not a manuscript or submission-readiness claim.
@@ -47,40 +52,41 @@ These names are the user-facing layer over the canonical StageContract names. Th
 
 ## Core documents
 
-1. [`docs/PLAN.md`](docs/PLAN.md) — full staged plan.
-2. [`docs/TOPOLOGY.md`](docs/TOPOLOGY.md) — material graph topology, node/edge types, status, versioning.
-3. [`docs/VISUALIZATION_CONTRACT.md`](docs/VISUALIZATION_CONTRACT.md) — front-end graph visualization requirements.
-4. [`docs/MATERIAL_SCHEMA.md`](docs/MATERIAL_SCHEMA.md) — material envelope and typed payload families.
-5. [`docs/RUNTIME_PROTOCOL.md`](docs/RUNTIME_PROTOCOL.md) — main-agent dispatch, task packets, frontier queue, commit protocol.
-6. [`docs/BACKFLOW_PROTOCOL.md`](docs/BACKFLOW_PROTOCOL.md) — local backpropagation and stale propagation.
-7. [`docs/VALIDATION_AND_TESTING.md`](docs/VALIDATION_AND_TESTING.md) — validator plan and closed-loop tests.
-8. [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation roadmap.
-9. [`docs/RELATED_FRAMEWORKS.md`](docs/RELATED_FRAMEWORKS.md) — OMX pipeline and related graph/agent framework survey.
-10. [`docs/IMPLEMENTATION_FLOW.md`](docs/IMPLEMENTATION_FLOW.md) — concrete core-first implementation flow before OMX Pipeline wrapping.
-11. [`docs/HUMAN_NEED_TO_PAPER_FLOW.md`](docs/HUMAN_NEED_TO_PAPER_FLOW.md) — human-need-centered paper production dimensions and flow diagram.
-12. [`docs/SUBAGENT_STAGE_BLUEPRINT.md`](docs/SUBAGENT_STAGE_BLUEPRINT.md) — dispatchable subagent stages with consumed bundles, outputs, validators, and backflow targets.
-13. [`docs/decisions/0003-large-structured-material-bundles.md`](docs/decisions/0003-large-structured-material-bundles.md) — use large structured material bundles instead of lossy pre-compression.
-14. [`docs/STAGE_COVERAGE_AUDIT.md`](docs/STAGE_COVERAGE_AUDIT.md) — audit whether the 17 dispatchable stages are excessive, redundant, or incomplete.
-15. [`docs/PPG_RUNTIME_CONTROL_BLOCK.md`](docs/PPG_RUNTIME_CONTROL_BLOCK.md) — complete runtime control-block diagram with per-stage inputs, outputs, controller channels, validators, sidecars, and feedback loops.
-16. [`docs/runtime-viewer/index.html`](docs/runtime-viewer/index.html) — interactive frontend for manually exploring the runtime graph, stage inputs/outputs, edge filters, focus paths, and review backflow.
-17. [`docs/PPG_RUNTIME_MACRO_EXECUTION_PLAN_2026-06-29.md`](docs/PPG_RUNTIME_MACRO_EXECUTION_PLAN_2026-06-29.md) — macro execution plan for the new repository: phases, schemas, scripts, subagent packets, main-agent dispatch principles, and plugin wrapping order.
-18. [`docs/PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md`](docs/PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md) — detailed eight-phase ideal-state roadmap and phase-scoped `$autopilot` / `$ralplan -> $ultragoal` execution protocol.
-19. [`docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md`](docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md) — formal promotion record that freezes Phase 1 as the v0.2 abstract model baseline for Phase 2 implementation.
-20. [`docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md) — formal promotion record for the executable material graph core.
-21. [`docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md`](docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md) — formal promotion record for the dry-run main-agent controller logic.
-22. [`docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md`](docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md) — formal promotion record for Phase 4 material schemas and semantic validators.
-23. [`docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md`](docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md) — formal promotion record for Phase 5 local backflow and scoped stale propagation.
-24. [`docs/phase-promotions/PHASE_6_SUBAGENT_TASK_PACKET_MECHANISM_2026-06-29.md`](docs/phase-promotions/PHASE_6_SUBAGENT_TASK_PACKET_MECHANISM_2026-06-29.md) — formal promotion record for Phase 6 strict packet compilation and return contracts.
-25. [`docs/phase-promotions/PHASE_7_VERTICAL_SLICE_2026-06-29.md`](docs/phase-promotions/PHASE_7_VERTICAL_SLICE_2026-06-29.md) — formal promotion record for the deterministic overclaim repair vertical slice.
-26. [`docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`](docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md) — formal promotion record for the local plugin/frontend runtime surface.
-27. [`docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`](docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md) — formal promotion record for full-stage local-paper PilotStageRun coverage.
-28. [`docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`](docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md) — formal promotion record for real full-flow subagent run readiness without starting paper production.
-29. [`docs/NATURE_STAGE_OVERLAY_SPEC.md`](docs/NATURE_STAGE_OVERLAY_SPEC.md) — stage-local Nature expert-writing overlay specification, authority model, stage bindings, TaskPacket transport, Phase10 integration, and validation matrix.
-30. [`docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`](docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md) — formal promotion record for Nature overlay absorption.
-31. [`docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`](docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md) — formal promotion record for the full-flow runtime-test harness.
-32. [`docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`](docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md) — formal promotion record for the live native-subagent full-flow pilot with producer/verifier lanes.
-33. [`docs/STANDARD_PAPER_WORKSPACE.md`](docs/STANDARD_PAPER_WORKSPACE.md) — standard cross-repository paper directory/manifest contract for clear source, evidence, runtime, review, and export management.
-34. [`docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`](docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md) — source-writeback promotion protocol that upgrades S10/S11/S12/S15/S16 without creating a new LaTeX-master route.
+1. [`docs/MANAGER_SURFACE_PROTOCOL.md`](docs/MANAGER_SURFACE_PROTOCOL.md) — activation identity, read sequence, graph-shaped status reports, user-feedback routing, and handoff language.
+2. [`docs/PLAN.md`](docs/PLAN.md) — full staged plan.
+3. [`docs/TOPOLOGY.md`](docs/TOPOLOGY.md) — material graph topology, node/edge types, status, versioning.
+4. [`docs/VISUALIZATION_CONTRACT.md`](docs/VISUALIZATION_CONTRACT.md) — front-end graph visualization requirements.
+5. [`docs/MATERIAL_SCHEMA.md`](docs/MATERIAL_SCHEMA.md) — material envelope and typed payload families.
+6. [`docs/RUNTIME_PROTOCOL.md`](docs/RUNTIME_PROTOCOL.md) — main-agent dispatch, task packets, frontier queue, commit protocol.
+7. [`docs/BACKFLOW_PROTOCOL.md`](docs/BACKFLOW_PROTOCOL.md) — local backpropagation and stale propagation.
+8. [`docs/VALIDATION_AND_TESTING.md`](docs/VALIDATION_AND_TESTING.md) — validator plan and closed-loop tests.
+9. [`docs/ROADMAP.md`](docs/ROADMAP.md) — implementation roadmap.
+10. [`docs/RELATED_FRAMEWORKS.md`](docs/RELATED_FRAMEWORKS.md) — OMX pipeline and related graph/agent framework survey.
+11. [`docs/IMPLEMENTATION_FLOW.md`](docs/IMPLEMENTATION_FLOW.md) — concrete core-first implementation flow before OMX Pipeline wrapping.
+12. [`docs/HUMAN_NEED_TO_PAPER_FLOW.md`](docs/HUMAN_NEED_TO_PAPER_FLOW.md) — human-need-centered paper production dimensions and flow diagram.
+13. [`docs/SUBAGENT_STAGE_BLUEPRINT.md`](docs/SUBAGENT_STAGE_BLUEPRINT.md) — dispatchable subagent stages with consumed bundles, outputs, validators, and backflow targets.
+14. [`docs/decisions/0003-large-structured-material-bundles.md`](docs/decisions/0003-large-structured-material-bundles.md) — use large structured material bundles instead of lossy pre-compression.
+15. [`docs/STAGE_COVERAGE_AUDIT.md`](docs/STAGE_COVERAGE_AUDIT.md) — audit whether the 17 dispatchable stages are excessive, redundant, or incomplete.
+16. [`docs/PPG_RUNTIME_CONTROL_BLOCK.md`](docs/PPG_RUNTIME_CONTROL_BLOCK.md) — complete runtime control-block diagram with per-stage inputs, outputs, controller channels, validators, sidecars, and feedback loops.
+17. [`docs/runtime-viewer/index.html`](docs/runtime-viewer/index.html) — interactive frontend for manually exploring the runtime graph, stage inputs/outputs, edge filters, focus paths, and review backflow.
+18. [`docs/PPG_RUNTIME_MACRO_EXECUTION_PLAN_2026-06-29.md`](docs/PPG_RUNTIME_MACRO_EXECUTION_PLAN_2026-06-29.md) — macro execution plan for the new repository: phases, schemas, scripts, subagent packets, main-agent dispatch principles, and plugin wrapping order.
+19. [`docs/PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md`](docs/PPG_RUNTIME_EIGHT_PHASE_AUTOPILOT_PLAN_2026-06-29.md) — detailed eight-phase ideal-state roadmap and phase-scoped `$autopilot` / `$ralplan -> $ultragoal` execution protocol.
+20. [`docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md`](docs/phase-promotions/PHASE_1_ABSTRACT_MODEL_FREEZE_2026-06-29.md) — formal promotion record that freezes Phase 1 as the v0.2 abstract model baseline for Phase 2 implementation.
+21. [`docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md`](docs/phase-promotions/PHASE_2_EXECUTABLE_MATERIAL_GRAPH_CORE_2026-06-29.md) — formal promotion record for the executable material graph core.
+22. [`docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md`](docs/phase-promotions/PHASE_3_CONTROLLER_LOGIC_2026-06-29.md) — formal promotion record for the dry-run main-agent controller logic.
+23. [`docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md`](docs/phase-promotions/PHASE_4_MATERIAL_SCHEMAS_VALIDATORS_2026-06-29.md) — formal promotion record for Phase 4 material schemas and semantic validators.
+24. [`docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md`](docs/phase-promotions/PHASE_5_LOCAL_BACKFLOW_STALE_PROPAGATION_2026-06-29.md) — formal promotion record for Phase 5 local backflow and scoped stale propagation.
+25. [`docs/phase-promotions/PHASE_6_SUBAGENT_TASK_PACKET_MECHANISM_2026-06-29.md`](docs/phase-promotions/PHASE_6_SUBAGENT_TASK_PACKET_MECHANISM_2026-06-29.md) — formal promotion record for Phase 6 strict packet compilation and return contracts.
+26. [`docs/phase-promotions/PHASE_7_VERTICAL_SLICE_2026-06-29.md`](docs/phase-promotions/PHASE_7_VERTICAL_SLICE_2026-06-29.md) — formal promotion record for the deterministic overclaim repair vertical slice.
+27. [`docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`](docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md) — formal promotion record for the local plugin/frontend runtime surface.
+28. [`docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`](docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md) — formal promotion record for full-stage local-paper PilotStageRun coverage.
+29. [`docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`](docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md) — formal promotion record for real full-flow subagent run readiness without starting paper production.
+30. [`docs/NATURE_STAGE_OVERLAY_SPEC.md`](docs/NATURE_STAGE_OVERLAY_SPEC.md) — stage-local Nature expert-writing overlay specification, authority model, stage bindings, TaskPacket transport, Phase10 integration, and validation matrix.
+31. [`docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`](docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md) — formal promotion record for Nature overlay absorption.
+32. [`docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`](docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md) — formal promotion record for the full-flow runtime-test harness.
+33. [`docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`](docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md) — formal promotion record for the live native-subagent full-flow pilot with producer/verifier lanes.
+34. [`docs/STANDARD_PAPER_WORKSPACE.md`](docs/STANDARD_PAPER_WORKSPACE.md) — standard cross-repository paper directory/manifest contract for clear source, evidence, runtime, review, and export management.
+35. [`docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`](docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md) — source-writeback promotion protocol that upgrades S10/S11/S12/S15/S16 without creating a new LaTeX-master route.
 
 ## Minimal artifacts
 

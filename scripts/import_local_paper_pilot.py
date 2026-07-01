@@ -19,11 +19,20 @@ REQUIRED_SOURCE_FILES = [
     "README.md",
     "HANDOFF.md",
     "PROJECT_STATUS.md",
+    "NEXT-SESSION-START.md",
     "docs/CURRENT_PLAN.md",
     "docs/LATEST_SYNC_BRIEF.md",
-    "docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md",
-    "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md",
+    "paper-workspace.json",
+    "paper-os/materials/current-material-index.json",
+    "manuscript/README.md",
     "manuscript/main.tex",
+]
+OPTIONAL_PROVENANCE_FILES = [
+    "archive/2026-07-01-prewriting-reset/ARCHIVE_MANIFEST.md",
+    "archive/2026-07-01-prewriting-reset/paper-os/materials/ClaimBoundaryMap-current.json",
+    "archive/2026-07-01-prewriting-reset/paper-os/materials/EvidenceInventory-L3-20260625.json",
+    "archive/2026-07-01-prewriting-reset/docs/L3_METHOD_FAITHFUL_UNIFIED_SCENE_RERUN_2026-06-25.md",
+    "archive/2026-07-01-prewriting-reset/docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md",
 ]
 MANUSCRIPT_SECTIONS = [
     "manuscript/sections/01_introduction.tex",
@@ -40,10 +49,9 @@ EVIDENCE_LOCATORS = [
     "experiments/baselines/method_faithful_final_claim_classes_20260625_l3.csv",
 ]
 VERIFICATION_COMMANDS = [
-    "python experiments/src/verify_method_faithful_baselines.py --json",
+    "cd manuscript && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex",
     "python experiments/src/verify_sota_baseline_method_faithful_experiment.py --results experiments/results/L3_method_faithful_unified_scene_20260625 --mode validate --expected-seeds 200",
     "python scripts/generate_sota_non_text_evidence_supplements.py --source experiments/results/L3_method_faithful_unified_scene_20260625 --out experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements --docs-out docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md --check",
-    "cd manuscript && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex",
 ]
 
 FORBIDDEN_SOURCE_RUNTIME_ARTIFACT_PREFIXES = (
@@ -131,7 +139,25 @@ def ensure_output_safe(source: Path, out: Path) -> None:
             raise ValueError("existing output path must remain inside the runtime repository")
 
 
-def extract_claim_boundary(readme: str, status: str) -> dict[str, Any]:
+def extract_claim_boundary(readme: str, status: str, workspace: dict[str, Any], material_index: dict[str, Any]) -> dict[str, Any]:
+    manuscript_state = workspace.get("manuscript_state")
+    material_status = material_index.get("status")
+    active_authority = workspace.get("active_manuscript_authority") or material_index.get("active_manuscript_authority")
+    if manuscript_state == "not_started" or material_status == "prewriting_not_started":
+        return {
+            "manuscript_state": "not_started",
+            "active_method": None,
+            "method_name": None,
+            "active_manuscript_authority": active_authority or "template_only",
+            "claim_ladder_status": "none",
+            "figure_table_status": "none",
+            "previous_content_policy": workspace.get("previous_content_policy", "reference_only"),
+            "archive_ref": material_index.get("archive_ref") or workspace.get("reference_archive"),
+            "candidate_evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+            "candidate_non_text_evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/",
+            "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+            "source_excerpt_sha256": hashlib.sha256((readme + status + json.dumps(workspace, sort_keys=True) + json.dumps(material_index, sort_keys=True)).encode("utf-8")).hexdigest(),
+        }
     return {
         "active_method": "zt_md_mpc_full",
         "method_name": "Zero-Trust Memory-Degradation MPC",
@@ -166,8 +192,11 @@ def project(source: Path, out: Path, *, check: bool) -> int:
     handoff = (source / "HANDOFF.md").read_text(encoding="utf-8")
     status = (source / "PROJECT_STATUS.md").read_text(encoding="utf-8")
     current_plan = (source / "docs/CURRENT_PLAN.md").read_text(encoding="utf-8")
-    claim_boundary = extract_claim_boundary(readme, status)
+    workspace = json.loads((source / "paper-workspace.json").read_text(encoding="utf-8"))
+    material_index = json.loads((source / "paper-os/materials/current-material-index.json").read_text(encoding="utf-8"))
+    claim_boundary = extract_claim_boundary(readme, status, workspace, material_index)
     source_files = REQUIRED_SOURCE_FILES + MANUSCRIPT_SECTIONS
+    provenance_files = [rel for rel in OPTIONAL_PROVENANCE_FILES if (source / rel).exists()]
     manifest = {
         "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
         "project_slug": "security-state-aware-mixed-platoon",
@@ -176,7 +205,9 @@ def project(source: Path, out: Path, *, check: bool) -> int:
         "read_only_source": True,
         "claim_boundary": claim_boundary,
         "source_files": [{"path": rel, "exists": (source / rel).exists()} for rel in source_files],
-        "evidence_locators": [{"path": rel, "exists": (source / rel).exists()} for rel in EVIDENCE_LOCATORS],
+        "optional_provenance_files": [{"path": rel, "exists": (source / rel).exists()} for rel in OPTIONAL_PROVENANCE_FILES],
+        "present_provenance_files": provenance_files,
+        "evidence_locators": [{"path": rel, "exists": (source / rel).exists(), "authority": "candidate_input_until_S01_S04_promotion"} for rel in EVIDENCE_LOCATORS],
         "verification_commands": VERIFICATION_COMMANDS,
         "source_git_status_before": before_status,
         "source_git_status_after": None,
@@ -201,7 +232,9 @@ def project(source: Path, out: Path, *, check: bool) -> int:
         "material_id": "pilot_paper_status_summary",
         "source_refs": ["HANDOFF.md", "PROJECT_STATUS.md", "docs/CURRENT_PLAN.md"],
         "summary_sha256": hashlib.sha256((handoff + status + current_plan).encode("utf-8")).hexdigest(),
-        "active_method": "zt_md_mpc_full",
+        "manuscript_state": claim_boundary.get("manuscript_state", "active_or_legacy"),
+        "active_method": claim_boundary.get("active_method"),
+        "active_manuscript_authority": claim_boundary.get("active_manuscript_authority"),
         "ready_for_runtime_pilot": True,
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     after_status = run_git_status(source)
@@ -244,7 +277,11 @@ def project(source: Path, out: Path, *, check: bool) -> int:
             else:
                 return fail("E_PHASE9_LOCAL_PAPER_NEGATIVE_SYMLINK", "symlink output escape was not rejected")
         loaded = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
-        if "L3 method-mechanism" not in loaded["claim_boundary"]["external_rows_claim_class"]:
+        loaded_boundary = loaded["claim_boundary"]
+        if loaded_boundary.get("manuscript_state") == "not_started":
+            if loaded_boundary.get("active_manuscript_authority") != "template_only":
+                return fail("E_PHASE9_LOCAL_PAPER_CLAIM_BOUNDARY", "prewriting reset must remain template_only")
+        elif "L3 method-mechanism" not in loaded_boundary.get("external_rows_claim_class", ""):
             return fail("E_PHASE9_LOCAL_PAPER_CLAIM_BOUNDARY", "L3 claim class missing")
     print("PHASE9_LOCAL_PAPER_IMPORT_OK")
     return 0
