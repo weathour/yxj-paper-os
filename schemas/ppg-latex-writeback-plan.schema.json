@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ppg-latex-writeback-plan.schema.json",
+  "title": "PPG LatexWritebackPlan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "plan_id",
+    "workspace_manifest_ref",
+    "source_root",
+    "mode",
+    "default_source_write_forbidden",
+    "controller_commit_required",
+    "local_apply_policy",
+    "latex_profile",
+    "allowed_source_write_paths",
+    "forbidden_source_write_paths",
+    "stage_writebacks",
+    "required_validators",
+    "rollback_policy",
+    "owner_gate"
+  ],
+  "properties": {
+    "schema_version": {"const": "ppg-latex-writeback-plan/v0.1"},
+    "mode": {"enum": ["staged_patch_promotion"]},
+    "default_source_write_forbidden": {"const": true},
+    "controller_commit_required": {"const": true},
+    "local_apply_policy": {
+      "type": "object",
+      "required": [
+        "default_execution_mode",
+        "human_confirmation_required_for_local_apply",
+        "validation_before_persistence",
+        "rollback_on_validation_failure",
+        "git_commit_after_validation",
+        "commit_scope",
+        "commit_message_template",
+        "dry_run_available"
+      ],
+      "properties": {
+        "default_execution_mode": {"const": "apply_with_validation_and_rollback"},
+        "human_confirmation_required_for_local_apply": {"const": false},
+        "validation_before_persistence": {"const": true},
+        "rollback_on_validation_failure": {"const": true},
+        "git_commit_after_validation": {"const": true},
+        "commit_scope": {"const": "changed_files_only"},
+        "commit_message_template": {"type": "string"},
+        "dry_run_available": {"const": true}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

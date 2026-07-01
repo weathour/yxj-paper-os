@@ -2,7 +2,7 @@
   "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
   "project_slug": "security-state-aware-mixed-platoon",
   "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-  "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+  "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
   "read_only_source": true,
   "claim_boundary": {
     "active_method": "zt_md_mpc_full",
@@ -132,7 +132,7 @@
     },
     "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md": {
       "size": 5209,
-      "mtime_ns": 1782830314343406015,
+      "mtime_ns": 1782877543805335348,
       "sha256": "f578d948f01a8f9ae44c0c67f9e25e926300088ab3b05d61f3ab30997e0157f8"
     },
     "manuscript/main.tex": {
@@ -209,7 +209,7 @@
     },
     "docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md": {
       "size": 5209,
-      "mtime_ns": 1782830314343406015,
+      "mtime_ns": 1782877543805335348,
       "sha256": "f578d948f01a8f9ae44c0c67f9e25e926300088ab3b05d61f3ab30997e0157f8"
     },
     "manuscript/main.tex": {

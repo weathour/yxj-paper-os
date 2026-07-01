@@ -1,0 +1,145 @@
+{
+  "schema_version": "ppg-latex-writeback-plan/v0.1",
+  "plan_id": "security-state-aware-mixed-platoon.latex-writeback.template-adaptable.v1",
+  "workspace_manifest_ref": "examples/paper-workspaces/standard-paper-workspace.valid.json",
+  "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
+  "mode": "staged_patch_promotion",
+  "default_source_write_forbidden": true,
+  "controller_commit_required": true,
+  "local_apply_policy": {
+    "default_execution_mode": "apply_with_validation_and_rollback",
+    "human_confirmation_required_for_local_apply": false,
+    "validation_before_persistence": true,
+    "rollback_on_validation_failure": true,
+    "git_commit_after_validation": true,
+    "commit_scope": "changed_files_only",
+    "commit_message_template": "ppg latex writeback: {stage_id} {patchset_id}",
+    "dry_run_available": true,
+    "external_submission_owner_gate_required": true
+  },
+  "latex_profile": {
+    "main_tex": "manuscript/main.tex",
+    "engine": "latexmk",
+    "build_commands": [
+      "cd manuscript && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex"
+    ],
+    "output_pdf": "manuscript/build/main.pdf",
+    "template_roots": [
+      "manuscript/templates",
+      "references/journal_templates"
+    ],
+    "template_adapter_policy": "preserve_template_preamble_and_inject_controlled_body_units",
+    "supports_supplied_template": true
+  },
+  "allowed_source_write_paths": [
+    "manuscript/main.tex",
+    "manuscript/sections/*.tex",
+    "manuscript/bib/*.bib",
+    "figures/src/**",
+    "figures/generated/**",
+    "paper-os/writeback/**"
+  ],
+  "forbidden_source_write_paths": [
+    ".git/**",
+    ".omx/**",
+    "manuscript/build/**",
+    "manuscript/build_zh/**",
+    "exports/**",
+    "../**"
+  ],
+  "stage_writebacks": [
+    {
+      "stage_id": "S10",
+      "purpose": "bounded main-text LaTeX section patch",
+      "candidate_ref_required": true,
+      "write_targets": [
+        "manuscript/sections/*.tex"
+      ],
+      "validators": [
+        "claim_boundary_check",
+        "reader_surface_check",
+        "latex_build_after_apply"
+      ]
+    },
+    {
+      "stage_id": "S11",
+      "purpose": "figure, table, algorithm, formula, caption, and provenance patch",
+      "candidate_ref_required": true,
+      "write_targets": [
+        "figures/src/**",
+        "figures/generated/**",
+        "manuscript/sections/*.tex"
+      ],
+      "validators": [
+        "figure_render_check",
+        "image_integrity_hashes",
+        "caption_claim_boundary_check",
+        "latex_build_after_apply"
+      ]
+    },
+    {
+      "stage_id": "S12",
+      "purpose": "integration consistency and template-aware compile gate",
+      "candidate_ref_required": true,
+      "write_targets": [
+        "manuscript/main.tex",
+        "manuscript/sections/*.tex"
+      ],
+      "validators": [
+        "latex_build_after_apply",
+        "cross_reference_check",
+        "figure_text_consistency",
+        "template_compatibility_check"
+      ]
+    },
+    {
+      "stage_id": "S15",
+      "purpose": "local repair writeback for stale downstream nodes only",
+      "candidate_ref_required": true,
+      "write_targets": [
+        "manuscript/sections/*.tex",
+        "figures/src/**",
+        "figures/generated/**"
+      ],
+      "validators": [
+        "stale_set_locality_check",
+        "unrelated_nodes_unchanged",
+        "finding_resolved_check",
+        "latex_build_after_apply"
+      ]
+    },
+    {
+      "stage_id": "S16",
+      "purpose": "delivery hygiene and optional owner-gated export",
+      "candidate_ref_required": false,
+      "write_targets": [
+        "paper-os/writeback/**"
+      ],
+      "validators": [
+        "git_diff_scope_check",
+        "manifest_hash_check",
+        "submission_owner_gate_check"
+      ]
+    }
+  ],
+  "required_validators": [
+    "pre_apply_source_snapshot",
+    "post_apply_source_snapshot",
+    "git_diff_scope_check",
+    "latex_build_after_apply",
+    "claim_boundary_check",
+    "reader_surface_check",
+    "template_compatibility_check",
+    "rollback_on_failure_check"
+  ],
+  "rollback_policy": {
+    "pre_apply_snapshot_required": true,
+    "rollback_if_any_validator_fails": true,
+    "record_rollback_report": "paper-os/writeback/rollback-report.json"
+  },
+  "owner_gate": {
+    "external_submission": "required",
+    "template_route_change": "required_when_template_changes_claim_or_structure",
+    "local_patch_validation": "not_required"
+  }
+}

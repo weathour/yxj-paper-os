@@ -8,7 +8,7 @@
   "project_slug": "security-state-aware-mixed-platoon",
   "run_id": "security-state-aware-mixed-platoon.phase10-readiness-dry-run",
   "run_root": "runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run",
-  "runtime_root": "/home/weathour/plugins/yxj-paper-os",
+  "runtime_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633",
   "schema_version": "ppg-phase10-run-manifest/v0.1",
   "source_read_only": true,
   "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",

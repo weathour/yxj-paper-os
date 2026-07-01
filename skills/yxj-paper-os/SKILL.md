@@ -33,6 +33,7 @@ This repository is the active `yxj-paper-os` plugin implemented as a Phase13 PPG
 - Phase12 formal full-flow runtime-test artifacts under `runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/`;
 - Phase13 live native-subagent pilot artifacts under `runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot/`, with one producer and one independent verifier lane for every canonical stage;
 - source-read-only filesystem snapshot proof excluding `.git/.omx` plus forbidden-side-effect guards;
+- standard cross-repository paper workspace contract plus controlled LaTeX source-writeback plan/patchset executor with fixture-proven dry-run, default local apply, rollback guard, `latexmk` build validation, and scoped git commit after successful validation;
 - Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
 - local plugin manifest validation through the Codex plugin validator.
 
@@ -55,6 +56,8 @@ Use the PPG-backed `yxj-paper-os` manager surface as the single public entry. Pl
 13. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
 14. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
 15. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
+16. `docs/STANDARD_PAPER_WORKSPACE.md`
+17. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`
 
 ## Runtime inspection commands
 
@@ -98,6 +101,14 @@ For the Phase13 live native-subagent pilot gate:
 python3 scripts/ingest_phase13_live_pilot.py
 python3 scripts/verify_phase13_live_subagent_pilot.py
 bash scripts/verify_phase13_live_subagent_pilot.sh
+```
+
+For the standard paper workspace and controlled LaTeX writeback gates:
+
+```bash
+python3 scripts/verify_paper_workspace_contract.py
+python3 scripts/verify_latex_writeback_contract.py
+python3 scripts/verify_latex_writeback_execution.py
 ```
 
 For the Phase12 formal full-flow runtime-test gate:

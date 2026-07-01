@@ -1,0 +1,36 @@
+{
+  "schema_version": "ppg-paper-workspace/v0.1",
+  "project_slug": "security-state-aware-mixed-platoon",
+  "source_root_policy": "single_paper_root_only",
+  "external_submission_owner_gated": true,
+  "roles": {
+    "semantic_control": ["README.md", "PROJECT_STATUS.md", "HANDOFF.md"],
+    "manuscript_source": ["manuscript/main.tex", "manuscript/sections/*.tex", "manuscript/bib/*.bib"],
+    "latex_template": ["manuscript/templates", "references/journal_templates"],
+    "figure_source": ["figures/src/**"],
+    "figure_generated": ["figures/generated/**"],
+    "evidence": ["experiments/results/**"],
+    "claim_control": ["claims/**"],
+    "review_backflow": ["reviews/**", "paper-os/writeback/**"],
+    "export": ["exports/**"],
+    "runtime_state": ["paper-os/**"]
+  },
+  "latex_profile": {
+    "main_tex": "manuscript/main.tex",
+    "engine": "latexmk",
+    "build_commands": [
+      "cd manuscript && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex"
+    ],
+    "output_pdf": "manuscript/build/main.pdf",
+    "section_globs": ["manuscript/sections/*.tex"],
+    "bib_globs": ["manuscript/bib/*.bib"],
+    "template_roots": ["manuscript/templates", "references/journal_templates"],
+    "template_status": "template_roots_declared_or_pending",
+    "template_adapter_policy": "preserve_template_preamble_and_inject_controlled_body_units"
+  },
+  "runtime_boundary": {
+    "default_source_write_forbidden": true,
+    "runtime_output_roots": ["paper-os/runs", "paper-os/candidates", "paper-os/writeback"],
+    "source_writeback_requires_plan": true
+  }
+}

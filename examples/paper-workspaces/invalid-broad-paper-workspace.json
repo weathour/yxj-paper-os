@@ -1,0 +1,34 @@
+{
+  "schema_version": "ppg-paper-workspace/v0.1",
+  "project_slug": "bad-paper",
+  "source_root_policy": "single_paper_root_only",
+  "external_submission_owner_gated": false,
+  "roles": {
+    "semantic_control": ["."],
+    "manuscript_source": ["manuscript/"],
+    "latex_template": [],
+    "figure_source": ["figures/"],
+    "figure_generated": ["figures/generated/**"],
+    "evidence": ["experiments/results/**"],
+    "claim_control": ["claims/**"],
+    "review_backflow": ["reviews/**"],
+    "export": ["exports/**"],
+    "runtime_state": ["paper-os/**"]
+  },
+  "latex_profile": {
+    "main_tex": "manuscript/main.tex",
+    "engine": "latexmk",
+    "build_commands": [],
+    "output_pdf": "manuscript/build/main.pdf",
+    "section_globs": ["manuscript/sections/*.tex"],
+    "bib_globs": [],
+    "template_roots": [],
+    "template_status": "missing",
+    "template_adapter_policy": "manual_copy_paste"
+  },
+  "runtime_boundary": {
+    "default_source_write_forbidden": false,
+    "runtime_output_roots": ["."],
+    "source_writeback_requires_plan": false
+  }
+}

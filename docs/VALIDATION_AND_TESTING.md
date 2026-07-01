@@ -327,6 +327,34 @@ The verifier checks:
 
 The aggregate wrapper includes exact-code negative probes for backflow chain removal, bare `S09`, overlay link removal, candidate authority violations, controller-commit disablement, worker completion authority, non-worker fake packets, owner-ledger source-write tampering, overlay authority expansion, doc-boundary overclaims, packet output escape, source snapshot drift, current source drift, and symlink refs.
 
+
+## Standard paper workspace and LaTeX writeback validation
+
+The standard workspace contract defines a cross-repository paper directory grammar and manifest. It keeps source manuscript files, figures, evidence packages, review/backflow records, exports, and Paper OS runtime state distinguishable across projects. The LaTeX writeback layer then provides a controlled source-writing pass without creating a new all-powerful LaTeX route.
+
+Core commands:
+
+```bash
+python3 scripts/verify_paper_workspace_contract.py
+python3 scripts/verify_latex_writeback_contract.py
+python3 scripts/verify_latex_writeback_execution.py
+```
+
+The positive fixtures are:
+
+- `examples/paper-workspaces/standard-paper-workspace.valid.json`;
+- `examples/writeback-plans/latex-writeback.plan.valid.json`;
+- `examples/writeback-plans/fixture-latex-writeback.plan.valid.json`;
+- `examples/writeback-plans/latex-writeback.patchset.valid.json`.
+
+The negative fixtures prove that broad paths, disabled owner gates, disabled source-write forbiddance, missing rollback, unsafe template policies, and direct-commit writeback are rejected:
+
+- `examples/paper-workspaces/invalid-broad-paper-workspace.json`;
+- `examples/writeback-plans/invalid-unsafe-latex-writeback.plan.json`;
+- `examples/writeback-plans/invalid-unsafe-latex-writeback.patchset.json`.
+
+The contract validator proves safe path roles, template-aware LaTeX build metadata, stage-scoped patch targets, local auto-apply policy, rollback, scoped git-commit policy, and mandatory validators. The execution verifier then copies `examples/writeback-plans/fixture-paper/` to a temporary git repository, proves dry-run non-mutation, rejects unsafe writeback, applies an `S10` marker-bounded patch by default, runs `latexmk`, checks `manuscript/build/main.pdf`, and verifies the scoped source commit. This is real writeback support over a fixture, not a claim that any production paper manuscript has already been rewritten.
+
 ## Phase 13 live native-subagent pilot validation
 
 Phase 13 replaces the Phase12 deterministic candidate fixture with real Codex native-subagent returns while retaining run-owned artifacts, source-read-only boundaries, and controller-owned completion. Its source-read-only proof is before/after/current source snapshot equality, not a process-level immutable mount claim. Its stage-effect scores are pilot triage signals for controller routing and repair locality, not manuscript-quality or semantic-progress metrics. It does not claim manuscript quality, final-paper completion, submission-readiness, or publication-readiness.

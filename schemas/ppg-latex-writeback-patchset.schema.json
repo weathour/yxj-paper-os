@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ppg-latex-writeback-patchset.schema.json",
+  "title": "PPG LatexWritebackPatchset",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "patchset_id",
+    "plan_id",
+    "stage_id",
+    "operations"
+  ],
+  "properties": {
+    "schema_version": {"const": "ppg-latex-writeback-patchset/v0.1"},
+    "patchset_id": {"type": "string", "minLength": 1},
+    "plan_id": {"type": "string", "minLength": 1},
+    "stage_id": {"enum": ["S10", "S11", "S12", "S15", "S16"]},
+    "candidate_ref": {"type": "string"},
+    "template_adapter": {
+      "type": "object",
+      "properties": {
+        "policy": {"const": "preserve_template_preamble_and_inject_controlled_body_units"},
+        "body_injection_mode": {"enum": ["section_file_or_marker_block", "marker_block", "section_file"]}
+      },
+      "additionalProperties": true
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["op", "path"],
+        "properties": {
+          "op": {"enum": ["replace_file", "replace_between_markers", "copy_file"]},
+          "path": {"type": "string", "minLength": 1},
+          "content": {"type": "string"},
+          "start_marker": {"type": "string"},
+          "end_marker": {"type": "string"},
+          "source": {"type": "string"},
+          "sha256": {"type": "string"},
+          "create": {"type": "boolean"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "expected_changed_files": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "additionalProperties": true
+}

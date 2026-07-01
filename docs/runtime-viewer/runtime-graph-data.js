@@ -32,7 +32,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
     ['CTRL','controller','control',520,72,400,112,'Main Agent / Runtime Controller','主 Agent / Runtime 控制器','观察物料图，选择前沿节点，编译任务包，调度 subagent 或程序，收集候选产物，执行验证和提交。',['Owner 决策','物料图状态','验证报告','回流任务'],['TaskPacket','MaterialBundle','调度命令','提交或回滚决策'],['只有主 Agent 可以宣布图节点完成'],['任意 stale 节点']],
     ['GRAPH','graph','control',980,72,360,112,'Versioned Material Graph / Ledger','版本化物料图 / Ledger','保存节点、边、版本、依赖、验证器、来源锚点、stale 传播和 sidecar 状态。',['候选产物','验证结果','依赖变化','回流标记'],['可执行前沿','物料版本','stale 集合','可视化数据'],['schema 校验','依赖完整性校验','版本一致性校验'],['CTRL']],
     ['VALIDATORS','validator','control',1400,72,330,112,'Validator Registry','验证器注册表','集中管理 schema、证据、引用、stage-local overlay、审稿体验、渲染、导出和仓库卫生检查。',['候选物料','目标节点契约','期刊模板','证据锚点'],['通过/失败','错误定位','严重度','回流建议'],['主 Agent 选择并解释验证器'],['S14']],
-    ['G01','sidecar','governance',1785,72,300,112,'Runtime governance sidecar','G01 Runtime 治理 sidecar','保存权限、技能、部门元数据、路线记录和状态控制，不直接进入正文认知链。',['state','permissions','route metadata'],['skill registry','route/governance records','state controls','authority limits'],['是否越权','是否污染写作物料'],['CTRL']],
+    ['G01','sidecar','governance',1785,72,300,112,'Runtime governance sidecar','G01 Runtime 治理 sidecar','保存权限、技能、路线元数据、路线记录和状态控制，不直接进入正文认知链。',['state','permissions','route metadata'],['skill registry','route/governance records','state controls','authority limits'],['是否越权','是否污染写作物料'],['CTRL']],
     ['BUS','bus','control',520,212,1210,70,'TaskPacket + Structured MaterialBundle Bus','任务包 + 结构化物料包总线','把大上下文变成结构化包，而不是压缩成摘要。每个环节只负责一个有边界的产物。',['任务目标','强制控制项','Nature stage-local overlay clause','证据和来源锚点','局部上下文','可选背景','禁用路线','验证器','返回格式'],['可派发任务包','subagent 输入包','程序转换输入'],['字段完整性','上下文边界','禁止路线存在性'],['CTRL']],
 
     ['S00','stage','root',210,360,300,126,'Owner semantic contract','S00 人类需求与语义契约','把人的真实写作目的转成论文 runtime 可执行的约束，确定什么能自动推进，什么必须回到人类。',['human need','paper profile','evidence summary'],['profile','motivation','core decisions','blocked routes'],['目标具体','禁用路线显式','证据足以进入后续阶段'],['OWNER']],
@@ -863,7 +863,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -1055,7 +1055,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -1271,7 +1271,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -1524,7 +1524,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -1769,7 +1769,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -2008,7 +2008,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -2285,7 +2285,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -2553,7 +2553,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -2810,7 +2810,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -3051,7 +3051,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -3305,7 +3305,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -3592,7 +3592,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -3870,7 +3870,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -4119,7 +4119,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -4374,7 +4374,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -4645,7 +4645,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -4909,7 +4909,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -5160,7 +5160,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -5406,7 +5406,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",
@@ -5664,7 +5664,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "source_projection_boundary": {
             "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
             "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
+            "runtime_output_root": "/home/weathour/.codex/plugins/cache/personal-local/yxj-paper-os/0.1.0+codex.20260630132633/examples/local-paper/security-state-aware-mixed-platoon",
             "runtime_output_under_source": false,
             "selected_source_fingerprints_unchanged": true,
             "source_git_status_after": "",

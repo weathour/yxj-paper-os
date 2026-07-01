@@ -1,0 +1,22 @@
+{
+  "schema_version": "ppg-latex-writeback-patchset/v0.1",
+  "patchset_id": "fixture-paper.s10.introduction-marker-writeback.v1",
+  "plan_id": "fixture-paper.latex-writeback.template-adaptable.v1",
+  "stage_id": "S10",
+  "candidate_ref": "examples/writeback-plans/candidates/S10-intro-candidate.json",
+  "template_adapter": {
+    "policy": "preserve_template_preamble_and_inject_controlled_body_units",
+    "body_injection_mode": "section_file_or_marker_block",
+    "notes": "Preserve the template-controlled main.tex preamble; inject only the marker-bounded section body."
+  },
+  "operations": [
+    {
+      "op": "replace_between_markers",
+      "path": "manuscript/sections/01_intro.tex",
+      "start_marker": "% PPG-WRITEBACK-START:S10-INTRO",
+      "end_marker": "% PPG-WRITEBACK-END:S10-INTRO",
+      "content": "This controlled LaTeX body unit was promoted from an S10 candidate through the Paper OS writeback plan. It preserves the template preamble and changes only the marker-bounded section file."
+    }
+  ],
+  "expected_changed_files": ["manuscript/sections/01_intro.tex"]
+}
