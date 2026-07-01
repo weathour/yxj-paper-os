@@ -203,7 +203,8 @@ def scan_boundary_files(run_root: Path) -> list[str]:
         ROOT / "README.md",
         ROOT / "skills/yxj-paper-os/SKILL.md",
         ROOT / "docs/VALIDATION_AND_TESTING.md",
-        ROOT / "docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md",
+        ROOT / "docs/RUNTIME_PROTOCOL.md",
+        ROOT / "docs/FEEDBACK_LIFECYCLE_PROTOCOL.md",
     ]
     for path in paths:
         if path.exists():

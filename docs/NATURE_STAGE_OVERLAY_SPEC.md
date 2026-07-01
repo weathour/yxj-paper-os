@@ -23,7 +23,7 @@ The overlay contributes expert-writing controls to existing stages. It never dis
 - Negative fixtures: `examples/overlays/invalid-*.json`
 - Contract links: `examples/stage-contracts/*.stage-contract.json` field `stage_local_overlays`
 - TaskPacket transport: `mandatory_controls.nature_overlay_*` plus `validators: stage_overlay:nature_expert_writing:<stage_id>`
-- Phase10 run links: `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/**`
+- Readiness-run links: `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/**`
 
 ## Authority model
 
@@ -87,9 +87,9 @@ validators:
 
 Forbidden: adding a new top-level `nature_*` TaskPacket field, an overlay-owned dispatch model, or a worker-owned completion status.
 
-## Phase10 / real-run readiness integration
+## Real-run readiness integration
 
-Phase10 now proves overlay linkage before real subagent execution:
+The readiness dry-run proves overlay linkage before real subagent execution:
 
 - `scripts/generate_phase10_run_dry_run.py` writes `stage_overlay_registry_ref` and `active_stage_overlays` into dispatch records, validation records, candidate placeholders, stage states, manifest, and run state.
 - `scripts/verify_phase10_run_readiness.py` validates the overlay registry, StageContract links, TaskPacket controls, per-run TaskPacket controls, and dry-run artifact linkage.

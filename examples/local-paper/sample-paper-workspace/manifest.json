@@ -133,8 +133,8 @@
     "python experiments/src/verify_sota_baseline_method_faithful_experiment.py --results experiments/results/L3_method_faithful_unified_scene_20260625 --mode validate --expected-seeds 200",
     "python scripts/generate_sota_non_text_evidence_supplements.py --source experiments/results/L3_method_faithful_unified_scene_20260625 --out experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements --docs-out docs/L3_METHOD_FAITHFUL_NON_TEXT_EVIDENCE_CHECKLIST_2026-06-25.md --check"
   ],
-  "source_git_status_before": "?? ./\n",
-  "source_git_status_after": "?? ./\n",
+  "source_git_status_before": "",
+  "source_git_status_after": "",
   "source_fingerprint_before": {
     "README.md": {
       "size": 193,

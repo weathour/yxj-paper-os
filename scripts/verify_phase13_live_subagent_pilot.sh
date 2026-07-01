@@ -332,8 +332,7 @@ echo NEGATIVE_PHASE13_SOURCE_RUNTIME_ARTIFACT_OK
 
 cleanup
 python3 -m compileall -q scripts
-python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-python3 /home/weathour/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/yxj-paper-os
+python3 scripts/verify_plugin_surface.py
 bash scripts/verify_phase12_formal_full_flow.sh
 
 git diff --check -- .

@@ -6,33 +6,28 @@ product
 
 ## Users
 
-Primary users are human paper authors and Codex main-agent operators designing a long-term paper-production runtime. They use the interface while reasoning about stage responsibilities, material flows, validation gates, review backflow, and real-subagent-run readiness before starting formal paper production.
+Primary users are human paper authors and main-agent operators who need a controlled, evidence-aware paper production system.
 
 ## Product Purpose
 
-This product makes the Paper Production Graph Runtime visible and inspectable. It helps the user confirm the stage/material taxonomy, distinguish confirmed design structure from executable runtime state, inspect full-stage local-paper pilot coverage, locate Phase10 run-readiness artifacts, and identify whether a later real subagent execution campaign can safely start.
+`yxj-paper-os` makes academic paper production explicit and inspectable as a Paper Production Graph. It helps the controller and owner see:
 
-Success means the user can open the viewer and immediately understand what is confirmed, what is only a pilot projection, what has strict worker-packet coverage, what is still owner-gated, where the Phase10 run-readiness proof lives, and why this is not yet a final-paper or submission-readiness claim.
+- which materials are committed, candidate, stale, blocked, owner-gated, or provenance-only;
+- which stage is responsible for a manuscript, figure, claim, terminology, or review problem;
+- which task or repair packet may be dispatched safely;
+- which validators prove a node can be committed;
+- which feedback items are current-paper repairs versus post-run system-improvement candidates.
+
+Success means a paper can move from owner route and evidence inventory to an integrated review-ready candidate without relying on uncontrolled whole-paper rewrites. When review fails, the failure is attributed to a responsible stage/material, repaired locally, and later aggregated into stage-level prompt/task-packet/validator improvements when repeated evidence justifies it.
 
 ## Brand Personality
 
 Precise, sober, operational. The interface should feel like a control-room tool for research infrastructure, not a marketing page or decorative diagram gallery.
 
-## Anti-references
-
-- Route-style dashboards that imply autonomous teams self-run without a main controller.
-- Decorative graph viewers that look impressive but hide execution state.
-- Marketing-style runtime claims that blur design taxonomy with runnable implementation.
-- Overloaded diagrams where every line is visible at once and flow direction becomes unreadable.
-
 ## Design Principles
 
-1. Separate confirmed taxonomy from executable runtime status.
-2. Make stage inputs, outputs, validators, and backflow targets easy to inspect.
-3. Prefer explicit status labels over implied maturity.
-4. Keep the main-agent control loop visually central.
-5. Expose next engineering gaps without diluting the confirmed flow.
-
-## Accessibility & Inclusion
-
-Use product UI defaults: strong contrast, readable system typography, keyboard-operable buttons and links, reduced-motion-safe transitions, and explicit text labels for status rather than color-only cues.
+1. Preserve main-agent controller authority.
+2. Separate current authority from candidates, archives, stale materials, and owner-gated decisions.
+3. Prefer local repair and scoped stale propagation over whole-paper rewrites.
+4. Distinguish current-paper repair from Paper OS system learning.
+5. Keep standalone Paper OS contracts independent of optional orchestration adapters.

@@ -87,8 +87,8 @@
     "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
     "runtime_output_under_source": false,
     "selected_source_fingerprints_unchanged": true,
-    "source_git_status_after": "?? ./\n",
-    "source_git_status_before": "?? ./\n",
+    "source_git_status_after": "",
+    "source_git_status_before": "",
     "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
     "source_status_unchanged": true,
     "writes_to_source_allowed": false

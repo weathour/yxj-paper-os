@@ -1,27 +1,28 @@
 {
   "name": "yxj-paper-os",
   "version": "0.1.0+codex.20260630132633",
-  "description": "Codex-native yxj Paper OS implemented as a Paper Production Graph runtime with stage-local Nature writing overlays, local backflow, and human-owner state surface.",
+  "description": "Standalone yxj Paper OS: Paper Production Graph runtime with material authority, structured feedback attribution, local backflow, and run-retrospective stage improvement.",
   "author": {
     "name": "Local developer"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "yxj Paper OS",
-    "shortDescription": "Run paper production as a visible material graph runtime with stage-local overlays.",
-    "longDescription": "yxj-paper-os is now a Codex-native Paper Production Graph runtime: explicit material graphs, stage-local expert-writing overlays, graph-state-read-only runtime reports, local backpropagation, validation, and main-agent dispatch under one public paper manager entry.",
+    "shortDescription": "Manage paper production as a standalone material graph with local feedback backflow.",
+    "longDescription": "yxj-paper-os is a standalone Paper Production Graph runtime: explicit material authority, accountable stages, bounded task and repair packets, structured feedback attribution, local backpropagation, validators, and main-agent dispatch under one public paper manager entry.",
     "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [
-      "Read-only runtime inspection",
-      "Material graph visualization",
-      "Validation workflow guidance",
-      "Stage-local Nature overlay validation"
+      "Material graph authority inspection",
+      "Structured feedback attribution",
+      "Bounded task and repair packets",
+      "Local backflow and stale propagation",
+      "Run retrospective stage improvement"
     ],
     "defaultPrompt": [
-      "Act as yxj-paper-os: inspect the current paper production graph runtime state and report GraphState, frontier, stale materials, and delivery gates.",
-      "Use the PPG runtime to plan a local backflow repair from review findings.",
-      "Manage this paper through explicit material graph, TaskPackets, validators, and main-agent dispatch."
+      "Act as yxj-paper-os: inspect the current paper production graph state and report material authority, frontier, stale nodes, feedback/backflow state, and validation evidence.",
+      "Classify this review feedback into a ReviewFeedbackPackage, attribute it to the nearest responsible Paper OS stage/material, and propose a bounded repair path.",
+      "Manage this paper through explicit materials, TaskPackets, RepairTaskPackets, validators, local backflow, and main-agent commit authority."
     ]
   }
 }
