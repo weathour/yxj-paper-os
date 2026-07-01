@@ -7,6 +7,29 @@
   const stageDetailById = new Map(Object.entries(graph.stageRunDetails || {}));
   const stageOrder = stageRuns.map((stage) => stage.stage_id);
   const nonCanvasModes = new Set(['state', 'coverage', 'workbench']);
+  const stageFriendly = {
+    S00: { zh: '定目标与边界', en: 'Set goals and boundaries', handoff: '把人的写作目的、禁区和需要人工批准的事项变成后续环节可执行的约束。' },
+    S01: { zh: '盘点来源与证据', en: 'Inventory sources and evidence', handoff: '把论文能使用的文件、引用、结果目录和证据位置整理成可追踪材料库。' },
+    S02: { zh: '看清研究位置', en: 'Map the research position', handoff: '把证据放进领域、读者、模板和 SOTA 背景中，形成后续贡献判断的语境。' },
+    S03: { zh: '形成贡献候选', en: 'Shape contribution options', handoff: '提出可能的贡献说法和风险，但必须交给 S04 判断哪些能被证据承载。' },
+    S04: { zh: '锁定能说的主张', en: 'Lock evidence-backed claims', handoff: '把证据、引用和结果转成可写 claim，明确能说什么、强度到哪里为止。' },
+    S05: { zh: '搭建论文主线', en: 'Build the paper spine', handoff: '把可写主张组织成读者一路能跟上的问题链和章节主线。' },
+    S06: { zh: '设计对象与颗粒度', en: 'Design objects and granularity', handoff: '决定论文中哪些对象、变量、机制和解释层级需要出现，以及细到什么程度。' },
+    S07: { zh: '统一术语与表达', en: 'Align terminology and tone', handoff: '把术语、语气、段落功能和表层表达规则交给写作任务包。' },
+    S08: { zh: '规划图表与形式对象', en: 'Plan figures and formal objects', handoff: '把主线、证据和读者问题转成图表、公式、算法、补充材料的契约。' },
+    S09A: { zh: '选择写作控制材料', en: 'Select writing controls', handoff: '从 claim、主线、颗粒度和表层规则中挑出当前单元真正需要的控制材料。' },
+    S09B: { zh: '组装单元任务包', en: 'Assemble unit task packets', handoff: '把选定控制材料、证据锚点、边界和返回格式编译成可派发的 TaskPacket。' },
+    S10: { zh: '产出正文候选', en: 'Draft text candidates', handoff: '子 agent 只根据任务包产出候选正文和证据，不拥有完成权。' },
+    S11: { zh: '产出图表与说明', en: 'Produce figures and captions', handoff: '根据图表契约和证据位置生成图、表、caption、公式或算法相关产物。' },
+    S12: { zh: '合并并查一致性', en: 'Integrate and check consistency', handoff: '把正文、图表、引用和术语合在一起，检查跨章节是否漂移。' },
+    S13: { zh: '对抗审稿找问题', en: 'Run adversarial review', handoff: '像审稿人一样输出 findings/loss，不直接重写全文。' },
+    S14: { zh: '把问题转成修复任务', en: 'Compile repair tasks', handoff: '把审核问题定位到最近责任材料，形成局部 backflow 和 repair packets。' },
+    S15: { zh: '局部修复与再生成', en: 'Repair and regenerate locally', handoff: '只修受影响的材料、文本或图表，再触发必要验证。' },
+    S16: { zh: '导出、整理与交接', en: 'Export, clean, and hand off', handoff: '在 review/repair 闭合后整理导出物、仓库卫生和交接说明。' },
+    G01: { zh: '运行治理与权限', en: 'Runtime governance and authority', handoff: '记录权限、路线、状态和控制边界，防止治理信息污染正文材料。' },
+    G02: { zh: '论文后派生输出', en: 'Post-paper derivatives', handoff: '论文稳定后再派生 PPT、专利边界、期刊 profile 等外部材料。' },
+    FINAL: { zh: '最终论文包', en: 'Final paper package', handoff: '聚合正文、图表、补充材料、证据链和 owner handoff。' },
+  };
   const kindColors = {
     material: 'var(--material)', dispatch: 'var(--dispatch)', validation: 'var(--validation)',
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
@@ -68,9 +91,12 @@
   function selectedStageDetail() {
     return stageDetailById.get(state.selectedId) || stageDetailById.get(stageOrder[0]);
   }
+  function friendlyStage(id) { return stageFriendly[id] || {}; }
+  function stageTitleZh(node) { return friendlyStage(node.id).zh || node.titleZh; }
+  function stageTitleEn(node) { return friendlyStage(node.id).en || node.title; }
   function stageDisplayName(stageId) {
     const node = nodeById.get(stageId);
-    return node ? `${stageId} ${node.titleZh.replace(/^S\d+[A-Z]?\s+|^G\d+\s+/, '')}` : stageId;
+    return node ? `${stageId} ${stageTitleZh(node)}` : stageId;
   }
 
   function laneMarkup(layer) {
@@ -90,9 +116,9 @@
 
   function nodeCardMarkup(node, compact = false) {
     if (compact) {
-      return `<div class="node-head"><span class="node-id">${node.id}</span><span class="node-phase">${node.phase}</span></div><div><div class="node-title">${node.titleZh}</div></div><div class="io-preview"><span><strong>OUT</strong>${truncate(node.outputs.slice(0, 2).join('；'), 44)}</span></div>`;
+      return `<div class="node-head"><span class="node-id">${node.id}</span><span class="node-phase">${node.phase}</span></div><div><div class="node-title">${stageTitleZh(node)}</div><div class="node-subtitle">${stageTitleEn(node)}</div></div><div class="io-preview"><span><strong>OUT</strong>${truncate(node.outputs.slice(0, 2).join('；'), 44)}</span></div>`;
     }
-    return `<div class="node-head"><span class="node-id">${node.id}</span><span class="node-phase">${node.phase}</span></div><div><div class="node-title">${node.titleZh}</div><div class="node-subtitle">${node.title}</div></div><div class="io-preview"><span><strong>IN</strong>${truncate(node.inputs.join('；'), 48)}</span><span><strong>OUT</strong>${truncate(node.outputs.join('；'), 48)}</span></div>`;
+    return `<div class="node-head"><span class="node-id">${node.id}</span><span class="node-phase">${node.phase}</span></div><div><div class="node-title">${stageTitleZh(node)}</div><div class="node-subtitle">${stageTitleEn(node)}</div></div><div class="io-preview"><span><strong>IN</strong>${truncate(node.inputs.join('；'), 48)}</span><span><strong>OUT</strong>${truncate(node.outputs.join('；'), 48)}</span></div>`;
   }
 
   function renderGraphNodes() {
@@ -131,7 +157,7 @@
     graph.nodes.forEach((node) => {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'index-button'; button.dataset.id = node.id;
-      button.innerHTML = `<span class="id">${node.id}</span><span>${node.titleZh.replace(/^S\d+[A-Z]?\s+/, '')}</span>`;
+      button.innerHTML = `<span class="id">${node.id}</span><span>${stageTitleZh(node)}</span>`;
       button.addEventListener('click', () => selectNode(node.id, true));
       nodeIndex.appendChild(button);
     });
@@ -606,6 +632,12 @@
     const overview = appendStateSection(stageWorkbenchContent, `${detail.stage_id} · ${detail.stage_name}`, node?.description || detail.contract?.purpose);
     const overviewGrid = document.createElement('div');
     overviewGrid.className = 'workbench-overview-grid';
+    const friendly = friendlyStage(detail.stage_id);
+    const plainCard = stateCard('使用者看到的环节名', 'frontier');
+    appendKeyValue(plainCard, '中文', friendly.zh || detail.stage_name);
+    appendKeyValue(plainCard, 'English', friendly.en || detail.stage_name);
+    appendKeyValue(plainCard, '官方名', detail.stage_name);
+    if (friendly.handoff) plainCard.appendChild(createTextElement('p', 'state-blocker-text', friendly.handoff));
     const stageCard = stateCard('环节状态', toneForCoverage(stageRunById.get(detail.stage_id) || detail));
     appendKeyValue(stageCard, 'status', detail.status);
     appendKeyValue(stageCard, 'coverage', detail.coverage_kind);
@@ -625,6 +657,7 @@
     const boundaryCard = stateCard('完成边界', 'delivery');
     appendKeyValue(boundaryCard, 'completion gate', detail.contract?.completion_gate);
     boundaryCard.appendChild(createTextElement('p', 'state-blocker-text', detail.completion_claim));
+    overviewGrid.appendChild(plainCard);
     overviewGrid.appendChild(stageCard);
     overviewGrid.appendChild(packetCard);
     overviewGrid.appendChild(boundaryCard);
@@ -685,7 +718,9 @@
     const allEdges = [...graph.edges, ...graph.roadmap.edges];
     const incoming = allEdges.filter((edge) => edge.target === node.id);
     const outgoing = allEdges.filter((edge) => edge.source === node.id);
-    detailContent.innerHTML = `<h2>${node.titleZh}</h2><div class="detail-id">${node.id} · ${node.title} · ${node.phase}</div><p class="detail-description">${node.description}</p>${detailBlock('输入', node.inputs)}${detailBlock('输出', node.outputs)}${detailBlock('验证器 / 门控', node.validators)}${detailBlock('可能回流目标', node.backflowTargets)}${relationBlock('流入关系', incoming, 'source')}${relationBlock('流出关系', outgoing, 'target')}`;
+    const friendly = friendlyStage(node.id);
+    const handoff = friendly.handoff ? `<p class="detail-description detail-handoff">${friendly.handoff}</p>` : '';
+    detailContent.innerHTML = `<h2>${stageTitleZh(node)}</h2><div class="detail-id">${node.id} · ${stageTitleEn(node)} · ${node.phase}</div><p class="detail-description">${node.description}</p>${handoff}${detailBlock('输入', node.inputs)}${detailBlock('输出', node.outputs)}${detailBlock('验证器 / 门控', node.validators)}${detailBlock('可能回流目标', node.backflowTargets)}${relationBlock('流入关系', incoming, 'source')}${relationBlock('流出关系', outgoing, 'target')}`;
     detailContent.querySelectorAll('[data-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.jump, true)));
   }
 

@@ -1,5 +1,7 @@
 # yxj-paper-os
 
+Language: **English** | [中文](README.zh-CN.md)
+
 `yxj-paper-os` is the active Codex plugin for paper production management, implemented as a Paper Production Graph runtime.
 
 The target model is:
@@ -15,6 +17,33 @@ Its control model is the PPG runtime itself: material versions, transform tasks,
 - Phase: Phase 13 promoted — live native-subagent full-flow pilot on top of the Phase 12 formal harness, followed by post-Phase13 main-agent lane-policy hardening. The runtime records 40 real native-subagent lanes in strict QA mode, and the canonical stage registry now tells the main agent when production should use mandatory producer+verifier lanes, conditional verifier escalation, or one lane plus deterministic validation. It remains a runtime-pilot capability, not a manuscript or submission-readiness claim.
 - Local install: enabled through the personal-local marketplace as `yxj-paper-os`.
 - Marketplace source: local personal marketplace entry pointing at `/home/weathour/plugins/yxj-paper-os`.
+
+## Plain-language stage map
+
+These names are the user-facing layer over the canonical StageContract names. The runtime still uses the stable `Sxx/Gxx` ids and official contract names.
+
+| ID | Friendly name | Canonical contract name | What moves to the next stage |
+| --- | --- | --- | --- |
+| `S00` | Set goals and boundaries / 定目标与边界 | Owner semantic contract | Human intent, constraints, and approval gates become executable paper constraints. |
+| `S01` | Inventory sources and evidence / 盘点来源与证据 | Source citation evidence inventory | Files, citations, result folders, and evidence anchors become a traceable material base. |
+| `S02` | Map the research position / 看清研究位置 | Research scene exemplar SOTA analysis | Evidence is placed against field context, readers, venue patterns, and SOTA. |
+| `S03` | Shape contribution options / 形成贡献候选 | Novelty and contribution option analysis | Possible contribution routes are generated, then sent to S04 for evidence admissibility. |
+| `S04` | Lock evidence-backed claims / 锁定能说的主张 | Evidence-to-claim admissibility | Evidence and citations become bounded claims with allowed strength and forbidden overclaims. |
+| `S05` | Build the paper spine / 搭建论文主线 | Paper spine and reader-question synthesis | Admitted claims become the reader question chain and section-level argument path. |
+| `S06` | Design objects and granularity / 设计对象与颗粒度 | Object representation and granularity design | The paper decides what objects, variables, mechanisms, and explanation levels must appear. |
+| `S07` | Align terminology and tone / 统一术语与表达 | Rhetoric terminology and surface-control synthesis | Terms, tone, rhetorical moves, and surface rules become writing controls. |
+| `S08` | Plan figures and formal objects / 规划图表与形式对象 | Visual and formal object planning | Spine, evidence, and reader questions become figure/table/formula/algorithm contracts. |
+| `S09A` | Select writing controls / 选择写作控制材料 | Control-material selection | Only the controls needed by the current unit are selected from claims, spine, granularity, and surface rules. |
+| `S09B` | Assemble unit task packets / 组装单元任务包 | Per-unit task packet assembly | Selected controls, evidence anchors, boundaries, and return format become a bounded TaskPacket. |
+| `S10` | Draft text candidates / 产出正文候选 | Main-text production | A worker returns candidate text and evidence from the packet, without completion authority. |
+| `S11` | Produce figures and captions / 产出图表与说明 | Figure caption formal artifact production | Figure contracts and evidence locators become figures, tables, captions, formulas, or algorithm artifacts. |
+| `S12` | Integrate and check consistency / 合并并查一致性 | Integration and consistency pass | Text, figures, citations, and terminology are merged and checked for cross-section drift. |
+| `S13` | Run adversarial review / 对抗审稿找问题 | Adversarial manuscript review | Reviewers emit findings/loss signals instead of rewriting the whole paper. |
+| `S14` | Compile repair tasks / 把问题转成修复任务 | Backflow compilation and repair planning | Findings are mapped to nearest responsible materials and converted into local repair packets. |
+| `S15` | Repair and regenerate locally / 局部修复与再生成 | Repair execution and local regeneration | Only affected materials, text, or figures are regenerated and revalidated. |
+| `S16` | Export, clean, and hand off / 导出、整理与交接 | Export repository hygiene and handoff | Closed review/repair state becomes export manifests, hygiene checks, and handoff notes. |
+| `G01` | Runtime governance and authority / 运行治理与权限 | Runtime governance registry | Authority, route, state, and control boundaries are recorded without polluting manuscript cognition. |
+| `G02` | Post-paper derivatives / 论文后派生输出 | Derivative and post-paper outputs | After the paper is stable, derivative outputs such as slides, patent boundaries, or profile packages may be created. |
 
 ## Core documents
 

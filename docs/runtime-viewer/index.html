@@ -11,7 +11,7 @@
     <div>
       <p class="kicker">Paper Production Graph Runtime</p>
       <h1>PPG Runtime 人工把握视图</h1>
-      <p class="subtitle">Phase11 在 Phase10 readiness surface 上增加 Nature expert-writing stage-local overlay；仍不 live-install、不发布 marketplace。</p>
+      <p class="subtitle">Phase13 只读论文生产控制台：看清每个环节、任务包交接、验证边界和整体进展；不写源论文、不提交 graph。</p>
     </div>
     <div class="topbar__actions">
       <a class="link-button" href="../RUNTIME_STRICT_REVIEW_ROUND2_2026-06-29.md">二轮严格审查</a>
@@ -28,13 +28,13 @@
       <section class="baseline-card" aria-label="当前确认状态">
         <div class="baseline-card__head">
           <span class="status-pill status-confirmed">已确认</span>
-          <strong>Phase11 本地 runtime + Nature stage overlay surface</strong>
+          <strong>Phase13 只读 runtime + 环节工作台</strong>
         </div>
-        <p>当前 surface 同时保留 stage/roadmap 视图、Phase7 fixture-backed graph state，显示本地论文 pilot 的 S00-S16/G01/G02 全环节覆盖，并显式展示 Nature 写作经验作为 stage-local overlay 的绑定。</p>
+        <p>当前 surface 同时保留路线图、详细图、Runtime State、Stage Coverage 和环节工作台；重点展示 S00-S16/G01/G02 如何接收材料、形成产物、组装任务包并交给下游。</p>
         <ul>
-          <li><strong>用途</strong>：人类把握 runtime 状态与任务包设计。</li>
-          <li><strong>边界</strong>：本地论文只读投影，不宣布最终投稿完成。</li>
-          <li><strong>下一步</strong>：真实全流程 subagent 运行仍必须由主 Agent 按 StageContract、TaskPacket、overlay validator 和 owner gate 逐环节推进。</li>
+          <li><strong>用途</strong>：让使用者无负担理解每个环节在做什么、交给谁、凭什么算通过。</li>
+          <li><strong>边界</strong>：只读观察，不写源论文、不提交 graph、不宣布最终投稿完成。</li>
+          <li><strong>下一步</strong>：任何真实推进仍必须由主 Agent 按 StageContract、TaskPacket、validator 和 owner gate 执行。</li>
         </ul>
       </section>
 
@@ -85,10 +85,10 @@
         </div>
         <p class="flow-rule"><strong>画布规则</strong> 默认只显示当前选中环节的局部关系；选择左侧或下方的聚焦路径时，显示该路径内部的整段流向。每条可见线都从源块底部 OUT 出去，折到左侧汇流总线，再从目标块顶部 IN 进入。</p>
         <div class="guide-row"><strong>主干路线</strong><span class="route-strip">
-          <button data-guide-jump="S00">S00 语义契约</button><span>→</span><button data-guide-jump="S01">S01 证据盘点</button><span>→</span><button data-guide-jump="S02">S02 研究场景</button><span>→</span><button data-guide-jump="S03">S03 贡献选项</button><span>→</span><button data-guide-jump="S04">S04 claim 门</button><span>→</span><button data-guide-jump="S05">S05 主脊</button><span>→</span><button data-guide-jump="S06">S06 颗粒度</button><span>→</span><button data-guide-jump="S07">S07 表层控制</button><span>→</span><button data-guide-jump="S09A">S09A 控制选择</button><span>→</span><button data-guide-jump="S09B">S09B 写作包</button><span>→</span><button data-guide-jump="S10">S10 正文</button><span>→</span><button data-guide-jump="S12">S12 集成</button><span>→</span><button data-guide-jump="S13">S13 审核</button><span>→</span><button data-guide-jump="S14">S14 回流编译</button><span>→</span><button data-guide-jump="S15">S15 局部修复</button><span>→</span><button data-guide-jump="S16">S16 交付</button><span>→</span><button data-guide-jump="FINAL">FINAL</button>
+          <button data-guide-jump="S00">S00 定目标</button><span>→</span><button data-guide-jump="S01">S01 盘证据</button><span>→</span><button data-guide-jump="S02">S02 看位置</button><span>→</span><button data-guide-jump="S03">S03 定贡献</button><span>→</span><button data-guide-jump="S04">S04 锁主张</button><span>→</span><button data-guide-jump="S05">S05 搭主线</button><span>→</span><button data-guide-jump="S06">S06 定颗粒</button><span>→</span><button data-guide-jump="S07">S07 统表达</button><span>→</span><button data-guide-jump="S09A">S09A 选控制</button><span>→</span><button data-guide-jump="S09B">S09B 组任务包</button><span>→</span><button data-guide-jump="S10">S10 写候选</button><span>→</span><button data-guide-jump="S12">S12 合并检查</button><span>→</span><button data-guide-jump="S13">S13 找问题</button><span>→</span><button data-guide-jump="S14">S14 转修复任务</button><span>→</span><button data-guide-jump="S15">S15 局部修</button><span>→</span><button data-guide-jump="S16">S16 导出交接</button><span>→</span><button data-guide-jump="FINAL">FINAL</button>
         </span></div>
-        <div class="guide-row"><strong>图表支路</strong><span class="route-strip"><button data-guide-preset="figures">显示整条图表流</button><span>:</span><button data-guide-jump="S05">S05 主脊</button><span>+</span><button data-guide-jump="S06">S06 功能预算</button><span>+</span><button data-guide-jump="S04">S04 claim/证据</button><span>+</span><button data-guide-jump="S01">S01 数据定位</button><span>→</span><button data-guide-jump="S08">S08 图表规划</button><span>→</span><button data-guide-jump="S11">S11 图表产出</button><span>→</span><button data-guide-jump="S12">S12 集成</button></span></div>
-        <div class="guide-row"><strong>审核回流</strong><span class="route-strip backflow-strip"><button data-guide-jump="S14">S14 回流编译</button><span>↩</span><button data-guide-jump="S04">S04 claim/evidence</button><button data-guide-jump="S07">S07 术语表层</button><button data-guide-jump="S09A">S09A 控制重选</button><button data-guide-jump="S09B">S09B 任务包再生成</button><button data-guide-jump="S10">S10 正文局部</button><button data-guide-jump="S12">S12 重新集成</button></span></div>
+        <div class="guide-row"><strong>图表支路</strong><span class="route-strip"><button data-guide-preset="figures">显示整条图表流</button><span>:</span><button data-guide-jump="S05">S05 搭主线</button><span>+</span><button data-guide-jump="S06">S06 功能预算</button><span>+</span><button data-guide-jump="S04">S04 claim/证据</button><span>+</span><button data-guide-jump="S01">S01 数据定位</button><span>→</span><button data-guide-jump="S08">S08 规划图表</button><span>→</span><button data-guide-jump="S11">S11 产出图表</button><span>→</span><button data-guide-jump="S12">S12 合并检查</button></span></div>
+        <div class="guide-row"><strong>审核回流</strong><span class="route-strip backflow-strip"><button data-guide-jump="S14">S14 转修复任务</button><span>↩</span><button data-guide-jump="S04">S04 claim/evidence</button><button data-guide-jump="S07">S07 术语表层</button><button data-guide-jump="S09A">S09A 控制重选</button><button data-guide-jump="S09B">S09B 重组任务包</button><button data-guide-jump="S10">S10 写候选局部</button><button data-guide-jump="S12">S12 重新集成</button></span></div>
       </section>
 
 
@@ -120,8 +120,8 @@
         <div class="runtime-state-header">
           <div>
             <p class="kicker">Read-only Stage Workbench</p>
-            <h2>环节分析、任务包与下游交接</h2>
-            <p>选择任意 S00-S16/G01/G02，查看该环节吃什么材料、形成什么分析/设计产物、如何被验证，以及哪些下游环节消费它。</p>
+            <h2>环节做什么、交给谁、怎么验证</h2>
+            <p>选择任意 S00-S16/G01/G02，查看它的输入材料、产物、任务包边界、验证证据，以及下游如何消费。</p>
           </div>
           <button id="workbenchOpenGraph" type="button">在图中定位当前环节</button>
         </div>
