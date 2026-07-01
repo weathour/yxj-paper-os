@@ -361,3 +361,102 @@ h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -0.02em; }
 .coverage-chip-list { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 2px; }
 .coverage-chip { display: inline-flex; gap: 7px; align-items: center; border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; background: var(--panel-2); color: var(--ink); font-size: 12px; }
 .coverage-chip strong { font-family: var(--mono); color: var(--muted); }
+.workbench-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.stage-progress-rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+}
+.stage-progress-step {
+  min-height: 34px;
+  min-width: 48px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.stage-progress-step.tone-active { border-color: oklch(0.66 0.11 145); background: oklch(0.96 0.03 145); }
+.stage-progress-step.tone-owner { border-color: oklch(0.70 0.13 80); background: oklch(0.97 0.045 85); }
+.stage-progress-step.tone-graph { border-color: oklch(0.62 0.025 250); background: oklch(0.97 0.004 250); }
+.stage-progress-step.tone-candidate { border-color: oklch(0.66 0.09 305); background: oklch(0.96 0.035 305); }
+.stage-progress-step.tone-delivery { border-color: oklch(0.65 0.11 255); background: oklch(0.96 0.04 255); }
+.stage-progress-step.is-active {
+  color: white;
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px oklch(0.77 0.10 255 / 0.25);
+}
+.stage-progress-link { color: var(--muted); font-size: 12px; }
+.handoff-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.handoff-column {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 12px;
+}
+.handoff-column h4 { margin: 0 0 10px; font-size: 14px; }
+.material-card {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+}
+.material-card + .material-card { margin-top: 8px; }
+.stage-jump-button {
+  justify-self: start;
+  min-height: 30px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.path-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 8px;
+  font-size: 12px;
+}
+.path-row__label { color: var(--muted); }
+.path-row__value {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-family: var(--mono);
+  color: var(--ink);
+}
+.workbench-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--ink);
+  font-size: 13px;
+}
+.workbench-list li + li { margin-top: 5px; }
+.mini-section, .boundary-snapshot {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 1180px) {
+  .workbench-overview-grid, .handoff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .workbench-overview-grid, .handoff-grid { grid-template-columns: 1fr; }
+  .stage-progress-rail { align-items: stretch; }
+  .stage-progress-step { flex: 1 1 64px; }
+}

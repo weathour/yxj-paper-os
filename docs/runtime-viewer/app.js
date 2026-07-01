@@ -2,6 +2,11 @@
   const graph = window.PPG_RUNTIME_GRAPH;
   const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
   const edgeKinds = Object.keys(graph.legend);
+  const stageRuns = graph.stageCoverage?.stage_runs || [];
+  const stageRunById = new Map(stageRuns.map((stage) => [stage.stage_id, stage]));
+  const stageDetailById = new Map(Object.entries(graph.stageRunDetails || {}));
+  const stageOrder = stageRuns.map((stage) => stage.stage_id);
+  const nonCanvasModes = new Set(['state', 'coverage', 'workbench']);
   const kindColors = {
     material: 'var(--material)', dispatch: 'var(--dispatch)', validation: 'var(--validation)',
     graph: 'var(--graph)', backflow: 'var(--backflow)', governance: 'var(--governance)', control: 'var(--governance)',
@@ -41,6 +46,8 @@
   const runtimeStateContent = document.getElementById('runtimeStateContent');
   const stageCoverageFrame = document.getElementById('stageCoverageFrame');
   const stageCoverageContent = document.getElementById('stageCoverageContent');
+  const stageWorkbenchFrame = document.getElementById('stageWorkbenchFrame');
+  const stageWorkbenchContent = document.getElementById('stageWorkbenchContent');
 
   graphCanvas.style.width = `${graph.meta.canvas.width}px`;
   graphCanvas.style.height = `${graph.meta.canvas.height}px`;
@@ -55,6 +62,16 @@
     return haystack.includes(query.toLowerCase());
   }
   function truncate(value, max = 48) { return value.length > max ? `${value.slice(0, max - 1)}…` : value; }
+  function ensureStageSelection() {
+    if (!stageDetailById.has(state.selectedId) && stageOrder.length) state.selectedId = stageOrder[0];
+  }
+  function selectedStageDetail() {
+    return stageDetailById.get(state.selectedId) || stageDetailById.get(stageOrder[0]);
+  }
+  function stageDisplayName(stageId) {
+    const node = nodeById.get(stageId);
+    return node ? `${stageId} ${node.titleZh.replace(/^S\d+[A-Z]?\s+|^G\d+\s+/, '')}` : stageId;
+  }
 
   function laneMarkup(layer) {
     return `<div class="lane-label"><strong>${layer.title}</strong><span>${layer.subtitle}</span></div>`;
@@ -295,6 +312,35 @@
     row.appendChild(createTextElement('span', 'state-kv__value', value));
     parent.appendChild(row);
   }
+  function appendList(parent, items, className = 'workbench-list') {
+    const list = document.createElement('ul');
+    list.className = className;
+    (items || []).forEach((item) => {
+      const row = document.createElement('li');
+      row.textContent = String(item);
+      list.appendChild(row);
+    });
+    if (!list.children.length) appendEmpty(parent);
+    else parent.appendChild(list);
+  }
+  function appendStageJump(parent, stageId, label = stageDisplayName(stageId)) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'stage-jump-button';
+    button.textContent = label;
+    button.addEventListener('click', () => {
+      state.mode = 'workbench';
+      selectNode(stageId, false);
+    });
+    parent.appendChild(button);
+  }
+  function appendPath(parent, label, value) {
+    const row = document.createElement('div');
+    row.className = 'path-row';
+    row.appendChild(createTextElement('span', 'path-row__label', label));
+    row.appendChild(createTextElement('code', 'path-row__value', value));
+    parent.appendChild(row);
+  }
   function appendStateSection(parent, title, subtitle) {
     const section = document.createElement('section');
     section.className = 'state-section';
@@ -477,6 +523,151 @@
       appendKeyValue(card, 'overlay', (item.stage_local_overlays || []).map((overlay) => `${overlay.overlay_id}:${overlay.binding_strength}`).join(', ') || 'none');
       appendKeyValue(card, 'contract', item.contract_ref);
       appendKeyValue(card, 'run', item.run_ref);
+      appendStageJump(card, item.stage_id, '打开环节工作台');
+      return card;
+    });
+  }
+
+  function renderStageProgress(parent, selectedId) {
+    const rail = document.createElement('div');
+    rail.className = 'stage-progress-rail';
+    stageRuns.forEach((stage, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `stage-progress-step tone-${toneForCoverage(stage)}`;
+      button.classList.toggle('is-active', stage.stage_id === selectedId);
+      button.textContent = stage.stage_id;
+      button.title = `${stage.stage_id} ${stage.stage_name} · ${stage.status}`;
+      button.addEventListener('click', () => selectNode(stage.stage_id, false));
+      rail.appendChild(button);
+      if (index < stageRuns.length - 1) rail.appendChild(createTextElement('span', 'stage-progress-link', '→'));
+    });
+    parent.appendChild(rail);
+  }
+
+  function renderMaterialGroup(title, items, options = {}) {
+    const section = document.createElement('article');
+    section.className = 'handoff-column';
+    section.appendChild(createTextElement('h4', '', title));
+    if (!items || !items.length) {
+      appendEmpty(section);
+      return section;
+    }
+    items.forEach((item) => {
+      const card = document.createElement('div');
+      card.className = 'material-card';
+      if (item.producer_stage_id) appendStageJump(card, item.producer_stage_id);
+      appendKeyValue(card, 'material', item.material_id || '—');
+      appendPath(card, 'ref', item.ref || '—');
+      if (options.consumer && item.stage_id) appendStageJump(card, item.stage_id, `进入 ${stageDisplayName(item.stage_id)}`);
+      section.appendChild(card);
+    });
+    return section;
+  }
+
+  function renderArtifactCard(artifact) {
+    const card = stateCard(artifact.artifact_id || artifact.artifact_path || 'artifact', 'candidate');
+    appendKeyValue(card, 'type', artifact.artifact_type || artifact.payload?.artifact_kind);
+    appendPath(card, 'path', artifact.artifact_path);
+    appendKeyValue(card, 'description', artifact.description);
+    if (artifact.payload?.purpose) appendKeyValue(card, 'purpose', artifact.payload.purpose);
+    if (artifact.payload?.projected_outputs?.length) {
+      const outputs = document.createElement('div');
+      outputs.className = 'mini-section';
+      outputs.appendChild(createTextElement('strong', '', 'projected outputs'));
+      appendList(outputs, artifact.payload.projected_outputs);
+      card.appendChild(outputs);
+    }
+    const snapshot = artifact.payload?.claim_boundary_snapshot;
+    if (snapshot) {
+      const boundary = document.createElement('div');
+      boundary.className = 'boundary-snapshot';
+      boundary.appendChild(createTextElement('strong', '', 'claim boundary snapshot'));
+      appendKeyValue(boundary, 'method', snapshot.active_method);
+      appendPath(boundary, 'evidence', snapshot.evidence_spine);
+      appendKeyValue(boundary, 'forbidden overclaim', snapshot.forbidden_overclaim_boundary);
+      card.appendChild(boundary);
+    }
+    return card;
+  }
+
+  function renderStageWorkbench() {
+    stageWorkbenchContent.textContent = '';
+    const detail = selectedStageDetail();
+    if (!detail) {
+      appendEmpty(stageWorkbenchContent, '没有可展示的 stage-run detail。');
+      return;
+    }
+    const node = nodeById.get(detail.stage_id);
+
+    const progress = appendStateSection(stageWorkbenchContent, 'Overall Progress Map', '这条只读进度条来自 canonical stage coverage；点击任意环节查看其分析、设计和交接。');
+    renderStageProgress(progress, detail.stage_id);
+
+    const overview = appendStateSection(stageWorkbenchContent, `${detail.stage_id} · ${detail.stage_name}`, node?.description || detail.contract?.purpose);
+    const overviewGrid = document.createElement('div');
+    overviewGrid.className = 'workbench-overview-grid';
+    const stageCard = stateCard('环节状态', toneForCoverage(stageRunById.get(detail.stage_id) || detail));
+    appendKeyValue(stageCard, 'status', detail.status);
+    appendKeyValue(stageCard, 'coverage', detail.coverage_kind);
+    appendKeyValue(stageCard, 'exercise', detail.exercise_level);
+    appendKeyValue(stageCard, 'execution', detail.execution_mode);
+    appendKeyValue(stageCard, 'agent', detail.recommended_agent_type);
+    const lane = detail.contract?.subagent_lane_policy || {};
+    const packet = detail.worker_task_packet_evidence || detail.contract?.worker_packet_coverage || {};
+    const packetCard = stateCard('任务包 / lane policy', packet.status === 'linked_strict_packet' ? 'active' : 'graph');
+    appendKeyValue(packetCard, 'lane policy', lane.policy);
+    appendKeyValue(packetCard, 'default lanes', lane.default_lane_count);
+    appendKeyValue(packetCard, 'producer', lane.producer_agent_type);
+    appendKeyValue(packetCard, 'verifier', lane.verifier_agent_type || 'deterministic validation');
+    appendKeyValue(packetCard, 'packet status', packet.status);
+    appendPath(packetCard, 'packet', packet.packet_ref || 'not required');
+    appendPath(packetCard, 'return contract', packet.return_contract_ref || 'not required');
+    const boundaryCard = stateCard('完成边界', 'delivery');
+    appendKeyValue(boundaryCard, 'completion gate', detail.contract?.completion_gate);
+    boundaryCard.appendChild(createTextElement('p', 'state-blocker-text', detail.completion_claim));
+    overviewGrid.appendChild(stageCard);
+    overviewGrid.appendChild(packetCard);
+    overviewGrid.appendChild(boundaryCard);
+    overview.appendChild(overviewGrid);
+
+    const material = appendStateSection(stageWorkbenchContent, 'Input → Analysis/Design → Handoff', '这里展示信息如何进入本环节、形成什么产物，以及被哪些下游环节消费。');
+    const handoff = document.createElement('div');
+    handoff.className = 'handoff-grid';
+    handoff.appendChild(renderMaterialGroup('契约声明输入', detail.declared_inputs));
+    handoff.appendChild(renderMaterialGroup('来源 / runtime refs', detail.source_refs));
+    handoff.appendChild(renderMaterialGroup('上游环节产物', detail.upstream_inputs));
+    handoff.appendChild(renderMaterialGroup('下游消费', detail.handoff_consumers, { consumer: true }));
+    material.appendChild(handoff);
+
+    const artifacts = appendStateSection(stageWorkbenchContent, '具体分析 / 设计产物', '这些是本环节在 pilot 中形成或投影出的物料，仍是只读 evidence，不是最终论文完成声明。');
+    appendCardList(artifacts, detail.produced_artifacts || [], renderArtifactCard);
+
+    const validation = appendStateSection(stageWorkbenchContent, 'Validators + Read-only Boundary', '验证证据、overlay、source-read-only 边界共同决定这个环节是否能被主 Agent 接收。');
+    const validationGrid = document.createElement('div');
+    validationGrid.className = 'workbench-overview-grid';
+    const validators = stateCard('contract validators', 'delivery');
+    appendList(validators, detail.contract?.validators || []);
+    const evidence = stateCard('validator evidence', 'closure');
+    appendList(evidence, (detail.validator_evidence || []).map((item) => `${item.status}: ${item.validator} — ${item.evidence}`));
+    const readonly = stateCard('source boundary', 'graph');
+    const boundary = detail.source_projection_boundary || {};
+    appendKeyValue(readonly, 'read only source', boundary.read_only_source);
+    appendKeyValue(readonly, 'writes allowed', boundary.writes_to_source_allowed);
+    appendKeyValue(readonly, 'status unchanged', boundary.source_status_unchanged);
+    appendPath(readonly, 'source root', boundary.source_root || '—');
+    appendPath(readonly, 'runtime output', boundary.runtime_output_root || '—');
+    validationGrid.appendChild(validators);
+    validationGrid.appendChild(evidence);
+    validationGrid.appendChild(readonly);
+    validation.appendChild(validationGrid);
+
+    const graphLinks = appendStateSection(stageWorkbenchContent, 'Graph Structure Around This Stage', '直接流入/流出边用于核对整体图结构；它们解释这个环节在全局进展中的位置。');
+    const localEdges = [...graph.edges, ...graph.roadmap.edges].filter((edge) => edge.source === detail.stage_id || edge.target === detail.stage_id);
+    appendCardList(graphLinks, localEdges, (edge) => {
+      const card = stateCard(`${edge.source} → ${edge.target}`, edge.kind === 'backflow' ? 'backflow' : 'graph');
+      appendKeyValue(card, 'kind', edge.kind);
+      appendKeyValue(card, 'label', edge.label);
+      appendStageJump(card, edge.source === detail.stage_id ? edge.target : edge.source);
       return card;
     });
   }
@@ -500,7 +691,7 @@
 
   function activeCanvas() { return state.mode === 'graph' ? { canvas: graphCanvas, stage: graphStage, frame: graphFrame, width: graph.meta.canvas.width } : { canvas: roadmapCanvas, stage: roadmapStage, frame: roadmapFrame, width: graph.roadmap.canvas.width }; }
   function applyZoom() {
-    const zoom = state.mode === 'state' || state.mode === 'coverage' ? null : state.zooms[state.mode];
+    const zoom = nonCanvasModes.has(state.mode) ? null : state.zooms[state.mode];
     const targets = [
       { canvas: roadmapCanvas, stage: roadmapStage, width: graph.roadmap.canvas.width, height: graph.roadmap.canvas.height, zoom: state.zooms.roadmap },
       { canvas: graphCanvas, stage: graphStage, width: graph.meta.canvas.width, height: graph.meta.canvas.height, zoom: state.zooms.graph },
@@ -559,13 +750,16 @@
     document.querySelectorAll('[data-preset]').forEach((button) => button.classList.toggle('is-active', button.dataset.preset === state.activePreset));
     document.getElementById('roadmapMode').classList.toggle('is-active', state.mode === 'roadmap');
     document.getElementById('graphMode').classList.toggle('is-active', state.mode === 'graph');
+    document.getElementById('stageWorkbenchMode').classList.toggle('is-active', state.mode === 'workbench');
     document.getElementById('runtimeStateMode').classList.toggle('is-active', state.mode === 'state');
     document.getElementById('stageCoverageMode').classList.toggle('is-active', state.mode === 'coverage');
     roadmapFrame.classList.toggle('is-hidden', state.mode !== 'roadmap');
     graphFrame.classList.toggle('is-hidden', state.mode !== 'graph');
+    stageWorkbenchFrame.classList.toggle('is-hidden', state.mode !== 'workbench');
     runtimeStateFrame.classList.toggle('is-hidden', state.mode !== 'state');
     stageCoverageFrame.classList.toggle('is-hidden', state.mode !== 'coverage');
     document.getElementById('roadmapGuide').classList.toggle('is-hidden', state.mode !== 'roadmap');
+    if (state.mode === 'workbench') renderStageWorkbench();
     renderDetail(); applyZoom();
   }
   function selectNode(id, scrollIntoView = false) {
@@ -596,16 +790,18 @@
     document.getElementById('showReference').addEventListener('click', () => { referenceFigure.hidden = !referenceFigure.hidden; });
     document.getElementById('roadmapMode').addEventListener('click', () => { state.mode = 'roadmap'; update(); });
     document.getElementById('graphMode').addEventListener('click', () => { state.mode = 'graph'; update(); });
+    document.getElementById('stageWorkbenchMode').addEventListener('click', () => { ensureStageSelection(); state.mode = 'workbench'; update(); });
     document.getElementById('runtimeStateMode').addEventListener('click', () => { state.mode = 'state'; update(); });
     document.getElementById('stageCoverageMode').addEventListener('click', () => { state.mode = 'coverage'; update(); });
-    document.getElementById('fitWidth').addEventListener('click', () => { if (state.mode === 'state' || state.mode === 'coverage') return; const active = activeCanvas(); state.zooms[state.mode] = Math.max(0.32, Math.min(1.25, Number(((active.frame.clientWidth - 32) / active.width).toFixed(2)))); applyZoom(); });
-    document.getElementById('zoomOut').addEventListener('click', () => { if (state.mode === 'state' || state.mode === 'coverage') return; state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
-    document.getElementById('zoomIn').addEventListener('click', () => { if (state.mode === 'state' || state.mode === 'coverage') return; state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('workbenchOpenGraph').addEventListener('click', () => { state.mode = 'roadmap'; update(); selectNode(state.selectedId, true); });
+    document.getElementById('fitWidth').addEventListener('click', () => { if (nonCanvasModes.has(state.mode)) return; const active = activeCanvas(); state.zooms[state.mode] = Math.max(0.32, Math.min(1.25, Number(((active.frame.clientWidth - 32) / active.width).toFixed(2)))); applyZoom(); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if (nonCanvasModes.has(state.mode)) return; state.zooms[state.mode] = Math.max(0.32, Number((state.zooms[state.mode] - 0.1).toFixed(2))); applyZoom(); });
+    document.getElementById('zoomIn').addEventListener('click', () => { if (nonCanvasModes.has(state.mode)) return; state.zooms[state.mode] = Math.min(1.25, Number((state.zooms[state.mode] + 0.1).toFixed(2))); applyZoom(); });
     document.querySelectorAll('[data-guide-jump]').forEach((button) => button.addEventListener('click', () => selectNode(button.dataset.guideJump, true)));
     document.querySelectorAll('[data-guide-preset]').forEach((button) => button.addEventListener('click', () => activatePreset(button.dataset.guidePreset)));
   }
 
   renderLanes(laneLayer, graph.layers || []); renderGraphNodes(); renderGraphEdges();
   renderLanes(roadmapLaneLayer, graph.roadmap.lanes || []); renderRoadmapNodes(); renderRoadmapEdges();
-  renderRuntimeState(); renderStageCoverage(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
+  renderRuntimeState(); renderStageCoverage(); renderStageWorkbench(); renderIndex(); renderPresets(); renderFilters(); bindControls(); applyZoom(); update();
 })();

@@ -63,6 +63,7 @@
         <div class="toolbar-group">
           <button id="roadmapMode" type="button" class="is-active">路线图</button>
           <button id="graphMode" type="button">详细节点图</button>
+          <button id="stageWorkbenchMode" type="button">环节工作台</button>
           <button id="runtimeStateMode" type="button">Runtime State</button>
           <button id="stageCoverageMode" type="button">Stage Coverage</button>
           <button id="resetFocus" type="button">重置聚焦</button>
@@ -113,6 +114,18 @@
           <a class="link-button" href="../../examples/local-paper/security-state-aware-mixed-platoon/stage_coverage.json">打开 stage_coverage.json</a>
         </div>
         <div id="stageCoverageContent" class="runtime-state-content"></div>
+      </section>
+
+      <section id="stageWorkbenchFrame" class="runtime-state-frame is-hidden" aria-label="Read-only stage workbench">
+        <div class="runtime-state-header">
+          <div>
+            <p class="kicker">Read-only Stage Workbench</p>
+            <h2>环节分析、任务包与下游交接</h2>
+            <p>选择任意 S00-S16/G01/G02，查看该环节吃什么材料、形成什么分析/设计产物、如何被验证，以及哪些下游环节消费它。</p>
+          </div>
+          <button id="workbenchOpenGraph" type="button">在图中定位当前环节</button>
+        </div>
+        <div id="stageWorkbenchContent" class="runtime-state-content"></div>
       </section>
 
       <div class="canvas-frame" id="roadmapFrame">
