@@ -24,13 +24,14 @@ provenance:
 
 ## Status authority
 
-A subagent can propose `candidate` output. It cannot commit material. The main agent commits only after validation and graph update.
+A worker can propose `candidate` output. It cannot commit material. The main agent commits only after validation, provenance capture, and graph update.
 
 ## Core material families
 
 ### Semantic root
 
 - `OwnerIntent`
+- `OwnerDecision`
 - `PaperControlSpine`
 - `PaperSpine`
 
@@ -39,11 +40,11 @@ A subagent can propose `candidate` output. It cannot commit material. The main a
 - `TopicAnalysis`
 - `TemplateProfile`
 - `EvidenceInventory`
+- `ExperimentResultInventory`
+- `RelatedWorkPositioning`
 - `ReaderProfile`
 - `ReviewerConcernMap`
 - `TerminologyInventory`
-- `ExperimentResultInventory`
-- `RelatedWorkPositioning`
 
 ### Synthesis/control materials
 
@@ -61,29 +62,30 @@ A subagent can propose `candidate` output. It cannot commit material. The main a
 
 ### Stage-local overlay materials
 
-Stage-local overlays are profile/control materials consumed by existing stages. They do not create new stages or routes.
+Stage-local overlays are profile/control materials consumed by existing stages. They do not create new routes or completion authority.
 
 - `StageOverlayRegistry`
 - `StageOverlayBinding`
-- `NatureVenueProfile`
-- `NatureClaimBoundaryMap`
-- `NatureFigureContract`
-- `NatureReaderExperienceRubric`
-- `NatureSurfaceControlProfile`
-
-The first active overlay is `nature_expert_writing` in `runtime/stage_overlay_registry.json`. Its controls are transported through existing TaskPacket `mandatory_controls` and `validators`, not through new top-level worker authority fields.
+- `VenueProfile`
+- `VenueClaimBoundaryMap`
+- `VenueFigureContract`
+- `VenueReaderExperienceRubric`
+- `VenueSurfaceControlProfile`
 
 ### Production materials
 
 - `WritingTaskPacket`
+- `RepairTaskPacket`
 - `FigureTaskPacket`
 - `SectionDraft`
 - `CaptionDraft`
 - `FigureDraft`
 - `FullManuscriptCandidate`
 
-### Review and backflow materials
+### Review, feedback, and backflow materials
 
+- `ReviewFeedbackPackage`
+- `FailureAttributionRecord`
 - `EvidenceReviewReport`
 - `ReaderExperienceReviewReport`
 - `TemplateComplianceReport`
@@ -92,38 +94,76 @@ The first active overlay is `nature_expert_writing` in `runtime/stage_overlay_re
 - `AdversarialReviewerReport`
 - `ReviewFinding`
 - `BackflowTask`
+- `RunRetrospectiveReport`
+- `StageImprovementRecord`
 
-## Example: ClaimEvidenceMatrix payload
+## Lifecycle object summaries
+
+### ReviewFeedbackPackage payload
 
 ```yaml
-claims:
-  - claim_id:
-    claim_text:
-    allowed_strength:
-    evidence_refs:
-    limitations:
-    forbidden_wording:
+feedback_source:
+summary:
+observed_problem:
+severity:
+affected_artifact:
+candidate_failure_types:
 ```
 
-## Example: WritingTaskPacket payload
+### FailureAttributionRecord payload
 
 ```yaml
-target_section:
-target_unit:
-mission:
-input_materials:
-constraints:
-  forbidden_terms:
-  required_moves:
-  claim_strength_limits:
-validators:
-backflow_routes:
+feedback_package_id:
+nearest_stage:
+responsible_material:
+failure_level:
+owner_gate_required:
+repair_scope:
+preserve_scope:
+forbidden_repair_routes:
+downstream_stale_targets:
+```
+
+### RepairTaskPacket payload
+
+```yaml
+attribution_id:
+target_material:
+repair_action:
+preserve:
+must_change:
+must_not_change:
+allowed_write_paths:
 expected_output:
+validators:
+completion_forbidden: true
+no_recursive_orchestration: true
+```
+
+### StageImprovementRecord payload
+
+```yaml
+stage_id:
+failure_pattern:
+evidence_count:
+root_cause:
+recommended_prompt_change:
+recommended_task_packet_change:
+recommended_validator_change:
+regression_test_needed:
+```
+
+### RunRetrospectiveReport payload
+
+```yaml
+run_id:
+feedback_packages:
+stage_improvements:
+lessons:
+blocked_improvements:
 ```
 
 ## Generation method classification
-
-Every material declares one method:
 
 | Method | Use case |
 | --- | --- |
@@ -132,41 +172,6 @@ Every material declares one method:
 | `hybrid_generated` | LLM candidate plus program validation |
 | `manual_owner_decision` | semantic commitments only the owner can make |
 
-## Phase 4 machine-checkable subset
+## Sidecar pollution rule
 
-The full material ontology remains larger than the executable MVP. Phase 4 freezes a machine-checkable subset that is sufficient for the current overclaim/backflow vertical slice.
-
-### P0 runtime objects
-
-| Object | Schema | Validator |
-| --- | --- | --- |
-| `ReviewFinding` | `schemas/ppg-review-finding.schema.json` | `scripts/validate_review_finding.py` |
-| `BackflowTask` | `schemas/ppg-backflow-task.schema.json` | `scripts/validate_backflow.py` |
-| `ReviewClosure` | `schemas/ppg-review-closure.schema.json` | `scripts/validate_delivery_gate.py` |
-| `DeliveryGate` | `schemas/ppg-delivery-gate.schema.json` | `scripts/validate_delivery_gate.py` |
-| `TaskPacket` | `schemas/ppg-task-packet.schema.json` | `scripts/validate_packet.py` |
-
-### P1 vertical slice
-
-`schemas/ppg-material-payloads.schema.json` and `scripts/validate_material.py` currently check:
-
-- `EvidenceInventory.evidence_packages`;
-- `ClaimBoundaryMap.allowed_claims[*].strength` plus forbidden wording/claim guardrails;
-- `ReaderSpine.questions`;
-- `TerminologyRegister` as a registry material that may list stale/blocked terms without being treated as paper-facing leakage.
-
-`ClaimEvidenceVisibilityMap`, selected control bundles, section-draft shape, and figure contract/panel evidence maps are deferred until a later phase chooses them as concrete backflow or writing targets.
-
-## Phase 11 stage-overlay registry subset
-
-Phase 11 adds a machine-checkable stage-local overlay registry for expert writing profiles:
-
-- `runtime/stage_overlay_registry.json` stores overlay authority, per-stage input controls, output materials, packet clauses, validator checks, and backflow targets.
-- `schemas/ppg-stage-overlay-registry.schema.json` defines the registry shape.
-- `scripts/verify_stage_overlays.py` enforces canonical stage bindings, bare-`S09` rejection, no-route authority, StageContract links, TaskPacket overlay clauses, and content-validator coverage.
-
-Overlay bindings may shape stage-specific materials, but they cannot mark graph nodes complete or dispatch workers.
-
-### Sidecar pollution rule
-
-Phase 4 lints only paper-facing text fields such as `draft_text`, `caption_text`, `claim_text`, `summary_for_reader`, `paragraph`, or blocks explicitly marked `paper_facing: true`. It does not fail registry/control fields such as `stale_terms`, `forbidden_terms`, ids, schema names, provenance, or validator metadata merely because those fields name internal runtime terms.
+Validators should lint paper-facing text fields such as `draft_text`, `caption_text`, `claim_text`, `summary_for_reader`, `paragraph`, or blocks explicitly marked `paper_facing: true`. They should not fail registry/control metadata merely because those fields contain internal runtime terms.

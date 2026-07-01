@@ -1,0 +1,14 @@
+{
+  "schema_version": "ppg-pilot-material/v0.1",
+  "material_id": "pilot_paper_status_summary",
+  "source_refs": [
+    "HANDOFF.md",
+    "PROJECT_STATUS.md",
+    "docs/CURRENT_PLAN.md"
+  ],
+  "summary_sha256": "3ff8ce20da5b49ec6fa9979e2cfaf4e734302daace33bb0bad654ce113d42666",
+  "manuscript_state": "not_started",
+  "active_method": null,
+  "active_manuscript_authority": "template_only",
+  "ready_for_runtime_pilot": true
+}

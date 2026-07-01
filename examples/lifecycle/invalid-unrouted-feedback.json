@@ -1,0 +1,106 @@
+{
+  "schema_version": "ppg-lifecycle-contract/v0.1",
+  "lifecycle_id": "feedback_to_stage_improvement.valid.v1",
+  "status": "validated",
+  "standalone_contract": {
+    "omx_dependency": false,
+    "host_local_dependency": false,
+    "authority_source": "paper_os",
+    "optional_adapters": [
+      "omx_as_personal_adapter"
+    ]
+  },
+  "feedback_packages": [
+    {
+      "schema_version": "ppg-review-feedback-package/v0.1",
+      "package_id": "feedback.overclaim.v1",
+      "status": "validated",
+      "feedback_source": {
+        "type": "human_review",
+        "ref": "owner-round-1"
+      },
+      "summary": "The introduction states a universal safety guarantee that the evidence does not support.",
+      "observed_problem": "Universal safety wording exceeds the evaluated degraded-V2X scenarios.",
+      "severity": "high",
+      "affected_artifact": "section_draft_intro.v1",
+      "candidate_failure_types": [
+        "overclaim",
+        "claim_evidence_mismatch"
+      ]
+    }
+  ],
+  "attributions": [],
+  "repair_packets": [
+    {
+      "schema_version": "ppg-repair-task-packet/v0.1",
+      "repair_packet_id": "repair.overclaim.s04.v1",
+      "status": "planned",
+      "attribution_id": "attribution.overclaim.s04.v1",
+      "target_material": "claim_boundary_map.v2",
+      "repair_action": "Replace universal safety wording with evidence-bounded degraded-V2X scenario wording.",
+      "preserve": [
+        "owner intent",
+        "selected venue",
+        "unrelated claims"
+      ],
+      "must_change": [
+        "allowed claim wording",
+        "forbidden universal guarantee"
+      ],
+      "must_not_change": [
+        "whole manuscript",
+        "owner route",
+        "unrelated sections"
+      ],
+      "allowed_write_paths": [
+        "examples/materials/claim_boundary_map.v3-candidate.yaml"
+      ],
+      "expected_output": "claim_boundary_map.v3-candidate",
+      "validators": [
+        "validate_material",
+        "validate_backflow",
+        "claim_boundary_strength_check"
+      ],
+      "completion_forbidden": true,
+      "no_recursive_orchestration": true,
+      "owner_gate_required": false
+    }
+  ],
+  "retrospectives": [
+    {
+      "schema_version": "ppg-run-retrospective-report/v0.1",
+      "retrospective_id": "retrospective.paper-run.v1",
+      "status": "validated",
+      "run_id": "paper-run.v1",
+      "feedback_packages": [
+        "feedback.overclaim.v1"
+      ],
+      "stage_improvements": [
+        "improvement.s04.claim-boundary-prompt.v1"
+      ],
+      "readiness_claims": [
+        "review_ready_candidate"
+      ],
+      "lessons": [
+        "S04 needs stronger forbidden-wording examples before S09B packet compilation."
+      ],
+      "blocked_improvements": []
+    }
+  ],
+  "stage_improvements": [
+    {
+      "schema_version": "ppg-stage-improvement-record/v0.1",
+      "improvement_id": "improvement.s04.claim-boundary-prompt.v1",
+      "status": "candidate",
+      "stage_id": "S04",
+      "source_retrospective": "retrospective.paper-run.v1",
+      "failure_pattern": "Repeated overclaim pressure in introduction and discussion candidates.",
+      "evidence_count": 3,
+      "root_cause": "ClaimBoundaryMap prompt did not force forbidden universal guarantee examples into downstream task packets.",
+      "recommended_prompt_change": "Require explicit allowed/forbidden claim-pair examples for each high-level claim.",
+      "recommended_task_packet_change": "Propagate forbidden wording as a mandatory S09B control field.",
+      "recommended_validator_change": "Add rendered-surface scan for universal safety guarantee wording.",
+      "regression_test_needed": true
+    }
+  ]
+}

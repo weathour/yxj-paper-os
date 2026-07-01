@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ppg-lifecycle-contract.schema.json",
+  "title": "Paper OS feedback lifecycle contract",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "lifecycle_id",
+    "status",
+    "standalone_contract",
+    "feedback_packages",
+    "attributions",
+    "repair_packets",
+    "retrospectives",
+    "stage_improvements"
+  ],
+  "properties": {
+    "schema_version": {"const": "ppg-lifecycle-contract/v0.1"},
+    "lifecycle_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["planned", "candidate", "validated"]},
+    "standalone_contract": {
+      "type": "object",
+      "required": ["omx_dependency", "host_local_dependency", "authority_source"],
+      "properties": {
+        "omx_dependency": {"const": false},
+        "host_local_dependency": {"const": false},
+        "authority_source": {"const": "paper_os"},
+        "optional_adapters": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "feedback_packages": {"type": "array", "minItems": 1},
+    "attributions": {"type": "array", "minItems": 1},
+    "repair_packets": {"type": "array", "minItems": 1},
+    "retrospectives": {"type": "array", "minItems": 1},
+    "stage_improvements": {"type": "array", "minItems": 1}
+  },
+  "additionalProperties": true
+}

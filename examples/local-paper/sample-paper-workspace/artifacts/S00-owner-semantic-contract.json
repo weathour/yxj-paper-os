@@ -1,0 +1,33 @@
+{
+  "artifact_kind": "owner_gate_projection",
+  "claim_boundary_snapshot": {
+    "active_method": null,
+    "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+    "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+    "manuscript_state": "not_started"
+  },
+  "consumed_ref_count": 6,
+  "contract_ref": "examples/stage-contracts/S00.stage-contract.json",
+  "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+  "projected_outputs": [
+    "paper-profile",
+    "motivation",
+    "decisions",
+    "blocked routes"
+  ],
+  "purpose": "Convert human need into bounded paper commitments and owner decisions.",
+  "schema_version": "ppg-pilot-stage-artifact/v0.1",
+  "source_project": "security-state-aware-mixed-platoon",
+  "stage_id": "S00",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "light",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S00",
+      "validator_ref": "stage_overlay:nature_expert_writing:S00"
+    }
+  ],
+  "stage_name": "Owner semantic contract"
+}

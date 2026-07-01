@@ -1,0 +1,131 @@
+{
+  "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_1",
+      "ref": "candidate text modules"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_2",
+      "ref": "figures/captions"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_3",
+      "ref": "section move plan"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_4",
+      "ref": "terminology register"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s12_declared_input_5",
+      "ref": "claim visibility"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s12_source_ref_manuscript-main-tex",
+      "ref": "manuscript/main.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s12_source_ref_manuscript-sections-01-introduction-tex",
+      "ref": "manuscript/sections/01_introduction.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s12_source_ref_manuscript-sections-06-results-discussion-tex",
+      "ref": "manuscript/sections/06_results_discussion.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s10_pilot_output",
+      "producer_stage_id": "S10",
+      "ref": "artifacts/S10-main-text-production.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s11_pilot_output",
+      "producer_stage_id": "S11",
+      "ref": "artifacts/S11-figure-caption-formal-artifact-production.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s15_pilot_output",
+      "producer_stage_id": "S15",
+      "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
+    }
+  ],
+  "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
+  "coverage_kind": "fixture_generated",
+  "execution_mode": "hybrid_generated",
+  "exercise_level": "full_stage_exercised",
+  "produced_artifacts": [
+    {
+      "artifact_id": "s12_pilot_output",
+      "artifact_path": "artifacts/S12-integration-and-consistency-pass.json",
+      "artifact_type": "analysis_material_projection",
+      "description": "integrated manuscript candidate; consistency findings; validator report"
+    }
+  ],
+  "recommended_agent_type": "verifier",
+  "schema_version": "ppg-pilot-stage-run/v0.1",
+  "source_projection_boundary": {
+    "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+    "read_only_source": true,
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
+    "runtime_output_under_source": false,
+    "selected_source_fingerprints_unchanged": true,
+    "source_git_status_after": "?? ./\n",
+    "source_git_status_before": "?? ./\n",
+    "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
+    "source_status_unchanged": true,
+    "writes_to_source_allowed": false
+  },
+  "stage_id": "S12",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S12",
+      "validator_ref": "stage_overlay:nature_expert_writing:S12"
+    }
+  ],
+  "stage_name": "Integration and consistency pass",
+  "status": "validated",
+  "validator_evidence": [
+    {
+      "evidence": "S12 links to examples/stage-contracts/S12.stage-contract.json with completion_gate present",
+      "status": "pass",
+      "validator": "stage_contract_link"
+    },
+    {
+      "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+      "status": "pass",
+      "validator": "source_read_only_fingerprint"
+    },
+    {
+      "evidence": "coverage_kind=fixture_generated; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "status": "pass",
+      "validator": "coverage_boundary"
+    },
+    {
+      "evidence": "S12 has Nature expert-writing overlay binding as stage-local metadata only",
+      "status": "pass",
+      "validator": "stage_local_overlay_binding"
+    }
+  ],
+  "worker_task_packet_evidence": {
+    "blocker": null,
+    "packet_ref": "examples/packets/phase10_s12_integration_consistency_packet.v1.yaml",
+    "required": true,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "status": "linked_strict_packet"
+  }
+}

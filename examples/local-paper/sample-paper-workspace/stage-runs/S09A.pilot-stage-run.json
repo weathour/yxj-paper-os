@@ -1,0 +1,138 @@
+{
+  "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s09a_declared_input_1",
+      "ref": "claim controls"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s09a_declared_input_2",
+      "ref": "spine controls"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s09a_declared_input_3",
+      "ref": "granularity controls"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s09a_declared_input_4",
+      "ref": "surface rules"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s09a_declared_input_5",
+      "ref": "target unit"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s09a_source_ref_examples-local-paper-security-state-aware-mixed-",
+      "ref": "examples/local-paper/security-state-aware-mixed-platoon/materials/owner_contract.json"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s09a_source_ref_examples-local-paper-security-state-aware-mixed-",
+      "ref": "examples/local-paper/security-state-aware-mixed-platoon/materials/source_inventory.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s04_pilot_output",
+      "producer_stage_id": "S04",
+      "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s05_pilot_output",
+      "producer_stage_id": "S05",
+      "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s06_pilot_output",
+      "producer_stage_id": "S06",
+      "ref": "artifacts/S06-object-representation-and-granularity-design.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s07_pilot_output",
+      "producer_stage_id": "S07",
+      "ref": "artifacts/S07-rhetoric-terminology-and-surface-control-synthesis.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s14_pilot_output",
+      "producer_stage_id": "S14",
+      "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+    }
+  ],
+  "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
+  "coverage_kind": "script_checked",
+  "execution_mode": "hybrid_generated",
+  "exercise_level": "full_stage_exercised",
+  "produced_artifacts": [
+    {
+      "artifact_id": "s09a_pilot_output",
+      "artifact_path": "artifacts/S09A-control-material-selection.json",
+      "artifact_type": "analysis_material_projection",
+      "description": "selected control bundle; control priority map; missing control report"
+    }
+  ],
+  "recommended_agent_type": "planner",
+  "schema_version": "ppg-pilot-stage-run/v0.1",
+  "source_projection_boundary": {
+    "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+    "read_only_source": true,
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
+    "runtime_output_under_source": false,
+    "selected_source_fingerprints_unchanged": true,
+    "source_git_status_after": "?? ./\n",
+    "source_git_status_before": "?? ./\n",
+    "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
+    "source_status_unchanged": true,
+    "writes_to_source_allowed": false
+  },
+  "stage_id": "S09A",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S09A",
+      "validator_ref": "stage_overlay:nature_expert_writing:S09A"
+    }
+  ],
+  "stage_name": "Control-material selection",
+  "status": "validated",
+  "validator_evidence": [
+    {
+      "evidence": "S09A links to examples/stage-contracts/S09A.stage-contract.json with completion_gate present",
+      "status": "pass",
+      "validator": "stage_contract_link"
+    },
+    {
+      "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+      "status": "pass",
+      "validator": "source_read_only_fingerprint"
+    },
+    {
+      "evidence": "coverage_kind=script_checked; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "status": "pass",
+      "validator": "coverage_boundary"
+    },
+    {
+      "evidence": "S09A has Nature expert-writing overlay binding as stage-local metadata only",
+      "status": "pass",
+      "validator": "stage_local_overlay_binding"
+    }
+  ],
+  "worker_task_packet_evidence": {
+    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "packet_ref": null,
+    "required": false,
+    "return_contract_ref": null,
+    "status": "not_required"
+  }
+}

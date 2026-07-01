@@ -1,0 +1,121 @@
+{
+  "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_1",
+      "ref": "figure contracts"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_2",
+      "ref": "panel evidence packages"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_3",
+      "ref": "source data locators"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s11_declared_input_4",
+      "ref": "caption brief"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s11_source_ref_figures-readme-md",
+      "ref": "figures/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s11_source_ref_experiments-results-l3-method-faithful-unified-s",
+      "ref": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s01_pilot_output",
+      "producer_stage_id": "S01",
+      "ref": "artifacts/S01-source-citation-evidence-inventory.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s04_pilot_output",
+      "producer_stage_id": "S04",
+      "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s08_pilot_output",
+      "producer_stage_id": "S08",
+      "ref": "artifacts/S08-visual-and-formal-object-planning.json"
+    }
+  ],
+  "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
+  "coverage_kind": "source_projected",
+  "execution_mode": "hybrid_generated",
+  "exercise_level": "full_stage_exercised",
+  "produced_artifacts": [
+    {
+      "artifact_id": "s11_pilot_output",
+      "artifact_path": "artifacts/S11-figure-caption-formal-artifact-production.json",
+      "artifact_type": "candidate_or_repair_projection",
+      "description": "figure statistics; image integrity record; caption brief; figure export bundle"
+    }
+  ],
+  "recommended_agent_type": "executor",
+  "schema_version": "ppg-pilot-stage-run/v0.1",
+  "source_projection_boundary": {
+    "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+    "read_only_source": true,
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
+    "runtime_output_under_source": false,
+    "selected_source_fingerprints_unchanged": true,
+    "source_git_status_after": "?? ./\n",
+    "source_git_status_before": "?? ./\n",
+    "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
+    "source_status_unchanged": true,
+    "writes_to_source_allowed": false
+  },
+  "stage_id": "S11",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S11",
+      "validator_ref": "stage_overlay:nature_expert_writing:S11"
+    }
+  ],
+  "stage_name": "Figure caption formal artifact production",
+  "status": "validated",
+  "validator_evidence": [
+    {
+      "evidence": "S11 links to examples/stage-contracts/S11.stage-contract.json with completion_gate present",
+      "status": "pass",
+      "validator": "stage_contract_link"
+    },
+    {
+      "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+      "status": "pass",
+      "validator": "source_read_only_fingerprint"
+    },
+    {
+      "evidence": "coverage_kind=source_projected; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "status": "pass",
+      "validator": "coverage_boundary"
+    },
+    {
+      "evidence": "S11 has Nature expert-writing overlay binding as stage-local metadata only",
+      "status": "pass",
+      "validator": "stage_local_overlay_binding"
+    }
+  ],
+  "worker_task_packet_evidence": {
+    "blocker": null,
+    "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
+    "required": true,
+    "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+    "status": "linked_strict_packet"
+  }
+}

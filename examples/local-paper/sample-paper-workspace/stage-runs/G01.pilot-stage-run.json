@@ -1,0 +1,98 @@
+{
+  "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "g01_declared_input_1",
+      "ref": "state"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "g01_declared_input_2",
+      "ref": "permissions"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "g01_declared_input_3",
+      "ref": "skill registry"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "g01_source_ref_runtime-stage-registry-json",
+      "ref": "runtime/stage_registry.json"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "g01_source_ref_examples-stage-contracts",
+      "ref": "examples/stage-contracts"
+    }
+  ],
+  "contract_ref": "examples/stage-contracts/G01.stage-contract.json",
+  "coverage_kind": "script_checked",
+  "execution_mode": "script_generated",
+  "exercise_level": "full_stage_exercised",
+  "produced_artifacts": [
+    {
+      "artifact_id": "g01_pilot_output",
+      "artifact_path": "artifacts/G01-runtime-governance-registry.json",
+      "artifact_type": "script_check_output",
+      "description": "route governance records; state controls; manager boot checklist"
+    }
+  ],
+  "recommended_agent_type": "verifier",
+  "schema_version": "ppg-pilot-stage-run/v0.1",
+  "source_projection_boundary": {
+    "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+    "read_only_source": true,
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
+    "runtime_output_under_source": false,
+    "selected_source_fingerprints_unchanged": true,
+    "source_git_status_after": "?? ./\n",
+    "source_git_status_before": "?? ./\n",
+    "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
+    "source_status_unchanged": true,
+    "writes_to_source_allowed": false
+  },
+  "stage_id": "G01",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "governance",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "G01",
+      "validator_ref": "stage_overlay:nature_expert_writing:G01"
+    }
+  ],
+  "stage_name": "Runtime governance registry",
+  "status": "validated",
+  "validator_evidence": [
+    {
+      "evidence": "G01 links to examples/stage-contracts/G01.stage-contract.json with completion_gate present",
+      "status": "pass",
+      "validator": "stage_contract_link"
+    },
+    {
+      "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+      "status": "pass",
+      "validator": "source_read_only_fingerprint"
+    },
+    {
+      "evidence": "coverage_kind=script_checked; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "status": "pass",
+      "validator": "coverage_boundary"
+    },
+    {
+      "evidence": "G01 has Nature expert-writing overlay binding as stage-local metadata only",
+      "status": "pass",
+      "validator": "stage_local_overlay_binding"
+    }
+  ],
+  "worker_task_packet_evidence": {
+    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "packet_ref": null,
+    "required": false,
+    "return_contract_ref": null,
+    "status": "not_required"
+  }
+}

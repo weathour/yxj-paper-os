@@ -1,6 +1,6 @@
 ---
 name: yxj-paper-os
-description: "Operate the yxj Paper OS / Paper Production Graph Runtime as one public manager surface: inspect explicit material graph state, local backflow, task packets, validation gates, and frontend runtime reports for Codex-native academic paper production. Installed public manager surface; publication/submission claims remain explicitly gated."
+description: "Operate the standalone yxj Paper OS / Paper Production Graph Runtime as one public manager surface: inspect material authority, route feedback to accountable stages, compile bounded task/repair packets, validate outputs, and manage local backflow plus run retrospectives. Publication/submission claims remain owner-gated."
 ---
 
 # yxj-paper-os
@@ -9,104 +9,78 @@ Use this skill when the user wants to design, inspect, or operate a Codex-native
 
 ## Public surface
 
-Expose exactly one public manager surface: the main Codex agent manages the paper-production graph. Internal graph operations, validators, task-packet compilers, mock workers, and frontend panels are implementation lanes, not user-facing routes.
+Expose exactly one public manager surface: the main Codex agent manages the paper-production graph. Internal graph operations, validators, task-packet compilers, worker lanes, fixtures, and frontend panels are implementation surfaces, not user-facing routes.
 
-The runtime model is:
+The current runtime model is:
 
-> Explicit Material Graph + Local Backpropagation + Main-Agent Dispatch
+> Explicit Material Graph + Stage Accountability + Local Backpropagation + Run Retrospective Learning + Main-Agent Dispatch
 
-The main agent controls a versioned graph of materials, task packets, validators, review findings, backflow tasks, owner decisions, review closures, and delivery gates. Specialist agents and scripts may return candidates or reports; only the main agent/controller commits graph state or claims completion.
+The main agent is the **Paper Production Graph Runtime Controller**. It controls versioned materials, task packets, feedback packages, failure attributions, validators, review findings, backflow tasks, repair packets, run retrospectives, stage-improvement records, owner decisions, review closures, and delivery gates.
 
-When this skill is active, the main agent must explicitly act as the Paper Production Graph Runtime Controller. It reports paper state as graph position plus material authority, not as a flat file summary; user feedback is routed to the nearest responsible stage/material before any task is dispatched. See `docs/MANAGER_SURFACE_PROTOCOL.md`.
+Specialist agents and scripts may return candidates or evidence. Only the main agent/controller commits graph state or claims a node complete.
 
-## Current repository status
+## Standalone boundary
 
-This repository is the active `yxj-paper-os` plugin implemented as a Phase13 PPG runtime-pilot surface. It provides:
+`yxj-paper-os` owns its stage registry, material authority, validators, feedback lifecycle, and run records. It does not depend on OMX. OMX may be used personally as an optional orchestration adapter, but it is not a public interface, dependency, or authority source.
 
-- graph-state-read-only runtime adapter: `scripts/ppg_runtime_adapter.py`;
-- deterministic state reports: `examples/runtime-reports/overclaim-loop.phase7-state.{json,md}`;
-- interactive frontend: `docs/runtime-viewer/index.html` with roadmap, detailed graph, Runtime State, and Stage Coverage modes;
-- full-stage local-paper pilot fixtures under `examples/local-paper/security-state-aware-mixed-platoon/`;
-- one `PilotStageRun` for every canonical stage `S00-S16/G01/G02`, with explicit completion boundaries;
-- strict linked TaskPacket templates for every dispatchable worker stage plus run-owned packet materialization in the Phase10 dry-run;
-- explicit main-agent subagent lane policy in the canonical stage registry and StageContracts, classifying each stage as mandatory double-lane, conditional double-lane, or single-lane with deterministic validation;
-- Nature expert-writing stage-local overlay registry, StageContract links, TaskPacket overlay controls, and overlay validators;
-- Phase10 content validators and a runtime-owned dry-run fixture under `runs/security-state-aware-mixed-platoon/phase10-readiness-dry-run/`;
-- Phase12 formal full-flow runtime-test artifacts under `runs/security-state-aware-mixed-platoon/phase12-formal-full-flow-runtime-test/`;
-- Phase13 live native-subagent pilot artifacts under `runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot/`, with one producer and one independent verifier lane for every canonical stage;
-- source-read-only filesystem snapshot proof excluding `.git/.omx` plus forbidden-side-effect guards;
-- standard cross-repository paper workspace contract plus controlled LaTeX source-writeback plan/patchset executor with fixture-proven dry-run, default local apply, rollback guard, `latexmk` build validation, and scoped git commit after successful validation;
-- Phase7 vertical-slice proof and Phase6 strict task-packet regression gates;
-- local plugin manifest validation through the Codex plugin validator.
+## Controller doctrine
 
-Use the PPG-backed `yxj-paper-os` manager surface as the single public entry. Plugin install/cachebuster updates are explicit lifecycle operations; publication/submission claims remain owner-gated.
+A good integrated manuscript should emerge from high-quality upstream materials and bounded task packets. Review failure is treated as a signal that a stage/material/task packet/candidate did not meet its contract.
+
+Default loop:
+
+```text
+observe graph
+  -> select next frontier or feedback item
+  -> compile task/repair packet
+  -> dispatch worker or deterministic script
+  -> collect candidate output
+  -> validate
+  -> commit / reject / mark stale / create backflow
+  -> after full run, aggregate recurring failures into stage improvements
+```
+
+Do not rewrite the whole paper by default. First classify feedback, attribute it to the nearest responsible stage/material, repair only the affected scope, then revalidate downstream stale nodes.
 
 ## First documents to read
 
-1. `README.md`
+1. `README.md` or `README.zh-CN.md`
 2. `docs/MANAGER_SURFACE_PROTOCOL.md`
-3. `docs/PLAN.md`
-4. `docs/TOPOLOGY.md`
-5. `docs/VISUALIZATION_CONTRACT.md`
+3. `docs/RUNTIME_PROTOCOL.md`
+4. `docs/FEEDBACK_LIFECYCLE_PROTOCOL.md`
+5. `docs/BACKFLOW_PROTOCOL.md`
 6. `docs/MATERIAL_SCHEMA.md`
-7. `docs/RUNTIME_PROTOCOL.md`
-8. `docs/BACKFLOW_PROTOCOL.md`
-9. `docs/VALIDATION_AND_TESTING.md`
-10. `docs/NATURE_STAGE_OVERLAY_SPEC.md`
-11. `docs/phase-promotions/PHASE_13_LIVE_SUBAGENT_FULL_FLOW_PILOT_2026-06-30.md`
-12. `docs/phase-promotions/PHASE_12_FORMAL_FULL_FLOW_RUNTIME_TEST_2026-06-30.md`
-13. `docs/phase-promotions/PHASE_11_NATURE_STAGE_OVERLAY_ABSORPTION_2026-06-30.md`
-14. `docs/phase-promotions/PHASE_10_REAL_SUBAGENT_RUN_READINESS_2026-06-30.md`
-15. `docs/phase-promotions/PHASE_9_FULL_STAGE_LOCAL_PAPER_PILOT_2026-06-30.md`
-16. `docs/phase-promotions/PHASE_8_PLUGIN_FRONTEND_RUNTIME_SURFACE_2026-06-30.md`
-17. `docs/STANDARD_PAPER_WORKSPACE.md`
-18. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`
+7. `docs/TOPOLOGY.md`
+8. `docs/VALIDATION_AND_TESTING.md`
+9. `docs/STANDARD_PAPER_WORKSPACE.md` when a local paper repository is involved
+10. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md` when source writeback is requested or implied
+11. `runtime/stage_registry.json` and relevant StageContracts when mapping work to `S00-S16/G01/G02`
 
 ## Runtime inspection commands
 
-Use these local graph-state-read-only commands before claiming graph state:
+Use local graph-state-read-only commands before claiming graph state:
 
 ```bash
-python3 scripts/ppg_runtime_adapter.py \
-  --graph examples/runtime/overclaim-loop.phase7-after.json \
-  --format json
-
 python3 scripts/ppg_runtime_adapter.py \
   --graph examples/runtime/overclaim-loop.phase7-after.json \
   --format markdown
 ```
 
-To inspect the Phase9 full-stage local-paper pilot:
+Check lifecycle contracts:
 
 ```bash
-python3 scripts/import_local_paper_pilot.py \
-  --source /home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon \
-  --out examples/local-paper/security-state-aware-mixed-platoon \
-  --check
-
-python3 scripts/generate_local_paper_full_pilot.py \
-  --pilot-root examples/local-paper/security-state-aware-mixed-platoon \
-  --check
-
-python3 scripts/verify_local_paper_full_pilot.py \
-  examples/local-paper/security-state-aware-mixed-platoon
-
-python3 scripts/ppg_runtime_adapter.py \
-  --graph examples/runtime/overclaim-loop.phase7-after.json \
-  --stage-coverage examples/local-paper/security-state-aware-mixed-platoon/stage_coverage.json \
-  --format json
+python3 scripts/verify_lifecycle_contract.py
 ```
 
-
-For the Phase13 live native-subagent pilot gate:
+Check core stage contracts:
 
 ```bash
-python3 scripts/ingest_phase13_live_pilot.py
-python3 scripts/verify_phase13_live_subagent_pilot.py
-bash scripts/verify_phase13_live_subagent_pilot.sh
+python3 scripts/verify_stage_registry.py
+python3 scripts/verify_stage_contracts.py
+python3 scripts/verify_stage_overlays.py
 ```
 
-For the standard paper workspace and controlled LaTeX writeback gates:
+Check standard workspace and writeback contracts:
 
 ```bash
 python3 scripts/verify_paper_workspace_contract.py
@@ -114,50 +88,17 @@ python3 scripts/verify_latex_writeback_contract.py
 python3 scripts/verify_latex_writeback_execution.py
 ```
 
-For the Phase12 formal full-flow runtime-test gate:
-
-```bash
-python3 scripts/generate_phase12_full_flow_run.py --check
-python3 scripts/verify_phase12_full_flow_run.py
-bash scripts/verify_phase12_formal_full_flow.sh
-```
-
-For the complete local Phase10/Phase11 readiness gate:
-
-```bash
-bash scripts/verify_phase10_real_run_readiness.sh
-```
-For Nature stage-overlay checks:
-
-```bash
-python3 scripts/verify_stage_overlays.py
-python3 scripts/generate_phase10_run_dry_run.py --check
-python3 scripts/verify_phase10_run_readiness.py
-```
-
-For the canonical registry, StageContract, and main-agent lane-policy gate:
-
-```bash
-python3 scripts/verify_stage_registry.py
-python3 scripts/verify_stage_contracts.py
-```
-
-
-For the inherited Phase9 pilot gate:
-
-```bash
-bash scripts/verify_phase9_full_stage_runtime.sh
-```
-
 ## Completion rule
 
-A paper-production node is not complete because an agent produced text. It is complete only when the graph records candidate output, validator evidence, committed state, and scoped stale/backflow status. Review findings produce local backflow tasks; they do not authorize whole-paper rewrites by default.
+A paper-production node is not complete because an agent produced text. It is complete only when the graph records candidate output, validator evidence, committed state, and scoped stale/backflow status.
+
+Review findings and user feedback produce structured feedback/attribution/repair objects. They do not authorize whole-paper rewrites by default. Stage-improvement records are post-run system-learning proposals, not direct edits to the current paper.
 
 ## Safe operating boundaries
 
 - Treat owner decisions as semantic authority gates.
-- Treat runtime adapter output as graph-state-read-only inspection evidence; `--out` may write report files but must not overwrite the input graph.
+- Treat runtime adapter output as graph-state-read-only inspection evidence.
 - Treat frontend state as human-owner observability, not as a commit surface.
-- Keep graph-operation modules bounded by material/task/validator/backflow/delivery contracts.
-- Preserve existing validation gates before promoting any phase or manuscript state.
-- Treat `nature_expert_writing` as a stage-local overlay only; it may shape controls and validators but must not become a route, dispatcher, or completion authority.
+- Keep graph operations bounded by material/task/validator/feedback/backflow/delivery contracts.
+- Preserve validation gates before promoting any manuscript state.
+- Treat venue overlays as stage-local controls only; they may shape TaskPacket controls and validators but cannot become routes, dispatchers, or completion authority.

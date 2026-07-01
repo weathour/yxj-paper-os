@@ -1,0 +1,124 @@
+{
+  "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_1",
+      "ref": "initial files"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_2",
+      "ref": "result dirs"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_3",
+      "ref": "BibTeX"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s01_declared_input_4",
+      "ref": "source locators"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_readme-md",
+      "ref": "README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_handoff-md",
+      "ref": "HANDOFF.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_docs-current-plan-md",
+      "ref": "docs/CURRENT_PLAN.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_docs-latest-sync-brief-md",
+      "ref": "docs/LATEST_SYNC_BRIEF.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s01_source_ref_paper-os-materials-current-material-index-json",
+      "ref": "paper-os/materials/current-material-index.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s00_pilot_output",
+      "producer_stage_id": "S00",
+      "ref": "artifacts/S00-owner-semantic-contract.json"
+    }
+  ],
+  "contract_ref": "examples/stage-contracts/S01.stage-contract.json",
+  "coverage_kind": "source_projected",
+  "execution_mode": "hybrid_generated",
+  "exercise_level": "full_stage_exercised",
+  "produced_artifacts": [
+    {
+      "artifact_id": "s01_pilot_output",
+      "artifact_path": "artifacts/S01-source-citation-evidence-inventory.json",
+      "artifact_type": "analysis_material_projection",
+      "description": "source map; citation bank; evidence bank"
+    }
+  ],
+  "recommended_agent_type": "explore",
+  "schema_version": "ppg-pilot-stage-run/v0.1",
+  "source_projection_boundary": {
+    "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+    "read_only_source": true,
+    "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
+    "runtime_output_under_source": false,
+    "selected_source_fingerprints_unchanged": true,
+    "source_git_status_after": "?? ./\n",
+    "source_git_status_before": "?? ./\n",
+    "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
+    "source_status_unchanged": true,
+    "writes_to_source_allowed": false
+  },
+  "stage_id": "S01",
+  "stage_local_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "light",
+      "overlay_id": "nature_expert_writing",
+      "registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S01",
+      "validator_ref": "stage_overlay:nature_expert_writing:S01"
+    }
+  ],
+  "stage_name": "Source citation evidence inventory",
+  "status": "validated",
+  "validator_evidence": [
+    {
+      "evidence": "S01 links to examples/stage-contracts/S01.stage-contract.json with completion_gate present",
+      "status": "pass",
+      "validator": "stage_contract_link"
+    },
+    {
+      "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+      "status": "pass",
+      "validator": "source_read_only_fingerprint"
+    },
+    {
+      "evidence": "coverage_kind=source_projected; exercise_level=full_stage_exercised; no source manuscript write claimed",
+      "status": "pass",
+      "validator": "coverage_boundary"
+    },
+    {
+      "evidence": "S01 has Nature expert-writing overlay binding as stage-local metadata only",
+      "status": "pass",
+      "validator": "stage_local_overlay_binding"
+    }
+  ],
+  "worker_task_packet_evidence": {
+    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "packet_ref": null,
+    "required": false,
+    "return_contract_ref": null,
+    "status": "not_required"
+  }
+}
