@@ -559,7 +559,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         "run_id": RUN_ID,
         "project_slug": pilot_manifest.get("project_slug", "security-state-aware-mixed-platoon"),
         "generated_at": FIXED_GENERATED_AT,
-        "runtime_root": str(ROOT),
+        "runtime_root": ".",
         "run_root": repo_rel(run_root),
         "source_root": str(source_root),
         "pilot_root": repo_rel(pilot_root),
