@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate deterministic Phase9 full-stage local-paper pilot runs.
+"""Generate deterministic full-stage local-paper pilot runs.
 
 This is a projection pilot, not a manuscript-completion engine. It consumes the
 read-only local-paper manifest produced by import_local_paper_pilot.py, links each
@@ -18,7 +18,7 @@ import sys
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
+DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
 OVERLAY_REGISTRY_REF = "runtime/stage_overlay_registry.json"
@@ -60,7 +60,7 @@ STAGE_SOURCE_REFS = {
     "S06": ["manuscript/sections/03_problem_formulation.tex", "manuscript/sections/04_method.tex", "manuscript/sections/06_results_discussion.tex"],
     "S07": ["manuscript/main.tex", "manuscript/sections/01_introduction.tex", "manuscript/sections/07_conclusion.tex"],
     "S08": ["figures/README.md", "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json", "manuscript/sections/05_experiments.tex", "manuscript/sections/06_results_discussion.tex"],
-    "S09A": ["examples/local-paper/security-state-aware-mixed-platoon/materials/owner_contract.json", "examples/local-paper/security-state-aware-mixed-platoon/materials/source_inventory.json"],
+    "S09A": ["examples/local-paper/sample-paper-workspace/materials/owner_contract.json", "examples/local-paper/sample-paper-workspace/materials/source_inventory.json"],
     "S09B": ["examples/packets/intro_writing_packet.v2.yaml", "examples/packets/claim_repair_packet.v1.yaml"],
     "S10": ["manuscript/sections/01_introduction.tex", "manuscript/sections/04_method.tex", "manuscript/sections/06_results_discussion.tex"],
     "S11": ["figures/README.md", "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json"],
@@ -121,6 +121,13 @@ def repo_rel(path: Path) -> str:
         return str(path)
 
 
+def resolve_repo_ref(value: str | Path) -> Path:
+    path = Path(str(value)).expanduser()
+    if path.is_absolute():
+        return path.resolve(strict=True)
+    return (ROOT / path).resolve(strict=True)
+
+
 def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
@@ -177,8 +184,8 @@ def ensure_pilot_root_safe(manifest: dict[str, Any], pilot_root: Path) -> None:
 
     runtime_root = ROOT.resolve(strict=True)
     pilot_resolved = pilot_root.resolve(strict=True)
-    source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
-    manifest_output_root = Path(str(manifest.get("runtime_output_root", ""))).expanduser().resolve(strict=False)
+    source_root = resolve_repo_ref(str(manifest.get("source_root", "")))
+    manifest_output_root = resolve_repo_ref(str(manifest.get("runtime_output_root", "")))
     if is_relative_to(pilot_resolved, source_root) or pilot_resolved == source_root:
         raise ValueError("pilot_root must not be inside the source paper repository")
     if pilot_resolved != manifest_output_root:
@@ -307,7 +314,7 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
     status_match = manifest.get("source_git_status_before") == manifest.get("source_git_status_after")
     overlays = stage_local_overlays(contract)
     output_under_source = False
-    source_root = Path(str(manifest.get("source_root", ""))).resolve()
+    source_root = resolve_repo_ref(str(manifest.get("source_root", "")))
     try:
         output_under_source = pilot_root.resolve().is_relative_to(source_root)
     except ValueError:
@@ -371,7 +378,7 @@ def build_run(stage: dict[str, Any], contract: dict[str, Any], manifest: dict[st
     }
 
 
-def build_graph(registry: dict[str, Any], pilot_root: Path) -> dict[str, Any]:
+def build_graph(registry: dict[str, Any], pilot_root: Path, project_slug: str) -> dict[str, Any]:
     stages = registry["stages"]
     nodes = [
         {
@@ -391,8 +398,8 @@ def build_graph(registry: dict[str, Any], pilot_root: Path) -> dict[str, Any]:
     ]
     return {
         "schema_version": "ppg-pilot-stage-flow/v0.1",
-        "graph_id": "security-state-aware-mixed-platoon.phase9-full-stage-pilot",
-        "project_slug": "security-state-aware-mixed-platoon",
+        "graph_id": f"{project_slug}.full-stage-pilot",
+        "project_slug": project_slug,
         "nodes": nodes,
         "edges": edges,
         "must_contain_routes": [
@@ -407,7 +414,7 @@ def build_graph(registry: dict[str, Any], pilot_root: Path) -> dict[str, Any]:
     }
 
 
-def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_root: Path) -> dict[str, Any]:
+def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_root: Path, project_slug: str) -> dict[str, Any]:
     by_kind: dict[str, int] = {}
     by_level: dict[str, int] = {}
     worker_packet_status: dict[str, int] = {}
@@ -422,7 +429,7 @@ def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_ro
         overlay_binding_status[overlay_status] = overlay_binding_status.get(overlay_status, 0) + 1
     return {
         "schema_version": SUMMARY_SCHEMA_VERSION,
-        "project_slug": "security-state-aware-mixed-platoon",
+        "project_slug": project_slug,
         "stage_overlay_registry_ref": OVERLAY_REGISTRY_REF,
         "active_stage_overlays": [NATURE_OVERLAY_ID],
         "canonical_stage_count": len(registry["canonical_stage_ids"]),
@@ -454,7 +461,8 @@ def build_summary(registry: dict[str, Any], runs: list[dict[str, Any]], pilot_ro
 def generate(pilot_root: Path) -> dict[str, Any]:
     manifest = load_json(pilot_root / "manifest.json")
     ensure_pilot_root_safe(manifest, pilot_root)
-    source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
+    source_root = resolve_repo_ref(str(manifest.get("source_root", "")))
+    project_slug = str(manifest.get("project_slug") or pilot_root.name)
     registry = load_json(REGISTRY)
     stage_run_dir = pilot_root / "stage-runs"
     artifact_refs = {stage["stage_id"]: f"artifacts/{stage['stage_id']}-{slug(stage['stage_name'])}.json" for stage in registry["stages"]}
@@ -473,15 +481,15 @@ def generate(pilot_root: Path) -> dict[str, Any]:
         run = build_run(stage, contract, manifest, pilot_root, artifact_rel, artifact_refs)
         write_json(stage_run_dir / f"{sid}.pilot-stage-run.json", run, pilot_root=pilot_root, source_root=source_root)
         runs.append(run)
-    graph = build_graph(registry, pilot_root)
-    summary = build_summary(registry, runs, pilot_root)
+    graph = build_graph(registry, pilot_root, project_slug)
+    summary = build_summary(registry, runs, pilot_root, project_slug)
     write_json(pilot_root / "graph.json", graph, pilot_root=pilot_root, source_root=source_root)
     write_json(pilot_root / "stage_coverage.json", summary, pilot_root=pilot_root, source_root=source_root)
     return summary
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate Phase9 local-paper full-stage PilotStageRun fixtures.")
+    parser = argparse.ArgumentParser(description="Generate local-paper full-stage PilotStageRun fixtures.")
     parser.add_argument("--pilot-root", type=Path, default=DEFAULT_PILOT, help="Local-paper pilot root created by import_local_paper_pilot.py")
     parser.add_argument("--check", action="store_true", help="Run the full pilot verifier after generation")
     args = parser.parse_args(argv)

@@ -1,0 +1,40 @@
+{
+  "completion_boundary": "Phase12 formal runtime-test gate passed for controller flow only; no manuscript or submission readiness claim is made.",
+  "consumed_closure_refs": [
+    "closures/S15-overclaim-locality.review-closure.json"
+  ],
+  "consumed_stage_count": 20,
+  "consumed_stage_ids": [
+    "S00",
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09A",
+    "S09B",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "G01",
+    "G02"
+  ],
+  "no_final_manuscript_claim": true,
+  "no_submission_ready_claim": true,
+  "open_risks": [
+    "Deterministic candidates are runtime-test evidence, not live worker manuscript quality evidence.",
+    "A later phase may replace deterministic candidates with live subagent returns."
+  ],
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-delivery-gate/v0.1",
+  "source_read_only_verified": true,
+  "stage_id": "S16",
+  "verdict": "pass_for_runtime_test_only"
+}

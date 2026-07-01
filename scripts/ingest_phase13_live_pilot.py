@@ -11,11 +11,11 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_source_snapshot_no_runtime_artifacts, load_json, write_json, write_text
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_source_snapshot_no_runtime_artifacts, load_json, resolve_repo_ref, write_json, write_text
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, BANNED_COMPLETION, build_prompt
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_source_snapshot_no_runtime_artifacts, load_json, write_json, write_text  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_source_snapshot_no_runtime_artifacts, load_json, resolve_repo_ref, write_json, write_text  # type: ignore  # noqa: E402
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, BANNED_COMPLETION, build_prompt  # type: ignore  # noqa: E402
 
 VERDICTS = ["accept_with_limitations", "needs_repair", "reject", "accept"]
@@ -151,7 +151,7 @@ def ingest(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEFAULT_PILOT) 
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
     pilot_manifest = load_json(pilot_root / "manifest.json")
-    source_root = Path(str(pilot_manifest["source_root"])).resolve(strict=True)
+    source_root = resolve_repo_ref(str(pilot_manifest["source_root"]))
     state = load_json(run_root / "run_state.json")
     threads_doc = update_threads(run_root, load_json(run_root / "subagent_threads.json"))
     threads_doc = backfill_verifier_grounding(run_root, state, threads_doc, source_root)

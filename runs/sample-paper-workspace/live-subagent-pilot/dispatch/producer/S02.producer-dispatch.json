@@ -1,0 +1,16 @@
+{
+  "agent_type": "researcher",
+  "authority_mode": "production_candidate",
+  "dispatch_prompt_ref": "prompts/producer/S02.producer-prompt.md",
+  "dispatch_prompt_sha256": "c510924581113e0f898312fc58ab4e4da6b0ff58051871ff0b5c99f9ede10701",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-003-S02-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S02.producer-packet.json",
+  "packet_sha256": "39a1954f8d68fbc1297230409854636e4a9fdc9cce04a3a17b20500738b4f951",
+  "raw_return_ref": "returns/producer/S02.producer-return.md",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S02",
+  "status": "prepared"
+}

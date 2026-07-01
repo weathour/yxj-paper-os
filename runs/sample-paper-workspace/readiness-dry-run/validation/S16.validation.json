@@ -1,0 +1,41 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S16",
+      "validator_ref": "stage_overlay:nature_expert_writing:S16"
+    }
+  ],
+  "completion_boundary": "validation proves run readiness only; controller retains completion authority",
+  "dimension_count": 4,
+  "evidence": [
+    "S16 StageContract is linked",
+    "S16 PilotStageRun is present",
+    "S16 content validator dimensions are present",
+    "S16 Nature overlay binding is present"
+  ],
+  "required_checks": [
+    "source_or_material_trace",
+    "completion_boundary_explicit",
+    "controller_owned_status",
+    "owner_gate_or_export_hygiene",
+    "stage_overlay_binding",
+    "controller_route_only"
+  ],
+  "run_id": "sample-paper-workspace.readiness-dry-run",
+  "schema_version": "ppg-phase10-stage-validation/v0.1",
+  "stage_id": "S16",
+  "stage_overlay_checks": [
+    "nature_overlay_binding:S16",
+    "controller_owned_completion",
+    "controller_route_only",
+    "no_submission_ready_overclaim",
+    "owner_gate_or_export_hygiene"
+  ],
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+  "status": "pass",
+  "validator_id": "phase10_s16_content_validator"
+}

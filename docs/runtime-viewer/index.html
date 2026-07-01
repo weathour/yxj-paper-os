@@ -67,7 +67,6 @@
           <button id="runtimeStateMode" type="button">Runtime State</button>
           <button id="stageCoverageMode" type="button">Stage Coverage</button>
           <button id="resetFocus" type="button">重置聚焦</button>
-          <button id="showReference" type="button">显示/隐藏原图</button>
         </div>
         <div class="toolbar-group" aria-label="缩放控制">
           <button id="fitWidth" type="button">适合宽度</button>
@@ -111,7 +110,7 @@
             <h2>本地论文全环节 PilotStageRun 面板</h2>
             <p>由 <code>scripts/generate_local_paper_full_pilot.py</code> 与 <code>scripts/verify_local_paper_full_pilot.py</code> 生成/验证；展示每个环节的输入投影、输出物料、任务包状态和完成边界。</p>
           </div>
-          <a class="link-button" href="../../examples/local-paper/security-state-aware-mixed-platoon/stage_coverage.json">打开 stage_coverage.json</a>
+          <a class="link-button" href="../../examples/local-paper/sample-paper-workspace/stage_coverage.json">打开 stage_coverage.json</a>
         </div>
         <div id="stageCoverageContent" class="runtime-state-content"></div>
       </section>
@@ -148,10 +147,6 @@
         </div>
       </div>
 
-      <figure id="referenceFigure" class="reference-figure" hidden>
-        <img src="../diagrams/ppg-runtime-control-block.png" alt="PPG runtime 完整控制框图" />
-        <figcaption>静态 draw.io 控制框图，用于和交互视图交叉核对。</figcaption>
-      </figure>
     </section>
 
     <aside class="detail-panel" aria-live="polite">

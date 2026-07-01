@@ -26,7 +26,9 @@ try:
         load_json,
         load_task_packet_template,
         overlay_binding_by_stage,
+        portable_ref,
         repo_rel,
+        resolve_repo_ref,
         stage_overlay_summary,
         write_json,
         write_text,
@@ -44,17 +46,19 @@ except ImportError:  # pragma: no cover
         load_json,
         load_task_packet_template,
         overlay_binding_by_stage,
+        portable_ref,
         repo_rel,
+        resolve_repo_ref,
         stage_overlay_summary,
         write_json,
         write_text,
     )
 
-DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
-DEFAULT_RUN_ROOT = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase12-formal-full-flow-runtime-test"
+DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
+DEFAULT_RUN_ROOT = ROOT / "runs" / "sample-paper-workspace" / "formal-full-flow-runtime-test"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 VALIDATORS = ROOT / "runtime" / "phase10_content_validators.json"
-RUN_ID = "security-state-aware-mixed-platoon.phase12-formal-full-flow-runtime-test"
+RUN_ID = "sample-paper-workspace.formal-full-flow-runtime-test"
 SCHEMA_VERSION = "ppg-phase12-run-state/v0.1"
 FIXED_GENERATED_AT = "2026-06-30T00:00:00Z"
 OWNERSHIP_MARKER = ".phase12-run-root.json"
@@ -134,7 +138,7 @@ def write_ownership_marker(run_root: Path, source_root: Path) -> None:
         "schema_version": "ppg-phase12-run-root-owner/v0.1",
         "run_id": RUN_ID,
         "run_root": repo_rel(run_root),
-        "ownership": "phase12-formal-full-flow-runtime-test",
+        "ownership": "formal-full-flow-runtime-test",
         "cleanup_authority": "this directory may be cleaned only by Phase12 after this marker or a matching Phase12 manifest is present",
     }
     write_json(run_root / OWNERSHIP_MARKER, marker, run_root, source_root)
@@ -299,7 +303,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
     pilot_manifest = load_json(pilot_root / "manifest.json")
-    source_root = Path(str(pilot_manifest["source_root"])).resolve(strict=True)
+    source_root = resolve_repo_ref(str(pilot_manifest["source_root"]))
     clean_run_root(run_root, source_root)
 
     registry = load_json(REGISTRY)
@@ -557,11 +561,11 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     manifest = {
         "schema_version": "ppg-phase12-run-manifest/v0.1",
         "run_id": RUN_ID,
-        "project_slug": pilot_manifest.get("project_slug", "security-state-aware-mixed-platoon"),
+        "project_slug": pilot_manifest.get("project_slug", "sample-paper-workspace"),
         "generated_at": FIXED_GENERATED_AT,
         "runtime_root": ".",
         "run_root": repo_rel(run_root),
-        "source_root": str(source_root),
+        "source_root": portable_ref(source_root),
         "pilot_root": repo_rel(pilot_root),
         "source_read_only": True,
         "writes_to_source_allowed": False,

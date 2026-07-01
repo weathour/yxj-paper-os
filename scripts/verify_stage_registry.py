@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the Phase9 canonical stage registry."""
+"""Verify the canonical Paper OS stage registry."""
 from __future__ import annotations
 
 import copy
@@ -91,7 +91,7 @@ def validate_registry(data: dict[str, Any]) -> list[str]:
     if data.get("schema_version") != "ppg-stage-registry/v0.1":
         errors.append(issue("E_STAGE_REGISTRY_SCHEMA", "schema_version must be ppg-stage-registry/v0.1"))
     if data.get("canonical_stage_ids") != REQUIRED_STAGE_IDS:
-        errors.append(issue("E_STAGE_REGISTRY_CANONICAL_IDS", "canonical_stage_ids must match the exact Phase9 list"))
+        errors.append(issue("E_STAGE_REGISTRY_CANONICAL_IDS", "canonical_stage_ids must match the exact Paper OS list"))
     if set(data.get("execution_mode_enum", [])) != EXECUTION_MODES:
         errors.append(issue("E_STAGE_REGISTRY_MODE_ENUM", "execution_mode_enum drifted"))
     stages = data.get("stages")
@@ -181,7 +181,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print("PHASE9_STAGE_REGISTRY_OK")
+    print("PPG_STAGE_REGISTRY_OK")
     return 0
 
 

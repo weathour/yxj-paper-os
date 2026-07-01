@@ -20,13 +20,13 @@ from typing import Any
 from ppg_validate_common import load_document
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
-DEFAULT_RUN_ROOT = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase10-readiness-dry-run"
+DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
+DEFAULT_RUN_ROOT = ROOT / "runs" / "sample-paper-workspace" / "readiness-dry-run"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 VALIDATORS = ROOT / "runtime" / "phase10_content_validators.json"
 OVERLAY_REGISTRY = ROOT / "runtime" / "stage_overlay_registry.json"
 SCHEMA_VERSION = "ppg-run-state/v0.1"
-RUN_ID = "security-state-aware-mixed-platoon.phase10-readiness-dry-run"
+RUN_ID = "sample-paper-workspace.readiness-dry-run"
 FIXED_GENERATED_AT = "2026-06-30T00:00:00Z"
 NATURE_OVERLAY_ID = "nature_expert_writing"
 
@@ -91,6 +91,17 @@ def repo_rel(path: Path) -> str:
         return str(path)
 
 
+def resolve_repo_ref(value: str | Path) -> Path:
+    path = Path(str(value)).expanduser()
+    if path.is_absolute():
+        return path.resolve(strict=True)
+    return (ROOT / path).resolve(strict=True)
+
+
+def portable_ref(path: Path) -> str:
+    return repo_rel(path)
+
+
 def is_relative_to(child: Path, parent: Path) -> bool:
     try:
         child.relative_to(parent)
@@ -146,7 +157,7 @@ def compute_source_snapshot(source_root: Path) -> dict[str, Any]:
     status = run_git(source_root, ["status", "--porcelain=v1", "--untracked-files=all", "--", "."]).splitlines()
     return {
         "schema_version": "ppg-source-snapshot/v0.1",
-        "source_root": str(source_root),
+        "source_root": portable_ref(source_root),
         "git_status_porcelain_v1": status,
         "entry_count": len(entries),
         "entries": entries,
@@ -299,7 +310,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
     pilot_manifest = load_json(pilot_root / "manifest.json")
-    source_root = Path(str(pilot_manifest["source_root"])).resolve(strict=True)
+    source_root = resolve_repo_ref(str(pilot_manifest["source_root"]))
     ensure_run_root_safe(run_root, source_root)
     run_root.mkdir(parents=True, exist_ok=True)
     ensure_run_root_safe(run_root, source_root)
@@ -410,11 +421,11 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     manifest = {
         "schema_version": "ppg-phase10-run-manifest/v0.1",
         "run_id": RUN_ID,
-        "project_slug": pilot_manifest.get("project_slug", "security-state-aware-mixed-platoon"),
+        "project_slug": pilot_manifest.get("project_slug", "sample-paper-workspace"),
         "generated_at": FIXED_GENERATED_AT,
         "runtime_root": ".",
         "run_root": repo_rel(run_root),
-        "source_root": str(source_root),
+        "source_root": portable_ref(source_root),
         "pilot_root": repo_rel(pilot_root),
         "source_snapshot_scope": "all files, directories, and symlinks below source_root excluding .git and volatile .omx runtime state; git status is scoped to source_root",
         "source_read_only": True,

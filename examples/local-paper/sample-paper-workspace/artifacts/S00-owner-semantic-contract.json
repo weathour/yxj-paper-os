@@ -17,7 +17,7 @@
   ],
   "purpose": "Convert human need into bounded paper commitments and owner decisions.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
-  "source_project": "security-state-aware-mixed-platoon",
+  "source_project": "sample-paper-workspace",
   "stage_id": "S00",
   "stage_local_overlays": [
     {

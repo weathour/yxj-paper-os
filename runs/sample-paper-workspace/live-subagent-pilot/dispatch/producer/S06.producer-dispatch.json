@@ -1,0 +1,16 @@
+{
+  "agent_type": "architect",
+  "authority_mode": "production_candidate",
+  "dispatch_prompt_ref": "prompts/producer/S06.producer-prompt.md",
+  "dispatch_prompt_sha256": "d91185a8d1611d2e3434b75525cbf2e9cf82dc982c9840d07998551878642844",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-007-S06-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S06.producer-packet.json",
+  "packet_sha256": "5da2be7b774d1a65a72c6bfa12fd22a56e4dfbd606da56266e0e0faaa7ca2596",
+  "raw_return_ref": "returns/producer/S06.producer-return.md",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S06",
+  "status": "prepared"
+}

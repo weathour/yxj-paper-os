@@ -1,0 +1,88 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S08",
+      "validator_ref": "stage_overlay:nature_expert_writing:S08"
+    }
+  ],
+  "candidate_output_path": "candidate-artifacts/S08.candidate.json",
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s08_declared_input_1",
+      "ref": "reader spine"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s08_declared_input_2",
+      "ref": "section function budget"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s08_declared_input_3",
+      "ref": "claim evidence materials"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s08_source_ref_figures-readme-md",
+      "ref": "figures/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s08_source_ref_experiments-results-l3-method-faithful-unified-s",
+      "ref": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s08_source_ref_manuscript-sections-05-experiments-tex",
+      "ref": "manuscript/sections/05_experiments.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s08_source_ref_manuscript-sections-06-results-discussion-tex",
+      "ref": "manuscript/sections/06_results_discussion.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s04_pilot_output",
+      "producer_stage_id": "S04",
+      "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s05_pilot_output",
+      "producer_stage_id": "S05",
+      "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s06_pilot_output",
+      "producer_stage_id": "S06",
+      "ref": "artifacts/S06-object-representation-and-granularity-design.json"
+    }
+  ],
+  "content_validator_id": "phase10_s08_content_validator",
+  "content_validator_ref": "runtime/phase10_content_validators.json",
+  "owner_decision_refs": [
+    "owner_decision_log.jsonl#source_write_policy"
+  ],
+  "packet_ref": "packets/S08.task-packet.json",
+  "packet_template_ref": "examples/packets/phase10_s08_visual_formal_planning_packet.v1.yaml",
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-dispatch-record/v0.1",
+  "source_read_only": true,
+  "stage_contract_ref": "examples/stage-contracts/S08.stage-contract.json",
+  "stage_id": "S08",
+  "stage_name": "Visual and formal object planning",
+  "worker_authority": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true,
+    "source_write_forbidden": true
+  }
+}

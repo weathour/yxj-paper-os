@@ -66,12 +66,13 @@ from pathlib import Path
 import sys
 sys.path.insert(0, 'scripts')
 import generate_phase12_full_flow_run as gen
+from generate_phase10_run_dry_run import resolve_repo_ref
 pilot_manifest = gen.load_json(gen.DEFAULT_PILOT / 'manifest.json')
-source_root = Path(str(pilot_manifest['source_root'])).resolve(strict=True)
+source_root = resolve_repo_ref(str(pilot_manifest['source_root']))
 called = []
 def fake_rmtree(path):
     called.append(str(path))
-for target in [gen.ROOT / 'runs', gen.ROOT / 'runs' / 'security-state-aware-mixed-platoon']:
+for target in [gen.ROOT / 'runs', gen.ROOT / 'runs' / 'sample-paper-workspace']:
     gen.shutil.rmtree = fake_rmtree
     try:
         gen.clean_run_root(target, source_root)

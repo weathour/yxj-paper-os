@@ -9,8 +9,8 @@ repo_negative_pilot="$repo_root/examples/local-paper/.phase9-negative-symlink"
 cleanup() { rm -rf "$tmp_dir" "$repo_negative_pilot"; }
 trap cleanup EXIT
 
-pilot_root="examples/local-paper/security-state-aware-mixed-platoon"
-source_root="/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon"
+pilot_root="examples/local-paper/sample-paper-workspace"
+source_root="examples/sample-paper-workspace"
 stage_coverage="$pilot_root/stage_coverage.json"
 
 negative_source="$tmp_dir/fake-source"
@@ -157,7 +157,7 @@ python3 scripts/ppg_runtime_adapter.py \
   --stage-coverage "$stage_coverage" \
   --format markdown \
   --out "$tmp_dir/runtime-with-stage-coverage.md"
-grep -q '## Phase9 Stage Coverage' "$tmp_dir/runtime-with-stage-coverage.md"
+grep -q '## Stage Coverage' "$tmp_dir/runtime-with-stage-coverage.md"
 if python3 scripts/ppg_runtime_adapter.py \
   --graph examples/runtime/overclaim-loop.phase7-after.json \
   --stage-coverage "$stage_coverage" \

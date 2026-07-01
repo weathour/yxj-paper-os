@@ -1,0 +1,11 @@
+{
+  "closure_id": "phase12_overclaim_locality_closure_v1",
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "delivery_gate_consumed": true,
+  "repair_candidate_ref": "repair-artifacts/S15-overclaim-locality.repair-candidate.json",
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-review-closure/v0.1",
+  "source_backflow_task_ref": "backflow-tasks/S14-overclaim-locality.backflow-task.json",
+  "source_finding_ref": "review-findings/S13-overclaim-locality.review-finding.json",
+  "status": "closed_for_runtime_test"
+}

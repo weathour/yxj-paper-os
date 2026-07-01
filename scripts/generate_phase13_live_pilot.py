@@ -16,16 +16,16 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, ensure_source_snapshot_no_runtime_artifacts, is_relative_to, load_json, repo_rel, write_json, write_text
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, ensure_source_snapshot_no_runtime_artifacts, is_relative_to, load_json, portable_ref, repo_rel, resolve_repo_ref, write_json, write_text
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, ensure_source_snapshot_no_runtime_artifacts, is_relative_to, load_json, repo_rel, write_json, write_text  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, ensure_run_root_safe, ensure_source_snapshot_no_runtime_artifacts, is_relative_to, load_json, portable_ref, repo_rel, resolve_repo_ref, write_json, write_text  # type: ignore  # noqa: E402
 
-DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
-DEFAULT_RUN_ROOT = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase13-live-subagent-full-flow-pilot"
+DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
+DEFAULT_RUN_ROOT = ROOT / "runs" / "sample-paper-workspace" / "live-subagent-pilot"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
-PHASE12_RUN = ROOT / "runs" / "security-state-aware-mixed-platoon" / "phase12-formal-full-flow-runtime-test"
-RUN_ID = "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot"
+PHASE12_RUN = ROOT / "runs" / "sample-paper-workspace" / "formal-full-flow-runtime-test"
+RUN_ID = "sample-paper-workspace.live-subagent-pilot"
 SCHEMA_VERSION = "ppg-phase13-run-state/v0.1"
 FIXED_GENERATED_AT = "2026-06-30T00:00:00Z"
 OWNERSHIP_MARKER = ".phase13-run-root.json"
@@ -141,7 +141,7 @@ def clean_run_root(run_root: Path, source_root: Path) -> None:
         "schema_version": "ppg-phase13-run-root-owner/v0.1",
         "run_id": RUN_ID,
         "run_root": repo_rel(run_root),
-        "ownership": "phase13-live-subagent-full-flow-pilot",
+        "ownership": "live-subagent-pilot",
         "cleanup_authority": "Phase13 may clean this directory only after this marker or matching manifest is present",
     }, run_root, source_root)
 
@@ -213,9 +213,9 @@ Producer return grounding:
 - producer_thread_id: {packet.get('producer_thread_id') or 'pending-until-producer-recorded'}
 You must consume the producer return above and refer to it as the producer return in your critique.
 """
-    return f"""You are a Phase13 live-subagent {lane} lane for the PPG runtime.
+    return f"""You are a live-subagent {lane} lane for the PPG runtime.
 
-Repository: /home/weathour/plugins/yxj-paper-os
+Repository: resolve from the current plugin checkout root before reading `{packet_ref}`.
 Stage: {sid} — {stage['stage_name']}
 Packet citation: {packet_ref}
 Agent type requested: {packet['agent_type']}
@@ -245,7 +245,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
     pilot_manifest = load_json(pilot_root / "manifest.json")
-    source_root = Path(str(pilot_manifest["source_root"])).resolve(strict=True)
+    source_root = resolve_repo_ref(str(pilot_manifest["source_root"]))
     clean_run_root(run_root, source_root)
 
     registry = load_json(REGISTRY)
@@ -331,7 +331,7 @@ def generate(run_root: Path, pilot_root: Path) -> dict[str, Any]:
         "generated_at": FIXED_GENERATED_AT,
         "runtime_root": ".",
         "run_root": repo_rel(run_root),
-        "source_root": str(source_root),
+        "source_root": portable_ref(source_root),
         "pilot_root": repo_rel(pilot_root),
         "phase12_run_ref": repo_rel(PHASE12_RUN),
         "source_read_only": True,

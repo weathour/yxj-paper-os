@@ -96,7 +96,9 @@
       ],
       "completion_forbidden": true,
       "no_recursive_orchestration": true,
-      "owner_gate_required": false
+      "owner_gate_required": false,
+      "task_packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+      "backflow_task_ref": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml"
     }
   ],
   "retrospectives": [

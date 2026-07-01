@@ -1,7 +1,0 @@
-{
-  "cleanup_authority": "Phase13 may clean this directory only after this marker or matching manifest is present",
-  "ownership": "phase13-live-subagent-full-flow-pilot",
-  "run_id": "security-state-aware-mixed-platoon.phase13-live-subagent-full-flow-pilot",
-  "run_root": "runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot",
-  "schema_version": "ppg-phase13-run-root-owner/v0.1"
-}

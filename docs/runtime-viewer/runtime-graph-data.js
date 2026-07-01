@@ -112,183 +112,183 @@ window.PPG_RUNTIME_GRAPH = (() => {
     { id: 'runtime-core', label: '执行核心', nodes: ['CTRL','GRAPH','VALIDATORS','BUS','S09A','S09B','S13','S14','S15','S16'] },
   ];
   const runtimeState = {
-  "active_versions": [
-    {
-      "active_node": "claim_boundary_map_v2",
-      "artifact_path": "examples/materials/claim_boundary_map.v2.yaml",
-      "material_id": "claim_boundary_map",
-      "status": "committed",
-      "version": "v2"
+    "active_versions": [
+        {
+            "active_node": "claim_boundary_map_v2",
+            "artifact_path": "examples/materials/claim_boundary_map.v2.yaml",
+            "material_id": "claim_boundary_map",
+            "status": "committed",
+            "version": "v2"
+        },
+        {
+            "active_node": "evidence_inventory_v1",
+            "artifact_path": "examples/materials/evidence_inventory.v1.yaml",
+            "material_id": "evidence_inventory",
+            "status": "committed",
+            "version": "v1"
+        },
+        {
+            "active_node": "reader_spine_v1",
+            "artifact_path": "examples/materials/reader_spine.v1.yaml",
+            "material_id": "reader_spine",
+            "status": "committed",
+            "version": "v1"
+        }
+    ],
+    "backflow_tasks": [
+        {
+            "artifact_path": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml",
+            "id": "phase7_overclaim_review_finding_v1_backflow_v1",
+            "label": "Overclaim backflow task v1",
+            "node_type": "backflow_task",
+            "source_findings": [
+                "phase7_overclaim_review_finding_v1"
+            ],
+            "status": "planned",
+            "summary": "Compiled local backflow task that maps claim_overreach to active ClaimBoundaryMap repair target.",
+            "targets": [],
+            "version": "v1"
+        },
+        {
+            "id": "repair_claim_boundary_task_v1",
+            "label": "Repair ClaimBoundaryMap task v1",
+            "node_type": "backflow_task",
+            "source_findings": [
+                "finding_overclaim_v1"
+            ],
+            "status": "validated",
+            "summary": "Backflow task that creates claim_boundary_map_v2.",
+            "targets": [
+                "claim_boundary_map_v2",
+                "claim_boundary_map_candidate_v3"
+            ],
+            "version": "v1"
+        }
+    ],
+    "candidate_materials": [
+        {
+            "artifact_path": "examples/materials/claim_boundary_map.v3-candidate.yaml",
+            "candidate_for": "claim_boundary_map",
+            "id": "claim_boundary_map_candidate_v3",
+            "label": "ClaimBoundaryMap v3 candidate",
+            "material_id": "claim_boundary_map",
+            "node_type": "material",
+            "status": "candidate",
+            "summary": "Candidate future revision; not active.",
+            "version": "v3-candidate"
+        }
+    ],
+    "closed_review_findings": [
+        {
+            "artifact_path": "examples/review_findings/phase7_overclaim.v1.yaml",
+            "classified_repair": true,
+            "closed_by": [
+                "phase7_overclaim_closure_v1"
+            ],
+            "closure_status": "closed",
+            "failure_type": "claim_overreach",
+            "id": "phase7_overclaim_review_finding_v1",
+            "invalidates": [
+                "claim_boundary_map_v1"
+            ],
+            "label": "Finding: intro overclaim v1",
+            "node_type": "review_finding",
+            "primary_target": "claim_boundary_map_v1",
+            "repair_tasks": [
+                "phase7_overclaim_review_finding_v1_backflow_v1"
+            ],
+            "status": "validated",
+            "summary": "Mock reviewer found universal safety overclaim in intro_draft_v1.",
+            "version": "v1"
+        }
+    ],
+    "completion_blockers": [
+        "candidate claim_boundary_map_candidate_v3 cannot commit: candidate status must be validated before commit; candidate must declare supersedes=claim_boundary_map_v2; candidate must have supersedes edge claim_boundary_map_candidate_v3 -> claim_boundary_map_v2; candidate-specific validator edge is required; candidate-specific validation report reference is required"
+    ],
+    "delivery_gates": [
+        {
+            "artifact_path": "examples/delivery/phase7_delivery_gate.pass.yaml",
+            "id": "phase7_delivery_gate_v1",
+            "label": "DeliveryGate v1",
+            "node_type": "validation_report",
+            "report_id": "phase7_delivery_gate_v1",
+            "reported_by": [],
+            "status": "validated",
+            "summary": "DeliveryGate pass for the deterministic intro overclaim repair vertical slice.",
+            "validates": [],
+            "version": "v1"
+        }
+    ],
+    "graph": {
+        "edge_count": 31,
+        "graph_id": "phase2-overclaim-material-graph",
+        "node_count": 22,
+        "source_path": "examples/runtime/overclaim-loop.phase7-after.json",
+        "title": "Deterministic Overclaim Repair Vertical Slice"
     },
-    {
-      "active_node": "evidence_inventory_v1",
-      "artifact_path": "examples/materials/evidence_inventory.v1.yaml",
-      "material_id": "evidence_inventory",
-      "status": "committed",
-      "version": "v1"
+    "next_frontier": {
+        "id": "claim_boundary_map_candidate_v3",
+        "kind": "material",
+        "priority": 5,
+        "reason": "candidate_material_awaiting_validation_or_commit_plan"
     },
-    {
-      "active_node": "reader_spine_v1",
-      "artifact_path": "examples/materials/reader_spine.v1.yaml",
-      "material_id": "reader_spine",
-      "status": "committed",
-      "version": "v1"
-    }
-  ],
-  "backflow_tasks": [
-    {
-      "artifact_path": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml",
-      "id": "phase7_overclaim_review_finding_v1_backflow_v1",
-      "label": "Phase7 overclaim backflow task v1",
-      "node_type": "backflow_task",
-      "source_findings": [
-        "phase7_overclaim_review_finding_v1"
-      ],
-      "status": "planned",
-      "summary": "Compiled local backflow task that maps claim_overreach to active ClaimBoundaryMap repair target.",
-      "targets": [],
-      "version": "v1"
-    },
-    {
-      "id": "repair_claim_boundary_task_v1",
-      "label": "Repair ClaimBoundaryMap task v1",
-      "node_type": "backflow_task",
-      "source_findings": [
-        "finding_overclaim_v1"
-      ],
-      "status": "validated",
-      "summary": "Backflow task that creates claim_boundary_map_v2.",
-      "targets": [
-        "claim_boundary_map_v2",
-        "claim_boundary_map_candidate_v3"
-      ],
-      "version": "v1"
-    }
-  ],
-  "candidate_materials": [
-    {
-      "artifact_path": "examples/materials/claim_boundary_map.v3-candidate.yaml",
-      "candidate_for": "claim_boundary_map",
-      "id": "claim_boundary_map_candidate_v3",
-      "label": "ClaimBoundaryMap v3 candidate",
-      "material_id": "claim_boundary_map",
-      "node_type": "material",
-      "status": "candidate",
-      "summary": "Candidate future revision; not active.",
-      "version": "v3-candidate"
-    }
-  ],
-  "closed_review_findings": [
-    {
-      "artifact_path": "examples/review_findings/phase7_overclaim.v1.yaml",
-      "classified_repair": true,
-      "closed_by": [
-        "phase7_overclaim_closure_v1"
-      ],
-      "closure_status": "closed",
-      "failure_type": "claim_overreach",
-      "id": "phase7_overclaim_review_finding_v1",
-      "invalidates": [
-        "claim_boundary_map_v1"
-      ],
-      "label": "Phase7 finding: intro overclaim v1",
-      "node_type": "review_finding",
-      "primary_target": "claim_boundary_map_v1",
-      "repair_tasks": [
-        "phase7_overclaim_review_finding_v1_backflow_v1"
-      ],
-      "status": "validated",
-      "summary": "Mock reviewer found universal safety overclaim in intro_draft_v1.",
-      "version": "v1"
-    }
-  ],
-  "completion_blockers": [
-    "candidate claim_boundary_map_candidate_v3 cannot commit: candidate status must be validated before commit; candidate must declare supersedes=claim_boundary_map_v2; candidate must have supersedes edge claim_boundary_map_candidate_v3 -> claim_boundary_map_v2; candidate-specific validator edge is required; candidate-specific validation report reference is required"
-  ],
-  "delivery_gates": [
-    {
-      "artifact_path": "examples/delivery/phase7_delivery_gate.pass.yaml",
-      "id": "phase7_delivery_gate_v1",
-      "label": "Phase7 DeliveryGate v1",
-      "node_type": "validation_report",
-      "report_id": "phase7_delivery_gate_v1",
-      "reported_by": [],
-      "status": "validated",
-      "summary": "DeliveryGate pass for the deterministic intro overclaim repair vertical slice.",
-      "validates": [],
-      "version": "v1"
-    }
-  ],
-  "graph": {
-    "edge_count": 31,
-    "graph_id": "phase2-overclaim-material-graph",
-    "node_count": 22,
-    "source_path": "examples/runtime/overclaim-loop.phase7-after.json",
-    "title": "Phase 7 Deterministic Overclaim Repair Vertical Slice"
-  },
-  "next_frontier": {
-    "id": "claim_boundary_map_candidate_v3",
-    "kind": "material",
-    "priority": 5,
-    "reason": "candidate_material_awaiting_validation_or_commit_plan"
-  },
-  "open_review_findings": [
-    {
-      "classified_repair": true,
-      "closed_by": [],
-      "closure_status": "open",
-      "failure_type": "claim_overreach",
-      "id": "finding_overclaim_v1",
-      "invalidates": [
-        "claim_boundary_map_v1"
-      ],
-      "label": "Finding: overclaim v1",
-      "node_type": "review_finding",
-      "primary_target": "claim_boundary_map_v1",
-      "repair_tasks": [
-        "repair_claim_boundary_task_v1"
-      ],
-      "status": "candidate",
-      "summary": "Draft states stronger guarantee than evidence supports.",
-      "version": "v1"
-    }
-  ],
-  "owner_decisions": [],
-  "review_closures": [
-    {
-      "artifact_path": "examples/delivery/phase7_overclaim_closure.v1.yaml",
-      "id": "phase7_overclaim_closure_v1",
-      "label": "Phase7 overclaim ReviewClosure v1",
-      "node_type": "validation_report",
-      "report_id": "phase7_overclaim_closure_v1",
-      "reported_by": [
-        "phase7_mock_reviewer_closure_v1"
-      ],
-      "status": "validated",
-      "summary": "ReviewClosure proving the intro overclaim finding is locally repaired.",
-      "validates": [
-        "phase7_overclaim_review_finding_v1",
-        "phase7_delivery_gate_v1"
-      ],
-      "version": "v1"
-    }
-  ],
-  "schema_version": "ppg-runtime-state-report/v0.1",
-  "stale_materials": [
-    {
-      "artifact_path": "examples/materials/claim_boundary_map.v1.yaml",
-      "historical_superseded_by_active": true,
-      "id": "claim_boundary_map_v1",
-      "label": "ClaimBoundaryMap v1",
-      "material_id": "claim_boundary_map",
-      "node_type": "material",
-      "on_active_control_path": false,
-      "stale_reason": "Superseded by claim_boundary_map_v2 after overclaim review finding.",
-      "status": "stale",
-      "summary": "Superseded claim boundary version preserved for provenance.",
-      "version": "v1"
-    }
-  ]
+    "open_review_findings": [
+        {
+            "classified_repair": true,
+            "closed_by": [],
+            "closure_status": "open",
+            "failure_type": "claim_overreach",
+            "id": "finding_overclaim_v1",
+            "invalidates": [
+                "claim_boundary_map_v1"
+            ],
+            "label": "Finding: overclaim v1",
+            "node_type": "review_finding",
+            "primary_target": "claim_boundary_map_v1",
+            "repair_tasks": [
+                "repair_claim_boundary_task_v1"
+            ],
+            "status": "candidate",
+            "summary": "Draft states stronger guarantee than evidence supports.",
+            "version": "v1"
+        }
+    ],
+    "owner_decisions": [],
+    "review_closures": [
+        {
+            "artifact_path": "examples/delivery/phase7_overclaim_closure.v1.yaml",
+            "id": "phase7_overclaim_closure_v1",
+            "label": "Overclaim ReviewClosure v1",
+            "node_type": "validation_report",
+            "report_id": "phase7_overclaim_closure_v1",
+            "reported_by": [
+                "phase7_mock_reviewer_closure_v1"
+            ],
+            "status": "validated",
+            "summary": "ReviewClosure proving the intro overclaim finding is locally repaired.",
+            "validates": [
+                "phase7_overclaim_review_finding_v1",
+                "phase7_delivery_gate_v1"
+            ],
+            "version": "v1"
+        }
+    ],
+    "schema_version": "ppg-runtime-state-report/v0.1",
+    "stale_materials": [
+        {
+            "artifact_path": "examples/materials/claim_boundary_map.v1.yaml",
+            "historical_superseded_by_active": true,
+            "id": "claim_boundary_map_v1",
+            "label": "ClaimBoundaryMap v1",
+            "material_id": "claim_boundary_map",
+            "node_type": "material",
+            "on_active_control_path": false,
+            "stale_reason": "Superseded by claim_boundary_map_v2 after overclaim review finding.",
+            "status": "stale",
+            "summary": "Superseded claim boundary version preserved for provenance.",
+            "version": "v1"
+        }
+    ]
 };
 
   const stageCoverage = {
@@ -308,9 +308,9 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "full_stage_exercised": 19
     },
     "graph_ref": "graph.json",
-    "pilot_root": "examples/local-paper/security-state-aware-mixed-platoon",
+    "pilot_root": "examples/local-paper/sample-paper-workspace",
     "pilot_stage_run_count": 20,
-    "project_slug": "security-state-aware-mixed-platoon",
+    "project_slug": "sample-paper-workspace",
     "schema_version": "ppg-local-paper-full-pilot/v0.1",
     "stage_overlay_binding_counts": {
         "nature_bound": 20
@@ -725,63 +725,406 @@ window.PPG_RUNTIME_GRAPH = (() => {
 };
 
   const stageRunDetails = {
-    "S00": {
-        "stage_id": "S00",
-        "stage_name": "Owner semantic contract",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "owner_gated",
-        "recommended_agent_type": "main",
-        "contract_ref": "examples/stage-contracts/S00.stage-contract.json",
+    "G01": {
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+        "consumed_materials": [
+            {
+                "kind": "contract_declared",
+                "material_id": "g01_declared_input_1",
+                "ref": "state"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "g01_declared_input_2",
+                "ref": "permissions"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "g01_declared_input_3",
+                "ref": "skill registry"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "g01_source_ref_runtime-stage-registry-json",
+                "ref": "runtime/stage_registry.json"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "g01_source_ref_examples-stage-contracts",
+                "ref": "examples/stage-contracts"
+            }
+        ],
         "contract": {
-            "purpose": "Convert human need into bounded paper commitments and owner decisions.",
-            "activation_policy": "activate when owner motivation, venue, claim scope, or private-source policy is unclear",
-            "completion_gate": "confirmed owner decision or recorded owner-gated assumption; no worker may silently change this stage",
+            "activation_policy": "activate before automation/permissions/state changes",
+            "backflow_targets": [
+                "S00",
+                "S16"
+            ],
+            "completion_gate": "governance constraints are recorded and cannot inject route metadata into paper-facing cognition",
             "consumes": [
-                "human need",
-                "paper profile",
-                "evidence summary"
+                "state",
+                "permissions",
+                "skill registry"
             ],
             "produces": [
-                "paper-profile",
-                "motivation",
-                "decisions",
-                "blocked routes"
+                "route governance records",
+                "state controls",
+                "manager boot checklist"
             ],
-            "validators": [
-                "owner confirmation",
-                "blocked route check"
-            ],
-            "backflow_targets": [
-                "owner"
-            ],
+            "purpose": "Define permissions, route governance, and state controls before automation.",
             "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "runtime governance registry or validator semantics change",
+                    "full-flow QA mode",
+                    "owner requests governance audit"
+                ],
+                "policy": "single_with_deterministic_validation",
+                "producer_agent_type": "verifier",
+                "rationale": "Governance records are registry/validator-controlled and should default to deterministic validation rather than extra agents.",
+                "verifier_agent_type": null
+            },
+            "validators": [
+                "permission boundary",
+                "route registry",
+                "state integrity"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
             "worker_packet_coverage": {
                 "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
                 "packet_ref": null,
                 "return_contract_ref": null,
                 "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/G01.stage-contract.json",
+        "coverage_kind": "script_checked",
+        "declared_inputs": [
+            {
+                "kind": "contract_declared",
+                "material_id": "g01_declared_input_1",
+                "ref": "state"
             },
+            {
+                "kind": "contract_declared",
+                "material_id": "g01_declared_input_2",
+                "ref": "permissions"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "g01_declared_input_3",
+                "ref": "skill registry"
+            }
+        ],
+        "execution_mode": "script_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [],
+        "produced_artifacts": [
+            {
+                "artifact_id": "g01_pilot_output",
+                "artifact_path": "artifacts/G01-runtime-governance-registry.json",
+                "artifact_type": "script_check_output",
+                "description": "route governance records; state controls; manager boot checklist",
+                "payload": {
+                    "artifact_kind": "script_check_output",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 5,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "route governance records",
+                        "state controls",
+                        "manager boot checklist"
+                    ],
+                    "purpose": "Define permissions, route governance, and state controls before automation.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "governance",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "G01",
+                            "validator_ref": "stage_overlay:nature_expert_writing:G01"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "verifier",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "g01_source_ref_runtime-stage-registry-json",
+                "ref": "runtime/stage_registry.json"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "g01_source_ref_examples-stage-contracts",
+                "ref": "examples/stage-contracts"
+            }
+        ],
+        "stage_id": "G01",
+        "stage_local_overlays": [
+            {
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "governance",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "G01",
+                "validator_ref": "stage_overlay:nature_expert_writing:G01"
+            }
+        ],
+        "stage_name": "Runtime governance registry",
+        "status": "validated",
+        "upstream_inputs": [],
+        "validator_evidence": [
+            {
+                "evidence": "G01 links to examples/stage-contracts/G01.stage-contract.json with completion_gate present",
+                "status": "pass",
+                "validator": "stage_contract_link"
+            },
+            {
+                "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+                "status": "pass",
+                "validator": "source_read_only_fingerprint"
+            },
+            {
+                "evidence": "coverage_kind=script_checked; exercise_level=full_stage_exercised; no source manuscript write claimed",
+                "status": "pass",
+                "validator": "coverage_boundary"
+            },
+            {
+                "evidence": "G01 has Nature expert-writing overlay binding as stage-local metadata only",
+                "status": "pass",
+                "validator": "stage_local_overlay_binding"
+            }
+        ],
+        "worker_task_packet_evidence": {
+            "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+            "packet_ref": null,
+            "required": false,
+            "return_contract_ref": null,
+            "status": "not_required"
+        }
+    },
+    "G02": {
+        "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
+        "consumed_materials": [
+            {
+                "kind": "contract_declared",
+                "material_id": "g02_declared_input_1",
+                "ref": "stable paper"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "g02_declared_input_2",
+                "ref": "owner request"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "g02_source_ref_project-status-md",
+                "ref": "PROJECT_STATUS.md"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s16_pilot_output",
+                "producer_stage_id": "S16",
+                "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
+            }
+        ],
+        "contract": {
+            "activation_policy": "activate only after paper content stability or explicit derivative request",
+            "backflow_targets": [
+                "owner",
+                "S16"
+            ],
+            "completion_gate": "only explicit owner request can activate derivative output; otherwise recorded not-applicable/deferred",
+            "consumes": [
+                "stable paper",
+                "owner request"
+            ],
+            "produces": [
+                "presentation plan",
+                "patent boundary",
+                "profile-specific derivative package"
+            ],
+            "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
+            "requires_worker_task_packet": false,
             "subagent_lane_policy": {
-                "policy": "conditional_double",
                 "default_lane_count": 1,
-                "producer_agent_type": "main",
-                "verifier_agent_type": "verifier",
                 "escalate_to_double_when": [
-                    "owner semantic contract changes",
-                    "venue or claim-scope freeze",
-                    "owner requests independent challenge"
+                    "post-paper derivative output is owner-facing",
+                    "external-use boundary changes",
+                    "owner requests derivative audit"
                 ],
-                "rationale": "Owner semantics are controller-owned; a second lane is needed only when commitments change or freeze."
+                "policy": "single_with_deterministic_validation",
+                "producer_agent_type": "planner",
+                "rationale": "Derivative outputs are outside the main paper cognition path and should stay single-lane until an owner-facing derivative is active.",
+                "verifier_agent_type": null
             },
+            "validators": [
+                "owner authorization",
+                "derivative boundary",
+                "no premature submission claim"
+            ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
                 "controller_owned_completion": true,
                 "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
             }
         },
+        "contract_ref": "examples/stage-contracts/G02.stage-contract.json",
+        "coverage_kind": "owner_gated_deferred",
+        "declared_inputs": [
+            {
+                "kind": "contract_declared",
+                "material_id": "g02_declared_input_1",
+                "ref": "stable paper"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "g02_declared_input_2",
+                "ref": "owner request"
+            }
+        ],
+        "execution_mode": "owner_gated",
+        "exercise_level": "deferred_with_gate",
+        "handoff_consumers": [],
+        "produced_artifacts": [
+            {
+                "artifact_id": "g02_pilot_output",
+                "artifact_path": "artifacts/G02-derivative-and-post-paper-outputs.json",
+                "artifact_type": "owner_gate_projection",
+                "description": "presentation plan; patent boundary; profile-specific derivative package",
+                "payload": {
+                    "artifact_kind": "owner_gate_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 4,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "presentation plan",
+                        "patent boundary",
+                        "profile-specific derivative package"
+                    ],
+                    "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "derivative",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "G02",
+                            "validator_ref": "stage_overlay:nature_expert_writing:G02"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "planner",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "g02_source_ref_project-status-md",
+                "ref": "PROJECT_STATUS.md"
+            }
+        ],
+        "stage_id": "G02",
+        "stage_local_overlays": [
+            {
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "derivative",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "G02",
+                "validator_ref": "stage_overlay:nature_expert_writing:G02"
+            }
+        ],
+        "stage_name": "Derivative and post-paper outputs",
+        "status": "owner_gated",
+        "upstream_inputs": [
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s16_pilot_output",
+                "producer_stage_id": "S16",
+                "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
+            }
+        ],
+        "validator_evidence": [
+            {
+                "evidence": "G02 links to examples/stage-contracts/G02.stage-contract.json with completion_gate present",
+                "status": "pass",
+                "validator": "stage_contract_link"
+            },
+            {
+                "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
+                "status": "pass",
+                "validator": "source_read_only_fingerprint"
+            },
+            {
+                "evidence": "coverage_kind=owner_gated_deferred; exercise_level=deferred_with_gate; no source manuscript write claimed",
+                "status": "pass",
+                "validator": "coverage_boundary"
+            },
+            {
+                "evidence": "G02 has Nature expert-writing overlay binding as stage-local metadata only",
+                "status": "pass",
+                "validator": "stage_local_overlay_binding"
+            }
+        ],
+        "worker_task_packet_evidence": {
+            "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+            "packet_ref": null,
+            "required": false,
+            "return_contract_ref": null,
+            "status": "not_required"
+        }
+    },
+    "S00": {
+        "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -814,6 +1157,55 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "PROJECT_STATUS.md"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when owner motivation, venue, claim scope, or private-source policy is unclear",
+            "backflow_targets": [
+                "owner"
+            ],
+            "completion_gate": "confirmed owner decision or recorded owner-gated assumption; no worker may silently change this stage",
+            "consumes": [
+                "human need",
+                "paper profile",
+                "evidence summary"
+            ],
+            "produces": [
+                "paper-profile",
+                "motivation",
+                "decisions",
+                "blocked routes"
+            ],
+            "purpose": "Convert human need into bounded paper commitments and owner decisions.",
+            "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "owner semantic contract changes",
+                    "venue or claim-scope freeze",
+                    "owner requests independent challenge"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "main",
+                "rationale": "Owner semantics are controller-owned; a second lane is needed only when commitments change or freeze.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "owner confirmation",
+                "blocked route check"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S00.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -831,7 +1223,65 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "evidence summary"
             }
         ],
-        "upstream_inputs": [],
+        "execution_mode": "owner_gated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
+            {
+                "material_id": "s00_pilot_output",
+                "ref": "artifacts/S00-owner-semantic-contract.json",
+                "stage_id": "S01",
+                "stage_name": "Source citation evidence inventory"
+            }
+        ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s00_pilot_output",
+                "artifact_path": "artifacts/S00-owner-semantic-contract.json",
+                "artifact_type": "owner_gate_projection",
+                "description": "paper-profile; motivation; decisions; blocked routes",
+                "payload": {
+                    "artifact_kind": "owner_gate_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 6,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "paper-profile",
+                        "motivation",
+                        "decisions",
+                        "blocked routes"
+                    ],
+                    "purpose": "Convert human need into bounded paper commitments and owner decisions.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "light",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S00",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S00"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "main",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -849,50 +1299,20 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "PROJECT_STATUS.md"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S00",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s00_pilot_output",
-                "artifact_path": "artifacts/S00-owner-semantic-contract.json",
-                "artifact_type": "owner_gate_projection",
-                "description": "paper-profile; motivation; decisions; blocked routes",
-                "payload": {
-                    "artifact_kind": "owner_gate_projection",
-                    "purpose": "Convert human need into bounded paper commitments and owner decisions.",
-                    "projected_outputs": [
-                        "paper-profile",
-                        "motivation",
-                        "decisions",
-                        "blocked routes"
-                    ],
-                    "consumed_ref_count": 6,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "light",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S00",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S00"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "light",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S00",
+                "validator_ref": "stage_overlay:nature_expert_writing:S00"
             }
         ],
-        "handoff_consumers": [
-            {
-                "stage_id": "S01",
-                "stage_name": "Source citation evidence inventory",
-                "material_id": "s00_pilot_output",
-                "ref": "artifacts/S00-owner-semantic-contract.json"
-            }
-        ],
+        "stage_name": "Owner semantic contract",
+        "status": "validated",
+        "upstream_inputs": [],
         "validator_evidence": [
             {
                 "evidence": "S00 links to examples/stage-contracts/S00.stage-contract.json with completion_gate present",
@@ -921,89 +1341,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": false,
             "return_contract_ref": null,
             "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "light",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S00",
-                "validator_ref": "stage_overlay:nature_expert_writing:S00"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S01": {
-        "stage_id": "S01",
-        "stage_name": "Source citation evidence inventory",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "explore",
-        "contract_ref": "examples/stage-contracts/S01.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Make raw paper inputs locatable and support-safe.",
-            "activation_policy": "activate when source or evidence inventory is missing/stale",
-            "completion_gate": "claim-relevant sources are locator-backed or explicitly unresolved",
-            "consumes": [
-                "initial files",
-                "result dirs",
-                "BibTeX",
-                "source locators"
-            ],
-            "produces": [
-                "source map",
-                "citation bank",
-                "evidence bank"
-            ],
-            "validators": [
-                "source locator resolution",
-                "privacy boundary check",
-                "evidence path check"
-            ],
-            "backflow_targets": [
-                "S00",
-                "S04"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "explore",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "new source family is admitted",
-                    "citation/evidence support is uncertain",
-                    "pre-writing inventory freeze"
-                ],
-                "rationale": "Inventory work is mostly structural but needs independent verification when source support or evidence admissibility is uncertain."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -1057,6 +1398,57 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S00-owner-semantic-contract.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when source or evidence inventory is missing/stale",
+            "backflow_targets": [
+                "S00",
+                "S04"
+            ],
+            "completion_gate": "claim-relevant sources are locator-backed or explicitly unresolved",
+            "consumes": [
+                "initial files",
+                "result dirs",
+                "BibTeX",
+                "source locators"
+            ],
+            "produces": [
+                "source map",
+                "citation bank",
+                "evidence bank"
+            ],
+            "purpose": "Make raw paper inputs locatable and support-safe.",
+            "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "new source family is admitted",
+                    "citation/evidence support is uncertain",
+                    "pre-writing inventory freeze"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "explore",
+                "rationale": "Inventory work is mostly structural but needs independent verification when source support or evidence admissibility is uncertain.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "source locator resolution",
+                "privacy boundary check",
+                "evidence path check"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S01.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -1079,14 +1471,76 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "source locators"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s00_pilot_output",
-                "producer_stage_id": "S00",
-                "ref": "artifacts/S00-owner-semantic-contract.json"
+                "material_id": "s01_pilot_output",
+                "ref": "artifacts/S01-source-citation-evidence-inventory.json",
+                "stage_id": "S02",
+                "stage_name": "Research scene exemplar SOTA analysis"
+            },
+            {
+                "material_id": "s01_pilot_output",
+                "ref": "artifacts/S01-source-citation-evidence-inventory.json",
+                "stage_id": "S04",
+                "stage_name": "Evidence-to-claim admissibility"
+            },
+            {
+                "material_id": "s01_pilot_output",
+                "ref": "artifacts/S01-source-citation-evidence-inventory.json",
+                "stage_id": "S11",
+                "stage_name": "Figure caption formal artifact production"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s01_pilot_output",
+                "artifact_path": "artifacts/S01-source-citation-evidence-inventory.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "source map; citation bank; evidence bank",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 10,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "source map",
+                        "citation bank",
+                        "evidence bank"
+                    ],
+                    "purpose": "Make raw paper inputs locatable and support-safe.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "light",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S01",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S01"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "explore",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -1114,59 +1568,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "paper-os/materials/current-material-index.json"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S01",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s01_pilot_output",
-                "artifact_path": "artifacts/S01-source-citation-evidence-inventory.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "source map; citation bank; evidence bank",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Make raw paper inputs locatable and support-safe.",
-                    "projected_outputs": [
-                        "source map",
-                        "citation bank",
-                        "evidence bank"
-                    ],
-                    "consumed_ref_count": 10,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "light",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S01",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S01"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "light",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S01",
+                "validator_ref": "stage_overlay:nature_expert_writing:S01"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Source citation evidence inventory",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S02",
-                "stage_name": "Research scene exemplar SOTA analysis",
-                "material_id": "s01_pilot_output",
-                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
-            },
-            {
-                "stage_id": "S04",
-                "stage_name": "Evidence-to-claim admissibility",
-                "material_id": "s01_pilot_output",
-                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
-            },
-            {
-                "stage_id": "S11",
-                "stage_name": "Figure caption formal artifact production",
-                "material_id": "s01_pilot_output",
-                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s00_pilot_output",
+                "producer_stage_id": "S00",
+                "ref": "artifacts/S00-owner-semantic-contract.json"
             }
         ],
         "validator_evidence": [
@@ -1197,90 +1617,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": false,
             "return_contract_ref": null,
             "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "light",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S01",
-                "validator_ref": "stage_overlay:nature_expert_writing:S01"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S02": {
-        "stage_id": "S02",
-        "stage_name": "Research scene exemplar SOTA analysis",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "agent_generated",
-        "recommended_agent_type": "researcher",
-        "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Understand field scene, template expectations, exemplar structure, and related-work positioning.",
-            "activation_policy": "activate when field/template/SOTA is uncertain",
-            "completion_gate": "research dossier and template/profile outputs are source-located and safe to consume",
-            "consumes": [
-                "source map",
-                "citation bank",
-                "venue route",
-                "exemplar locators"
-            ],
-            "produces": [
-                "research dossier",
-                "reader package",
-                "template profile",
-                "citation verification report"
-            ],
-            "validators": [
-                "source locator check",
-                "citation verification",
-                "template copying boundary"
-            ],
-            "backflow_targets": [
-                "S01",
-                "S00"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s02_sota_analysis_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "researcher",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Research/SOTA materials shape all downstream claims, so producer output must be independently checked before commit."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -1324,6 +1664,58 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S01-source-citation-evidence-inventory.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when field/template/SOTA is uncertain",
+            "backflow_targets": [
+                "S01",
+                "S00"
+            ],
+            "completion_gate": "research dossier and template/profile outputs are source-located and safe to consume",
+            "consumes": [
+                "source map",
+                "citation bank",
+                "venue route",
+                "exemplar locators"
+            ],
+            "produces": [
+                "research dossier",
+                "reader package",
+                "template profile",
+                "citation verification report"
+            ],
+            "purpose": "Understand field scene, template expectations, exemplar structure, and related-work positioning.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "researcher",
+                "rationale": "Research/SOTA materials shape all downstream claims, so producer output must be independently checked before commit.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "source locator check",
+                "citation verification",
+                "template copying boundary"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s02_sota_analysis_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -1346,14 +1738,65 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "exemplar locators"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "agent_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s01_pilot_output",
-                "producer_stage_id": "S01",
-                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
+                "material_id": "s02_pilot_output",
+                "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json",
+                "stage_id": "S03",
+                "stage_name": "Novelty and contribution option analysis"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s02_pilot_output",
+                "artifact_path": "artifacts/S02-research-scene-exemplar-sota-analysis.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "research dossier; reader package; template profile; citation verification report",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 8,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "research dossier",
+                        "reader package",
+                        "template profile",
+                        "citation verification report"
+                    ],
+                    "purpose": "Understand field scene, template expectations, exemplar structure, and related-work positioning.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S02",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S02"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "researcher",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -1371,48 +1814,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "docs/CURRENT_PLAN.md"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S02",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s02_pilot_output",
-                "artifact_path": "artifacts/S02-research-scene-exemplar-sota-analysis.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "research dossier; reader package; template profile; citation verification report",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Understand field scene, template expectations, exemplar structure, and related-work positioning.",
-                    "projected_outputs": [
-                        "research dossier",
-                        "reader package",
-                        "template profile",
-                        "citation verification report"
-                    ],
-                    "consumed_ref_count": 8,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S02",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S02"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S02",
+                "validator_ref": "stage_overlay:nature_expert_writing:S02"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Research scene exemplar SOTA analysis",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S03",
-                "stage_name": "Novelty and contribution option analysis",
-                "material_id": "s02_pilot_output",
-                "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s01_pilot_output",
+                "producer_stage_id": "S01",
+                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
             }
         ],
         "validator_evidence": [
@@ -1443,90 +1863,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S02",
-                "validator_ref": "stage_overlay:nature_expert_writing:S02"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S03": {
-        "stage_id": "S03",
-        "stage_name": "Novelty and contribution option analysis",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "agent_generated",
-        "recommended_agent_type": "critic",
-        "contract_ref": "examples/stage-contracts/S03.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Identify viable contribution framings without treating speculation as evidence.",
-            "activation_policy": "activate when contribution is unstable or weak",
-            "completion_gate": "viable options are classified as supported, owner-gated, or rejected",
-            "consumes": [
-                "research dossier",
-                "evidence inventory",
-                "motivation",
-                "SOTA map"
-            ],
-            "produces": [
-                "contribution options",
-                "novelty readiness",
-                "risk list"
-            ],
-            "validators": [
-                "evidence readiness score",
-                "source anchors",
-                "owner semantic-shift gate"
-            ],
-            "backflow_targets": [
-                "S00",
-                "S02",
-                "S04"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s03_novelty_analysis_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "critic",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Novelty framing is high-risk and speculative by nature; independent challenge prevents unsupported contribution claims."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -1575,6 +1915,58 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when contribution is unstable or weak",
+            "backflow_targets": [
+                "S00",
+                "S02",
+                "S04"
+            ],
+            "completion_gate": "viable options are classified as supported, owner-gated, or rejected",
+            "consumes": [
+                "research dossier",
+                "evidence inventory",
+                "motivation",
+                "SOTA map"
+            ],
+            "produces": [
+                "contribution options",
+                "novelty readiness",
+                "risk list"
+            ],
+            "purpose": "Identify viable contribution framings without treating speculation as evidence.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "critic",
+                "rationale": "Novelty framing is high-risk and speculative by nature; independent challenge prevents unsupported contribution claims.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "evidence readiness score",
+                "source anchors",
+                "owner semantic-shift gate"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s03_novelty_analysis_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S03.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -1597,14 +1989,64 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "SOTA map"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "agent_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s02_pilot_output",
-                "producer_stage_id": "S02",
-                "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
+                "material_id": "s03_pilot_output",
+                "ref": "artifacts/S03-novelty-and-contribution-option-analysis.json",
+                "stage_id": "S04",
+                "stage_name": "Evidence-to-claim admissibility"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s03_pilot_output",
+                "artifact_path": "artifacts/S03-novelty-and-contribution-option-analysis.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "contribution options; novelty readiness; risk list",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 9,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "contribution options",
+                        "novelty readiness",
+                        "risk list"
+                    ],
+                    "purpose": "Identify viable contribution framings without treating speculation as evidence.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "support",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S03",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S03"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "critic",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -1627,47 +2069,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/01_introduction.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S03",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s03_pilot_output",
-                "artifact_path": "artifacts/S03-novelty-and-contribution-option-analysis.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "contribution options; novelty readiness; risk list",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Identify viable contribution framings without treating speculation as evidence.",
-                    "projected_outputs": [
-                        "contribution options",
-                        "novelty readiness",
-                        "risk list"
-                    ],
-                    "consumed_ref_count": 9,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "support",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S03",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S03"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "support",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S03",
+                "validator_ref": "stage_overlay:nature_expert_writing:S03"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Novelty and contribution option analysis",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S04",
-                "stage_name": "Evidence-to-claim admissibility",
-                "material_id": "s03_pilot_output",
-                "ref": "artifacts/S03-novelty-and-contribution-option-analysis.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s02_pilot_output",
+                "producer_stage_id": "S02",
+                "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
             }
         ],
         "validator_evidence": [
@@ -1698,92 +2118,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "support",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S03",
-                "validator_ref": "stage_overlay:nature_expert_writing:S03"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S04": {
-        "stage_id": "S04",
-        "stage_name": "Evidence-to-claim admissibility",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "verifier",
-        "contract_ref": "examples/stage-contracts/S04.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Bind evidence and citations to exact claim boundaries.",
-            "activation_policy": "activate before claim-bearing writing or review",
-            "completion_gate": "every claim-bearing unit has support strength, evidence anchor, allowed wording, and forbidden wording",
-            "consumes": [
-                "evidence bank",
-                "citation bank",
-                "result artifacts",
-                "contribution options"
-            ],
-            "produces": [
-                "claim citation capsules",
-                "result packages",
-                "claim evidence visibility",
-                "data availability plan"
-            ],
-            "validators": [
-                "claim support",
-                "allowed wording",
-                "forbidden wording",
-                "result package boundary"
-            ],
-            "backflow_targets": [
-                "S01",
-                "S03",
-                "S00"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s04_evidence_claim_admissibility_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "verifier",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Claim-evidence admissibility is a safety-critical gate; production and verification must remain separate."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -1844,6 +2182,60 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate before claim-bearing writing or review",
+            "backflow_targets": [
+                "S01",
+                "S03",
+                "S00"
+            ],
+            "completion_gate": "every claim-bearing unit has support strength, evidence anchor, allowed wording, and forbidden wording",
+            "consumes": [
+                "evidence bank",
+                "citation bank",
+                "result artifacts",
+                "contribution options"
+            ],
+            "produces": [
+                "claim citation capsules",
+                "result packages",
+                "claim evidence visibility",
+                "data availability plan"
+            ],
+            "purpose": "Bind evidence and citations to exact claim boundaries.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "verifier",
+                "rationale": "Claim-evidence admissibility is a safety-critical gate; production and verification must remain separate.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "claim support",
+                "allowed wording",
+                "forbidden wording",
+                "result package boundary"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s04_evidence_claim_admissibility_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S04.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -1866,26 +2258,83 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "contribution options"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s01_pilot_output",
-                "producer_stage_id": "S01",
-                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
+                "material_id": "s04_pilot_output",
+                "ref": "artifacts/S04-evidence-to-claim-admissibility.json",
+                "stage_id": "S05",
+                "stage_name": "Paper spine and reader-question synthesis"
             },
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s03_pilot_output",
-                "producer_stage_id": "S03",
-                "ref": "artifacts/S03-novelty-and-contribution-option-analysis.json"
+                "material_id": "s04_pilot_output",
+                "ref": "artifacts/S04-evidence-to-claim-admissibility.json",
+                "stage_id": "S08",
+                "stage_name": "Visual and formal object planning"
             },
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s14_pilot_output",
-                "producer_stage_id": "S14",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+                "material_id": "s04_pilot_output",
+                "ref": "artifacts/S04-evidence-to-claim-admissibility.json",
+                "stage_id": "S09A",
+                "stage_name": "Control-material selection"
+            },
+            {
+                "material_id": "s04_pilot_output",
+                "ref": "artifacts/S04-evidence-to-claim-admissibility.json",
+                "stage_id": "S11",
+                "stage_name": "Figure caption formal artifact production"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s04_pilot_output",
+                "artifact_path": "artifacts/S04-evidence-to-claim-admissibility.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "claim citation capsules; result packages; claim evidence visibility; data availability plan",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 11,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "claim citation capsules",
+                        "result packages",
+                        "claim evidence visibility",
+                        "data availability plan"
+                    ],
+                    "purpose": "Bind evidence and citations to exact claim boundaries.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S04",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S04"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "verifier",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -1908,66 +2357,37 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/05_experiments.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S04",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s04_pilot_output",
-                "artifact_path": "artifacts/S04-evidence-to-claim-admissibility.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "claim citation capsules; result packages; claim evidence visibility; data availability plan",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Bind evidence and citations to exact claim boundaries.",
-                    "projected_outputs": [
-                        "claim citation capsules",
-                        "result packages",
-                        "claim evidence visibility",
-                        "data availability plan"
-                    ],
-                    "consumed_ref_count": 11,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S04",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S04"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S04",
+                "validator_ref": "stage_overlay:nature_expert_writing:S04"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Evidence-to-claim admissibility",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S05",
-                "stage_name": "Paper spine and reader-question synthesis",
-                "material_id": "s04_pilot_output",
-                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s01_pilot_output",
+                "producer_stage_id": "S01",
+                "ref": "artifacts/S01-source-citation-evidence-inventory.json"
             },
             {
-                "stage_id": "S08",
-                "stage_name": "Visual and formal object planning",
-                "material_id": "s04_pilot_output",
-                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s03_pilot_output",
+                "producer_stage_id": "S03",
+                "ref": "artifacts/S03-novelty-and-contribution-option-analysis.json"
             },
             {
-                "stage_id": "S09A",
-                "stage_name": "Control-material selection",
-                "material_id": "s04_pilot_output",
-                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
-            },
-            {
-                "stage_id": "S11",
-                "stage_name": "Figure caption formal artifact production",
-                "material_id": "s04_pilot_output",
-                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s14_pilot_output",
+                "producer_stage_id": "S14",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
         "validator_evidence": [
@@ -1998,90 +2418,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S04",
-                "validator_ref": "stage_overlay:nature_expert_writing:S04"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S05": {
-        "stage_id": "S05",
-        "stage_name": "Paper spine and reader-question synthesis",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "agent_generated",
-        "recommended_agent_type": "architect",
-        "contract_ref": "examples/stage-contracts/S05.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Synthesize paper argument path and reader/reviewer questions.",
-            "activation_policy": "activate for new section or major rewrite",
-            "completion_gate": "spine is coherent and claim-bounded before writing begins",
-            "consumes": [
-                "motivation",
-                "contribution options",
-                "template profile",
-                "claim materials"
-            ],
-            "produces": [
-                "reader spine",
-                "reviewer question map",
-                "rationale matrix"
-            ],
-            "validators": [
-                "claim appears in spine",
-                "section answers reader question",
-                "owner decisions explicit"
-            ],
-            "backflow_targets": [
-                "S00",
-                "S03",
-                "S04"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s05_paper_spine_synthesis_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "architect",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "The paper spine controls global argument order; independent challenge catches incoherent or unsupported reader paths."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -2125,6 +2465,58 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate for new section or major rewrite",
+            "backflow_targets": [
+                "S00",
+                "S03",
+                "S04"
+            ],
+            "completion_gate": "spine is coherent and claim-bounded before writing begins",
+            "consumes": [
+                "motivation",
+                "contribution options",
+                "template profile",
+                "claim materials"
+            ],
+            "produces": [
+                "reader spine",
+                "reviewer question map",
+                "rationale matrix"
+            ],
+            "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "architect",
+                "rationale": "The paper spine controls global argument order; independent challenge catches incoherent or unsupported reader paths.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "claim appears in spine",
+                "section answers reader question",
+                "owner decisions explicit"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s05_paper_spine_synthesis_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S05.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -2147,14 +2539,76 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "claim materials"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "agent_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s04_pilot_output",
-                "producer_stage_id": "S04",
-                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+                "material_id": "s05_pilot_output",
+                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json",
+                "stage_id": "S06",
+                "stage_name": "Object representation and granularity design"
+            },
+            {
+                "material_id": "s05_pilot_output",
+                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json",
+                "stage_id": "S08",
+                "stage_name": "Visual and formal object planning"
+            },
+            {
+                "material_id": "s05_pilot_output",
+                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json",
+                "stage_id": "S09A",
+                "stage_name": "Control-material selection"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s05_pilot_output",
+                "artifact_path": "artifacts/S05-paper-spine-and-reader-question-synthesis.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "reader spine; reviewer question map; rationale matrix",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 8,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "reader spine",
+                        "reviewer question map",
+                        "rationale matrix"
+                    ],
+                    "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S05",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S05"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "architect",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -2172,59 +2626,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/04_method.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S05",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s05_pilot_output",
-                "artifact_path": "artifacts/S05-paper-spine-and-reader-question-synthesis.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "reader spine; reviewer question map; rationale matrix",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Synthesize paper argument path and reader/reviewer questions.",
-                    "projected_outputs": [
-                        "reader spine",
-                        "reviewer question map",
-                        "rationale matrix"
-                    ],
-                    "consumed_ref_count": 8,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S05",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S05"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S05",
+                "validator_ref": "stage_overlay:nature_expert_writing:S05"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Paper spine and reader-question synthesis",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S06",
-                "stage_name": "Object representation and granularity design",
-                "material_id": "s05_pilot_output",
-                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
-            },
-            {
-                "stage_id": "S08",
-                "stage_name": "Visual and formal object planning",
-                "material_id": "s05_pilot_output",
-                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
-            },
-            {
-                "stage_id": "S09A",
-                "stage_name": "Control-material selection",
-                "material_id": "s05_pilot_output",
-                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s04_pilot_output",
+                "producer_stage_id": "S04",
+                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
             }
         ],
         "validator_evidence": [
@@ -2255,90 +2675,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S05",
-                "validator_ref": "stage_overlay:nature_expert_writing:S05"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S06": {
-        "stage_id": "S06",
-        "stage_name": "Object representation and granularity design",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "agent_generated",
-        "recommended_agent_type": "architect",
-        "contract_ref": "examples/stage-contracts/S06.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Decide how paper objects appear across sections and at what granularity.",
-            "activation_policy": "activate for full paper route or when object repetition risk exists",
-            "completion_gate": "writing units can consume explicit object and granularity instructions",
-            "consumes": [
-                "reader spine",
-                "reviewer question map",
-                "template profile",
-                "claim visibility"
-            ],
-            "produces": [
-                "object representation matrix",
-                "section function budget",
-                "load budget",
-                "explanation ladder"
-            ],
-            "validators": [
-                "granularity progression",
-                "no flat repetition",
-                "load budget present"
-            ],
-            "backflow_targets": [
-                "S05",
-                "S04"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s06_object_granularity_design_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "architect",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "new object family or granularity ladder is introduced",
-                    "multi-section object reuse is planned",
-                    "pre-writing design freeze"
-                ],
-                "rationale": "Object/granularity design is reusable control material; single production is enough unless it changes multi-section semantics."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -2382,6 +2722,58 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate for full paper route or when object repetition risk exists",
+            "backflow_targets": [
+                "S05",
+                "S04"
+            ],
+            "completion_gate": "writing units can consume explicit object and granularity instructions",
+            "consumes": [
+                "reader spine",
+                "reviewer question map",
+                "template profile",
+                "claim visibility"
+            ],
+            "produces": [
+                "object representation matrix",
+                "section function budget",
+                "load budget",
+                "explanation ladder"
+            ],
+            "purpose": "Decide how paper objects appear across sections and at what granularity.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "new object family or granularity ladder is introduced",
+                    "multi-section object reuse is planned",
+                    "pre-writing design freeze"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "architect",
+                "rationale": "Object/granularity design is reusable control material; single production is enough unless it changes multi-section semantics.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "granularity progression",
+                "no flat repetition",
+                "load budget present"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s06_object_granularity_design_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S06.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -2404,14 +2796,77 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "claim visibility"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "agent_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s05_pilot_output",
-                "producer_stage_id": "S05",
-                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+                "material_id": "s06_pilot_output",
+                "ref": "artifacts/S06-object-representation-and-granularity-design.json",
+                "stage_id": "S07",
+                "stage_name": "Rhetoric terminology and surface-control synthesis"
+            },
+            {
+                "material_id": "s06_pilot_output",
+                "ref": "artifacts/S06-object-representation-and-granularity-design.json",
+                "stage_id": "S08",
+                "stage_name": "Visual and formal object planning"
+            },
+            {
+                "material_id": "s06_pilot_output",
+                "ref": "artifacts/S06-object-representation-and-granularity-design.json",
+                "stage_id": "S09A",
+                "stage_name": "Control-material selection"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s06_pilot_output",
+                "artifact_path": "artifacts/S06-object-representation-and-granularity-design.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "object representation matrix; section function budget; load budget; explanation ladder",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 8,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "object representation matrix",
+                        "section function budget",
+                        "load budget",
+                        "explanation ladder"
+                    ],
+                    "purpose": "Decide how paper objects appear across sections and at what granularity.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S06",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S06"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "architect",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -2429,60 +2884,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/06_results_discussion.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S06",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s06_pilot_output",
-                "artifact_path": "artifacts/S06-object-representation-and-granularity-design.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "object representation matrix; section function budget; load budget; explanation ladder",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Decide how paper objects appear across sections and at what granularity.",
-                    "projected_outputs": [
-                        "object representation matrix",
-                        "section function budget",
-                        "load budget",
-                        "explanation ladder"
-                    ],
-                    "consumed_ref_count": 8,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S06",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S06"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S06",
+                "validator_ref": "stage_overlay:nature_expert_writing:S06"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Object representation and granularity design",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S07",
-                "stage_name": "Rhetoric terminology and surface-control synthesis",
-                "material_id": "s06_pilot_output",
-                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
-            },
-            {
-                "stage_id": "S08",
-                "stage_name": "Visual and formal object planning",
-                "material_id": "s06_pilot_output",
-                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
-            },
-            {
-                "stage_id": "S09A",
-                "stage_name": "Control-material selection",
-                "material_id": "s06_pilot_output",
-                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s05_pilot_output",
+                "producer_stage_id": "S05",
+                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
             }
         ],
         "validator_evidence": [
@@ -2513,90 +2933,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S06",
-                "validator_ref": "stage_overlay:nature_expert_writing:S06"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S07": {
-        "stage_id": "S07",
-        "stage_name": "Rhetoric terminology and surface-control synthesis",
-        "status": "validated",
-        "coverage_kind": "fixture_generated",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "writer",
-        "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
-            "activation_policy": "activate before writing execution",
-            "completion_gate": "main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell",
-            "consumes": [
-                "object representation",
-                "claim visibility",
-                "evidence wording"
-            ],
-            "produces": [
-                "construction matrix",
-                "rhetorical matrix",
-                "terminology register",
-                "surface rules"
-            ],
-            "validators": [
-                "terminology coverage",
-                "forbidden internal ids",
-                "rhetorical move coverage"
-            ],
-            "backflow_targets": [
-                "S06",
-                "S04",
-                "S05"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s07_rhetoric_surface_control_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "writer",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "terminology affects claim strength",
-                    "surface rules govern multiple writing units",
-                    "pre-writing expression freeze"
-                ],
-                "rationale": "Surface and terminology controls are broad but usually locally checkable; escalate when they constrain claims across sections."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -2641,6 +2981,58 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate before writing execution",
+            "backflow_targets": [
+                "S06",
+                "S04",
+                "S05"
+            ],
+            "completion_gate": "main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell",
+            "consumes": [
+                "object representation",
+                "claim visibility",
+                "evidence wording"
+            ],
+            "produces": [
+                "construction matrix",
+                "rhetorical matrix",
+                "terminology register",
+                "surface rules"
+            ],
+            "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "terminology affects claim strength",
+                    "surface rules govern multiple writing units",
+                    "pre-writing expression freeze"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "writer",
+                "rationale": "Surface and terminology controls are broad but usually locally checkable; escalate when they constrain claims across sections.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "terminology coverage",
+                "forbidden internal ids",
+                "rhetorical move coverage"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s07_rhetoric_surface_control_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
+        "coverage_kind": "fixture_generated",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -2658,20 +3050,65 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "evidence wording"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s06_pilot_output",
-                "producer_stage_id": "S06",
-                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s14_pilot_output",
-                "producer_stage_id": "S14",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+                "material_id": "s07_pilot_output",
+                "ref": "artifacts/S07-rhetoric-terminology-and-surface-control-synthesis.json",
+                "stage_id": "S09A",
+                "stage_name": "Control-material selection"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s07_pilot_output",
+                "artifact_path": "artifacts/S07-rhetoric-terminology-and-surface-control-synthesis.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "construction matrix; rhetorical matrix; terminology register; surface rules",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 8,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "construction matrix",
+                        "rhetorical matrix",
+                        "terminology register",
+                        "surface rules"
+                    ],
+                    "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S07",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S07"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "writer",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -2689,48 +3126,31 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/07_conclusion.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S07",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s07_pilot_output",
-                "artifact_path": "artifacts/S07-rhetoric-terminology-and-surface-control-synthesis.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "construction matrix; rhetorical matrix; terminology register; surface rules",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
-                    "projected_outputs": [
-                        "construction matrix",
-                        "rhetorical matrix",
-                        "terminology register",
-                        "surface rules"
-                    ],
-                    "consumed_ref_count": 8,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S07",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S07"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S07",
+                "validator_ref": "stage_overlay:nature_expert_writing:S07"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Rhetoric terminology and surface-control synthesis",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S09A",
-                "stage_name": "Control-material selection",
-                "material_id": "s07_pilot_output",
-                "ref": "artifacts/S07-rhetoric-terminology-and-surface-control-synthesis.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s06_pilot_output",
+                "producer_stage_id": "S06",
+                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s14_pilot_output",
+                "producer_stage_id": "S14",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
         "validator_evidence": [
@@ -2761,91 +3181,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S07",
-                "validator_ref": "stage_overlay:nature_expert_writing:S07"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S08": {
-        "stage_id": "S08",
-        "stage_name": "Visual and formal object planning",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "designer",
-        "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
-            "activation_policy": "activate when figure/table/algorithm/formula is touched",
-            "completion_gate": "no final/export-facing figure proceeds without contract, evidence, and backend route",
-            "consumes": [
-                "reader spine",
-                "section function budget",
-                "claim evidence materials"
-            ],
-            "produces": [
-                "visual budget",
-                "figure contract",
-                "panel evidence map",
-                "backend route"
-            ],
-            "validators": [
-                "reader question",
-                "supported claim",
-                "evidence refs",
-                "backend route"
-            ],
-            "backflow_targets": [
-                "S05",
-                "S04",
-                "S06"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s08_visual_formal_planning_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "designer",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "figure/table/formula object will be paper-facing",
-                    "visual claim support is uncertain",
-                    "pre-export visual-plan freeze"
-                ],
-                "rationale": "Visual/formal planning is often design-led and evidence-linked; escalate before paper-facing visual commitments freeze."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -2901,6 +3240,59 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S06-object-representation-and-granularity-design.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when figure/table/algorithm/formula is touched",
+            "backflow_targets": [
+                "S05",
+                "S04",
+                "S06"
+            ],
+            "completion_gate": "no final/export-facing figure proceeds without contract, evidence, and backend route",
+            "consumes": [
+                "reader spine",
+                "section function budget",
+                "claim evidence materials"
+            ],
+            "produces": [
+                "visual budget",
+                "figure contract",
+                "panel evidence map",
+                "backend route"
+            ],
+            "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "figure/table/formula object will be paper-facing",
+                    "visual claim support is uncertain",
+                    "pre-export visual-plan freeze"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "designer",
+                "rationale": "Visual/formal planning is often design-led and evidence-linked; escalate before paper-facing visual commitments freeze.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "reader question",
+                "supported claim",
+                "evidence refs",
+                "backend route"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s08_visual_formal_planning_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -2918,26 +3310,65 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "claim evidence materials"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s04_pilot_output",
-                "producer_stage_id": "S04",
-                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s05_pilot_output",
-                "producer_stage_id": "S05",
-                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s06_pilot_output",
-                "producer_stage_id": "S06",
-                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
+                "material_id": "s08_pilot_output",
+                "ref": "artifacts/S08-visual-and-formal-object-planning.json",
+                "stage_id": "S11",
+                "stage_name": "Figure caption formal artifact production"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s08_pilot_output",
+                "artifact_path": "artifacts/S08-visual-and-formal-object-planning.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "visual budget; figure contract; panel evidence map; backend route",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 10,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "visual budget",
+                        "figure contract",
+                        "panel evidence map",
+                        "backend route"
+                    ],
+                    "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S08",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S08"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "designer",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -2960,48 +3391,37 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/06_results_discussion.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S08",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s08_pilot_output",
-                "artifact_path": "artifacts/S08-visual-and-formal-object-planning.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "visual budget; figure contract; panel evidence map; backend route",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
-                    "projected_outputs": [
-                        "visual budget",
-                        "figure contract",
-                        "panel evidence map",
-                        "backend route"
-                    ],
-                    "consumed_ref_count": 10,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S08",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S08"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S08",
+                "validator_ref": "stage_overlay:nature_expert_writing:S08"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Visual and formal object planning",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S11",
-                "stage_name": "Figure caption formal artifact production",
-                "material_id": "s08_pilot_output",
-                "ref": "artifacts/S08-visual-and-formal-object-planning.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s04_pilot_output",
+                "producer_stage_id": "S04",
+                "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s05_pilot_output",
+                "producer_stage_id": "S05",
+                "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s06_pilot_output",
+                "producer_stage_id": "S06",
+                "ref": "artifacts/S06-object-representation-and-granularity-design.json"
             }
         ],
         "validator_evidence": [
@@ -3032,92 +3452,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S08",
-                "validator_ref": "stage_overlay:nature_expert_writing:S08"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S09A": {
-        "stage_id": "S09A",
-        "stage_name": "Control-material selection",
-        "status": "validated",
-        "coverage_kind": "script_checked",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "planner",
-        "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
-            "activation_policy": "activate before per-unit packet assembly",
-            "completion_gate": "S09B can build a task packet without guessing upstream controls",
-            "consumes": [
-                "claim controls",
-                "spine controls",
-                "granularity controls",
-                "surface rules",
-                "target unit"
-            ],
-            "produces": [
-                "selected control bundle",
-                "control priority map",
-                "missing control report"
-            ],
-            "validators": [
-                "required controls present",
-                "no overloaded all-context packet",
-                "conflict priority resolved"
-            ],
-            "backflow_targets": [
-                "S04",
-                "S05",
-                "S06",
-                "S07"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "single_with_deterministic_validation",
-                "default_lane_count": 1,
-                "producer_agent_type": "planner",
-                "verifier_agent_type": null,
-                "escalate_to_double_when": [
-                    "owner requests audit of control selection",
-                    "full-flow QA mode",
-                    "control selection changes high-risk claim inputs"
-                ],
-                "rationale": "Control-material selection is a controller/script-like routing step and is primarily proven by deterministic validation."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -3146,13 +3484,13 @@ window.PPG_RUNTIME_GRAPH = (() => {
             },
             {
                 "kind": "source_or_runtime_ref",
-                "material_id": "s09a_source_ref_examples-local-paper-security-state-aware-mixed-",
-                "ref": "examples/local-paper/security-state-aware-mixed-platoon/materials/owner_contract.json"
+                "material_id": "s09a_source_ref_examples-local-paper-sample-paper-workspace-mate",
+                "ref": "examples/local-paper/sample-paper-workspace/materials/owner_contract.json"
             },
             {
                 "kind": "source_or_runtime_ref",
-                "material_id": "s09a_source_ref_examples-local-paper-security-state-aware-mixed-",
-                "ref": "examples/local-paper/security-state-aware-mixed-platoon/materials/source_inventory.json"
+                "material_id": "s09a_source_ref_examples-local-paper-sample-paper-workspace-mate",
+                "ref": "examples/local-paper/sample-paper-workspace/materials/source_inventory.json"
             },
             {
                 "kind": "upstream_stage_output",
@@ -3185,6 +3523,60 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate before per-unit packet assembly",
+            "backflow_targets": [
+                "S04",
+                "S05",
+                "S06",
+                "S07"
+            ],
+            "completion_gate": "S09B can build a task packet without guessing upstream controls",
+            "consumes": [
+                "claim controls",
+                "spine controls",
+                "granularity controls",
+                "surface rules",
+                "target unit"
+            ],
+            "produces": [
+                "selected control bundle",
+                "control priority map",
+                "missing control report"
+            ],
+            "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
+            "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "owner requests audit of control selection",
+                    "full-flow QA mode",
+                    "control selection changes high-risk claim inputs"
+                ],
+                "policy": "single_with_deterministic_validation",
+                "producer_agent_type": "planner",
+                "rationale": "Control-material selection is a controller/script-like routing step and is primarily proven by deterministic validation.",
+                "verifier_agent_type": null
+            },
+            "validators": [
+                "required controls present",
+                "no overloaded all-context packet",
+                "conflict priority resolved"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
+        "coverage_kind": "script_checked",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -3212,6 +3604,89 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "target unit"
             }
         ],
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
+            {
+                "material_id": "s09a_pilot_output",
+                "ref": "artifacts/S09A-control-material-selection.json",
+                "stage_id": "S09B",
+                "stage_name": "Per-unit task packet assembly"
+            }
+        ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s09a_pilot_output",
+                "artifact_path": "artifacts/S09A-control-material-selection.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "selected control bundle; control priority map; missing control report",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 12,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "selected control bundle",
+                        "control priority map",
+                        "missing control report"
+                    ],
+                    "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S09A",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S09A"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "planner",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s09a_source_ref_examples-local-paper-sample-paper-workspace-mate",
+                "ref": "examples/local-paper/sample-paper-workspace/materials/owner_contract.json"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s09a_source_ref_examples-local-paper-sample-paper-workspace-mate",
+                "ref": "examples/local-paper/sample-paper-workspace/materials/source_inventory.json"
+            }
+        ],
+        "stage_id": "S09A",
+        "stage_local_overlays": [
+            {
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S09A",
+                "validator_ref": "stage_overlay:nature_expert_writing:S09A"
+            }
+        ],
+        "stage_name": "Control-material selection",
+        "status": "validated",
         "upstream_inputs": [
             {
                 "kind": "upstream_stage_output",
@@ -3242,61 +3717,6 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "material_id": "s14_pilot_output",
                 "producer_stage_id": "S14",
                 "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s09a_source_ref_examples-local-paper-security-state-aware-mixed-",
-                "ref": "examples/local-paper/security-state-aware-mixed-platoon/materials/owner_contract.json"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s09a_source_ref_examples-local-paper-security-state-aware-mixed-",
-                "ref": "examples/local-paper/security-state-aware-mixed-platoon/materials/source_inventory.json"
-            }
-        ],
-        "produced_artifacts": [
-            {
-                "artifact_id": "s09a_pilot_output",
-                "artifact_path": "artifacts/S09A-control-material-selection.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "selected control bundle; control priority map; missing control report",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
-                    "projected_outputs": [
-                        "selected control bundle",
-                        "control priority map",
-                        "missing control report"
-                    ],
-                    "consumed_ref_count": 12,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S09A",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S09A"
-                        }
-                    ]
-                }
-            }
-        ],
-        "handoff_consumers": [
-            {
-                "stage_id": "S09B",
-                "stage_name": "Per-unit task packet assembly",
-                "material_id": "s09a_pilot_output",
-                "ref": "artifacts/S09A-control-material-selection.json"
             }
         ],
         "validator_evidence": [
@@ -3327,93 +3747,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": false,
             "return_contract_ref": null,
             "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S09A",
-                "validator_ref": "stage_overlay:nature_expert_writing:S09A"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S09B": {
-        "stage_id": "S09B",
-        "stage_name": "Per-unit task packet assembly",
-        "status": "validated",
-        "coverage_kind": "script_checked",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "script_generated",
-        "recommended_agent_type": "main",
-        "contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
-            "activation_policy": "activate when a worker needs a section/unit packet",
-            "completion_gate": "packet is bounded and cannot grant graph-completion or recursive-dispatch authority",
-            "consumes": [
-                "selected control bundle",
-                "evidence anchors",
-                "target unit",
-                "validator refs",
-                "return format"
-            ],
-            "produces": [
-                "task packet",
-                "section move plan",
-                "single-writer lock",
-                "missing material report"
-            ],
-            "validators": [
-                "allowed read/write paths",
-                "worker boot clause",
-                "completion forbidden",
-                "no recursive orchestration"
-            ],
-            "backflow_targets": [
-                "S09A",
-                "S14",
-                "S15"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "single_with_deterministic_validation",
-                "default_lane_count": 1,
-                "producer_agent_type": "main",
-                "verifier_agent_type": null,
-                "escalate_to_double_when": [
-                    "packet compiler or authority-boundary code changes",
-                    "full-flow QA mode",
-                    "owner requests task-packet audit"
-                ],
-                "rationale": "Task-packet assembly is an authority-boundary compiler step and is primarily proven by deterministic validation."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -3463,6 +3800,61 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when a worker needs a section/unit packet",
+            "backflow_targets": [
+                "S09A",
+                "S14",
+                "S15"
+            ],
+            "completion_gate": "packet is bounded and cannot grant graph-completion or recursive-dispatch authority",
+            "consumes": [
+                "selected control bundle",
+                "evidence anchors",
+                "target unit",
+                "validator refs",
+                "return format"
+            ],
+            "produces": [
+                "task packet",
+                "section move plan",
+                "single-writer lock",
+                "missing material report"
+            ],
+            "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
+            "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "packet compiler or authority-boundary code changes",
+                    "full-flow QA mode",
+                    "owner requests task-packet audit"
+                ],
+                "policy": "single_with_deterministic_validation",
+                "producer_agent_type": "main",
+                "rationale": "Task-packet assembly is an authority-boundary compiler step and is primarily proven by deterministic validation.",
+                "verifier_agent_type": null
+            },
+            "validators": [
+                "allowed read/write paths",
+                "worker boot clause",
+                "completion forbidden",
+                "no recursive orchestration"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
+        "coverage_kind": "script_checked",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -3490,30 +3882,14 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "return format"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "script_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s09a_pilot_output",
-                "producer_stage_id": "S09A",
-                "ref": "artifacts/S09A-control-material-selection.json"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s15_pilot_output",
-                "producer_stage_id": "S15",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s09b_source_ref_examples-packets-intro-writing-packet-v2-yaml",
-                "ref": "examples/packets/intro_writing_packet.v2.yaml"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s09b_source_ref_examples-packets-claim-repair-packet-v1-yaml",
-                "ref": "examples/packets/claim_repair_packet.v1.yaml"
+                "material_id": "s09b_pilot_output",
+                "ref": "artifacts/S09B-per-unit-task-packet-assembly.json",
+                "stage_id": "S10",
+                "stage_name": "Main-text production"
             }
         ],
         "produced_artifacts": [
@@ -3524,21 +3900,21 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "description": "task packet; section move plan; single-writer lock; missing material report",
                 "payload": {
                     "artifact_kind": "script_check_output",
-                    "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
-                    "projected_outputs": [
-                        "task packet",
-                        "section move plan",
-                        "single-writer lock",
-                        "missing material report"
-                    ],
-                    "consumed_ref_count": 9,
                     "claim_boundary_snapshot": {
                         "active_method": null,
                         "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
                         "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
                         "manuscript_state": "not_started"
                     },
+                    "consumed_ref_count": 9,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "task packet",
+                        "section move plan",
+                        "single-writer lock",
+                        "missing material report"
+                    ],
+                    "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -3552,12 +3928,56 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 }
             }
         ],
-        "handoff_consumers": [
+        "recommended_agent_type": "main",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
             {
-                "stage_id": "S10",
-                "stage_name": "Main-text production",
-                "material_id": "s09b_pilot_output",
-                "ref": "artifacts/S09B-per-unit-task-packet-assembly.json"
+                "kind": "source_or_runtime_ref",
+                "material_id": "s09b_source_ref_examples-packets-intro-writing-packet-v2-yaml",
+                "ref": "examples/packets/intro_writing_packet.v2.yaml"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s09b_source_ref_examples-packets-claim-repair-packet-v1-yaml",
+                "ref": "examples/packets/claim_repair_packet.v1.yaml"
+            }
+        ],
+        "stage_id": "S09B",
+        "stage_local_overlays": [
+            {
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S09B",
+                "validator_ref": "stage_overlay:nature_expert_writing:S09B"
+            }
+        ],
+        "stage_name": "Per-unit task packet assembly",
+        "status": "validated",
+        "upstream_inputs": [
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s09a_pilot_output",
+                "producer_stage_id": "S09A",
+                "ref": "artifacts/S09A-control-material-selection.json"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s15_pilot_output",
+                "producer_stage_id": "S15",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
         "validator_evidence": [
@@ -3588,89 +4008,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": false,
             "return_contract_ref": null,
             "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S09B",
-                "validator_ref": "stage_overlay:nature_expert_writing:S09B"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S10": {
-        "stage_id": "S10",
-        "stage_name": "Main-text production",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "agent_generated",
-        "recommended_agent_type": "writer",
-        "contract_ref": "examples/stage-contracts/S10.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Produce candidate manuscript modules from task packets.",
-            "activation_policy": "activate when writing execution is needed",
-            "completion_gate": "candidate text is validated and collected; graph completion remains controller-owned",
-            "consumes": [
-                "S09B task packet",
-                "construction matrix",
-                "terminology register",
-                "claim visibility"
-            ],
-            "produces": [
-                "candidate text unit",
-                "CandidateArtifactReturn"
-            ],
-            "validators": [
-                "section draft validator",
-                "candidate return validator",
-                "claim boundary check"
-            ],
-            "backflow_targets": [
-                "S09B",
-                "S07",
-                "S04"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "writer",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Main-text production is paper-facing semantic output; independent verification is mandatory before controller acceptance."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -3720,6 +4061,57 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when writing execution is needed",
+            "backflow_targets": [
+                "S09B",
+                "S07",
+                "S04"
+            ],
+            "completion_gate": "candidate text is validated and collected; graph completion remains controller-owned",
+            "consumes": [
+                "S09B task packet",
+                "construction matrix",
+                "terminology register",
+                "claim visibility"
+            ],
+            "produces": [
+                "candidate text unit",
+                "CandidateArtifactReturn"
+            ],
+            "purpose": "Produce candidate manuscript modules from task packets.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "writer",
+                "rationale": "Main-text production is paper-facing semantic output; independent verification is mandatory before controller acceptance.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "section draft validator",
+                "candidate return validator",
+                "claim boundary check"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S10.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -3742,20 +4134,63 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "claim visibility"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "agent_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s09b_pilot_output",
-                "producer_stage_id": "S09B",
-                "ref": "artifacts/S09B-per-unit-task-packet-assembly.json"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s15_pilot_output",
-                "producer_stage_id": "S15",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
+                "material_id": "s10_pilot_output",
+                "ref": "artifacts/S10-main-text-production.json",
+                "stage_id": "S12",
+                "stage_name": "Integration and consistency pass"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s10_pilot_output",
+                "artifact_path": "artifacts/S10-main-text-production.json",
+                "artifact_type": "candidate_or_repair_projection",
+                "description": "candidate text unit; CandidateArtifactReturn",
+                "payload": {
+                    "artifact_kind": "candidate_or_repair_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 9,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "candidate text unit",
+                        "CandidateArtifactReturn"
+                    ],
+                    "purpose": "Produce candidate manuscript modules from task packets.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S10",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S10"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "writer",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -3773,46 +4208,31 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/sections/06_results_discussion.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S10",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s10_pilot_output",
-                "artifact_path": "artifacts/S10-main-text-production.json",
-                "artifact_type": "candidate_or_repair_projection",
-                "description": "candidate text unit; CandidateArtifactReturn",
-                "payload": {
-                    "artifact_kind": "candidate_or_repair_projection",
-                    "purpose": "Produce candidate manuscript modules from task packets.",
-                    "projected_outputs": [
-                        "candidate text unit",
-                        "CandidateArtifactReturn"
-                    ],
-                    "consumed_ref_count": 9,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S10",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S10"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S10",
+                "validator_ref": "stage_overlay:nature_expert_writing:S10"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Main-text production",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S12",
-                "stage_name": "Integration and consistency pass",
-                "material_id": "s10_pilot_output",
-                "ref": "artifacts/S10-main-text-production.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s09b_pilot_output",
+                "producer_stage_id": "S09B",
+                "ref": "artifacts/S09B-per-unit-task-packet-assembly.json"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s15_pilot_output",
+                "producer_stage_id": "S15",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
         "validator_evidence": [
@@ -3843,92 +4263,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S10",
-                "validator_ref": "stage_overlay:nature_expert_writing:S10"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S11": {
-        "stage_id": "S11",
-        "stage_name": "Figure caption formal artifact production",
-        "status": "validated",
-        "coverage_kind": "source_projected",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "executor",
-        "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
-            "activation_policy": "activate when figure/caption/formal artifacts are touched",
-            "completion_gate": "figure/caption has editable source, rendered output, provenance, QA route, and claim support",
-            "consumes": [
-                "figure contracts",
-                "panel evidence packages",
-                "source data locators",
-                "caption brief"
-            ],
-            "produces": [
-                "figure statistics",
-                "image integrity record",
-                "caption brief",
-                "figure export bundle"
-            ],
-            "validators": [
-                "build/render",
-                "source data",
-                "image integrity",
-                "caption claim boundary"
-            ],
-            "backflow_targets": [
-                "S08",
-                "S04",
-                "S01"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "executor",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "artifact is paper-facing or data-backed",
-                    "caption makes a claim",
-                    "pre-export figure/caption freeze"
-                ],
-                "rationale": "Artifact production is often deterministic but paper-facing; independent QA is required when it becomes final/export-facing."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -3979,6 +4317,60 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S08-visual-and-formal-object-planning.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when figure/caption/formal artifacts are touched",
+            "backflow_targets": [
+                "S08",
+                "S04",
+                "S01"
+            ],
+            "completion_gate": "figure/caption has editable source, rendered output, provenance, QA route, and claim support",
+            "consumes": [
+                "figure contracts",
+                "panel evidence packages",
+                "source data locators",
+                "caption brief"
+            ],
+            "produces": [
+                "figure statistics",
+                "image integrity record",
+                "caption brief",
+                "figure export bundle"
+            ],
+            "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "artifact is paper-facing or data-backed",
+                    "caption makes a claim",
+                    "pre-export figure/caption freeze"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "executor",
+                "rationale": "Artifact production is often deterministic but paper-facing; independent QA is required when it becomes final/export-facing.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "build/render",
+                "source data",
+                "image integrity",
+                "caption claim boundary"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S11.stage-contract.json",
+        "coverage_kind": "source_projected",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -4001,6 +4393,90 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "caption brief"
             }
         ],
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
+            {
+                "material_id": "s11_pilot_output",
+                "ref": "artifacts/S11-figure-caption-formal-artifact-production.json",
+                "stage_id": "S12",
+                "stage_name": "Integration and consistency pass"
+            }
+        ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s11_pilot_output",
+                "artifact_path": "artifacts/S11-figure-caption-formal-artifact-production.json",
+                "artifact_type": "candidate_or_repair_projection",
+                "description": "figure statistics; image integrity record; caption brief; figure export bundle",
+                "payload": {
+                    "artifact_kind": "candidate_or_repair_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 9,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "figure statistics",
+                        "image integrity record",
+                        "caption brief",
+                        "figure export bundle"
+                    ],
+                    "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S11",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S11"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "executor",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s11_source_ref_figures-readme-md",
+                "ref": "figures/README.md"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s11_source_ref_experiments-results-l3-method-faithful-unified-s",
+                "ref": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json"
+            }
+        ],
+        "stage_id": "S11",
+        "stage_local_overlays": [
+            {
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S11",
+                "validator_ref": "stage_overlay:nature_expert_writing:S11"
+            }
+        ],
+        "stage_name": "Figure caption formal artifact production",
+        "status": "validated",
         "upstream_inputs": [
             {
                 "kind": "upstream_stage_output",
@@ -4019,62 +4495,6 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "material_id": "s08_pilot_output",
                 "producer_stage_id": "S08",
                 "ref": "artifacts/S08-visual-and-formal-object-planning.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s11_source_ref_figures-readme-md",
-                "ref": "figures/README.md"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s11_source_ref_experiments-results-l3-method-faithful-unified-s",
-                "ref": "experiments/results/L3_method_faithful_unified_scene_20260625_non_text_supplements/artifact_manifest.json"
-            }
-        ],
-        "produced_artifacts": [
-            {
-                "artifact_id": "s11_pilot_output",
-                "artifact_path": "artifacts/S11-figure-caption-formal-artifact-production.json",
-                "artifact_type": "candidate_or_repair_projection",
-                "description": "figure statistics; image integrity record; caption brief; figure export bundle",
-                "payload": {
-                    "artifact_kind": "candidate_or_repair_projection",
-                    "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
-                    "projected_outputs": [
-                        "figure statistics",
-                        "image integrity record",
-                        "caption brief",
-                        "figure export bundle"
-                    ],
-                    "consumed_ref_count": 9,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S11",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S11"
-                        }
-                    ]
-                }
-            }
-        ],
-        "handoff_consumers": [
-            {
-                "stage_id": "S12",
-                "stage_name": "Integration and consistency pass",
-                "material_id": "s11_pilot_output",
-                "ref": "artifacts/S11-figure-caption-formal-artifact-production.json"
             }
         ],
         "validator_evidence": [
@@ -4105,93 +4525,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S11",
-                "validator_ref": "stage_overlay:nature_expert_writing:S11"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S12": {
-        "stage_id": "S12",
-        "stage_name": "Integration and consistency pass",
-        "status": "validated",
-        "coverage_kind": "fixture_generated",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "verifier",
-        "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Assemble modules and check cross-section dependencies.",
-            "activation_policy": "activate when multiple modules are integrated",
-            "completion_gate": "integrated candidate is ready for adversarial review, not final",
-            "consumes": [
-                "candidate text modules",
-                "figures/captions",
-                "section move plan",
-                "terminology register",
-                "claim visibility"
-            ],
-            "produces": [
-                "integrated manuscript candidate",
-                "consistency findings",
-                "validator report"
-            ],
-            "validators": [
-                "promise satisfaction",
-                "method/result alignment",
-                "terminology consistency",
-                "figure-text consistency"
-            ],
-            "backflow_targets": [
-                "S10",
-                "S11",
-                "S07",
-                "S04"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s12_integration_consistency_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "verifier",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Integration can create cross-section contradictions, so independent consistency verification is mandatory."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -4252,6 +4589,61 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when multiple modules are integrated",
+            "backflow_targets": [
+                "S10",
+                "S11",
+                "S07",
+                "S04"
+            ],
+            "completion_gate": "integrated candidate is ready for adversarial review, not final",
+            "consumes": [
+                "candidate text modules",
+                "figures/captions",
+                "section move plan",
+                "terminology register",
+                "claim visibility"
+            ],
+            "produces": [
+                "integrated manuscript candidate",
+                "consistency findings",
+                "validator report"
+            ],
+            "purpose": "Assemble modules and check cross-section dependencies.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "verifier",
+                "rationale": "Integration can create cross-section contradictions, so independent consistency verification is mandatory.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "promise satisfaction",
+                "method/result alignment",
+                "terminology consistency",
+                "figure-text consistency"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s12_integration_consistency_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
+        "coverage_kind": "fixture_generated",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -4279,6 +4671,94 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "claim visibility"
             }
         ],
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
+            {
+                "material_id": "s12_pilot_output",
+                "ref": "artifacts/S12-integration-and-consistency-pass.json",
+                "stage_id": "S13",
+                "stage_name": "Adversarial manuscript review"
+            }
+        ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s12_pilot_output",
+                "artifact_path": "artifacts/S12-integration-and-consistency-pass.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "integrated manuscript candidate; consistency findings; validator report",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 11,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "integrated manuscript candidate",
+                        "consistency findings",
+                        "validator report"
+                    ],
+                    "purpose": "Assemble modules and check cross-section dependencies.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S12",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S12"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "verifier",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s12_source_ref_manuscript-main-tex",
+                "ref": "manuscript/main.tex"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s12_source_ref_manuscript-sections-01-introduction-tex",
+                "ref": "manuscript/sections/01_introduction.tex"
+            },
+            {
+                "kind": "source_or_runtime_ref",
+                "material_id": "s12_source_ref_manuscript-sections-06-results-discussion-tex",
+                "ref": "manuscript/sections/06_results_discussion.tex"
+            }
+        ],
+        "stage_id": "S12",
+        "stage_local_overlays": [
+            {
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S12",
+                "validator_ref": "stage_overlay:nature_expert_writing:S12"
+            }
+        ],
+        "stage_name": "Integration and consistency pass",
+        "status": "validated",
         "upstream_inputs": [
             {
                 "kind": "upstream_stage_output",
@@ -4297,66 +4777,6 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "material_id": "s15_pilot_output",
                 "producer_stage_id": "S15",
                 "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s12_source_ref_manuscript-main-tex",
-                "ref": "manuscript/main.tex"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s12_source_ref_manuscript-sections-01-introduction-tex",
-                "ref": "manuscript/sections/01_introduction.tex"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s12_source_ref_manuscript-sections-06-results-discussion-tex",
-                "ref": "manuscript/sections/06_results_discussion.tex"
-            }
-        ],
-        "produced_artifacts": [
-            {
-                "artifact_id": "s12_pilot_output",
-                "artifact_path": "artifacts/S12-integration-and-consistency-pass.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "integrated manuscript candidate; consistency findings; validator report",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Assemble modules and check cross-section dependencies.",
-                    "projected_outputs": [
-                        "integrated manuscript candidate",
-                        "consistency findings",
-                        "validator report"
-                    ],
-                    "consumed_ref_count": 11,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S12",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S12"
-                        }
-                    ]
-                }
-            }
-        ],
-        "handoff_consumers": [
-            {
-                "stage_id": "S13",
-                "stage_name": "Adversarial manuscript review",
-                "material_id": "s12_pilot_output",
-                "ref": "artifacts/S12-integration-and-consistency-pass.json"
             }
         ],
         "validator_evidence": [
@@ -4387,91 +4807,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S12",
-                "validator_ref": "stage_overlay:nature_expert_writing:S12"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S13": {
-        "stage_id": "S13",
-        "stage_name": "Adversarial manuscript review",
-        "status": "validated",
-        "coverage_kind": "fixture_generated",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "agent_generated",
-        "recommended_agent_type": "critic",
-        "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
-            "activation_policy": "activate when candidate manuscript/module exists",
-            "completion_gate": "accepted findings are actionable and routed to nearest responsible upstream material",
-            "consumes": [
-                "integrated candidate",
-                "evidence/claim materials",
-                "reader/terminology/rhetoric materials",
-                "figure/export artifacts"
-            ],
-            "produces": [
-                "reviewer panel report",
-                "reader experience report",
-                "validator report",
-                "review findings"
-            ],
-            "validators": [
-                "finding severity",
-                "evidence",
-                "affected artifact",
-                "backflow target",
-                "resolution status"
-            ],
-            "backflow_targets": [
-                "S14"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/phase10_s13_adversarial_review_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "critic",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Adversarial review itself produces loss signals that must be independently validated for actionability and routing."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -4515,6 +4854,59 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S12-integration-and-consistency-pass.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when candidate manuscript/module exists",
+            "backflow_targets": [
+                "S14"
+            ],
+            "completion_gate": "accepted findings are actionable and routed to nearest responsible upstream material",
+            "consumes": [
+                "integrated candidate",
+                "evidence/claim materials",
+                "reader/terminology/rhetoric materials",
+                "figure/export artifacts"
+            ],
+            "produces": [
+                "reviewer panel report",
+                "reader experience report",
+                "validator report",
+                "review findings"
+            ],
+            "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "critic",
+                "rationale": "Adversarial review itself produces loss signals that must be independently validated for actionability and routing.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "finding severity",
+                "evidence",
+                "affected artifact",
+                "backflow target",
+                "resolution status"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/phase10_s13_adversarial_review_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
+        "coverage_kind": "fixture_generated",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -4537,14 +4929,71 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "figure/export artifacts"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "agent_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s12_pilot_output",
-                "producer_stage_id": "S12",
-                "ref": "artifacts/S12-integration-and-consistency-pass.json"
+                "material_id": "s13_pilot_output",
+                "ref": "artifacts/S13-adversarial-manuscript-review.json",
+                "stage_id": "S14",
+                "stage_name": "Backflow compilation and repair planning"
+            },
+            {
+                "material_id": "s13_pilot_output",
+                "ref": "artifacts/S13-adversarial-manuscript-review.json",
+                "stage_id": "S16",
+                "stage_name": "Export repository hygiene and handoff"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s13_pilot_output",
+                "artifact_path": "artifacts/S13-adversarial-manuscript-review.json",
+                "artifact_type": "review_backflow_projection",
+                "description": "reviewer panel report; reader experience report; validator report; review findings",
+                "payload": {
+                    "artifact_kind": "review_backflow_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 8,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "reviewer panel report",
+                        "reader experience report",
+                        "validator report",
+                        "review findings"
+                    ],
+                    "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S13",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S13"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "critic",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -4562,54 +5011,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/main.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S13",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s13_pilot_output",
-                "artifact_path": "artifacts/S13-adversarial-manuscript-review.json",
-                "artifact_type": "review_backflow_projection",
-                "description": "reviewer panel report; reader experience report; validator report; review findings",
-                "payload": {
-                    "artifact_kind": "review_backflow_projection",
-                    "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
-                    "projected_outputs": [
-                        "reviewer panel report",
-                        "reader experience report",
-                        "validator report",
-                        "review findings"
-                    ],
-                    "consumed_ref_count": 8,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S13",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S13"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S13",
+                "validator_ref": "stage_overlay:nature_expert_writing:S13"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Adversarial manuscript review",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S14",
-                "stage_name": "Backflow compilation and repair planning",
-                "material_id": "s13_pilot_output",
-                "ref": "artifacts/S13-adversarial-manuscript-review.json"
-            },
-            {
-                "stage_id": "S16",
-                "stage_name": "Export repository hygiene and handoff",
-                "material_id": "s13_pilot_output",
-                "ref": "artifacts/S13-adversarial-manuscript-review.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s12_pilot_output",
+                "producer_stage_id": "S12",
+                "ref": "artifacts/S12-integration-and-consistency-pass.json"
             }
         ],
         "validator_evidence": [
@@ -4640,93 +5060,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S13",
-                "validator_ref": "stage_overlay:nature_expert_writing:S13"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S14": {
-        "stage_id": "S14",
-        "stage_name": "Backflow compilation and repair planning",
-        "status": "validated",
-        "coverage_kind": "script_checked",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "planner",
-        "contract_ref": "examples/stage-contracts/S14.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Convert review/loss signals into local repair tasks.",
-            "activation_policy": "activate when review finding exists",
-            "completion_gate": "no accepted finding remains unrouted",
-            "consumes": [
-                "review outputs",
-                "validator reports",
-                "affected materials graph"
-            ],
-            "produces": [
-                "narrative backflow task",
-                "repair task packets",
-                "control reselection tasks",
-                "response action map"
-            ],
-            "validators": [
-                "target layer/material",
-                "affected downstream nodes",
-                "repair mission",
-                "owner gate status"
-            ],
-            "backflow_targets": [
-                "S04",
-                "S07",
-                "S09A",
-                "S09B",
-                "S15"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "planner",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "repair changes upstream claim/spine/material semantics",
-                    "review finding severity is high",
-                    "repair plan affects multiple downstream nodes"
-                ],
-                "rationale": "Backflow planning is controller-owned routing; single planner lane is enough unless severe or multi-node repairs are involved."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -4760,6 +5097,61 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S13-adversarial-manuscript-review.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when review finding exists",
+            "backflow_targets": [
+                "S04",
+                "S07",
+                "S09A",
+                "S09B",
+                "S15"
+            ],
+            "completion_gate": "no accepted finding remains unrouted",
+            "consumes": [
+                "review outputs",
+                "validator reports",
+                "affected materials graph"
+            ],
+            "produces": [
+                "narrative backflow task",
+                "repair task packets",
+                "control reselection tasks",
+                "response action map"
+            ],
+            "purpose": "Convert review/loss signals into local repair tasks.",
+            "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "repair changes upstream claim/spine/material semantics",
+                    "review finding severity is high",
+                    "repair plan affects multiple downstream nodes"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "planner",
+                "rationale": "Backflow planning is controller-owned routing; single planner lane is enough unless severe or multi-node repairs are involved.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "target layer/material",
+                "affected downstream nodes",
+                "repair mission",
+                "owner gate status"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S14.stage-contract.json",
+        "coverage_kind": "script_checked",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -4777,24 +5169,32 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "affected materials graph"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s13_pilot_output",
-                "producer_stage_id": "S13",
-                "ref": "artifacts/S13-adversarial-manuscript-review.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s14_source_ref_examples-backflow-tasks-phase7-overclaim-repair-",
-                "ref": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml"
+                "material_id": "s14_pilot_output",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json",
+                "stage_id": "S04",
+                "stage_name": "Evidence-to-claim admissibility"
             },
             {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s14_source_ref_examples-review-findings-phase7-overclaim-v1-yam",
-                "ref": "examples/review_findings/phase7_overclaim.v1.yaml"
+                "material_id": "s14_pilot_output",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json",
+                "stage_id": "S07",
+                "stage_name": "Rhetoric terminology and surface-control synthesis"
+            },
+            {
+                "material_id": "s14_pilot_output",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json",
+                "stage_id": "S09A",
+                "stage_name": "Control-material selection"
+            },
+            {
+                "material_id": "s14_pilot_output",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json",
+                "stage_id": "S15",
+                "stage_name": "Repair execution and local regeneration"
             }
         ],
         "produced_artifacts": [
@@ -4805,21 +5205,21 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "description": "narrative backflow task; repair task packets; control reselection tasks; response action map",
                 "payload": {
                     "artifact_kind": "review_backflow_projection",
-                    "purpose": "Convert review/loss signals into local repair tasks.",
-                    "projected_outputs": [
-                        "narrative backflow task",
-                        "repair task packets",
-                        "control reselection tasks",
-                        "response action map"
-                    ],
-                    "consumed_ref_count": 6,
                     "claim_boundary_snapshot": {
                         "active_method": null,
                         "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
                         "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
                         "manuscript_state": "not_started"
                     },
+                    "consumed_ref_count": 6,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "narrative backflow task",
+                        "repair task packets",
+                        "control reselection tasks",
+                        "response action map"
+                    ],
+                    "purpose": "Convert review/loss signals into local repair tasks.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -4833,30 +5233,50 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 }
             }
         ],
-        "handoff_consumers": [
+        "recommended_agent_type": "planner",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
             {
-                "stage_id": "S04",
-                "stage_name": "Evidence-to-claim admissibility",
-                "material_id": "s14_pilot_output",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+                "kind": "source_or_runtime_ref",
+                "material_id": "s14_source_ref_examples-backflow-tasks-phase7-overclaim-repair-",
+                "ref": "examples/backflow_tasks/phase7_overclaim_repair.compiled.v1.yaml"
             },
             {
-                "stage_id": "S07",
-                "stage_name": "Rhetoric terminology and surface-control synthesis",
-                "material_id": "s14_pilot_output",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
-            },
+                "kind": "source_or_runtime_ref",
+                "material_id": "s14_source_ref_examples-review-findings-phase7-overclaim-v1-yam",
+                "ref": "examples/review_findings/phase7_overclaim.v1.yaml"
+            }
+        ],
+        "stage_id": "S14",
+        "stage_local_overlays": [
             {
-                "stage_id": "S09A",
-                "stage_name": "Control-material selection",
-                "material_id": "s14_pilot_output",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
-            },
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S14",
+                "validator_ref": "stage_overlay:nature_expert_writing:S14"
+            }
+        ],
+        "stage_name": "Backflow compilation and repair planning",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S15",
-                "stage_name": "Repair execution and local regeneration",
-                "material_id": "s14_pilot_output",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s13_pilot_output",
+                "producer_stage_id": "S13",
+                "ref": "artifacts/S13-adversarial-manuscript-review.json"
             }
         ],
         "validator_evidence": [
@@ -4887,93 +5307,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": false,
             "return_contract_ref": null,
             "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S14",
-                "validator_ref": "stage_overlay:nature_expert_writing:S14"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S15": {
-        "stage_id": "S15",
-        "stage_name": "Repair execution and local regeneration",
-        "status": "validated",
-        "coverage_kind": "fixture_generated",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "executor",
-        "contract_ref": "examples/stage-contracts/S15.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
-            "activation_policy": "activate when repair task exists",
-            "completion_gate": "graph records new version and affected nodes are revalidated",
-            "consumes": [
-                "backflow task packet",
-                "target material",
-                "stale downstream set"
-            ],
-            "produces": [
-                "revised material",
-                "regenerated task packet",
-                "revised text/figure",
-                "updated validator report"
-            ],
-            "validators": [
-                "scoped stale propagation",
-                "unrelated nodes unchanged",
-                "finding resolved",
-                "no new high severity finding"
-            ],
-            "backflow_targets": [
-                "S09B",
-                "S10",
-                "S11",
-                "S12",
-                "S15"
-            ],
-            "requires_worker_task_packet": true,
-            "worker_packet_coverage": {
-                "blocker": null,
-                "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
-                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-                "status": "linked_strict_packet"
-            },
-            "subagent_lane_policy": {
-                "policy": "mandatory_double",
-                "default_lane_count": 2,
-                "producer_agent_type": "executor",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "always for normal paper-facing production",
-                    "full-flow QA mode",
-                    "milestone or freeze gate"
-                ],
-                "rationale": "Repair execution changes accepted materials; independent verification is mandatory to prove the finding is resolved without regressions."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -5007,6 +5344,61 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when repair task exists",
+            "backflow_targets": [
+                "S09B",
+                "S10",
+                "S11",
+                "S12",
+                "S15"
+            ],
+            "completion_gate": "graph records new version and affected nodes are revalidated",
+            "consumes": [
+                "backflow task packet",
+                "target material",
+                "stale downstream set"
+            ],
+            "produces": [
+                "revised material",
+                "regenerated task packet",
+                "revised text/figure",
+                "updated validator report"
+            ],
+            "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
+            "requires_worker_task_packet": true,
+            "subagent_lane_policy": {
+                "default_lane_count": 2,
+                "escalate_to_double_when": [
+                    "always for normal paper-facing production",
+                    "full-flow QA mode",
+                    "milestone or freeze gate"
+                ],
+                "policy": "mandatory_double",
+                "producer_agent_type": "executor",
+                "rationale": "Repair execution changes accepted materials; independent verification is mandatory to prove the finding is resolved without regressions.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "scoped stale propagation",
+                "unrelated nodes unchanged",
+                "finding resolved",
+                "no new high severity finding"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": null,
+                "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+                "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
+                "status": "linked_strict_packet"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S15.stage-contract.json",
+        "coverage_kind": "fixture_generated",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -5024,24 +5416,32 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "stale downstream set"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s14_pilot_output",
-                "producer_stage_id": "S14",
-                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s15_source_ref_examples-packets-claim-repair-packet-v1-yaml",
-                "ref": "examples/packets/claim_repair_packet.v1.yaml"
+                "material_id": "s15_pilot_output",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json",
+                "stage_id": "S09B",
+                "stage_name": "Per-unit task packet assembly"
             },
             {
-                "kind": "source_or_runtime_ref",
-                "material_id": "s15_source_ref_examples-candidate-returns-intro-candidate-retur",
-                "ref": "examples/candidate_returns/intro_candidate_return.phase7.yaml"
+                "material_id": "s15_pilot_output",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json",
+                "stage_id": "S10",
+                "stage_name": "Main-text production"
+            },
+            {
+                "material_id": "s15_pilot_output",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json",
+                "stage_id": "S12",
+                "stage_name": "Integration and consistency pass"
+            },
+            {
+                "material_id": "s15_pilot_output",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json",
+                "stage_id": "S16",
+                "stage_name": "Export repository hygiene and handoff"
             }
         ],
         "produced_artifacts": [
@@ -5052,21 +5452,21 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "description": "revised material; regenerated task packet; revised text/figure; updated validator report",
                 "payload": {
                     "artifact_kind": "candidate_or_repair_projection",
-                    "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
-                    "projected_outputs": [
-                        "revised material",
-                        "regenerated task packet",
-                        "revised text/figure",
-                        "updated validator report"
-                    ],
-                    "consumed_ref_count": 6,
                     "claim_boundary_snapshot": {
                         "active_method": null,
                         "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
                         "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
                         "manuscript_state": "not_started"
                     },
+                    "consumed_ref_count": 6,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "revised material",
+                        "regenerated task packet",
+                        "revised text/figure",
+                        "updated validator report"
+                    ],
+                    "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -5080,30 +5480,50 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 }
             }
         ],
-        "handoff_consumers": [
+        "recommended_agent_type": "executor",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
+        "source_refs": [
             {
-                "stage_id": "S09B",
-                "stage_name": "Per-unit task packet assembly",
-                "material_id": "s15_pilot_output",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
+                "kind": "source_or_runtime_ref",
+                "material_id": "s15_source_ref_examples-packets-claim-repair-packet-v1-yaml",
+                "ref": "examples/packets/claim_repair_packet.v1.yaml"
             },
             {
-                "stage_id": "S10",
-                "stage_name": "Main-text production",
-                "material_id": "s15_pilot_output",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
-            },
+                "kind": "source_or_runtime_ref",
+                "material_id": "s15_source_ref_examples-candidate-returns-intro-candidate-retur",
+                "ref": "examples/candidate_returns/intro_candidate_return.phase7.yaml"
+            }
+        ],
+        "stage_id": "S15",
+        "stage_local_overlays": [
             {
-                "stage_id": "S12",
-                "stage_name": "Integration and consistency pass",
-                "material_id": "s15_pilot_output",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
-            },
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S15",
+                "validator_ref": "stage_overlay:nature_expert_writing:S15"
+            }
+        ],
+        "stage_name": "Repair execution and local regeneration",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "S16",
-                "stage_name": "Export repository hygiene and handoff",
-                "material_id": "s15_pilot_output",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s14_pilot_output",
+                "producer_stage_id": "S14",
+                "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
             }
         ],
         "validator_evidence": [
@@ -5134,93 +5554,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S15",
-                "validator_ref": "stage_overlay:nature_expert_writing:S15"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     },
     "S16": {
-        "stage_id": "S16",
-        "stage_name": "Export repository hygiene and handoff",
-        "status": "validated",
-        "coverage_kind": "script_checked",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "hybrid_generated",
-        "recommended_agent_type": "verifier",
-        "contract_ref": "examples/stage-contracts/S16.stage-contract.json",
         "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Package final paper and prove delivery cleanliness.",
-            "activation_policy": "activate when export/handoff requested",
-            "completion_gate": "content-ready and delivery-clean states are separately proven; external submission remains owner-gated",
-            "consumes": [
-                "clean final candidate",
-                "review closure",
-                "repair-complete package",
-                "figures/captions",
-                "repository state"
-            ],
-            "produces": [
-                "export manifest",
-                "repository hygiene report",
-                "manager handoff report"
-            ],
-            "validators": [
-                "build success",
-                "rendered surface checks",
-                "manifest hashes",
-                "dirty worktree classification"
-            ],
-            "backflow_targets": [
-                "S12",
-                "S13",
-                "S15",
-                "owner"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "conditional_double",
-                "default_lane_count": 1,
-                "producer_agent_type": "verifier",
-                "verifier_agent_type": "verifier",
-                "escalate_to_double_when": [
-                    "handoff/export is owner-facing",
-                    "dirty-worktree or build hygiene is ambiguous",
-                    "release/submission boundary is near"
-                ],
-                "rationale": "Export/handoff is mostly deterministic hygiene; escalate when the output is owner-facing or boundary-sensitive."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
         "consumed_materials": [
             {
                 "kind": "contract_declared",
@@ -5275,6 +5612,61 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
+        "contract": {
+            "activation_policy": "activate when export/handoff requested",
+            "backflow_targets": [
+                "S12",
+                "S13",
+                "S15",
+                "owner"
+            ],
+            "completion_gate": "content-ready and delivery-clean states are separately proven; external submission remains owner-gated",
+            "consumes": [
+                "clean final candidate",
+                "review closure",
+                "repair-complete package",
+                "figures/captions",
+                "repository state"
+            ],
+            "produces": [
+                "export manifest",
+                "repository hygiene report",
+                "manager handoff report"
+            ],
+            "purpose": "Package final paper and prove delivery cleanliness.",
+            "requires_worker_task_packet": false,
+            "subagent_lane_policy": {
+                "default_lane_count": 1,
+                "escalate_to_double_when": [
+                    "handoff/export is owner-facing",
+                    "dirty-worktree or build hygiene is ambiguous",
+                    "release/submission boundary is near"
+                ],
+                "policy": "conditional_double",
+                "producer_agent_type": "verifier",
+                "rationale": "Export/handoff is mostly deterministic hygiene; escalate when the output is owner-facing or boundary-sensitive.",
+                "verifier_agent_type": "verifier"
+            },
+            "validators": [
+                "build success",
+                "rendered surface checks",
+                "manifest hashes",
+                "dirty worktree classification"
+            ],
+            "worker_authority_boundary": {
+                "completion_forbidden": true,
+                "controller_owned_completion": true,
+                "no_recursive_orchestration": true
+            },
+            "worker_packet_coverage": {
+                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "packet_ref": null,
+                "return_contract_ref": null,
+                "status": "not_required"
+            }
+        },
+        "contract_ref": "examples/stage-contracts/S16.stage-contract.json",
+        "coverage_kind": "script_checked",
         "declared_inputs": [
             {
                 "kind": "contract_declared",
@@ -5302,20 +5694,64 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "repository state"
             }
         ],
-        "upstream_inputs": [
+        "execution_mode": "hybrid_generated",
+        "exercise_level": "full_stage_exercised",
+        "handoff_consumers": [
             {
-                "kind": "upstream_stage_output",
-                "material_id": "s13_pilot_output",
-                "producer_stage_id": "S13",
-                "ref": "artifacts/S13-adversarial-manuscript-review.json"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s15_pilot_output",
-                "producer_stage_id": "S15",
-                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
+                "material_id": "s16_pilot_output",
+                "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json",
+                "stage_id": "G02",
+                "stage_name": "Derivative and post-paper outputs"
             }
         ],
+        "produced_artifacts": [
+            {
+                "artifact_id": "s16_pilot_output",
+                "artifact_path": "artifacts/S16-export-repository-hygiene-and-handoff.json",
+                "artifact_type": "analysis_material_projection",
+                "description": "export manifest; repository hygiene report; manager handoff report",
+                "payload": {
+                    "artifact_kind": "analysis_material_projection",
+                    "claim_boundary_snapshot": {
+                        "active_method": null,
+                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
+                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
+                        "manuscript_state": "not_started"
+                    },
+                    "consumed_ref_count": 10,
+                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
+                    "projected_outputs": [
+                        "export manifest",
+                        "repository hygiene report",
+                        "manager handoff report"
+                    ],
+                    "purpose": "Package final paper and prove delivery cleanliness.",
+                    "stage_local_overlays": [
+                        {
+                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                            "binding_strength": "primary",
+                            "overlay_id": "nature_expert_writing",
+                            "registry_ref": "runtime/stage_overlay_registry.json",
+                            "stage_id": "S16",
+                            "validator_ref": "stage_overlay:nature_expert_writing:S16"
+                        }
+                    ]
+                }
+            }
+        ],
+        "recommended_agent_type": "verifier",
+        "source_projection_boundary": {
+            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
+            "read_only_source": true,
+            "runtime_output_root": "examples/local-paper/sample-paper-workspace",
+            "runtime_output_under_source": false,
+            "selected_source_fingerprints_unchanged": true,
+            "source_git_status_after": "",
+            "source_git_status_before": "",
+            "source_root": "examples/sample-paper-workspace",
+            "source_status_unchanged": true,
+            "writes_to_source_allowed": false
+        },
         "source_refs": [
             {
                 "kind": "source_or_runtime_ref",
@@ -5333,47 +5769,31 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "manuscript/main.tex"
             }
         ],
-        "produced_artifacts": [
+        "stage_id": "S16",
+        "stage_local_overlays": [
             {
-                "artifact_id": "s16_pilot_output",
-                "artifact_path": "artifacts/S16-export-repository-hygiene-and-handoff.json",
-                "artifact_type": "analysis_material_projection",
-                "description": "export manifest; repository hygiene report; manager handoff report",
-                "payload": {
-                    "artifact_kind": "analysis_material_projection",
-                    "purpose": "Package final paper and prove delivery cleanliness.",
-                    "projected_outputs": [
-                        "export manifest",
-                        "repository hygiene report",
-                        "manager handoff report"
-                    ],
-                    "consumed_ref_count": 10,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "primary",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "S16",
-                            "validator_ref": "stage_overlay:nature_expert_writing:S16"
-                        }
-                    ]
-                }
+                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+                "binding_strength": "primary",
+                "overlay_id": "nature_expert_writing",
+                "registry_ref": "runtime/stage_overlay_registry.json",
+                "stage_id": "S16",
+                "validator_ref": "stage_overlay:nature_expert_writing:S16"
             }
         ],
-        "handoff_consumers": [
+        "stage_name": "Export repository hygiene and handoff",
+        "status": "validated",
+        "upstream_inputs": [
             {
-                "stage_id": "G02",
-                "stage_name": "Derivative and post-paper outputs",
-                "material_id": "s16_pilot_output",
-                "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
+                "kind": "upstream_stage_output",
+                "material_id": "s13_pilot_output",
+                "producer_stage_id": "S13",
+                "ref": "artifacts/S13-adversarial-manuscript-review.json"
+            },
+            {
+                "kind": "upstream_stage_output",
+                "material_id": "s15_pilot_output",
+                "producer_stage_id": "S15",
+                "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
             }
         ],
         "validator_evidence": [
@@ -5404,429 +5824,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "required": false,
             "return_contract_ref": null,
             "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "primary",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "S16",
-                "validator_ref": "stage_overlay:nature_expert_writing:S16"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
-        }
-    },
-    "G01": {
-        "stage_id": "G01",
-        "stage_name": "Runtime governance registry",
-        "status": "validated",
-        "coverage_kind": "script_checked",
-        "exercise_level": "full_stage_exercised",
-        "execution_mode": "script_generated",
-        "recommended_agent_type": "verifier",
-        "contract_ref": "examples/stage-contracts/G01.stage-contract.json",
-        "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Define permissions, route governance, and state controls before automation.",
-            "activation_policy": "activate before automation/permissions/state changes",
-            "completion_gate": "governance constraints are recorded and cannot inject route metadata into paper-facing cognition",
-            "consumes": [
-                "state",
-                "permissions",
-                "skill registry"
-            ],
-            "produces": [
-                "route governance records",
-                "state controls",
-                "manager boot checklist"
-            ],
-            "validators": [
-                "permission boundary",
-                "route registry",
-                "state integrity"
-            ],
-            "backflow_targets": [
-                "S00",
-                "S16"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "single_with_deterministic_validation",
-                "default_lane_count": 1,
-                "producer_agent_type": "verifier",
-                "verifier_agent_type": null,
-                "escalate_to_double_when": [
-                    "runtime governance registry or validator semantics change",
-                    "full-flow QA mode",
-                    "owner requests governance audit"
-                ],
-                "rationale": "Governance records are registry/validator-controlled and should default to deterministic validation rather than extra agents."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
-        "consumed_materials": [
-            {
-                "kind": "contract_declared",
-                "material_id": "g01_declared_input_1",
-                "ref": "state"
-            },
-            {
-                "kind": "contract_declared",
-                "material_id": "g01_declared_input_2",
-                "ref": "permissions"
-            },
-            {
-                "kind": "contract_declared",
-                "material_id": "g01_declared_input_3",
-                "ref": "skill registry"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "g01_source_ref_runtime-stage-registry-json",
-                "ref": "runtime/stage_registry.json"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "g01_source_ref_examples-stage-contracts",
-                "ref": "examples/stage-contracts"
-            }
-        ],
-        "declared_inputs": [
-            {
-                "kind": "contract_declared",
-                "material_id": "g01_declared_input_1",
-                "ref": "state"
-            },
-            {
-                "kind": "contract_declared",
-                "material_id": "g01_declared_input_2",
-                "ref": "permissions"
-            },
-            {
-                "kind": "contract_declared",
-                "material_id": "g01_declared_input_3",
-                "ref": "skill registry"
-            }
-        ],
-        "upstream_inputs": [],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "g01_source_ref_runtime-stage-registry-json",
-                "ref": "runtime/stage_registry.json"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "g01_source_ref_examples-stage-contracts",
-                "ref": "examples/stage-contracts"
-            }
-        ],
-        "produced_artifacts": [
-            {
-                "artifact_id": "g01_pilot_output",
-                "artifact_path": "artifacts/G01-runtime-governance-registry.json",
-                "artifact_type": "script_check_output",
-                "description": "route governance records; state controls; manager boot checklist",
-                "payload": {
-                    "artifact_kind": "script_check_output",
-                    "purpose": "Define permissions, route governance, and state controls before automation.",
-                    "projected_outputs": [
-                        "route governance records",
-                        "state controls",
-                        "manager boot checklist"
-                    ],
-                    "consumed_ref_count": 5,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "governance",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "G01",
-                            "validator_ref": "stage_overlay:nature_expert_writing:G01"
-                        }
-                    ]
-                }
-            }
-        ],
-        "handoff_consumers": [],
-        "validator_evidence": [
-            {
-                "evidence": "G01 links to examples/stage-contracts/G01.stage-contract.json with completion_gate present",
-                "status": "pass",
-                "validator": "stage_contract_link"
-            },
-            {
-                "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
-                "status": "pass",
-                "validator": "source_read_only_fingerprint"
-            },
-            {
-                "evidence": "coverage_kind=script_checked; exercise_level=full_stage_exercised; no source manuscript write claimed",
-                "status": "pass",
-                "validator": "coverage_boundary"
-            },
-            {
-                "evidence": "G01 has Nature expert-writing overlay binding as stage-local metadata only",
-                "status": "pass",
-                "validator": "stage_local_overlay_binding"
-            }
-        ],
-        "worker_task_packet_evidence": {
-            "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-            "packet_ref": null,
-            "required": false,
-            "return_contract_ref": null,
-            "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "governance",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "G01",
-                "validator_ref": "stage_overlay:nature_expert_writing:G01"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
-        }
-    },
-    "G02": {
-        "stage_id": "G02",
-        "stage_name": "Derivative and post-paper outputs",
-        "status": "owner_gated",
-        "coverage_kind": "owner_gated_deferred",
-        "exercise_level": "deferred_with_gate",
-        "execution_mode": "owner_gated",
-        "recommended_agent_type": "planner",
-        "contract_ref": "examples/stage-contracts/G02.stage-contract.json",
-        "completion_claim": "pilot_stage_validated_only: contract wiring and local-paper material projection exercised; no final manuscript completion, submission readiness, or publication claim is made",
-        "contract": {
-            "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
-            "activation_policy": "activate only after paper content stability or explicit derivative request",
-            "completion_gate": "only explicit owner request can activate derivative output; otherwise recorded not-applicable/deferred",
-            "consumes": [
-                "stable paper",
-                "owner request"
-            ],
-            "produces": [
-                "presentation plan",
-                "patent boundary",
-                "profile-specific derivative package"
-            ],
-            "validators": [
-                "owner authorization",
-                "derivative boundary",
-                "no premature submission claim"
-            ],
-            "backflow_targets": [
-                "owner",
-                "S16"
-            ],
-            "requires_worker_task_packet": false,
-            "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-                "packet_ref": null,
-                "return_contract_ref": null,
-                "status": "not_required"
-            },
-            "subagent_lane_policy": {
-                "policy": "single_with_deterministic_validation",
-                "default_lane_count": 1,
-                "producer_agent_type": "planner",
-                "verifier_agent_type": null,
-                "escalate_to_double_when": [
-                    "post-paper derivative output is owner-facing",
-                    "external-use boundary changes",
-                    "owner requests derivative audit"
-                ],
-                "rationale": "Derivative outputs are outside the main paper cognition path and should stay single-lane until an owner-facing derivative is active."
-            },
-            "worker_authority_boundary": {
-                "completion_forbidden": true,
-                "controller_owned_completion": true,
-                "no_recursive_orchestration": true
-            }
-        },
-        "consumed_materials": [
-            {
-                "kind": "contract_declared",
-                "material_id": "g02_declared_input_1",
-                "ref": "stable paper"
-            },
-            {
-                "kind": "contract_declared",
-                "material_id": "g02_declared_input_2",
-                "ref": "owner request"
-            },
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "g02_source_ref_project-status-md",
-                "ref": "PROJECT_STATUS.md"
-            },
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s16_pilot_output",
-                "producer_stage_id": "S16",
-                "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
-            }
-        ],
-        "declared_inputs": [
-            {
-                "kind": "contract_declared",
-                "material_id": "g02_declared_input_1",
-                "ref": "stable paper"
-            },
-            {
-                "kind": "contract_declared",
-                "material_id": "g02_declared_input_2",
-                "ref": "owner request"
-            }
-        ],
-        "upstream_inputs": [
-            {
-                "kind": "upstream_stage_output",
-                "material_id": "s16_pilot_output",
-                "producer_stage_id": "S16",
-                "ref": "artifacts/S16-export-repository-hygiene-and-handoff.json"
-            }
-        ],
-        "source_refs": [
-            {
-                "kind": "source_or_runtime_ref",
-                "material_id": "g02_source_ref_project-status-md",
-                "ref": "PROJECT_STATUS.md"
-            }
-        ],
-        "produced_artifacts": [
-            {
-                "artifact_id": "g02_pilot_output",
-                "artifact_path": "artifacts/G02-derivative-and-post-paper-outputs.json",
-                "artifact_type": "owner_gate_projection",
-                "description": "presentation plan; patent boundary; profile-specific derivative package",
-                "payload": {
-                    "artifact_kind": "owner_gate_projection",
-                    "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
-                    "projected_outputs": [
-                        "presentation plan",
-                        "patent boundary",
-                        "profile-specific derivative package"
-                    ],
-                    "consumed_ref_count": 4,
-                    "claim_boundary_snapshot": {
-                        "active_method": null,
-                        "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
-                        "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
-                        "manuscript_state": "not_started"
-                    },
-                    "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
-                    "stage_local_overlays": [
-                        {
-                            "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                            "binding_strength": "derivative",
-                            "overlay_id": "nature_expert_writing",
-                            "registry_ref": "runtime/stage_overlay_registry.json",
-                            "stage_id": "G02",
-                            "validator_ref": "stage_overlay:nature_expert_writing:G02"
-                        }
-                    ]
-                }
-            }
-        ],
-        "handoff_consumers": [],
-        "validator_evidence": [
-            {
-                "evidence": "G02 links to examples/stage-contracts/G02.stage-contract.json with completion_gate present",
-                "status": "pass",
-                "validator": "stage_contract_link"
-            },
-            {
-                "evidence": "source git status and selected fingerprints are unchanged before/after pilot import",
-                "status": "pass",
-                "validator": "source_read_only_fingerprint"
-            },
-            {
-                "evidence": "coverage_kind=owner_gated_deferred; exercise_level=deferred_with_gate; no source manuscript write claimed",
-                "status": "pass",
-                "validator": "coverage_boundary"
-            },
-            {
-                "evidence": "G02 has Nature expert-writing overlay binding as stage-local metadata only",
-                "status": "pass",
-                "validator": "stage_local_overlay_binding"
-            }
-        ],
-        "worker_task_packet_evidence": {
-            "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
-            "packet_ref": null,
-            "required": false,
-            "return_contract_ref": null,
-            "status": "not_required"
-        },
-        "stage_local_overlays": [
-            {
-                "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
-                "binding_strength": "derivative",
-                "overlay_id": "nature_expert_writing",
-                "registry_ref": "runtime/stage_overlay_registry.json",
-                "stage_id": "G02",
-                "validator_ref": "stage_overlay:nature_expert_writing:G02"
-            }
-        ],
-        "source_projection_boundary": {
-            "projection_scope": "stage wiring/material projection only; source manuscript and evidence directories remain read-only pilot inputs",
-            "read_only_source": true,
-            "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/security-state-aware-mixed-platoon",
-            "runtime_output_under_source": false,
-            "selected_source_fingerprints_unchanged": true,
-            "source_git_status_after": "",
-            "source_git_status_before": "",
-            "source_root": "/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon",
-            "source_status_unchanged": true,
-            "writes_to_source_allowed": false
         }
     }
 };
+
 
   return { meta, legend, defaultVisibleKinds, layers, nodes, edges, presets, roadmap, runtimeState, stageCoverage, stageRunDetails };
 })();

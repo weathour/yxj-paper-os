@@ -1,0 +1,74 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S05",
+      "validator_ref": "stage_overlay:nature_expert_writing:S05"
+    }
+  ],
+  "candidate_only": true,
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s05_declared_input_1",
+      "ref": "motivation"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s05_declared_input_2",
+      "ref": "contribution options"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s05_declared_input_3",
+      "ref": "template profile"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s05_declared_input_4",
+      "ref": "claim materials"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s05_source_ref_manuscript-sections-01-introduction-tex",
+      "ref": "manuscript/sections/01_introduction.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s05_source_ref_manuscript-sections-03-problem-formulation-tex",
+      "ref": "manuscript/sections/03_problem_formulation.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s05_source_ref_manuscript-sections-04-method-tex",
+      "ref": "manuscript/sections/04_method.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s04_pilot_output",
+      "producer_stage_id": "S04",
+      "ref": "artifacts/S04-evidence-to-claim-admissibility.json"
+    }
+  ],
+  "content_summary": "Phase12 formal runtime-test candidate for S05 (Paper spine and reader-question synthesis). Consumes pilot materials 8; records bounded controller-owned candidate evidence only.",
+  "controller_commit_required": true,
+  "no_recursive_orchestration": true,
+  "packet_ref": "packets/S05.task-packet.json",
+  "produced_materials": [
+    "phase12_s05_material_v1"
+  ],
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-stage-candidate/v0.1",
+  "source_write_forbidden": true,
+  "stage_id": "S05",
+  "stage_name": "Paper spine and reader-question synthesis",
+  "validator_refs": [
+    "phase10_s05_content_validator",
+    "stage_overlay:nature_expert_writing:S05"
+  ],
+  "worker_completion_forbidden": true
+}

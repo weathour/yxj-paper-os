@@ -1,0 +1,33 @@
+{
+  "authority_mode": "assessment_only",
+  "controller_acceptance": "accept_with_limitations",
+  "dimensions": {
+    "actionability": 4,
+    "boundary_compliance": 5,
+    "downstream_usefulness": 4,
+    "input_grounding": 4,
+    "stage_specificity": 4
+  },
+  "downstream_usefulness": "G02 Derivative and post-paper outputs produced live pilot evidence that can inform downstream PPG controller decisions while remaining runtime-pilot-only.",
+  "effect_score": 4,
+  "evidence_refs": [
+    "packets/producer/G02.producer-packet.json",
+    "packets/verifier/G02.verifier-packet.json",
+    "returns/producer/G02.producer-return.md",
+    "returns/verifier/G02.verifier-return.md"
+  ],
+  "limitations": [
+    "pilot_not_manuscript_ready",
+    "script_or_registry_assessment_only"
+  ],
+  "packet_citations_present": true,
+  "producer_return_ref": "returns/producer/G02.producer-return.md",
+  "repair_ref": null,
+  "repair_required": false,
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-stage-effect/v0.1",
+  "stage_id": "G02",
+  "stage_name": "Derivative and post-paper outputs",
+  "verifier_return_ref": "returns/verifier/G02.verifier-return.md",
+  "verifier_verdict": "accept_with_limitations"
+}

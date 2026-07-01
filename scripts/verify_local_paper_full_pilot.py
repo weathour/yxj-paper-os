@@ -15,7 +15,7 @@ except ImportError:  # pragma: no cover
     from generate_local_paper_full_pilot import FLOW_EDGES  # type: ignore  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
+DEFAULT_PILOT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
 REGISTRY = ROOT / "runtime" / "stage_registry.json"
 CONTRACT_DIR = ROOT / "examples" / "stage-contracts"
 OVERLAY_REGISTRY_REF = "runtime/stage_overlay_registry.json"
@@ -70,6 +70,13 @@ def rel_repo(path: Path) -> str:
         return str(path.resolve().relative_to(ROOT))
     except ValueError:
         return str(path)
+
+
+def resolve_repo_ref(value: str | Path) -> Path:
+    path = Path(str(value)).expanduser()
+    if path.is_absolute():
+        return path.resolve(strict=True)
+    return (ROOT / path).resolve(strict=True)
 
 
 def validate_run(
@@ -320,8 +327,8 @@ def verify_pilot(pilot_root: Path = DEFAULT_PILOT) -> list[str]:
         errors.append(issue("E_PILOT_SUMMARY_COMPLETION_BOUNDARY", "summary completion boundary must be explicit"))
     errors.extend(validate_graph(graph, expected_stage_ids))
     # Negative local-copy mutation probes: output path must not escape via traversal or source-root containment.
-    source_root = Path(str(manifest.get("source_root", "")))
-    output_root = Path(str(manifest.get("runtime_output_root", pilot_root)))
+    source_root = resolve_repo_ref(str(manifest.get("source_root", "")))
+    output_root = resolve_repo_ref(str(manifest.get("runtime_output_root", pilot_root)))
     if source_root and output_root:
         try:
             if output_root.resolve().is_relative_to(source_root.resolve()):

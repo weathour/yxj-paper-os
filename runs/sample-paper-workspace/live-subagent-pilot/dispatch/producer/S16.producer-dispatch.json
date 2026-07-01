@@ -1,0 +1,16 @@
+{
+  "agent_type": "git-master",
+  "authority_mode": "assessment_only",
+  "dispatch_prompt_ref": "prompts/producer/S16.producer-prompt.md",
+  "dispatch_prompt_sha256": "70697215ae49ed772871fedb71f4eaa02d44db82f879959d7e0565528ae61a15",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-018-S16-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S16.producer-packet.json",
+  "packet_sha256": "b88976624a9abca0a9b3c355a00eb86568c8496c0d4f6b3393c3bbd066b0dcc1",
+  "raw_return_ref": "returns/producer/S16.producer-return.md",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S16",
+  "status": "prepared"
+}

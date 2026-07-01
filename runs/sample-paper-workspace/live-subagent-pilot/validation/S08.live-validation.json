@@ -1,0 +1,11 @@
+{
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "effect_ref": "stage_effects/S08.effect.json",
+  "producer_return_ref": "returns/producer/S08.producer-return.md",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-live-validation/v0.1",
+  "stage_id": "S08",
+  "status": "pass",
+  "verifier_return_ref": "returns/verifier/S08.verifier-return.md",
+  "verifier_verdict": "accept_with_limitations"
+}

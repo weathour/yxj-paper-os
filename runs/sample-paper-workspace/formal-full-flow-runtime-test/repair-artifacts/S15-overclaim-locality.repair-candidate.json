@@ -1,0 +1,19 @@
+{
+  "affected_materials_repaired": [
+    "phase12_s04_material_v1",
+    "phase12_s10_material_v1"
+  ],
+  "candidate_only": true,
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "controller_commit_required": true,
+  "repair_candidate_id": "phase12_overclaim_locality_repair_v1",
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-repair-candidate/v0.1",
+  "source_backflow_task_ref": "backflow-tasks/S14-overclaim-locality.backflow-task.json",
+  "stage_id": "S15",
+  "unaffected_materials_preserved": [
+    "phase12_s02_material_v1",
+    "phase12_s08_material_v1",
+    "phase12_s11_material_v1"
+  ]
+}

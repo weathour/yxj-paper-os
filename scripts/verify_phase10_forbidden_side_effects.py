@@ -103,7 +103,7 @@ def verify_no_stale_worker_blockers() -> list[str]:
             errors.append(issue("E_PHASE10_WORKER_BLOCKER_REMAINS", f"{stage['stage_id']} status={status}"))
         if status == "planned_with_blocker":
             errors.append(issue("E_PHASE10_PLANNED_WITH_BLOCKER_REMAINS", stage["stage_id"]))
-    coverage_path = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon" / "stage_coverage.json"
+    coverage_path = ROOT / "examples" / "local-paper" / "sample-paper-workspace" / "stage_coverage.json"
     if coverage_path.exists():
         coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
         counts = coverage.get("worker_task_packet_status_counts", {})

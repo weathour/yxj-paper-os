@@ -1,0 +1,19 @@
+{
+  "agent_type": "verifier",
+  "authority_mode": "assessment_only",
+  "dispatch_prompt_ref": "prompts/verifier/S09A.verifier-prompt.md",
+  "dispatch_prompt_sha256": "13dd7a9c02735e679af82281d21bc5b5abac8ddc3451df73f5df092e1763aeb2",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-010-S09A-verifier",
+  "lane": "verifier",
+  "packet_ref": "packets/verifier/S09A.verifier-packet.json",
+  "packet_sha256": "e7f365073088b806cf2741dee9c4404cc723a29bef1fdc640f626af232960251",
+  "producer_return_ref": "returns/producer/S09A.producer-return.md",
+  "producer_return_sha256": "f689fb4dad13dfd43b8c91991452508d30e7d6575bf061ace6431d21b8bf4965",
+  "producer_thread_id": "019f17f2-1fce-7ed0-8de6-2c72b00ec2be",
+  "raw_return_ref": "returns/verifier/S09A.verifier-return.md",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S09A",
+  "status": "prepared"
+}

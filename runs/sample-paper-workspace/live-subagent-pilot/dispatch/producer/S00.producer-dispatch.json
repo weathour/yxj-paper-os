@@ -1,0 +1,16 @@
+{
+  "agent_type": "analyst",
+  "authority_mode": "assessment_only",
+  "dispatch_prompt_ref": "prompts/producer/S00.producer-prompt.md",
+  "dispatch_prompt_sha256": "33365a697aa4bcfbccc00ef0431180c83f3e57690ddc66c92e9ebd2bb2818450",
+  "event": "dispatch_prepared",
+  "event_id": "dispatch-001-S00-producer",
+  "lane": "producer",
+  "packet_ref": "packets/producer/S00.producer-packet.json",
+  "packet_sha256": "99d77ccf79ab0ac6ba076f5c5666bff3c6079ff3c07310bdc032ddcfe59f2d6c",
+  "raw_return_ref": "returns/producer/S00.producer-return.md",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-dispatch/v0.1",
+  "stage_id": "S00",
+  "status": "prepared"
+}

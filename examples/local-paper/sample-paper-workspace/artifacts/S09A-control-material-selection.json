@@ -16,7 +16,7 @@
   ],
   "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
-  "source_project": "security-state-aware-mixed-platoon",
+  "source_project": "sample-paper-workspace",
   "stage_id": "S09A",
   "stage_local_overlays": [
     {

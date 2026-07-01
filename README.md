@@ -72,6 +72,7 @@ The machine source of truth is `runtime/stage_registry.json` plus `examples/stag
 
 ## Core documents
 
+1. [`docs/ARCHITECTURE_OVERVIEW.md`](docs/ARCHITECTURE_OVERVIEW.md) — compact invariants, boundaries, and trade-offs.
 1. [`docs/MANAGER_SURFACE_PROTOCOL.md`](docs/MANAGER_SURFACE_PROTOCOL.md) — public manager identity, read sequence, status reports, and decision routing.
 2. [`docs/RUNTIME_PROTOCOL.md`](docs/RUNTIME_PROTOCOL.md) — controller loop, frontier priority, dispatch policy, lane policy, and commit protocol.
 3. [`docs/FEEDBACK_LIFECYCLE_PROTOCOL.md`](docs/FEEDBACK_LIFECYCLE_PROTOCOL.md) — feedback packages, attribution, repair packets, retrospectives, and stage improvements.

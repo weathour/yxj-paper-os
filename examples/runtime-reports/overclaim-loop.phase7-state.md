@@ -2,7 +2,7 @@
 
 ## Graph
 - graph_id: phase2-overclaim-material-graph
-- title: Phase 7 Deterministic Overclaim Repair Vertical Slice
+- title: Deterministic Overclaim Repair Vertical Slice
 - source_path: examples/runtime/overclaim-loop.phase7-after.json
 - nodes: 22
 - edges: 31

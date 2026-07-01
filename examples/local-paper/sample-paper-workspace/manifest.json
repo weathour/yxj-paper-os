@@ -1,8 +1,8 @@
 {
   "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
-  "project_slug": "security-state-aware-mixed-platoon",
-  "source_root": "/home/weathour/plugins/yxj-paper-os/examples/sample-paper-workspace",
-  "runtime_output_root": "/home/weathour/plugins/yxj-paper-os/examples/local-paper/sample-paper-workspace",
+  "project_slug": "sample-paper-workspace",
+  "source_root": "examples/sample-paper-workspace",
+  "runtime_output_root": "examples/local-paper/sample-paper-workspace",
   "read_only_source": true,
   "claim_boundary": {
     "manuscript_state": "not_started",

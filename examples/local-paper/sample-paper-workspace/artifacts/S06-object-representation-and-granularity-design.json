@@ -17,7 +17,7 @@
   ],
   "purpose": "Decide how paper objects appear across sections and at what granularity.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
-  "source_project": "security-state-aware-mixed-platoon",
+  "source_project": "sample-paper-workspace",
   "stage_id": "S06",
   "stage_local_overlays": [
     {

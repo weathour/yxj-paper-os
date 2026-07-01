@@ -4,7 +4,7 @@ set -euo pipefail
 repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$repo_root"
 
-run_root="$repo_root/runs/security-state-aware-mixed-platoon/phase13-live-subagent-full-flow-pilot"
+run_root="$repo_root/runs/sample-paper-workspace/live-subagent-pilot"
 cleanup() {
   find "$repo_root/runs" -maxdepth 1 -type d \( \
     -name '.phase13-negative-*' -o -name '.phase13-negative.*' \

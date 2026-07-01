@@ -1,0 +1,45 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S13",
+      "validator_ref": "stage_overlay:nature_expert_writing:S13"
+    }
+  ],
+  "candidate_ref": "candidate-artifacts/S13.candidate.json",
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "evidence": [
+    "S13 candidate exists in run-owned path",
+    "S13 StageContract is linked",
+    "S13 content validator is linked",
+    "S13 Nature overlay binding remains stage-local"
+  ],
+  "required_checks": [
+    "source_or_material_trace",
+    "completion_boundary_explicit",
+    "controller_owned_status",
+    "candidate_return_or_missing_material_path",
+    "worker_authority_boundary",
+    "local_backflow_route",
+    "repair_locality",
+    "stage_overlay_binding",
+    "controller_route_only",
+    "stage_overlay_packet_clause"
+  ],
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-stage-validation/v0.1",
+  "stage_id": "S13",
+  "stage_overlay_checks": [
+    "nature_overlay_binding:S13",
+    "controller_owned_completion",
+    "controller_route_only",
+    "no_submission_ready_overclaim",
+    "claim_boundary_preserved",
+    "local_backflow_route"
+  ],
+  "status": "pass_with_runtime_test_limitations",
+  "validator_id": "phase10_s13_content_validator"
+}

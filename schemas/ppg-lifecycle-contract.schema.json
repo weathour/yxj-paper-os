@@ -31,7 +31,45 @@
     },
     "feedback_packages": {"type": "array", "minItems": 1},
     "attributions": {"type": "array", "minItems": 1},
-    "repair_packets": {"type": "array", "minItems": 1},
+    "repair_packets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "schema_version",
+          "repair_packet_id",
+          "status",
+          "attribution_id",
+          "target_material",
+          "repair_action",
+          "allowed_write_paths",
+          "validators",
+          "completion_forbidden",
+          "no_recursive_orchestration"
+        ],
+        "anyOf": [
+          {"required": ["task_packet_ref"]},
+          {"required": ["backflow_task_ref"]}
+        ],
+        "properties": {
+          "schema_version": {"const": "ppg-repair-task-packet/v0.1"},
+          "task_packet_ref": {
+            "type": "string",
+            "pattern": "^examples/packets/[^\\\\\\s]+\\.(ya?ml|json)$"
+          },
+          "backflow_task_ref": {
+            "type": "string",
+            "pattern": "^examples/backflow_tasks/[^\\\\\\s]+\\.(ya?ml|json)$"
+          },
+          "completion_forbidden": {"const": true},
+          "no_recursive_orchestration": {"const": true},
+          "allowed_write_paths": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "validators": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        },
+        "additionalProperties": true
+      }
+    },
     "retrospectives": {"type": "array", "minItems": 1},
     "stage_improvements": {"type": "array", "minItems": 1}
   },

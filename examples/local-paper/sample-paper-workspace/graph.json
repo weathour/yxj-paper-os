@@ -261,7 +261,7 @@
       "target": "S16"
     }
   ],
-  "graph_id": "security-state-aware-mixed-platoon.phase9-full-stage-pilot",
+  "graph_id": "sample-paper-workspace.full-stage-pilot",
   "must_contain_routes": [
     [
       "S09A",
@@ -650,6 +650,6 @@
     }
   ],
   "pilot_root": "examples/local-paper/sample-paper-workspace",
-  "project_slug": "security-state-aware-mixed-platoon",
+  "project_slug": "sample-paper-workspace",
   "schema_version": "ppg-pilot-stage-flow/v0.1"
 }

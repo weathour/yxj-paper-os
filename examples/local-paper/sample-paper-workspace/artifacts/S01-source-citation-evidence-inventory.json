@@ -16,7 +16,7 @@
   ],
   "purpose": "Make raw paper inputs locatable and support-safe.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
-  "source_project": "security-state-aware-mixed-platoon",
+  "source_project": "sample-paper-workspace",
   "stage_id": "S01",
   "stage_local_overlays": [
     {

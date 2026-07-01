@@ -1,0 +1,284 @@
+{
+  "materials": [
+    {
+      "candidate_ref": "candidate-artifacts/S00.candidate.json",
+      "consumed_by": [
+        "S01"
+      ],
+      "material_id": "phase12_s00_material_v1",
+      "material_type": "paper-profile",
+      "producer_stage": "S00",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S00.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S01.candidate.json",
+      "consumed_by": [
+        "S02"
+      ],
+      "material_id": "phase12_s01_material_v1",
+      "material_type": "source_map",
+      "producer_stage": "S01",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S01.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S02.candidate.json",
+      "consumed_by": [
+        "S03"
+      ],
+      "material_id": "phase12_s02_material_v1",
+      "material_type": "research_dossier",
+      "producer_stage": "S02",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S02.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S03.candidate.json",
+      "consumed_by": [
+        "S04"
+      ],
+      "material_id": "phase12_s03_material_v1",
+      "material_type": "contribution_options",
+      "producer_stage": "S03",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S03.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S04.candidate.json",
+      "consumed_by": [
+        "S05"
+      ],
+      "material_id": "phase12_s04_material_v1",
+      "material_type": "claim_citation_capsules",
+      "producer_stage": "S04",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S04.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S05.candidate.json",
+      "consumed_by": [
+        "S06"
+      ],
+      "material_id": "phase12_s05_material_v1",
+      "material_type": "reader_spine",
+      "producer_stage": "S05",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S05.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S06.candidate.json",
+      "consumed_by": [
+        "S07"
+      ],
+      "material_id": "phase12_s06_material_v1",
+      "material_type": "object_representation_matrix",
+      "producer_stage": "S06",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S06.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S07.candidate.json",
+      "consumed_by": [
+        "S08"
+      ],
+      "material_id": "phase12_s07_material_v1",
+      "material_type": "construction_matrix",
+      "producer_stage": "S07",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S07.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S08.candidate.json",
+      "consumed_by": [
+        "S09A"
+      ],
+      "material_id": "phase12_s08_material_v1",
+      "material_type": "visual_budget",
+      "producer_stage": "S08",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S08.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S09A.candidate.json",
+      "consumed_by": [
+        "S09B"
+      ],
+      "material_id": "phase12_s09a_material_v1",
+      "material_type": "selected_control_bundle",
+      "producer_stage": "S09A",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S09A.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S09B.candidate.json",
+      "consumed_by": [
+        "S10"
+      ],
+      "material_id": "phase12_s09b_material_v1",
+      "material_type": "task_packet",
+      "producer_stage": "S09B",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S09B.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S10.candidate.json",
+      "consumed_by": [
+        "S11"
+      ],
+      "material_id": "phase12_s10_material_v1",
+      "material_type": "candidate_text_unit",
+      "producer_stage": "S10",
+      "stale": true,
+      "status": "stale",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S10.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S11.candidate.json",
+      "consumed_by": [
+        "S12"
+      ],
+      "material_id": "phase12_s11_material_v1",
+      "material_type": "figure_statistics",
+      "producer_stage": "S11",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S11.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S12.candidate.json",
+      "consumed_by": [
+        "S13"
+      ],
+      "material_id": "phase12_s12_material_v1",
+      "material_type": "integrated_manuscript_candidate",
+      "producer_stage": "S12",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S12.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S13.candidate.json",
+      "consumed_by": [
+        "S14"
+      ],
+      "material_id": "phase12_s13_material_v1",
+      "material_type": "reviewer_panel_report",
+      "producer_stage": "S13",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S13.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S14.candidate.json",
+      "consumed_by": [
+        "S15"
+      ],
+      "material_id": "phase12_s14_material_v1",
+      "material_type": "narrative_backflow_task",
+      "producer_stage": "S14",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S14.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S15.candidate.json",
+      "consumed_by": [
+        "S16"
+      ],
+      "material_id": "phase12_s15_material_v1",
+      "material_type": "revised_material",
+      "producer_stage": "S15",
+      "stale": false,
+      "status": "repaired",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S15.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/S16.candidate.json",
+      "consumed_by": [
+        "G01"
+      ],
+      "material_id": "phase12_s16_material_v1",
+      "material_type": "export_manifest",
+      "producer_stage": "S16",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/S16.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/G01.candidate.json",
+      "consumed_by": [
+        "G02"
+      ],
+      "material_id": "phase12_g01_material_v1",
+      "material_type": "route_governance_records",
+      "producer_stage": "G01",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/G01.validation.json",
+      "version": "v1"
+    },
+    {
+      "candidate_ref": "candidate-artifacts/G02.candidate.json",
+      "consumed_by": [],
+      "material_id": "phase12_g02_material_v1",
+      "material_type": "presentation_plan",
+      "producer_stage": "G02",
+      "stale": false,
+      "status": "committed_for_runtime_test",
+      "support_strength": "runtime_test_evidence",
+      "validation_ref": "validation/G02.validation.json",
+      "version": "v1"
+    }
+  ],
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-material-inventory/v0.1"
+}

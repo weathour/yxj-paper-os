@@ -1,0 +1,16 @@
+{
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "generated_at": "2026-06-30T00:00:00Z",
+  "lane_count": 40,
+  "phase12_run_ref": "runs/sample-paper-workspace/formal-full-flow-runtime-test",
+  "pilot_root": "examples/local-paper/sample-paper-workspace",
+  "project_slug": "sample-paper-workspace",
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "run_root": "runs/sample-paper-workspace/live-subagent-pilot",
+  "runtime_root": ".",
+  "schema_version": "ppg-phase13-run-manifest/v0.1",
+  "source_read_only": true,
+  "source_root": "examples/sample-paper-workspace",
+  "stage_count": 20,
+  "writes_to_source_allowed": false
+}

@@ -10,8 +10,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 DATA_JS = ROOT / "docs" / "runtime-viewer" / "runtime-graph-data.js"
 APP_JS = ROOT / "docs" / "runtime-viewer" / "app.js"
-COVERAGE_JSON = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon" / "stage_coverage.json"
-PILOT_ROOT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
+COVERAGE_JSON = ROOT / "examples" / "local-paper" / "sample-paper-workspace" / "stage_coverage.json"
+PILOT_ROOT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
 
 
 def run_node(script: str) -> subprocess.CompletedProcess[str]:

@@ -17,7 +17,7 @@
   "graph_ref": "graph.json",
   "pilot_root": "examples/local-paper/sample-paper-workspace",
   "pilot_stage_run_count": 20,
-  "project_slug": "security-state-aware-mixed-platoon",
+  "project_slug": "sample-paper-workspace",
   "schema_version": "ppg-local-paper-full-pilot/v0.1",
   "stage_overlay_binding_counts": {
     "nature_bound": 20

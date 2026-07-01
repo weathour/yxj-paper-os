@@ -18,6 +18,7 @@ try:
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        resolve_repo_ref,
         source_runtime_artifact_violations,
         stage_overlay_summary,
     )
@@ -34,6 +35,7 @@ except ImportError:  # pragma: no cover
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        resolve_repo_ref,
         source_runtime_artifact_violations,
         stage_overlay_summary,
     )
@@ -473,7 +475,7 @@ def verify_phase12_run(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEF
     by_overlay_binding = overlay_binding_by_stage(overlays)
     errors.extend(validate_overlay_authority(overlays))
 
-    expected_source_root = Path(str(load_json(pilot_root / "manifest.json")["source_root"])).resolve(strict=True)
+    expected_source_root = resolve_repo_ref(str(load_json(pilot_root / "manifest.json")["source_root"]))
     _resolved_run, root_errors = validate_run_root_before_reads(run_root, expected_source_root)
     errors.extend(root_errors)
     if root_errors:
@@ -485,7 +487,7 @@ def verify_phase12_run(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEF
     if manifest.get("source_snapshot_before") is not None or manifest.get("source_snapshot_after") is not None:
         errors.append(issue("E_PHASE12_SOURCE_SNAPSHOT_CONTRACT", "manifest must use refs, not embedded snapshots"))
     try:
-        source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
+        source_root = resolve_repo_ref(str(manifest.get("source_root", "")))
     except Exception as exc:  # noqa: BLE001
         return errors + [issue("E_PHASE12_SOURCE_ROOT", f"invalid source_root {manifest.get('source_root')}: {exc}")]
     if source_root != expected_source_root:

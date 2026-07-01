@@ -1,0 +1,74 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S02",
+      "validator_ref": "stage_overlay:nature_expert_writing:S02"
+    }
+  ],
+  "candidate_only": true,
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s02_declared_input_1",
+      "ref": "source map"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s02_declared_input_2",
+      "ref": "citation bank"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s02_declared_input_3",
+      "ref": "venue route"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s02_declared_input_4",
+      "ref": "exemplar locators"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s02_source_ref_references-readme-md",
+      "ref": "references/README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s02_source_ref_references-citation-workspace-map-md",
+      "ref": "references/citation-workspace-map.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s02_source_ref_docs-current-plan-md",
+      "ref": "docs/CURRENT_PLAN.md"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s01_pilot_output",
+      "producer_stage_id": "S01",
+      "ref": "artifacts/S01-source-citation-evidence-inventory.json"
+    }
+  ],
+  "content_summary": "Phase12 formal runtime-test candidate for S02 (Research scene exemplar SOTA analysis). Consumes pilot materials 8; records bounded controller-owned candidate evidence only.",
+  "controller_commit_required": true,
+  "no_recursive_orchestration": true,
+  "packet_ref": "packets/S02.task-packet.json",
+  "produced_materials": [
+    "phase12_s02_material_v1"
+  ],
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-stage-candidate/v0.1",
+  "source_write_forbidden": true,
+  "stage_id": "S02",
+  "stage_name": "Research scene exemplar SOTA analysis",
+  "validator_refs": [
+    "phase10_s02_content_validator",
+    "stage_overlay:nature_expert_writing:S02"
+  ],
+  "worker_completion_forbidden": true
+}

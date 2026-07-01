@@ -1,0 +1,100 @@
+{
+  "agent_type": "analyst",
+  "authority_mode": "production_candidate",
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "consumes": [
+    "research dossier",
+    "evidence inventory",
+    "motivation",
+    "SOTA map"
+  ],
+  "content_validator_id": "phase10_s03_content_validator",
+  "controller_owned_completion": true,
+  "instructions": [
+    "Cite this packet path exactly: packets/producer/S03.producer-packet.json",
+    "Address stage S03: Novelty and contribution option analysis specifically.",
+    "Return text only; do not edit files.",
+    "Do not dispatch agents, do not mark final completion, do not claim manuscript/submission/publication readiness.",
+    "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs."
+  ],
+  "lane": "producer",
+  "no_recursive_orchestration": true,
+  "output_return_ref": "returns/producer/S03.producer-return.md",
+  "packet_id": "phase13.S03.producer",
+  "packet_ref": "packets/producer/S03.producer-packet.json",
+  "phase12_candidate_ref": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S03.candidate.json",
+  "pilot_consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s03_declared_input_1",
+      "ref": "research dossier"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s03_declared_input_2",
+      "ref": "evidence inventory"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s03_declared_input_3",
+      "ref": "motivation"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s03_declared_input_4",
+      "ref": "SOTA map"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s03_source_ref_readme-md",
+      "ref": "README.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s03_source_ref_handoff-md",
+      "ref": "HANDOFF.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s03_source_ref_project-status-md",
+      "ref": "PROJECT_STATUS.md"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s03_source_ref_manuscript-sections-01-introduction-tex",
+      "ref": "manuscript/sections/01_introduction.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s02_pilot_output",
+      "producer_stage_id": "S02",
+      "ref": "artifacts/S02-research-scene-exemplar-sota-analysis.json"
+    }
+  ],
+  "produces": [
+    "contribution options",
+    "novelty readiness",
+    "risk list"
+  ],
+  "requires_worker_task_packet": true,
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-live-task-packet/v0.1",
+  "source_brief": {
+    "active_method": null,
+    "evidence_spine": null,
+    "method_name": null,
+    "non_text_evidence_spine": null,
+    "project_slug": "sample-paper-workspace",
+    "validation_scope": null,
+    "zero_trust_boundary": null
+  },
+  "source_write_forbidden": true,
+  "stage_contract_ref": "examples/stage-contracts/S03.stage-contract.json",
+  "stage_id": "S03",
+  "stage_name": "Novelty and contribution option analysis",
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
+  ],
+  "worker_completion_forbidden": true
+}

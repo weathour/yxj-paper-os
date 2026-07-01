@@ -10,11 +10,11 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, load_json, write_json, write_text
+    from generate_phase10_run_dry_run import ROOT, load_json, resolve_repo_ref, write_json, write_text
     from generate_phase13_live_pilot import DEFAULT_RUN_ROOT, DEFAULT_PILOT
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, load_json, write_json, write_text  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, load_json, resolve_repo_ref, write_json, write_text  # type: ignore  # noqa: E402
     from generate_phase13_live_pilot import DEFAULT_RUN_ROOT, DEFAULT_PILOT  # type: ignore  # noqa: E402
 
 
@@ -37,7 +37,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     run_root = args.run_root if args.run_root.is_absolute() else ROOT / args.run_root
     pilot_manifest = load_json(DEFAULT_PILOT / "manifest.json")
-    source_root = Path(str(pilot_manifest["source_root"])).resolve(strict=True)
+    source_root = resolve_repo_ref(str(pilot_manifest["source_root"]))
     state = load_json(run_root / "run_state.json")
     stage = next((item for item in state.get("stages", []) if item.get("stage_id") == args.stage_id), None)
     if not isinstance(stage, dict):

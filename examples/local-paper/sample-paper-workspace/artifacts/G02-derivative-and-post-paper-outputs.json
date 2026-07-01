@@ -16,7 +16,7 @@
   ],
   "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
-  "source_project": "security-state-aware-mixed-platoon",
+  "source_project": "sample-paper-workspace",
   "stage_id": "G02",
   "stage_local_overlays": [
     {

@@ -20,6 +20,7 @@ try:
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        resolve_repo_ref,
         source_runtime_artifact_violations,
         stage_overlay_summary,
     )
@@ -39,6 +40,7 @@ except ImportError:  # pragma: no cover
         is_relative_to,
         load_json,
         overlay_binding_by_stage,
+        resolve_repo_ref,
         source_runtime_artifact_violations,
         stage_overlay_summary,
     )
@@ -362,9 +364,9 @@ def verify_run_fixture(run_root: Path, registry: dict[str, Any], validators: dic
     if manifest is None or run_state is None:
         return errors
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
-    expected_source_root = Path(str(load_json(pilot_root / "manifest.json")["source_root"])).resolve(strict=True)
+    expected_source_root = resolve_repo_ref(str(load_json(pilot_root / "manifest.json")["source_root"]))
     try:
-        source_root = Path(str(manifest.get("source_root", ""))).expanduser().resolve(strict=True)
+        source_root = resolve_repo_ref(str(manifest.get("source_root", "")))
     except Exception as exc:  # noqa: BLE001
         return errors + [issue("E_PHASE10_SOURCE_ROOT", f"invalid source_root {manifest.get('source_root')}: {exc}")]
     if source_root != expected_source_root or manifest.get("pilot_root") != rel(pilot_root):

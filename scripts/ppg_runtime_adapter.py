@@ -216,7 +216,7 @@ def attach_stage_coverage(state: dict[str, Any], stage_coverage_path: Path) -> d
     """Attach an already-generated PilotStageRun coverage summary.
 
     This is optional so the Phase8 graph-state fixture remains byte-for-byte
-    stable by default. Phase9 callers opt in when they want a combined runtime
+    stable by default. Stage-coverage callers opt in when they want a combined runtime
     state + full-stage local-paper pilot report.
     """
 
@@ -302,7 +302,7 @@ def render_markdown(state: dict[str, Any]) -> str:
     if "stage_coverage" in state:
         coverage = state["stage_coverage"]
         sections.extend([
-            "## Phase9 Stage Coverage",
+            "## Stage Coverage",
             f"- project: {coverage.get('project_slug', '')}",
             f"- stage runs: {coverage.get('pilot_stage_run_count', '')}/{coverage.get('canonical_stage_count', '')}",
             f"- completion boundary: {coverage.get('completion_boundary', '')}",
@@ -336,7 +336,7 @@ def write_output(text: str, out: Path | None) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Emit a deterministic graph-state-read-only PPG runtime state report.")
     parser.add_argument("--graph", required=True, type=Path, help="PPG graph JSON fixture to inspect.")
-    parser.add_argument("--stage-coverage", type=Path, help="Optional Phase9 local-paper stage_coverage.json to attach.")
+    parser.add_argument("--stage-coverage", type=Path, help="Optional local-paper stage_coverage.json to attach.")
     parser.add_argument("--format", choices=["json", "markdown"], default="json", help="Report output format.")
     parser.add_argument("--out", type=Path, help="Write report to path instead of stdout; refuses to overwrite the input graph.")
     return parser

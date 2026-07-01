@@ -64,7 +64,6 @@
   const nodeIndex = document.getElementById('nodeIndex');
   const presetButtons = document.getElementById('presetButtons');
   const edgeFilters = document.getElementById('edgeFilters');
-  const referenceFigure = document.getElementById('referenceFigure');
   const runtimeStateFrame = document.getElementById('runtimeStateFrame');
   const runtimeStateContent = document.getElementById('runtimeStateContent');
   const stageCoverageFrame = document.getElementById('stageCoverageFrame');
@@ -822,7 +821,6 @@
     document.getElementById('prevStep').addEventListener('click', () => moveStep(-1));
     document.getElementById('nextStep').addEventListener('click', () => moveStep(1));
     document.getElementById('resetFocus').addEventListener('click', () => activatePreset('all'));
-    document.getElementById('showReference').addEventListener('click', () => { referenceFigure.hidden = !referenceFigure.hidden; });
     document.getElementById('roadmapMode').addEventListener('click', () => { state.mode = 'roadmap'; update(); });
     document.getElementById('graphMode').addEventListener('click', () => { state.mode = 'graph'; update(); });
     document.getElementById('stageWorkbenchMode').addEventListener('click', () => { ensureStageSelection(); state.mode = 'workbench'; update(); });

@@ -1,0 +1,38 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "light",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S00",
+      "validator_ref": "stage_overlay:nature_expert_writing:S00"
+    }
+  ],
+  "candidate_ref": "candidate-artifacts/S00.candidate.json",
+  "completion_boundary": "runtime-test completion only; candidate artifacts require controller validation and do not claim manuscript, submission, or publication readiness",
+  "evidence": [
+    "S00 candidate exists in run-owned path",
+    "S00 StageContract is linked",
+    "S00 content validator is linked",
+    "S00 Nature overlay binding remains stage-local"
+  ],
+  "required_checks": [
+    "source_or_material_trace",
+    "completion_boundary_explicit",
+    "controller_owned_status",
+    "stage_overlay_binding",
+    "controller_route_only"
+  ],
+  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
+  "schema_version": "ppg-phase12-stage-validation/v0.1",
+  "stage_id": "S00",
+  "stage_overlay_checks": [
+    "nature_overlay_binding:S00",
+    "controller_owned_completion",
+    "controller_route_only",
+    "no_submission_ready_overclaim"
+  ],
+  "status": "pass",
+  "validator_id": "phase10_s00_content_validator"
+}

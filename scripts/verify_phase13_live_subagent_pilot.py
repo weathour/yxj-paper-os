@@ -11,11 +11,11 @@ import sys
 from typing import Any
 
 try:
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json, source_runtime_artifact_violations
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json, resolve_repo_ref, source_runtime_artifact_violations
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, REGISTRY
 except ImportError:  # pragma: no cover
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json, source_runtime_artifact_violations  # type: ignore  # noqa: E402
+    from generate_phase10_run_dry_run import ROOT, compute_source_snapshot, is_relative_to, load_json, resolve_repo_ref, source_runtime_artifact_violations  # type: ignore  # noqa: E402
     from generate_phase13_live_pilot import DEFAULT_PILOT, DEFAULT_RUN_ROOT, RUN_ID, REGISTRY  # type: ignore  # noqa: E402
 
 RUN_SCHEMA_VERSION = "ppg-phase13-run-state/v0.1"
@@ -388,7 +388,7 @@ def verify_phase13_run(run_root: Path = DEFAULT_RUN_ROOT, pilot_root: Path = DEF
     run_root = run_root if run_root.is_absolute() else ROOT / run_root
     pilot_root = pilot_root if pilot_root.is_absolute() else ROOT / pilot_root
     pilot_manifest = load_json(pilot_root / "manifest.json")
-    source_root = Path(str(pilot_manifest["source_root"])).resolve(strict=True)
+    source_root = resolve_repo_ref(str(pilot_manifest["source_root"]))
     root_errors = validate_run_root_before_reads(run_root, source_root)
     errors.extend(root_errors)
     if root_errors:

@@ -1,0 +1,73 @@
+{
+  "active_stage_overlays": [
+    {
+      "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
+      "binding_strength": "primary",
+      "overlay_id": "nature_expert_writing",
+      "overlay_registry_ref": "runtime/stage_overlay_registry.json",
+      "stage_id": "S06",
+      "validator_ref": "stage_overlay:nature_expert_writing:S06"
+    }
+  ],
+  "candidate_output_path": "candidate-artifacts/S06.candidate-placeholder.json",
+  "completion_claim": "S06 phase10_real_run_readiness_only: dispatch packet, content validator, candidate placeholder, and ledger evidence are prepared; no final manuscript completion or submission claim is made.",
+  "consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_1",
+      "ref": "reader spine"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_2",
+      "ref": "reviewer question map"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_3",
+      "ref": "template profile"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s06_declared_input_4",
+      "ref": "claim visibility"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s06_source_ref_manuscript-sections-03-problem-formulation-tex",
+      "ref": "manuscript/sections/03_problem_formulation.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s06_source_ref_manuscript-sections-04-method-tex",
+      "ref": "manuscript/sections/04_method.tex"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "s06_source_ref_manuscript-sections-06-results-discussion-tex",
+      "ref": "manuscript/sections/06_results_discussion.tex"
+    },
+    {
+      "kind": "upstream_stage_output",
+      "material_id": "s05_pilot_output",
+      "producer_stage_id": "S05",
+      "ref": "artifacts/S05-paper-spine-and-reader-question-synthesis.json"
+    }
+  ],
+  "content_validator_id": "phase10_s06_content_validator",
+  "content_validator_ref": "runtime/phase10_content_validators.json",
+  "packet_ref": "packets/S06.task-packet.json",
+  "packet_template_ref": "examples/packets/phase10_s06_object_granularity_design_packet.v1.yaml",
+  "run_id": "sample-paper-workspace.readiness-dry-run",
+  "schema_version": "ppg-phase10-dispatch-record/v0.1",
+  "source_read_only": true,
+  "stage_contract_ref": "examples/stage-contracts/S06.stage-contract.json",
+  "stage_id": "S06",
+  "stage_name": "Object representation and granularity design",
+  "stage_overlay_registry_ref": "runtime/stage_overlay_registry.json",
+  "worker_authority": {
+    "completion_forbidden": true,
+    "controller_owned_completion": true,
+    "no_recursive_orchestration": true
+  }
+}

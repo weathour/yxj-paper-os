@@ -108,16 +108,16 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
         {
             "id": "phase7_mock_reviewer_finding_v1",
             "node_type": "validator",
-            "label": "Phase7 mock reviewer finding pass",
+            "label": "Mock reviewer finding pass",
             "status": "validated",
             "version": "v1",
             "layer": 5,
-            "summary": "Deterministic reviewer pass over stale intro draft that emits the Phase7 overclaim finding.",
+            "summary": "Deterministic reviewer pass over stale intro draft that emits the overclaim finding.",
         },
         {
             "id": "phase7_overclaim_review_finding_v1",
             "node_type": "review_finding",
-            "label": "Phase7 finding: intro overclaim v1",
+            "label": "Finding: intro overclaim v1",
             "status": "validated",
             "version": "v1",
             "layer": 5,
@@ -129,7 +129,7 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
         {
             "id": "phase7_overclaim_review_finding_v1_backflow_v1",
             "node_type": "backflow_task",
-            "label": "Phase7 overclaim backflow task v1",
+            "label": "Overclaim backflow task v1",
             "status": "planned",
             "version": "v1",
             "layer": 6,
@@ -150,7 +150,7 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
         {
             "id": "phase7_mock_writer_v1",
             "node_type": "agent_run",
-            "label": "Phase7 mock writer run v1",
+            "label": "Mock writer run v1",
             "status": "validated",
             "version": "v1",
             "layer": 4,
@@ -170,7 +170,7 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
         {
             "id": "phase7_mock_reviewer_closure_v1",
             "node_type": "validator",
-            "label": "Phase7 mock reviewer closure pass",
+            "label": "Mock reviewer closure pass",
             "status": "validated",
             "version": "v1",
             "layer": 5,
@@ -180,7 +180,7 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
             "id": "phase7_overclaim_closure_v1",
             "node_type": "validation_report",
             "report_id": "phase7_overclaim_closure_v1",
-            "label": "Phase7 overclaim ReviewClosure v1",
+            "label": "Overclaim ReviewClosure v1",
             "status": "validated",
             "version": "v1",
             "layer": 6,
@@ -191,7 +191,7 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
             "id": "phase7_delivery_gate_v1",
             "node_type": "validation_report",
             "report_id": "phase7_delivery_gate_v1",
-            "label": "Phase7 DeliveryGate v1",
+            "label": "DeliveryGate v1",
             "status": "validated",
             "version": "v1",
             "layer": 7,
@@ -223,7 +223,7 @@ def build_phase7_after_graph(stale_graph_path: Path) -> dict[str, Any]:
         if edge["id"] not in existing_edge_ids:
             edges.append(edge)
 
-    graph["title"] = "Phase 7 Deterministic Overclaim Repair Vertical Slice"
+    graph["title"] = "Deterministic Overclaim Repair Vertical Slice"
     graph["nodes"] = nodes
     graph["edges"] = edges
     return graph

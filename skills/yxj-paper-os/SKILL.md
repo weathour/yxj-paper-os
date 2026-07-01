@@ -45,16 +45,17 @@ Do not rewrite the whole paper by default. First classify feedback, attribute it
 ## First documents to read
 
 1. `README.md` or `README.zh-CN.md`
-2. `docs/MANAGER_SURFACE_PROTOCOL.md`
-3. `docs/RUNTIME_PROTOCOL.md`
-4. `docs/FEEDBACK_LIFECYCLE_PROTOCOL.md`
-5. `docs/BACKFLOW_PROTOCOL.md`
-6. `docs/MATERIAL_SCHEMA.md`
-7. `docs/TOPOLOGY.md`
-8. `docs/VALIDATION_AND_TESTING.md`
-9. `docs/STANDARD_PAPER_WORKSPACE.md` when a local paper repository is involved
-10. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md` when source writeback is requested or implied
-11. `runtime/stage_registry.json` and relevant StageContracts when mapping work to `S00-S16/G01/G02`
+2. `docs/ARCHITECTURE_OVERVIEW.md`
+3. `docs/MANAGER_SURFACE_PROTOCOL.md`
+4. `docs/RUNTIME_PROTOCOL.md`
+5. `docs/FEEDBACK_LIFECYCLE_PROTOCOL.md`
+6. `docs/BACKFLOW_PROTOCOL.md`
+7. `docs/MATERIAL_SCHEMA.md`
+8. `docs/TOPOLOGY.md`
+9. `docs/VALIDATION_AND_TESTING.md`
+10. `docs/STANDARD_PAPER_WORKSPACE.md` when a local paper repository is involved
+11. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md` when source writeback is requested or implied
+12. `runtime/stage_registry.json` and relevant StageContracts when mapping work to `S00-S16/G01/G02`
 
 ## Runtime inspection commands
 

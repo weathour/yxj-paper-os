@@ -1,0 +1,82 @@
+{
+  "agent_type": "verifier",
+  "authority_mode": "assessment_only",
+  "completion_boundary": "Phase13 live subagent pilot only; no manuscript, submission, or publication readiness claim.",
+  "consumes": [
+    "state",
+    "permissions",
+    "skill registry"
+  ],
+  "content_validator_id": "phase10_g01_content_validator",
+  "controller_owned_completion": true,
+  "instructions": [
+    "Cite this packet path exactly: packets/verifier/G01.verifier-packet.json",
+    "Address stage G01: Runtime governance registry specifically.",
+    "Return text only; do not edit files.",
+    "Do not dispatch agents, do not mark final completion, do not claim manuscript/submission/publication readiness.",
+    "If authority_mode is assessment_only, assess/report only and do not authorize or rewrite controller/script/owner-gated outputs.",
+    "Read and assess producer return returns/producer/G01.producer-return.md with sha256 06cc7531cbe3e9d313a5465b082b1ab886270bf2f78c7a7de909696c867f41fd."
+  ],
+  "lane": "verifier",
+  "no_recursive_orchestration": true,
+  "output_return_ref": "returns/verifier/G01.verifier-return.md",
+  "packet_id": "phase13.G01.verifier",
+  "packet_ref": "packets/verifier/G01.verifier-packet.json",
+  "phase12_candidate_ref": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/G01.candidate.json",
+  "pilot_consumed_materials": [
+    {
+      "kind": "contract_declared",
+      "material_id": "g01_declared_input_1",
+      "ref": "state"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "g01_declared_input_2",
+      "ref": "permissions"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "g01_declared_input_3",
+      "ref": "skill registry"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "g01_source_ref_runtime-stage-registry-json",
+      "ref": "runtime/stage_registry.json"
+    },
+    {
+      "kind": "source_or_runtime_ref",
+      "material_id": "g01_source_ref_examples-stage-contracts",
+      "ref": "examples/stage-contracts"
+    }
+  ],
+  "producer_return_ref": "returns/producer/G01.producer-return.md",
+  "producer_return_sha256": "06cc7531cbe3e9d313a5465b082b1ab886270bf2f78c7a7de909696c867f41fd",
+  "producer_thread_id": "019f17fb-8892-75d3-96ef-c8523c56bcd7",
+  "produces": [
+    "route governance records",
+    "state controls",
+    "manager boot checklist"
+  ],
+  "requires_worker_task_packet": false,
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-live-task-packet/v0.1",
+  "source_brief": {
+    "active_method": null,
+    "evidence_spine": null,
+    "method_name": null,
+    "non_text_evidence_spine": null,
+    "project_slug": "sample-paper-workspace",
+    "validation_scope": null,
+    "zero_trust_boundary": null
+  },
+  "source_write_forbidden": true,
+  "stage_contract_ref": "examples/stage-contracts/G01.stage-contract.json",
+  "stage_id": "G01",
+  "stage_name": "Runtime governance registry",
+  "unauthorized_routes_forbidden": [
+    "unauthorized recursive route",
+    "unregistered external route"
+  ],
+  "worker_completion_forbidden": true
+}

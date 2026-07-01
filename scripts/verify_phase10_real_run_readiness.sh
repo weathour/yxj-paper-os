@@ -61,7 +61,7 @@ if missing_run:
     raise SystemExit(f'PHASE11_RUN_STATE_SCHEMA_OVERLAY_REQUIRED_MISSING {sorted(missing_run)}')
 print('PHASE11_SCHEMA_OVERLAY_REQUIRED_FIELDS_OK')
 PY
-python3 scripts/generate_local_paper_full_pilot.py --pilot-root examples/local-paper/security-state-aware-mixed-platoon --check
+python3 scripts/generate_local_paper_full_pilot.py --pilot-root examples/local-paper/sample-paper-workspace --check
 python3 scripts/generate_phase10_run_dry_run.py --check
 python3 scripts/verify_phase10_run_readiness.py
 bash scripts/verify_phase9_full_stage_runtime.sh
@@ -176,7 +176,7 @@ echo NEGATIVE_PHASE10_SOURCE_RUNTIME_ARTIFACT_OK
 
 source_root=$(python3 - <<'PY'
 import json
-print(json.load(open('examples/local-paper/security-state-aware-mixed-platoon/manifest.json'))['source_root'])
+print(json.load(open('examples/local-paper/sample-paper-workspace/manifest.json'))['source_root'])
 PY
 )
 

@@ -1,0 +1,33 @@
+{
+  "authority_mode": "assessment_only",
+  "controller_acceptance": "accept_with_limitations",
+  "dimensions": {
+    "actionability": 4,
+    "boundary_compliance": 5,
+    "downstream_usefulness": 4,
+    "input_grounding": 4,
+    "stage_specificity": 4
+  },
+  "downstream_usefulness": "S16 Export repository hygiene and handoff produced live pilot evidence that can inform downstream PPG controller decisions while remaining runtime-pilot-only.",
+  "effect_score": 4,
+  "evidence_refs": [
+    "packets/producer/S16.producer-packet.json",
+    "packets/verifier/S16.verifier-packet.json",
+    "returns/producer/S16.producer-return.md",
+    "returns/verifier/S16.verifier-return.md"
+  ],
+  "limitations": [
+    "pilot_not_manuscript_ready",
+    "script_or_registry_assessment_only"
+  ],
+  "packet_citations_present": true,
+  "producer_return_ref": "returns/producer/S16.producer-return.md",
+  "repair_ref": null,
+  "repair_required": false,
+  "run_id": "sample-paper-workspace.live-subagent-pilot",
+  "schema_version": "ppg-phase13-stage-effect/v0.1",
+  "stage_id": "S16",
+  "stage_name": "Export repository hygiene and handoff",
+  "verifier_return_ref": "returns/verifier/S16.verifier-return.md",
+  "verifier_verdict": "accept_with_limitations"
+}

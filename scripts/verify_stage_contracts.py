@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify Phase9 StageContract fixtures against the canonical registry."""
+"""Verify Paper OS StageContract fixtures against the canonical registry."""
 from __future__ import annotations
 
 import json
@@ -274,7 +274,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print("PHASE9_STAGE_CONTRACTS_OK")
+    print("PPG_STAGE_CONTRACTS_OK")
     return 0
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project a local paper repository into a Phase9 read-only pilot package."""
+"""Project a paper repository into a read-only Paper OS pilot package."""
 from __future__ import annotations
 
 import argparse
@@ -13,8 +13,8 @@ import tempfile
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE = Path("/home/weathour/文档/CPS-Papers/papers/security-state-aware-mixed-platoon")
-DEFAULT_OUT = ROOT / "examples" / "local-paper" / "security-state-aware-mixed-platoon"
+DEFAULT_SOURCE = ROOT / "examples" / "sample-paper-workspace"
+DEFAULT_OUT = ROOT / "examples" / "local-paper" / "sample-paper-workspace"
 REQUIRED_SOURCE_FILES = [
     "README.md",
     "HANDOFF.md",
@@ -120,6 +120,14 @@ def is_relative_to(child: Path, parent: Path) -> bool:
         return False
 
 
+def repo_ref(path: Path) -> str:
+    resolved = path.resolve(strict=False)
+    try:
+        return resolved.relative_to(ROOT.resolve(strict=True)).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
 def ensure_output_safe(source: Path, out: Path) -> None:
     source_resolved = source.resolve(strict=True)
     runtime_root = ROOT.resolve(strict=True)
@@ -199,9 +207,9 @@ def project(source: Path, out: Path, *, check: bool) -> int:
     provenance_files = [rel for rel in OPTIONAL_PROVENANCE_FILES if (source / rel).exists()]
     manifest = {
         "schema_version": "ppg-local-paper-pilot-manifest/v0.1",
-        "project_slug": "security-state-aware-mixed-platoon",
-        "source_root": str(source),
-        "runtime_output_root": str(out.resolve()),
+        "project_slug": workspace.get("project_slug", out.name),
+        "source_root": repo_ref(source),
+        "runtime_output_root": repo_ref(out),
         "read_only_source": True,
         "claim_boundary": claim_boundary,
         "source_files": [{"path": rel, "exists": (source / rel).exists()} for rel in source_files],
