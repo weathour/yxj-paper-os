@@ -6083,6 +6083,14 @@ def _collect_s16_required_manifest_paths(payload: dict[str, Any]) -> set[str]:
     handoff = as_mapping(payload.get("manager_handoff_report"))
     if handoff is not None:
         required.update(_s16_string_items(handoff.get("human_readable_outputs")))
+    surface = as_mapping(payload.get("rendered_surface_check"))
+    if surface is not None and is_non_empty_string(surface.get("rendered_text_ref")):
+        required.add(str(surface["rendered_text_ref"]))
+    post_writeback = as_mapping(payload.get("post_writeback_validation"))
+    if post_writeback is not None:
+        for key in ("pdf_text_ref", "output_pdf_ref"):
+            if is_non_empty_string(post_writeback.get(key)):
+                required.add(str(post_writeback[key]))
     return required
 
 

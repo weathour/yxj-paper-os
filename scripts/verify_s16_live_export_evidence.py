@@ -77,7 +77,7 @@ def paragraph_count(text: str) -> int:
     return sum(1 for part in text.replace("\r\n", "\n").split("\n\n") if len(part.strip()) >= 80)
 
 
-def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[str, str]) -> None:
+def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[str, str], exported_paths: set[str]) -> None:
     surface = payload.get("rendered_surface_check")
     post = payload.get("post_writeback_validation")
     build = payload.get("build_run_report")
@@ -93,6 +93,8 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
         fail("E_S16_LIVE_TEXT", "rendered text hash must match post_writeback_validation.pdf_text_sha256")
     if hash_manifest.get(text_ref) != expected:
         fail("E_S16_LIVE_TEXT", "rendered text ref must be hash-listed in file_hash_manifest")
+    if text_ref not in exported_paths:
+        fail("E_S16_LIVE_TEXT", "rendered text ref must be listed in export_manifest.exported_files")
     text_path = safe_repo_file(text_ref)
     if not text_path.is_file():
         fail("E_S16_LIVE_TEXT", f"missing rendered text file: {text_ref}")
@@ -120,6 +122,8 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
         fail("E_S16_LIVE_PDF_BINDING", "source PDF hash must match post_writeback_validation.output_pdf_sha256")
     if hash_manifest.get(pdf_ref) != expected_pdf_hash:
         fail("E_S16_LIVE_PDF_BINDING", "source PDF ref must be hash-listed in file_hash_manifest")
+    if pdf_ref not in exported_paths:
+        fail("E_S16_LIVE_PDF_BINDING", "source PDF ref must be listed in export_manifest.exported_files")
     pdf_path = safe_repo_file(pdf_ref)
     if not pdf_path.is_file():
         fail("E_S16_LIVE_PDF_BINDING", f"missing source PDF file: {pdf_ref}")
@@ -147,10 +151,12 @@ def verify_live(payload: dict[str, Any]) -> None:
     if not isinstance(hashes, list) or not hashes:
         fail("E_S16_LIVE_MANIFEST", "file_hash_manifest must be non-empty")
     hash_manifest = {str(item.get("path")): str(item.get("sha256")) for item in hashes if isinstance(item, dict)}
+    exported_paths: set[str] = set()
     for item in exported_files:
         if not isinstance(item, dict):
             fail("E_S16_LIVE_MANIFEST", "export_manifest item must be an object")
         path_text = str(item.get("path") or "")
+        exported_paths.add(path_text)
         path = safe_repo_file(path_text)
         if not path.is_file():
             fail("E_S16_LIVE_FILE", f"missing exported file: {path_text}")
@@ -169,7 +175,7 @@ def verify_live(payload: dict[str, Any]) -> None:
         if not path.is_file():
             fail("E_S16_LIVE_BUILD", f"missing build artifact {key}: {build.get(key)}")
     if is_compiled_target(payload):
-        verify_compiled_text_surface(payload, hash_manifest)
+        verify_compiled_text_surface(payload, hash_manifest, exported_paths)
     print("PPG_S16_LIVE_EXPORT_EVIDENCE_OK")
 
 
