@@ -129,6 +129,168 @@ def repo_ref(path: Path) -> str:
         return str(resolved)
 
 
+def write_text_artifact(out: Path, rel: str, content: str) -> None:
+    path = out / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
+def write_json_artifact(out: Path, rel: str, payload: dict[str, Any]) -> None:
+    path = out / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def write_s16_live_export_fixture_artifacts(out: Path) -> None:
+    """Recreate deterministic S16 live-export fixture files after pilot import.
+
+    `import_local_paper_pilot.py` owns the destructive rebuild of the local-paper
+    pilot root.  Any committed fixture under that generated root must therefore
+    be re-emitted here; otherwise Phase9/Phase10 readiness checks correctly flag
+    tracked deletions.  These files are fixture export artifacts only and do not
+    mutate the read-only source paper repository.
+    """
+
+    write_text_artifact(out, "build/latexmk.log", "Latexmk fixture: build completed without errors.\n")
+    write_text_artifact(
+        out,
+        "build/main-template.pdf",
+        "%PDF-1.4\n% template-only fixture\n1 0 obj << /Type /Catalog >> endobj\n%%EOF\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main-template.txt",
+        "Manuscript Not Started\n\n"
+        "This template-only placeholder TODO text should never satisfy a compiled initial draft target.\n\n"
+        "References\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main.pdf",
+        "%PDF-1.4\n% content-bearing compiled draft fixture\n1 0 obj << /Type /Catalog >> endobj\n%%EOF\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main.txt",
+        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture. "
+        "The first body paragraph states the problem, explains the cyber-physical safety context, and connects "
+        "experiment evidence to the manuscript contribution using complete draft language. It contains enough "
+        "natural language to serve as a rendered-text smoke fixture for the compiled target gate.\n\n"
+        "The second body paragraph discusses methods, data, figure references, and claim boundaries. It mentions "
+        "Figure 1 as a real paper-facing figure and describes how the evidence supports a bounded initial draft "
+        "rather than a publication or submission claim. The paragraph is intentionally long enough to be counted "
+        "as body content by the live verifier.\n\n"
+        "References\n"
+        "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.\n",
+    )
+    write_text_artifact(out, "figures/figure1.pdf", "%PDF-1.4\n% figure fixture\n%%EOF\n")
+    write_text_artifact(
+        out,
+        "manuscript/main.tex",
+        "\\documentclass{article}\n\\begin{document}\nContent-bearing compiled draft fixture.\\end{document}\n",
+    )
+    write_text_artifact(
+        out,
+        "refs/references.bib",
+        "@article{fixture2026, title={Fixture Reference}, author={Doe, Jane}, journal={Journal}, year={2026}}\n",
+    )
+    write_json_artifact(
+        out,
+        "build/rendered-surface-review.json",
+        {
+            "schema_version": "ppg-rendered-surface-review/v0.1",
+            "review_id": "compiled-draft-rendered-surface-review-fixture-v1",
+            "pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
+            "text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
+            "body_paragraphs_present": True,
+            "bibliography_present": True,
+            "forbidden_template_sentinels": [],
+            "status": "pass",
+        },
+    )
+    write_json_artifact(
+        out,
+        "paper-os/writeback/compiled-draft-plan.json",
+        {
+            "schema_version": "ppg-latex-writeback-plan/v0.1",
+            "plan_id": "compiled-draft-plan-fixture-v1",
+            "target": "compiled_initial_draft",
+            "source_material_ref": "examples/materials/phase10_s12_integration_report.json",
+            "actions": [
+                "write integrated S12 manuscript into manuscript/main.tex",
+                "preserve bibliography and figure refs",
+                "build after writeback",
+            ],
+            "status": "ready",
+        },
+    )
+    write_json_artifact(
+        out,
+        "paper-os/writeback/compiled-draft-patchset.json",
+        {
+            "schema_version": "ppg-latex-writeback-patchset/v0.1",
+            "patchset_id": "compiled-draft-patchset-fixture-v1",
+            "files_changed": [
+                "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+                "examples/local-paper/sample-paper-workspace/refs/references.bib",
+            ],
+            "claim_boundary_preserved": True,
+            "status": "prepared",
+        },
+    )
+    write_json_artifact(
+        out,
+        "paper-os/writeback/compiled-draft-apply-report.json",
+        {
+            "schema_version": "ppg-latex-writeback-apply-report/v0.1",
+            "apply_report_id": "compiled-draft-apply-fixture-v1",
+            "applied_files": [
+                "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+                "examples/local-paper/sample-paper-workspace/refs/references.bib",
+            ],
+            "build_required_after_apply": True,
+            "status": "applied",
+        },
+    )
+    write_json_artifact(
+        out,
+        "paper-os/writeback/source-tree-after.json",
+        {
+            "schema_version": "ppg-source-tree-snapshot/v0.1",
+            "snapshot_id": "compiled-draft-source-tree-after-fixture-v1",
+            "tracked_sources": [
+                "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+                "examples/local-paper/sample-paper-workspace/refs/references.bib",
+                "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
+            ],
+            "unexpected_changes": [],
+            "status": "captured",
+        },
+    )
+    write_json_artifact(
+        out,
+        "paper-os/writeback/claim-boundary-audit.json",
+        {
+            "schema_version": "ppg-claim-boundary-audit/v0.1",
+            "audit_id": "compiled-draft-claim-boundary-audit-fixture-v1",
+            "overclaims": [],
+            "unsupported_claims": [],
+            "boundary_status": "pass",
+        },
+    )
+    write_json_artifact(
+        out,
+        "paper-os/writeback/template-compatibility-check.json",
+        {
+            "schema_version": "ppg-template-compatibility-check/v0.1",
+            "check_id": "compiled-draft-template-compatibility-fixture-v1",
+            "template_only_sections_remaining": [],
+            "internal_stage_id_leakage": [],
+            "status": "pass",
+        },
+    )
+
+
 def ensure_output_safe(source: Path, out: Path) -> None:
     source_resolved = source.resolve(strict=True)
     runtime_root = ROOT.resolve(strict=True)
@@ -246,6 +408,7 @@ def project(source: Path, out: Path, *, check: bool) -> int:
         "active_manuscript_authority": claim_boundary.get("active_manuscript_authority"),
         "ready_for_runtime_pilot": True,
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_s16_live_export_fixture_artifacts(out)
     after_status = run_git_status(source)
     violations = source_runtime_artifact_violations(source, after_status)
     if violations:
