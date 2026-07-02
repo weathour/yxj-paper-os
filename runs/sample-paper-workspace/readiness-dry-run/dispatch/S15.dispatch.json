@@ -15,17 +15,22 @@
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_1",
-      "ref": "backflow task packet"
+      "ref": "strict S14 repair task packet"
     },
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_2",
-      "ref": "target material"
+      "ref": "target material base version"
     },
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_3",
-      "ref": "stale downstream set"
+      "ref": "affected downstream stale set"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s15_declared_input_4",
+      "ref": "protected unrelated node list"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -47,7 +52,7 @@
   "content_validator_id": "phase10_s15_content_validator",
   "content_validator_ref": "runtime/phase10_content_validators.json",
   "packet_ref": "packets/S15.task-packet.json",
-  "packet_template_ref": "examples/packets/claim_repair_packet.v1.yaml",
+  "packet_template_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
   "run_id": "sample-paper-workspace.readiness-dry-run",
   "schema_version": "ppg-phase10-dispatch-record/v0.1",
   "source_read_only": true,

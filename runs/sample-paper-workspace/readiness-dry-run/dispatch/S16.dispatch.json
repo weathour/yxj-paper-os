@@ -15,27 +15,27 @@
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_1",
-      "ref": "clean final candidate"
+      "ref": "closed S12 integrated manuscript candidate"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_2",
-      "ref": "review closure"
+      "ref": "S13 review closure evidence"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_3",
-      "ref": "repair-complete package"
+      "ref": "S14/S15 repair-complete status"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_4",
-      "ref": "figures/captions"
+      "ref": "figures/captions/data availability bundle"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_5",
-      "ref": "repository state"
+      "ref": "repository and build configuration state"
     },
     {
       "kind": "source_or_runtime_ref",

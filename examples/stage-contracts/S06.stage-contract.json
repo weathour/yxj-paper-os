@@ -4,7 +4,7 @@
     "S05",
     "S04"
   ],
-  "completion_gate": "writing units can consume explicit object and granularity instructions",
+  "completion_gate": "S06ObjectGranularity validates object/variable coverage, cards, cross maps, granularity/load budgets, explanation ladders, repetition checks, unresolved objects, and S07/S08/S10 handoffs without new claims or final prose",
   "consumes": [
     "reader spine",
     "reviewer question map",
@@ -19,7 +19,7 @@
     "load budget",
     "explanation ladder"
   ],
-  "purpose": "Decide how paper objects appear across sections and at what granularity.",
+  "purpose": "Design complete object and mechanism-variable representation, granularity progression, section/load budgets, explanation ladders, and downstream handoffs without adding claims or drafting prose.",
   "recommended_agent_type": "architect",
   "subagent_lane_policy": {
     "policy": "conditional_double",
@@ -47,9 +47,23 @@
   ],
   "stage_name": "Object representation and granularity design",
   "validators": [
-    "granularity progression",
-    "no flat repetition",
-    "load budget present"
+    "S06_object_inventory_coverage",
+    "S06_mechanism_variable_coverage",
+    "S06_object_cards_for_P0_P1_P2",
+    "S06_mechanism_variable_cards",
+    "S06_claim_object_mapping",
+    "S06_reader_question_object_mapping",
+    "S06_object_section_mapping",
+    "S06_granularity_progression",
+    "S06_section_function_budget",
+    "S06_cognitive_load_budget",
+    "S06_explanation_ladder",
+    "S06_no_flat_repetition",
+    "S06_coverage_ledger",
+    "S06_unresolved_object_report",
+    "S06_downstream_handoff",
+    "S06_no_new_claims_or_final_prose",
+    "S06_no_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

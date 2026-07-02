@@ -7,21 +7,22 @@
     "S12",
     "S15"
   ],
-  "completion_gate": "graph records new version and affected nodes are revalidated",
+  "completion_gate": "S15RepairExecutionReport validates strict packet acknowledgement, local diff scope, unrelated-node preservation, stale downstream regeneration/revalidation, finding-resolution evidence, no-new-high-severity scan, CandidateArtifactReturn, verifier evidence, and candidate-only/no-completion boundary",
   "consumes": [
-    "backflow task packet",
-    "target material",
-    "stale downstream set"
+    "strict S14 repair task packet",
+    "target material base version",
+    "affected downstream stale set",
+    "protected unrelated node list"
   ],
-  "coverage_status": "implemented_partial_phase7",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "hybrid_generated",
   "produces": [
-    "revised material",
-    "regenerated task packet",
-    "revised text/figure",
+    "repair execution report",
+    "revised material candidate",
+    "regenerated affected outputs",
     "updated validator report"
   ],
-  "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
+  "purpose": "Execute S14-authorized scoped repairs and regenerate only affected downstream outputs, returning candidate evidence without graph commit or export readiness claims.",
   "recommended_agent_type": "executor",
   "subagent_lane_policy": {
     "policy": "mandatory_double",
@@ -49,10 +50,16 @@
   ],
   "stage_name": "Repair execution and local regeneration",
   "validators": [
-    "scoped stale propagation",
-    "unrelated nodes unchanged",
-    "finding resolved",
-    "no new high severity finding"
+    "S15_strict_packet_ack",
+    "S15_missing_material_report",
+    "S15_diff_locality",
+    "S15_unrelated_nodes_unchanged",
+    "S15_stale_propagation",
+    "S15_finding_resolution",
+    "S15_no_new_high_severity",
+    "S15_overlay_clause_preserved",
+    "S15_candidate_return_schema",
+    "S15_no_completion_claim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -61,7 +68,7 @@
   },
   "worker_packet_coverage": {
     "blocker": null,
-    "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+    "packet_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "status": "linked_strict_packet"
   }

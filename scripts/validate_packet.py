@@ -57,6 +57,13 @@ REQUIRED_FORBIDDEN_ROUTES = {
     "write_outside_allowed_write_paths",
     "change_owner_intent",
 }
+ALLOWED_FORBIDDEN_ROUTES = REQUIRED_FORBIDDEN_ROUTES | {
+    "alter_unrelated_sections",
+    "claim_submission_or_publication_readiness",
+    "introduce_new_claims",
+    "mark_manuscript_complete",
+    "strengthen_claims_beyond_s04",
+}
 SAFE_ALLOWED_ACTIONS = {
     "read_material_bundle",
     "draft_candidate_artifact",
@@ -76,6 +83,42 @@ ALLOWED_PACKET_FIELDS = {
     "target_material",
     "input_materials",
     "mandatory_controls",
+    "hard_constraints",
+    "local_context",
+    "adjacent_context",
+    "background_context_usage",
+    "negative_controls",
+    "authority_and_target",
+    "s08_visual_formal_contract",
+    "panel_evidence_package",
+    "source_data_package",
+    "terminology_and_surface_controls",
+    "visual_quality_profile",
+    "visual_polish_policy",
+    "s12_input_package",
+    "s10_text_candidates",
+    "s11_visual_candidates",
+    "upstream_control_materials",
+    "stale_material_policy",
+    "s13_review_input_package",
+    "structured_s12_candidate",
+    "reviewer_panel_profile",
+    "adversarial_review_protocol",
+    "finding_taxonomy",
+    "local_backflow_routing_rules",
+    "s15_repair_task",
+    "repair_scope",
+    "pre_repair_snapshot_requirements",
+    "affected_downstream_set",
+    "protected_unrelated_nodes",
+    "diff_locality_requirements",
+    "finding_resolution_requirements",
+    "regression_scan_requirements",
+    "section_or_unit_move_plan",
+    "claim_boundary_controls",
+    "object_granularity_controls",
+    "terminology_surface_controls",
+    "visual_formal_controls",
     "evidence_anchors",
     "forbidden_routes",
     "allowed_actions",
@@ -84,8 +127,16 @@ ALLOWED_PACKET_FIELDS = {
     "allowed_tools",
     "output_artifact_path",
     "expected_output_schema",
+    "expected_material_type",
+    "expected_payload_schema",
+    "internal_execution_protocol",
+    "output_contract",
+    "coverage_ledgers_required",
+    "descriptive_not_prescriptive_controls",
     "validators",
     "return_format",
+    "single_writer_lock",
+    "packet_authority_boundary",
     "ingestion_target",
     "stop_condition",
     "failure_report_format",
@@ -179,12 +230,13 @@ def _validate_authority_fields(data: dict[str, Any]) -> list[ValidationIssue]:
     forbidden_routes_raw = data.get("forbidden_routes")
     forbidden_routes = _list_values(data.get("forbidden_routes"))
     if forbidden_routes and (
-        forbidden_routes != REQUIRED_FORBIDDEN_ROUTES
+        not REQUIRED_FORBIDDEN_ROUTES <= forbidden_routes
+        or not forbidden_routes <= ALLOWED_FORBIDDEN_ROUTES
         or not isinstance(forbidden_routes_raw, list)
-        or len(forbidden_routes_raw) != len(REQUIRED_FORBIDDEN_ROUTES)
+        or len(forbidden_routes_raw) != len(forbidden_routes)
     ):
         missing = sorted(REQUIRED_FORBIDDEN_ROUTES - forbidden_routes)
-        extra = sorted(forbidden_routes - REQUIRED_FORBIDDEN_ROUTES)
+        extra = sorted(forbidden_routes - ALLOWED_FORBIDDEN_ROUTES)
         details = []
         if missing:
             details.append(f"missing: {', '.join(missing)}")
@@ -286,6 +338,14 @@ def validate(data: Any) -> list[ValidationIssue]:
             errors.append(issue(code, f"{field_name} must be a non-empty list of strings"))
     if not _is_non_empty_mapping(data.get("return_format")):
         errors.append(issue("E_TASK_RETURN_FORMAT_REQUIRED", "return_format must be a non-empty mapping"))
+    for field_name in ("expected_material_type", "expected_payload_schema"):
+        if field_name in data and not is_non_empty_string(data.get(field_name)):
+            errors.append(issue("E_TASK_FIELD_REQUIRED", f"{field_name} must be a non-empty string when present"))
+    for field_name in ("internal_execution_protocol", "output_contract", "descriptive_not_prescriptive_controls"):
+        if field_name in data and not _is_non_empty_mapping(data.get(field_name)):
+            errors.append(issue("E_TASK_FIELD_REQUIRED", f"{field_name} must be a non-empty mapping when present"))
+    if "coverage_ledgers_required" in data and not is_non_empty_string_list(data.get("coverage_ledgers_required")):
+        errors.append(issue("E_TASK_FIELD_REQUIRED", "coverage_ledgers_required must be a non-empty list of strings when present"))
 
     errors.extend(_validate_paths(data))
     errors.extend(_validate_authority_fields(data))

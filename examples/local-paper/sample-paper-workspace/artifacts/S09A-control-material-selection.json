@@ -14,7 +14,7 @@
     "control priority map",
     "missing control report"
   ],
-  "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
+  "purpose": "Select a target-specific, context-rich, priority-ordered control bundle without compiling worker packets or granting content-generation authority.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S09A",

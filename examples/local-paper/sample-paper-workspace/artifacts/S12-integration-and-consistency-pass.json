@@ -14,7 +14,7 @@
     "consistency findings",
     "validator report"
   ],
-  "purpose": "Assemble modules and check cross-section dependencies.",
+  "purpose": "Compile a structured integrated manuscript candidate package and run consistency/backflow audits without PDF export, final acceptance, or uncontrolled rewriting.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S12",

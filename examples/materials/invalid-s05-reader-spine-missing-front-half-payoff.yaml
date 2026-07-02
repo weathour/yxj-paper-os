@@ -1,0 +1,228 @@
+schema_version: ppg-material/v0.1
+material_id: phase10_s05_reader_spine
+version: v1
+status: candidate
+material_type: S05ReaderSpine
+created_at: "2026-07-01T00:00:00Z"
+created_by: phase10_s05_paper_spine_synthesis_packet_v1
+source_inputs:
+  - phase10_s04_claim_admissibility
+  - phase10_s03_contribution_options
+  - phase10_s02_research_dossier
+  - claim_boundary_map_v2
+artifact_path: examples/materials/phase10_s05_reader_spine.yaml
+summary: Claim-bounded reader-question spine and claim-to-section controller output.
+payload:
+  schema_version: ppg-s05-reader-spine/v0.1
+  stage_id: S05
+  completion_boundary: reader_spine_control_only_no_new_claims_no_final_prose_no_graph_or_manuscript_completion
+  admitted_claim_intake_ledger:
+    claims:
+      - claim_id: claim-mechanism-bounded
+        source_s04_capsule: phase10_s04_claim_admissibility#claim-mechanism-bounded
+        admitted_claim: The current evidence supports a bounded mechanism-level link between trust-state reasoning and reconfiguration decisions.
+        support_strength: moderate
+        required_caveat: simulation/result-package boundary must be stated
+        intake_status: placed
+      - claim_id: claim-deployment-rejected
+        source_s04_capsule: phase10_s04_claim_admissibility#claim-deployment-rejected
+        admitted_claim: No deployment-readiness claim is admissible from the current evidence package.
+        support_strength: unsupported
+        required_caveat: retained only as forbidden claim boundary
+        intake_status: excluded
+  reader_question_inventory:
+    questions:
+      - question_id: rq-problem-pressure
+        reader_question: Why does zero-trust platoon reconfiguration need a mechanism-level account?
+        why_asked_now: The introduction must motivate the problem without promising deployment readiness.
+        source_claim_ids: claim-mechanism-bounded
+        priority: high
+      - question_id: rq-evidence-boundary
+        reader_question: What exactly does the evidence support and not support?
+        why_asked_now: The reader needs claim boundaries before evaluating the proposed spine.
+        source_claim_ids: claim-mechanism-bounded
+        priority: high
+  reader_question_coverage_ledger:
+    questions:
+      - question_id: rq-problem-pressure
+        coverage_status: answered
+        section_or_backflow: Introduction and method overview
+        answer_path: motivate mechanism-level contribution with S04 caveat visible
+      - question_id: rq-evidence-boundary
+        coverage_status: answered
+        section_or_backflow: Results and limitations
+        answer_path: state supported mechanism link and rejected deployment boundary
+  reader_spine:
+    reader_question_progression:
+      - step_id: step-1
+        question_id: rq-problem-pressure
+        reader_question: Why does zero-trust platoon reconfiguration need a mechanism-level account?
+        section_or_unit: Introduction
+        answer_function: motivate bounded mechanism contribution
+        required_prior_context: S02 SOTA gap and S04 claim capsule
+      - step_id: step-2
+        question_id: rq-evidence-boundary
+        reader_question: What exactly does the evidence support and not support?
+        section_or_unit: Results and limitations
+        answer_function: show mechanism support and deployment boundary
+        required_prior_context: S04 result package boundary
+    claim_to_section_spine:
+      - claim_id: claim-mechanism-bounded
+        source_s04_capsule: phase10_s04_claim_admissibility#claim-mechanism-bounded
+        section: Method and Results
+        rhetorical_role: prove
+        first_appearance: Introduction final paragraph
+        required_caveat: bounded mechanism-level claim only
+        forbidden_expansion: deployment readiness or public-road validation
+    front_half_promise_map:
+      - promise_id: promise-mechanism-contribution
+        promise: The paper will explain and evaluate a bounded trust-state-to-reconfiguration mechanism.
+        where_introduced: Introduction
+        payoff_section:
+        required_claim_capsules: claim-mechanism-bounded
+        overpromise_risk: Moderate support could be overstated as deployment proof.
+    story_arc_matrix:
+      - arc_id: arc-main
+        problem_pressure: Zero-trust platoons need authority changes under security state shifts.
+        unresolved_gap: Prior framing does not bind trust-state reasoning to reconfiguration decisions with clear claim boundaries.
+        method_object: mechanism-level reconfiguration controller
+        evidence_ladder: S04 capsule to method description to bounded results to limitation
+        boundary_discovery: evidence supports mechanism linkage but not deployment readiness
+        implication: bounded argument path for writing packets
+        limitation: deployment generalization remains excluded/backflowed
+  reviewer_question_map:
+    questions:
+      - question_id: rev-incremental-risk
+        reviewer_question: Is the mechanism contribution more than an incremental reframing?
+        severity: high
+        answer_section: Method and Results
+        claim_capsule_needed: claim-mechanism-bounded
+        risk_if_unanswered: contribution appears unsupported or overclaimed
+        backflow_target: S03
+      - question_id: rev-deployment-overclaim
+        reviewer_question: Does the paper overclaim public-road deployment readiness?
+        severity: high
+        answer_section: Limitations
+        claim_capsule_needed: claim-deployment-rejected
+        risk_if_unanswered: rejected S04 claim leaks into writing
+        backflow_target: S04
+  rationale_matrix:
+    sections:
+      - section: Introduction
+        section_function: establish reader question and bounded promise
+        reader_question_answered: rq-problem-pressure
+        claim_supported: claim-mechanism-bounded
+        evidence_used: S02 comparator gap and S04 caveat
+        dependency_on_previous_section: opening section
+        risk_if_removed: reader sees result material without motivation or claim boundary
+      - section: Results and limitations
+        section_function: pay off evidence boundary and prevent overclaiming
+        reader_question_answered: rq-evidence-boundary
+        claim_supported: claim-mechanism-bounded
+        evidence_used: S04 result package boundary
+        dependency_on_previous_section: Method
+        risk_if_removed: deployment rejection and caveats become invisible
+  claim_section_coverage_ledger:
+    claims:
+      - claim_id: claim-mechanism-bounded
+        placement_status: placed
+        section_or_exclusion: Method and Results
+        reader_question_id: rq-problem-pressure
+      - claim_id: claim-deployment-rejected
+        placement_status: excluded
+        section_or_exclusion: retained only as limitations/audit boundary
+        reader_question_id: rq-evidence-boundary
+  front_half_promise_coverage:
+    promise_ids_with_payoff:
+      - promise-mechanism-contribution
+    promise_ids_missing_payoff: []
+    overpromise_risks:
+      - deployment readiness must not be promised in introduction
+  excluded_claim_or_question_register:
+    excluded_claims:
+      - claim-deployment-rejected
+    excluded_questions: []
+    backflow_items:
+      - item_id: claim-deployment-rejected
+        item_type: claim
+        reason: S04 rejected deployment readiness from current evidence
+        backflow_target: S01
+  owner_decision_log:
+    decisions: []
+  s06_handoff:
+    handoff_summary: Represent trust state, reconfiguration decision, and evidence boundary as recurring paper objects.
+    allowed_use: object granularity and explanation ladder design
+    misuse_warning: do not introduce deployment objects as if admitted
+    items:
+      - trust-state object
+      - reconfiguration-decision object
+      - evidence-boundary object
+  s07_handoff:
+    handoff_summary: Maintain moderate support language and forbidden deployment wording.
+    allowed_use: rhetoric, terminology, and claim-strength surface controls
+    misuse_warning: do not convert bounded mechanism claim into proof or deployment language
+    items:
+      - moderate support wording
+      - forbidden deployment terms
+  s08_handoff:
+    handoff_summary: Plan figures that answer mechanism and evidence-boundary reader questions.
+    allowed_use: visual/formal object planning only
+    misuse_warning: do not create figures implying deployment validation
+    items:
+      - mechanism overview figure need
+      - result-boundary table need
+  s06_s07_s08_handoff_coverage:
+    S06:
+      handed_off_items:
+        - trust-state object
+        - reconfiguration-decision object
+      handoff_gaps: []
+    S07:
+      handed_off_items:
+        - moderate support wording
+        - forbidden deployment terms
+      handoff_gaps: []
+    S08:
+      handed_off_items:
+        - mechanism overview figure need
+        - result-boundary table need
+      handoff_gaps: []
+  coherence_overpromise_audit:
+    no_new_claims: true
+    no_strengthened_claims: true
+    no_unsupported_promise: true
+    no_hidden_owner_decision: true
+    remaining_coherence_risks:
+      - later writing packets must not strengthen moderate S04 support
+  unresolved_backflow_register:
+    unresolved_items:
+      - deployment evidence remains excluded and routes to S01 before reopening
+    backflow_targets:
+      - S01
+      - S03
+      - S04
+      - S00
+  candidate_return:
+    candidate_artifact: examples/materials/phase10_s05_reader_spine.yaml
+    evidence:
+      - every admitted S04 claim is placed or excluded with reason
+      - every reader question is covered by a section path
+      - S06/S07/S08 handoffs are explicit
+    remaining_risks:
+      - S10 must consume S09A/S09B packets, not this spine alone
+validators:
+  - validate_material:S05ReaderSpine
+  - no_new_claims:S05
+  - s06_s07_s08_handoff_required:S05
+downstream_consumers:
+  - S06
+  - S07
+  - S08
+  - S09A
+invalidation_policy:
+  stale_when:
+    - S04 claim capsules change
+    - S02 template profile changes
+    - S03 contribution options are reclassified
+provenance:
+  packet_id: phase10_s05_paper_spine_synthesis_packet_v1

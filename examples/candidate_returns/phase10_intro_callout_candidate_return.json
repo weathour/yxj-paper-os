@@ -1,0 +1,23 @@
+{
+  "schema_version": "ppg-candidate-return/v0.1",
+  "return_id": "phase10_intro_callout_candidate_return_v1",
+  "status": "candidate",
+  "packet_id": "phase10_s09b_s10_intro_callout_packet_v1",
+  "output_artifact_path": "examples/candidate-artifacts/phase10_intro_callout_candidate.md",
+  "evidence": [
+    "validate_section_draft.py accepts phase10_intro_callout_candidate.md",
+    "claim_evidence_trace maps the claim-bearing sentence to phase10_s04_claim_admissibility",
+    "visual_callout_trace marks the schematic as explanatory rather than empirical evidence"
+  ],
+  "validator_expectations": [
+    "S10_packet_compliance",
+    "S10_claim_evidence_trace",
+    "S10_candidate_return_complete"
+  ],
+  "remaining_risks": [
+    "Controller must decide whether this candidate paragraph is accepted, repaired, or regenerated after S12/S13 audit"
+  ],
+  "graph_completion_claimed": false,
+  "recursive_dispatch_requested": false,
+  "writes_outside_allowed_paths": false
+}

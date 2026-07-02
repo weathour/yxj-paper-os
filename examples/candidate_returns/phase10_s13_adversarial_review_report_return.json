@@ -1,0 +1,25 @@
+{
+  "schema_version": "ppg-candidate-return/v0.1",
+  "return_id": "phase10_s13_adversarial_review_report_return_v1",
+  "status": "candidate",
+  "packet_id": "phase10_s13_adversarial_review_packet_v1",
+  "output_artifact_path": "examples/materials/phase10_s13_adversarial_review_report.json",
+  "evidence": [
+    "review object inventory binds examples/materials/phase10_s12_integration_report.json as the primary structured candidate",
+    "review_findings include severity, evidence, affected artifact, affected location, nearest responsible stage, and S14 routing",
+    "authority boundary records no PDF primary review, no rewrite, no repair execution, and no completion claim"
+  ],
+  "validator_expectations": [
+    "S13_review_object_inventory",
+    "S13_review_findings_schema",
+    "S13_backflow_target_validity",
+    "S13_no_pdf_primary_review",
+    "S13_candidate_return_complete"
+  ],
+  "remaining_risks": [
+    "S14 must still compile accepted S13 findings into bounded repair plans before any S15 regeneration"
+  ],
+  "graph_completion_claimed": false,
+  "recursive_dispatch_requested": false,
+  "writes_outside_allowed_paths": false
+}

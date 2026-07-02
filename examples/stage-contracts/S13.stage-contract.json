@@ -3,22 +3,22 @@
   "backflow_targets": [
     "S14"
   ],
-  "completion_gate": "accepted findings are actionable and routed to nearest responsible upstream material",
+  "completion_gate": "S13AdversarialReviewReport validates structured S12 review object inventory, review scope, reviewer-panel and desk-risk reports, actionable severity/evidence/location findings, S14 routing, CandidateArtifactReturn, verifier evidence, and no rewrite/PDF-primary-review/repair/completion boundary",
   "consumes": [
-    "integrated candidate",
-    "evidence/claim materials",
-    "reader/terminology/rhetoric materials",
-    "figure/export artifacts"
+    "structured S12 integrated candidate package",
+    "S12 trace and validator reports",
+    "S10/S11 candidate traces",
+    "S04-S08 upstream control materials"
   ],
-  "coverage_status": "implemented_partial_phase7",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "agent_generated",
   "produces": [
-    "reviewer panel report",
-    "reader experience report",
-    "validator report",
-    "review findings"
+    "adversarial review report",
+    "severity-ranked review findings",
+    "finding actionability report",
+    "validator report"
   ],
-  "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+  "purpose": "Compile actionable adversarial loss signals over the structured S12 integrated candidate; do not rewrite, repair, review PDF as primary object, or claim completion.",
   "recommended_agent_type": "critic",
   "subagent_lane_policy": {
     "policy": "mandatory_double",
@@ -46,11 +46,20 @@
   ],
   "stage_name": "Adversarial manuscript review",
   "validators": [
-    "finding severity",
-    "evidence",
-    "affected artifact",
-    "backflow target",
-    "resolution status"
+    "S13_review_object_inventory",
+    "S13_review_scope",
+    "S13_reviewer_panel_report",
+    "S13_desk_reject_risk_report",
+    "S13_reader_experience_report",
+    "S13_claim_evidence_review",
+    "S13_figure_caption_review",
+    "S13_review_findings_schema",
+    "S13_finding_actionability",
+    "S13_backflow_target_validity",
+    "S13_no_uncontrolled_rewrite",
+    "S13_no_pdf_primary_review",
+    "S13_candidate_return_complete",
+    "S13_verifier_evidence"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

@@ -89,7 +89,12 @@
           "mark_graph_complete",
           "dispatch_subagents",
           "write_outside_allowed_write_paths",
-          "change_owner_intent"
+          "change_owner_intent",
+          "alter_unrelated_sections",
+          "claim_submission_or_publication_readiness",
+          "introduce_new_claims",
+          "mark_manuscript_complete",
+          "strengthen_claims_beyond_s04"
         ]
       },
       "allOf": [
@@ -114,7 +119,7 @@
           }
         }
       ],
-      "maxItems": 4,
+      "maxItems": 9,
       "uniqueItems": true
     },
     "allowed_actions": {
@@ -228,6 +233,146 @@
     "stage_contract_ref": {
       "type": "string",
       "pattern": "^examples/stage-contracts/(S(0[0-8]|09A|09B|1[0-6])|G0[12])\\.stage-contract\\.json$"
+    },
+    "expected_material_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_payload_schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "internal_execution_protocol": {
+      "type": "object"
+    },
+    "output_contract": {
+      "type": "object"
+    },
+    "coverage_ledgers_required": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "descriptive_not_prescriptive_controls": {
+      "type": "object"
+    },
+    "hard_constraints": {
+      "type": "object"
+    },
+    "local_context": {
+      "type": "object"
+    },
+    "adjacent_context": {
+      "type": "object"
+    },
+    "background_context_usage": {
+      "type": "object"
+    },
+    "negative_controls": {
+      "type": "object"
+    },
+    "section_or_unit_move_plan": {
+      "type": "object"
+    },
+    "claim_boundary_controls": {
+      "type": "object"
+    },
+    "object_granularity_controls": {
+      "type": "object"
+    },
+    "terminology_surface_controls": {
+      "type": "object"
+    },
+    "visual_formal_controls": {
+      "type": "object"
+    },
+    "single_writer_lock": {
+      "type": "object"
+    },
+    "packet_authority_boundary": {
+      "type": "object"
+    },
+    "authority_and_target": {
+      "type": "object"
+    },
+    "s08_visual_formal_contract": {
+      "type": "object"
+    },
+    "panel_evidence_package": {
+      "type": "array"
+    },
+    "source_data_package": {
+      "type": "object"
+    },
+    "terminology_and_surface_controls": {
+      "type": "object"
+    },
+    "visual_quality_profile": {
+      "type": "object"
+    },
+    "visual_polish_policy": {
+      "type": "object"
+    },
+    "s12_input_package": {
+      "type": "object"
+    },
+    "s10_text_candidates": {
+      "type": "array"
+    },
+    "s11_visual_candidates": {
+      "type": "array"
+    },
+    "upstream_control_materials": {
+      "type": "object"
+    },
+    "stale_material_policy": {
+      "type": "object"
+    },
+    "s13_review_input_package": {
+      "type": "object"
+    },
+    "structured_s12_candidate": {
+      "type": "object"
+    },
+    "reviewer_panel_profile": {
+      "type": "array"
+    },
+    "adversarial_review_protocol": {
+      "type": "object"
+    },
+    "finding_taxonomy": {
+      "type": "object"
+    },
+    "local_backflow_routing_rules": {
+      "type": "object"
+    },
+    "s15_repair_task": {
+      "type": "object"
+    },
+    "repair_scope": {
+      "type": "object"
+    },
+    "pre_repair_snapshot_requirements": {
+      "type": "object"
+    },
+    "affected_downstream_set": {
+      "type": "object"
+    },
+    "protected_unrelated_nodes": {
+      "type": "array"
+    },
+    "diff_locality_requirements": {
+      "type": "object"
+    },
+    "finding_resolution_requirements": {
+      "type": "object"
+    },
+    "regression_scan_requirements": {
+      "type": "object"
     }
   }
 }

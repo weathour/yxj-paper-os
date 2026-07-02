@@ -1,0 +1,374 @@
+{
+  "schema_version": "ppg-material/v0.1",
+  "material_id": "phase10_s11_figure_caption_artifact_bundle",
+  "version": "v1",
+  "status": "candidate",
+  "material_type": "S11FigureCaptionArtifactBundle",
+  "summary": "Contract-bound S11 candidate visual/caption artifact bundle with source trace, claim traces, polish report, integrity/accessibility/export evidence, and CandidateArtifactReturn.",
+  "payload": {
+    "schema_version": "ppg-s11-figure-caption-artifact-bundle/v0.1",
+    "stage_id": "S11",
+    "completion_boundary": "visual_artifact_candidate_only_no_graph_manuscript_submission_publication_or_final_export_completion",
+    "authority_boundary": {
+      "graph_completion_claimed": false,
+      "manuscript_completion_claimed": false,
+      "submission_readiness_claimed": false,
+      "publication_readiness_claimed": false,
+      "final_export_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_allowed_paths": false,
+      "owner_intent_changed": false,
+      "proof_role_changed": false,
+      "claim_strength_modified": false,
+      "controller_owned_completion": true
+    },
+    "packet_compliance_report": {
+      "packet_id": "phase10_s11_figure_caption_artifact_packet_v1",
+      "target_visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "target_visual_type": "schematic",
+      "allowed_read_paths_used": [
+        "examples/materials/phase10_s08_visual_formal_plan.yaml",
+        "examples/materials/phase10_s04_claim_admissibility.yaml",
+        "examples/materials/s01_source_evidence_inventory.v1.yaml",
+        "examples/materials/evidence_inventory.v1.yaml",
+        "examples/materials/phase10_s07_surface_control.yaml"
+      ],
+      "allowed_write_paths_used": [
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+      ],
+      "validators_acknowledged": [
+        "validate_packet:phase10_stage_binding",
+        "content_validator:S11_packet_compliance",
+        "content_validator:S11_visual_polish_report",
+        "stage_overlay:nature_expert_writing:S11"
+      ],
+      "single_writer_lock_observed": true,
+      "forbidden_routes_observed": [
+        "mark_graph_complete",
+        "mark_manuscript_complete",
+        "claim_submission_or_publication_readiness",
+        "dispatch_subagents",
+        "write_outside_allowed_write_paths",
+        "change_owner_intent",
+        "alter_unrelated_sections",
+        "introduce_new_claims",
+        "strengthen_claims_beyond_s04"
+      ],
+      "missing_packet_fields": [],
+      "blocked": false
+    },
+    "figure_contract_compliance": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "source_s08_contract": "phase10_s08_visual_formal_plan:figure_contracts",
+      "proof_role": "explanatory",
+      "proof_role_preserved": true,
+      "supported_claims_preserved": true,
+      "unsupported_claims_avoided": true,
+      "required_panels_present": true,
+      "caption_boundary_observed": true,
+      "accessibility_constraints_checked": true
+    },
+    "generated_artifacts": [
+      {
+        "artifact_id": "phase10_s11_schematic_bundle_v1",
+        "artifact_type": "export_bundle",
+        "status": "render_plan_only",
+        "path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "source_contract_ref": "phase10_s08_visual_formal_plan:figure_contracts.fig_authority_loss_reconfiguration",
+        "generated_from": "S08 visual contract plus S04/S07 controls"
+      }
+    ],
+    "editable_source_bundle": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "source_files": [
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+      ],
+      "script_files": [
+        "render_plan_only_no_script_executed"
+      ],
+      "table_source_files": [
+        "not_applicable"
+      ],
+      "formula_or_algorithm_source": "not_applicable",
+      "editing_notes": [
+        "editable source should be generated as vector schematic before S16 export"
+      ],
+      "source_available": true
+    },
+    "render_plan_if_not_rendered": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "required_command_or_tool": "drawio/vector export route after source is materialized",
+      "expected_outputs": [
+        "figure_authority_loss_reconfiguration.svg",
+        "figure_authority_loss_reconfiguration.pdf"
+      ],
+      "missing_permission_or_dependency": "not executed in fixture; render plan only",
+      "reproducibility_notes": "Use S08 backend route and S11 visual quality profile; do not change proof role or claims during rendering."
+    },
+    "source_data_trace": [
+      {
+        "visual_id": "fig:authority-loss-reconfiguration-schematic",
+        "panel_id_if_any": "panel-a-authority-loss",
+        "source_data_path": "examples/materials/evidence_inventory.v1.yaml",
+        "result_artifact_path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "script_path": "render_plan_only_no_script_executed",
+        "evidence_ref": "phase10_s04_claim_admissibility",
+        "data_hash_if_available": "not_available_render_plan_only",
+        "provenance_status": "traceable_to_fixture_materials"
+      }
+    ],
+    "panel_claim_trace": [
+      {
+        "visual_id": "fig:authority-loss-reconfiguration-schematic",
+        "panel_id": "panel-a-authority-loss",
+        "panel_role": "show degraded authority path",
+        "source_data": "examples/materials/evidence_inventory.v1.yaml",
+        "evidence_ref": "phase10_s04_claim_admissibility",
+        "claim_supported": "claim_authority_loss_requires_bounded_reconfiguration",
+        "claim_boundary": "bounded explanatory schematic only",
+        "forbidden_interpretation": "empirical proof of universal safety",
+        "caption_sentence_refs": [
+          "caption.s1",
+          "caption.s2"
+        ]
+      }
+    ],
+    "caption_legend_draft": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "caption_text_candidate": "Authority-loss reconfiguration as a bounded explanatory mechanism. Panel A indicates degradation of the authority path; Panel B indicates the constrained reconfiguration response. The schematic is explanatory and does not serve as empirical performance evidence.",
+      "source_caption_brief": "phase10_s08_visual_formal_plan:caption_legend_brief",
+      "claims_made": [
+        "claim_authority_loss_requires_bounded_reconfiguration"
+      ],
+      "supported_claims": [
+        "claim_authority_loss_requires_bounded_reconfiguration"
+      ],
+      "forbidden_claims_avoided": [
+        "unbounded safety promise",
+        "empirical performance proof"
+      ],
+      "required_caveats": [
+        "schematic explanatory only"
+      ],
+      "terminology_constraints_obeyed": true,
+      "status": "candidate"
+    },
+    "caption_claim_trace": [
+      {
+        "caption_span": "caption.s1",
+        "claim_id": "claim_authority_loss_requires_bounded_reconfiguration",
+        "source_s04_capsule": "phase10_s04_claim_admissibility",
+        "allowed_wording_used": "bounded explanatory mechanism",
+        "forbidden_wording_absent": true,
+        "required_caveat_present": true,
+        "support_strength": "bounded"
+      }
+    ],
+    "image_integrity_record": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "rendered_files": [],
+      "source_files": [
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+      ],
+      "data_files": [
+        "examples/materials/evidence_inventory.v1.yaml"
+      ],
+      "script_files": [
+        "render_plan_only_no_script_executed"
+      ],
+      "hashes": [
+        "not_available_render_plan_only"
+      ],
+      "dimensions": "planned 1-column width",
+      "resolution": "planned vector export",
+      "color_policy": "colorblind-safe muted palette",
+      "label_readability": "planned minimum 8pt at target width",
+      "missing_assets": [],
+      "render_command": "not executed; render plan recorded",
+      "integrity_status": "render_plan_recorded"
+    },
+    "visual_polish_policy": {
+      "priority_order": [
+        "claim_honesty",
+        "evidence_fidelity",
+        "reader_clarity",
+        "accessibility",
+        "journal_style_fit",
+        "aesthetic_polish"
+      ],
+      "allowed_changes": [
+        "improve_panel_alignment",
+        "improve_label_readability",
+        "use_colorblind_safe_palette",
+        "adjust_spacing_and_whitespace",
+        "clarify_legend_position",
+        "normalize_fonts_and_line_widths",
+        "improve_axis_labels",
+        "improve_export_quality",
+        "improve_caption_readability_within_boundary"
+      ],
+      "forbidden_changes": [
+        "change_proof_role",
+        "change_supported_claims",
+        "strengthen_caption_claims",
+        "hide_negative_or_uncertain_results",
+        "remove_required_caveats",
+        "remove_required_panels",
+        "change_axis_scale_to_exaggerate_effect",
+        "treat_schematic_as_empirical_evidence",
+        "add_decorative_elements_implying_unsupported_mechanism",
+        "cherry_pick_prettier_examples",
+        "copy_exemplar_visual_style_too_closely"
+      ]
+    },
+    "visual_polish_report": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "changes_made": [
+        {
+          "change": "planned colorblind-safe muted palette and clearer panel spacing",
+          "reason": "increase readability while preserving explanatory proof role",
+          "affected_contract_field": "accessibility_constraints",
+          "claim_meaning_changed": false,
+          "evidence_encoding_changed": false,
+          "proof_role_changed": false
+        }
+      ],
+      "readability_improvements": [
+        "clearer two-panel separation",
+        "caption states explanatory boundary"
+      ],
+      "accessibility_improvements": [
+        "colorblind-safe palette planned",
+        "minimum label size specified"
+      ],
+      "style_consistency_improvements": [
+        "consistent panel labels and line widths planned"
+      ],
+      "unresolved_visual_quality_risks": []
+    },
+    "figure_statistics": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "panel_count": 2,
+      "data_series_count": 0,
+      "sample_or_run_count": "not applicable to explanatory schematic",
+      "plotted_metrics": [
+        "not_applicable"
+      ],
+      "axes": [
+        "not_applicable"
+      ],
+      "units": [
+        "not_applicable"
+      ],
+      "baseline_count": 0,
+      "legend_entries": 2
+    },
+    "accessibility_check": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "readable_at_target_size": true,
+      "colorblind_safe": true,
+      "axes_and_units_clear": true,
+      "legend_non_obstructive": true,
+      "panel_labels_consistent": true,
+      "uncertainty_visible_when_required": true,
+      "caveats_not_removed": true,
+      "export_quality_sufficient": true,
+      "editable_source_available": true,
+      "findings": []
+    },
+    "export_manifest": {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "export_files": [
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+      ],
+      "source_files": [
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+      ],
+      "data_files": [
+        "examples/materials/evidence_inventory.v1.yaml"
+      ],
+      "script_files": [
+        "render_plan_only_no_script_executed"
+      ],
+      "target_formats": [
+        "svg",
+        "pdf"
+      ],
+      "final_export_claimed": false,
+      "candidate_status": "candidate"
+    },
+    "coverage_ledger": {
+      "target_visuals_required": 1,
+      "target_visuals_generated_or_planned": 1,
+      "required_panels": 2,
+      "panels_generated": 2,
+      "panels_with_claim_trace": 2,
+      "captions_required": 1,
+      "captions_drafted": 1,
+      "captions_with_claim_trace": 1,
+      "source_data_refs_required": 1,
+      "source_data_refs_traced": 1,
+      "editable_sources_required": 1,
+      "editable_sources_present": 1,
+      "rendered_outputs_required": 1,
+      "rendered_outputs_present_or_planned": 1,
+      "unresolved_items": []
+    },
+    "candidate_artifact_return": {
+      "schema_version": "ppg-candidate-return/v0.1",
+      "return_id": "phase10_s11_figure_caption_bundle_return_v1",
+      "status": "candidate",
+      "packet_id": "phase10_s11_figure_caption_artifact_packet_v1",
+      "output_artifact_path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+      "evidence": [
+        "S11 packet validates",
+        "source_data_trace records evidence inventory path",
+        "caption_claim_trace preserves bounded S04 wording",
+        "visual_polish_report records no claim or evidence meaning change"
+      ],
+      "validator_expectations": [
+        "S11_packet_compliance",
+        "S11_figure_contract_compliance",
+        "S11_visual_polish_report",
+        "S11_candidate_return_complete"
+      ],
+      "remaining_risks": [
+        "Render is represented as a reproducible plan in this fixture; S16/export preflight must not treat it as final PDF/export readiness"
+      ],
+      "graph_completion_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_allowed_paths": false
+    },
+    "verifier_evidence": {
+      "agent_type": "verifier",
+      "verification_status": "pass_with_risks",
+      "checks_completed": [
+        "visual_contract_obeyed",
+        "write_path_obeyed",
+        "completion_not_claimed",
+        "no_recursive_dispatch",
+        "proof_role_preserved",
+        "supported_claims_preserved",
+        "caption_claim_boundary_preserved",
+        "source_data_trace_present",
+        "panel_claim_trace_complete",
+        "editable_source_or_render_plan_present",
+        "image_integrity_record_present",
+        "polish_preserves_evidence_meaning",
+        "accessibility_checked",
+        "candidate_return_complete"
+      ],
+      "findings": [],
+      "acceptance_recommendation": "controller may collect as candidate bundle; render/export remains non-final and must be audited downstream"
+    },
+    "remaining_risks": [
+      "The fixture records a render plan rather than a rendered figure; downstream S12/S13/S16 must not treat it as final export evidence"
+    ],
+    "missing_material_report": {
+      "status": "not_blocked",
+      "items": [],
+      "backflow_target_if_blocked": "S08"
+    },
+    "publication_readiness": true
+  }
+}

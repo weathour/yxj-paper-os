@@ -47,9 +47,14 @@
   ],
   "stage_name": "Research scene exemplar SOTA analysis",
   "validators": [
-    "source locator check",
-    "citation verification",
-    "template copying boundary"
+    "S02_source_coverage_ledger",
+    "S02_sota_family_coverage_ledger",
+    "S02_template_language_profile",
+    "S02_descriptive_not_prescriptive",
+    "S02_template_copying_boundary",
+    "S02_unresolved_backflow_register",
+    "S02_downstream_handoff_coverage",
+    "S02_no_claim_or_completion_freeze"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

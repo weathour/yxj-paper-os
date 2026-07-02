@@ -14,7 +14,7 @@
     "reviewer question map",
     "rationale matrix"
   ],
-  "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+  "purpose": "Build a claim-bounded reader-question spine from S04-admitted claim capsules, with coverage ledgers and downstream S06/S07/S08 handoffs; no new claims or final prose.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S05",

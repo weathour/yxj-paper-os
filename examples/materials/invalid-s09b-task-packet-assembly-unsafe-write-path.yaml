@@ -1,0 +1,178 @@
+schema_version: ppg-material/v0.1
+material_id: phase10_s09b_task_packet_assembly
+version: v1
+status: candidate
+material_type: S09BTaskPacketAssembly
+created_at: "2026-07-01T00:00:00Z"
+created_by: s09b_task_packet_assembly
+source_inputs:
+  - phase10_s09a_rich_control_bundle
+artifact_path: examples/materials/phase10_s09b_task_packet_assembly.yaml
+summary: S09B deterministic assembly record for a bounded S10 target-unit TaskPacket.
+payload:
+  schema_version: ppg-s09b-task-packet-assembly/v0.1
+  stage_id: S09B
+  completion_boundary: task_packet_assembly_only_no_candidate_content_no_graph_or_manuscript_completion
+  packet_identity:
+    packet_id: phase10_s09b_s10_intro_callout_packet_v1
+    schema_version: ppg-task-packet/v0.1
+    target_stage: S10
+    task_kind: writing
+    source_s09a_bundle: phase10_s09a_rich_control_bundle
+    generated_by: S09B
+    generated_at: "2026-07-01T00:00:00Z"
+  target_unit:
+    unit_id: unit-intro-mechanism-callout
+    unit_type: paragraph
+    target_artifact: phase10_intro_callout_candidate
+    allowed_write_path: examples/candidate-artifacts/phase10_intro_callout_candidate.md
+    expected_output_schema: ppg-section-draft/v0.1
+    output_artifact_path: examples/candidate-artifacts/phase10_intro_callout_candidate.md
+  selected_control_bundle_ref: "examples/materials/phase10_s09a_rich_control_bundle.yaml#phase10_s09a_rich_control_bundle"
+  control_digest:
+    hard_constraints_summary: S04 claim boundary, forbidden deployment wording, S09 authority boundary
+    local_context_summary: introduction mechanism callout unit with figure-aware bounded promise
+    adjacent_context_summary: bridge problem pressure to Method without preempting algorithm or results
+    background_orientation_summary: global spine and S02 style are background only
+    must_obey_refs:
+      - hard_constraints
+      - claim_control_bundle
+      - negative_control_bundle
+    background_only_refs:
+      - global_orientation
+      - S02 style profile
+    do_not_use_as_claim_refs:
+      - S08 schematic role
+      - S02 exemplar patterns
+  task_mission: Produce a candidate target-unit draft using only selected controls; preserve S04 boundaries and return candidate/evidence/remaining risks only.
+  allowed_read_paths:
+    - examples/materials/phase10_s09a_rich_control_bundle.yaml
+    - examples/materials/phase10_s04_claim_admissibility.yaml
+    - examples/materials/phase10_s05_reader_spine.yaml
+    - examples/materials/phase10_s06_object_granularity.yaml
+    - examples/materials/phase10_s07_surface_control.yaml
+    - examples/materials/phase10_s08_visual_formal_plan.yaml
+  allowed_write_paths:
+    - examples/candidate-artifacts/../bad.md
+  forbidden_routes:
+    - mark_graph_complete
+    - mark_manuscript_complete
+    - claim_submission_or_publication_readiness
+    - dispatch_subagents
+    - write_outside_allowed_write_paths
+    - change_owner_intent
+    - alter_unrelated_sections
+    - introduce_new_claims
+    - strengthen_claims_beyond_s04
+  worker_boot_clause: completion_forbidden; no_recursive_orchestration; obey allowed_write_paths; use S04 claim boundaries as hard constraints; MissingMaterialReport required when materials are missing; return candidate/evidence/remaining risks only.
+  section_or_unit_move_plan:
+    paragraph_jobs:
+      - job_id: job-intro-mechanism-callout
+        reader_question: Why does zero-trust platoon reconfiguration need a mechanism-level account?
+        allowed_claims:
+          - claim-mechanism-bounded
+        required_evidence:
+          - "phase10_s04_claim_admissibility#support_strength_map"
+        required_objects:
+          - trust-state representation
+          - reconfiguration decision
+          - evidence boundary
+        rhetorical_moves:
+          - problem pressure
+          - bounded promise
+          - caveat preview
+        forbidden_moves:
+          - proof claim
+          - deployment readiness
+          - copied exemplar sentence
+        figure_callouts:
+          - fig-mechanism-overview explanatory callout only
+        required_caveats:
+          - schematic is explanatory not empirical evidence
+        stop_condition: return candidate artifact with evidence trace and remaining risks only
+  claim_boundary_controls:
+    items:
+      - claim-mechanism-bounded moderate support
+      - claim-deployment-rejected forbidden boundary
+  reader_spine_controls:
+    items:
+      - rq-problem-pressure
+      - promise-mechanism-contribution
+  object_granularity_controls:
+    items:
+      - intuition before operational definition
+      - avoid notation in introduction
+  terminology_surface_controls:
+    items:
+      - trust-state representation
+      - reconfiguration decision
+      - no proof or deployment-ready wording
+  visual_formal_controls:
+    items:
+      - fig-mechanism-overview explanatory role
+      - caption boundary says not empirical evidence
+  negative_controls:
+    items:
+      - do not claim deployment readiness
+      - do not use raw material ids
+      - do not turn global orientation into claim authority
+  context_usage_instructions:
+    must_obey:
+      - S04 claim and evidence boundaries
+    use_as_local_context:
+      - target unit job
+      - current reader question
+    use_as_adjacent_context:
+      - next Method definition expectation
+    use_as_background_only:
+      - global orientation
+      - S02 style profile
+    do_not_turn_into_claim:
+      - S08 schematic role
+      - S02 exemplar pattern
+    do_not_expand_scope:
+      - deployment readiness
+      - public-road validation
+  validators:
+    - "validate_packet:phase10_stage_binding"
+    - "stage_overlay:nature_expert_writing:S10"
+    - "s09b_context_usage_preserved:S10"
+    - "s04_claim_boundary_required:S10"
+  return_format:
+    candidate_artifact: required
+    evidence: required
+    remaining_risks: required
+    missing_material_report: required_if_blocked
+  single_writer_lock:
+    target_artifact: phase10_intro_callout_candidate
+    locked_unit: unit-intro-mechanism-callout
+    lock_owner: S09B
+    allowed_write_path: examples/candidate-artifacts/phase10_intro_callout_candidate.md
+    conflict_policy: no other packet may write the same unit path until stale or superseded
+    stale_packet_policy: recompile if S04/S05/S06/S07/S08 or S09A bundle changes
+  stale_material_policy:
+    policy: mark packet stale when selected control bundle or upstream claim boundary changes
+    stale_if_upstream_changes: S04/S05/S06/S07/S08/S09A
+    recompile_trigger: S09A reselection or S15 packet regeneration
+  missing_material_report:
+    status: not_required
+    format: ppg-missing-material-report/v0.1
+    items: []
+  packet_authority_boundary:
+    completion_forbidden: true
+    no_recursive_orchestration: true
+    controller_owned_completion: true
+    owner_intent_change_forbidden: true
+    graph_commit_forbidden: true
+    publication_claim_forbidden: true
+  emitted_task_packet:
+    packet_ref: examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml
+    packet_id: phase10_s09b_s10_intro_callout_packet_v1
+    validation_status: validates_with_validate_packet
+  candidate_return:
+    candidate_artifact: examples/materials/phase10_s09b_task_packet_assembly.yaml
+    evidence:
+      - emitted task packet validates with validate_packet
+      - authority boundary, context usage labels, and single writer lock are explicit
+    remaining_risks:
+      - S10 still has to produce and return a candidate artifact separately

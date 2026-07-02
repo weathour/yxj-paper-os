@@ -1,0 +1,337 @@
+{
+  "schema_version": "ppg-material/v0.1",
+  "material_id": "phase10_s12_integration_report",
+  "version": "v1",
+  "status": "candidate",
+  "material_type": "S12IntegrationConsistencyReport",
+  "summary": "Structured S12 integrated candidate package with trace indexes, consistency audits, findings, backflow queue, and no PDF/final readiness claim.",
+  "payload": {
+    "schema_version": "ppg-s12-integration-consistency-report/v0.1",
+    "stage_id": "S12",
+    "completion_boundary": "structured_integrated_candidate_only_no_pdf_export_no_final_manuscript_no_untracked_rewrite",
+    "authority_boundary": {
+      "graph_completion_claimed": false,
+      "manuscript_completion_claimed": false,
+      "final_pdf_exported": false,
+      "submission_readiness_claimed": false,
+      "publication_readiness_claimed": false,
+      "uncontrolled_rewrite_performed": false,
+      "claim_boundaries_changed": false,
+      "controller_owned_completion": true
+    },
+    "module_inventory": {
+      "text_modules": [
+        {
+          "module_id": "phase10_s10_candidate_text_return",
+          "section_id": "intro",
+          "source_s10_packet": "phase10_s09b_s10_intro_callout_packet_v1",
+          "output_path": "examples/candidate-artifacts/phase10_intro_callout_candidate.md",
+          "status": "candidate",
+          "trace_available": true
+        }
+      ],
+      "visual_modules": [
+        {
+          "visual_id": "fig:authority-loss-reconfiguration-schematic",
+          "source_s11_packet": "phase10_s11_figure_caption_artifact_packet_v1",
+          "figure_contract": "phase10_s08_visual_formal_plan:figure_contracts",
+          "caption_available": true,
+          "panel_trace_available": true,
+          "status": "candidate_render_plan"
+        }
+      ],
+      "missing_modules": [],
+      "duplicate_modules": [],
+      "stale_modules": []
+    },
+    "assembly_manifest": {
+      "manuscript_candidate_id": "phase10_integrated_candidate_v1",
+      "assembly_order": [
+        {
+          "section_id": "intro",
+          "source_text_module": "phase10_s10_candidate_text_return",
+          "included_figures": [
+            "fig:authority-loss-reconfiguration-schematic"
+          ],
+          "included_tables": [
+            "none"
+          ],
+          "included_formal_objects": [
+            "none"
+          ],
+          "expected_reader_question": "How does the mechanism respond when authority is degraded?",
+          "actual_reader_question": "How does the mechanism respond when authority is degraded?"
+        }
+      ],
+      "source_module_versions": [
+        "phase10_s10_candidate_text_return:v1",
+        "phase10_s11_figure_caption_artifact_bundle:v1"
+      ],
+      "assembly_decisions": [
+        "collect S10 intro callout and S11 schematic/caption bundle for S13 structured review"
+      ],
+      "excluded_modules": [],
+      "final_manuscript_claimed": false
+    },
+    "integrated_manuscript_candidate": {
+      "candidate_id": "phase10_integrated_candidate_v1",
+      "source_format": "structured_bundle",
+      "main_source_candidate": "examples/materials/phase10_s12_integration_report.json",
+      "section_sources": [
+        "examples/candidate-artifacts/phase10_intro_callout_candidate.md"
+      ],
+      "figure_refs": [
+        "fig:authority-loss-reconfiguration-schematic"
+      ],
+      "table_refs": [],
+      "formula_algorithm_refs": [],
+      "bibliography_refs": [
+        "examples/materials/evidence_inventory.v1.yaml"
+      ],
+      "trace_index_ref": "payload.trace_index",
+      "unresolved_findings_ref": "payload.integration_findings",
+      "ready_for_s13_review": true,
+      "ready_for_s16_export": false,
+      "final_manuscript_claimed": false
+    },
+    "trace_index": {
+      "claim_trace_index": [
+        {
+          "claim_id": "claim_authority_loss_requires_bounded_reconfiguration",
+          "text_locations": [
+            "intro.p1.s1"
+          ],
+          "caption_locations": [
+            "fig1.caption.s1"
+          ],
+          "figure_panel_refs": [
+            "fig:authority-loss-reconfiguration-schematic.panel-a"
+          ],
+          "evidence_refs": [
+            "phase10_s04_claim_admissibility"
+          ]
+        }
+      ],
+      "object_trace_index": [
+        {
+          "object_id": "authority_loss_event",
+          "text_locations": [
+            "intro.p1"
+          ],
+          "figure_refs": [
+            "fig:authority-loss-reconfiguration-schematic"
+          ],
+          "granularity_levels": [
+            "intuitive_description"
+          ]
+        }
+      ],
+      "terminology_trace_index": [
+        {
+          "term": "bounded reconfiguration",
+          "locations": [
+            "intro.p1",
+            "fig1.caption"
+          ],
+          "canonical_status": "canonical",
+          "drift_cases": []
+        }
+      ],
+      "figure_trace_index": [
+        {
+          "visual_id": "fig:authority-loss-reconfiguration-schematic",
+          "text_callouts": [
+            "intro.p1.s3"
+          ],
+          "caption_ref": "fig1.caption",
+          "panel_refs": [
+            "panel-a-authority-loss",
+            "panel-b-bounded-reconfiguration"
+          ],
+          "evidence_refs": [
+            "phase10_s04_claim_admissibility"
+          ]
+        }
+      ]
+    },
+    "claim_boundary_audit": {
+      "traced_claims": [
+        "claim_authority_loss_requires_bounded_reconfiguration"
+      ],
+      "untraced_claims": [],
+      "strengthened_claims": [],
+      "weakened_or_missing_required_claims": [],
+      "forbidden_wording_hits": [],
+      "missing_caveats": [],
+      "caption_claim_mismatches": [],
+      "conclusion_overreach": [],
+      "recommended_backflow": [
+        "S11 low-risk render-plan-only item may be repaired before S16 if needed"
+      ]
+    },
+    "promise_satisfaction_report": [
+      {
+        "promise_id": "intro-mechanism-bridge",
+        "introduced_where": "intro.p1",
+        "expected_payoff": "S08/S11 schematic and later formal assumptions",
+        "actual_payoff_location": "fig:authority-loss-reconfiguration-schematic",
+        "satisfied": true,
+        "overpromised": false,
+        "underdeveloped": false,
+        "missing_evidence": "none",
+        "required_repair": "none before S13",
+        "backflow_target": "S11"
+      }
+    ],
+    "cross_section_consistency_report": {
+      "method_result_alignment": "not_applicable_in_fixture",
+      "intro_result_alignment": "pass",
+      "discussion_result_alignment": "not_applicable_in_fixture",
+      "conclusion_claim_alignment": "not_applicable_in_fixture",
+      "limitation_alignment": "pass",
+      "repeated_or_flat_sections": [],
+      "missing_dependency_links": [],
+      "contradictions": [],
+      "repair_targets": [],
+      "pass": true
+    },
+    "terminology_consistency_report": {
+      "canonical_terms_obeyed": [
+        "bounded reconfiguration",
+        "authority-loss event"
+      ],
+      "term_drift_cases": [],
+      "undefined_abbreviations": [],
+      "inconsistent_capitalization": [],
+      "internal_id_leaks": [],
+      "figure_caption_term_mismatches": [],
+      "repair_targets": [],
+      "pass": true
+    },
+    "object_granularity_consistency_report": {
+      "object_id": "authority_loss_event",
+      "expected_granularity_by_section": [
+        "intro:intuitive_description"
+      ],
+      "actual_granularity_by_section": [
+        "intro:intuitive_description"
+      ],
+      "sudden_jumps": [],
+      "repeated_definitions": [],
+      "over_detailed_units": [],
+      "underexplained_units": [],
+      "cognitive_load_violations": [],
+      "repair_targets": [],
+      "pass": true
+    },
+    "figure_text_alignment_report": {
+      "aligned_figures": [
+        "fig:authority-loss-reconfiguration-schematic"
+      ],
+      "missing_figures": [],
+      "orphan_figures": [],
+      "text_callout_without_figure": [],
+      "figure_without_text_callout": [],
+      "caption_text_conflicts": [],
+      "panel_claim_mismatches": [],
+      "schematic_as_evidence_cases": [],
+      "axis_or_metric_mismatch": [],
+      "repair_targets": [],
+      "pass": true
+    },
+    "surface_consistency_report": {
+      "forbidden_expression_hits": [],
+      "style_rigidity_cases": [],
+      "paragraph_move_repetition": [],
+      "tone_inconsistency": [],
+      "citation_pattern_inconsistency": [],
+      "over_template_language": [],
+      "repair_targets": [],
+      "pass": true
+    },
+    "stale_material_report": {
+      "stale_s09b_packets": [],
+      "stale_s10_candidates": [],
+      "stale_s11_artifacts": [],
+      "upstream_material_changed": [],
+      "affected_downstream_nodes": [],
+      "requires_recompile": true,
+      "requires_regeneration": false
+    },
+    "integration_findings": [
+      {
+        "finding_id": "s12-risk-render-plan-only",
+        "finding_type": "known_downstream_export_risk",
+        "severity": "low",
+        "affected_artifacts": [
+          "phase10_s11_figure_caption_artifact_bundle"
+        ],
+        "evidence": [
+          "S11 fixture records render plan rather than final rendered figure"
+        ],
+        "source_trace": "trace_index.figure_trace_index.fig:authority-loss-reconfiguration-schematic",
+        "nearest_responsible_stage": "S11",
+        "recommended_backflow_target": "S11",
+        "suggested_repair_scope": "Render or materialize vector source before S16 export if controller requires preview",
+        "blocks_s13_review": false
+      }
+    ],
+    "backflow_queue": [
+      {
+        "queue_id": "s12-low-risk-s11-render-plan-followup",
+        "finding_refs": [
+          "s12-risk-render-plan-only"
+        ],
+        "target_stage": "S11",
+        "target_material": "phase10_s11_figure_caption_artifact_bundle",
+        "repair_type": "optional_render_materialization_before_s16",
+        "affected_downstream_nodes": [
+          "S12",
+          "S13",
+          "S16"
+        ],
+        "preserve_scope": "do not alter proof role, supported claims, or caption claim boundary",
+        "priority": "low"
+      }
+    ],
+    "validator_report": {
+      "cross_section_consistency": "pass",
+      "figure_text_alignment": "pass_with_risks",
+      "promise_satisfaction": "pass",
+      "claim_boundary_compliance": "pass",
+      "terminology_consistency": "pass",
+      "object_granularity_consistency": "pass",
+      "surface_consistency": "pass",
+      "stale_material_check": "pass",
+      "pass_status": "pass_with_risks",
+      "blocks_s13_review": false
+    },
+    "candidate_artifact_return": {
+      "schema_version": "ppg-candidate-return/v0.1",
+      "return_id": "phase10_s12_integration_report_return_v1",
+      "status": "candidate",
+      "packet_id": "phase10_s12_integration_consistency_packet_v1",
+      "output_artifact_path": "examples/materials/phase10_s12_integration_report.json",
+      "evidence": [
+        "module inventory includes S10/S11 candidates",
+        "trace index covers claim/object/term/figure refs",
+        "validator report blocks_s13_review=false and ready_for_s16_export=false"
+      ],
+      "validator_expectations": [
+        "S12_module_inventory",
+        "S12_trace_index",
+        "S12_no_pdf_export",
+        "S12_candidate_return_complete"
+      ],
+      "remaining_risks": [
+        "S13 adversarial review must still evaluate reviewer-facing risks before S16 export"
+      ],
+      "graph_completion_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_allowed_paths": false
+    },
+    "remaining_risks": [
+      "S13 must review structured candidate for adversarial reviewer risks; S16 export remains forbidden until review/repair closure"
+    ]
+  }
+}

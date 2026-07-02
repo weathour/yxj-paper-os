@@ -112,7 +112,7 @@
   ],
   "worker_task_packet_evidence": {
     "blocker": null,
-    "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
+    "packet_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
     "required": true,
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "status": "linked_strict_packet"

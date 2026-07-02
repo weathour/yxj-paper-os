@@ -6,16 +6,16 @@
     "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
     "manuscript_state": "not_started"
   },
-  "consumed_ref_count": 6,
+  "consumed_ref_count": 7,
   "contract_ref": "examples/stage-contracts/S15.stage-contract.json",
   "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
   "projected_outputs": [
-    "revised material",
-    "regenerated task packet",
-    "revised text/figure",
+    "repair execution report",
+    "revised material candidate",
+    "regenerated affected outputs",
     "updated validator report"
   ],
-  "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
+  "purpose": "Execute S14-authorized scoped repairs and regenerate only affected downstream outputs, returning candidate evidence without graph commit or export readiness claims.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S15",

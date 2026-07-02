@@ -4,7 +4,7 @@
     {
       "kind": "contract_declared",
       "material_id": "s14_declared_input_1",
-      "ref": "review outputs"
+      "ref": "accepted S13/S16/validator findings"
     },
     {
       "kind": "contract_declared",
@@ -14,7 +14,12 @@
     {
       "kind": "contract_declared",
       "material_id": "s14_declared_input_3",
-      "ref": "affected materials graph"
+      "ref": "affected material graph slice"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s14_declared_input_4",
+      "ref": "owner gate policy"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -42,7 +47,7 @@
       "artifact_id": "s14_pilot_output",
       "artifact_path": "artifacts/S14-backflow-compilation-and-repair-planning.json",
       "artifact_type": "review_backflow_projection",
-      "description": "narrative backflow task; repair task packets; control reselection tasks; response action map"
+      "description": "normalized backflow repair plan; nearest responsible stage map; bounded repair task plan; response action map"
     }
   ],
   "recommended_agent_type": "planner",

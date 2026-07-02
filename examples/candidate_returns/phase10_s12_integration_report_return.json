@@ -1,0 +1,24 @@
+{
+  "schema_version": "ppg-candidate-return/v0.1",
+  "return_id": "phase10_s12_integration_report_return_v1",
+  "status": "candidate",
+  "packet_id": "phase10_s12_integration_consistency_packet_v1",
+  "output_artifact_path": "examples/materials/phase10_s12_integration_report.json",
+  "evidence": [
+    "module inventory includes S10/S11 candidates",
+    "trace index covers claim/object/term/figure refs",
+    "validator report blocks_s13_review=false and ready_for_s16_export=false"
+  ],
+  "validator_expectations": [
+    "S12_module_inventory",
+    "S12_trace_index",
+    "S12_no_pdf_export",
+    "S12_candidate_return_complete"
+  ],
+  "remaining_risks": [
+    "S13 adversarial review must still evaluate reviewer-facing risks before S16 export"
+  ],
+  "graph_completion_claimed": false,
+  "recursive_dispatch_requested": false,
+  "writes_outside_allowed_paths": false
+}

@@ -2,23 +2,28 @@
   "activation_policy": "activate when writing execution is needed",
   "backflow_targets": [
     "S09B",
+    "S09A",
     "S07",
-    "S04"
+    "S06",
+    "S05",
+    "S04",
+    "S08",
+    "S15"
   ],
-  "completion_gate": "candidate text is validated and collected; graph completion remains controller-owned",
+  "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
   "consumes": [
     "S09B task packet",
     "construction matrix",
     "terminology register",
     "claim visibility"
   ],
-  "coverage_status": "implemented_partial_phase7",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "agent_generated",
   "produces": [
     "candidate text unit",
     "CandidateArtifactReturn"
   ],
-  "purpose": "Produce candidate manuscript modules from task packets.",
+  "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
   "recommended_agent_type": "writer",
   "subagent_lane_policy": {
     "policy": "mandatory_double",
@@ -46,9 +51,24 @@
   ],
   "stage_name": "Main-text production",
   "validators": [
-    "section draft validator",
-    "candidate return validator",
-    "claim boundary check"
+    "S10_packet_compliance",
+    "S10_candidate_text_schema",
+    "S10_allowed_write_path",
+    "S10_claim_evidence_trace",
+    "S10_claim_boundary_preserved",
+    "S10_no_new_claims",
+    "S10_no_claim_strengthening",
+    "S10_move_trace",
+    "S10_terminology_trace",
+    "S10_internal_id_leakage",
+    "S10_object_granularity_trace",
+    "S10_visual_callout_trace",
+    "S10_forbidden_expression_scan",
+    "S10_coverage_ledger",
+    "S10_candidate_return_complete",
+    "S10_writer_evidence",
+    "S10_verifier_evidence",
+    "S10_authority_boundary"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -56,9 +76,9 @@
     "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "blocker": null,
-    "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
+    "status": "linked_strict_packet",
+    "packet_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "status": "linked_strict_packet"
+    "blocker": null
   }
 }

@@ -5,7 +5,7 @@
     "S03",
     "S04"
   ],
-  "completion_gate": "spine is coherent and claim-bounded before writing begins",
+  "completion_gate": "S05ReaderSpine validates every S04 intake claim, reader question, section placement, promise payoff, owner decision, and S06/S07/S08 handoff without new claims or final prose",
   "consumes": [
     "motivation",
     "contribution options",
@@ -19,7 +19,7 @@
     "reviewer question map",
     "rationale matrix"
   ],
-  "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+  "purpose": "Build a claim-bounded reader-question spine from S04-admitted claim capsules, with coverage ledgers and downstream S06/S07/S08 handoffs; no new claims or final prose.",
   "recommended_agent_type": "architect",
   "subagent_lane_policy": {
     "policy": "mandatory_double",
@@ -47,9 +47,20 @@
   ],
   "stage_name": "Paper spine and reader-question synthesis",
   "validators": [
-    "claim appears in spine",
-    "section answers reader question",
-    "owner decisions explicit"
+    "S05_admitted_claim_intake_ledger",
+    "S05_reader_question_inventory",
+    "S05_reader_question_coverage_ledger",
+    "S05_reader_question_progression",
+    "S05_claim_to_section_spine",
+    "S05_claim_section_coverage_ledger",
+    "S05_front_half_promise_coverage",
+    "S05_reviewer_question_map",
+    "S05_rationale_matrix",
+    "S05_owner_decision_log",
+    "S05_s06_s07_s08_handoff_coverage",
+    "S05_coherence_overpromise_audit",
+    "S05_no_new_claims_or_final_prose",
+    "S05_no_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

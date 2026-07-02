@@ -115,7 +115,7 @@
     }
   ],
   "worker_task_packet_evidence": {
-    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "blocker": "S01 uses read-only inventory briefs only; fake graph-mutation worker packets are forbidden.",
     "packet_ref": null,
     "required": false,
     "return_contract_ref": null,

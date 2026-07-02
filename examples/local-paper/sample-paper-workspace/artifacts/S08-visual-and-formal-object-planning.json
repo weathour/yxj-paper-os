@@ -15,7 +15,7 @@
     "panel evidence map",
     "backend route"
   ],
-  "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+  "purpose": "Compile reader questions, section/object budgets, claim/evidence boundaries, and source-data routes into visual/formal object contracts.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S08",

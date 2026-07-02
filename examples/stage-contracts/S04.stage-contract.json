@@ -5,7 +5,7 @@
     "S03",
     "S00"
   ],
-  "completion_gate": "every claim-bearing unit has support strength, evidence anchor, allowed wording, and forbidden wording",
+  "completion_gate": "every claim-bearing unit is admitted, weakened, rejected, owner-gated, or backflowed with support strength, evidence anchor, allowed wording, forbidden wording, result boundary, and downstream permission",
   "consumes": [
     "evidence bank",
     "citation bank",
@@ -20,7 +20,7 @@
     "claim evidence visibility",
     "data availability plan"
   ],
-  "purpose": "Bind evidence and citations to exact claim boundaries.",
+  "purpose": "Admit, weaken, reject, or backflow every claim-bearing unit against evidence anchors, support strength, allowed wording, forbidden wording, and result-package boundaries.",
   "recommended_agent_type": "verifier",
   "subagent_lane_policy": {
     "policy": "mandatory_double",
@@ -48,10 +48,17 @@
   ],
   "stage_name": "Evidence-to-claim admissibility",
   "validators": [
-    "claim support",
-    "allowed wording",
-    "forbidden wording",
-    "result package boundary"
+    "S04_claim_queue",
+    "S04_atomic_claim_register",
+    "S04_claim_capsules",
+    "S04_claim_coverage_ledger",
+    "S04_support_strength_map",
+    "S04_evidence_anchor_visibility",
+    "S04_allowed_forbidden_wording",
+    "S04_result_package_boundary",
+    "S04_claim_transformation_log",
+    "S04_downstream_handoff_coverage",
+    "S04_no_final_prose_or_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

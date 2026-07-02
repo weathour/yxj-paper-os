@@ -1,0 +1,25 @@
+{
+  "schema_version": "ppg-candidate-return/v0.1",
+  "return_id": "phase10_s11_figure_caption_bundle_return_v1",
+  "status": "candidate",
+  "packet_id": "phase10_s11_figure_caption_artifact_packet_v1",
+  "output_artifact_path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+  "evidence": [
+    "S11 packet validates",
+    "source_data_trace records evidence inventory path",
+    "caption_claim_trace preserves bounded S04 wording",
+    "visual_polish_report records no claim or evidence meaning change"
+  ],
+  "validator_expectations": [
+    "S11_packet_compliance",
+    "S11_figure_contract_compliance",
+    "S11_visual_polish_report",
+    "S11_candidate_return_complete"
+  ],
+  "remaining_risks": [
+    "Render is represented as a reproducible plan in this fixture; S16/export preflight must not treat it as final PDF/export readiness"
+  ],
+  "graph_completion_claimed": false,
+  "recursive_dispatch_requested": false,
+  "writes_outside_allowed_paths": false
+}

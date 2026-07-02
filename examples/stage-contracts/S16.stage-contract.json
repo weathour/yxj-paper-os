@@ -1,27 +1,30 @@
 {
-  "activation_policy": "activate when export/handoff requested",
+  "activation_policy": "activate when PDF/export, owner preview, handoff, or pre-submission hygiene evidence is requested",
   "backflow_targets": [
     "S12",
     "S13",
+    "S14",
     "S15",
+    "S16",
     "owner"
   ],
-  "completion_gate": "content-ready and delivery-clean states are separately proven; external submission remains owner-gated",
+  "completion_gate": "S16ExportHandoffPackage proves upstream closure, separated readiness states, successful human-readable export/build, rendered-surface checks, manifest hashes, repository hygiene classification, handoff completeness, feedback routing, and owner-gated/no-submission-publication boundary",
   "consumes": [
-    "clean final candidate",
-    "review closure",
-    "repair-complete package",
-    "figures/captions",
-    "repository state"
+    "closed S12 integrated manuscript candidate",
+    "S13 review closure evidence",
+    "S14/S15 repair-complete status",
+    "figures/captions/data availability bundle",
+    "repository and build configuration state"
   ],
   "coverage_status": "planned_full_stage",
   "execution_mode": "hybrid_generated",
   "produces": [
-    "export manifest",
+    "export handoff package",
+    "human-readable PDF/export manifest",
     "repository hygiene report",
-    "manager handoff report"
+    "manager/owner handoff report"
   ],
-  "purpose": "Package final paper and prove delivery cleanliness.",
+  "purpose": "Export a closed manuscript candidate into human-readable artifacts and prove delivery hygiene without claiming submission/publication readiness.",
   "recommended_agent_type": "verifier",
   "subagent_lane_policy": {
     "policy": "conditional_double",
@@ -49,10 +52,19 @@
   ],
   "stage_name": "Export repository hygiene and handoff",
   "validators": [
-    "build success",
-    "rendered surface checks",
-    "manifest hashes",
-    "dirty worktree classification"
+    "S16_upstream_closure",
+    "S16_readiness_state_separation",
+    "S16_build_success",
+    "S16_pdf_exists_and_surface",
+    "S16_figures_captions_present",
+    "S16_references_present",
+    "S16_data_availability_alignment",
+    "S16_export_manifest_hashes",
+    "S16_dirty_worktree_classification",
+    "S16_handoff_completeness",
+    "S16_feedback_route_declared",
+    "S16_projection_vs_live_export_boundary",
+    "S16_no_submission_ready_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -60,9 +72,9 @@
     "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "status": "not_required",
     "packet_ref": null,
     "return_contract_ref": null,
-    "status": "not_required"
+    "blocker": "S16 is a controller-owned deterministic export/hygiene/handoff verifier; verifier subagents may report checklist evidence but fake worker task packets are forbidden."
   }
 }

@@ -1,0 +1,363 @@
+{
+  "schema_version": "ppg-material/v0.1",
+  "material_id": "phase10_s13_adversarial_review_report",
+  "version": "v1",
+  "status": "candidate",
+  "material_type": "S13AdversarialReviewReport",
+  "summary": "Actionable adversarial loss-signal report over the structured S12 integrated candidate; findings are severity-ranked, evidenced, located, and routed to S14 without PDF primary review, rewrite, or repair execution.",
+  "payload": {
+    "schema_version": "ppg-s13-adversarial-review-report/v0.1",
+    "stage_id": "S13",
+    "completion_boundary": "adversarial_loss_signal_report_only_no_pdf_review_no_rewrite_no_repair_execution",
+    "authority_boundary": {
+      "graph_completion_claimed": false,
+      "manuscript_completion_claimed": false,
+      "pdf_review_claimed": false,
+      "pdf_exported": false,
+      "repair_executed": false,
+      "uncontrolled_rewrite_performed": false,
+      "submission_readiness_claimed": false,
+      "publication_readiness_claimed": false,
+      "recursive_dispatch_requested": false,
+      "controller_owned_completion": true
+    },
+    "review_scope": {
+      "full_integrated_candidate": true,
+      "target_sections": [
+        "intro"
+      ],
+      "target_figures": [
+        "fig:authority-loss-reconfiguration-schematic"
+      ],
+      "review_modes": [
+        "reviewer_panel",
+        "desk_reject",
+        "reader_experience",
+        "claim_evidence",
+        "method_result",
+        "figure_caption",
+        "surface_accessibility"
+      ],
+      "excluded_scope": []
+    },
+    "reviewer_panel_report": {
+      "reviewers": [
+        {
+          "reviewer_role": "technical_method_reviewer",
+          "likely_concerns": [
+            "mechanism explanation may sound procedural before formal assumptions are visible"
+          ],
+          "severity": "medium",
+          "evidence_refs": [
+            "examples/materials/phase10_s12_integration_report.json#payload.trace_index.object_trace_index"
+          ],
+          "affected_artifacts": [
+            "intro.p1"
+          ]
+        },
+        {
+          "reviewer_role": "empirical_evaluation_reviewer",
+          "likely_concerns": [
+            "introductory claim points to later evaluation but current fixture has no result module yet"
+          ],
+          "severity": "low",
+          "evidence_refs": [
+            "examples/materials/phase10_s12_integration_report.json#payload.cross_section_consistency_report"
+          ],
+          "affected_artifacts": [
+            "intro.p1"
+          ]
+        },
+        {
+          "reviewer_role": "domain_application_reviewer",
+          "likely_concerns": [
+            "authority-loss event definition may need domain-facing grounding before the figure callout"
+          ],
+          "severity": "medium",
+          "evidence_refs": [
+            "examples/materials/phase10_s06_object_granularity.yaml"
+          ],
+          "affected_artifacts": [
+            "intro.p1",
+            "fig:authority-loss-reconfiguration-schematic"
+          ]
+        },
+        {
+          "reviewer_role": "journal_scope_or_editorial_reviewer",
+          "likely_concerns": [
+            "desk review could ask whether the contribution is problem framing or validated mechanism"
+          ],
+          "severity": "medium",
+          "evidence_refs": [
+            "examples/materials/phase10_s03_contribution_options.yaml",
+            "examples/materials/phase10_s04_claim_admissibility.yaml"
+          ],
+          "affected_artifacts": [
+            "intro.p1"
+          ]
+        }
+      ]
+    },
+    "desk_reject_risk_report": {
+      "severity": "medium",
+      "summary": "No blocker, but editorial risk remains if the intro does not distinguish admitted mechanism framing from later validation.",
+      "scope_mismatch": [],
+      "novelty_underdeveloped": [
+        "novelty is bounded but payoff sentence is still compact"
+      ],
+      "claim_evidence_gap": [
+        "authority-loss mechanism claim depends on S04 capsule visibility"
+      ],
+      "unclear_contribution": [
+        "reader may not yet know whether the paper contributes a model, control policy, or evaluation protocol"
+      ],
+      "overclaim_in_abstract_or_intro": [],
+      "figure_quality_or_caption_risk": [
+        "S11 remains render-plan-only before S16"
+      ],
+      "missing_data_availability_signal": [],
+      "readability_or_structure_risk": [
+        "object transition from authority loss to bounded reconfiguration is dense"
+      ]
+    },
+    "reader_experience_report": {
+      "reader_path_breaks": [
+        "intro.p1 asks the reader to connect authority loss, bounded reconfiguration, and figure logic in one move"
+      ],
+      "missing_definitions": [
+        "authority-loss event deserves one local definition before the first figure callout"
+      ],
+      "cognitive_load_spikes": [
+        "mechanism object and control action are introduced together"
+      ],
+      "unclear_object_transitions": [
+        "authority-loss event -> bounded reconfiguration transition is compressed"
+      ],
+      "repeated_or_flat_explanations": [],
+      "figure_callout_confusion": [
+        "figure callout arrives before all reader-facing object roles are explicit"
+      ],
+      "section_purpose_confusion": []
+    },
+    "claim_evidence_review": {
+      "unsupported_claims": [],
+      "overstrengthened_claims": [],
+      "ambiguous_claims": [
+        "bounded reconfiguration could be read as an implemented guarantee unless caveat remains visible"
+      ],
+      "missing_caveats": [
+        "state that the intro claim is mechanism framing, not result proof"
+      ],
+      "evidence_visibility_gaps": [
+        "S04 capsule is traceable but not reader-visible in the candidate surface"
+      ],
+      "likely_reviewer_attacks": [
+        "Where is the evidence that authority-loss detection triggers safe reconfiguration?"
+      ]
+    },
+    "contribution_significance_review": {
+      "underdeveloped_contributions": [
+        "distinguish mechanism framing from final validated contribution"
+      ],
+      "novelty_risk_cases": [
+        "scope could look incremental if reader does not see why authority loss changes platoon reconfiguration"
+      ],
+      "missing_positioning": [
+        "S02/S03 positioning is not yet surfaced in this intro fixture"
+      ],
+      "reviewer_questions": [
+        "What exactly is new: detection, reconfiguration policy, or evidence workflow?"
+      ]
+    },
+    "method_result_review": {
+      "method_result_mismatches": [],
+      "evaluation_sufficiency_risks": [
+        "later evaluation promises are not available in this single-module fixture"
+      ],
+      "baseline_or_ablation_gaps": [],
+      "threats_to_validity": [
+        "intro-level mechanism claim should not imply empirical confirmation"
+      ]
+    },
+    "figure_caption_review": {
+      "visual_claim_mismatches": [],
+      "caption_overclaims": [],
+      "schematic_as_evidence_cases": [
+        "figure is schematic and must remain explanatory rather than evidential"
+      ],
+      "missing_panel_explanation": [
+        "panel roles need to be made explicit before S16 export"
+      ],
+      "unreadable_visual_elements": [
+        "render plan does not yet prove final readability"
+      ],
+      "figure_text_alignment_risks": [
+        "text callout depends on panel labels not yet rendered"
+      ],
+      "legend_or_axis_confusion": []
+    },
+    "structure_argument_review": {
+      "argument_path_breaks": [
+        "front-half promise needs a slower transition from problem to mechanism"
+      ],
+      "section_order_risks": [],
+      "promise_payoff_gaps": [
+        "figure payoff exists but may be visually deferred"
+      ],
+      "transition_failures": [
+        "authority degradation to reconfiguration action needs one bridging phrase"
+      ]
+    },
+    "surface_accessibility_review": {
+      "terminology_drift": [],
+      "internal_id_leakage": [],
+      "rigid_template_language": [],
+      "register_mismatch": [],
+      "accessibility_risks": [
+        "dense noun phrase around authority-loss event can be simplified without changing claim strength"
+      ]
+    },
+    "review_findings": [
+      {
+        "finding_id": "s13-reader-object-transition-compressed",
+        "finding_type": "reader_path_and_object_granularity_risk",
+        "severity": "medium",
+        "affected_artifact": "examples/candidate-artifacts/phase10_intro_callout_candidate.md",
+        "affected_location": "intro.p1.s1-intro.p1.s3",
+        "evidence": [
+          "reader_experience_report.cognitive_load_spikes",
+          "review_object_inventory.upstream_controls:phase10_s06_object_granularity"
+        ],
+        "reviewer_rationale": "A reviewer can follow the trace, but the reader-facing surface compresses object definition and mechanism transition into one movement.",
+        "source_trace": [
+          "trace_index.object_trace_index.authority_loss_event",
+          "trace_index.claim_trace_index.claim_authority_loss_requires_bounded_reconfiguration"
+        ],
+        "nearest_responsible_stage": "S06",
+        "recommended_backflow_target": "S14",
+        "suggested_repair_scope": "Plan a local S14/S15 repair for the intro callout sentence and its S06/S07 control references only; preserve S04 claim strength.",
+        "blocks_progression": false,
+        "resolution_status": "open",
+        "repair_executed": false,
+        "rewrite_requested": false
+      },
+      {
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "finding_type": "figure_caption_and_export_readiness_risk",
+        "severity": "low",
+        "affected_artifact": "phase10_s11_figure_caption_artifact_bundle",
+        "affected_location": "fig:authority-loss-reconfiguration-schematic.caption_and_render_plan",
+        "evidence": [
+          "S12 integration finding s12-risk-render-plan-only",
+          "figure_caption_review.unreadable_visual_elements"
+        ],
+        "reviewer_rationale": "The structured bundle is reviewable, but a reviewer-facing figure quality judgment cannot be closed until S16 export or an S11 render materialization exists.",
+        "source_trace": [
+          "trace_index.figure_trace_index.fig:authority-loss-reconfiguration-schematic"
+        ],
+        "nearest_responsible_stage": "S11",
+        "recommended_backflow_target": "S14",
+        "suggested_repair_scope": "Route a local optional render-materialization task for the S11 figure bundle before S16; do not change proof role or caption claim boundary.",
+        "blocks_progression": false,
+        "resolution_status": "open",
+        "repair_executed": false,
+        "rewrite_requested": false
+      }
+    ],
+    "finding_actionability_report": {
+      "actionable_findings": [
+        "s13-reader-object-transition-compressed",
+        "s13-figure-render-plan-review-risk"
+      ],
+      "vague_findings_rejected": [
+        "paper is weak"
+      ],
+      "duplicate_findings_merged": [
+        "figure readability concern merged with S12 render-plan-only risk"
+      ],
+      "findings_needing_owner_interpretation": [],
+      "findings_needing_more_evidence": [],
+      "findings_ready_for_s14": [
+        "s13-reader-object-transition-compressed",
+        "s13-figure-render-plan-review-risk"
+      ]
+    },
+    "validator_report": {
+      "review_object_inventory": "pass",
+      "review_scope": "pass",
+      "reviewer_panel_report": "pass",
+      "desk_reject_risk_report": "pass_with_risks",
+      "reader_experience_report": "pass_with_risks",
+      "claim_evidence_review": "pass_with_risks",
+      "figure_caption_review": "pass_with_risks",
+      "review_findings_schema": "pass",
+      "finding_actionability": "pass",
+      "backflow_target_validity": "pass",
+      "no_uncontrolled_rewrite": "pass",
+      "no_pdf_primary_review": "pass",
+      "candidate_return_complete": "pass",
+      "pass_status": "pass_with_risks",
+      "recommended_next_stage": "S14"
+    },
+    "candidate_artifact_return": {
+      "schema_version": "ppg-candidate-return/v0.1",
+      "return_id": "phase10_s13_adversarial_review_report_return_v1",
+      "status": "candidate",
+      "packet_id": "phase10_s13_adversarial_review_packet_v1",
+      "output_artifact_path": "examples/materials/phase10_s13_adversarial_review_report.json",
+      "evidence": [
+        "review object inventory binds examples/materials/phase10_s12_integration_report.json as the primary structured candidate",
+        "review_findings include severity, evidence, affected artifact, affected location, nearest responsible stage, and S14 routing",
+        "authority boundary records no PDF primary review, no rewrite, no repair execution, and no completion claim"
+      ],
+      "validator_expectations": [
+        "S13_review_object_inventory",
+        "S13_review_findings_schema",
+        "S13_backflow_target_validity",
+        "S13_no_pdf_primary_review",
+        "S13_candidate_return_complete"
+      ],
+      "remaining_risks": [
+        "S14 must still compile accepted S13 findings into bounded repair plans before any S15 regeneration"
+      ],
+      "graph_completion_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_allowed_paths": false
+    },
+    "verifier_evidence": {
+      "agent_type": "verifier",
+      "verification_status": "pass_with_risks",
+      "checks_completed": [
+        "each_finding_has_evidence",
+        "each_finding_has_affected_artifact",
+        "each_finding_has_affected_location",
+        "each_finding_has_severity",
+        "each_finding_routes_through_s14",
+        "nearest_responsible_stage_plausible",
+        "repair_scope_is_local",
+        "no_uncontrolled_rewrite_requested",
+        "no_completion_claimed",
+        "no_pdf_primary_review",
+        "duplicate_findings_merged",
+        "vague_findings_rejected",
+        "findings_ready_for_s14"
+      ],
+      "accepted_findings": [
+        "s13-reader-object-transition-compressed",
+        "s13-figure-render-plan-review-risk"
+      ],
+      "rejected_or_vague_findings": [
+        "paper is weak"
+      ],
+      "duplicate_merge_notes": [
+        "S12 render-plan-only risk merged into S13 figure-render-plan review risk"
+      ],
+      "routing_corrections": [],
+      "recommended_next_stage": "S14"
+    },
+    "remaining_risks": [
+      "S14 must turn accepted S13 findings into bounded repair tasks before S15 local regeneration",
+      "S16 remains the only human-readable PDF/export stage and must independently verify rendered figure quality"
+    ]
+  }
+}

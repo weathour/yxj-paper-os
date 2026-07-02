@@ -1,11 +1,11 @@
 {
-  "activation_policy": "activate when figure/table/algorithm/formula is touched",
+  "activation_policy": "activate before any figure/table/algorithm/formula becomes paper-facing or when S05/S06/S04 imply a visual/formal object need",
   "backflow_targets": [
     "S05",
     "S04",
     "S06"
   ],
-  "completion_gate": "no final/export-facing figure proceeds without contract, evidence, and backend route",
+  "completion_gate": "S08VisualFormalPlan validates visual needs, candidates, visual budget, figure/table/formal contracts, panel evidence maps, claim bindings, backend routes, caption boundaries, accessibility constraints, coverage ledger, and S10/S11/S12/S13 handoffs without final figures, final captions, new claims, or completion overclaim",
   "consumes": [
     "reader spine",
     "section function budget",
@@ -19,7 +19,7 @@
     "panel evidence map",
     "backend route"
   ],
-  "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+  "purpose": "Compile reader questions, section/object budgets, claim/evidence boundaries, and source-data routes into visual/formal object contracts.",
   "recommended_agent_type": "designer",
   "subagent_lane_policy": {
     "policy": "conditional_double",
@@ -47,10 +47,25 @@
   ],
   "stage_name": "Visual and formal object planning",
   "validators": [
-    "reader question",
-    "supported claim",
-    "evidence refs",
-    "backend route"
+    "S08_input_coverage",
+    "S08_visual_need_inventory",
+    "S08_candidate_visual_object_queue",
+    "S08_visual_budget",
+    "S08_main_story_visual_path",
+    "S08_figure_contract_schema",
+    "S08_table_contract_schema",
+    "S08_formal_object_contract_schema",
+    "S08_panel_evidence_map",
+    "S08_visual_claim_evidence_binding",
+    "S08_explanatory_vs_evidential_boundary",
+    "S08_main_supplement_split",
+    "S08_backend_route_map",
+    "S08_caption_boundary",
+    "S08_accessibility_constraints",
+    "S08_coverage_ledger",
+    "S08_unresolved_visual_object_report",
+    "S08_downstream_handoff",
+    "S08_no_new_claims_or_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

@@ -4,9 +4,10 @@
     "S04",
     "S05",
     "S06",
-    "S07"
+    "S07",
+    "S08"
   ],
-  "completion_gate": "S09B can build a task packet without guessing upstream controls",
+  "completion_gate": "S09ARichControlBundle is layered, priority-ordered, freshness-checked, conflict-resolved, and ready for S09B without worker guessing",
   "consumes": [
     "claim controls",
     "spine controls",
@@ -21,7 +22,7 @@
     "control priority map",
     "missing control report"
   ],
-  "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
+  "purpose": "Select a target-specific, context-rich, priority-ordered control bundle without compiling worker packets or granting content-generation authority.",
   "recommended_agent_type": "planner",
   "subagent_lane_policy": {
     "policy": "single_with_deterministic_validation",
@@ -49,9 +50,23 @@
   ],
   "stage_name": "Control-material selection",
   "validators": [
-    "required controls present",
-    "no overloaded all-context packet",
-    "conflict priority resolved"
+    "S09A_target_unit_profile",
+    "S09A_hard_constraints_present",
+    "S09A_rich_context_layering",
+    "S09A_claim_control_selection",
+    "S09A_reader_context_selection",
+    "S09A_object_context_selection",
+    "S09A_surface_control_selection",
+    "S09A_visual_formal_control_selection",
+    "S09A_negative_controls",
+    "S09A_conflict_resolution",
+    "S09A_context_usage_instructions",
+    "S09A_freshness_check",
+    "S09A_missing_control_report",
+    "S09A_coverage_ledger",
+    "S09A_downstream_packet_requirements",
+    "S09A_no_bare_S09",
+    "S09A_no_task_packet_or_final_content"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

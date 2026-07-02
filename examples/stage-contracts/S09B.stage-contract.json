@@ -5,7 +5,7 @@
     "S14",
     "S15"
   ],
-  "completion_gate": "packet is bounded and cannot grant graph-completion or recursive-dispatch authority",
+  "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with S09A usage labels preserved",
   "consumes": [
     "selected control bundle",
     "evidence anchors",
@@ -13,7 +13,7 @@
     "validator refs",
     "return format"
   ],
-  "coverage_status": "implemented_partial_phase6",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "script_generated",
   "produces": [
     "task packet",
@@ -21,7 +21,7 @@
     "single-writer lock",
     "missing material report"
   ],
-  "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
+  "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
   "recommended_agent_type": "main",
   "subagent_lane_policy": {
     "policy": "single_with_deterministic_validation",
@@ -49,10 +49,23 @@
   ],
   "stage_name": "Per-unit task packet assembly",
   "validators": [
-    "allowed read/write paths",
-    "worker boot clause",
-    "completion forbidden",
-    "no recursive orchestration"
+    "S09B_packet_identity",
+    "S09B_allowed_read_paths",
+    "S09B_allowed_write_paths",
+    "S09B_forbidden_routes",
+    "S09B_worker_boot_clause",
+    "S09B_completion_forbidden",
+    "S09B_no_recursive_orchestration",
+    "S09B_single_writer_lock",
+    "S09B_unit_move_plan",
+    "S09B_selected_controls_propagated",
+    "S09B_context_usage_preserved",
+    "S09B_background_not_claim_authority",
+    "S09B_return_format",
+    "S09B_missing_material_report",
+    "S09B_authority_boundary",
+    "S09B_emitted_packet_validates",
+    "S09B_no_bare_S09"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

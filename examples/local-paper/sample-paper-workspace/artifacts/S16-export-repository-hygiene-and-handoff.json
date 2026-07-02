@@ -10,11 +10,12 @@
   "contract_ref": "examples/stage-contracts/S16.stage-contract.json",
   "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
   "projected_outputs": [
-    "export manifest",
+    "export handoff package",
+    "human-readable PDF/export manifest",
     "repository hygiene report",
-    "manager handoff report"
+    "manager/owner handoff report"
   ],
-  "purpose": "Package final paper and prove delivery cleanliness.",
+  "purpose": "Export a closed manuscript candidate into human-readable artifacts and prove delivery hygiene without claiming submission/publication readiness.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S16",

@@ -5,7 +5,7 @@
     "S04",
     "S05"
   ],
-  "completion_gate": "main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell",
+  "completion_gate": "S07RhetoricSurfaceControl validates claim surface rules, terminology coverage, internal-id bans, paragraph jobs, flexible language controls, forbidden expressions, coverage ledger, and S09/S10/S12/S13 handoffs without new claims or final prose",
   "consumes": [
     "object representation",
     "claim visibility",
@@ -19,7 +19,7 @@
     "terminology register",
     "surface rules"
   ],
-  "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+  "purpose": "Compile claim-safe rhetoric, terminology, paragraph jobs, flexible surface controls, forbidden expressions, coverage ledgers, and downstream handoffs without final prose or claim strengthening.",
   "recommended_agent_type": "writer",
   "subagent_lane_policy": {
     "policy": "conditional_double",
@@ -47,9 +47,20 @@
   ],
   "stage_name": "Rhetoric terminology and surface-control synthesis",
   "validators": [
-    "terminology coverage",
-    "forbidden internal ids",
-    "rhetorical move coverage"
+    "S07_input_coverage",
+    "S07_claim_surface_rule_map",
+    "S07_terminology_surface_register",
+    "S07_internal_id_ban_list",
+    "S07_paragraph_job_map",
+    "S07_rhetorical_move_matrix",
+    "S07_language_flexibility_guard",
+    "S07_surface_rules",
+    "S07_forbidden_expression_list",
+    "S07_coverage_ledger",
+    "S07_unresolved_surface_control_report",
+    "S07_downstream_handoff",
+    "S07_no_new_claims_or_claim_strengthening",
+    "S07_no_final_prose_or_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

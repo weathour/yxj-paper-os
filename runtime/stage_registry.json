@@ -1,27 +1,1184 @@
 {
   "schema_version": "ppg-stage-registry/v0.1",
-  "canonical_stage_ids": ["S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "G01", "G02"],
-  "execution_mode_enum": ["owner_gated", "script_generated", "agent_generated", "hybrid_generated"],
+  "canonical_stage_ids": [
+    "S00",
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09A",
+    "S09B",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "G01",
+    "G02"
+  ],
+  "execution_mode_enum": [
+    "owner_gated",
+    "script_generated",
+    "agent_generated",
+    "hybrid_generated"
+  ],
   "stages": [
-    {"stage_id":"S00","stage_name":"Owner semantic contract","purpose":"Convert human need into bounded paper commitments and owner decisions.","execution_mode":"owner_gated","requires_worker_task_packet":false,"recommended_agent_type":"main","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"main","verifier_agent_type":"verifier","escalate_to_double_when":["owner semantic contract changes","venue or claim-scope freeze","owner requests independent challenge"],"rationale":"Owner semantics are controller-owned; a second lane is needed only when commitments change or freeze."},"consumes":["human need","paper profile","evidence summary"],"produces":["paper-profile","motivation","decisions","blocked routes"],"validators":["owner confirmation","blocked route check"],"backflow_targets":["owner"],"completion_gate":"confirmed owner decision or recorded owner-gated assumption; no worker may silently change this stage","activation_policy":"activate when owner motivation, venue, claim scope, or private-source policy is unclear","coverage_status":"planned_full_stage","pilot_required":true,"contract_ref":"examples/stage-contracts/S00.stage-contract.json"},
-    {"stage_id":"S01","stage_name":"Source citation evidence inventory","purpose":"Make raw paper inputs locatable and support-safe.","execution_mode":"hybrid_generated","requires_worker_task_packet":false,"recommended_agent_type":"explore","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"explore","verifier_agent_type":"verifier","escalate_to_double_when":["new source family is admitted","citation/evidence support is uncertain","pre-writing inventory freeze"],"rationale":"Inventory work is mostly structural but needs independent verification when source support or evidence admissibility is uncertain."},"consumes":["initial files","result dirs","BibTeX","source locators"],"produces":["source map","citation bank","evidence bank"],"validators":["source locator resolution","privacy boundary check","evidence path check"],"backflow_targets":["S00","S04"],"completion_gate":"claim-relevant sources are locator-backed or explicitly unresolved","activation_policy":"activate when source or evidence inventory is missing/stale","coverage_status":"planned_full_stage","pilot_required":true,"contract_ref":"examples/stage-contracts/S01.stage-contract.json"},
-    {"stage_id":"S02","stage_name":"Research scene exemplar SOTA analysis","purpose":"Understand field scene, template expectations, exemplar structure, and related-work positioning.","execution_mode":"agent_generated","requires_worker_task_packet":true,"recommended_agent_type":"researcher","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"researcher","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Research/SOTA materials shape all downstream claims, so producer output must be independently checked before commit."},"consumes":["source map","citation bank","venue route","exemplar locators"],"produces":["research dossier","reader package","template profile","citation verification report"],"validators":["source locator check","citation verification","template copying boundary"],"backflow_targets":["S01","S00"],"completion_gate":"research dossier and template/profile outputs are source-located and safe to consume","activation_policy":"activate when field/template/SOTA is uncertain","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S02.stage-contract.json"},
-    {"stage_id":"S03","stage_name":"Novelty and contribution option analysis","purpose":"Identify viable contribution framings without treating speculation as evidence.","execution_mode":"agent_generated","requires_worker_task_packet":true,"recommended_agent_type":"critic","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"critic","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Novelty framing is high-risk and speculative by nature; independent challenge prevents unsupported contribution claims."},"consumes":["research dossier","evidence inventory","motivation","SOTA map"],"produces":["contribution options","novelty readiness","risk list"],"validators":["evidence readiness score","source anchors","owner semantic-shift gate"],"backflow_targets":["S00","S02","S04"],"completion_gate":"viable options are classified as supported, owner-gated, or rejected","activation_policy":"activate when contribution is unstable or weak","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S03.stage-contract.json"},
-    {"stage_id":"S04","stage_name":"Evidence-to-claim admissibility","purpose":"Bind evidence and citations to exact claim boundaries.","execution_mode":"hybrid_generated","requires_worker_task_packet":true,"recommended_agent_type":"verifier","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"verifier","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Claim-evidence admissibility is a safety-critical gate; production and verification must remain separate."},"consumes":["evidence bank","citation bank","result artifacts","contribution options"],"produces":["claim citation capsules","result packages","claim evidence visibility","data availability plan"],"validators":["claim support","allowed wording","forbidden wording","result package boundary"],"backflow_targets":["S01","S03","S00"],"completion_gate":"every claim-bearing unit has support strength, evidence anchor, allowed wording, and forbidden wording","activation_policy":"activate before claim-bearing writing or review","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S04.stage-contract.json"},
-    {"stage_id":"S05","stage_name":"Paper spine and reader-question synthesis","purpose":"Synthesize paper argument path and reader/reviewer questions.","execution_mode":"agent_generated","requires_worker_task_packet":true,"recommended_agent_type":"architect","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"architect","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"The paper spine controls global argument order; independent challenge catches incoherent or unsupported reader paths."},"consumes":["motivation","contribution options","template profile","claim materials"],"produces":["reader spine","reviewer question map","rationale matrix"],"validators":["claim appears in spine","section answers reader question","owner decisions explicit"],"backflow_targets":["S00","S03","S04"],"completion_gate":"spine is coherent and claim-bounded before writing begins","activation_policy":"activate for new section or major rewrite","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S05.stage-contract.json"},
-    {"stage_id":"S06","stage_name":"Object representation and granularity design","purpose":"Decide how paper objects appear across sections and at what granularity.","execution_mode":"agent_generated","requires_worker_task_packet":true,"recommended_agent_type":"architect","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"architect","verifier_agent_type":"verifier","escalate_to_double_when":["new object family or granularity ladder is introduced","multi-section object reuse is planned","pre-writing design freeze"],"rationale":"Object/granularity design is reusable control material; single production is enough unless it changes multi-section semantics."},"consumes":["reader spine","reviewer question map","template profile","claim visibility"],"produces":["object representation matrix","section function budget","load budget","explanation ladder"],"validators":["granularity progression","no flat repetition","load budget present"],"backflow_targets":["S05","S04"],"completion_gate":"writing units can consume explicit object and granularity instructions","activation_policy":"activate for full paper route or when object repetition risk exists","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S06.stage-contract.json"},
-    {"stage_id":"S07","stage_name":"Rhetoric terminology and surface-control synthesis","purpose":"Turn reader/object design into paragraph-level rhetorical and terminology controls.","execution_mode":"hybrid_generated","requires_worker_task_packet":true,"recommended_agent_type":"writer","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"writer","verifier_agent_type":"verifier","escalate_to_double_when":["terminology affects claim strength","surface rules govern multiple writing units","pre-writing expression freeze"],"rationale":"Surface and terminology controls are broad but usually locally checkable; escalate when they constrain claims across sections."},"consumes":["object representation","claim visibility","evidence wording"],"produces":["construction matrix","rhetorical matrix","terminology register","surface rules"],"validators":["terminology coverage","forbidden internal ids","rhetorical move coverage"],"backflow_targets":["S06","S04","S05"],"completion_gate":"main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell","activation_policy":"activate before writing execution","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S07.stage-contract.json"},
-    {"stage_id":"S08","stage_name":"Visual and formal object planning","purpose":"Decide which figures, tables, algorithms, and formulas exist and what they prove.","execution_mode":"hybrid_generated","requires_worker_task_packet":true,"recommended_agent_type":"designer","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"designer","verifier_agent_type":"verifier","escalate_to_double_when":["figure/table/formula object will be paper-facing","visual claim support is uncertain","pre-export visual-plan freeze"],"rationale":"Visual/formal planning is often design-led and evidence-linked; escalate before paper-facing visual commitments freeze."},"consumes":["reader spine","section function budget","claim evidence materials"],"produces":["visual budget","figure contract","panel evidence map","backend route"],"validators":["reader question","supported claim","evidence refs","backend route"],"backflow_targets":["S05","S04","S06"],"completion_gate":"no final/export-facing figure proceeds without contract, evidence, and backend route","activation_policy":"activate when figure/table/algorithm/formula is touched","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S08.stage-contract.json"},
-    {"stage_id":"S09A","stage_name":"Control-material selection","purpose":"Choose the minimal control material set needed by the target manuscript unit.","execution_mode":"hybrid_generated","requires_worker_task_packet":false,"recommended_agent_type":"planner","subagent_lane_policy":{"policy":"single_with_deterministic_validation","default_lane_count":1,"producer_agent_type":"planner","verifier_agent_type":null,"escalate_to_double_when":["owner requests audit of control selection","full-flow QA mode","control selection changes high-risk claim inputs"],"rationale":"Control-material selection is a controller/script-like routing step and is primarily proven by deterministic validation."},"consumes":["claim controls","spine controls","granularity controls","surface rules","target unit"],"produces":["selected control bundle","control priority map","missing control report"],"validators":["required controls present","no overloaded all-context packet","conflict priority resolved"],"backflow_targets":["S04","S05","S06","S07"],"completion_gate":"S09B can build a task packet without guessing upstream controls","activation_policy":"activate before per-unit packet assembly","coverage_status":"planned_full_stage","pilot_required":true,"contract_ref":"examples/stage-contracts/S09A.stage-contract.json"},
-    {"stage_id":"S09B","stage_name":"Per-unit task packet assembly","purpose":"Compile one bounded writing TaskPacket for a section/unit.","execution_mode":"script_generated","requires_worker_task_packet":false,"recommended_agent_type":"main","subagent_lane_policy":{"policy":"single_with_deterministic_validation","default_lane_count":1,"producer_agent_type":"main","verifier_agent_type":null,"escalate_to_double_when":["packet compiler or authority-boundary code changes","full-flow QA mode","owner requests task-packet audit"],"rationale":"Task-packet assembly is an authority-boundary compiler step and is primarily proven by deterministic validation."},"consumes":["selected control bundle","evidence anchors","target unit","validator refs","return format"],"produces":["task packet","section move plan","single-writer lock","missing material report"],"validators":["allowed read/write paths","worker boot clause","completion forbidden","no recursive orchestration"],"backflow_targets":["S09A","S14","S15"],"completion_gate":"packet is bounded and cannot grant graph-completion or recursive-dispatch authority","activation_policy":"activate when a worker needs a section/unit packet","coverage_status":"implemented_partial_phase6","pilot_required":true,"contract_ref":"examples/stage-contracts/S09B.stage-contract.json"},
-    {"stage_id":"S10","stage_name":"Main-text production","purpose":"Produce candidate manuscript modules from task packets.","execution_mode":"agent_generated","requires_worker_task_packet":true,"recommended_agent_type":"writer","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"writer","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Main-text production is paper-facing semantic output; independent verification is mandatory before controller acceptance."},"consumes":["S09B task packet","construction matrix","terminology register","claim visibility"],"produces":["candidate text unit","CandidateArtifactReturn"],"validators":["section draft validator","candidate return validator","claim boundary check"],"backflow_targets":["S09B","S07","S04"],"completion_gate":"candidate text is validated and collected; graph completion remains controller-owned","activation_policy":"activate when writing execution is needed","coverage_status":"implemented_partial_phase7","pilot_required":true,"contract_ref":"examples/stage-contracts/S10.stage-contract.json"},
-    {"stage_id":"S11","stage_name":"Figure caption formal artifact production","purpose":"Produce figures, captions, tables, algorithms, formulas, and export bundles.","execution_mode":"hybrid_generated","requires_worker_task_packet":true,"recommended_agent_type":"executor","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"executor","verifier_agent_type":"verifier","escalate_to_double_when":["artifact is paper-facing or data-backed","caption makes a claim","pre-export figure/caption freeze"],"rationale":"Artifact production is often deterministic but paper-facing; independent QA is required when it becomes final/export-facing."},"consumes":["figure contracts","panel evidence packages","source data locators","caption brief"],"produces":["figure statistics","image integrity record","caption brief","figure export bundle"],"validators":["build/render","source data","image integrity","caption claim boundary"],"backflow_targets":["S08","S04","S01"],"completion_gate":"figure/caption has editable source, rendered output, provenance, QA route, and claim support","activation_policy":"activate when figure/caption/formal artifacts are touched","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S11.stage-contract.json"},
-    {"stage_id":"S12","stage_name":"Integration and consistency pass","purpose":"Assemble modules and check cross-section dependencies.","execution_mode":"hybrid_generated","requires_worker_task_packet":true,"recommended_agent_type":"verifier","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"verifier","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Integration can create cross-section contradictions, so independent consistency verification is mandatory."},"consumes":["candidate text modules","figures/captions","section move plan","terminology register","claim visibility"],"produces":["integrated manuscript candidate","consistency findings","validator report"],"validators":["promise satisfaction","method/result alignment","terminology consistency","figure-text consistency"],"backflow_targets":["S10","S11","S07","S04"],"completion_gate":"integrated candidate is ready for adversarial review, not final","activation_policy":"activate when multiple modules are integrated","coverage_status":"planned_with_worker_packet","pilot_required":true,"contract_ref":"examples/stage-contracts/S12.stage-contract.json"},
-    {"stage_id":"S13","stage_name":"Adversarial manuscript review","purpose":"Generate actionable review/loss signals, not uncontrolled rewrites.","execution_mode":"agent_generated","requires_worker_task_packet":true,"recommended_agent_type":"critic","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"critic","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Adversarial review itself produces loss signals that must be independently validated for actionability and routing."},"consumes":["integrated candidate","evidence/claim materials","reader/terminology/rhetoric materials","figure/export artifacts"],"produces":["reviewer panel report","reader experience report","validator report","review findings"],"validators":["finding severity","evidence","affected artifact","backflow target","resolution status"],"backflow_targets":["S14"],"completion_gate":"accepted findings are actionable and routed to nearest responsible upstream material","activation_policy":"activate when candidate manuscript/module exists","coverage_status":"implemented_partial_phase7","pilot_required":true,"contract_ref":"examples/stage-contracts/S13.stage-contract.json"},
-    {"stage_id":"S14","stage_name":"Backflow compilation and repair planning","purpose":"Convert review/loss signals into local repair tasks.","execution_mode":"hybrid_generated","requires_worker_task_packet":false,"recommended_agent_type":"planner","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"planner","verifier_agent_type":"verifier","escalate_to_double_when":["repair changes upstream claim/spine/material semantics","review finding severity is high","repair plan affects multiple downstream nodes"],"rationale":"Backflow planning is controller-owned routing; single planner lane is enough unless severe or multi-node repairs are involved."},"consumes":["review outputs","validator reports","affected materials graph"],"produces":["narrative backflow task","repair task packets","control reselection tasks","response action map"],"validators":["target layer/material","affected downstream nodes","repair mission","owner gate status"],"backflow_targets":["S04","S07","S09A","S09B","S15"],"completion_gate":"no accepted finding remains unrouted","activation_policy":"activate when review finding exists","coverage_status":"implemented_partial_phase5_phase7","pilot_required":true,"contract_ref":"examples/stage-contracts/S14.stage-contract.json"},
-    {"stage_id":"S15","stage_name":"Repair execution and local regeneration","purpose":"Execute bounded backflow task and regenerate only affected downstream outputs.","execution_mode":"hybrid_generated","requires_worker_task_packet":true,"recommended_agent_type":"executor","subagent_lane_policy":{"policy":"mandatory_double","default_lane_count":2,"producer_agent_type":"executor","verifier_agent_type":"verifier","escalate_to_double_when":["always for normal paper-facing production","full-flow QA mode","milestone or freeze gate"],"rationale":"Repair execution changes accepted materials; independent verification is mandatory to prove the finding is resolved without regressions."},"consumes":["backflow task packet","target material","stale downstream set"],"produces":["revised material","regenerated task packet","revised text/figure","updated validator report"],"validators":["scoped stale propagation","unrelated nodes unchanged","finding resolved","no new high severity finding"],"backflow_targets":["S09B","S10","S11","S12","S15"],"completion_gate":"graph records new version and affected nodes are revalidated","activation_policy":"activate when repair task exists","coverage_status":"implemented_partial_phase7","pilot_required":true,"contract_ref":"examples/stage-contracts/S15.stage-contract.json"},
-    {"stage_id":"S16","stage_name":"Export repository hygiene and handoff","purpose":"Package final paper and prove delivery cleanliness.","execution_mode":"hybrid_generated","requires_worker_task_packet":false,"recommended_agent_type":"verifier","subagent_lane_policy":{"policy":"conditional_double","default_lane_count":1,"producer_agent_type":"verifier","verifier_agent_type":"verifier","escalate_to_double_when":["handoff/export is owner-facing","dirty-worktree or build hygiene is ambiguous","release/submission boundary is near"],"rationale":"Export/handoff is mostly deterministic hygiene; escalate when the output is owner-facing or boundary-sensitive."},"consumes":["clean final candidate","review closure","repair-complete package","figures/captions","repository state"],"produces":["export manifest","repository hygiene report","manager handoff report"],"validators":["build success","rendered surface checks","manifest hashes","dirty worktree classification"],"backflow_targets":["S12","S13","S15","owner"],"completion_gate":"content-ready and delivery-clean states are separately proven; external submission remains owner-gated","activation_policy":"activate when export/handoff requested","coverage_status":"planned_full_stage","pilot_required":true,"contract_ref":"examples/stage-contracts/S16.stage-contract.json"},
-    {"stage_id":"G01","stage_name":"Runtime governance registry","purpose":"Define permissions, route governance, and state controls before automation.","execution_mode":"script_generated","requires_worker_task_packet":false,"recommended_agent_type":"verifier","subagent_lane_policy":{"policy":"single_with_deterministic_validation","default_lane_count":1,"producer_agent_type":"verifier","verifier_agent_type":null,"escalate_to_double_when":["runtime governance registry or validator semantics change","full-flow QA mode","owner requests governance audit"],"rationale":"Governance records are registry/validator-controlled and should default to deterministic validation rather than extra agents."},"consumes":["state","permissions","skill registry"],"produces":["route governance records","state controls","manager boot checklist"],"validators":["permission boundary","route registry","state integrity"],"backflow_targets":["S00","S16"],"completion_gate":"governance constraints are recorded and cannot inject route metadata into paper-facing cognition","activation_policy":"activate before automation/permissions/state changes","coverage_status":"planned_full_stage","pilot_required":true,"contract_ref":"examples/stage-contracts/G01.stage-contract.json"},
-    {"stage_id":"G02","stage_name":"Derivative and post-paper outputs","purpose":"Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.","execution_mode":"owner_gated","requires_worker_task_packet":false,"recommended_agent_type":"planner","subagent_lane_policy":{"policy":"single_with_deterministic_validation","default_lane_count":1,"producer_agent_type":"planner","verifier_agent_type":null,"escalate_to_double_when":["post-paper derivative output is owner-facing","external-use boundary changes","owner requests derivative audit"],"rationale":"Derivative outputs are outside the main paper cognition path and should stay single-lane until an owner-facing derivative is active."},"consumes":["stable paper","owner request"],"produces":["presentation plan","patent boundary","profile-specific derivative package"],"validators":["owner authorization","derivative boundary","no premature submission claim"],"backflow_targets":["owner","S16"],"completion_gate":"only explicit owner request can activate derivative output; otherwise recorded not-applicable/deferred","activation_policy":"activate only after paper content stability or explicit derivative request","coverage_status":"owner_gated_deferred","pilot_required":true,"contract_ref":"examples/stage-contracts/G02.stage-contract.json"}
+    {
+      "stage_id": "S00",
+      "stage_name": "Owner semantic contract",
+      "purpose": "Convert human need into bounded paper commitments and owner decisions.",
+      "execution_mode": "owner_gated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "main",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "main",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "owner semantic contract changes",
+          "venue or claim-scope freeze",
+          "owner requests independent challenge"
+        ],
+        "rationale": "Owner semantics are controller-owned; a second lane is needed only when commitments change or freeze."
+      },
+      "consumes": [
+        "human need",
+        "paper profile",
+        "evidence summary"
+      ],
+      "produces": [
+        "paper-profile",
+        "motivation",
+        "decisions",
+        "blocked routes"
+      ],
+      "validators": [
+        "owner confirmation",
+        "blocked route check",
+        "owner decision trace",
+        "claim scope boundary",
+        "source/privacy policy boundary",
+        "external action boundary",
+        "no worker semantic change",
+        "downstream stale/backflow effects",
+        "no completion or submission overclaim"
+      ],
+      "backflow_targets": [
+        "owner"
+      ],
+      "completion_gate": "confirmed owner decision or recorded owner-gated assumption; no worker may silently change this stage",
+      "activation_policy": "activate when owner motivation, venue, claim scope, or private-source policy is unclear",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S00.stage-contract.json"
+    },
+    {
+      "stage_id": "S01",
+      "stage_name": "Source citation evidence inventory",
+      "purpose": "Make raw paper inputs locatable and support-safe.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "explore",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "explore",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "new source family is admitted",
+          "citation/evidence support is uncertain",
+          "pre-writing inventory freeze"
+        ],
+        "rationale": "Inventory work is mostly structural but needs independent verification when source support or evidence admissibility is uncertain."
+      },
+      "consumes": [
+        "initial files",
+        "result dirs",
+        "BibTeX",
+        "source locators"
+      ],
+      "produces": [
+        "source map",
+        "citation bank",
+        "evidence bank"
+      ],
+      "validators": [
+        "source locator resolution",
+        "privacy boundary check",
+        "evidence path check",
+        "S01_read_only_boundary",
+        "S01_root_coverage",
+        "S01_source_locator_resolution",
+        "S01_bibtex_key_coverage",
+        "S01_evidence_artifact_locator",
+        "S01_figure_source_data_locator",
+        "S01_supplement_inventory",
+        "S01_privacy_boundary",
+        "S01_freshness_hash_report",
+        "S01_no_claim_admissibility",
+        "S01_unresolved_locator_register",
+        "S01_no_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S00",
+        "S04"
+      ],
+      "completion_gate": "claim-relevant sources are locator-backed or explicitly unresolved",
+      "activation_policy": "activate when source or evidence inventory is missing/stale",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S01.stage-contract.json"
+    },
+    {
+      "stage_id": "S02",
+      "stage_name": "Research scene exemplar SOTA analysis",
+      "purpose": "Understand field scene, template expectations, exemplar structure, and related-work positioning.",
+      "execution_mode": "agent_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "researcher",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "researcher",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Research/SOTA materials shape all downstream claims, so producer output must be independently checked before commit."
+      },
+      "consumes": [
+        "source map",
+        "citation bank",
+        "venue route",
+        "exemplar locators"
+      ],
+      "produces": [
+        "research dossier",
+        "reader package",
+        "template profile",
+        "citation verification report"
+      ],
+      "validators": [
+        "S02_source_coverage_ledger",
+        "S02_sota_family_coverage_ledger",
+        "S02_template_language_profile",
+        "S02_descriptive_not_prescriptive",
+        "S02_template_copying_boundary",
+        "S02_unresolved_backflow_register",
+        "S02_downstream_handoff_coverage",
+        "S02_no_claim_or_completion_freeze"
+      ],
+      "backflow_targets": [
+        "S01",
+        "S00"
+      ],
+      "completion_gate": "research dossier and template/profile outputs are source-located and safe to consume",
+      "activation_policy": "activate when field/template/SOTA is uncertain",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S02.stage-contract.json"
+    },
+    {
+      "stage_id": "S03",
+      "stage_name": "Novelty and contribution option analysis",
+      "purpose": "Identify viable contribution framings without treating speculation as evidence.",
+      "execution_mode": "agent_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "critic",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "critic",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Novelty framing is high-risk and speculative by nature; independent challenge prevents unsupported contribution claims."
+      },
+      "consumes": [
+        "research dossier",
+        "evidence inventory",
+        "motivation",
+        "SOTA map"
+      ],
+      "produces": [
+        "contribution options",
+        "novelty readiness",
+        "risk list"
+      ],
+      "validators": [
+        "S03_contribution_option_queue",
+        "S03_option_coverage_ledger",
+        "S03_sota_contrast_matrix",
+        "S03_evidence_readiness_classifier",
+        "S03_rejected_option_register",
+        "S03_owner_gated_option_register",
+        "S03_reviewer_attack_map",
+        "S03_s04_handoff_coverage",
+        "S03_no_claim_admissibility_or_final_wording",
+        "S03_no_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S00",
+        "S02",
+        "S04"
+      ],
+      "completion_gate": "viable options are classified as supported, owner-gated, or rejected",
+      "activation_policy": "activate when contribution is unstable or weak",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S03.stage-contract.json"
+    },
+    {
+      "stage_id": "S04",
+      "stage_name": "Evidence-to-claim admissibility",
+      "purpose": "Admit, weaken, reject, or backflow every claim-bearing unit against evidence anchors, support strength, allowed wording, forbidden wording, and result-package boundaries.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "verifier",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "verifier",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Claim-evidence admissibility is a safety-critical gate; production and verification must remain separate."
+      },
+      "consumes": [
+        "evidence bank",
+        "citation bank",
+        "result artifacts",
+        "contribution options"
+      ],
+      "produces": [
+        "claim citation capsules",
+        "result packages",
+        "claim evidence visibility",
+        "data availability plan"
+      ],
+      "validators": [
+        "S04_claim_queue",
+        "S04_atomic_claim_register",
+        "S04_claim_capsules",
+        "S04_claim_coverage_ledger",
+        "S04_support_strength_map",
+        "S04_evidence_anchor_visibility",
+        "S04_allowed_forbidden_wording",
+        "S04_result_package_boundary",
+        "S04_claim_transformation_log",
+        "S04_downstream_handoff_coverage",
+        "S04_no_final_prose_or_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S01",
+        "S03",
+        "S00"
+      ],
+      "completion_gate": "every claim-bearing unit is admitted, weakened, rejected, owner-gated, or backflowed with support strength, evidence anchor, allowed wording, forbidden wording, result boundary, and downstream permission",
+      "activation_policy": "activate before claim-bearing writing or review",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S04.stage-contract.json"
+    },
+    {
+      "stage_id": "S05",
+      "stage_name": "Paper spine and reader-question synthesis",
+      "purpose": "Build a claim-bounded reader-question spine from S04-admitted claim capsules, with coverage ledgers and downstream S06/S07/S08 handoffs; no new claims or final prose.",
+      "execution_mode": "agent_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "architect",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "architect",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "The paper spine controls global argument order; independent challenge catches incoherent or unsupported reader paths."
+      },
+      "consumes": [
+        "motivation",
+        "contribution options",
+        "template profile",
+        "claim materials"
+      ],
+      "produces": [
+        "reader spine",
+        "reviewer question map",
+        "rationale matrix"
+      ],
+      "validators": [
+        "S05_admitted_claim_intake_ledger",
+        "S05_reader_question_inventory",
+        "S05_reader_question_coverage_ledger",
+        "S05_reader_question_progression",
+        "S05_claim_to_section_spine",
+        "S05_claim_section_coverage_ledger",
+        "S05_front_half_promise_coverage",
+        "S05_reviewer_question_map",
+        "S05_rationale_matrix",
+        "S05_owner_decision_log",
+        "S05_s06_s07_s08_handoff_coverage",
+        "S05_coherence_overpromise_audit",
+        "S05_no_new_claims_or_final_prose",
+        "S05_no_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S00",
+        "S03",
+        "S04"
+      ],
+      "completion_gate": "S05ReaderSpine validates every S04 intake claim, reader question, section placement, promise payoff, owner decision, and S06/S07/S08 handoff without new claims or final prose",
+      "activation_policy": "activate for new section or major rewrite",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S05.stage-contract.json"
+    },
+    {
+      "stage_id": "S06",
+      "stage_name": "Object representation and granularity design",
+      "purpose": "Design complete object and mechanism-variable representation, granularity progression, section/load budgets, explanation ladders, and downstream handoffs without adding claims or drafting prose.",
+      "execution_mode": "agent_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "architect",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "architect",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "new object family or granularity ladder is introduced",
+          "multi-section object reuse is planned",
+          "pre-writing design freeze"
+        ],
+        "rationale": "Object/granularity design is reusable control material; single production is enough unless it changes multi-section semantics."
+      },
+      "consumes": [
+        "reader spine",
+        "reviewer question map",
+        "template profile",
+        "claim visibility"
+      ],
+      "produces": [
+        "object representation matrix",
+        "section function budget",
+        "load budget",
+        "explanation ladder"
+      ],
+      "validators": [
+        "S06_object_inventory_coverage",
+        "S06_mechanism_variable_coverage",
+        "S06_object_cards_for_P0_P1_P2",
+        "S06_mechanism_variable_cards",
+        "S06_claim_object_mapping",
+        "S06_reader_question_object_mapping",
+        "S06_object_section_mapping",
+        "S06_granularity_progression",
+        "S06_section_function_budget",
+        "S06_cognitive_load_budget",
+        "S06_explanation_ladder",
+        "S06_no_flat_repetition",
+        "S06_coverage_ledger",
+        "S06_unresolved_object_report",
+        "S06_downstream_handoff",
+        "S06_no_new_claims_or_final_prose",
+        "S06_no_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S05",
+        "S04"
+      ],
+      "completion_gate": "S06ObjectGranularity validates object/variable coverage, cards, cross maps, granularity/load budgets, explanation ladders, repetition checks, unresolved objects, and S07/S08/S10 handoffs without new claims or final prose",
+      "activation_policy": "activate for full paper route or when object repetition risk exists",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S06.stage-contract.json"
+    },
+    {
+      "stage_id": "S07",
+      "stage_name": "Rhetoric terminology and surface-control synthesis",
+      "purpose": "Compile claim-safe rhetoric, terminology, paragraph jobs, flexible surface controls, forbidden expressions, coverage ledgers, and downstream handoffs without final prose or claim strengthening.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "writer",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "writer",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "terminology affects claim strength",
+          "surface rules govern multiple writing units",
+          "pre-writing expression freeze"
+        ],
+        "rationale": "Surface and terminology controls are broad but usually locally checkable; escalate when they constrain claims across sections."
+      },
+      "consumes": [
+        "object representation",
+        "claim visibility",
+        "evidence wording"
+      ],
+      "produces": [
+        "construction matrix",
+        "rhetorical matrix",
+        "terminology register",
+        "surface rules"
+      ],
+      "validators": [
+        "S07_input_coverage",
+        "S07_claim_surface_rule_map",
+        "S07_terminology_surface_register",
+        "S07_internal_id_ban_list",
+        "S07_paragraph_job_map",
+        "S07_rhetorical_move_matrix",
+        "S07_language_flexibility_guard",
+        "S07_surface_rules",
+        "S07_forbidden_expression_list",
+        "S07_coverage_ledger",
+        "S07_unresolved_surface_control_report",
+        "S07_downstream_handoff",
+        "S07_no_new_claims_or_claim_strengthening",
+        "S07_no_final_prose_or_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S06",
+        "S04",
+        "S05"
+      ],
+      "completion_gate": "S07RhetoricSurfaceControl validates claim surface rules, terminology coverage, internal-id bans, paragraph jobs, flexible language controls, forbidden expressions, coverage ledger, and S09/S10/S12/S13 handoffs without new claims or final prose",
+      "activation_policy": "activate before writing execution",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S07.stage-contract.json"
+    },
+    {
+      "stage_id": "S08",
+      "stage_name": "Visual and formal object planning",
+      "purpose": "Compile reader questions, section/object budgets, claim/evidence boundaries, and source-data routes into visual/formal object contracts.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "designer",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "designer",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "figure/table/formula object will be paper-facing",
+          "visual claim support is uncertain",
+          "pre-export visual-plan freeze"
+        ],
+        "rationale": "Visual/formal planning is often design-led and evidence-linked; escalate before paper-facing visual commitments freeze."
+      },
+      "consumes": [
+        "reader spine",
+        "section function budget",
+        "claim evidence materials"
+      ],
+      "produces": [
+        "visual budget",
+        "figure contract",
+        "panel evidence map",
+        "backend route"
+      ],
+      "validators": [
+        "S08_input_coverage",
+        "S08_visual_need_inventory",
+        "S08_candidate_visual_object_queue",
+        "S08_visual_budget",
+        "S08_main_story_visual_path",
+        "S08_figure_contract_schema",
+        "S08_table_contract_schema",
+        "S08_formal_object_contract_schema",
+        "S08_panel_evidence_map",
+        "S08_visual_claim_evidence_binding",
+        "S08_explanatory_vs_evidential_boundary",
+        "S08_main_supplement_split",
+        "S08_backend_route_map",
+        "S08_caption_boundary",
+        "S08_accessibility_constraints",
+        "S08_coverage_ledger",
+        "S08_unresolved_visual_object_report",
+        "S08_downstream_handoff",
+        "S08_no_new_claims_or_completion_overclaim"
+      ],
+      "backflow_targets": [
+        "S05",
+        "S04",
+        "S06"
+      ],
+      "completion_gate": "S08VisualFormalPlan validates visual needs, candidates, visual budget, figure/table/formal contracts, panel evidence maps, claim bindings, backend routes, caption boundaries, accessibility constraints, coverage ledger, and S10/S11/S12/S13 handoffs without final figures, final captions, new claims, or completion overclaim",
+      "activation_policy": "activate before any figure/table/algorithm/formula becomes paper-facing or when S05/S06/S04 imply a visual/formal object need",
+      "coverage_status": "planned_with_worker_packet",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S08.stage-contract.json"
+    },
+    {
+      "stage_id": "S09A",
+      "stage_name": "Control-material selection",
+      "purpose": "Select a target-specific, context-rich, priority-ordered control bundle without compiling worker packets or granting content-generation authority.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "planner",
+      "subagent_lane_policy": {
+        "policy": "single_with_deterministic_validation",
+        "default_lane_count": 1,
+        "producer_agent_type": "planner",
+        "verifier_agent_type": null,
+        "escalate_to_double_when": [
+          "owner requests audit of control selection",
+          "full-flow QA mode",
+          "control selection changes high-risk claim inputs"
+        ],
+        "rationale": "Control-material selection is a controller/script-like routing step and is primarily proven by deterministic validation."
+      },
+      "consumes": [
+        "claim controls",
+        "spine controls",
+        "granularity controls",
+        "surface rules",
+        "target unit"
+      ],
+      "produces": [
+        "selected control bundle",
+        "control priority map",
+        "missing control report"
+      ],
+      "validators": [
+        "S09A_target_unit_profile",
+        "S09A_hard_constraints_present",
+        "S09A_rich_context_layering",
+        "S09A_claim_control_selection",
+        "S09A_reader_context_selection",
+        "S09A_object_context_selection",
+        "S09A_surface_control_selection",
+        "S09A_visual_formal_control_selection",
+        "S09A_negative_controls",
+        "S09A_conflict_resolution",
+        "S09A_context_usage_instructions",
+        "S09A_freshness_check",
+        "S09A_missing_control_report",
+        "S09A_coverage_ledger",
+        "S09A_downstream_packet_requirements",
+        "S09A_no_bare_S09",
+        "S09A_no_task_packet_or_final_content"
+      ],
+      "backflow_targets": [
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "completion_gate": "S09ARichControlBundle is layered, priority-ordered, freshness-checked, conflict-resolved, and ready for S09B without worker guessing",
+      "activation_policy": "activate before per-unit packet assembly",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S09A.stage-contract.json"
+    },
+    {
+      "stage_id": "S09B",
+      "stage_name": "Per-unit task packet assembly",
+      "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
+      "execution_mode": "script_generated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "main",
+      "subagent_lane_policy": {
+        "policy": "single_with_deterministic_validation",
+        "default_lane_count": 1,
+        "producer_agent_type": "main",
+        "verifier_agent_type": null,
+        "escalate_to_double_when": [
+          "packet compiler or authority-boundary code changes",
+          "full-flow QA mode",
+          "owner requests task-packet audit"
+        ],
+        "rationale": "Task-packet assembly is an authority-boundary compiler step and is primarily proven by deterministic validation."
+      },
+      "consumes": [
+        "selected control bundle",
+        "evidence anchors",
+        "target unit",
+        "validator refs",
+        "return format"
+      ],
+      "produces": [
+        "task packet",
+        "section move plan",
+        "single-writer lock",
+        "missing material report"
+      ],
+      "validators": [
+        "S09B_packet_identity",
+        "S09B_allowed_read_paths",
+        "S09B_allowed_write_paths",
+        "S09B_forbidden_routes",
+        "S09B_worker_boot_clause",
+        "S09B_completion_forbidden",
+        "S09B_no_recursive_orchestration",
+        "S09B_single_writer_lock",
+        "S09B_unit_move_plan",
+        "S09B_selected_controls_propagated",
+        "S09B_context_usage_preserved",
+        "S09B_background_not_claim_authority",
+        "S09B_return_format",
+        "S09B_missing_material_report",
+        "S09B_authority_boundary",
+        "S09B_emitted_packet_validates",
+        "S09B_no_bare_S09"
+      ],
+      "backflow_targets": [
+        "S09A",
+        "S14",
+        "S15"
+      ],
+      "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with S09A usage labels preserved",
+      "activation_policy": "activate when a worker needs a section/unit packet",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S09B.stage-contract.json"
+    },
+    {
+      "stage_id": "S10",
+      "stage_name": "Main-text production",
+      "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
+      "execution_mode": "agent_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "writer",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "writer",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Main-text production is paper-facing semantic output; independent verification is mandatory before controller acceptance."
+      },
+      "consumes": [
+        "S09B task packet",
+        "construction matrix",
+        "terminology register",
+        "claim visibility"
+      ],
+      "produces": [
+        "candidate text unit",
+        "CandidateArtifactReturn"
+      ],
+      "validators": [
+        "S10_packet_compliance",
+        "S10_candidate_text_schema",
+        "S10_allowed_write_path",
+        "S10_claim_evidence_trace",
+        "S10_claim_boundary_preserved",
+        "S10_no_new_claims",
+        "S10_no_claim_strengthening",
+        "S10_move_trace",
+        "S10_terminology_trace",
+        "S10_internal_id_leakage",
+        "S10_object_granularity_trace",
+        "S10_visual_callout_trace",
+        "S10_forbidden_expression_scan",
+        "S10_coverage_ledger",
+        "S10_candidate_return_complete",
+        "S10_writer_evidence",
+        "S10_verifier_evidence",
+        "S10_authority_boundary"
+      ],
+      "backflow_targets": [
+        "S09B",
+        "S09A",
+        "S07",
+        "S06",
+        "S05",
+        "S04",
+        "S08",
+        "S15"
+      ],
+      "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
+      "activation_policy": "activate when writing execution is needed",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S10.stage-contract.json"
+    },
+    {
+      "stage_id": "S11",
+      "stage_name": "Figure caption formal artifact production",
+      "purpose": "Produce contract-bound candidate figures, captions, tables, algorithms, formulas, render plans, and export bundles without changing proof role, evidence meaning, or claim boundaries.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "executor",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "executor",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "artifact is paper-facing or data-backed",
+          "caption makes a claim",
+          "pre-export figure/caption freeze"
+        ],
+        "rationale": "Artifact production is often deterministic but paper-facing; independent QA is required when it becomes final/export-facing."
+      },
+      "consumes": [
+        "figure contracts",
+        "panel evidence packages",
+        "source data locators",
+        "caption brief"
+      ],
+      "produces": [
+        "figure statistics",
+        "image integrity record",
+        "caption brief",
+        "figure export bundle"
+      ],
+      "validators": [
+        "S11_packet_compliance",
+        "S11_figure_contract_compliance",
+        "S11_source_data_provenance",
+        "S11_panel_claim_trace",
+        "S11_caption_claim_boundary",
+        "S11_explanatory_vs_evidential_boundary",
+        "S11_editable_source_present",
+        "S11_render_or_render_plan_present",
+        "S11_image_integrity_record",
+        "S11_visual_polish_policy",
+        "S11_visual_polish_report",
+        "S11_accessibility_check",
+        "S11_export_manifest",
+        "S11_candidate_return_complete",
+        "S11_verifier_evidence",
+        "S11_authority_boundary"
+      ],
+      "backflow_targets": [
+        "S08",
+        "S04",
+        "S01",
+        "S07",
+        "S09B",
+        "S15"
+      ],
+      "completion_gate": "S11FigureCaptionArtifactBundle validates S08 contract compliance, source-data trace, panel/caption claim traces, image integrity, visual polish policy/report, accessibility, export manifest, CandidateArtifactReturn, and authority boundary without final export or completion claims",
+      "activation_policy": "activate when figure/caption/formal artifacts are touched",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S11.stage-contract.json"
+    },
+    {
+      "stage_id": "S12",
+      "stage_name": "Integration and consistency pass",
+      "purpose": "Compile a structured integrated manuscript candidate package and run consistency/backflow audits without PDF export, final acceptance, or uncontrolled rewriting.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "verifier",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "verifier",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Integration can create cross-section contradictions, so independent consistency verification is mandatory."
+      },
+      "consumes": [
+        "candidate text modules",
+        "figures/captions",
+        "section move plan",
+        "terminology register",
+        "claim visibility"
+      ],
+      "produces": [
+        "integrated manuscript candidate",
+        "consistency findings",
+        "validator report"
+      ],
+      "validators": [
+        "S12_module_inventory",
+        "S12_assembly_manifest",
+        "S12_integrated_candidate_package",
+        "S12_trace_index",
+        "S12_claim_boundary_audit",
+        "S12_promise_satisfaction",
+        "S12_cross_section_consistency",
+        "S12_terminology_consistency",
+        "S12_object_granularity_consistency",
+        "S12_figure_text_alignment",
+        "S12_surface_consistency",
+        "S12_stale_material_report",
+        "S12_integration_findings",
+        "S12_backflow_queue",
+        "S12_no_pdf_export",
+        "S12_no_final_claim",
+        "S12_no_untracked_rewrite",
+        "S12_candidate_return_complete"
+      ],
+      "backflow_targets": [
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09A",
+        "S09B",
+        "S10",
+        "S11",
+        "S14",
+        "S15"
+      ],
+      "completion_gate": "S12IntegrationConsistencyReport validates module inventory, assembly manifest, structured integrated candidate, trace index, audits, findings/backflow queue, validator report, CandidateArtifactReturn, and no PDF/final/untracked rewrite boundary",
+      "activation_policy": "activate when multiple modules are integrated",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S12.stage-contract.json"
+    },
+    {
+      "stage_id": "S13",
+      "stage_name": "Adversarial manuscript review",
+      "purpose": "Compile actionable adversarial loss signals over the structured S12 integrated candidate; do not rewrite, repair, review PDF as primary object, or claim completion.",
+      "execution_mode": "agent_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "critic",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "critic",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Adversarial review itself produces loss signals that must be independently validated for actionability and routing."
+      },
+      "consumes": [
+        "structured S12 integrated candidate package",
+        "S12 trace and validator reports",
+        "S10/S11 candidate traces",
+        "S04-S08 upstream control materials"
+      ],
+      "produces": [
+        "adversarial review report",
+        "severity-ranked review findings",
+        "finding actionability report",
+        "validator report"
+      ],
+      "validators": [
+        "S13_review_object_inventory",
+        "S13_review_scope",
+        "S13_reviewer_panel_report",
+        "S13_desk_reject_risk_report",
+        "S13_reader_experience_report",
+        "S13_claim_evidence_review",
+        "S13_figure_caption_review",
+        "S13_review_findings_schema",
+        "S13_finding_actionability",
+        "S13_backflow_target_validity",
+        "S13_no_uncontrolled_rewrite",
+        "S13_no_pdf_primary_review",
+        "S13_candidate_return_complete",
+        "S13_verifier_evidence"
+      ],
+      "backflow_targets": [
+        "S14"
+      ],
+      "completion_gate": "S13AdversarialReviewReport validates structured S12 review object inventory, review scope, reviewer-panel and desk-risk reports, actionable severity/evidence/location findings, S14 routing, CandidateArtifactReturn, verifier evidence, and no rewrite/PDF-primary-review/repair/completion boundary",
+      "activation_policy": "activate when candidate manuscript/module exists",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S13.stage-contract.json"
+    },
+    {
+      "stage_id": "S14",
+      "stage_name": "Backflow compilation and repair planning",
+      "purpose": "Normalize accepted review/loss findings into nearest-responsible, owner-gated, bounded repair plans without executing repair.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "planner",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "planner",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "repair changes upstream claim/spine/material semantics",
+          "review finding severity is high",
+          "repair plan affects multiple downstream nodes"
+        ],
+        "rationale": "Backflow planning is controller-owned routing; single planner lane is enough unless severe or multi-node repairs are involved."
+      },
+      "consumes": [
+        "accepted S13/S16/validator findings",
+        "validator reports",
+        "affected material graph slice",
+        "owner gate policy"
+      ],
+      "produces": [
+        "normalized backflow repair plan",
+        "nearest responsible stage map",
+        "bounded repair task plan",
+        "response action map"
+      ],
+      "validators": [
+        "S14_finding_intake_coverage",
+        "S14_duplicate_and_rejection_reason",
+        "S14_failure_type_classification",
+        "S14_nearest_responsible_stage",
+        "S14_no_bare_S09_route",
+        "S14_repair_locality",
+        "S14_affected_downstream_nodes",
+        "S14_protected_unrelated_nodes",
+        "S14_owner_gate_status",
+        "S14_task_packet_compile",
+        "S14_no_execution",
+        "S14_no_completion_claim"
+      ],
+      "backflow_targets": [
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09A",
+        "S09B",
+        "S10",
+        "S11",
+        "S12",
+        "S15",
+        "S16",
+        "owner"
+      ],
+      "completion_gate": "S14BackflowRepairPlan validates that every accepted finding is normalized, routed to a nearest responsible concrete stage/material, assigned a bounded local repair task, stale/protected nodes are explicit, owner gates are preserved, and no repair/completion is claimed",
+      "activation_policy": "activate when review finding exists",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S14.stage-contract.json"
+    },
+    {
+      "stage_id": "S15",
+      "stage_name": "Repair execution and local regeneration",
+      "purpose": "Execute S14-authorized scoped repairs and regenerate only affected downstream outputs, returning candidate evidence without graph commit or export readiness claims.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": true,
+      "recommended_agent_type": "executor",
+      "subagent_lane_policy": {
+        "policy": "mandatory_double",
+        "default_lane_count": 2,
+        "producer_agent_type": "executor",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "always for normal paper-facing production",
+          "full-flow QA mode",
+          "milestone or freeze gate"
+        ],
+        "rationale": "Repair execution changes accepted materials; independent verification is mandatory to prove the finding is resolved without regressions."
+      },
+      "consumes": [
+        "strict S14 repair task packet",
+        "target material base version",
+        "affected downstream stale set",
+        "protected unrelated node list"
+      ],
+      "produces": [
+        "repair execution report",
+        "revised material candidate",
+        "regenerated affected outputs",
+        "updated validator report"
+      ],
+      "validators": [
+        "S15_strict_packet_ack",
+        "S15_missing_material_report",
+        "S15_diff_locality",
+        "S15_unrelated_nodes_unchanged",
+        "S15_stale_propagation",
+        "S15_finding_resolution",
+        "S15_no_new_high_severity",
+        "S15_overlay_clause_preserved",
+        "S15_candidate_return_schema",
+        "S15_no_completion_claim"
+      ],
+      "backflow_targets": [
+        "S09B",
+        "S10",
+        "S11",
+        "S12",
+        "S15"
+      ],
+      "completion_gate": "S15RepairExecutionReport validates strict packet acknowledgement, local diff scope, unrelated-node preservation, stale downstream regeneration/revalidation, finding-resolution evidence, no-new-high-severity scan, CandidateArtifactReturn, verifier evidence, and candidate-only/no-completion boundary",
+      "activation_policy": "activate when repair task exists",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S15.stage-contract.json"
+    },
+    {
+      "stage_id": "S16",
+      "stage_name": "Export repository hygiene and handoff",
+      "purpose": "Export a closed manuscript candidate into human-readable artifacts and prove delivery hygiene without claiming submission/publication readiness.",
+      "execution_mode": "hybrid_generated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "verifier",
+      "subagent_lane_policy": {
+        "policy": "conditional_double",
+        "default_lane_count": 1,
+        "producer_agent_type": "verifier",
+        "verifier_agent_type": "verifier",
+        "escalate_to_double_when": [
+          "handoff/export is owner-facing",
+          "dirty-worktree or build hygiene is ambiguous",
+          "release/submission boundary is near"
+        ],
+        "rationale": "Export/handoff is mostly deterministic hygiene; escalate when the output is owner-facing or boundary-sensitive."
+      },
+      "consumes": [
+        "closed S12 integrated manuscript candidate",
+        "S13 review closure evidence",
+        "S14/S15 repair-complete status",
+        "figures/captions/data availability bundle",
+        "repository and build configuration state"
+      ],
+      "produces": [
+        "export handoff package",
+        "human-readable PDF/export manifest",
+        "repository hygiene report",
+        "manager/owner handoff report"
+      ],
+      "validators": [
+        "S16_upstream_closure",
+        "S16_readiness_state_separation",
+        "S16_build_success",
+        "S16_pdf_exists_and_surface",
+        "S16_figures_captions_present",
+        "S16_references_present",
+        "S16_data_availability_alignment",
+        "S16_export_manifest_hashes",
+        "S16_dirty_worktree_classification",
+        "S16_handoff_completeness",
+        "S16_feedback_route_declared",
+        "S16_projection_vs_live_export_boundary",
+        "S16_no_submission_ready_overclaim"
+      ],
+      "backflow_targets": [
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "owner"
+      ],
+      "completion_gate": "S16ExportHandoffPackage proves upstream closure, separated readiness states, successful human-readable export/build, rendered-surface checks, manifest hashes, repository hygiene classification, handoff completeness, feedback routing, and owner-gated/no-submission-publication boundary",
+      "activation_policy": "activate when PDF/export, owner preview, handoff, or pre-submission hygiene evidence is requested",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/S16.stage-contract.json"
+    },
+    {
+      "stage_id": "G01",
+      "stage_name": "Runtime governance registry",
+      "purpose": "Define permissions, route governance, and state controls before automation.",
+      "execution_mode": "script_generated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "verifier",
+      "subagent_lane_policy": {
+        "policy": "single_with_deterministic_validation",
+        "default_lane_count": 1,
+        "producer_agent_type": "verifier",
+        "verifier_agent_type": null,
+        "escalate_to_double_when": [
+          "runtime governance registry or validator semantics change",
+          "full-flow QA mode",
+          "owner requests governance audit"
+        ],
+        "rationale": "Governance records are registry/validator-controlled and should default to deterministic validation rather than extra agents."
+      },
+      "consumes": [
+        "state",
+        "permissions",
+        "skill registry"
+      ],
+      "produces": [
+        "route governance records",
+        "state controls",
+        "manager boot checklist"
+      ],
+      "validators": [
+        "permission boundary",
+        "route registry",
+        "state integrity"
+      ],
+      "backflow_targets": [
+        "S00",
+        "S16"
+      ],
+      "completion_gate": "governance constraints are recorded and cannot inject route metadata into paper-facing cognition",
+      "activation_policy": "activate before automation/permissions/state changes",
+      "coverage_status": "planned_full_stage",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/G01.stage-contract.json"
+    },
+    {
+      "stage_id": "G02",
+      "stage_name": "Derivative and post-paper outputs",
+      "purpose": "Manage presentation, patent, profile-specific derivative packages, or other post-paper outputs after paper stability or explicit owner request.",
+      "execution_mode": "owner_gated",
+      "requires_worker_task_packet": false,
+      "recommended_agent_type": "planner",
+      "subagent_lane_policy": {
+        "policy": "single_with_deterministic_validation",
+        "default_lane_count": 1,
+        "producer_agent_type": "planner",
+        "verifier_agent_type": null,
+        "escalate_to_double_when": [
+          "post-paper derivative output is owner-facing",
+          "external-use boundary changes",
+          "owner requests derivative audit"
+        ],
+        "rationale": "Derivative outputs are outside the main paper cognition path and should stay single-lane until an owner-facing derivative is active."
+      },
+      "consumes": [
+        "stable paper",
+        "owner request"
+      ],
+      "produces": [
+        "presentation plan",
+        "patent boundary",
+        "profile-specific derivative package"
+      ],
+      "validators": [
+        "owner authorization",
+        "derivative boundary",
+        "no premature submission claim"
+      ],
+      "backflow_targets": [
+        "owner",
+        "S16"
+      ],
+      "completion_gate": "only explicit owner request can activate derivative output; otherwise recorded not-applicable/deferred",
+      "activation_policy": "activate only after paper content stability or explicit derivative request",
+      "coverage_status": "owner_gated_deferred",
+      "pilot_required": true,
+      "contract_ref": "examples/stage-contracts/G02.stage-contract.json"
+    }
   ]
 }

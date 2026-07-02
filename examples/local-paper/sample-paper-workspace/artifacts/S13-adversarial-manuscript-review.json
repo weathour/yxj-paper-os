@@ -10,12 +10,12 @@
   "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
   "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
   "projected_outputs": [
-    "reviewer panel report",
-    "reader experience report",
-    "validator report",
-    "review findings"
+    "adversarial review report",
+    "severity-ranked review findings",
+    "finding actionability report",
+    "validator report"
   ],
-  "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+  "purpose": "Compile actionable adversarial loss signals over the structured S12 integrated candidate; do not rewrite, repair, review PDF as primary object, or claim completion.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S13",

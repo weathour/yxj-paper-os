@@ -25,7 +25,17 @@
     "worker_authority_boundary",
     "stage_overlay_binding",
     "controller_route_only",
-    "stage_overlay_packet_clause"
+    "stage_overlay_packet_clause",
+    "s02_source_coverage_ledger",
+    "s02_sota_family_coverage_ledger",
+    "s02_template_language_profile_present",
+    "s02_statistics_descriptive_not_prescriptive",
+    "s02_no_copyable_template_language",
+    "s02_no_contribution_freeze",
+    "s02_no_final_claim_wording",
+    "s02_unresolved_backflow_register",
+    "s02_downstream_handoff_coverage",
+    "no_completion_overclaim"
   ],
   "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
   "schema_version": "ppg-phase12-stage-validation/v0.1",

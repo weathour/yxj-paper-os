@@ -46,7 +46,14 @@
   "stage_name": "Owner semantic contract",
   "validators": [
     "owner confirmation",
-    "blocked route check"
+    "blocked route check",
+    "owner decision trace",
+    "claim scope boundary",
+    "source/privacy policy boundary",
+    "external action boundary",
+    "no worker semantic change",
+    "downstream stale/backflow effects",
+    "no completion or submission overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

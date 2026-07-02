@@ -1,0 +1,61 @@
+schema_version: ppg-material/v0.1
+material_id: s01_inventory_input_v1
+version: v1
+status: candidate
+material_type: S01InventoryInput
+payload:
+  schema_version: ppg-s01-inventory-input/v0.1
+  stage_id: S01
+  activation_reason: inventory_missing
+  repository_roots:
+    - path: examples/local-paper/sample-paper-workspace
+      role: paper_os_materials
+  manuscript_sources:
+    tex_files:
+      - manuscript/main.tex
+    markdown_files: []
+    existing_pdf: []
+  bibliography_sources:
+    bib_files:
+      - manuscript/references.bib
+    citation_keys:
+      - smith2024platoon
+    pdf_library_paths:
+      - refs/smith2024platoon.pdf
+  evidence_sources:
+    result_dirs:
+      - results/run-001
+    csv_files:
+      - results/run-001/metrics.csv
+    logs:
+      - results/run-001/run.log
+    notebooks: []
+    scripts:
+      - scripts/analyze_results.py
+  figure_sources:
+    figure_files:
+      - figures/architecture.pdf
+    source_data_files:
+      - figures/data/architecture.csv
+    generation_scripts:
+      - figures/scripts/render_architecture.py
+    editable_sources:
+      - figures/editable/architecture.svg
+  supplement_sources:
+    supplement_paths:
+      - supplements/checklist.md
+    data_availability_materials:
+      - data/README.md
+  source_policy_from_s00:
+    allowed_private_sources:
+      - local experiment logs may be inventoried as private non-citable evidence until owner approval
+    forbidden_private_sources:
+      - reviewer identities
+    citation_boundary: private materials may be located for internal support but not promoted as public citations
+  freshness_policy:
+    hash_required: true
+    mtime_required: true
+    stale_detection_required: true
+  read_only_boundary:
+    source_write_forbidden: true
+    inventory_candidate_only: true

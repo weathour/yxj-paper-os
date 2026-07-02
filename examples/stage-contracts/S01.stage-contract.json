@@ -48,17 +48,62 @@
   "validators": [
     "source locator resolution",
     "privacy boundary check",
-    "evidence path check"
+    "evidence path check",
+    "S01_read_only_boundary",
+    "S01_root_coverage",
+    "S01_source_locator_resolution",
+    "S01_bibtex_key_coverage",
+    "S01_evidence_artifact_locator",
+    "S01_figure_source_data_locator",
+    "S01_supplement_inventory",
+    "S01_privacy_boundary",
+    "S01_freshness_hash_report",
+    "S01_no_claim_admissibility",
+    "S01_unresolved_locator_register",
+    "S01_no_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
     "controller_owned_completion": true,
-    "no_recursive_orchestration": true
+    "no_recursive_orchestration": true,
+    "source_write_forbidden": true,
+    "inventory_candidate_only": true,
+    "claim_admissibility_forbidden": true
   },
   "worker_packet_coverage": {
-    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "blocker": "S01 uses read-only inventory briefs only; fake graph-mutation worker packets are forbidden.",
     "packet_ref": null,
     "return_contract_ref": null,
     "status": "not_required"
+  },
+  "read_only_inventory_brief": {
+    "schema_version": "ppg-readonly-inventory-task/v0.1",
+    "stage_id": "S01",
+    "task_kind": "source_evidence_inventory_scan",
+    "allowed_actions": [
+      "read_repository_files",
+      "inspect_bibtex",
+      "inspect_result_dirs",
+      "inspect_figure_source_data",
+      "compute_hashes_if_safe",
+      "return_candidate_inventory"
+    ],
+    "forbidden_actions": [
+      "write_source_files",
+      "mark_graph_complete",
+      "admit_claims",
+      "change_owner_intent",
+      "dispatch_subagents",
+      "infer_missing_locators"
+    ],
+    "return_contract": [
+      "candidate_inventory",
+      "coverage_ledger",
+      "unresolved_locator_register",
+      "privacy_boundary_report",
+      "remaining_risks"
+    ],
+    "completion_forbidden": true,
+    "controller_commit_required": true
   }
 }

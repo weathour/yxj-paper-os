@@ -11,9 +11,10 @@
   ],
   "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
   "expected_outputs": [
-    "export manifest",
+    "export handoff package",
+    "human-readable PDF/export manifest",
     "repository hygiene report",
-    "manager handoff report"
+    "manager/owner handoff report"
   ],
   "packet_ref": null,
   "schema_version": "ppg-phase10-candidate-placeholder/v0.1",

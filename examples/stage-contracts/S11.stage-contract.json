@@ -3,16 +3,19 @@
   "backflow_targets": [
     "S08",
     "S04",
-    "S01"
+    "S01",
+    "S07",
+    "S09B",
+    "S15"
   ],
-  "completion_gate": "figure/caption has editable source, rendered output, provenance, QA route, and claim support",
+  "completion_gate": "S11FigureCaptionArtifactBundle validates S08 contract compliance, source-data trace, panel/caption claim traces, image integrity, visual polish policy/report, accessibility, export manifest, CandidateArtifactReturn, and authority boundary without final export or completion claims",
   "consumes": [
     "figure contracts",
     "panel evidence packages",
     "source data locators",
     "caption brief"
   ],
-  "coverage_status": "planned_with_worker_packet",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "hybrid_generated",
   "produces": [
     "figure statistics",
@@ -20,7 +23,7 @@
     "caption brief",
     "figure export bundle"
   ],
-  "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+  "purpose": "Produce contract-bound candidate figures, captions, tables, algorithms, formulas, render plans, and export bundles without changing proof role, evidence meaning, or claim boundaries.",
   "recommended_agent_type": "executor",
   "subagent_lane_policy": {
     "policy": "conditional_double",
@@ -48,10 +51,22 @@
   ],
   "stage_name": "Figure caption formal artifact production",
   "validators": [
-    "build/render",
-    "source data",
-    "image integrity",
-    "caption claim boundary"
+    "S11_packet_compliance",
+    "S11_figure_contract_compliance",
+    "S11_source_data_provenance",
+    "S11_panel_claim_trace",
+    "S11_caption_claim_boundary",
+    "S11_explanatory_vs_evidential_boundary",
+    "S11_editable_source_present",
+    "S11_render_or_render_plan_present",
+    "S11_image_integrity_record",
+    "S11_visual_polish_policy",
+    "S11_visual_polish_report",
+    "S11_accessibility_check",
+    "S11_export_manifest",
+    "S11_candidate_return_complete",
+    "S11_verifier_evidence",
+    "S11_authority_boundary"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -59,9 +74,9 @@
     "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "blocker": null,
+    "status": "linked_strict_packet",
     "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "status": "linked_strict_packet"
+    "blocker": null
   }
 }

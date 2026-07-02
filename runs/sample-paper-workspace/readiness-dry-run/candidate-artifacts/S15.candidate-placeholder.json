@@ -11,9 +11,9 @@
   ],
   "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
   "expected_outputs": [
-    "revised material",
-    "regenerated task packet",
-    "revised text/figure",
+    "repair execution report",
+    "revised material candidate",
+    "regenerated affected outputs",
     "updated validator report"
   ],
   "packet_ref": "packets/S15.task-packet.json",

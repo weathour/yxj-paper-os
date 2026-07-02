@@ -4,22 +4,22 @@
     {
       "kind": "contract_declared",
       "material_id": "s13_declared_input_1",
-      "ref": "integrated candidate"
+      "ref": "structured S12 integrated candidate package"
     },
     {
       "kind": "contract_declared",
       "material_id": "s13_declared_input_2",
-      "ref": "evidence/claim materials"
+      "ref": "S12 trace and validator reports"
     },
     {
       "kind": "contract_declared",
       "material_id": "s13_declared_input_3",
-      "ref": "reader/terminology/rhetoric materials"
+      "ref": "S10/S11 candidate traces"
     },
     {
       "kind": "contract_declared",
       "material_id": "s13_declared_input_4",
-      "ref": "figure/export artifacts"
+      "ref": "S04-S08 upstream control materials"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -52,7 +52,7 @@
       "artifact_id": "s13_pilot_output",
       "artifact_path": "artifacts/S13-adversarial-manuscript-review.json",
       "artifact_type": "review_backflow_projection",
-      "description": "reviewer panel report; reader experience report; validator report; review findings"
+      "description": "adversarial review report; severity-ranked review findings; finding actionability report; validator report"
     }
   ],
   "recommended_agent_type": "critic",

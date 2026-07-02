@@ -1,0 +1,154 @@
+schema_version: ppg-material/v0.1
+material_id: phase10_s02_research_dossier
+version: v1
+status: candidate
+material_type: S02ResearchDossier
+created_at: "2026-07-01T00:00:00Z"
+created_by: phase10_s02_sota_analysis_packet_v1
+source_inputs:
+  - evidence_inventory_v1
+  - claim_boundary_map_v2
+  - reader_spine_v1
+  - terminology_register_v1
+artifact_path: examples/materials/phase10_s02_research_dossier.yaml
+summary: Source-located SOTA/template/language profile for downstream paper-planning stages.
+payload:
+  schema_version: ppg-s02-research-dossier/v0.1
+  stage_id: S02
+  completion_boundary: research_profile_only_no_contribution_freeze_no_claim_wording_no_graph_or_manuscript_completion
+  research_scene_profile:
+    scene_summary: Zero-trust platoon reconfiguration research is organized around security control, CPS resilience, and vehicular coordination constraints.
+    source_locator: examples/materials/reference_sidecar.v1.yaml#scene
+    citation_anchors:
+      - ref-zero-trust-cps
+      - ref-platoon-reconfiguration
+  sota_comparator_map:
+    comparator_families:
+      - family_id: cps-security-control
+        basis: Security-control papers frame adversarial authority and trust decisions.
+        source_locator: examples/materials/reference_sidecar.v1.yaml#cps-security-control
+      - family_id: platoon-reconfiguration
+        basis: Platoon papers frame membership, spacing, and authority-transfer decisions.
+        source_locator: examples/materials/reference_sidecar.v1.yaml#platoon-reconfiguration
+  template_exemplar_profile:
+    exemplar_use_boundary: Use exemplars to compare section moves and evidence placement only; never copy language.
+    no_exemplar_copying: true
+    structural_moves:
+      - problem-pressure-context
+      - gap-against-existing-control
+      - evidence-bounded-contribution
+  template_language_profile:
+    paragraph_function_taxonomy:
+      - context-setting
+      - mechanism-explanation
+      - evidence-bounded-contrast
+      - limitation-qualification
+    syntax_pattern_inventory:
+      - concessive-contrast clauses for gap statements
+      - bounded causal clauses for mechanism explanation
+      - source-attributed comparison clauses for SOTA mapping
+    lexical_strength_map:
+      - term: improve
+        recommended_strength: bounded
+      - term: guarantee
+        recommended_strength: avoid unless formal proof exists
+    citation_pattern_profile:
+      - claim type comparisons use clustered citations after the comparator clause
+      - method lineage citations appear before local mechanism claims
+    quantitative_style_metrics:
+      metric_distribution_summaries:
+        - metric_id: sentence_length_tokens
+          range: 14-38 observed tokens
+          quantiles: q25=18 q50=24 q75=31
+          sample_size: 42 exemplar sentences
+          confidence: medium because samples are venue-family examples rather than target-paper prose
+        - metric_id: paragraph_sentence_count
+          range: 3-7 observed sentences
+          quantiles: q25=4 q50=5 q75=6
+          sample_size: 12 exemplar paragraphs
+          confidence: low because paragraph function changes local length needs
+    result_narrative_patterns:
+      - report directional pattern before mechanism interpretation
+      - distinguish simulated evidence from deployment evidence
+    limitation_language_patterns:
+      - qualify external validity by scenario and threat model
+      - separate missing source evidence from negative result claims
+  descriptive_not_prescriptive_controls:
+    statistics_are_descriptive: true
+    no_sentence_or_paragraph_rule_generation: true
+    exemplar_copying_forbidden: true
+    allow_deviation_when_claim_boundary_requires: true
+    preserve_claim_boundary_over_metric_matching: true
+    forbidden_interpretations:
+      - Do not turn q50 sentence length into a fixed sentence-length rule.
+      - Do not require every paragraph to match observed paragraph counts.
+      - Do not copy exemplar wording into downstream prose.
+  exemplar_sample_register:
+    exemplars:
+      - exemplar_id: venue-template-related-work
+        locator: examples/materials/reference_sidecar.v1.yaml#venue-template-related-work
+        selection_reason: Venue-family related-work structure exemplar.
+        processing_status: processed
+  language_profile_sample_limits:
+    samples:
+      - sample_id: related-work-language-sample
+        locator: examples/materials/reference_sidecar.v1.yaml#related-work-language-sample
+        included_scope: Related-work and introduction paragraphs only.
+        processing_status: processed
+  sota_family_coverage_ledger:
+    families:
+      - family_id: cps-security-control
+        coverage_status: partial because the current source bank has limited formal-method exemplars
+        processing_status: processed
+      - family_id: platoon-reconfiguration
+        coverage_status: partial because real-world deployment papers are unresolved
+        processing_status: processed
+  unresolved_source_report:
+    unresolved_sources:
+      - deployment-case-study-papers remain locator-incomplete
+    backflow_targets:
+      - S01
+  downstream_handoff_coverage:
+    S03:
+      handoff_summary: Use comparator families to propose novelty options, not final claims.
+      allowed_use: Frame candidate novelty spaces and open gaps.
+      misuse_warning: Do not freeze contribution wording or claim strength from S02.
+    S05:
+      handoff_summary: Use reader-facing scene and comparator tensions to form paper-spine questions.
+      allowed_use: Inform question ordering and reader expectation mapping.
+      misuse_warning: Do not treat observed template order as a mandatory outline.
+    S07:
+      handoff_summary: Use paragraph functions, syntax patterns, lexical strength map, and citation patterns as flexible priors.
+      allowed_use: Generate terminology/surface-control guidance with distributional similarity.
+      misuse_warning: Do not impose uniform sentence length, paragraph count, cadence, or copied exemplar wording.
+  misuse_guard:
+    downstream_warnings:
+      - S02 is descriptive profile material, not a writing rulebook.
+      - Statistics guide distributional similarity and must yield to evidence, claim boundary, and readability.
+    flexibility_rules:
+      - Local rhetorical function may override sampled paragraph length.
+      - Claim boundary and evidence strength override lexical-strength preferences.
+  citation_verification_report:
+    verification_scope: Comparator families and exemplar-language samples are tied to source locators available in S01 outputs.
+    source_locator_status: partial source locators remain unresolved and routed to S01.
+  candidate_return:
+    candidate_artifact: examples/materials/phase10_s02_research_dossier.yaml
+    evidence:
+      - source clusters and exemplars are coverage-accounted
+      - quantitative style metrics are ranges and quantiles with sample limits
+    remaining_risks:
+      - deployment case-study locator remains unresolved
+validators:
+  - validate_material:S02ResearchDossier
+  - descriptive_not_prescriptive:S02
+  - source_coverage_ledger:S02
+downstream_consumers:
+  - S03
+  - S05
+  - S07
+invalidation_policy:
+  stale_when:
+    - S01 source locator inventory changes
+    - S00 owner route or source policy changes
+provenance:
+  packet_id: phase10_s02_sota_analysis_packet_v1

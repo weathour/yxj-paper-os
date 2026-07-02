@@ -15,7 +15,7 @@
     "claim evidence visibility",
     "data availability plan"
   ],
-  "purpose": "Bind evidence and citations to exact claim boundaries.",
+  "purpose": "Admit, weaken, reject, or backflow every claim-bearing unit against evidence anchors, support strength, allowed wording, forbidden wording, and result-package boundaries.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S04",

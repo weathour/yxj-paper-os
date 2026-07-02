@@ -10,7 +10,7 @@
     }
   ],
   "completion_boundary": "validation proves run readiness only; controller retains completion authority",
-  "dimension_count": 4,
+  "dimension_count": 13,
   "evidence": [
     "S05 StageContract is linked",
     "S05 PilotStageRun is present",
@@ -25,7 +25,22 @@
     "worker_authority_boundary",
     "stage_overlay_binding",
     "controller_route_only",
-    "stage_overlay_packet_clause"
+    "stage_overlay_packet_clause",
+    "s05_admitted_claim_intake_ledger",
+    "s05_reader_question_inventory",
+    "s05_reader_question_coverage_ledger",
+    "s05_reader_question_progression",
+    "s05_claim_to_section_spine",
+    "s05_claim_section_coverage_ledger",
+    "s05_front_half_promise_payoff",
+    "s05_reviewer_question_map",
+    "s05_rationale_matrix",
+    "s05_owner_decision_log",
+    "s05_s06_s07_s08_handoff_coverage",
+    "s05_coherence_overpromise_audit",
+    "s05_no_new_claims",
+    "s05_no_final_prose",
+    "s05_no_completion_overclaim"
   ],
   "run_id": "sample-paper-workspace.readiness-dry-run",
   "schema_version": "ppg-phase10-stage-validation/v0.1",

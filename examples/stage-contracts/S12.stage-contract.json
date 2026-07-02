@@ -1,12 +1,19 @@
 {
   "activation_policy": "activate when multiple modules are integrated",
   "backflow_targets": [
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09A",
+    "S09B",
     "S10",
     "S11",
-    "S07",
-    "S04"
+    "S14",
+    "S15"
   ],
-  "completion_gate": "integrated candidate is ready for adversarial review, not final",
+  "completion_gate": "S12IntegrationConsistencyReport validates module inventory, assembly manifest, structured integrated candidate, trace index, audits, findings/backflow queue, validator report, CandidateArtifactReturn, and no PDF/final/untracked rewrite boundary",
   "consumes": [
     "candidate text modules",
     "figures/captions",
@@ -14,14 +21,14 @@
     "terminology register",
     "claim visibility"
   ],
-  "coverage_status": "planned_with_worker_packet",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "hybrid_generated",
   "produces": [
     "integrated manuscript candidate",
     "consistency findings",
     "validator report"
   ],
-  "purpose": "Assemble modules and check cross-section dependencies.",
+  "purpose": "Compile a structured integrated manuscript candidate package and run consistency/backflow audits without PDF export, final acceptance, or uncontrolled rewriting.",
   "recommended_agent_type": "verifier",
   "subagent_lane_policy": {
     "policy": "mandatory_double",
@@ -49,10 +56,24 @@
   ],
   "stage_name": "Integration and consistency pass",
   "validators": [
-    "promise satisfaction",
-    "method/result alignment",
-    "terminology consistency",
-    "figure-text consistency"
+    "S12_module_inventory",
+    "S12_assembly_manifest",
+    "S12_integrated_candidate_package",
+    "S12_trace_index",
+    "S12_claim_boundary_audit",
+    "S12_promise_satisfaction",
+    "S12_cross_section_consistency",
+    "S12_terminology_consistency",
+    "S12_object_granularity_consistency",
+    "S12_figure_text_alignment",
+    "S12_surface_consistency",
+    "S12_stale_material_report",
+    "S12_integration_findings",
+    "S12_backflow_queue",
+    "S12_no_pdf_export",
+    "S12_no_final_claim",
+    "S12_no_untracked_rewrite",
+    "S12_candidate_return_complete"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -60,9 +81,9 @@
     "no_recursive_orchestration": true
   },
   "worker_packet_coverage": {
-    "blocker": null,
+    "status": "linked_strict_packet",
     "packet_ref": "examples/packets/phase10_s12_integration_consistency_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
-    "status": "linked_strict_packet"
+    "blocker": null
   }
 }

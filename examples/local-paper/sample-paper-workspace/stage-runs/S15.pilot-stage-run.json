@@ -4,17 +4,22 @@
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_1",
-      "ref": "backflow task packet"
+      "ref": "strict S14 repair task packet"
     },
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_2",
-      "ref": "target material"
+      "ref": "target material base version"
     },
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_3",
-      "ref": "stale downstream set"
+      "ref": "affected downstream stale set"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s15_declared_input_4",
+      "ref": "protected unrelated node list"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -42,7 +47,7 @@
       "artifact_id": "s15_pilot_output",
       "artifact_path": "artifacts/S15-repair-execution-and-local-regeneration.json",
       "artifact_type": "candidate_or_repair_projection",
-      "description": "revised material; regenerated task packet; revised text/figure; updated validator report"
+      "description": "repair execution report; revised material candidate; regenerated affected outputs; updated validator report"
     }
   ],
   "recommended_agent_type": "executor",
@@ -96,7 +101,7 @@
   ],
   "worker_task_packet_evidence": {
     "blocker": null,
-    "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+    "packet_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
     "required": true,
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "status": "linked_strict_packet"

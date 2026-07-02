@@ -1,0 +1,71 @@
+schema_version: ppg-material/v0.1
+material_id: s00_owner_semantic_contract
+version: invalid-submission
+status: owner_gated
+material_type: OwnerSemanticContract
+summary: Invalid S00 contract because it silently permits external submission.
+payload:
+  schema_version: ppg-s00-owner-semantic-contract/v0.1
+  stage_id: S00
+  completion_boundary: owner_semantic_contract_only_no_worker_completion_no_submission_claim
+  paper_profile:
+    target_route: KBS-style research article
+    article_type: research article
+    ambition_boundary: bounded runtime-control improvements only
+    route_status: assumed
+  motivation_contract:
+    core_problem: owner semantics can drift
+    intended_contribution_area: paper workflow control
+    reader_value: explicit authority boundaries
+  owner_decisions:
+    confirmed_decisions:
+      - decision_id: s00-no-worker-packet
+        statement: S00 remains owner-gated.
+        evidence_or_context: wiki
+    owner_gated_assumptions:
+      - assumption_id: s00-route
+        statement: route is assumed
+        allowed_until: owner confirms
+    rejected_routes:
+      - route: worker commits route
+        reason: owner-gated
+  claim_scope_boundary:
+    allowed_claim_families:
+      - bounded stage-control claims
+    forbidden_claim_families:
+      - publication ready
+    claims_requiring_owner_confirmation:
+      - stronger novelty claims
+    claim_strength_increase_requires_owner: true
+  source_policy:
+    allowed_private_source_use: internal planning only
+    forbidden_private_source_use: citation without owner approval
+    citation_policy_boundary: S01 must promote citeable sources first
+    anonymization_or_redaction_required:
+      - private drafts
+  external_action_boundary:
+    submission_allowed: true
+    public_release_allowed: false
+    owner_approval_required_for:
+      - submission
+      - venue_route_change
+      - claim_strength_increase
+      - private_source_use
+      - public_release
+  blocked_routes:
+    - route: worker decides route
+      reason: owner-gated
+      unblock_condition: owner confirms
+  downstream_effects_if_changed:
+    stages_to_mark_stale:
+      - S01
+      - S02
+      - S03
+      - S04
+      - S05
+      - S13
+      - S16
+    rationale: route changes stale downstream claims
+  unresolved_owner_questions:
+    - question: exact venue
+      consequence_if_unanswered: route claims remain tentative

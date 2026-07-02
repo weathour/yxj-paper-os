@@ -1,0 +1,227 @@
+{
+  "schema_version": "ppg-material/v0.1",
+  "material_id": "phase10_s16_export_handoff_package",
+  "version": "v1",
+  "status": "candidate",
+  "material_type": "S16ExportHandoffPackage",
+  "summary": "S16 export handoff package proving separated readiness states, successful human-readable export, rendered surface checks, manifest hashes, repository hygiene classification, handoff completeness, feedback routing, and owner-gated no-submission/publication boundary.",
+  "payload": {
+    "schema_version": "ppg-s16-export-handoff-package/v0.1",
+    "stage_id": "S16",
+    "completion_boundary": "export_handoff_package_only_no_external_submission_or_publication_claim",
+    "authority_boundary": {
+      "graph_completion_claimed": false,
+      "manuscript_completion_claimed": false,
+      "scientific_review_performed": false,
+      "content_repair_performed": false,
+      "external_submission_performed": false,
+      "submission_readiness_claimed": false,
+      "publication_readiness_claimed": false,
+      "owner_submission_authorization_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_export_paths": false,
+      "controller_owned_completion": true,
+      "human_readable_export_allowed": true
+    },
+    "evidence_mode": {
+      "mode": "fixture_projection",
+      "live_mode_verifier": "scripts/verify_s16_live_export_evidence.py",
+      "handoff_claim_boundary": "This fixture validates S16 contract structure only; run live_export mode verification before claiming physical PDF/export handoff proof."
+    },
+    "live_export_verification": {
+      "status": "not_run_fixture_projection",
+      "filesystem_paths_checked": false,
+      "hashes_recomputed": false,
+      "pdf_opened_from_disk": false,
+      "physical_export_claimed": false,
+      "live_handoff_claimed": false,
+      "required_before_owner_handoff": "For a real owner-facing handoff, create a live_export material and run scripts/verify_s16_live_export_evidence.py to check file existence, recompute hashes, and verify PDF/log paths."
+    },
+    "readiness_state_separation": {
+      "content_ready": "pass",
+      "build_ready": "pass",
+      "render_clean": "pass",
+      "repository_clean": "pass",
+      "handoff_ready": "pass",
+      "submission_gated": true,
+      "submission_state": "owner_gated_not_authorized",
+      "interpretation": "PDF/export can be read by the owner; this is not submission or publication readiness."
+    },
+    "upstream_closure_check": {
+      "s12_candidate_ref": "examples/materials/phase10_s12_integration_consistency_report.json",
+      "s13_review_closure_ref": "examples/materials/phase10_s13_adversarial_review_report.json",
+      "s14_backflow_status": "closed",
+      "s15_repair_status": "closed",
+      "accepted_risks": [
+        "Owner still must make any external submission decision after reading the PDF."
+      ],
+      "unresolved_findings": [
+        "S13-F1"
+      ],
+      "stale_nodes_remaining": []
+    },
+    "build_readiness_check": {
+      "latex_root": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+      "build_command": "latexmk -pdf -interaction=nonstopmode manuscript/main.tex",
+      "bibliography_paths": [
+        "examples/local-paper/sample-paper-workspace/refs/references.bib"
+      ],
+      "figure_paths": [
+        "examples/local-paper/sample-paper-workspace/figures/figure1.pdf"
+      ],
+      "output_paths": [
+        "examples/local-paper/sample-paper-workspace/build/main.pdf"
+      ],
+      "status": "pass"
+    },
+    "build_run_report": {
+      "command": "latexmk -pdf -interaction=nonstopmode manuscript/main.tex",
+      "exit_code": 0,
+      "log_ref": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
+      "warnings_summary": [
+        "Overfull boxes below owner tolerance were reviewed as layout hygiene, not content defects."
+      ],
+      "errors_summary": [],
+      "output_pdf": "examples/local-paper/sample-paper-workspace/build/main.pdf"
+    },
+    "rendered_surface_check": {
+      "pdf_exists": true,
+      "pdf_opens": true,
+      "page_count": 18,
+      "title_author_abstract_present": true,
+      "figures_present": [
+        "fig1"
+      ],
+      "captions_present": [
+        "fig1_caption"
+      ],
+      "references_present": true,
+      "obvious_rendering_anomalies": []
+    },
+    "export_manifest": {
+      "exported_files": [
+        {
+          "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
+          "kind": "pdf",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+          "kind": "tex",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/refs/references.bib",
+          "kind": "bib",
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
+          "kind": "figure",
+          "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
+          "kind": "log",
+          "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ]
+    },
+    "file_hash_manifest": [
+      {
+        "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/refs/references.bib",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
+        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      }
+    ],
+    "figure_file_checklist": [
+      {
+        "figure_id": "fig1",
+        "source_data_ref": "examples/materials/phase10_s01_source_evidence_inventory.json",
+        "exported_file": "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
+        "caption_ref": "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+        "status": "pass"
+      }
+    ],
+    "data_availability_statement_check": {
+      "statement_ref": "examples/materials/phase10_s04_claim_admissibility.json#data_availability_plan",
+      "matches_data_inventory": "pass"
+    },
+    "supplement_manifest": {
+      "files": [],
+      "missing_or_untracked": []
+    },
+    "repository_hygiene_report": {
+      "git_status_summary": "Dirty paths are classified as intentional generated S16 evidence or tracked source updates from this improvement run.",
+      "dirty_worktree_classification": {
+        "intended_outputs": [
+          "examples/materials/phase10_s16_export_handoff_package.json"
+        ],
+        "source_changes": [
+          "scripts/validate_material.py",
+          "runtime/stage_registry.json",
+          "examples/stage-contracts/S16.stage-contract.json",
+          "runtime/phase10_content_validators.json"
+        ],
+        "unexpected_dirty_paths": []
+      },
+      "generated_artifact_policy": "Generated build/export artifacts are listed in the manifest with hashes; untracked surprises block handoff."
+    },
+    "manager_handoff_report": {
+      "human_readable_outputs": [
+        "examples/local-paper/sample-paper-workspace/build/main.pdf"
+      ],
+      "known_limitations": [
+        "The PDF is for owner reading and handoff; scientific/content feedback must enter the graph as new findings."
+      ],
+      "owner_actions_required": [
+        "Read the PDF and either provide content feedback for S14 routing or explicitly decide whether any external submission gate should be considered."
+      ],
+      "recommended_next_step": "read_pdf"
+    },
+    "owner_gate_report": {
+      "external_submission_authorized": false,
+      "required_owner_decisions": [
+        "External submission/public release remains blocked until explicit owner approval."
+      ]
+    },
+    "human_feedback_intake_route": {
+      "if_content_feedback": "route_to_S14",
+      "if_build_or_export_feedback": "route_to_S16",
+      "if_submission_decision": "route_to_owner"
+    },
+    "validator_report": {
+      "agent_type": "verifier",
+      "verification_status": "pass_with_risks",
+      "checks_completed": [
+        "upstream_closure_checked",
+        "readiness_states_separated",
+        "build_success_recorded",
+        "rendered_surface_checked",
+        "manifest_hashes_recorded",
+        "repository_hygiene_classified",
+        "handoff_complete",
+        "feedback_route_declared",
+        "no_submission_or_publication_claim"
+      ]
+    },
+    "remaining_risks": [
+      "Owner-facing reading may produce new content findings; those must be routed through S14 rather than direct source edits."
+    ]
+  }
+}

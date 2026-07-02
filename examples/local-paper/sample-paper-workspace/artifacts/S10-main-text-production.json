@@ -13,7 +13,7 @@
     "candidate text unit",
     "CandidateArtifactReturn"
   ],
-  "purpose": "Produce candidate manuscript modules from task packets.",
+  "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S10",

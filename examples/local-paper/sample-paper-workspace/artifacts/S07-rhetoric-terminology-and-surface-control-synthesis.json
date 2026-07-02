@@ -15,7 +15,7 @@
     "terminology register",
     "surface rules"
   ],
-  "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+  "purpose": "Compile claim-safe rhetoric, terminology, paragraph jobs, flexible surface controls, forbidden expressions, coverage ledgers, and downstream handoffs without final prose or claim strengthening.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S07",

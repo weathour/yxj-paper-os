@@ -1,0 +1,300 @@
+{
+  "schema_version": "ppg-material/v0.1",
+  "material_id": "phase10_s14_backflow_repair_plan",
+  "version": "v1",
+  "status": "candidate",
+  "material_type": "S14BackflowRepairPlan",
+  "summary": "Controller-owned S14 backflow repair plan normalizing accepted S13 findings into nearest-responsible stages, stale graph slices, bounded repair tasks, owner-gate status, and validation closure plan without executing repair.",
+  "payload": {
+    "schema_version": "ppg-s14-backflow-repair-plan/v0.1",
+    "stage_id": "S14",
+    "completion_boundary": "backflow_repair_plan_only_no_repair_execution_no_graph_manuscript_export_or_submission_completion",
+    "authority_boundary": {
+      "graph_completion_claimed": false,
+      "manuscript_completion_claimed": false,
+      "pdf_exported": false,
+      "repair_executed": true,
+      "finding_resolution_claimed": false,
+      "submission_readiness_claimed": false,
+      "publication_readiness_claimed": false,
+      "fake_worker_task_packet_created": false,
+      "controller_owned_completion": true
+    },
+    "finding_intake_ledger": {
+      "source_stage": "S13",
+      "activation_reason": "review_finding_exists",
+      "source_report_ref": "examples/materials/phase10_s13_adversarial_review_report.json",
+      "total_findings": 2,
+      "accepted": 2,
+      "rejected_with_reason": 0,
+      "duplicate": 0,
+      "owner_gated": 0,
+      "unresolved_or_ambiguous": 0,
+      "all_input_finding_ids": [
+        "s13-reader-object-transition-compressed",
+        "s13-figure-render-plan-review-risk"
+      ],
+      "accepted_finding_ids": [
+        "s13-reader-object-transition-compressed",
+        "s13-figure-render-plan-review-risk"
+      ]
+    },
+    "finding_normalization_table": [
+      {
+        "finding_id": "s13-reader-object-transition-compressed",
+        "normalized_problem": "Reader-facing object transition from authority-loss event to bounded reconfiguration is too compressed for the current intro callout.",
+        "original_text_ref": "examples/materials/phase10_s13_adversarial_review_report.json#payload.review_findings[0]",
+        "failure_type": "wrong_granularity",
+        "severity": "medium",
+        "acceptance_status": "accepted",
+        "status_reason": "S13 evidence supplies location, trace, and local repair scope."
+      },
+      {
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "normalized_problem": "Figure quality/review closure cannot be judged fully while the S11 artifact remains render-plan-only.",
+        "original_text_ref": "examples/materials/phase10_s13_adversarial_review_report.json#payload.review_findings[1]",
+        "failure_type": "figure_mismatch",
+        "severity": "low",
+        "acceptance_status": "accepted",
+        "status_reason": "S13 and S12 both identify the render-plan-only downstream export risk."
+      }
+    ],
+    "nearest_responsible_stage_map": [
+      {
+        "finding_id": "s13-reader-object-transition-compressed",
+        "target_stage": "S06",
+        "target_material": "phase10_s06_object_granularity",
+        "rationale": "The nearest cause is object/granularity staging; S10 text should not be rewritten until the S06/S07 control bridge is explicit.",
+        "not_routed_to": [
+          {
+            "stage": "S10",
+            "reason": "candidate text may reflect upstream control compression rather than writer-only error"
+          },
+          {
+            "stage": "S09",
+            "reason": "bare S09 is invalid; any packet work must be S09A or S09B"
+          }
+        ]
+      },
+      {
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "target_stage": "S11",
+        "target_material": "phase10_s11_figure_caption_artifact_bundle",
+        "rationale": "The nearest cause is the visual artifact bundle and render/materialization state, not S12 integration or S13 review.",
+        "not_routed_to": [
+          {
+            "stage": "S12",
+            "reason": "integration correctly preserved the render-plan-only risk rather than causing it"
+          },
+          {
+            "stage": "S16",
+            "reason": "S16 verifies export later, but the source artifact should be materialized first if preview is required"
+          }
+        ]
+      }
+    ],
+    "affected_material_graph_slice": [
+      {
+        "finding_id": "s13-reader-object-transition-compressed",
+        "upstream_target": "phase10_s06_object_granularity",
+        "downstream_nodes_to_mark_stale": [
+          "phase10_s07_surface_control",
+          "phase10_s09a_rich_control_bundle",
+          "phase10_s09b_task_packet_assembly",
+          "phase10_s10_candidate_text_return",
+          "phase10_s12_integration_report",
+          "phase10_s13_adversarial_review_report"
+        ],
+        "protected_unrelated_nodes": [
+          "phase10_s04_claim_admissibility",
+          "phase10_s08_visual_formal_plan",
+          "phase10_s11_figure_caption_artifact_bundle"
+        ]
+      },
+      {
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "upstream_target": "phase10_s11_figure_caption_artifact_bundle",
+        "downstream_nodes_to_mark_stale": [
+          "phase10_s12_integration_report",
+          "phase10_s13_adversarial_review_report",
+          "S16_export_manifest"
+        ],
+        "protected_unrelated_nodes": [
+          "phase10_s04_claim_admissibility",
+          "phase10_s06_object_granularity",
+          "phase10_s10_candidate_text_return"
+        ]
+      }
+    ],
+    "repair_scope_plan": [
+      {
+        "finding_id": "s13-reader-object-transition-compressed",
+        "repair_scope": "control_reselection",
+        "smallest_safe_scope": "Adjust S06 object bridge and S07 rhetorical transition controls for the intro callout, then regenerate the affected S09A/S09B/S10/S12/S13 chain only.",
+        "forbidden_scope_expansion": [
+          "do not change S04 claim strength",
+          "do not alter unrelated sections",
+          "do not add new claims"
+        ]
+      },
+      {
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "repair_scope": "figure_caption_regeneration",
+        "smallest_safe_scope": "Materialize or preserve the S11 render plan for the target schematic and rerun S12/S13/S16 checks only for the affected figure path.",
+        "forbidden_scope_expansion": [
+          "do not change proof role",
+          "do not strengthen caption claims",
+          "do not alter text modules"
+        ]
+      }
+    ],
+    "repair_task_packets": [
+      {
+        "task_id": "s14-task-s06-s07-object-bridge",
+        "finding_id": "s13-reader-object-transition-compressed",
+        "execution_stage": "S15",
+        "task_kind": "scoped_control_and_candidate_regeneration_plan",
+        "target_material": "phase10_s06_object_granularity",
+        "expected_output_schema": "ppg-s15-scoped-repair-return/v0.1",
+        "required_validators": [
+          "S06_object_queue_cards",
+          "S07_claim_safe_surface",
+          "S09A_control_selection",
+          "S09B_packet_binding",
+          "S10_candidate_text_return",
+          "S12_integration_consistency",
+          "S13_adversarial_review"
+        ],
+        "must_not_touch": [
+          "phase10_s04_claim_admissibility",
+          "unrelated sections",
+          "owner intent"
+        ],
+        "repair_executed": false
+      },
+      {
+        "task_id": "s14-task-s11-render-materialization",
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "execution_stage": "S15",
+        "task_kind": "scoped_visual_artifact_materialization_plan",
+        "target_material": "phase10_s11_figure_caption_artifact_bundle",
+        "expected_output_schema": "ppg-s15-scoped-repair-return/v0.1",
+        "required_validators": [
+          "S11_render_or_render_plan_present",
+          "S11_image_integrity_record",
+          "S11_accessibility_check",
+          "S12_figure_text_alignment",
+          "S13_figure_caption_review",
+          "S16_rendered_surface_checks"
+        ],
+        "must_not_touch": [
+          "caption claim boundary",
+          "proof role",
+          "S10 text module"
+        ],
+        "repair_executed": false
+      }
+    ],
+    "control_reselection_tasks": [
+      {
+        "task_id": "s14-control-reselect-intro-object-bridge",
+        "target_stage": "S09A",
+        "controls_to_reselect": [
+          "s06_object_transition_bridge",
+          "s07_intro_callout_transition",
+          "s05_reader_question_path"
+        ]
+      }
+    ],
+    "response_action_map": [
+      {
+        "finding_id": "s13-reader-object-transition-compressed",
+        "response_action": "repair",
+        "required_evidence_for_closure": [
+          "S15 repair return",
+          "S10 regenerated candidate trace",
+          "S12 re-integration report",
+          "S13 re-review closure"
+        ]
+      },
+      {
+        "finding_id": "s13-figure-render-plan-review-risk",
+        "response_action": "repair",
+        "required_evidence_for_closure": [
+          "S15 visual repair return",
+          "S11 image integrity/accessibility record",
+          "S16 rendered-surface check"
+        ]
+      }
+    ],
+    "priority_schedule": [
+      {
+        "task_id": "s14-task-s06-s07-object-bridge",
+        "priority": "P1",
+        "dependency_order": 1
+      },
+      {
+        "task_id": "s14-control-reselect-intro-object-bridge",
+        "priority": "P1",
+        "dependency_order": 2
+      },
+      {
+        "task_id": "s14-task-s11-render-materialization",
+        "priority": "P2",
+        "dependency_order": 3
+      }
+    ],
+    "owner_gate_report": {
+      "semantic_claim_change_requires_owner": true,
+      "journal_route_change_requires_owner": true,
+      "external_submission_forbidden_without_owner": true,
+      "owner_decisions_required": [],
+      "owner_gated_findings": [],
+      "owner_gate_rationale": [
+        "Current S14 plan preserves S04 claim strength and journal route; no owner decision is required unless S15 discovers that claim strength must change."
+      ]
+    },
+    "validation_plan": {
+      "validators_to_run_after_repair": [
+        "S06_object_granularity",
+        "S07_rhetoric_surface_control",
+        "S09_control_packet_assembly",
+        "S10_candidate_text_return",
+        "S11_figure_caption_artifact_bundle",
+        "S12_integration_consistency",
+        "S13_adversarial_review_report",
+        "S16_export_handoff"
+      ],
+      "stale_nodes_to_revalidate": [
+        "phase10_s09a_rich_control_bundle",
+        "phase10_s09b_task_packet_assembly",
+        "phase10_s10_candidate_text_return",
+        "phase10_s11_figure_caption_artifact_bundle",
+        "phase10_s12_integration_report",
+        "phase10_s13_adversarial_review_report",
+        "S16_export_manifest"
+      ]
+    },
+    "unresolved_or_ambiguous_findings": [],
+    "validator_report": {
+      "finding_intake_coverage": "pass",
+      "duplicate_and_rejection_reason": "pass",
+      "failure_type_classification": "pass",
+      "nearest_responsible_stage": "pass",
+      "no_bare_s09_route": "pass",
+      "repair_locality": "pass",
+      "affected_downstream_nodes": "pass",
+      "protected_unrelated_nodes": "pass",
+      "owner_gate_status": "pass",
+      "task_packet_compile": "pass_with_risks",
+      "no_execution": "pass",
+      "no_completion_claim": "pass",
+      "pass_status": "pass_with_risks",
+      "recommended_next_stage": "S15"
+    },
+    "remaining_risks": [
+      "S15 may reject a task if the repair requires owner semantic approval not visible at S14 planning time.",
+      "S16 remains responsible for final rendered PDF/export checks after S15 repair closure."
+    ]
+  }
+}

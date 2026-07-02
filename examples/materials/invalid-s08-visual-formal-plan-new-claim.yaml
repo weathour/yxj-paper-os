@@ -1,0 +1,564 @@
+schema_version: ppg-material/v0.1
+material_id: phase10_s08_visual_formal_plan
+version: v1
+status: candidate
+material_type: S08VisualFormalPlan
+created_at: 2026-07-01T00:00:00Z
+created_by: phase10_s08_visual_formal_planning_packet_v1
+source_inputs:
+  - phase10_s04_claim_admissibility
+  - phase10_s05_reader_spine
+  - phase10_s06_object_granularity
+  - s01_source_evidence_inventory_v1
+  - evidence_inventory_v1
+  - terminology_register_v1
+  - phase10_s07_surface_control
+artifact_path: examples/materials/phase10_s08_visual_formal_plan.yaml
+summary: Visual and formal object contract plan with reader functions, claim boundaries, panel evidence maps, backend routes, and caption boundaries.
+payload:
+  schema_version: ppg-s08-visual-formal-plan/v0.1
+  stage_id: S08
+  completion_boundary: visual_formal_planning_only_no_final_figures_no_final_captions_no_new_claims_no_graph_or_manuscript_completion
+  authority_boundary_audit:
+    graph_completion_claimed: false
+    manuscript_completion_claimed: false
+    final_figures_generated: false
+    final_captions_written: false
+    new_claims_introduced: false
+    claim_strength_modified: false
+    submission_readiness_claimed: false
+    controller_owned_completion: true
+  input_coverage_ledger:
+    s04_claim_capsules_read: true
+    s04_evidence_boundaries_read: true
+    s05_reader_spine_read: true
+    s06_object_budget_read: true
+    evidence_inventory_read: true
+    source_data_inventory_read: true
+    result_artifact_manifest_read: true
+    terminology_register_read: true
+    s07_surface_control_read: true
+    missing_inputs: []
+    unresolved_inputs: []
+    backflow_targets: []
+  source_data_inventory_projection:
+    artifacts:
+      - artifact_id: artifact-mechanism-trace
+        source_data_path: "examples/materials/s01_source_evidence_inventory.v1.yaml#figure_source_data_inventory"
+        result_artifact_path: "result_package#trust-reconfiguration-results"
+        script_path: figures/scripts/render_architecture.py
+        reproducibility_status: source-located-but-not-rendered-by-S08
+        suitable_visual_types:
+          - figure
+          - schematic
+          - algorithm
+        missing_items: []
+        risk: S11 must verify editable source and render output before export
+      - artifact_id: artifact-claim-boundary-table
+        source_data_path: "examples/materials/phase10_s04_claim_admissibility.yaml#result_package_boundary_matrix"
+        result_artifact_path: "phase10_s04_claim_admissibility#support_strength_map"
+        script_path: manual-table-from-S04-and-S05-controls
+        reproducibility_status: control-material-derived-no-rendered-table-yet
+        suitable_visual_types:
+          - table
+        missing_items: []
+        risk: table must not imply rejected deployment evidence exists
+  normalized_claim_evidence_table:
+    claims:
+      - claim_id: claim-mechanism-bounded
+        admitted_claim: bounded mechanism-level link between trust-state reasoning and reconfiguration decisions
+        support_strength: moderate
+        evidence_refs: "evidence_inventory_v1#trust-reconfiguration-results"
+        result_artifacts: "result_package#trust-reconfiguration-results"
+        allowed_interpretation: supports a bounded mechanism relation under current result package
+        forbidden_interpretation: proves deployment readiness or public-road validation
+        required_caveat: simulation/result-package boundary must remain visible
+        visualizable: "true"
+        visual_risk: mechanism schematic could be misread as empirical proof
+      - claim_id: claim-deployment-rejected
+        admitted_claim: deployment-readiness claim is not admissible from current evidence
+        support_strength: unsupported
+        evidence_refs: "unresolved_source_report#deployment-case-study-papers"
+        result_artifacts: not-applicable
+        allowed_interpretation: limitation or forbidden-scope guard only
+        forbidden_interpretation: affirmative deployment validation
+        required_caveat: absence of deployment evidence is a boundary not a result
+        visualizable: "false"
+        visual_risk: any deployment validation figure would overclaim
+  visual_need_inventory:
+    needs:
+      - need_id: vn-mechanism-overview
+        reader_question: Why does zero-trust platoon reconfiguration need a mechanism-level account?
+        reviewer_question: Is the mechanism contribution more than an incremental reframing?
+        target_section: Introduction and Method
+        section_function: show object relation before formal detail
+        related_claims:
+          - claim-mechanism-bounded
+        related_objects:
+          - obj-trust-state
+          - obj-reconfiguration-decision
+        why_visual_needed: text-only explanation would hide the trust-state to reconfiguration relation
+        risk_if_text_only: reader may miss the paper spine before method details
+        priority: high
+      - need_id: vn-evidence-boundary
+        reader_question: What exactly does the evidence support and not support?
+        reviewer_question: Does the paper overclaim public-road deployment readiness?
+        target_section: Results and limitations
+        section_function: make support boundary and rejected scope inspectable
+        related_claims:
+          - claim-mechanism-bounded
+          - claim-deployment-rejected
+        related_objects:
+          - obj-evidence-boundary
+        why_visual_needed: a compact table prevents support strength from being blurred in prose
+        risk_if_text_only: deployment exclusion may disappear as a caveat only
+        priority: high
+      - need_id: vn-method-flow
+        reader_question: How does the reconfiguration decision follow from the trust-state representation?
+        reviewer_question: Is the formal process understandable without decorative notation?
+        target_section: Method
+        section_function: define process order and required definitions before algorithmic detail
+        related_claims:
+          - claim-mechanism-bounded
+        related_objects:
+          - obj-trust-state
+          - obj-reconfiguration-decision
+        why_visual_needed: method flow benefits from a bounded algorithm box or flow contract
+        risk_if_text_only: variables may appear before object roles are clear
+        priority: medium
+  formal_visual_need_map:
+    objects:
+      - object_or_variable_id: obj-trust-state
+        object_name: trust-state representation
+        current_granularity: intuitive description then operational definition
+        required_granularity: mechanism overview panel and method definition
+        suggested_representation:
+          - schematic
+          - formula
+        cognitive_load_risk: high if notation appears before object role
+        explanation_ladder_level: intuition-to-operation
+      - object_or_variable_id: obj-reconfiguration-decision
+        object_name: reconfiguration decision
+        current_granularity: operational definition then empirical instantiation
+        required_granularity: flow relation plus optional algorithm box
+        suggested_representation:
+          - algorithm
+          - schematic
+        cognitive_load_risk: medium if action is read as deployment authority
+        explanation_ladder_level: role-before-procedure
+      - object_or_variable_id: obj-evidence-boundary
+        object_name: evidence boundary
+        current_granularity: limitation boundary
+        required_granularity: result-boundary table
+        suggested_representation:
+          - table
+        cognitive_load_risk: low but omission risk is high
+        explanation_ladder_level: boundary-and-caveat
+  candidate_visual_object_queue:
+    candidates:
+      - visual_id: fig-mechanism-overview
+        visual_type: figure
+        candidate_title: Trust-state to reconfiguration mechanism overview
+        source_need_ids:
+          - vn-mechanism-overview
+          - vn-method-flow
+        target_section: Method
+        role: explain object relation and introduce bounded mechanism claim
+        priority: high
+        explanatory_or_evidential: explanatory
+        status: keep
+        reason: answers core reader question without adding evidence claims
+      - visual_id: tbl-result-boundary
+        visual_type: table
+        candidate_title: Claim and evidence boundary table
+        source_need_ids:
+          - vn-evidence-boundary
+        target_section: Results and limitations
+        role: expose support strength, allowed interpretation, and forbidden deployment interpretation
+        priority: high
+        explanatory_or_evidential: evidential
+        status: keep
+        reason: prevents overclaim by making S04 boundary inspectable
+      - visual_id: alg-reconfiguration-flow
+        visual_type: algorithm
+        candidate_title: Bounded reconfiguration decision flow
+        source_need_ids:
+          - vn-method-flow
+        target_section: Method supplement
+        role: formalize process order after object definitions
+        priority: medium
+        explanatory_or_evidential: formal
+        status: supplement
+        reason: useful but may overload main text if combined with mechanism figure
+      - visual_id: fig-deployment-validation
+        visual_type: figure
+        candidate_title: Deployment validation figure
+        source_need_ids:
+          - vn-evidence-boundary
+        target_section: rejected-no-section
+        role: would imply excluded deployment evidence
+        priority: forbidden
+        explanatory_or_evidential: evidential
+        status: reject
+        reason: S04 rejects deployment-readiness claim from current evidence
+  visual_budget:
+    total_main_figures: 1
+    section_level_budget:
+      - section: Method
+        max_visual_objects: 1
+        required_visual_function: object relation before formal detail
+        cognitive_load_limit: one main mechanism figure plus optional supplement algorithm
+        overload_risk: high if formula and algorithm both stay in main text
+      - section: Results and limitations
+        max_visual_objects: 1
+        required_visual_function: claim/evidence boundary visibility
+        cognitive_load_limit: one compact table
+        overload_risk: moderate if table repeats prose instead of clarifying boundary
+    supplement_capacity: one algorithm or formula object if S11 can route backend source
+    rejected_or_deferred_count: 1
+  main_story_visual_path:
+    path:
+      - order: 1
+        visual_id: fig-mechanism-overview
+        story_function: show mechanism relation before result interpretation
+        reader_question_answered: rq-problem-pressure
+        claim_supported: claim-mechanism-bounded
+        dependency_on_previous_visual: "none"
+      - order: 2
+        visual_id: tbl-result-boundary
+        story_function: bound what the result package supports and excludes
+        reader_question_answered: rq-evidence-boundary
+        claim_supported: claim-mechanism-bounded
+        dependency_on_previous_visual: fig-mechanism-overview
+  figure_contracts:
+    figures:
+      - visual_id: fig-mechanism-overview
+        visual_type: figure
+        proposed_title: Trust-state to reconfiguration mechanism overview
+        target_section: Method
+        main_or_supplement: main
+        reader_question_answered: rq-problem-pressure
+        section_function: explain object relation and motivate method sequence
+        proof_role: explanatory support for bounded mechanism claim, not empirical proof
+        explanatory_or_evidential: explanatory
+        supported_claims:
+          - claim-mechanism-bounded
+          - claim-unknown-new
+        unsupported_claims:
+          - claim-deployment-rejected
+        source_s04_capsules:
+          - "phase10_s04_claim_admissibility#claim-mechanism-bounded"
+        required_panels:
+          - fig-mechanism-overview-A
+          - fig-mechanism-overview-B
+        required_data:
+          - artifact-mechanism-trace
+        backend_route_ref: "backend_route_map#fig-mechanism-overview"
+        caption_brief_ref: "caption_legend_brief#fig-mechanism-overview"
+        terminology_constraints:
+          - trust-state representation
+          - reconfiguration decision
+        cognitive_load_risk: high if notation is introduced before object roles
+        accessibility_constraints:
+          - colorblind-safe object classes
+          - readable arrows and labels
+        status: planned
+  table_contracts:
+    tables:
+      - table_id: tbl-result-boundary
+        table_type: result_summary
+        target_section: Results and limitations
+        reader_question_answered: rq-evidence-boundary
+        row_semantics: one row per admitted or rejected S04 claim boundary
+        column_semantics: support strength, evidence anchor, allowed interpretation, forbidden interpretation, required caveat
+        required_entries:
+          - claim-mechanism-bounded
+          - claim-deployment-rejected
+        source_data:
+          - "phase10_s04_claim_admissibility#support_strength_map"
+          - "phase10_s04_claim_admissibility#result_package_boundary_matrix"
+        supported_claims:
+          - claim-mechanism-bounded
+          - claim-deployment-rejected
+        forbidden_interpretation: table is not new evidence and cannot reverse rejected deployment claim
+        main_or_supplement: main
+        backend_route_ref: "backend_route_map#tbl-result-boundary"
+        status: planned
+  formal_object_contracts:
+    formal_objects:
+      - formal_id: alg-reconfiguration-flow
+        formal_type: algorithm
+        target_section: Method supplement
+        object_or_variable_refs:
+          - obj-trust-state
+          - obj-reconfiguration-decision
+        purpose: specify process order after reader-facing object definitions
+        reader_question_answered: rq-problem-pressure
+        supported_claims:
+          - claim-mechanism-bounded
+        notation_requirements:
+          - define T_state before use
+          - define a_reconfig before process step
+        required_definitions_before_use:
+          - trust-state representation
+          - reconfiguration decision
+        forbidden_interpretation: algorithm box is not evidence of deployment readiness or security certification
+        backend_or_source_route: "backend_route_map#alg-reconfiguration-flow"
+        cognitive_load_risk: medium if placed before mechanism overview
+        status: supplement
+  panel_evidence_map:
+    panels:
+      - visual_id: fig-mechanism-overview
+        panel_id: fig-mechanism-overview-A
+        panel_role: schematic object relation
+        visual_encoding: schematic arrows with object labels
+        source_data: "phase10_s06_object_granularity#cross_maps.object_relation_map"
+        evidence_ref: "phase10_s04_claim_admissibility#claim-mechanism-bounded"
+        supported_claim: claim-mechanism-bounded
+        forbidden_claim: claim-deployment-rejected
+        required_axis_or_label: label trust-state representation and reconfiguration decision explicitly
+        required_caveat: schematic explains relation and is not empirical evidence
+      - visual_id: fig-mechanism-overview
+        panel_id: fig-mechanism-overview-B
+        panel_role: method flow boundary
+        visual_encoding: process flow with caveat box
+        source_data: "phase10_s06_object_granularity#mechanism_variable_cards"
+        evidence_ref: "phase10_s04_claim_admissibility#support_strength_map"
+        supported_claim: claim-mechanism-bounded
+        forbidden_claim: claim-deployment-rejected
+        required_axis_or_label: mark evidence boundary and deployment exclusion
+        required_caveat: current evidence supports mechanism relation only
+  visual_claim_evidence_map:
+    bindings:
+      - visual_id: fig-mechanism-overview
+        claim_id: claim-mechanism-bounded
+        source_s04_capsule: "phase10_s04_claim_admissibility#claim-mechanism-bounded"
+        evidence_ref: "evidence_inventory_v1#trust-reconfiguration-results"
+        result_artifact: "result_package#trust-reconfiguration-results"
+        source_data: "phase10_s06_object_granularity#cross_maps"
+        support_strength: moderate
+        allowed_interpretation: explains bounded mechanism relation
+        forbidden_interpretation: empirical proof of deployment readiness
+        required_caveat: schematic is explanatory, not empirical validation
+      - visual_id: tbl-result-boundary
+        claim_id: claim-mechanism-bounded
+        source_s04_capsule: "phase10_s04_claim_admissibility#claim-mechanism-bounded"
+        evidence_ref: "phase10_s04_claim_admissibility#support_strength_map"
+        result_artifact: "result_package#trust-reconfiguration-results"
+        source_data: "phase10_s04_claim_admissibility#result_package_boundary_matrix"
+        support_strength: moderate
+        allowed_interpretation: table summarizes admitted support boundary
+        forbidden_interpretation: table cannot strengthen support beyond S04
+        required_caveat: current result package is bounded
+      - visual_id: alg-reconfiguration-flow
+        claim_id: claim-mechanism-bounded
+        source_s04_capsule: "phase10_s04_claim_admissibility#claim-mechanism-bounded"
+        evidence_ref: "phase10_s06_object_granularity#mechanism_variable_cards"
+        result_artifact: not-applicable-formal-object
+        source_data: "phase10_s06_object_granularity#object_cards"
+        support_strength: moderate
+        allowed_interpretation: formalizes process order for the bounded mechanism claim
+        forbidden_interpretation: algorithm is not proof or deployment validation
+        required_caveat: definitions precede notation and support remains bounded
+  backend_route_map:
+    routes:
+      - visual_id: fig-mechanism-overview
+        source_data_path: "examples/materials/phase10_s06_object_granularity.yaml#cross_maps"
+        script_path: figures/scripts/render_architecture.py
+        manual_design_needed: "true"
+        generation_tool: S11 figure generation or editable SVG route
+        reproducibility_status: source route located but not executed by S08
+        missing_backend_items: []
+        export_targets:
+          - vector figure source
+          - paper image output
+        dependency_risk: S11 must check editable source and rendered output integrity
+      - visual_id: tbl-result-boundary
+        source_data_path: "examples/materials/phase10_s04_claim_admissibility.yaml#support_strength_map"
+        script_path: manual-table-from-S04-controls
+        manual_design_needed: "false"
+        generation_tool: S11 table builder or LaTeX table route
+        reproducibility_status: control material route located
+        missing_backend_items: []
+        export_targets:
+          - LaTeX table source
+        dependency_risk: table must preserve S04 caveats exactly
+      - visual_id: alg-reconfiguration-flow
+        source_data_path: "examples/materials/phase10_s06_object_granularity.yaml#mechanism_variable_cards"
+        script_path: manual-algorithmic-pseudocode-from-S06-controls
+        manual_design_needed: "false"
+        generation_tool: S11 algorithm environment route
+        reproducibility_status: control material route located
+        missing_backend_items: []
+        export_targets:
+          - supplement algorithm source
+        dependency_risk: algorithm may overload main text if promoted from supplement
+  main_supplement_split_plan:
+    placements:
+      - visual_id: fig-mechanism-overview
+        placement: main
+        reason: core reader question and method relation require a main-text visual
+        reader_importance: high
+        claim_importance: high
+        evidence_strength: moderate and explanatory only
+        cognitive_load_impact: acceptable if limited to two panels
+        section_budget_fit: fits Method one-object budget
+      - visual_id: tbl-result-boundary
+        placement: main
+        reason: claim boundary must be visible near results and limitations
+        reader_importance: high
+        claim_importance: high
+        evidence_strength: moderate plus rejected boundary
+        cognitive_load_impact: low compact table
+        section_budget_fit: fits Results one-table budget
+      - visual_id: alg-reconfiguration-flow
+        placement: supplement
+        reason: useful formal process but not necessary for the main reader path
+        reader_importance: medium
+        claim_importance: medium
+        evidence_strength: formal explanatory support only
+        cognitive_load_impact: medium if in main text
+        section_budget_fit: better as supplement
+      - visual_id: fig-deployment-validation
+        placement: reject
+        reason: would imply S04-rejected deployment-readiness evidence
+        reader_importance: forbidden
+        claim_importance: forbidden
+        evidence_strength: unsupported
+        cognitive_load_impact: overclaim risk
+        section_budget_fit: not allowed
+  caption_legend_brief:
+    briefs:
+      - visual_id: fig-mechanism-overview
+        caption_job: explain object relation and caveat without claiming empirical validation
+        must_mention: trust-state representation, reconfiguration decision, bounded mechanism relation
+        must_not_claim: deployment readiness, proof, certification, public-road validation
+        required_caveat: schematic panels explain mechanism and do not constitute empirical evidence
+        terminology_constraints: use S07 reader-facing terms only
+        panel_label_policy: panel letters map to object relation and method-flow boundary
+        citation_or_data_note: cite S04 claim capsule or S06 object map if caption references support boundary
+      - visual_id: tbl-result-boundary
+        caption_job: summarize admitted and rejected claim boundaries without adding new evidence
+        must_mention: support strength, evidence anchor, forbidden interpretation, required caveat
+        must_not_claim: new performance result or changed support strength
+        required_caveat: table reflects S04 admissibility only
+        terminology_constraints: use claim-safe moderate-support terms
+        panel_label_policy: not applicable to table
+        citation_or_data_note: cite S04 support map and result package boundary
+      - visual_id: alg-reconfiguration-flow
+        caption_job: state process-order purpose and required definitions before notation
+        must_mention: trust-state input and reconfiguration action boundary
+        must_not_claim: correctness proof or deployment authority
+        required_caveat: algorithm formalizes process order only
+        terminology_constraints: define T_state and a_reconfig before use
+        panel_label_policy: algorithm step labels only
+        citation_or_data_note: cite S06 variable cards if notation appears
+  accessibility_and_style_constraints:
+    objects:
+      - visual_id: fig-mechanism-overview
+        color_policy: use semantic categories with redundant labels
+        colorblind_safe_required: "true"
+        minimum_label_size: journal-readable after column scaling
+        axis_label_requirements: no axes unless evidence panel is added by S11
+        legend_policy: legend only if colors encode object classes
+        panel_label_policy: A and B labels must match caption brief
+        vector_or_raster_policy: vector preferred
+        journal_style_constraints: avoid decorative gradients and tiny text
+        readability_risk: arrow clutter if more than two panels are added
+      - visual_id: tbl-result-boundary
+        color_policy: no color dependence
+        colorblind_safe_required: "true"
+        minimum_label_size: table text must remain readable in manuscript width
+        axis_label_requirements: not applicable
+        legend_policy: no legend
+        panel_label_policy: not applicable
+        vector_or_raster_policy: LaTeX table source
+        journal_style_constraints: compact rows with explicit caveat column
+        readability_risk: table can become an information dump if columns expand
+      - visual_id: alg-reconfiguration-flow
+        color_policy: no color dependence
+        colorblind_safe_required: "true"
+        minimum_label_size: algorithm text must remain readable in supplement
+        axis_label_requirements: not applicable
+        legend_policy: no legend
+        panel_label_policy: step labels only
+        vector_or_raster_policy: LaTeX algorithm source
+        journal_style_constraints: keep notation definitions before algorithm
+        readability_risk: decorative formalism if purpose is not stated
+  coverage_ledger:
+    total_reader_questions: 2
+    reader_questions_requiring_visuals: 2
+    visual_needs_detected: 3
+    visual_needs_covered: 3
+    visual_needs_unresolved: 0
+    candidate_visuals_generated: 4
+    visuals_kept: 2
+    visuals_merged: 0
+    visuals_supplement: 1
+    visuals_deferred: 0
+    visuals_rejected: 1
+    figures_with_contract: 1
+    tables_with_contract: 1
+    formal_objects_with_contract: 1
+    panels_with_evidence_map: 2
+    visuals_with_backend_route: 3
+    visuals_with_caption_brief: 3
+    unresolved_items: []
+  unresolved_visual_object_report:
+    items: []
+    backflow_targets: []
+  downstream_handoff:
+    S10:
+      handoff_summary: Use visual callout requirements and caption boundaries only after S09B selects the target unit.
+      allowed_use: figure-reference planning and paragraph callout rules
+      misuse_warning: do not write final captions or strengthen visual claims
+      items:
+        - fig-mechanism-overview callout must preserve explanatory role
+        - tbl-result-boundary callout must preserve S04 support boundary
+    S11:
+      handoff_summary: Generate or assemble figures, tables, and formal objects from these contracts and backend routes.
+      allowed_use: figure/table/formal production with source-data and panel constraints
+      misuse_warning: do not create paper-facing artifacts without backend route and caption brief
+      items:
+        - fig-mechanism-overview contract and panel evidence map
+        - tbl-result-boundary table contract
+        - alg-reconfiguration-flow supplement contract
+    S12:
+      handoff_summary: Audit integrated candidate for unsupported visual claims, missing routes, caption overclaim, schematic-as-evidence, and visual overload.
+      allowed_use: consistency review against S08 contracts
+      misuse_warning: do not repair by inventing new claims or finalizing manuscript
+      items:
+        - unsupported_visual_claim
+        - missing_backend_route
+        - caption_overclaim
+        - schematic_used_as_evidence
+        - visual_overload
+    S13:
+      handoff_summary: Attack visual/text/caption mismatches and route repairs to S14 or accountable earlier stages.
+      allowed_use: adversarial review over structured S12 candidate and S08 contract package
+      misuse_warning: do not review PDF or rewrite figure contracts directly
+      items:
+        - weaken_caption_claim
+        - move_visual_to_supplement
+        - split_overloaded_figure
+        - add_missing_caveat
+        - backflow_missing_data
+  visual_safety_audit:
+    no_new_claims: true
+    no_claim_strengthening: true
+    no_final_figures: true
+    no_final_captions: true
+    no_schematic_as_empirical_evidence: true
+    no_decorative_visuals: true
+    no_missing_backend_routes: true
+    no_completion_overclaim: true
+    remaining_risks:
+      - S11 must still verify visual taste, rendered artifact integrity, and actual export constraints
+  candidate_return:
+    candidate_artifact: examples/materials/phase10_s08_visual_formal_plan.yaml
+    evidence:
+      - every kept or supplement visual/formal object has reader function, claim boundary, backend route, and caption boundary
+      - rejected deployment validation figure is retained as explicit no-go decision
+      - S10/S11/S12/S13 handoffs are explicit and bounded
+    remaining_risks:
+      - S08 does not render final figures or write final captions

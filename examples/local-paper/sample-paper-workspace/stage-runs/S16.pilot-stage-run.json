@@ -4,27 +4,27 @@
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_1",
-      "ref": "clean final candidate"
+      "ref": "closed S12 integrated manuscript candidate"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_2",
-      "ref": "review closure"
+      "ref": "S13 review closure evidence"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_3",
-      "ref": "repair-complete package"
+      "ref": "S14/S15 repair-complete status"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_4",
-      "ref": "figures/captions"
+      "ref": "figures/captions/data availability bundle"
     },
     {
       "kind": "contract_declared",
       "material_id": "s16_declared_input_5",
-      "ref": "repository state"
+      "ref": "repository and build configuration state"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -63,7 +63,7 @@
       "artifact_id": "s16_pilot_output",
       "artifact_path": "artifacts/S16-export-repository-hygiene-and-handoff.json",
       "artifact_type": "analysis_material_projection",
-      "description": "export manifest; repository hygiene report; manager handoff report"
+      "description": "export handoff package; human-readable PDF/export manifest; repository hygiene report; manager/owner handoff report"
     }
   ],
   "recommended_agent_type": "verifier",
@@ -116,7 +116,7 @@
     }
   ],
   "worker_task_packet_evidence": {
-    "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+    "blocker": "S16 is a controller-owned deterministic export/hygiene/handoff verifier; verifier subagents may report checklist evidence but fake worker task packets are forbidden.",
     "packet_ref": null,
     "required": false,
     "return_contract_ref": null,

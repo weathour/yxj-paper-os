@@ -1,0 +1,98 @@
+schema_version: ppg-material/v0.1
+material_id: s01_source_evidence_inventory_v1
+version: v1
+status: candidate
+material_type: S01SourceEvidenceInventory
+payload:
+  schema_version: ppg-s01-source-evidence-inventory/v0.1
+  stage_id: S01
+  completion_boundary: inventory_only_no_claim_admissibility_no_graph_completion
+  source_map:
+    repo_files:
+      - path: manuscript/main.tex
+        role: manuscript
+        exists: true
+        hash: sha256:maintex
+        mtime: '2026-07-01T00:00:00Z'
+  citation_bank:
+    bib_entries:
+      - citation_key: smith2024platoon
+        metadata_status: complete
+        source_pdf_status: present
+        citation_role: background
+        locator: refs/smith2024platoon.pdf
+    citation_key_coverage:
+      cited_in_manuscript:
+        - smith2024platoon
+      in_bib_not_cited: []
+      cited_but_missing_bib: []
+  evidence_bank:
+    result_artifacts:
+      - artifact_id: run001_metrics
+        path: results/run-001/metrics.csv
+        artifact_type: csv
+        hash: sha256:metrics
+        freshness_status: current
+        support_hint: may be relevant to platoon reconfiguration latency and must be judged by S04
+        claim_supported: true
+  figure_source_data_inventory:
+    - figure_id: fig_architecture
+      figure_file: figures/architecture.pdf
+      source_data:
+        - figures/data/architecture.csv
+      generation_script: figures/scripts/render_architecture.py
+      editable_source: figures/editable/architecture.svg
+      rendered_output: figures/architecture.pdf
+      provenance_status: complete
+  data_availability_inventory:
+    datasets:
+      - dataset_id: run001_dataset
+        path_or_access: data/run-001
+        availability_status: local_only
+        access_boundary: internal inventory only until owner/public-release gate
+  supplement_inventory:
+    supplement_files:
+      - supplements/checklist.md
+    missing_supplements: []
+  privacy_boundary_report:
+    private_sources:
+      - source_id: local_run_log
+        locator: results/run-001/run.log
+        policy: private internal support only
+        citable: false
+    forbidden_sources:
+      - source_id: reviewer_identity
+        locator: unavailable
+        policy: must not be inventoried as citable evidence
+        citable: false
+    anonymization_needed:
+      - local_run_log
+  unresolved_locator_register:
+    missing_files:
+      - expected ablation output is not yet present
+    ambiguous_sources: []
+    stale_paths: []
+    citation_without_pdf_or_metadata: []
+    evidence_needed_by_claim_but_missing:
+      - direct claim-level support is deferred to S04
+  freshness_report:
+    hashed_paths:
+      - manuscript/main.tex
+      - results/run-001/metrics.csv
+    stale_materials: []
+    unknown_freshness: []
+  coverage_ledger:
+    input_roots_scanned:
+      - examples/local-paper/sample-paper-workspace
+    roots_not_scanned_with_reason: []
+    bibliography_coverage: pass
+    evidence_locator_coverage: partial
+    figure_source_data_coverage: pass
+    supplement_coverage: partial
+    privacy_policy_coverage: pass
+  candidate_return:
+    candidate_artifact: examples/materials/s01_source_evidence_inventory.v1.yaml
+    evidence:
+      - read-only inventory fixture
+    remaining_risks:
+      - S04 must judge support strength and wording

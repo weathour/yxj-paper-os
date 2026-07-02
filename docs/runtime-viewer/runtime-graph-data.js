@@ -1190,7 +1190,14 @@ window.PPG_RUNTIME_GRAPH = (() => {
             },
             "validators": [
                 "owner confirmation",
-                "blocked route check"
+                "blocked route check",
+                "owner decision trace",
+                "claim scope boundary",
+                "source/privacy policy boundary",
+                "external action boundary",
+                "no worker semantic change",
+                "downstream stale/backflow effects",
+                "no completion or submission overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -1433,15 +1440,30 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "validators": [
                 "source locator resolution",
                 "privacy boundary check",
-                "evidence path check"
+                "evidence path check",
+                "S01_read_only_boundary",
+                "S01_root_coverage",
+                "S01_source_locator_resolution",
+                "S01_bibtex_key_coverage",
+                "S01_evidence_artifact_locator",
+                "S01_figure_source_data_locator",
+                "S01_supplement_inventory",
+                "S01_privacy_boundary",
+                "S01_freshness_hash_report",
+                "S01_no_claim_admissibility",
+                "S01_unresolved_locator_register",
+                "S01_no_completion_overclaim"
             ],
             "worker_authority_boundary": {
+                "claim_admissibility_forbidden": true,
                 "completion_forbidden": true,
                 "controller_owned_completion": true,
-                "no_recursive_orchestration": true
+                "inventory_candidate_only": true,
+                "no_recursive_orchestration": true,
+                "source_write_forbidden": true
             },
             "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "blocker": "S01 uses read-only inventory briefs only; fake graph-mutation worker packets are forbidden.",
                 "packet_ref": null,
                 "return_contract_ref": null,
                 "status": "not_required"
@@ -1612,7 +1634,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
             }
         ],
         "worker_task_packet_evidence": {
-            "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+            "blocker": "S01 uses read-only inventory briefs only; fake graph-mutation worker packets are forbidden.",
             "packet_ref": null,
             "required": false,
             "return_contract_ref": null,
@@ -1698,9 +1720,14 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "source locator check",
-                "citation verification",
-                "template copying boundary"
+                "S02_source_coverage_ledger",
+                "S02_sota_family_coverage_ledger",
+                "S02_template_language_profile",
+                "S02_descriptive_not_prescriptive",
+                "S02_template_copying_boundary",
+                "S02_unresolved_backflow_register",
+                "S02_downstream_handoff_coverage",
+                "S02_no_claim_or_completion_freeze"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -1949,9 +1976,16 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "evidence readiness score",
-                "source anchors",
-                "owner semantic-shift gate"
+                "S03_contribution_option_queue",
+                "S03_option_coverage_ledger",
+                "S03_sota_contrast_matrix",
+                "S03_evidence_readiness_classifier",
+                "S03_rejected_option_register",
+                "S03_owner_gated_option_register",
+                "S03_reviewer_attack_map",
+                "S03_s04_handoff_coverage",
+                "S03_no_claim_admissibility_or_final_wording",
+                "S03_no_completion_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -2189,7 +2223,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S03",
                 "S00"
             ],
-            "completion_gate": "every claim-bearing unit has support strength, evidence anchor, allowed wording, and forbidden wording",
+            "completion_gate": "every claim-bearing unit is admitted, weakened, rejected, owner-gated, or backflowed with support strength, evidence anchor, allowed wording, forbidden wording, result boundary, and downstream permission",
             "consumes": [
                 "evidence bank",
                 "citation bank",
@@ -2202,7 +2236,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "claim evidence visibility",
                 "data availability plan"
             ],
-            "purpose": "Bind evidence and citations to exact claim boundaries.",
+            "purpose": "Admit, weaken, reject, or backflow every claim-bearing unit against evidence anchors, support strength, allowed wording, forbidden wording, and result-package boundaries.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 2,
@@ -2217,10 +2251,17 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "claim support",
-                "allowed wording",
-                "forbidden wording",
-                "result package boundary"
+                "S04_claim_queue",
+                "S04_atomic_claim_register",
+                "S04_claim_capsules",
+                "S04_claim_coverage_ledger",
+                "S04_support_strength_map",
+                "S04_evidence_anchor_visibility",
+                "S04_allowed_forbidden_wording",
+                "S04_result_package_boundary",
+                "S04_claim_transformation_log",
+                "S04_downstream_handoff_coverage",
+                "S04_no_final_prose_or_completion_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -2308,7 +2349,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "claim evidence visibility",
                         "data availability plan"
                     ],
-                    "purpose": "Bind evidence and citations to exact claim boundaries.",
+                    "purpose": "Admit, weaken, reject, or backflow every claim-bearing unit against evidence anchors, support strength, allowed wording, forbidden wording, and result-package boundaries.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -2472,7 +2513,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S03",
                 "S04"
             ],
-            "completion_gate": "spine is coherent and claim-bounded before writing begins",
+            "completion_gate": "S05ReaderSpine validates every S04 intake claim, reader question, section placement, promise payoff, owner decision, and S06/S07/S08 handoff without new claims or final prose",
             "consumes": [
                 "motivation",
                 "contribution options",
@@ -2484,7 +2525,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "reviewer question map",
                 "rationale matrix"
             ],
-            "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+            "purpose": "Build a claim-bounded reader-question spine from S04-admitted claim capsules, with coverage ledgers and downstream S06/S07/S08 handoffs; no new claims or final prose.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 2,
@@ -2499,9 +2540,20 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "claim appears in spine",
-                "section answers reader question",
-                "owner decisions explicit"
+                "S05_admitted_claim_intake_ledger",
+                "S05_reader_question_inventory",
+                "S05_reader_question_coverage_ledger",
+                "S05_reader_question_progression",
+                "S05_claim_to_section_spine",
+                "S05_claim_section_coverage_ledger",
+                "S05_front_half_promise_coverage",
+                "S05_reviewer_question_map",
+                "S05_rationale_matrix",
+                "S05_owner_decision_log",
+                "S05_s06_s07_s08_handoff_coverage",
+                "S05_coherence_overpromise_audit",
+                "S05_no_new_claims_or_final_prose",
+                "S05_no_completion_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -2582,7 +2634,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "reviewer question map",
                         "rationale matrix"
                     ],
-                    "purpose": "Synthesize paper argument path and reader/reviewer questions.",
+                    "purpose": "Build a claim-bounded reader-question spine from S04-admitted claim capsules, with coverage ledgers and downstream S06/S07/S08 handoffs; no new claims or final prose.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -2728,7 +2780,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S05",
                 "S04"
             ],
-            "completion_gate": "writing units can consume explicit object and granularity instructions",
+            "completion_gate": "S06ObjectGranularity validates object/variable coverage, cards, cross maps, granularity/load budgets, explanation ladders, repetition checks, unresolved objects, and S07/S08/S10 handoffs without new claims or final prose",
             "consumes": [
                 "reader spine",
                 "reviewer question map",
@@ -2741,7 +2793,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "load budget",
                 "explanation ladder"
             ],
-            "purpose": "Decide how paper objects appear across sections and at what granularity.",
+            "purpose": "Design complete object and mechanism-variable representation, granularity progression, section/load budgets, explanation ladders, and downstream handoffs without adding claims or drafting prose.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -2756,9 +2808,23 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "granularity progression",
-                "no flat repetition",
-                "load budget present"
+                "S06_object_inventory_coverage",
+                "S06_mechanism_variable_coverage",
+                "S06_object_cards_for_P0_P1_P2",
+                "S06_mechanism_variable_cards",
+                "S06_claim_object_mapping",
+                "S06_reader_question_object_mapping",
+                "S06_object_section_mapping",
+                "S06_granularity_progression",
+                "S06_section_function_budget",
+                "S06_cognitive_load_budget",
+                "S06_explanation_ladder",
+                "S06_no_flat_repetition",
+                "S06_coverage_ledger",
+                "S06_unresolved_object_report",
+                "S06_downstream_handoff",
+                "S06_no_new_claims_or_final_prose",
+                "S06_no_completion_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -2840,7 +2906,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "load budget",
                         "explanation ladder"
                     ],
-                    "purpose": "Decide how paper objects appear across sections and at what granularity.",
+                    "purpose": "Design complete object and mechanism-variable representation, granularity progression, section/load budgets, explanation ladders, and downstream handoffs without adding claims or drafting prose.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -2988,7 +3054,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S04",
                 "S05"
             ],
-            "completion_gate": "main text can be generated without unsupported claims, raw internal ids, or lab-notebook smell",
+            "completion_gate": "S07RhetoricSurfaceControl validates claim surface rules, terminology coverage, internal-id bans, paragraph jobs, flexible language controls, forbidden expressions, coverage ledger, and S09/S10/S12/S13 handoffs without new claims or final prose",
             "consumes": [
                 "object representation",
                 "claim visibility",
@@ -3000,7 +3066,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "terminology register",
                 "surface rules"
             ],
-            "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+            "purpose": "Compile claim-safe rhetoric, terminology, paragraph jobs, flexible surface controls, forbidden expressions, coverage ledgers, and downstream handoffs without final prose or claim strengthening.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -3015,9 +3081,20 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "terminology coverage",
-                "forbidden internal ids",
-                "rhetorical move coverage"
+                "S07_input_coverage",
+                "S07_claim_surface_rule_map",
+                "S07_terminology_surface_register",
+                "S07_internal_id_ban_list",
+                "S07_paragraph_job_map",
+                "S07_rhetorical_move_matrix",
+                "S07_language_flexibility_guard",
+                "S07_surface_rules",
+                "S07_forbidden_expression_list",
+                "S07_coverage_ledger",
+                "S07_unresolved_surface_control_report",
+                "S07_downstream_handoff",
+                "S07_no_new_claims_or_claim_strengthening",
+                "S07_no_final_prose_or_completion_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -3082,7 +3159,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "terminology register",
                         "surface rules"
                     ],
-                    "purpose": "Turn reader/object design into paragraph-level rhetorical and terminology controls.",
+                    "purpose": "Compile claim-safe rhetoric, terminology, paragraph jobs, flexible surface controls, forbidden expressions, coverage ledgers, and downstream handoffs without final prose or claim strengthening.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -3241,13 +3318,13 @@ window.PPG_RUNTIME_GRAPH = (() => {
             }
         ],
         "contract": {
-            "activation_policy": "activate when figure/table/algorithm/formula is touched",
+            "activation_policy": "activate before any figure/table/algorithm/formula becomes paper-facing or when S05/S06/S04 imply a visual/formal object need",
             "backflow_targets": [
                 "S05",
                 "S04",
                 "S06"
             ],
-            "completion_gate": "no final/export-facing figure proceeds without contract, evidence, and backend route",
+            "completion_gate": "S08VisualFormalPlan validates visual needs, candidates, visual budget, figure/table/formal contracts, panel evidence maps, claim bindings, backend routes, caption boundaries, accessibility constraints, coverage ledger, and S10/S11/S12/S13 handoffs without final figures, final captions, new claims, or completion overclaim",
             "consumes": [
                 "reader spine",
                 "section function budget",
@@ -3259,7 +3336,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "panel evidence map",
                 "backend route"
             ],
-            "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+            "purpose": "Compile reader questions, section/object budgets, claim/evidence boundaries, and source-data routes into visual/formal object contracts.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -3274,10 +3351,25 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "reader question",
-                "supported claim",
-                "evidence refs",
-                "backend route"
+                "S08_input_coverage",
+                "S08_visual_need_inventory",
+                "S08_candidate_visual_object_queue",
+                "S08_visual_budget",
+                "S08_main_story_visual_path",
+                "S08_figure_contract_schema",
+                "S08_table_contract_schema",
+                "S08_formal_object_contract_schema",
+                "S08_panel_evidence_map",
+                "S08_visual_claim_evidence_binding",
+                "S08_explanatory_vs_evidential_boundary",
+                "S08_main_supplement_split",
+                "S08_backend_route_map",
+                "S08_caption_boundary",
+                "S08_accessibility_constraints",
+                "S08_coverage_ledger",
+                "S08_unresolved_visual_object_report",
+                "S08_downstream_handoff",
+                "S08_no_new_claims_or_completion_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -3342,7 +3434,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "panel evidence map",
                         "backend route"
                     ],
-                    "purpose": "Decide which figures, tables, algorithms, and formulas exist and what they prove.",
+                    "purpose": "Compile reader questions, section/object budgets, claim/evidence boundaries, and source-data routes into visual/formal object contracts.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -3529,9 +3621,10 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S04",
                 "S05",
                 "S06",
-                "S07"
+                "S07",
+                "S08"
             ],
-            "completion_gate": "S09B can build a task packet without guessing upstream controls",
+            "completion_gate": "S09ARichControlBundle is layered, priority-ordered, freshness-checked, conflict-resolved, and ready for S09B without worker guessing",
             "consumes": [
                 "claim controls",
                 "spine controls",
@@ -3544,7 +3637,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "control priority map",
                 "missing control report"
             ],
-            "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
+            "purpose": "Select a target-specific, context-rich, priority-ordered control bundle without compiling worker packets or granting content-generation authority.",
             "requires_worker_task_packet": false,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -3559,9 +3652,23 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": null
             },
             "validators": [
-                "required controls present",
-                "no overloaded all-context packet",
-                "conflict priority resolved"
+                "S09A_target_unit_profile",
+                "S09A_hard_constraints_present",
+                "S09A_rich_context_layering",
+                "S09A_claim_control_selection",
+                "S09A_reader_context_selection",
+                "S09A_object_context_selection",
+                "S09A_surface_control_selection",
+                "S09A_visual_formal_control_selection",
+                "S09A_negative_controls",
+                "S09A_conflict_resolution",
+                "S09A_context_usage_instructions",
+                "S09A_freshness_check",
+                "S09A_missing_control_report",
+                "S09A_coverage_ledger",
+                "S09A_downstream_packet_requirements",
+                "S09A_no_bare_S09",
+                "S09A_no_task_packet_or_final_content"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -3635,7 +3742,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "control priority map",
                         "missing control report"
                     ],
-                    "purpose": "Choose the minimal control material set needed by the target manuscript unit.",
+                    "purpose": "Select a target-specific, context-rich, priority-ordered control bundle without compiling worker packets or granting content-generation authority.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -3807,7 +3914,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S14",
                 "S15"
             ],
-            "completion_gate": "packet is bounded and cannot grant graph-completion or recursive-dispatch authority",
+            "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with S09A usage labels preserved",
             "consumes": [
                 "selected control bundle",
                 "evidence anchors",
@@ -3821,7 +3928,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "single-writer lock",
                 "missing material report"
             ],
-            "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
+            "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
             "requires_worker_task_packet": false,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -3836,10 +3943,23 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": null
             },
             "validators": [
-                "allowed read/write paths",
-                "worker boot clause",
-                "completion forbidden",
-                "no recursive orchestration"
+                "S09B_packet_identity",
+                "S09B_allowed_read_paths",
+                "S09B_allowed_write_paths",
+                "S09B_forbidden_routes",
+                "S09B_worker_boot_clause",
+                "S09B_completion_forbidden",
+                "S09B_no_recursive_orchestration",
+                "S09B_single_writer_lock",
+                "S09B_unit_move_plan",
+                "S09B_selected_controls_propagated",
+                "S09B_context_usage_preserved",
+                "S09B_background_not_claim_authority",
+                "S09B_return_format",
+                "S09B_missing_material_report",
+                "S09B_authority_boundary",
+                "S09B_emitted_packet_validates",
+                "S09B_no_bare_S09"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -3914,7 +4034,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "single-writer lock",
                         "missing material report"
                     ],
-                    "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
+                    "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -4065,10 +4185,15 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "activation_policy": "activate when writing execution is needed",
             "backflow_targets": [
                 "S09B",
+                "S09A",
                 "S07",
-                "S04"
+                "S06",
+                "S05",
+                "S04",
+                "S08",
+                "S15"
             ],
-            "completion_gate": "candidate text is validated and collected; graph completion remains controller-owned",
+            "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
             "consumes": [
                 "S09B task packet",
                 "construction matrix",
@@ -4079,7 +4204,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "candidate text unit",
                 "CandidateArtifactReturn"
             ],
-            "purpose": "Produce candidate manuscript modules from task packets.",
+            "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 2,
@@ -4094,9 +4219,24 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "section draft validator",
-                "candidate return validator",
-                "claim boundary check"
+                "S10_packet_compliance",
+                "S10_candidate_text_schema",
+                "S10_allowed_write_path",
+                "S10_claim_evidence_trace",
+                "S10_claim_boundary_preserved",
+                "S10_no_new_claims",
+                "S10_no_claim_strengthening",
+                "S10_move_trace",
+                "S10_terminology_trace",
+                "S10_internal_id_leakage",
+                "S10_object_granularity_trace",
+                "S10_visual_callout_trace",
+                "S10_forbidden_expression_scan",
+                "S10_coverage_ledger",
+                "S10_candidate_return_complete",
+                "S10_writer_evidence",
+                "S10_verifier_evidence",
+                "S10_authority_boundary"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -4105,7 +4245,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
             },
             "worker_packet_coverage": {
                 "blocker": null,
-                "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
+                "packet_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
                 "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
                 "status": "linked_strict_packet"
             }
@@ -4164,7 +4304,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "candidate text unit",
                         "CandidateArtifactReturn"
                     ],
-                    "purpose": "Produce candidate manuscript modules from task packets.",
+                    "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -4259,7 +4399,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         ],
         "worker_task_packet_evidence": {
             "blocker": null,
-            "packet_ref": "examples/packets/intro_writing_packet.v2.yaml",
+            "packet_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
@@ -4322,9 +4462,12 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "backflow_targets": [
                 "S08",
                 "S04",
-                "S01"
+                "S01",
+                "S07",
+                "S09B",
+                "S15"
             ],
-            "completion_gate": "figure/caption has editable source, rendered output, provenance, QA route, and claim support",
+            "completion_gate": "S11FigureCaptionArtifactBundle validates S08 contract compliance, source-data trace, panel/caption claim traces, image integrity, visual polish policy/report, accessibility, export manifest, CandidateArtifactReturn, and authority boundary without final export or completion claims",
             "consumes": [
                 "figure contracts",
                 "panel evidence packages",
@@ -4337,7 +4480,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "caption brief",
                 "figure export bundle"
             ],
-            "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+            "purpose": "Produce contract-bound candidate figures, captions, tables, algorithms, formulas, render plans, and export bundles without changing proof role, evidence meaning, or claim boundaries.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -4352,10 +4495,22 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "build/render",
-                "source data",
-                "image integrity",
-                "caption claim boundary"
+                "S11_packet_compliance",
+                "S11_figure_contract_compliance",
+                "S11_source_data_provenance",
+                "S11_panel_claim_trace",
+                "S11_caption_claim_boundary",
+                "S11_explanatory_vs_evidential_boundary",
+                "S11_editable_source_present",
+                "S11_render_or_render_plan_present",
+                "S11_image_integrity_record",
+                "S11_visual_polish_policy",
+                "S11_visual_polish_report",
+                "S11_accessibility_check",
+                "S11_export_manifest",
+                "S11_candidate_return_complete",
+                "S11_verifier_evidence",
+                "S11_authority_boundary"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -4425,7 +4580,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "caption brief",
                         "figure export bundle"
                     ],
-                    "purpose": "Produce figures, captions, tables, algorithms, formulas, and export bundles.",
+                    "purpose": "Produce contract-bound candidate figures, captions, tables, algorithms, formulas, render plans, and export bundles without changing proof role, evidence meaning, or claim boundaries.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -4592,12 +4747,19 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "contract": {
             "activation_policy": "activate when multiple modules are integrated",
             "backflow_targets": [
+                "S04",
+                "S05",
+                "S06",
+                "S07",
+                "S08",
+                "S09A",
+                "S09B",
                 "S10",
                 "S11",
-                "S07",
-                "S04"
+                "S14",
+                "S15"
             ],
-            "completion_gate": "integrated candidate is ready for adversarial review, not final",
+            "completion_gate": "S12IntegrationConsistencyReport validates module inventory, assembly manifest, structured integrated candidate, trace index, audits, findings/backflow queue, validator report, CandidateArtifactReturn, and no PDF/final/untracked rewrite boundary",
             "consumes": [
                 "candidate text modules",
                 "figures/captions",
@@ -4610,7 +4772,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "consistency findings",
                 "validator report"
             ],
-            "purpose": "Assemble modules and check cross-section dependencies.",
+            "purpose": "Compile a structured integrated manuscript candidate package and run consistency/backflow audits without PDF export, final acceptance, or uncontrolled rewriting.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 2,
@@ -4625,10 +4787,24 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "promise satisfaction",
-                "method/result alignment",
-                "terminology consistency",
-                "figure-text consistency"
+                "S12_module_inventory",
+                "S12_assembly_manifest",
+                "S12_integrated_candidate_package",
+                "S12_trace_index",
+                "S12_claim_boundary_audit",
+                "S12_promise_satisfaction",
+                "S12_cross_section_consistency",
+                "S12_terminology_consistency",
+                "S12_object_granularity_consistency",
+                "S12_figure_text_alignment",
+                "S12_surface_consistency",
+                "S12_stale_material_report",
+                "S12_integration_findings",
+                "S12_backflow_queue",
+                "S12_no_pdf_export",
+                "S12_no_final_claim",
+                "S12_no_untracked_rewrite",
+                "S12_candidate_return_complete"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -4702,7 +4878,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "consistency findings",
                         "validator report"
                     ],
-                    "purpose": "Assemble modules and check cross-section dependencies.",
+                    "purpose": "Compile a structured integrated manuscript candidate package and run consistency/backflow audits without PDF export, final acceptance, or uncontrolled rewriting.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -4815,22 +4991,22 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_1",
-                "ref": "integrated candidate"
+                "ref": "structured S12 integrated candidate package"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_2",
-                "ref": "evidence/claim materials"
+                "ref": "S12 trace and validator reports"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_3",
-                "ref": "reader/terminology/rhetoric materials"
+                "ref": "S10/S11 candidate traces"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_4",
-                "ref": "figure/export artifacts"
+                "ref": "S04-S08 upstream control materials"
             },
             {
                 "kind": "source_or_runtime_ref",
@@ -4859,20 +5035,20 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "backflow_targets": [
                 "S14"
             ],
-            "completion_gate": "accepted findings are actionable and routed to nearest responsible upstream material",
+            "completion_gate": "S13AdversarialReviewReport validates structured S12 review object inventory, review scope, reviewer-panel and desk-risk reports, actionable severity/evidence/location findings, S14 routing, CandidateArtifactReturn, verifier evidence, and no rewrite/PDF-primary-review/repair/completion boundary",
             "consumes": [
-                "integrated candidate",
-                "evidence/claim materials",
-                "reader/terminology/rhetoric materials",
-                "figure/export artifacts"
+                "structured S12 integrated candidate package",
+                "S12 trace and validator reports",
+                "S10/S11 candidate traces",
+                "S04-S08 upstream control materials"
             ],
             "produces": [
-                "reviewer panel report",
-                "reader experience report",
-                "validator report",
-                "review findings"
+                "adversarial review report",
+                "severity-ranked review findings",
+                "finding actionability report",
+                "validator report"
             ],
-            "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+            "purpose": "Compile actionable adversarial loss signals over the structured S12 integrated candidate; do not rewrite, repair, review PDF as primary object, or claim completion.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 2,
@@ -4887,11 +5063,20 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "finding severity",
-                "evidence",
-                "affected artifact",
-                "backflow target",
-                "resolution status"
+                "S13_review_object_inventory",
+                "S13_review_scope",
+                "S13_reviewer_panel_report",
+                "S13_desk_reject_risk_report",
+                "S13_reader_experience_report",
+                "S13_claim_evidence_review",
+                "S13_figure_caption_review",
+                "S13_review_findings_schema",
+                "S13_finding_actionability",
+                "S13_backflow_target_validity",
+                "S13_no_uncontrolled_rewrite",
+                "S13_no_pdf_primary_review",
+                "S13_candidate_return_complete",
+                "S13_verifier_evidence"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -4911,22 +5096,22 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_1",
-                "ref": "integrated candidate"
+                "ref": "structured S12 integrated candidate package"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_2",
-                "ref": "evidence/claim materials"
+                "ref": "S12 trace and validator reports"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_3",
-                "ref": "reader/terminology/rhetoric materials"
+                "ref": "S10/S11 candidate traces"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s13_declared_input_4",
-                "ref": "figure/export artifacts"
+                "ref": "S04-S08 upstream control materials"
             }
         ],
         "execution_mode": "agent_generated",
@@ -4950,7 +5135,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "artifact_id": "s13_pilot_output",
                 "artifact_path": "artifacts/S13-adversarial-manuscript-review.json",
                 "artifact_type": "review_backflow_projection",
-                "description": "reviewer panel report; reader experience report; validator report; review findings",
+                "description": "adversarial review report; severity-ranked review findings; finding actionability report; validator report",
                 "payload": {
                     "artifact_kind": "review_backflow_projection",
                     "claim_boundary_snapshot": {
@@ -4962,12 +5147,12 @@ window.PPG_RUNTIME_GRAPH = (() => {
                     "consumed_ref_count": 8,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
                     "projected_outputs": [
-                        "reviewer panel report",
-                        "reader experience report",
-                        "validator report",
-                        "review findings"
+                        "adversarial review report",
+                        "severity-ranked review findings",
+                        "finding actionability report",
+                        "validator report"
                     ],
-                    "purpose": "Generate actionable review/loss signals, not uncontrolled rewrites.",
+                    "purpose": "Compile actionable adversarial loss signals over the structured S12 integrated candidate; do not rewrite, repair, review PDF as primary object, or claim completion.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -5068,7 +5253,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s14_declared_input_1",
-                "ref": "review outputs"
+                "ref": "accepted S13/S16/validator findings"
             },
             {
                 "kind": "contract_declared",
@@ -5078,7 +5263,12 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s14_declared_input_3",
-                "ref": "affected materials graph"
+                "ref": "affected material graph slice"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s14_declared_input_4",
+                "ref": "owner gate policy"
             },
             {
                 "kind": "source_or_runtime_ref",
@@ -5101,24 +5291,33 @@ window.PPG_RUNTIME_GRAPH = (() => {
             "activation_policy": "activate when review finding exists",
             "backflow_targets": [
                 "S04",
+                "S05",
+                "S06",
                 "S07",
+                "S08",
                 "S09A",
                 "S09B",
-                "S15"
+                "S10",
+                "S11",
+                "S12",
+                "S15",
+                "S16",
+                "owner"
             ],
-            "completion_gate": "no accepted finding remains unrouted",
+            "completion_gate": "S14BackflowRepairPlan validates that every accepted finding is normalized, routed to a nearest responsible concrete stage/material, assigned a bounded local repair task, stale/protected nodes are explicit, owner gates are preserved, and no repair/completion is claimed",
             "consumes": [
-                "review outputs",
+                "accepted S13/S16/validator findings",
                 "validator reports",
-                "affected materials graph"
+                "affected material graph slice",
+                "owner gate policy"
             ],
             "produces": [
-                "narrative backflow task",
-                "repair task packets",
-                "control reselection tasks",
+                "normalized backflow repair plan",
+                "nearest responsible stage map",
+                "bounded repair task plan",
                 "response action map"
             ],
-            "purpose": "Convert review/loss signals into local repair tasks.",
+            "purpose": "Normalize accepted review/loss findings into nearest-responsible, owner-gated, bounded repair plans without executing repair.",
             "requires_worker_task_packet": false,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -5133,10 +5332,18 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "target layer/material",
-                "affected downstream nodes",
-                "repair mission",
-                "owner gate status"
+                "S14_finding_intake_coverage",
+                "S14_duplicate_and_rejection_reason",
+                "S14_failure_type_classification",
+                "S14_nearest_responsible_stage",
+                "S14_no_bare_S09_route",
+                "S14_repair_locality",
+                "S14_affected_downstream_nodes",
+                "S14_protected_unrelated_nodes",
+                "S14_owner_gate_status",
+                "S14_task_packet_compile",
+                "S14_no_execution",
+                "S14_no_completion_claim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -5156,7 +5363,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s14_declared_input_1",
-                "ref": "review outputs"
+                "ref": "accepted S13/S16/validator findings"
             },
             {
                 "kind": "contract_declared",
@@ -5166,7 +5373,12 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s14_declared_input_3",
-                "ref": "affected materials graph"
+                "ref": "affected material graph slice"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s14_declared_input_4",
+                "ref": "owner gate policy"
             }
         ],
         "execution_mode": "hybrid_generated",
@@ -5202,7 +5414,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "artifact_id": "s14_pilot_output",
                 "artifact_path": "artifacts/S14-backflow-compilation-and-repair-planning.json",
                 "artifact_type": "review_backflow_projection",
-                "description": "narrative backflow task; repair task packets; control reselection tasks; response action map",
+                "description": "normalized backflow repair plan; nearest responsible stage map; bounded repair task plan; response action map",
                 "payload": {
                     "artifact_kind": "review_backflow_projection",
                     "claim_boundary_snapshot": {
@@ -5211,15 +5423,15 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
                         "manuscript_state": "not_started"
                     },
-                    "consumed_ref_count": 6,
+                    "consumed_ref_count": 7,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
                     "projected_outputs": [
-                        "narrative backflow task",
-                        "repair task packets",
-                        "control reselection tasks",
+                        "normalized backflow repair plan",
+                        "nearest responsible stage map",
+                        "bounded repair task plan",
                         "response action map"
                     ],
-                    "purpose": "Convert review/loss signals into local repair tasks.",
+                    "purpose": "Normalize accepted review/loss findings into nearest-responsible, owner-gated, bounded repair plans without executing repair.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -5315,17 +5527,22 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s15_declared_input_1",
-                "ref": "backflow task packet"
+                "ref": "strict S14 repair task packet"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s15_declared_input_2",
-                "ref": "target material"
+                "ref": "target material base version"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s15_declared_input_3",
-                "ref": "stale downstream set"
+                "ref": "affected downstream stale set"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s15_declared_input_4",
+                "ref": "protected unrelated node list"
             },
             {
                 "kind": "source_or_runtime_ref",
@@ -5353,19 +5570,20 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S12",
                 "S15"
             ],
-            "completion_gate": "graph records new version and affected nodes are revalidated",
+            "completion_gate": "S15RepairExecutionReport validates strict packet acknowledgement, local diff scope, unrelated-node preservation, stale downstream regeneration/revalidation, finding-resolution evidence, no-new-high-severity scan, CandidateArtifactReturn, verifier evidence, and candidate-only/no-completion boundary",
             "consumes": [
-                "backflow task packet",
-                "target material",
-                "stale downstream set"
+                "strict S14 repair task packet",
+                "target material base version",
+                "affected downstream stale set",
+                "protected unrelated node list"
             ],
             "produces": [
-                "revised material",
-                "regenerated task packet",
-                "revised text/figure",
+                "repair execution report",
+                "revised material candidate",
+                "regenerated affected outputs",
                 "updated validator report"
             ],
-            "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
+            "purpose": "Execute S14-authorized scoped repairs and regenerate only affected downstream outputs, returning candidate evidence without graph commit or export readiness claims.",
             "requires_worker_task_packet": true,
             "subagent_lane_policy": {
                 "default_lane_count": 2,
@@ -5380,10 +5598,16 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "scoped stale propagation",
-                "unrelated nodes unchanged",
-                "finding resolved",
-                "no new high severity finding"
+                "S15_strict_packet_ack",
+                "S15_missing_material_report",
+                "S15_diff_locality",
+                "S15_unrelated_nodes_unchanged",
+                "S15_stale_propagation",
+                "S15_finding_resolution",
+                "S15_no_new_high_severity",
+                "S15_overlay_clause_preserved",
+                "S15_candidate_return_schema",
+                "S15_no_completion_claim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -5392,7 +5616,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
             },
             "worker_packet_coverage": {
                 "blocker": null,
-                "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+                "packet_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
                 "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
                 "status": "linked_strict_packet"
             }
@@ -5403,17 +5627,22 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s15_declared_input_1",
-                "ref": "backflow task packet"
+                "ref": "strict S14 repair task packet"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s15_declared_input_2",
-                "ref": "target material"
+                "ref": "target material base version"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s15_declared_input_3",
-                "ref": "stale downstream set"
+                "ref": "affected downstream stale set"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s15_declared_input_4",
+                "ref": "protected unrelated node list"
             }
         ],
         "execution_mode": "hybrid_generated",
@@ -5449,7 +5678,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "artifact_id": "s15_pilot_output",
                 "artifact_path": "artifacts/S15-repair-execution-and-local-regeneration.json",
                 "artifact_type": "candidate_or_repair_projection",
-                "description": "revised material; regenerated task packet; revised text/figure; updated validator report",
+                "description": "repair execution report; revised material candidate; regenerated affected outputs; updated validator report",
                 "payload": {
                     "artifact_kind": "candidate_or_repair_projection",
                     "claim_boundary_snapshot": {
@@ -5458,15 +5687,15 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
                         "manuscript_state": "not_started"
                     },
-                    "consumed_ref_count": 6,
+                    "consumed_ref_count": 7,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
                     "projected_outputs": [
-                        "revised material",
-                        "regenerated task packet",
-                        "revised text/figure",
+                        "repair execution report",
+                        "revised material candidate",
+                        "regenerated affected outputs",
                         "updated validator report"
                     ],
-                    "purpose": "Execute bounded backflow task and regenerate only affected downstream outputs.",
+                    "purpose": "Execute S14-authorized scoped repairs and regenerate only affected downstream outputs, returning candidate evidence without graph commit or export readiness claims.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -5550,7 +5779,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
         ],
         "worker_task_packet_evidence": {
             "blocker": null,
-            "packet_ref": "examples/packets/claim_repair_packet.v1.yaml",
+            "packet_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
             "required": true,
             "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
             "status": "linked_strict_packet"
@@ -5562,27 +5791,27 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_1",
-                "ref": "clean final candidate"
+                "ref": "closed S12 integrated manuscript candidate"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_2",
-                "ref": "review closure"
+                "ref": "S13 review closure evidence"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_3",
-                "ref": "repair-complete package"
+                "ref": "S14/S15 repair-complete status"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_4",
-                "ref": "figures/captions"
+                "ref": "figures/captions/data availability bundle"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_5",
-                "ref": "repository state"
+                "ref": "repository and build configuration state"
             },
             {
                 "kind": "source_or_runtime_ref",
@@ -5613,27 +5842,30 @@ window.PPG_RUNTIME_GRAPH = (() => {
             }
         ],
         "contract": {
-            "activation_policy": "activate when export/handoff requested",
+            "activation_policy": "activate when PDF/export, owner preview, handoff, or pre-submission hygiene evidence is requested",
             "backflow_targets": [
                 "S12",
                 "S13",
+                "S14",
                 "S15",
+                "S16",
                 "owner"
             ],
-            "completion_gate": "content-ready and delivery-clean states are separately proven; external submission remains owner-gated",
+            "completion_gate": "S16ExportHandoffPackage proves upstream closure, separated readiness states, successful human-readable export/build, rendered-surface checks, manifest hashes, repository hygiene classification, handoff completeness, feedback routing, and owner-gated/no-submission-publication boundary",
             "consumes": [
-                "clean final candidate",
-                "review closure",
-                "repair-complete package",
-                "figures/captions",
-                "repository state"
+                "closed S12 integrated manuscript candidate",
+                "S13 review closure evidence",
+                "S14/S15 repair-complete status",
+                "figures/captions/data availability bundle",
+                "repository and build configuration state"
             ],
             "produces": [
-                "export manifest",
+                "export handoff package",
+                "human-readable PDF/export manifest",
                 "repository hygiene report",
-                "manager handoff report"
+                "manager/owner handoff report"
             ],
-            "purpose": "Package final paper and prove delivery cleanliness.",
+            "purpose": "Export a closed manuscript candidate into human-readable artifacts and prove delivery hygiene without claiming submission/publication readiness.",
             "requires_worker_task_packet": false,
             "subagent_lane_policy": {
                 "default_lane_count": 1,
@@ -5648,10 +5880,19 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "verifier_agent_type": "verifier"
             },
             "validators": [
-                "build success",
-                "rendered surface checks",
-                "manifest hashes",
-                "dirty worktree classification"
+                "S16_upstream_closure",
+                "S16_readiness_state_separation",
+                "S16_build_success",
+                "S16_pdf_exists_and_surface",
+                "S16_figures_captions_present",
+                "S16_references_present",
+                "S16_data_availability_alignment",
+                "S16_export_manifest_hashes",
+                "S16_dirty_worktree_classification",
+                "S16_handoff_completeness",
+                "S16_feedback_route_declared",
+                "S16_projection_vs_live_export_boundary",
+                "S16_no_submission_ready_overclaim"
             ],
             "worker_authority_boundary": {
                 "completion_forbidden": true,
@@ -5659,7 +5900,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "no_recursive_orchestration": true
             },
             "worker_packet_coverage": {
-                "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+                "blocker": "S16 is a controller-owned deterministic export/hygiene/handoff verifier; verifier subagents may report checklist evidence but fake worker task packets are forbidden.",
                 "packet_ref": null,
                 "return_contract_ref": null,
                 "status": "not_required"
@@ -5671,27 +5912,27 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_1",
-                "ref": "clean final candidate"
+                "ref": "closed S12 integrated manuscript candidate"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_2",
-                "ref": "review closure"
+                "ref": "S13 review closure evidence"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_3",
-                "ref": "repair-complete package"
+                "ref": "S14/S15 repair-complete status"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_4",
-                "ref": "figures/captions"
+                "ref": "figures/captions/data availability bundle"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s16_declared_input_5",
-                "ref": "repository state"
+                "ref": "repository and build configuration state"
             }
         ],
         "execution_mode": "hybrid_generated",
@@ -5709,7 +5950,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "artifact_id": "s16_pilot_output",
                 "artifact_path": "artifacts/S16-export-repository-hygiene-and-handoff.json",
                 "artifact_type": "analysis_material_projection",
-                "description": "export manifest; repository hygiene report; manager handoff report",
+                "description": "export handoff package; human-readable PDF/export manifest; repository hygiene report; manager/owner handoff report",
                 "payload": {
                     "artifact_kind": "analysis_material_projection",
                     "claim_boundary_snapshot": {
@@ -5721,11 +5962,12 @@ window.PPG_RUNTIME_GRAPH = (() => {
                     "consumed_ref_count": 10,
                     "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
                     "projected_outputs": [
-                        "export manifest",
+                        "export handoff package",
+                        "human-readable PDF/export manifest",
                         "repository hygiene report",
-                        "manager handoff report"
+                        "manager/owner handoff report"
                     ],
-                    "purpose": "Package final paper and prove delivery cleanliness.",
+                    "purpose": "Export a closed manuscript candidate into human-readable artifacts and prove delivery hygiene without claiming submission/publication readiness.",
                     "stage_local_overlays": [
                         {
                             "authority_boundary": "stage-local overlay only; controller-only routing; controller retains completion authority",
@@ -5819,7 +6061,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
             }
         ],
         "worker_task_packet_evidence": {
-            "blocker": "Stage is owner-gated, script-generated, or main-controller assembly; fake worker packets are forbidden.",
+            "blocker": "S16 is a controller-owned deterministic export/hygiene/handoff verifier; verifier subagents may report checklist evidence but fake worker task packets are forbidden.",
             "packet_ref": null,
             "required": false,
             "return_contract_ref": null,

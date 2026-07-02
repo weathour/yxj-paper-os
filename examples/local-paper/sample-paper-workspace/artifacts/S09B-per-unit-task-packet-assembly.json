@@ -15,7 +15,7 @@
     "single-writer lock",
     "missing material report"
   ],
-  "purpose": "Compile one bounded writing TaskPacket for a section/unit.",
+  "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
   "schema_version": "ppg-pilot-stage-artifact/v0.1",
   "source_project": "sample-paper-workspace",
   "stage_id": "S09B",

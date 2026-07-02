@@ -47,9 +47,16 @@
   ],
   "stage_name": "Novelty and contribution option analysis",
   "validators": [
-    "evidence readiness score",
-    "source anchors",
-    "owner semantic-shift gate"
+    "S03_contribution_option_queue",
+    "S03_option_coverage_ledger",
+    "S03_sota_contrast_matrix",
+    "S03_evidence_readiness_classifier",
+    "S03_rejected_option_register",
+    "S03_owner_gated_option_register",
+    "S03_reviewer_attack_map",
+    "S03_s04_handoff_coverage",
+    "S03_no_claim_admissibility_or_final_wording",
+    "S03_no_completion_overclaim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,

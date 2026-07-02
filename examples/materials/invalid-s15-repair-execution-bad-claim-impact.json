@@ -1,0 +1,245 @@
+{
+  "schema_version": "ppg-material/v0.1",
+  "material_id": "phase10_s15_repair_execution_report",
+  "version": "v1",
+  "status": "candidate",
+  "material_type": "S15RepairExecutionReport",
+  "summary": "Scoped S15 repair execution report proving packet acknowledgement, diff locality, stale propagation, unrelated-node preservation, candidate finding resolution, no-new-high-severity risk scan, and candidate-only authority boundary.",
+  "payload": {
+    "schema_version": "ppg-s15-repair-execution-report/v0.1",
+    "stage_id": "S15",
+    "completion_boundary": "repair_candidate_only_controller_commits_graph_after_validation_no_export_or_submission_completion",
+    "authority_boundary": {
+      "graph_completion_claimed": false,
+      "manuscript_completion_claimed": false,
+      "pdf_exported": false,
+      "submission_readiness_claimed": false,
+      "publication_readiness_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_allowed_paths": false,
+      "controller_commit_claimed": false,
+      "controller_owned_completion": true
+    },
+    "repair_task_ack": {
+      "repair_task_id": "s14-task-s06-s07-object-bridge",
+      "source_s14_plan": "examples/materials/phase10_s14_backflow_repair_plan.json",
+      "task_kind": "control_reselection_repair",
+      "target_stage": "S06",
+      "target_material": "phase10_s06_object_granularity",
+      "base_version": "v1",
+      "understood_scope": "Clarify the authority-loss to bounded-reconfiguration object bridge and regenerate only affected control/text/integration/review candidates.",
+      "allowed_write_paths": [
+        "examples/materials/phase10_s15_repair_execution_report.json"
+      ],
+      "allowed_actions": [
+        "read_material_bundle",
+        "draft_candidate_artifact",
+        "return_evidence"
+      ],
+      "forbidden_actions": [
+        "mark_graph_complete",
+        "dispatch_subagents",
+        "change_owner_intent",
+        "write_outside_allowed_paths"
+      ],
+      "refused_scope_expansion": [
+        "whole-paper rewrite",
+        "S04 claim-strength change",
+        "unrelated figure contract changes"
+      ],
+      "stop_condition_acknowledged": true
+    },
+    "pre_repair_snapshot": {
+      "target_material": "phase10_s06_object_granularity",
+      "base_version": "v1",
+      "hash_or_version_ref": "phase10_s06_object_granularity:v1",
+      "downstream_stale_set_before": [
+        "phase10_s09a_rich_control_bundle",
+        "phase10_s09b_task_packet_assembly",
+        "phase10_s10_candidate_text_return",
+        "phase10_s12_integration_report",
+        "phase10_s13_adversarial_review_report"
+      ]
+    },
+    "target_material_diff": {
+      "changed_materials": [
+        "phase10_s06_object_granularity.repair_candidate",
+        "phase10_s07_surface_control.repair_candidate",
+        "phase10_s10_intro_callout_candidate.repair_candidate"
+      ],
+      "changed_paths": [
+        "examples/materials/phase10_s15_repair_execution_report.json"
+      ],
+      "protected_materials_unchanged": [
+        "phase10_s04_claim_admissibility",
+        "phase10_s08_visual_formal_plan",
+        "phase10_s11_figure_caption_artifact_bundle"
+      ],
+      "locality_rationale": "The candidate repair is limited to the authorized object bridge and dependent intro callout chain; no unrelated section, figure contract, or claim boundary is changed."
+    },
+    "revised_material_candidate": {
+      "material_id": "phase10_s06_object_granularity",
+      "version_candidate": "v1-s15-object-bridge-candidate",
+      "content_ref": "examples/materials/phase10_s15_repair_execution_report.json#payload.regenerated_text_or_figure_candidates[0]",
+      "claim_boundary_impact": "strengthened"
+    },
+    "regenerated_task_packets": [
+      {
+        "packet_id": "phase10_s09b_s10_intro_callout_packet_v1_s15_candidate",
+        "regeneration_reason": "S06/S07 bridge controls changed for intro callout locality",
+        "target_stage": "S09B"
+      }
+    ],
+    "regenerated_text_or_figure_candidates": [
+      {
+        "artifact_id": "phase10_intro_callout_candidate_s15_bridge",
+        "artifact_kind": "section_text",
+        "content_ref": "examples/materials/phase10_s15_repair_execution_report.json#payload.local_candidate_excerpt"
+      },
+      {
+        "artifact_id": "phase10_s06_object_bridge_control_candidate",
+        "artifact_kind": "control_material",
+        "content_ref": "examples/materials/phase10_s15_repair_execution_report.json#payload.revised_material_candidate"
+      }
+    ],
+    "local_candidate_excerpt": "When authority degrades, the paper first treats the event as a bounded state change, then asks how the reconfiguration logic keeps the response inside the admitted claim boundary.",
+    "affected_downstream_regeneration_log": [
+      {
+        "node": "phase10_s09a_rich_control_bundle",
+        "action": "regenerated",
+        "evidence_ref": "control reselection candidate recorded in S15 report"
+      },
+      {
+        "node": "phase10_s09b_task_packet_assembly",
+        "action": "regenerated",
+        "evidence_ref": "regenerated_task_packets[0]"
+      },
+      {
+        "node": "phase10_s10_candidate_text_return",
+        "action": "regenerated",
+        "evidence_ref": "regenerated_text_or_figure_candidates[0]"
+      },
+      {
+        "node": "phase10_s12_integration_report",
+        "action": "revalidated",
+        "evidence_ref": "updated_validator_report.passed:S12_integration_consistency"
+      },
+      {
+        "node": "phase10_s13_adversarial_review_report",
+        "action": "revalidated",
+        "evidence_ref": "finding_resolution_evidence"
+      }
+    ],
+    "stale_resolution_report": {
+      "stale_nodes_resolved": [
+        "phase10_s09a_rich_control_bundle",
+        "phase10_s09b_task_packet_assembly",
+        "phase10_s10_candidate_text_return",
+        "phase10_s12_integration_report",
+        "phase10_s13_adversarial_review_report"
+      ],
+      "stale_nodes_remaining": [],
+      "remaining_stale_reason": "none"
+    },
+    "unrelated_node_preservation_report": {
+      "checked_nodes": [
+        "phase10_s04_claim_admissibility",
+        "phase10_s08_visual_formal_plan",
+        "phase10_s11_figure_caption_artifact_bundle"
+      ],
+      "unchanged_evidence": [
+        "no S04 claim strength field changed",
+        "no S08 figure contract changed",
+        "no S11 proof role or caption claim boundary changed"
+      ]
+    },
+    "finding_resolution_evidence": {
+      "finding_id": "s13-reader-object-transition-compressed",
+      "resolution_status": "resolved_candidate",
+      "evidence_refs": [
+        "local_candidate_excerpt",
+        "target_material_diff.locality_rationale",
+        "updated_validator_report.passed"
+      ],
+      "explanation": "The candidate introduces a local bridge from authority degradation to bounded state change before the reconfiguration logic, addressing the S13 reader/object transition concern without changing claim strength."
+    },
+    "updated_validator_report": {
+      "validators_run": [
+        "S06_object_granularity",
+        "S07_rhetoric_surface_control",
+        "S09_control_packet_assembly",
+        "S10_candidate_text_return",
+        "S12_integration_consistency",
+        "S13_adversarial_review_report"
+      ],
+      "passed": [
+        "S06_object_granularity",
+        "S07_rhetoric_surface_control",
+        "S09_control_packet_assembly",
+        "S10_candidate_text_return",
+        "S12_integration_consistency",
+        "S13_adversarial_review_report"
+      ],
+      "failed": [],
+      "not_run_with_reason": []
+    },
+    "new_risk_scan": {
+      "new_high_severity_findings": [],
+      "residual_risks": [
+        "S16 still needs rendered export/handoff validation after all repair candidates are committed by the controller."
+      ]
+    },
+    "candidate_artifact_return": {
+      "schema_version": "ppg-candidate-return/v0.1",
+      "return_id": "phase10_s15_repair_execution_report_return_v1",
+      "status": "candidate",
+      "packet_id": "phase10_s15_scoped_repair_packet_v1",
+      "output_artifact_path": "examples/materials/phase10_s15_repair_execution_report.json",
+      "evidence": [
+        "repair_task_ack binds S14 task s14-task-s06-s07-object-bridge",
+        "target_material_diff changes only the allowed S15 report path and protects S04/S08/S11 materials",
+        "finding_resolution_evidence marks the S13 object-transition finding resolved_candidate with S12/S13 revalidation evidence"
+      ],
+      "validator_expectations": [
+        "S15_strict_packet_ack",
+        "S15_diff_locality",
+        "S15_stale_propagation",
+        "S15_finding_resolution",
+        "S15_no_new_high_severity",
+        "S15_candidate_return_schema"
+      ],
+      "remaining_risks": [
+        "Controller must still commit accepted material versions and rerun downstream graph promotion gates."
+      ],
+      "graph_completion_claimed": false,
+      "recursive_dispatch_requested": false,
+      "writes_outside_allowed_paths": false
+    },
+    "missing_material_report": {
+      "status": "not_blocked",
+      "backflow_target_if_blocked": "S14"
+    },
+    "verifier_evidence": {
+      "agent_type": "verifier",
+      "verification_status": "pass_with_risks",
+      "checks_completed": [
+        "strict_packet_ack",
+        "diff_locality",
+        "unrelated_nodes_unchanged",
+        "stale_propagation",
+        "finding_resolution_evidence",
+        "no_new_high_severity",
+        "overlay_clause_preserved",
+        "candidate_return_schema",
+        "no_completion_claim"
+      ],
+      "accepted_repair_candidate": "phase10_s15_repair_execution_report",
+      "remaining_verifier_risks": [
+        "controller commit and final export remain outside S15 authority"
+      ]
+    },
+    "remaining_risks": [
+      "S15 returns a repair candidate only; controller must commit graph state and S16 must export after review closure."
+    ]
+  }
+}

@@ -2,26 +2,35 @@
   "activation_policy": "activate when review finding exists",
   "backflow_targets": [
     "S04",
+    "S05",
+    "S06",
     "S07",
+    "S08",
     "S09A",
     "S09B",
-    "S15"
+    "S10",
+    "S11",
+    "S12",
+    "S15",
+    "S16",
+    "owner"
   ],
-  "completion_gate": "no accepted finding remains unrouted",
+  "completion_gate": "S14BackflowRepairPlan validates that every accepted finding is normalized, routed to a nearest responsible concrete stage/material, assigned a bounded local repair task, stale/protected nodes are explicit, owner gates are preserved, and no repair/completion is claimed",
   "consumes": [
-    "review outputs",
+    "accepted S13/S16/validator findings",
     "validator reports",
-    "affected materials graph"
+    "affected material graph slice",
+    "owner gate policy"
   ],
-  "coverage_status": "implemented_partial_phase5_phase7",
+  "coverage_status": "planned_full_stage",
   "execution_mode": "hybrid_generated",
   "produces": [
-    "narrative backflow task",
-    "repair task packets",
-    "control reselection tasks",
+    "normalized backflow repair plan",
+    "nearest responsible stage map",
+    "bounded repair task plan",
     "response action map"
   ],
-  "purpose": "Convert review/loss signals into local repair tasks.",
+  "purpose": "Normalize accepted review/loss findings into nearest-responsible, owner-gated, bounded repair plans without executing repair.",
   "recommended_agent_type": "planner",
   "subagent_lane_policy": {
     "policy": "conditional_double",
@@ -49,10 +58,18 @@
   ],
   "stage_name": "Backflow compilation and repair planning",
   "validators": [
-    "target layer/material",
-    "affected downstream nodes",
-    "repair mission",
-    "owner gate status"
+    "S14_finding_intake_coverage",
+    "S14_duplicate_and_rejection_reason",
+    "S14_failure_type_classification",
+    "S14_nearest_responsible_stage",
+    "S14_no_bare_S09_route",
+    "S14_repair_locality",
+    "S14_affected_downstream_nodes",
+    "S14_protected_unrelated_nodes",
+    "S14_owner_gate_status",
+    "S14_task_packet_compile",
+    "S14_no_execution",
+    "S14_no_completion_claim"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
