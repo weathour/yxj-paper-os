@@ -1,0 +1,11 @@
+{
+  "schema_version": "ppg-source-tree-snapshot/v0.1",
+  "snapshot_id": "compiled-draft-source-tree-after-fixture-v1",
+  "tracked_sources": [
+    "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+    "examples/local-paper/sample-paper-workspace/refs/references.bib",
+    "examples/local-paper/sample-paper-workspace/figures/figure1.pdf"
+  ],
+  "unexpected_changes": [],
+  "status": "captured"
+}

@@ -23,6 +23,21 @@ NEGATIVE_TEXT_SENTINELS = (
     "tbd",
 )
 POSITIVE_REFERENCE_ANCHORS = ("references", "bibliography", "参考文献")
+SOURCE_WRITEBACK_REF_KEYS = (
+    "latex_writeback_plan_ref",
+    "latex_writeback_patchset_ref",
+    "latex_writeback_apply_report_ref",
+    "source_tree_after_writeback_ref",
+    "claim_boundary_audit_ref",
+    "template_compatibility_check_ref",
+)
+POST_WRITEBACK_REF_KEYS = (
+    "s12_post_writeback_ref",
+    "build_after_writeback_ref",
+    "rendered_surface_review_ref",
+    "pdf_text_ref",
+    "output_pdf_ref",
+)
 
 
 def fail(code: str, message: str) -> NoReturn:
@@ -75,6 +90,37 @@ def text_from(path: Path) -> str:
 
 def paragraph_count(text: str) -> int:
     return sum(1 for part in text.replace("\r\n", "\n").split("\n\n") if len(part.strip()) >= 80)
+
+
+def verify_hashed_evidence_ref(section: str, key: str, value: Any, hash_manifest: dict[str, str], exported_paths: set[str]) -> None:
+    if not isinstance(value, str) or not value:
+        fail("E_S16_LIVE_EVIDENCE", f"{section}.{key} must be a non-empty ref")
+    if value not in exported_paths:
+        fail("E_S16_LIVE_EVIDENCE", f"{section}.{key} must be listed in export_manifest.exported_files: {value}")
+    expected = hash_manifest.get(value)
+    if not expected:
+        fail("E_S16_LIVE_EVIDENCE", f"{section}.{key} must be hash-listed in file_hash_manifest: {value}")
+    path = safe_repo_file(value)
+    if not path.is_file():
+        fail("E_S16_LIVE_EVIDENCE", f"missing {section}.{key} file: {value}")
+    actual = sha256(path)
+    if actual != expected:
+        fail("E_S16_LIVE_EVIDENCE", f"{section}.{key} hash mismatch for {value}")
+
+
+def verify_compiled_writeback_evidence(payload: dict[str, Any], hash_manifest: dict[str, str], exported_paths: set[str]) -> None:
+    source = payload.get("source_writeback_evidence")
+    post = payload.get("post_writeback_validation")
+    if not isinstance(source, dict) or not isinstance(post, dict):
+        fail("E_S16_LIVE_EVIDENCE", "compiled targets require source_writeback_evidence and post_writeback_validation")
+    if source.get("status") != "applied":
+        fail("E_S16_LIVE_EVIDENCE", "source_writeback_evidence.status must be applied")
+    if post.get("status") != "pass":
+        fail("E_S16_LIVE_EVIDENCE", "post_writeback_validation.status must be pass")
+    for key in SOURCE_WRITEBACK_REF_KEYS:
+        verify_hashed_evidence_ref("source_writeback_evidence", key, source.get(key), hash_manifest, exported_paths)
+    for key in POST_WRITEBACK_REF_KEYS:
+        verify_hashed_evidence_ref("post_writeback_validation", key, post.get(key), hash_manifest, exported_paths)
 
 
 def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[str, str], exported_paths: set[str]) -> None:
@@ -151,12 +197,13 @@ def verify_live(payload: dict[str, Any]) -> None:
     if not isinstance(hashes, list) or not hashes:
         fail("E_S16_LIVE_MANIFEST", "file_hash_manifest must be non-empty")
     hash_manifest = {str(item.get("path")): str(item.get("sha256")) for item in hashes if isinstance(item, dict)}
-    exported_paths: set[str] = set()
+    exported_paths = {str(item.get("path") or "") for item in exported_files if isinstance(item, dict)}
+    if is_compiled_target(payload):
+        verify_compiled_writeback_evidence(payload, hash_manifest, exported_paths)
     for item in exported_files:
         if not isinstance(item, dict):
             fail("E_S16_LIVE_MANIFEST", "export_manifest item must be an object")
         path_text = str(item.get("path") or "")
-        exported_paths.add(path_text)
         path = safe_repo_file(path_text)
         if not path.is_file():
             fail("E_S16_LIVE_FILE", f"missing exported file: {path_text}")

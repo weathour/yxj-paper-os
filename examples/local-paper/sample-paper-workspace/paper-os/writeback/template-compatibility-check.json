@@ -1,0 +1,7 @@
+{
+  "schema_version": "ppg-template-compatibility-check/v0.1",
+  "check_id": "compiled-draft-template-compatibility-fixture-v1",
+  "template_only_sections_remaining": [],
+  "internal_stage_id_leakage": [],
+  "status": "pass"
+}

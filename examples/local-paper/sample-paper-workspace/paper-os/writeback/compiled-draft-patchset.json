@@ -1,0 +1,10 @@
+{
+  "schema_version": "ppg-latex-writeback-patchset/v0.1",
+  "patchset_id": "compiled-draft-patchset-fixture-v1",
+  "files_changed": [
+    "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
+    "examples/local-paper/sample-paper-workspace/refs/references.bib"
+  ],
+  "claim_boundary_preserved": true,
+  "status": "prepared"
+}

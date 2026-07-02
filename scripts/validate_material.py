@@ -6063,6 +6063,8 @@ def _s16_valid_sha256(value: Any) -> bool:
 
 def _collect_s16_required_manifest_paths(payload: dict[str, Any]) -> set[str]:
     required: set[str] = set()
+    target = as_mapping(payload.get("delivery_target"))
+    compiled = target is not None and target.get("kind") in S16_COMPILED_DELIVERY_TARGETS
     readiness = as_mapping(payload.get("build_readiness_check"))
     if readiness is not None:
         for key in ("output_paths", "figure_paths"):
@@ -6086,12 +6088,45 @@ def _collect_s16_required_manifest_paths(payload: dict[str, Any]) -> set[str]:
     surface = as_mapping(payload.get("rendered_surface_check"))
     if surface is not None and is_non_empty_string(surface.get("rendered_text_ref")):
         required.add(str(surface["rendered_text_ref"]))
+    if surface is not None and is_non_empty_string(surface.get("source_pdf_ref")):
+        required.add(str(surface["source_pdf_ref"]))
     post_writeback = as_mapping(payload.get("post_writeback_validation"))
     if post_writeback is not None:
-        for key in ("pdf_text_ref", "output_pdf_ref"):
+        keys = ("pdf_text_ref", "output_pdf_ref")
+        if compiled:
+            keys = tuple(sorted(S16_POST_WRITEBACK_REQUIRED_FIELDS - {"status", "pdf_text_sha256", "output_pdf_sha256"}))
+        for key in keys:
             if is_non_empty_string(post_writeback.get(key)):
                 required.add(str(post_writeback[key]))
+    if compiled:
+        source_writeback = as_mapping(payload.get("source_writeback_evidence"))
+        if source_writeback is not None:
+            for key in sorted(S16_SOURCE_WRITEBACK_REQUIRED_FIELDS - {"status"}):
+                if is_non_empty_string(source_writeback.get(key)):
+                    required.add(str(source_writeback[key]))
     return required
+
+
+def _collect_s16_expected_manifest_hashes(payload: dict[str, Any]) -> dict[str, tuple[str, str]]:
+    target = as_mapping(payload.get("delivery_target"))
+    if target is None or target.get("kind") not in S16_COMPILED_DELIVERY_TARGETS:
+        return {}
+    expected: dict[str, tuple[str, str]] = {}
+
+    def add(ref: Any, digest: Any, source: str) -> None:
+        if is_non_empty_string(ref) and _s16_valid_sha256(digest):
+            expected.setdefault(str(ref), (str(digest), source))
+
+    surface = as_mapping(payload.get("rendered_surface_check"))
+    if surface is not None:
+        add(surface.get("rendered_text_ref"), surface.get("rendered_text_sha256"), "rendered_surface_check.rendered_text_sha256")
+        add(surface.get("source_pdf_ref"), surface.get("source_pdf_sha256"), "rendered_surface_check.source_pdf_sha256")
+
+    post_writeback = as_mapping(payload.get("post_writeback_validation"))
+    if post_writeback is not None:
+        add(post_writeback.get("pdf_text_ref"), post_writeback.get("pdf_text_sha256"), "post_writeback_validation.pdf_text_sha256")
+        add(post_writeback.get("output_pdf_ref"), post_writeback.get("output_pdf_sha256"), "post_writeback_validation.output_pdf_sha256")
+    return expected
 
 
 def _normalize_s16_text(value: str) -> str:
@@ -6485,6 +6520,14 @@ def _validate_s16_manifests(payload: dict[str, Any], errors: list[ValidationIssu
     missing_required_hashes = sorted(required_manifest_paths - hash_paths)
     if missing_required_hashes:
         errors.append(issue("E_S16_HASH_MANIFEST_REQUIRED", f"file_hash_manifest missing required build/handoff files {missing_required_hashes}"))
+    expected_manifest_hashes = _collect_s16_expected_manifest_hashes(payload)
+    for path, (expected_sha, source) in sorted(expected_manifest_hashes.items()):
+        exported_sha = exported_hashes.get(path)
+        if exported_sha is not None and exported_sha != expected_sha:
+            errors.append(issue("E_S16_HASH_MANIFEST_REQUIRED", f"export_manifest hash for {path!r} must match {source}"))
+        manifest_sha = file_hashes.get(path)
+        if manifest_sha is not None and manifest_sha != expected_sha:
+            errors.append(issue("E_S16_HASH_MANIFEST_REQUIRED", f"file_hash_manifest hash for {path!r} must match {source}"))
     mismatched_hashes = sorted(path for path in exported_paths & hash_paths if exported_hashes.get(path) != file_hashes.get(path))
     if mismatched_hashes:
         errors.append(issue("E_S16_HASH_MANIFEST_REQUIRED", f"file_hash_manifest hash mismatch for exported files {mismatched_hashes}"))

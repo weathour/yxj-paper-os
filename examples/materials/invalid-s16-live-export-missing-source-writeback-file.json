@@ -24,18 +24,18 @@
       "human_readable_export_allowed": true
     },
     "evidence_mode": {
-      "mode": "fixture_projection",
+      "mode": "live_export",
       "live_mode_verifier": "scripts/verify_s16_live_export_evidence.py",
-      "handoff_claim_boundary": "This fixture validates S16 contract structure only; run live_export mode verification before claiming physical PDF/export handoff proof."
+      "handoff_claim_boundary": "Live export fixture checks file existence, hashes, PDF header, and hash-bound rendered text semantics; it still does not claim external submission."
     },
     "live_export_verification": {
-      "status": "not_run_fixture_projection",
-      "filesystem_paths_checked": false,
-      "hashes_recomputed": false,
-      "pdf_opened_from_disk": false,
-      "physical_export_claimed": false,
+      "status": "passed_live_export_verification",
+      "filesystem_paths_checked": true,
+      "hashes_recomputed": true,
+      "pdf_opened_from_disk": true,
+      "physical_export_claimed": true,
       "live_handoff_claimed": false,
-      "required_before_owner_handoff": "For a real owner-facing handoff, create a live_export material and run scripts/verify_s16_live_export_evidence.py to check file existence, recompute hashes, and verify PDF/log paths."
+      "required_before_owner_handoff": "Live fixture evidence is complete for local owner-readable export proof; external submission remains owner-gated."
     },
     "delivery_target": {
       "kind": "compiled_initial_draft",
@@ -112,9 +112,10 @@
       ],
       "references_present": true,
       "obvious_rendering_anomalies": [],
-      "rendered_text_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "rendered_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
+      "rendered_text_sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91",
       "source_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
-      "source_pdf_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "source_pdf_sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e",
       "template_only_text_absent": true,
       "manuscript_not_started_absent": true,
       "placeholder_text_absent": true,
@@ -129,22 +130,22 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
           "kind": "pdf",
-          "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+          "sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
           "kind": "tex",
-          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          "sha256": "0d417f11d6396b8ff939d1af3ba187b0e50b2f572b41196b441ecbe2aa7c2f77"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/refs/references.bib",
           "kind": "bib",
-          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          "sha256": "3c37f9960f72cd958bf211e04a6b4958b2b6fef3c021b8aa6dcb681f2b97c856"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
           "kind": "figure",
-          "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          "sha256": "c6c485f9e96878ce33c4394c3d18d1eedb4d69ed7179098b4edf98886e5d231d"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
@@ -154,12 +155,12 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
           "kind": "report",
-          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          "sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91"
         },
         {
-          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/missing-compiled-draft-plan.json",
           "kind": "report",
-          "sha256": "c182302fdcbba92e7b84cdb0962140b3c069c3ccfeac13449c3ace844913e666"
+          "sha256": "7777777777777777777777777777777777777777777777777777777777777777"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-patchset.json",
@@ -201,19 +202,19 @@
     "file_hash_manifest": [
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
-        "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        "sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
-        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        "sha256": "0d417f11d6396b8ff939d1af3ba187b0e50b2f572b41196b441ecbe2aa7c2f77"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/refs/references.bib",
-        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        "sha256": "3c37f9960f72cd958bf211e04a6b4958b2b6fef3c021b8aa6dcb681f2b97c856"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
-        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        "sha256": "c6c485f9e96878ce33c4394c3d18d1eedb4d69ed7179098b4edf98886e5d231d"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
@@ -221,11 +222,11 @@
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
-        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        "sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91"
       },
       {
-        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
-        "sha256": "c182302fdcbba92e7b84cdb0962140b3c069c3ccfeac13449c3ace844913e666"
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/missing-compiled-draft-plan.json",
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-patchset.json",
@@ -330,13 +331,14 @@
         "handoff_complete",
         "feedback_route_declared",
         "no_submission_or_publication_claim"
-      ]
+      ],
+      "notes": "Negative fixture: source writeback plan ref is manifest-listed but missing from disk for live verification."
     },
     "remaining_risks": [
       "Owner-facing reading may produce new content findings; those must be routed through S14 rather than direct source edits."
     ],
     "source_writeback_evidence": {
-      "latex_writeback_plan_ref": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
+      "latex_writeback_plan_ref": "examples/local-paper/sample-paper-workspace/paper-os/writeback/missing-compiled-draft-plan.json",
       "latex_writeback_patchset_ref": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-patchset.json",
       "latex_writeback_apply_report_ref": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-apply-report.json",
       "source_tree_after_writeback_ref": "examples/local-paper/sample-paper-workspace/paper-os/writeback/source-tree-after.json",
@@ -349,9 +351,9 @@
       "build_after_writeback_ref": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
       "rendered_surface_review_ref": "examples/local-paper/sample-paper-workspace/build/rendered-surface-review.json",
       "pdf_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
-      "pdf_text_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "pdf_text_sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91",
       "output_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
-      "output_pdf_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "output_pdf_sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e",
       "status": "pass"
     }
   }

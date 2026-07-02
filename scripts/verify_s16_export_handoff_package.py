@@ -18,6 +18,7 @@ LIVE_COMPILED_MATERIAL = ROOT / "examples/materials/phase10_s16_compiled_live_ex
 LIVE_TEMPLATE_TEXT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-template-pdf-text.json"
 LIVE_MISMATCHED_SOURCE_PDF_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-mismatched-source-pdf-ref.json"
 LIVE_MISSING_TEXT_EXPORT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-text-export-manifest.json"
+LIVE_MISSING_SOURCE_WRITEBACK_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-source-writeback-file.json"
 PUBLIC_CONSUMES = [
     "closed S12 integrated manuscript candidate",
     "S13 review closure evidence",
@@ -94,6 +95,7 @@ REQUIRED_DIMS = {
     "s16_nature_overlay",
 }
 NEGATIVES = {
+    "invalid-s16-export-handoff-compiled-target-stale-manifest-hashes.json": "E_S16_HASH_MANIFEST_REQUIRED",
     "invalid-s16-live-export-missing-text-export-manifest.json": "E_S16_EXPORT_MANIFEST_REQUIRED",
     "invalid-s16-live-export-mismatched-source-pdf-ref.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-active-target-downcast.json": "E_S16_DELIVERY_TARGET_BINDING",
@@ -162,6 +164,9 @@ def verify_fixtures() -> None:
     bad_text_manifest = run([sys.executable, str(VERIFY_LIVE), str(LIVE_MISSING_TEXT_EXPORT_NEGATIVE)])
     if bad_text_manifest.returncode == 0 or not ("E_S16_EXPORT_MANIFEST_REQUIRED" in bad_text_manifest.stdout or "E_S16_LIVE_TEXT" in bad_text_manifest.stdout):
         fail("E_S16_LIVE_TEXT_EXPORT_MANIFEST_NEGATIVE", bad_text_manifest.stdout)
+    bad_source_writeback = run([sys.executable, str(VERIFY_LIVE), str(LIVE_MISSING_SOURCE_WRITEBACK_NEGATIVE)])
+    if bad_source_writeback.returncode == 0 or "E_S16_LIVE_EVIDENCE" not in bad_source_writeback.stdout:
+        fail("E_S16_LIVE_SOURCE_WRITEBACK_NEGATIVE", bad_source_writeback.stdout)
     for name, expected_code in NEGATIVES.items():
         result = run([sys.executable, str(VALIDATE_MATERIAL), str(ROOT / "examples/materials" / name)])
         if result.returncode == 0 or expected_code not in result.stdout:

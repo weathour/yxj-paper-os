@@ -1,0 +1,10 @@
+{
+  "schema_version": "ppg-rendered-surface-review/v0.1",
+  "review_id": "compiled-draft-rendered-surface-review-fixture-v1",
+  "pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
+  "text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
+  "body_paragraphs_present": true,
+  "bibliography_present": true,
+  "forbidden_template_sentinels": [],
+  "status": "pass"
+}

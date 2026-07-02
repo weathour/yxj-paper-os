@@ -112,6 +112,7 @@
       ],
       "references_present": true,
       "obvious_rendering_anomalies": [],
+      "rendered_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
       "rendered_text_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
       "source_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
       "source_pdf_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
@@ -129,7 +130,7 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
           "kind": "pdf",
-          "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+          "sha256": "8888888888888888888888888888888888888888888888888888888888888888"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
@@ -154,7 +155,7 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
           "kind": "report",
-          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          "sha256": "9999999999999999999999999999999999999999999999999999999999999999"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
@@ -201,7 +202,7 @@
     "file_hash_manifest": [
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
-        "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        "sha256": "8888888888888888888888888888888888888888888888888888888888888888"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
@@ -221,7 +222,7 @@
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
-        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        "sha256": "9999999999999999999999999999999999999999999999999999999999999999"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
@@ -330,7 +331,8 @@
         "handoff_complete",
         "feedback_route_declared",
         "no_submission_or_publication_claim"
-      ]
+      ],
+      "notes": "Negative fixture: export/hash manifests are internally consistent but stale relative to rendered_surface_check/post_writeback_validation hashes."
     },
     "remaining_risks": [
       "Owner-facing reading may produce new content findings; those must be routed through S14 rather than direct source edits."

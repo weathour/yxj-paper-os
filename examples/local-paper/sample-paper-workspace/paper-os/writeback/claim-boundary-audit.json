@@ -1,0 +1,7 @@
+{
+  "schema_version": "ppg-claim-boundary-audit/v0.1",
+  "audit_id": "compiled-draft-claim-boundary-audit-fixture-v1",
+  "overclaims": [],
+  "unsupported_claims": [],
+  "boundary_status": "pass"
+}

@@ -637,6 +637,7 @@ The S16 target-global delivery gate is covered by focused fixture and live-expor
 python3 scripts/verify_s16_export_handoff_package.py
 python3 scripts/verify_s16_live_export_evidence.py examples/materials/phase10_s16_compiled_live_export_package.json
 python3 scripts/verify_s16_live_export_evidence.py examples/materials/invalid-s16-live-export-template-pdf-text.json  # must fail E_S16_LIVE_TEXT
+python3 scripts/verify_s16_live_export_evidence.py examples/materials/invalid-s16-live-export-missing-source-writeback-file.json  # must fail E_S16_LIVE_EVIDENCE
 ```
 
 Regression expectations:
@@ -646,6 +647,8 @@ Regression expectations:
 - Compiled targets without source-writeback evidence fail `E_S16_SOURCE_WRITEBACK_REQUIRED`.
 - Compiled targets without post-writeback validation fail `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED`.
 - Compiled targets with template/manuscript-not-started/placeholder rendered text fail `E_S16_PDF_SEMANTIC_SURFACE` or `E_S16_LIVE_TEXT`.
+- Compiled targets whose rendered text/PDF manifest hashes drift from `rendered_surface_check` or `post_writeback_validation` fail `E_S16_HASH_MANIFEST_REQUIRED`.
+- Live compiled targets whose source-writeback/post-writeback evidence refs do not exist or do not match manifest hashes fail `E_S16_LIVE_EVIDENCE`.
 - Existing non-compiled export-hygiene/template handoffs remain valid only with explicit non-compiled `delivery_target`.
 
 ### Active-target downcast regression

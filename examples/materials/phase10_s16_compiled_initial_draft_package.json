@@ -130,7 +130,7 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
           "kind": "pdf",
-          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
@@ -150,19 +150,59 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
           "kind": "log",
-          "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          "sha256": "553d7050cb70eb73004895074cb0d09b48f2463e915b9a54785f504fb60890e9"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
           "kind": "report",
           "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
+          "kind": "report",
+          "sha256": "c182302fdcbba92e7b84cdb0962140b3c069c3ccfeac13449c3ace844913e666"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-patchset.json",
+          "kind": "report",
+          "sha256": "c44b36b1d7d044403a679b51e345ccc3516823cfa7cf7d27af1881e86a06841e"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-apply-report.json",
+          "kind": "report",
+          "sha256": "dcaf9180221f3319666083860d441f5c8446f68a42690386cefe691fbfb4884b"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/source-tree-after.json",
+          "kind": "report",
+          "sha256": "917522c3c1eaac3ee537a59653e9da039a0fcc64f19480d3a797abe5ffe752f0"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/claim-boundary-audit.json",
+          "kind": "report",
+          "sha256": "bf7aa120c7218b3303e771b89832d4ec3a06dc97030b53b8eed90d6146c4271d"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/template-compatibility-check.json",
+          "kind": "report",
+          "sha256": "181aedff0bd0785ab220f63a70110f3236b1873c314fe837d9b886819cac27df"
+        },
+        {
+          "path": "examples/materials/phase10_s12_integration_report.json",
+          "kind": "report",
+          "sha256": "eed07464b309698a7c695a32d23dbf3775cb9b4779f9adb446888fd8089aee30"
+        },
+        {
+          "path": "examples/local-paper/sample-paper-workspace/build/rendered-surface-review.json",
+          "kind": "report",
+          "sha256": "2513d1bd3eeaf06797edddef6d620cc3f2fbb4c4bf729b4a2cdc6639999aecd9"
         }
       ]
     },
     "file_hash_manifest": [
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.pdf",
-        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/manuscript/main.tex",
@@ -178,11 +218,43 @@
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
-        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        "sha256": "553d7050cb70eb73004895074cb0d09b48f2463e915b9a54785f504fb60890e9"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
         "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
+        "sha256": "c182302fdcbba92e7b84cdb0962140b3c069c3ccfeac13449c3ace844913e666"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-patchset.json",
+        "sha256": "c44b36b1d7d044403a679b51e345ccc3516823cfa7cf7d27af1881e86a06841e"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-apply-report.json",
+        "sha256": "dcaf9180221f3319666083860d441f5c8446f68a42690386cefe691fbfb4884b"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/source-tree-after.json",
+        "sha256": "917522c3c1eaac3ee537a59653e9da039a0fcc64f19480d3a797abe5ffe752f0"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/claim-boundary-audit.json",
+        "sha256": "bf7aa120c7218b3303e771b89832d4ec3a06dc97030b53b8eed90d6146c4271d"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/template-compatibility-check.json",
+        "sha256": "181aedff0bd0785ab220f63a70110f3236b1873c314fe837d9b886819cac27df"
+      },
+      {
+        "path": "examples/materials/phase10_s12_integration_report.json",
+        "sha256": "eed07464b309698a7c695a32d23dbf3775cb9b4779f9adb446888fd8089aee30"
+      },
+      {
+        "path": "examples/local-paper/sample-paper-workspace/build/rendered-surface-review.json",
+        "sha256": "2513d1bd3eeaf06797edddef6d620cc3f2fbb4c4bf729b4a2cdc6639999aecd9"
       }
     ],
     "figure_file_checklist": [
