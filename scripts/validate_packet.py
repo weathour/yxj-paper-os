@@ -234,7 +234,8 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     write_paths = data.get("allowed_write_paths")
     output_path = data.get("output_artifact_path")
     s11_direct_call = _is_s11_nature_figure_direct_call(data)
-    write_prefixes = S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
+    s11_phase10_projection = s11_direct_call and str(data.get("packet_id", "")).endswith(".phase10_run")
+    write_prefixes = (S11_NATURE_WRITE_PREFIXES + ("runs/",)) if s11_phase10_projection else S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
 
     if not is_non_empty_string_list(read_paths):
         errors.append(issue("E_TASK_ALLOWED_READ_PATHS_REQUIRED", "allowed_read_paths must be a non-empty list of string paths"))
@@ -253,7 +254,7 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     elif isinstance(write_paths, list) and all(is_non_empty_string(path) for path in write_paths):
         if not s11_direct_call and write_paths != [output_path]:
             errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "allowed_write_paths must contain exactly output_artifact_path for strict worker packets"))
-        if s11_direct_call and not str(output_path).startswith("examples/candidate-artifacts/"):
+        if s11_direct_call and not s11_phase10_projection and not str(output_path).startswith("examples/candidate-artifacts/"):
             errors.append(issue("E_TASK_OUTPUT_PATH_REQUIRED", "S11 nature-figure direct-call output_artifact_path must remain under examples/candidate-artifacts/"))
         if s11_direct_call and str(output_path) not in write_paths:
             errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "S11 nature-figure direct-call packets must include output_artifact_path in allowed_write_paths"))

@@ -10,7 +10,7 @@
     }
   ],
   "completion_boundary": "validation proves run readiness only; controller retains completion authority",
-  "dimension_count": 9,
+  "dimension_count": 13,
   "evidence": [
     "S11 StageContract is linked",
     "S11 PilotStageRun is present",
@@ -41,7 +41,14 @@
     "s11_export_manifest",
     "s11_candidate_return_complete",
     "s11_verifier_evidence",
-    "s11_authority_boundary"
+    "s11_authority_boundary",
+    "S11_nature_figure_vendor_present",
+    "S11_nature_figure_parity_manifest",
+    "S11_nature_figure_backend_gate",
+    "S11_nature_figure_direct_call_mapping",
+    "S11_no_cross_backend_rendering",
+    "S11_no_mock_data_for_evidential_figure",
+    "S11_exemplar_boundary_and_similarity_report"
   ],
   "run_id": "sample-paper-workspace.readiness-dry-run",
   "schema_version": "ppg-phase10-stage-validation/v0.1",

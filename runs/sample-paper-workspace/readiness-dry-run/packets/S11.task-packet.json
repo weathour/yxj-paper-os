@@ -13,7 +13,7 @@
     "examples/materials/phase10_s07_surface_control.yaml"
   ],
   "allowed_tools": [
-    "none"
+    "python3"
   ],
   "allowed_write_paths": [
     "runs/sample-paper-workspace/readiness-dry-run/candidate-artifacts/S11.candidate-placeholder.json"
@@ -68,6 +68,15 @@
   "expected_output_schema": "ppg-s11-figure-caption-artifact-bundle/v0.1",
   "expected_payload_schema": "ppg-candidate-return/v0.1",
   "failure_report_format": "MissingMaterialReport with run-owned candidate path, consumed material ids, validator evidence, and no source-repository writes",
+  "figure_backend": {
+    "backend_exclusive": true,
+    "cross_backend_rendering_forbidden": true,
+    "selected_backend": "python",
+    "selected_backend_fragment": "static/fragments/backend/python.md",
+    "selected_tool": "python3",
+    "selection_source": "S08_backend_route",
+    "worker_may_ask_backend_question": false
+  },
   "forbidden_routes": [
     "mark_graph_complete",
     "mark_manuscript_complete",
@@ -115,6 +124,10 @@
         "required_output": "visual_polish_report"
       },
       {
+        "pass_id": "nature_figure_production_pass",
+        "required_output": "nature_figure_execution"
+      },
+      {
         "pass_id": "return_candidate_artifact",
         "required_output": "CandidateArtifactReturn"
       }
@@ -137,6 +150,36 @@
     "visual_formal_plan": "phase10_s08_visual_formal_plan"
   },
   "mission": "Produce a candidate figure/caption/formal-artifact bundle from the supplied S08 visual/formal contract, S04 claim boundaries, S01 source-data locators, S07 terminology/surface controls, and S09B authority boundaries. Improve visual clarity, readability, accessibility, and journal fit without changing what the visual/formal object is allowed to prove. Return editable source, render plan, source-data trace, panel-claim trace, caption-claim trace, image integrity record, visual polish report, evidence, remaining risks, and CandidateArtifactReturn only.",
+  "nature_figure_direct_call": {
+    "adapter_ref": "runtime/adapters/S11NatureFigureDirectCall.adapter.json",
+    "call_step": "S11.nature_figure_production_pass",
+    "enabled": true,
+    "expected_return_modules": [
+      "nature_figure_capability_report",
+      "nature_figure_contract",
+      "nature_figure_execution",
+      "nature_figure_qa_report",
+      "S11FigureCaptionArtifactBundle"
+    ],
+    "no_recursive_orchestration": true,
+    "parity_manifest_ref": "third_party/nature-figure/PARITY_MANIFEST.json",
+    "parity_target": "nature-figure@2.0.0",
+    "required_loaded_components": [
+      "SKILL.md",
+      "manifest.yaml",
+      "static/core/contract.md",
+      "static/core/stance.md",
+      "static/fragments/backend/python.md",
+      "references/figure-contract.md",
+      "references/qa-contract.md",
+      "references/design-theory.md"
+    ],
+    "s11_contract_overrides_skill": true,
+    "skill_ref": "third_party/nature-figure",
+    "source": "vendored",
+    "upstream_commit": "c91df241a7a963ea151687ac669c5534404f53e5",
+    "worker_completion_forbidden": true
+  },
   "no_recursive_orchestration": true,
   "output_artifact_path": "runs/sample-paper-workspace/readiness-dry-run/candidate-artifacts/S11.candidate-placeholder.json",
   "output_contract": {
@@ -150,6 +193,10 @@
       "caption_claim_trace",
       "image_integrity_record",
       "visual_polish_report",
+      "nature_figure_capability_report",
+      "nature_figure_contract",
+      "nature_figure_execution",
+      "nature_figure_qa_report",
       "accessibility_check",
       "export_manifest",
       "evidence",
@@ -172,6 +219,20 @@
       "visual_id": "fig:authority-loss-reconfiguration-schematic"
     }
   ],
+  "render_execution_policy": {
+    "editable_source_paths": [
+      "figures/src/phase10_s11_authority_loss_reconfiguration.py"
+    ],
+    "missing_runtime_rule": "return_missing_material_or_authorized_render_plan_do_not_switch_backend",
+    "mock_data_forbidden_for_evidential_figures": true,
+    "mode": "render_plan_allowed",
+    "rendered_candidate_paths": [
+      "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+      "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
+    ],
+    "schematic_without_empirical_data_allowed": true,
+    "selected_backend_runtime_check_required": true
+  },
   "return_format": {
     "candidate_artifact": "required",
     "evidence": "required",
