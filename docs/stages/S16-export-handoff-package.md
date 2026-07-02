@@ -255,3 +255,7 @@ For `compiled_initial_draft` and `revised_compiled_pdf`, S16 failure is a routin
 5. export/hash/build-only hygiene -> S16 rerun.
 
 Only after the repaired downstream flow reaches S16 with the same compiled `delivery_target` and all compiled gates passing may the controller claim an owner-readable compiled draft handoff.
+
+### Rendered text sidecar boundary
+
+For compiled targets, S16 consumes a rendered-text sidecar generated from the same output PDF by the build/export pipeline. The sidecar must be hash-listed and bound to `post_writeback_validation`; if it is absent, stale, generated from another PDF, or used to downcast an active compiled target to export hygiene, S16 fails and routes the finding back to the responsible writeback/integration/export step.

@@ -93,6 +93,7 @@ REQUIRED_DIMS = {
 }
 NEGATIVES = {
     "invalid-s16-export-handoff-active-target-downcast.json": "E_S16_DELIVERY_TARGET_BINDING",
+    "invalid-s16-export-handoff-implicit-active-target-downcast.json": "E_S16_DELIVERY_TARGET_BINDING",
     "invalid-s16-export-handoff-compiled-target-missing-semantic-surface.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-missing-source-writeback.json": "E_S16_SOURCE_WRITEBACK_REQUIRED",
     "invalid-s16-export-handoff-compiled-target-template-only.json": "E_S16_PDF_SEMANTIC_SURFACE",

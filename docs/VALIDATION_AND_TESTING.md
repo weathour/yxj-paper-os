@@ -647,3 +647,7 @@ Regression expectations:
 - Compiled targets without post-writeback validation fail `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED`.
 - Compiled targets with template/manuscript-not-started/placeholder rendered text fail `E_S16_PDF_SEMANTIC_SURFACE` or `E_S16_LIVE_TEXT`.
 - Existing non-compiled export-hygiene/template handoffs remain valid only with explicit non-compiled `delivery_target`.
+
+### Active-target downcast regression
+
+`invalid-s16-export-handoff-implicit-active-target-downcast.json` proves that a package cannot omit the active-target source by declaring `requested_target_source: fixture_contract` while still carrying a compiled `active_target_kind`. Any declared `active_target_kind`/`active_target_ref` must bind to `delivery_target.kind` and `target_ref`/`target_ref_chain`; otherwise validation fails `E_S16_DELIVERY_TARGET_BINDING`.

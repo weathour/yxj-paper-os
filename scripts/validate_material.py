@@ -6247,7 +6247,8 @@ def _validate_s16_delivery_target(payload: dict[str, Any], errors: list[Validati
     if is_non_empty_string(target.get("target_ref")) and str(target.get("target_ref")).strip() != str(target.get("target_ref")):
         errors.append(issue("E_S16_DELIVERY_TARGET_REQUIRED", "delivery_target.target_ref must be trimmed"))
 
-    if source in S16_ACTIVE_TARGET_SOURCES:
+    active_target_declared = is_non_empty_string(target.get("active_target_kind")) or is_non_empty_string(target.get("active_target_ref"))
+    if source in S16_ACTIVE_TARGET_SOURCES or active_target_declared:
         _require_mapping_fields(
             target,
             "delivery_target",
