@@ -240,87 +240,87 @@ Nodes (4): plot_radar(), Benchmark = part after the first newline (e.g. 'Qwen2.5
 
 ### Community 36 - "Community 36"
 Cohesion: 0.67
-Nodes (0): 
+Nodes (0):
 
 ### Community 37 - "Community 37"
 Cohesion: 0.67
-Nodes (0): 
+Nodes (0):
 
 ### Community 38 - "Community 38"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 39 - "Community 39"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 40 - "Community 40"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 41 - "Community 41"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 42 - "Community 42"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 43 - "Community 43"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 44 - "Community 44"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 45 - "Community 45"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 46 - "Community 46"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 47 - "Community 47"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 48 - "Community 48"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 49 - "Community 49"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 50 - "Community 50"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 51 - "Community 51"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 52 - "Community 52"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 53 - "Community 53"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 54 - "Community 54"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 55 - "Community 55"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 56 - "Community 56"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ## Knowledge Gaps
 - **12 isolated node(s):** `# NOTE: Use `*` to move the label up in the annotation. Each `*` moves it up a b`, `Benchmark = part after the first newline (e.g. 'Qwen2.5-VL-7B\\nMathVista' -> 'M`, `Single radar chart. Each axis = one subtask; one curve per method.     Each benc`, `Reject source-contained or write-through pilot roots before writes.`, `Resolve a logical material id or exact material node id.          Logical materi` (+7 more)

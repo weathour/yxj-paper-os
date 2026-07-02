@@ -38,4 +38,3 @@ schemaVersion: 1
 - 所有相关 verifier 与 fixture suite 通过。
 - code-review final recommendation 为 APPROVE 且 architectural status CLEAR。
 - ultraqa 通过或有明确适用性 skip evidence。
-

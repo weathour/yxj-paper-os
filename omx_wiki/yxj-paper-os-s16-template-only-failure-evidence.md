@@ -47,4 +47,3 @@ schemaVersion: 1
 - `delivery_target.kind in {compiled_initial_draft, revised_compiled_pdf}` 时，`content_ready/build_ready/render_clean/repository_clean/handoff_ready` 必须全部为 `pass`。
 - 同一目标下，`template_only`、`Manuscript Not Started`、缺少正文/参考文献/图表语义证据必须失败。
 - 失败后不能停在 S16；必须形成补充包/任务包，回流到负责环节（例如 S12 source-writeback integration、S15 repair execution、S16 live-export semantic evidence），再顺流重跑到 S16。
-

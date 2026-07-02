@@ -53,4 +53,3 @@ schemaVersion: 1
 ## 与 OMX/YXJ paper auto 的关系
 
 `yxj-paper-os` 作为 standalone graph runtime，不依赖 OMX；OMX/yxj-paper-auto 可以读取这些字段作为个人调度适配器。个人工作流若目标是“初稿 PDF”，必须以 delivery contract 而不是单一 stage-local `VALID` 作为终局依据。
-

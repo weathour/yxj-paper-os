@@ -51,4 +51,3 @@ schemaVersion: 1
 3. S16 live verifier 对 PDF 文本语义的检查（至少阻断 `Manuscript Not Started`、template-only、placeholder）。
 4. S12/S15/S14 文档与 registry/contract 中声明 backflow/source-writeback 责任，避免后续调度误解。
 5. 负向 fixture 覆盖旧失败样本的核心模式。
-
