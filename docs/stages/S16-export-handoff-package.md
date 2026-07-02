@@ -123,6 +123,7 @@ The controller may dispatch a producer and verifier lane when the contract requi
 - `authority_boundary`
 - `evidence_mode`
 - `live_export_verification`
+- `delivery_target`
 - `readiness_state_separation`
 - `upstream_closure_check`
 - `build_readiness_check`
@@ -142,6 +143,11 @@ The controller may dispatch a producer and verifier lane when the contract requi
 
 These fields are meant to be checked, consumed, and backflowed as structured graph materials rather than copied as prose. / 这些字段应作为结构化图物料被检查、消费和回流，而不是被复制成散文。
 
+
+## Target delivery contract / 目标交付契约
+
+S16 requires `payload.delivery_target`. A structurally valid export handoff is not automatically an initial/revised compiled PDF delivery. For `compiled_initial_draft` and `revised_compiled_pdf`, S16 must prove content-bearing PDF semantics, source-writeback evidence, post-writeback validation, and all critical readiness states `pass`; `content_ready: blocked`, template-only handoff, `Manuscript Not Started`, or placeholder-only evidence must fail and route back through S14/S15/S12/source-writeback as appropriate. See [`docs/TARGET_DELIVERY_CONTRACT.md`](../TARGET_DELIVERY_CONTRACT.md).
+
 ## 8. Validators and Failure Modes / Validator 与失败模式
 
 **Validators / 验证器：**
@@ -158,6 +164,11 @@ These fields are meant to be checked, consumed, and backflowed as structured gra
 - `S16_handoff_completeness`
 - `S16_feedback_route_declared`
 - `S16_projection_vs_live_export_boundary`
+- `S16_template_only_handoff_boundary`
+- `S16_pdf_semantic_surface`
+- `S16_compiled_pdf_target_gate`
+- `S16_delivery_target_binding`
+- `S16_delivery_target_declared`
 - `S16_no_submission_ready_overclaim`
 
 **Negative fixtures cover / 负例覆盖：**

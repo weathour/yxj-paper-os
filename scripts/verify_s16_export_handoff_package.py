@@ -33,6 +33,7 @@ REQUIRED_SCHEMA_FIELDS = {
     "authority_boundary",
     "evidence_mode",
     "live_export_verification",
+    "delivery_target",
     "readiness_state_separation",
     "upstream_closure_check",
     "build_readiness_check",
@@ -63,6 +64,11 @@ REQUIRED_REGISTRY_VALIDATORS = {
     "S16_handoff_completeness",
     "S16_feedback_route_declared",
     "S16_projection_vs_live_export_boundary",
+    "S16_delivery_target_declared",
+    "S16_delivery_target_binding",
+    "S16_compiled_pdf_target_gate",
+    "S16_pdf_semantic_surface",
+    "S16_template_only_handoff_boundary",
     "S16_no_submission_ready_overclaim",
 }
 REQUIRED_DIMS = {
@@ -74,6 +80,11 @@ REQUIRED_DIMS = {
     "s16_repository_hygiene",
     "s16_handoff_and_feedback_route",
     "s16_projection_vs_live_export_boundary",
+    "s16_delivery_target",
+    "s16_target_binding",
+    "s16_compiled_pdf_target_gate",
+    "s16_pdf_semantic_surface",
+    "s16_template_only_handoff_boundary",
     "s16_no_submission_publication_overclaim",
     "s16_nature_overlay",
 }

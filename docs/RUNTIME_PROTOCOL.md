@@ -595,3 +595,7 @@ compile/export PDF, claim manuscript/submission readiness, or dispatch recursive
 agents. If the S14 task is too broad, impossible, under-specified, or missing
 authority, S15 returns a blocker/missing-material report rather than expanding
 scope.
+
+## S16 target-global delivery hardening
+
+S16 `ppg-s16-export-handoff-package/v0.1` requires `payload.delivery_target`. This in-place safety hardening prevents stage-local export hygiene from being mistaken for compiled PDF target completion. Compiled initial/revised PDF targets require source-writeback, post-writeback validation, and content-bearing rendered text evidence; explicit template-only/export-hygiene handoffs remain non-compiled targets.

@@ -37,6 +37,23 @@
       "live_handoff_claimed": false,
       "required_before_owner_handoff": "For a real owner-facing handoff, create a live_export material and run scripts/verify_s16_live_export_evidence.py to check file existence, recompute hashes, and verify PDF/log paths."
     },
+    "delivery_target": {
+      "kind": "export_hygiene_handoff",
+      "target_ref": "examples/runtime/fixture-targets/s16-export-hygiene",
+      "requested_target_source": "fixture_contract",
+      "compiled_pdf_claimed": false,
+      "requires_content_bearing_pdf": false,
+      "requires_source_writeback": false,
+      "allows_template_only_handoff": true,
+      "allows_candidate_only_completion": true,
+      "requires_post_writeback_s12": false,
+      "requires_final_s16_content_ready_pass": false,
+      "active_target_kind": "export_hygiene_handoff",
+      "active_target_ref": "examples/runtime/fixture-targets/s16-export-hygiene",
+      "target_ref_chain": [
+        "examples/runtime/fixture-targets/s16-export-hygiene"
+      ]
+    },
     "readiness_state_separation": {
       "content_ready": "pass",
       "build_ready": "pass",
@@ -211,6 +228,11 @@
       "checks_completed": [
         "upstream_closure_checked",
         "readiness_states_separated",
+        "delivery_target_declared",
+        "target_binding_checked",
+        "compiled_pdf_target_gate_checked",
+        "semantic_surface_checked",
+        "template_only_boundary_checked",
         "build_success_recorded",
         "rendered_surface_checked",
         "manifest_hashes_recorded",

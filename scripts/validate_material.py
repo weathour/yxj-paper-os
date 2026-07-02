@@ -732,6 +732,11 @@ S16_RECOMMENDED_NEXT_STEPS = {"read_pdf", "approve_submission_gate", "route_feed
 S16_REQUIRED_VERIFIER_CHECKS = {
     "upstream_closure_checked",
     "readiness_states_separated",
+    "delivery_target_declared",
+    "target_binding_checked",
+    "compiled_pdf_target_gate_checked",
+    "semantic_surface_checked",
+    "template_only_boundary_checked",
     "build_success_recorded",
     "rendered_surface_checked",
     "manifest_hashes_recorded",

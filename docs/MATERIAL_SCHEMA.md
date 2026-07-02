@@ -601,3 +601,7 @@ blocked_improvements:
 ## Sidecar pollution rule
 
 Validators should lint paper-facing text fields such as `draft_text`, `caption_text`, `claim_text`, `summary_for_reader`, `paragraph`, or blocks explicitly marked `paper_facing: true`. They should not fail registry/control metadata merely because those fields contain internal runtime terms.
+
+## S16 target-global delivery hardening
+
+S16 `ppg-s16-export-handoff-package/v0.1` requires `payload.delivery_target`. This in-place safety hardening prevents stage-local export hygiene from being mistaken for compiled PDF target completion. Compiled initial/revised PDF targets require source-writeback, post-writeback validation, and content-bearing rendered text evidence; explicit template-only/export-hygiene handoffs remain non-compiled targets.

@@ -2767,6 +2767,7 @@
         "authority_boundary",
         "evidence_mode",
         "live_export_verification",
+        "delivery_target",
         "readiness_state_separation",
         "upstream_closure_check",
         "build_readiness_check",
@@ -2853,6 +2854,79 @@
         },
         "live_export_verification": {
           "type": "object"
+        },
+        "delivery_target": {
+          "type": "object",
+          "required": [
+            "kind",
+            "target_ref",
+            "requested_target_source",
+            "compiled_pdf_claimed",
+            "requires_content_bearing_pdf",
+            "requires_source_writeback",
+            "allows_template_only_handoff",
+            "allows_candidate_only_completion",
+            "requires_post_writeback_s12",
+            "requires_final_s16_content_ready_pass"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "export_hygiene_handoff",
+                "template_only_handoff",
+                "materials_only",
+                "compiled_initial_draft",
+                "revised_compiled_pdf"
+              ]
+            },
+            "target_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "requested_target_source": {
+              "enum": [
+                "owner_intake",
+                "manager_active_target",
+                "runtime_active_target",
+                "repair_backflow",
+                "fixture_contract"
+              ]
+            },
+            "compiled_pdf_claimed": {
+              "type": "boolean"
+            },
+            "active_target_kind": {
+              "type": "string"
+            },
+            "active_target_ref": {
+              "type": "string"
+            },
+            "target_ref_chain": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "requires_content_bearing_pdf": {
+              "type": "boolean"
+            },
+            "requires_source_writeback": {
+              "type": "boolean"
+            },
+            "allows_template_only_handoff": {
+              "type": "boolean"
+            },
+            "allows_candidate_only_completion": {
+              "type": "boolean"
+            },
+            "requires_post_writeback_s12": {
+              "type": "boolean"
+            },
+            "requires_final_s16_content_ready_pass": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
         }
       },
       "additionalProperties": true

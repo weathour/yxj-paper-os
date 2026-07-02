@@ -1545,6 +1545,31 @@
           "required_evidence": "S16 evidence declares whether the package is a fixture projection or live export, forbids physical handoff claims in projection mode, and points to the live verifier required before owner-facing handoff proof"
         },
         {
+          "dimension_id": "s16_delivery_target",
+          "name": "Explicit delivery target",
+          "required_evidence": "S16 evidence declares the delivery target kind, target reference, request source, compiled-PDF claim boundary, and non-compiled/template-only policy."
+        },
+        {
+          "dimension_id": "s16_target_binding",
+          "name": "Delivery target binding",
+          "required_evidence": "S16 evidence binds delivery_target to owner/manager/runtime active_target when present and prevents downcasting a compiled-PDF request to a template-only handoff."
+        },
+        {
+          "dimension_id": "s16_compiled_pdf_target_gate",
+          "name": "Compiled PDF target gate",
+          "required_evidence": "S16 evidence proves compiled initial/revised PDF targets have content/build/render/repository/handoff readiness pass plus source-writeback and post-writeback validation evidence."
+        },
+        {
+          "dimension_id": "s16_pdf_semantic_surface",
+          "name": "PDF semantic rendered surface",
+          "required_evidence": "S16 evidence includes hash-bound rendered text refs and proves content-bearing body, bibliography, figures/captions, and absence of template-only/manuscript-not-started/placeholders for compiled targets."
+        },
+        {
+          "dimension_id": "s16_template_only_handoff_boundary",
+          "name": "Template-only handoff boundary",
+          "required_evidence": "S16 evidence allows template-only/build-hygiene handoff only as an explicit non-compiled target and forbids treating it as initial/revised compiled PDF delivery."
+        },
+        {
           "dimension_id": "s16_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S16 evidence for stage-local Nature overlay binding with controller-only routing"
@@ -1570,6 +1595,11 @@
         "s16_handoff_completeness",
         "s16_feedback_route_declared",
         "s16_projection_vs_live_export_boundary",
+        "s16_delivery_target_declared",
+        "s16_delivery_target_binding",
+        "s16_compiled_pdf_target_gate",
+        "s16_pdf_semantic_surface",
+        "s16_template_only_handoff_boundary",
         "s16_no_submission_ready_overclaim"
       ],
       "stage_id": "S16",
