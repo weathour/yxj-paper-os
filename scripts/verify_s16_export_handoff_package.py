@@ -14,6 +14,8 @@ VALIDATE_MATERIAL = ROOT / "scripts" / "validate_material.py"
 VERIFY_LIVE = ROOT / "scripts" / "verify_s16_live_export_evidence.py"
 MATERIAL = ROOT / "examples/materials/phase10_s16_export_handoff_package.json"
 COMPILED_MATERIAL = ROOT / "examples/materials/phase10_s16_compiled_initial_draft_package.json"
+LIVE_COMPILED_MATERIAL = ROOT / "examples/materials/phase10_s16_compiled_live_export_package.json"
+LIVE_TEMPLATE_TEXT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-template-pdf-text.json"
 PUBLIC_CONSUMES = [
     "closed S12 integrated manuscript candidate",
     "S13 review closure evidence",
@@ -143,6 +145,12 @@ def verify_fixtures() -> None:
     result = run([sys.executable, str(VERIFY_LIVE), str(MATERIAL)])
     if result.returncode != 0 or "PPG_S16_LIVE_EXPORT_EVIDENCE_PROJECTION_OK" not in result.stdout:
         fail("E_S16_LIVE_PROJECTION", result.stdout)
+    live_result = run([sys.executable, str(VERIFY_LIVE), str(LIVE_COMPILED_MATERIAL)])
+    if live_result.returncode != 0 or "PPG_S16_LIVE_EXPORT_EVIDENCE_OK" not in live_result.stdout:
+        fail("E_S16_LIVE_COMPILED", live_result.stdout)
+    bad_live = run([sys.executable, str(VERIFY_LIVE), str(LIVE_TEMPLATE_TEXT_NEGATIVE)])
+    if bad_live.returncode == 0 or "E_S16_LIVE_TEXT" not in bad_live.stdout:
+        fail("E_S16_LIVE_TEMPLATE_TEXT_NEGATIVE", bad_live.stdout)
     for name, expected_code in NEGATIVES.items():
         result = run([sys.executable, str(VALIDATE_MATERIAL), str(ROOT / "examples/materials" / name)])
         if result.returncode == 0 or expected_code not in result.stdout:

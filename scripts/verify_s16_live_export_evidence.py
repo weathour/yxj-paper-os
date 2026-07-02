@@ -12,6 +12,17 @@ from typing import Any, NoReturn
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_MATERIAL = ROOT / "scripts" / "validate_material.py"
 DEFAULT_MATERIAL = ROOT / "examples/materials/phase10_s16_export_handoff_package.json"
+COMPILED_TARGETS = {"compiled_initial_draft", "revised_compiled_pdf"}
+NEGATIVE_TEXT_SENTINELS = (
+    "manuscript not started",
+    "template-only",
+    "template only",
+    "validator_placeholder",
+    "placeholder",
+    "todo",
+    "tbd",
+)
+POSITIVE_REFERENCE_ANCHORS = ("references", "bibliography", "参考文献")
 
 
 def fail(code: str, message: str) -> NoReturn:
@@ -47,6 +58,57 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+
+def is_compiled_target(payload: dict[str, Any]) -> bool:
+    target = payload.get("delivery_target")
+    return isinstance(target, dict) and target.get("kind") in COMPILED_TARGETS
+
+
+def text_from(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return path.read_text(encoding="utf-8", errors="replace")
+
+
+def paragraph_count(text: str) -> int:
+    return sum(1 for part in text.replace("\r\n", "\n").split("\n\n") if len(part.strip()) >= 80)
+
+
+def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[str, str]) -> None:
+    surface = payload.get("rendered_surface_check")
+    post = payload.get("post_writeback_validation")
+    if not isinstance(surface, dict) or not isinstance(post, dict):
+        fail("E_S16_LIVE_TEXT", "compiled targets require rendered_surface_check and post_writeback_validation")
+    text_ref = str(surface.get("rendered_text_ref") or post.get("pdf_text_ref") or "")
+    if not text_ref:
+        fail("E_S16_LIVE_TEXT", "compiled targets require rendered_text_ref/pdf_text_ref")
+    if post.get("pdf_text_ref") != text_ref:
+        fail("E_S16_LIVE_TEXT", "rendered_text_ref must match post_writeback_validation.pdf_text_ref")
+    expected = str(surface.get("rendered_text_sha256") or "")
+    if expected != str(post.get("pdf_text_sha256") or ""):
+        fail("E_S16_LIVE_TEXT", "rendered text hash must match post_writeback_validation.pdf_text_sha256")
+    if hash_manifest.get(text_ref) != expected:
+        fail("E_S16_LIVE_TEXT", "rendered text ref must be hash-listed in file_hash_manifest")
+    text_path = safe_repo_file(text_ref)
+    if not text_path.is_file():
+        fail("E_S16_LIVE_TEXT", f"missing rendered text file: {text_ref}")
+    actual = sha256(text_path)
+    if actual != expected:
+        fail("E_S16_LIVE_TEXT", f"rendered text hash mismatch for {text_ref}")
+    text = text_from(text_path)
+    lowered = text.lower()
+    for sentinel in NEGATIVE_TEXT_SENTINELS:
+        if sentinel in lowered:
+            fail("E_S16_LIVE_TEXT", f"rendered text contains forbidden sentinel: {sentinel}")
+    if len(text.strip()) < 500 or paragraph_count(text) < 2:
+        fail("E_S16_LIVE_TEXT", "rendered text must contain multiple body paragraphs for compiled targets")
+    if not any(anchor in lowered for anchor in POSITIVE_REFERENCE_ANCHORS):
+        fail("E_S16_LIVE_TEXT", "rendered text must include a references/bibliography anchor for compiled targets")
+    if surface.get("actual_bibliography_rendered") is not True or surface.get("body_paragraphs_present") is not True:
+        fail("E_S16_LIVE_TEXT", "compiled target surface booleans must confirm bibliography and body paragraphs")
 
 
 def verify_projection(payload: dict[str, Any]) -> None:
@@ -89,6 +151,8 @@ def verify_live(payload: dict[str, Any]) -> None:
         path = safe_repo_file(str(build.get(key) or ""))
         if not path.is_file():
             fail("E_S16_LIVE_BUILD", f"missing build artifact {key}: {build.get(key)}")
+    if is_compiled_target(payload):
+        verify_compiled_text_surface(payload, hash_manifest)
     print("PPG_S16_LIVE_EXPORT_EVIDENCE_OK")
 
 
