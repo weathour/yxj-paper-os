@@ -1,7 +1,7 @@
 # Graph Report - .  (2026-07-03)
 
 ## Corpus Check
-- 86 files · ~1,098,438 words
+- 86 files · ~1,100,772 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -81,14 +81,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `load_freq_prior_data()` --calls--> `load()`  [INFERRED]
   third_party/nature-figure/assets/figures4papers/figure_FPGM/plot_freq_prior.py → scripts/verify_lifecycle_contract.py
-- `_validate_s04_result_boundaries()` --calls--> `update()`  [INFERRED]
-  scripts/validate_material.py → docs/runtime-viewer/app.js
-- `_validate_s06_cross_maps()` --calls--> `update()`  [INFERRED]
-  scripts/validate_material.py → docs/runtime-viewer/app.js
-- `_validate_s08_contracts()` --calls--> `update()`  [INFERRED]
-  scripts/validate_material.py → docs/runtime-viewer/app.js
-- `_collect_s16_required_manifest_paths()` --calls--> `update()`  [INFERRED]
-  scripts/validate_material.py → docs/runtime-viewer/app.js
+- `update()` --calls--> `_validate_s04_result_boundaries()`  [INFERRED]
+  docs/runtime-viewer/app.js → scripts/validate_material.py
+- `update()` --calls--> `_validate_s06_cross_maps()`  [INFERRED]
+  docs/runtime-viewer/app.js → scripts/validate_material.py
+- `update()` --calls--> `_validate_s08_contracts()`  [INFERRED]
+  docs/runtime-viewer/app.js → scripts/validate_material.py
+- `update()` --calls--> `_collect_s16_required_manifest_paths()`  [INFERRED]
+  docs/runtime-viewer/app.js → scripts/validate_material.py
 
 ## Communities
 
@@ -358,11 +358,11 @@ Nodes (0):
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `read_text()` connect `Community 3` to `Community 1`, `Community 2`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 31`?**
-  _High betweenness centrality (0.336) - this node is a cross-community bridge._
+  _High betweenness centrality (0.364) - this node is a cross-community bridge._
 - **Why does `issue()` connect `Community 0` to `Community 10`, `Community 2`, `Community 5`, `Community 6`?**
-  _High betweenness centrality (0.316) - this node is a cross-community bridge._
+  _High betweenness centrality (0.294) - this node is a cross-community bridge._
 - **Why does `load_document()` connect `Community 6` to `Community 1`, `Community 2`, `Community 3`, `Community 5`, `Community 7`, `Community 8`, `Community 10`, `Community 12`, `Community 13`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`?**
-  _High betweenness centrality (0.147) - this node is a cross-community bridge._
+  _High betweenness centrality (0.174) - this node is a cross-community bridge._
 - **Are the 192 inferred relationships involving `issue()` (e.g. with `compile_backflow()` and `_payload()`) actually correct?**
   _`issue()` has 192 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `_require_mapping()` (e.g. with `as_mapping()` and `issue()`) actually correct?**
