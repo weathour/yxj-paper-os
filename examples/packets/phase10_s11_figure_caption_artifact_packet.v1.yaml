@@ -53,8 +53,11 @@ allowed_read_paths:
   - examples/materials/phase10_s07_surface_control.yaml
 allowed_write_paths:
   - examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md
+  - figures/src/phase10_s11_authority_loss_reconfiguration.py
+  - figures/generated/phase10_s11_authority_loss_reconfiguration.svg
+  - figures/generated/phase10_s11_authority_loss_reconfiguration.pdf
 allowed_tools:
-  - "none"
+  - python3
 output_artifact_path: examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md
 expected_output_schema: ppg-s11-figure-caption-artifact-bundle/v0.1
 expected_material_type: CandidateArtifactReturn
@@ -199,6 +202,52 @@ visual_polish_policy:
     - add_decorative_elements_implying_unsupported_mechanism
     - cherry_pick_prettier_examples
     - copy_exemplar_visual_style_too_closely
+nature_figure_direct_call:
+  enabled: true
+  source: vendored
+  adapter_ref: runtime/adapters/S11NatureFigureDirectCall.adapter.json
+  skill_ref: third_party/nature-figure
+  parity_manifest_ref: third_party/nature-figure/PARITY_MANIFEST.json
+  parity_target: nature-figure@2.0.0
+  upstream_commit: c91df241a7a963ea151687ac669c5534404f53e5
+  call_step: S11.nature_figure_production_pass
+  s11_contract_overrides_skill: true
+  worker_completion_forbidden: true
+  no_recursive_orchestration: true
+  required_loaded_components:
+    - SKILL.md
+    - manifest.yaml
+    - static/core/contract.md
+    - static/core/stance.md
+    - static/fragments/backend/python.md
+    - references/figure-contract.md
+    - references/qa-contract.md
+    - references/design-theory.md
+  expected_return_modules:
+    - nature_figure_capability_report
+    - nature_figure_contract
+    - nature_figure_execution
+    - nature_figure_qa_report
+    - S11FigureCaptionArtifactBundle
+figure_backend:
+  selected_backend: python
+  selection_source: S08_backend_route
+  backend_exclusive: true
+  worker_may_ask_backend_question: false
+  cross_backend_rendering_forbidden: true
+  selected_tool: python3
+  selected_backend_fragment: static/fragments/backend/python.md
+render_execution_policy:
+  mode: render_plan_allowed
+  selected_backend_runtime_check_required: true
+  missing_runtime_rule: return_missing_material_or_authorized_render_plan_do_not_switch_backend
+  mock_data_forbidden_for_evidential_figures: true
+  schematic_without_empirical_data_allowed: true
+  rendered_candidate_paths:
+    - figures/generated/phase10_s11_authority_loss_reconfiguration.svg
+    - figures/generated/phase10_s11_authority_loss_reconfiguration.pdf
+  editable_source_paths:
+    - figures/src/phase10_s11_authority_loss_reconfiguration.py
 internal_execution_protocol:
   work_queue_required: true
   coverage_ledger_required: true
@@ -218,6 +267,8 @@ internal_execution_protocol:
       required_output: source_data_trace
     - pass_id: perform_visual_polish_with_policy
       required_output: visual_polish_report
+    - pass_id: nature_figure_production_pass
+      required_output: nature_figure_execution
     - pass_id: return_candidate_artifact
       required_output: CandidateArtifactReturn
 output_contract:
@@ -231,6 +282,10 @@ output_contract:
     - caption_claim_trace
     - image_integrity_record
     - visual_polish_report
+    - nature_figure_capability_report
+    - nature_figure_contract
+    - nature_figure_execution
+    - nature_figure_qa_report
     - accessibility_check
     - export_manifest
     - evidence

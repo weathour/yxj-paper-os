@@ -1,0 +1,74 @@
+{
+  "schema_version": "ppg-s11-adapter/v0.1",
+  "adapter_id": "S11NatureFigureDirectCall",
+  "stage_id": "S11",
+  "call_step": "S11.nature_figure_production_pass",
+  "purpose": "Expose the vendored nature-figure capability as a controlled S11 substep for figure/caption/formal-artifact production without transferring S11 graph authority.",
+  "source": {
+    "kind": "vendored_skill",
+    "vendor_path": "third_party/nature-figure",
+    "parity_manifest_ref": "third_party/nature-figure/PARITY_MANIFEST.json",
+    "upstream_repository": "https://github.com/Yuan1z0825/nature-skills",
+    "upstream_skill_path": "skills/nature-figure",
+    "upstream_commit": "c91df241a7a963ea151687ac669c5534404f53e5",
+    "upstream_version": "2.0.0",
+    "license": "Apache-2.0"
+  },
+  "capability_policy": {
+    "parity_target": "nature-figure@2.0.0",
+    "full_router_static_reference_asset_capability_required": true,
+    "selected_backend_fragment_required": true,
+    "on_demand_references_allowed": true,
+    "demo_pattern_adaptation_allowed": true,
+    "chart_atlas_reference_allowed": true,
+    "exemplar_informed_design_allowed_with_boundary_report": true
+  },
+  "backend_gate": {
+    "backend_must_be_selected_before_worker": true,
+    "allowed_backends": ["python", "r"],
+    "worker_may_ask_backend_question": false,
+    "backend_exclusive": true,
+    "cross_backend_rendering_forbidden": true,
+    "missing_runtime_rule": "return MissingMaterialReport or authorized render plan; do not switch backend"
+  },
+  "authority_boundary": {
+    "s11_contract_overrides_skill": true,
+    "controller_owned_completion": true,
+    "worker_completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "graph_completion_claim_forbidden": true,
+    "manuscript_completion_claim_forbidden": true,
+    "submission_or_publication_readiness_claim_forbidden": true,
+    "final_export_completion_claim_forbidden": true,
+    "proof_role_change_forbidden": true,
+    "claim_strengthening_forbidden": true,
+    "owner_intent_change_forbidden": true
+  },
+  "s11_mapping_contract": {
+    "material_type": "S11FigureCaptionArtifactBundle",
+    "required_payload_modules": [
+      "nature_figure_capability_report",
+      "nature_figure_contract",
+      "nature_figure_execution",
+      "nature_figure_qa_report",
+      "figure_contract_compliance",
+      "generated_artifacts",
+      "editable_source_bundle",
+      "source_data_trace",
+      "panel_claim_trace",
+      "caption_claim_trace",
+      "image_integrity_record",
+      "visual_polish_report",
+      "accessibility_check",
+      "export_manifest",
+      "coverage_ledger",
+      "candidate_artifact_return",
+      "verifier_evidence"
+    ],
+    "conditional_payload_modules": [
+      "exemplar_design_analysis",
+      "design_transfer_plan",
+      "similarity_risk_report"
+    ]
+  }
+}

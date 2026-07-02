@@ -1138,6 +1138,26 @@
           "dimension_id": "s11_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S11 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s11_nature_figure_vendor_and_parity",
+          "name": "vendored nature-figure parity",
+          "required_evidence": "S11 capability report and vendor verifier prove the pinned nature-figure source, parity manifest, required components, and references are present"
+        },
+        {
+          "dimension_id": "s11_nature_figure_backend_gate",
+          "name": "selected backend gate",
+          "required_evidence": "backend is selected before worker execution, selected tool is exclusive, and workers cannot ask to switch backend"
+        },
+        {
+          "dimension_id": "s11_nature_figure_execution_boundary",
+          "name": "direct-call execution boundary",
+          "required_evidence": "S11 maps nature-figure output into S11 modules without cross-backend rendering, mock evidential data, final export claims, or recursive orchestration"
+        },
+        {
+          "dimension_id": "s11_exemplar_similarity_boundary",
+          "name": "exemplar and similarity boundary",
+          "required_evidence": "reference-style learning transfers only abstract design principles and records copy/similarity-risk controls"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1165,7 +1185,14 @@
         "s11_export_manifest",
         "s11_candidate_return_complete",
         "s11_verifier_evidence",
-        "s11_authority_boundary"
+        "s11_authority_boundary",
+        "S11_nature_figure_vendor_present",
+        "S11_nature_figure_parity_manifest",
+        "S11_nature_figure_backend_gate",
+        "S11_nature_figure_direct_call_mapping",
+        "S11_no_cross_backend_rendering",
+        "S11_no_mock_data_for_evidential_figure",
+        "S11_exemplar_boundary_and_similarity_report"
       ],
       "stage_id": "S11",
       "stage_name": "Figure caption formal artifact production",

@@ -2280,6 +2280,10 @@
         "image_integrity_record",
         "visual_polish_policy",
         "visual_polish_report",
+        "nature_figure_capability_report",
+        "nature_figure_contract",
+        "nature_figure_execution",
+        "nature_figure_qa_report",
         "figure_statistics",
         "accessibility_check",
         "export_manifest",
@@ -2321,6 +2325,27 @@
           "type": "object"
         },
         "visual_polish_report": {
+          "type": "object"
+        },
+        "nature_figure_capability_report": {
+          "type": "object"
+        },
+        "nature_figure_contract": {
+          "type": "object"
+        },
+        "nature_figure_execution": {
+          "type": "object"
+        },
+        "nature_figure_qa_report": {
+          "type": "object"
+        },
+        "exemplar_design_analysis": {
+          "type": "object"
+        },
+        "design_transfer_plan": {
+          "type": "object"
+        },
+        "similarity_risk_report": {
           "type": "object"
         },
         "figure_statistics": {

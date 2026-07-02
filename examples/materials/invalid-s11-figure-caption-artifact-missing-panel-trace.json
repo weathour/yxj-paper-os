@@ -1,10 +1,10 @@
 {
   "schema_version": "ppg-material/v0.1",
-  "material_id": "phase10_s11_figure_caption_artifact_bundle",
+  "material_id": "invalid-s11-figure-caption-artifact-missing-panel-trace",
   "version": "v1",
   "status": "candidate",
   "material_type": "S11FigureCaptionArtifactBundle",
-  "summary": "Contract-bound S11 candidate visual/caption artifact bundle with source trace, claim traces, polish report, integrity/accessibility/export evidence, and CandidateArtifactReturn.",
+  "summary": "Invalid S11 fixture for validator regression: invalid-s11-figure-caption-artifact-missing-panel-trace.json",
   "payload": {
     "schema_version": "ppg-s11-figure-caption-artifact-bundle/v0.1",
     "stage_id": "S11",
@@ -34,12 +34,17 @@
         "examples/materials/phase10_s07_surface_control.yaml"
       ],
       "allowed_write_paths_used": [
-        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py",
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
       ],
       "validators_acknowledged": [
         "validate_packet:phase10_stage_binding",
         "content_validator:S11_packet_compliance",
         "content_validator:S11_visual_polish_report",
+        "content_validator:S11_nature_figure_direct_call_mapping",
+        "content_validator:S11_nature_figure_backend_gate",
         "stage_overlay:nature_expert_writing:S11"
       ],
       "single_writer_lock_observed": true,
@@ -55,7 +60,11 @@
         "strengthen_claims_beyond_s04"
       ],
       "missing_packet_fields": [],
-      "blocked": false
+      "blocked": false,
+      "nature_figure_direct_call_acknowledged": true,
+      "selected_backend": "python",
+      "selected_backend_tool": "python3",
+      "adapter_ref": "runtime/adapters/S11NatureFigureDirectCall.adapter.json"
     },
     "figure_contract_compliance": {
       "visual_id": "fig:authority-loss-reconfiguration-schematic",
@@ -75,35 +84,164 @@
         "status": "render_plan_only",
         "path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
         "source_contract_ref": "phase10_s08_visual_formal_plan:figure_contracts.fig_authority_loss_reconfiguration",
-        "generated_from": "S08 visual contract plus S04/S07 controls"
+        "generated_from": "S08 visual contract plus S04/S07 controls via S11 nature_figure_production_pass mapping"
+      },
+      {
+        "artifact_id": "phase10_s11_schematic_source_script_v1",
+        "artifact_type": "figure",
+        "status": "render_plan_only",
+        "path": "figures/src/phase10_s11_authority_loss_reconfiguration.py",
+        "source_contract_ref": "nature_figure_contract.backend:python",
+        "generated_from": "vendored nature-figure python backend plan under S11 authority boundary"
       }
     ],
     "editable_source_bundle": {
       "visual_id": "fig:authority-loss-reconfiguration-schematic",
       "source_files": [
-        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py"
       ],
       "script_files": [
-        "render_plan_only_no_script_executed"
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py"
       ],
       "table_source_files": [
         "not_applicable"
       ],
       "formula_or_algorithm_source": "not_applicable",
       "editing_notes": [
-        "editable source should be generated as vector schematic before S16 export"
+        "python source should render editable vector SVG and downstream PDF candidate before S16 export",
+        "S11 may use the selected python backend only; do not switch to another backend inside the worker task"
       ],
       "source_available": true
     },
+    "nature_figure_capability_report": {
+      "parity_target": "nature-figure@2.0.0",
+      "upstream_commit": "c91df241a7a963ea151687ac669c5534404f53e5",
+      "vendor_path": "third_party/nature-figure",
+      "parity_manifest_ref": "third_party/nature-figure/PARITY_MANIFEST.json",
+      "direct_call_step": "S11.nature_figure_production_pass",
+      "loaded_components": [
+        "SKILL.md",
+        "manifest.yaml",
+        "static/core/contract.md",
+        "static/core/stance.md",
+        "static/fragments/backend/python.md",
+        "references/figure-contract.md",
+        "references/qa-contract.md",
+        "references/design-theory.md"
+      ],
+      "s11_contract_overrides_skill": true,
+      "capability_floor_preserved": true,
+      "completion_or_export_authority": "forbidden_to_worker_controller_only"
+    },
+    "nature_figure_contract": {
+      "core_conclusion": "Authority-loss reconfiguration is represented as a bounded explanatory mechanism, not as empirical performance proof.",
+      "evidence_chain": [
+        "S08 visual formal contract: fig_authority_loss_reconfiguration",
+        "S04 claim admissibility capsule for bounded reconfiguration wording",
+        "S01/evidence inventory source locators"
+      ],
+      "archetype": "schematic-led composite",
+      "backend": "python",
+      "backend_selected_before_worker": true,
+      "selected_backend_fragment": "static/fragments/backend/python.md",
+      "journal_export_contract": {
+        "target_formats": [
+          "svg",
+          "pdf"
+        ],
+        "editable_text_required": true,
+        "source_data_trace_required": true
+      },
+      "review_risk_checks": [
+        "schematic is explanatory and not empirical evidence",
+        "no universal safety or resilience guarantee is implied",
+        "render/export remains candidate-stage and S16-owned"
+      ]
+    },
+    "nature_figure_execution": {
+      "call_step": "S11.nature_figure_production_pass",
+      "backend": "python",
+      "selected_tool": "python3",
+      "backend_exclusive": true,
+      "worker_backend_question_asked": false,
+      "cross_backend_used": false,
+      "mock_data_used": false,
+      "runtime_status": "render_plan_only",
+      "script_path": "figures/src/phase10_s11_authority_loss_reconfiguration.py",
+      "render_command": "python3 figures/src/phase10_s11_authority_loss_reconfiguration.py",
+      "rendered_files_planned": [
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
+      ],
+      "render_plan_ref": "render_plan_if_not_rendered"
+    },
+    "nature_figure_qa_report": {
+      "checks_completed": [
+        "vendor_parity_manifest_loaded",
+        "selected_backend_only",
+        "s11_output_modules_mapped",
+        "claim_boundary_preserved",
+        "proof_role_preserved",
+        "no_cross_backend_rendering",
+        "no_mock_evidential_data",
+        "no_final_export_claim",
+        "exemplar_boundary_checked"
+      ],
+      "source_data_trace_ok": true,
+      "claim_boundary_preserved": true,
+      "proof_role_preserved": true,
+      "s11_mapping_complete": true,
+      "cross_backend_rendering_absent": true,
+      "mock_data_absent_or_non_evidential": true,
+      "exemplar_boundary_preserved": true,
+      "accessibility_contract_present": true,
+      "editable_source_or_render_plan_present": true,
+      "final_export_claimed": false,
+      "notes": "S11 maps nature-figure capability into S11-owned modules without delegating completion/export authority."
+    },
+    "exemplar_design_analysis": {
+      "exemplar_used": false,
+      "source": "none_for_fixture",
+      "design_features_observed": [
+        "not_applicable"
+      ],
+      "prohibited_copy_features": [
+        "exact layout",
+        "distinctive palette",
+        "panel geometry",
+        "typographic signature"
+      ]
+    },
+    "design_transfer_plan": {
+      "transfer_mode": "abstract_design_principles_only",
+      "direct_copy_forbidden": true,
+      "exact_layout_copy_forbidden": true,
+      "allowed_transfer_units": [
+        "visual hierarchy principle",
+        "label density principle",
+        "legend clarity principle"
+      ]
+    },
+    "similarity_risk_report": {
+      "similarity_risk": "low",
+      "exact_layout_copied": false,
+      "distinctive_style_copied": false,
+      "mitigations": [
+        "domain-specific mechanism layout",
+        "S08-owned visual contract",
+        "S11 claim-boundary QA"
+      ]
+    },
     "render_plan_if_not_rendered": {
       "visual_id": "fig:authority-loss-reconfiguration-schematic",
-      "required_command_or_tool": "drawio/vector export route after source is materialized",
+      "required_command_or_tool": "python3 figures/src/phase10_s11_authority_loss_reconfiguration.py",
       "expected_outputs": [
-        "figure_authority_loss_reconfiguration.svg",
-        "figure_authority_loss_reconfiguration.pdf"
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
       ],
-      "missing_permission_or_dependency": "not executed in fixture; render plan only",
-      "reproducibility_notes": "Use S08 backend route and S11 visual quality profile; do not change proof role or claims during rendering."
+      "missing_permission_or_dependency": "not executed in fixture; render plan only under selected python backend",
+      "reproducibility_notes": "Use S08 backend route and S11 nature-figure QA profile; do not change proof role or claims during rendering."
     },
     "source_data_trace": [
       {
@@ -117,9 +255,7 @@
         "provenance_status": "traceable_to_fixture_materials"
       }
     ],
-    "panel_claim_trace": [
-      {}
-    ],
+    "panel_claim_trace": [],
     "caption_legend_draft": {
       "visual_id": "fig:authority-loss-reconfiguration-schematic",
       "caption_text_candidate": "Authority-loss reconfiguration as a bounded explanatory mechanism. Panel A indicates degradation of the authority path; Panel B indicates the constrained reconfiguration response. The schematic is explanatory and does not serve as empirical performance evidence.",
@@ -155,23 +291,24 @@
       "visual_id": "fig:authority-loss-reconfiguration-schematic",
       "rendered_files": [],
       "source_files": [
-        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py"
       ],
       "data_files": [
         "examples/materials/evidence_inventory.v1.yaml"
       ],
       "script_files": [
-        "render_plan_only_no_script_executed"
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py"
       ],
       "hashes": [
-        "not_available_render_plan_only"
+        "pending_until_render_execution"
       ],
       "dimensions": "planned 1-column width",
       "resolution": "planned vector export",
       "color_policy": "colorblind-safe muted palette",
       "label_readability": "planned minimum 8pt at target width",
       "missing_assets": [],
-      "render_command": "not executed; render plan recorded",
+      "render_command": "python3 figures/src/phase10_s11_authority_loss_reconfiguration.py",
       "integrity_status": "render_plan_recorded"
     },
     "visual_polish_policy": {
@@ -266,16 +403,19 @@
     "export_manifest": {
       "visual_id": "fig:authority-loss-reconfiguration-schematic",
       "export_files": [
-        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+        "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
       ],
       "source_files": [
-        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md"
+        "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py"
       ],
       "data_files": [
         "examples/materials/evidence_inventory.v1.yaml"
       ],
       "script_files": [
-        "render_plan_only_no_script_executed"
+        "figures/src/phase10_s11_authority_loss_reconfiguration.py"
       ],
       "target_formats": [
         "svg",
@@ -308,19 +448,29 @@
       "packet_id": "phase10_s11_figure_caption_artifact_packet_v1",
       "output_artifact_path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
       "evidence": [
-        "S11 packet validates",
-        "source_data_trace records evidence inventory path",
+        "S11 packet validates with nature_figure_direct_call enabled and python backend preselected",
+        "vendored nature-figure parity manifest is referenced by the S11 capability report",
+        "source_data_trace records evidence inventory path and schematic-only proof role",
         "caption_claim_trace preserves bounded S04 wording",
-        "visual_polish_report records no claim or evidence meaning change"
+        "visual_polish_report records no claim or evidence meaning change",
+        "nature_figure_qa_report records no cross-backend rendering, no mock evidential data, and no final export claim"
       ],
       "validator_expectations": [
         "S11_packet_compliance",
         "S11_figure_contract_compliance",
+        "S11_nature_figure_vendor_present",
+        "S11_nature_figure_parity_manifest",
+        "S11_nature_figure_backend_gate",
+        "S11_nature_figure_direct_call_mapping",
+        "S11_no_cross_backend_rendering",
+        "S11_no_mock_data_for_evidential_figure",
+        "S11_exemplar_boundary_and_similarity_report",
         "S11_visual_polish_report",
         "S11_candidate_return_complete"
       ],
       "remaining_risks": [
-        "Render is represented as a reproducible plan in this fixture; S16/export preflight must not treat it as final PDF/export readiness"
+        "Render is represented as a reproducible selected-backend plan in this fixture; S16/export preflight must not treat it as final PDF/export readiness",
+        "Reference/exemplar learning is limited to abstract design principles and must not copy distinctive visual layout or style"
       ],
       "graph_completion_claimed": false,
       "recursive_dispatch_requested": false,
@@ -343,13 +493,21 @@
         "image_integrity_record_present",
         "polish_preserves_evidence_meaning",
         "accessibility_checked",
-        "candidate_return_complete"
+        "candidate_return_complete",
+        "nature_figure_vendor_verified",
+        "nature_figure_parity_manifest_verified",
+        "nature_figure_backend_gate_checked",
+        "nature_figure_direct_call_mapping_complete",
+        "no_cross_backend_rendering",
+        "no_mock_data_for_evidential_figure",
+        "exemplar_boundary_and_similarity_checked"
       ],
       "findings": [],
-      "acceptance_recommendation": "controller may collect as candidate bundle; render/export remains non-final and must be audited downstream"
+      "acceptance_recommendation": "controller may collect as candidate bundle; render/export remains non-final, selected-backend-only, and must be audited downstream"
     },
     "remaining_risks": [
-      "The fixture records a render plan rather than a rendered figure; downstream S12/S13/S16 must not treat it as final export evidence"
+      "Render is represented as a selected-backend reproducible plan; generated SVG/PDF candidates still require S16/export preflight before human-readable PDF delivery",
+      "Any future exemplar-based design transfer must remain abstract and pass similarity-risk review before rendering"
     ],
     "missing_material_report": {
       "status": "not_blocked",

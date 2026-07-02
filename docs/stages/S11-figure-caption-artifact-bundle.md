@@ -68,12 +68,16 @@ If an input is missing, the controller should return to the nearest responsible 
 ## 5. Task Packet or Controller Package / 任务包或主控包
 
 - `S11` requires a strict worker task packet / `S11` 需要严格 worker 任务包: `examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml`.
+- `S11` may call the vendored `nature-figure` capability only through the controlled substep `S11.nature_figure_production_pass`. / `S11` 只能通过受控子步骤 `S11.nature_figure_production_pass` 调用 vendored `nature-figure` 能力。
 
 **Packet/material contract files / 任务包或控制包文件：**
 
 - [`examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml`](../../examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml)
+- [`runtime/adapters/S11NatureFigureDirectCall.adapter.json`](../../runtime/adapters/S11NatureFigureDirectCall.adapter.json)
 
 The packet is not a prompt template for free generation. It is a bounded contract that fixes allowed inputs, allowed paths, forbidden routes, output schema, validators, and the no-completion authority boundary. / 任务包不是自由生成提示词，而是限定输入、路径、禁止路线、输出 schema、validator 和无完成权威边界的契约。
+
+When the direct-call slot is enabled, the packet must preselect `python` or `r`; the worker may not ask “Python or R?” inside S11. The selected backend is exclusive. / 启用 direct-call 槽时，任务包必须预先选择 `python` 或 `r`；worker 不能在 S11 内临时询问 “Python or R?”。被选中的后端具有排他性。
 
 ## 6. Execution Sequence / 执行顺序
 
@@ -81,6 +85,8 @@ The packet is not a prompt template for free generation. It is a bounded contrac
 
 - ACK S11 packet
 - 读取 S08 contract 和 source data package
+- 加载 vendored `nature-figure` router/core/selected backend fragment
+- 执行 `S11.nature_figure_production_pass`
 - 生成或规划 visual artifact
 - 编写 caption/legend draft
 - 检查 panel/caption claim boundary
@@ -92,6 +98,8 @@ The packet is not a prompt template for free generation. It is a bounded contrac
 
 - Acknowledge the S11 packet.
 - Read S08 contract and source-data package.
+- Load the vendored `nature-figure` router/core/selected backend fragment.
+- Run `S11.nature_figure_production_pass`.
 - Generate or plan visual artifacts.
 - Draft caption/legend.
 - Check panel/caption claim boundary.
@@ -132,6 +140,10 @@ The controller may dispatch a producer and verifier lane when the contract requi
 - `image_integrity_record`
 - `visual_polish_policy`
 - `visual_polish_report`
+- `nature_figure_capability_report`
+- `nature_figure_contract`
+- `nature_figure_execution`
+- `nature_figure_qa_report`
 - `figure_statistics`
 - `accessibility_check`
 - `export_manifest`
@@ -205,6 +217,8 @@ The output is only useful when downstream stages can consume it with traceable r
 - 不能改变 proof role
 - 不能让视觉美化改变主张含义
 - 不能把 caption 写成 unsupported claim
+- 不能让 `nature-figure` 子步骤拥有图状态完成权
+- 不能在 worker 中临时改变 Python/R backend
 
 **English boundaries:**
 
@@ -212,6 +226,8 @@ The output is only useful when downstream stages can consume it with traceable r
 - It must not change proof role.
 - Visual polish must not alter claim meaning.
 - Captions must not introduce unsupported claims.
+- The `nature-figure` substep must not own graph completion.
+- The worker must not change the preselected Python/R backend.
 
 Specialist agents and scripts may return candidates or evidence; they never own completion authority. / 专家 agent 和脚本只能返回候选或证据，不能拥有完成权威。
 

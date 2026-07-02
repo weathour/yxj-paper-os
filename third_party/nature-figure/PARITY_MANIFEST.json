@@ -1,0 +1,590 @@
+{
+  "schema_version": "yxj-paper-os-nature-figure-parity/v0.1",
+  "vendor_id": "nature-figure",
+  "upstream": {
+    "repository": "https://github.com/Yuan1z0825/nature-skills",
+    "skill_path": "skills/nature-figure",
+    "commit": "c91df241a7a963ea151687ac669c5534404f53e5",
+    "version": "2.0.0",
+    "license": "Apache-2.0"
+  },
+  "local": {
+    "vendor_path": "third_party/nature-figure",
+    "vendored_for": "S11.nature_figure_production_pass",
+    "authority_boundary": "S11 controller-owned completion; nature-figure is helper only",
+    "upstream_file_modifications_expected": false
+  },
+  "required_top_level_files": [
+    "SKILL.md",
+    "manifest.yaml",
+    "README.md",
+    "LICENSE",
+    "UPSTREAM.md"
+  ],
+  "required_directories": [
+    "static",
+    "references",
+    "assets",
+    "evals"
+  ],
+  "manifest_references": [
+    "references/api.md",
+    "references/backend-selection.md",
+    "references/chart-types.md",
+    "references/common-patterns.md",
+    "references/demos.md",
+    "references/design-theory.md",
+    "references/figure-contract.md",
+    "references/figure-legend-conventions.md",
+    "references/nature-2026-observations.md",
+    "references/qa-contract.md",
+    "references/r-template-index.md",
+    "references/r-workflow.md",
+    "references/tutorials.md",
+    "static/core/contract.md",
+    "static/core/stance.md",
+    "static/fragments/backend/python.md",
+    "static/fragments/backend/r.md"
+  ],
+  "referenced_asset_paths": [
+    "assets/chart-atlas/atlas-01-bar-charts.png",
+    "assets/chart-atlas/atlas-02-line-trends.png",
+    "assets/chart-atlas/atlas-03-heatmaps.png",
+    "assets/chart-atlas/atlas-04-scatter-bubble.png",
+    "assets/chart-atlas/atlas-05-radar-polar.png",
+    "assets/chart-atlas/atlas-06-distributions.png",
+    "assets/chart-atlas/atlas-07-forest-interval.png",
+    "assets/chart-atlas/atlas-08-area-stacked.png",
+    "assets/chart-atlas/atlas-09-image-plates.png",
+    "assets/chart-atlas/atlas-10-network-matrix.png",
+    "assets/figures4papers/",
+    "assets/figures4papers/assets/*.png",
+    "assets/figures4papers/figure_CellSpliceNet/plot_comparison.py",
+    "assets/figures4papers/figure_Cflows/*.py",
+    "assets/figures4papers/figure_Dispersion/plot_illustration.py",
+    "assets/figures4papers/figure_FPGM/plot_freq_prior.py",
+    "assets/figures4papers/figure_ImmunoStruct/plot_bars.py",
+    "assets/figures4papers/figure_RNAGenScape/plot_*.py",
+    "assets/figures4papers/figure_VIGIL/plot_comparison_radar.py",
+    "assets/figures4papers/figure_brainteaser/plot_*.py",
+    "assets/figures4papers/figure_ophthal_review/plot_trend.py",
+    "assets/gallery/",
+    "assets/gallery/fig1-material-mechanism-rich.png",
+    "assets/gallery/fig2-spatial-imaging-rich.png",
+    "assets/gallery/fig3-in-vivo-efficacy-rich.png",
+    "assets/gallery/fig4-single-cell-systems-rich.png",
+    "assets/gallery/fig5-validation-perturbation-rich.png"
+  ],
+  "exclusion_policy": {
+    "mode": "full_vendor_with_no_known_capability_exclusions",
+    "excluded_paths": []
+  },
+  "file_count": 101,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "cf237c7aff44efbe6e502e645c3e06da03a69d7bdeb43392108ef3348143417e",
+      "bytes": 10
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    },
+    {
+      "path": "README.md",
+      "sha256": "76e031034bb9092caaf5b2434e5feeaad092c8f86577e69aad2196b34073dc81",
+      "bytes": 19477
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "7cddee9337bc2bb6fe6b72e1cd89cf05eb00f26d947f4c1e37b52bdd566f3781",
+      "bytes": 5244
+    },
+    {
+      "path": "UPSTREAM.md",
+      "sha256": "9fa7c4d9fbce8fac7edf2e426c5e17d787c2078a8350065a51c53c825016f3ec",
+      "bytes": 968
+    },
+    {
+      "path": "assets/chart-atlas/atlas-01-bar-charts.png",
+      "sha256": "4a0e3040bbdbfe5ec48b66515f719f83ad7304fadb2e56432cd3e8f7ccbabd65",
+      "bytes": 125370
+    },
+    {
+      "path": "assets/chart-atlas/atlas-02-line-trends.png",
+      "sha256": "9a8189149180a68679738bc4be152ee40b17d71261d71b3759d315a7169da0d9",
+      "bytes": 423651
+    },
+    {
+      "path": "assets/chart-atlas/atlas-03-heatmaps.png",
+      "sha256": "40dd7c7c14c45b45cc22ee23e19f2dc1901f38b26a1fb4b0f26a30dbd10c0423",
+      "bytes": 159834
+    },
+    {
+      "path": "assets/chart-atlas/atlas-04-scatter-bubble.png",
+      "sha256": "1bbfbc38a3f246e4fd7c59b9ed1003ddbc7280ee160b7c38abf8d410b27fe6f8",
+      "bytes": 485091
+    },
+    {
+      "path": "assets/chart-atlas/atlas-05-radar-polar.png",
+      "sha256": "e7fa7d98cd4f5263f5550d7ac8824e60071c20b2927aef52ac6d18d62fd29ffa",
+      "bytes": 630054
+    },
+    {
+      "path": "assets/chart-atlas/atlas-06-distributions.png",
+      "sha256": "a1fe533d07dae36d11c997577ded61adb16bf5d4dd5c0dee2ff92ae570f0f01e",
+      "bytes": 233827
+    },
+    {
+      "path": "assets/chart-atlas/atlas-07-forest-interval.png",
+      "sha256": "dc61a5257eae4748348c72c51f2e70e59979c6892f52dadf7bb4ba6f8b98b00b",
+      "bytes": 270166
+    },
+    {
+      "path": "assets/chart-atlas/atlas-08-area-stacked.png",
+      "sha256": "350c25e427d945dee5fd98316eb6ebe307304b9d187d954a88c05852d664a60b",
+      "bytes": 334735
+    },
+    {
+      "path": "assets/chart-atlas/atlas-09-image-plates.png",
+      "sha256": "bbc8c0b8708d42465e57cb7c56b4d2ecfbaa63340a5a6dfefbcb51189cd1a995",
+      "bytes": 359027
+    },
+    {
+      "path": "assets/chart-atlas/atlas-10-network-matrix.png",
+      "sha256": "cd384abe10aa86bd310c1288a42f33735cb555c267bddae1ecd262905a7a1de5",
+      "bytes": 312125
+    },
+    {
+      "path": "assets/figures4papers/assets/Dispersion_motivation.png",
+      "sha256": "04c2f6ab2bedf8e6a19449f0260ef36f8ab736a93dccf19458cdc80d4b593547",
+      "bytes": 837657
+    },
+    {
+      "path": "assets/figures4papers/assets/Dispersion_observation.png",
+      "sha256": "59846b700abcf89c2779abce27b5d667637f6429cf4a52ca1892c687359f2aa7",
+      "bytes": 808992
+    },
+    {
+      "path": "assets/figures4papers/assets/Dispersion_observation_distillation.png",
+      "sha256": "134b0fcb07dbab1baa769854100fc9791b846f6f6c50591485564fc8492b6660",
+      "bytes": 616612
+    },
+    {
+      "path": "assets/figures4papers/assets/ImmunoStruct_contrastive.png",
+      "sha256": "c2590ba1ecac5e1d0976df3be6e9fa4056dcdd78670201c6db461e3e4f18b0d0",
+      "bytes": 502211
+    },
+    {
+      "path": "assets/figures4papers/assets/ImmunoStruct_results_CEDAR.png",
+      "sha256": "f1f564e0c7221f24f4bffe14cce5b5df6786c75f7dfcf1b6d2be7566820050ec",
+      "bytes": 1281557
+    },
+    {
+      "path": "assets/figures4papers/assets/ImmunoStruct_results_IEDB.png",
+      "sha256": "2768b1a5ef0c501dc03c53c594a28e028df2cd57b51c4fd80c9a57906f6195c5",
+      "bytes": 956273
+    },
+    {
+      "path": "assets/figures4papers/assets/ImmunoStruct_schematic.png",
+      "sha256": "2d3ddf56ae63b34ead168cb95b484881f934e61204a8740c67d6dc1678bbaf7d",
+      "bytes": 972870
+    },
+    {
+      "path": "assets/figures4papers/assets/RNAGenScape_schematic.png",
+      "sha256": "ef85b974a990b74c230dc1a80d3bb357f4f8a430d13c12c6120927c9fb797287",
+      "bytes": 1000298
+    },
+    {
+      "path": "assets/figures4papers/figure_CellSpliceNet/figures/ablation.png",
+      "sha256": "3373085ababf07481a352fe542fd79a58701e0e052c5593ca56984008ddad027",
+      "bytes": 355284
+    },
+    {
+      "path": "assets/figures4papers/figure_CellSpliceNet/figures/comparison.png",
+      "sha256": "49d4ebc7d1867918b9d0167d8e821d8ce7845459a9da55a6fefcef87eeb7024d",
+      "bytes": 813084
+    },
+    {
+      "path": "assets/figures4papers/figure_CellSpliceNet/plot_ablation.py",
+      "sha256": "0d0959102afe26249199a60fb67d5c8bd282a6fdb9c7e024c51a9c42a6a58c7f",
+      "bytes": 2964
+    },
+    {
+      "path": "assets/figures4papers/figure_CellSpliceNet/plot_comparison.py",
+      "sha256": "4e888489587ca7d345893715cc8f34a9b92cc347ffe5b20291093df1c2f23bd6",
+      "bytes": 3909
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/diffusion_swiss_roll.py",
+      "sha256": "2ecd52231b6f095d8471b94bcae58d6c844f14cc8494c6c1636887711cabe592",
+      "bytes": 3545
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/diffusion_swiss_roll.png",
+      "sha256": "9f02fa4603dae748e3745b95b0ed252f2ba386da6101dc1be6c4a2a886c78eb0",
+      "bytes": 1794980
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/fig2_comparison_GeneRegulatory.pdf",
+      "sha256": "30b1efaf3293a240c6646f076a14f702bb3556fd10a1fb791c23deb90d3ff40e",
+      "bytes": 24757
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/fig2_comparison_GeneRegulatory.png",
+      "sha256": "96075eb70285f4f72869b99398c9a923336fbc3a5188883d9e8415e1cc027a46",
+      "bytes": 287419
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/fig2_comparison_Trajectory.pdf",
+      "sha256": "465050a8f8c8be85eb3e8d17c16eaef3df50acc41b2bd212d2b6176d97efc78c",
+      "bytes": 19791
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/fig2_comparison_Trajectory.png",
+      "sha256": "91b214f745a99f1f2b472ddae7661dfa2d9241791768767180219315b89047ec",
+      "bytes": 388293
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/figX_comparison_Ablation.pdf",
+      "sha256": "d4c7b8013a24aa830a0f83b8cf5ffd917a932458e6a265f4b5f29e9a4389960a",
+      "bytes": 19233
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/figures/figX_comparison_Ablation.png",
+      "sha256": "4f7b7b4b01a1b498540850ddabc217fd964eb37142e99a6ee6b5c26cf12aba7f",
+      "bytes": 328952
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/plot_comparison_Ablation.py",
+      "sha256": "d5ab173adbf5be9486e8325f9904123fe7430c0c937e1eebd88dee38049cd787",
+      "bytes": 2506
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/plot_comparison_GeneRegulatory.py",
+      "sha256": "8659356aa5b92a7969dd8e46144c4c68fe97850cb58c2da6a5b011b7daf88129",
+      "bytes": 3022
+    },
+    {
+      "path": "assets/figures4papers/figure_Cflows/plot_comparison_Trajectory.py",
+      "sha256": "bc154c3e99fd4895ceefefeef81298055a8cd42e5795547e1fe1632edabe5b69",
+      "bytes": 2941
+    },
+    {
+      "path": "assets/figures4papers/figure_Dispersion/figures/idea.png",
+      "sha256": "e805fb0f7ccdf8aa3ae764e8156cf6b61b6d56ef7dded0fc7556566e316649a3",
+      "bytes": 384839
+    },
+    {
+      "path": "assets/figures4papers/figure_Dispersion/figures/illustration.png",
+      "sha256": "2528309a41ba6edab9c377a2304c144813c0e99565239a849c427ab00a14643b",
+      "bytes": 762950
+    },
+    {
+      "path": "assets/figures4papers/figure_Dispersion/plot_idea.py",
+      "sha256": "c540a368c5a60b90fec950da8c5085d2ebfa47c367e3270fa3fb38176cf8134e",
+      "bytes": 2432
+    },
+    {
+      "path": "assets/figures4papers/figure_Dispersion/plot_illustration.py",
+      "sha256": "7f9c451d336f718a2c4287130a45ec4597b9fad43746de314a018655c639ec98",
+      "bytes": 15472
+    },
+    {
+      "path": "assets/figures4papers/figure_FPGM/figures/freq_prior.png",
+      "sha256": "0f8f77c4de67324cf7ddd7ee370a8ef39f10417b241142b9bacbc830677ff0fe",
+      "bytes": 641033
+    },
+    {
+      "path": "assets/figures4papers/figure_FPGM/plot_freq_prior.py",
+      "sha256": "d9c5a53ff6c76e9545ea0d65292841765e849d1076afc6a92f2127041740d8bf",
+      "bytes": 6578
+    },
+    {
+      "path": "assets/figures4papers/figure_ImmunoStruct/figures/bars_ablation_Cancer.png",
+      "sha256": "46c9e05df9d7c941628791ac447c5d84a29d942896ce3a13d00432e9f5c720ef",
+      "bytes": 816715
+    },
+    {
+      "path": "assets/figures4papers/figure_ImmunoStruct/figures/bars_ablation_IEDB.png",
+      "sha256": "854fe931bde6ca6c50eda6b147907f00d8f10d74c3b40bad1714b903bf945f00",
+      "bytes": 1160225
+    },
+    {
+      "path": "assets/figures4papers/figure_ImmunoStruct/figures/bars_comparison_Cancer.png",
+      "sha256": "0c35bb8a1fb21d5e30e16be152fc92959af580d9e24f04ccc61444adba8c7aa2",
+      "bytes": 799770
+    },
+    {
+      "path": "assets/figures4papers/figure_ImmunoStruct/figures/bars_comparison_IEDB.png",
+      "sha256": "18a52f7a910fe9c9ff06015f5a1e63527458a86c847f573eb96ba254d4645ac1",
+      "bytes": 757551
+    },
+    {
+      "path": "assets/figures4papers/figure_ImmunoStruct/plot_bars.py",
+      "sha256": "1d028144e620d1cfac66ea5ab57004dfa286d80214480c76d046d9f346fda408",
+      "bytes": 7707
+    },
+    {
+      "path": "assets/figures4papers/figure_ImmunoStruct/raw_data.py",
+      "sha256": "837be4150b7419085caa84746734099ccc78e0f3fb4242e91b81ce1bde6009ca",
+      "bytes": 4459
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/figures/manifold.png",
+      "sha256": "83e55ca23d8aa2fa591a46d3fe4f9d6ac11e17cbc9657e2615d883ea6deb937c",
+      "bytes": 108276
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/figures/manifold_holes.png",
+      "sha256": "2ad2be6fa9c9165e800dba4d997850c9a426cbe9b441c78b76518335bcc3f948",
+      "bytes": 1019896
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/figures/results_comparison_optimization.png",
+      "sha256": "4cf8539d0521b7268f0227b56cecddf2f70c1bb4bbcf9b5e3be886e95a54927a",
+      "bytes": 850446
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/figures/results_comparison_speed.png",
+      "sha256": "cd1fec84f615a43dbe91cc94bfbb94fe07e086fdd5d8191fbff2ec990e38d4f5",
+      "bytes": 92362
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/figures/results_sweep.png",
+      "sha256": "4db30b32b65e6b7160ebe025993c2ffdaf6e240d836c253419e91649d3da8deb",
+      "bytes": 142120
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/plot_comparison.py",
+      "sha256": "b2b30a212d084ae5ba7b82aa1fd830cbfea82a4eef507edfa1757b1734b250e3",
+      "bytes": 11236
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/plot_hole_manifold.py",
+      "sha256": "cc31a470f0364c19f094c1ef32ada4909fb53dab638f56a552fe55d44942ded1",
+      "bytes": 2547
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/plot_manifold.py",
+      "sha256": "aa6461c85b1d03b30f7e12824821c1149f1a4beb56394a20304126a592cf8021",
+      "bytes": 1811
+    },
+    {
+      "path": "assets/figures4papers/figure_RNAGenScape/plot_sweep.py",
+      "sha256": "123a14749450ef5895161b6823e7b8d217dbee181f39da954f5a8b2439be2961",
+      "bytes": 2873
+    },
+    {
+      "path": "assets/figures4papers/figure_VIGIL/figures/comparison_posttraining.png",
+      "sha256": "a6f2e75e7d8361754445d86ce04386b5764a46bf2cbc94e8df0c75ecf1bab142",
+      "bytes": 249289
+    },
+    {
+      "path": "assets/figures4papers/figure_VIGIL/figures/comparison_radar.png",
+      "sha256": "d6613715d9d4564fb0c7354430b227d43c9df04032e32b346601971381e5ba2d",
+      "bytes": 809841
+    },
+    {
+      "path": "assets/figures4papers/figure_VIGIL/plot_comparison_radar.py",
+      "sha256": "d30da4f6a14b33eb7e3350f6f9623caf58d178c099f961270a6e1c17aaaabbee",
+      "bytes": 7397
+    },
+    {
+      "path": "assets/figures4papers/figure_VIGIL/plot_posttraining.py",
+      "sha256": "bb1371ace0f1742eb99019c87e18ecc44588ff063141fed5775429e0e373dc1c",
+      "bytes": 2948
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/figures/brute_force.png",
+      "sha256": "abb63055b0d49edbe9002e820294a622db1429d31b1d2446340036cf1db92607",
+      "bytes": 1753162
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/figures/correctness_by_category.png",
+      "sha256": "bc2cc547f15430bc9af2ebdfba0b8cf1c73702e8fbea35d8b2953cc960da117b",
+      "bytes": 655498
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/figures/correctness_by_subcategory.png",
+      "sha256": "b6639239da2fa9f2bec3eb096ec0db3942965ed38e57446de4b8a240a77c02c6",
+      "bytes": 1100554
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/figures/rewriting.png",
+      "sha256": "0460f09210bc23c272602ecb8b3fcf3984f42fc055df3b0e4982eab50303607f",
+      "bytes": 410105
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/figures/selfcorrection_math.png",
+      "sha256": "71133ed59cc16f8c36a4e8b2325575d185f36a8534c29579d2eff177544e9e53",
+      "bytes": 611488
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/plot_brute_force.py",
+      "sha256": "46906a9de2e8a069a2d3022a78087b2933e2cd898a38800242d005ceec40057f",
+      "bytes": 10181
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/plot_correctness_by_category.py",
+      "sha256": "e84d87bf9cf8b7d8a184f558c02de91874215754075526aaa54586e68d931c1a",
+      "bytes": 6403
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/plot_correctness_by_subcategory.py",
+      "sha256": "fc9c20eaf00c7106b4752ad9638a6593c639721a12bfd42a748a6d439366d4af",
+      "bytes": 6505
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/plot_rewriting.py",
+      "sha256": "01939d1cc3807852ac4751ec143d5472193f1511381eae03bf0c01b33a367501",
+      "bytes": 3694
+    },
+    {
+      "path": "assets/figures4papers/figure_brainteaser/plot_selfcorrection_math.py",
+      "sha256": "7656335018d67ecaaae362e63669f22c709e51644681dc801f298356fb7fef7c",
+      "bytes": 4015
+    },
+    {
+      "path": "assets/figures4papers/figure_ophthal_review/figures/composition_heatmap.png",
+      "sha256": "38a9c4e8fd691cbd7dcb4f5b5abb69398b4974d32cad19a4a33819db1cb34f3a",
+      "bytes": 279533
+    },
+    {
+      "path": "assets/figures4papers/figure_ophthal_review/figures/trend_by_month.png",
+      "sha256": "66fe0f27f44697547b6cb219ff90696f54a6fef48984c9578ace258e0ebce4d4",
+      "bytes": 364102
+    },
+    {
+      "path": "assets/figures4papers/figure_ophthal_review/plot_composition.py",
+      "sha256": "8fb5469cc22f13a68a71ab462abd876856b30c93d1f616fe1bd3569da5aee427",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/figures4papers/figure_ophthal_review/plot_trend.py",
+      "sha256": "0a66624628f6e1da4f2da697e86ac79d46576d4bd552f5d585b2ceff05204811",
+      "bytes": 5531
+    },
+    {
+      "path": "assets/gallery/fig1-material-mechanism-rich.png",
+      "sha256": "2e0706fae3256e1de2388f8605f35b9b6ac23cfc397161a952f34cc5fa2f2192",
+      "bytes": 570018
+    },
+    {
+      "path": "assets/gallery/fig2-spatial-imaging-rich.png",
+      "sha256": "90081b3f778b9ede2dba41c60b6abf0c28a239060c69428344539529cd7f3257",
+      "bytes": 643666
+    },
+    {
+      "path": "assets/gallery/fig3-in-vivo-efficacy-rich.png",
+      "sha256": "25d6fc50f5808104a7cb19f4795cea4229fbc6159fa7509f716a94f7c160a033",
+      "bytes": 371419
+    },
+    {
+      "path": "assets/gallery/fig4-single-cell-systems-rich.png",
+      "sha256": "999edb06b942f988a51b11f947845e42e4c346b2f9e5d5a6425def9e43bb69d1",
+      "bytes": 392735
+    },
+    {
+      "path": "assets/gallery/fig5-validation-perturbation-rich.png",
+      "sha256": "245ad31f97b2054628987444e44d6a007f352f65ae6254189f5ed8ba9b0301c6",
+      "bytes": 408275
+    },
+    {
+      "path": "evals/evals.json",
+      "sha256": "c5d4c7b8c64ee251771262dff2a50d346054b4f871116f4b119bcf9c707c697c",
+      "bytes": 2127
+    },
+    {
+      "path": "manifest.yaml",
+      "sha256": "279d77c4a087aa96aacbad0d29ffb4d1258d79518d5943494f0a82799158a153",
+      "bytes": 3200
+    },
+    {
+      "path": "references/api.md",
+      "sha256": "4d4f47ab46d082c4d1f2065058dd4756302a7d0770929845a635fab1fdddb71d",
+      "bytes": 13552
+    },
+    {
+      "path": "references/backend-selection.md",
+      "sha256": "f30b3e5c9293e8732c6de27c2f695284d3267ac5f4ecf21d8d5209020eb2e052",
+      "bytes": 4694
+    },
+    {
+      "path": "references/chart-types.md",
+      "sha256": "585b5e59c0a528e020750df6b77914759eaa285f8a2a025d3810e40a8637c2ab",
+      "bytes": 8911
+    },
+    {
+      "path": "references/common-patterns.md",
+      "sha256": "c8f5cd326038c784c63dc7f96c59f07d3559de69d50225ecbb46d76e03baf416",
+      "bytes": 9950
+    },
+    {
+      "path": "references/demos.md",
+      "sha256": "90f0be14bf2a782853f5c71c6a8b4933a246c7a96c4f6c59d80e9c2f7ceab036",
+      "bytes": 4118
+    },
+    {
+      "path": "references/design-theory.md",
+      "sha256": "0a7b3a8a964635fa1c7a59d82640e0adb31a6e9845beae77bc6e87503f8597c1",
+      "bytes": 15620
+    },
+    {
+      "path": "references/figure-contract.md",
+      "sha256": "d989b4ebdb3aeab14c09e261980756abe72a67bc5eb866e1b91cdaac9c5d5201",
+      "bytes": 3970
+    },
+    {
+      "path": "references/figure-legend-conventions.md",
+      "sha256": "e9591ac3b21dfc26c75f9ab8ca2950e5c1e222e807b3645df7039c12e40c33c4",
+      "bytes": 3607
+    },
+    {
+      "path": "references/nature-2026-observations.md",
+      "sha256": "e4f7800316740297ae3573b2f1830a2d150e3e306546144f6c0547806431c307",
+      "bytes": 5622
+    },
+    {
+      "path": "references/qa-contract.md",
+      "sha256": "5323f234fa5319784ce4b06e4eba1d242ba39a72ce83198f9e2ba126eb500339",
+      "bytes": 4736
+    },
+    {
+      "path": "references/r-template-index.md",
+      "sha256": "0ebbbd4171896b61639d7969a010401d0aa257bafb99783026a1ba32c91ce19e",
+      "bytes": 3903
+    },
+    {
+      "path": "references/r-workflow.md",
+      "sha256": "67ca5126e54b22373a6646c7f7c23c892ef237174092a2b5c94edbd9b25ead5e",
+      "bytes": 5275
+    },
+    {
+      "path": "references/tutorials.md",
+      "sha256": "920ba75294c09ac5a7c7df9ac1807060737b8331149d105b3d0f0da041e50445",
+      "bytes": 8169
+    },
+    {
+      "path": "static/core/contract.md",
+      "sha256": "40b0408bb5a036ebc218ebdcfb1968127b80e12d6696f911c22fa7e9f48864ed",
+      "bytes": 3076
+    },
+    {
+      "path": "static/core/stance.md",
+      "sha256": "46d1a49608ccf240af4237b5fdb7925b67f4589d7f445d2bcb36506e88985b2f",
+      "bytes": 3371
+    },
+    {
+      "path": "static/fragments/backend/python.md",
+      "sha256": "62b631cee0ef7aaf8caea47eb4c4e9dfe4f59d41968dc553acc9baf1a81d92ae",
+      "bytes": 1936
+    },
+    {
+      "path": "static/fragments/backend/r.md",
+      "sha256": "3f31ff4929fbd8637f4e10ee9eaa7de53da6e48c3c86ee1bd3fc3067c41fa156",
+      "bytes": 2075
+    }
+  ]
+}

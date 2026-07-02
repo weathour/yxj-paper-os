@@ -66,7 +66,14 @@
     "S11_export_manifest",
     "S11_candidate_return_complete",
     "S11_verifier_evidence",
-    "S11_authority_boundary"
+    "S11_authority_boundary",
+    "S11_nature_figure_vendor_present",
+    "S11_nature_figure_parity_manifest",
+    "S11_nature_figure_backend_gate",
+    "S11_nature_figure_direct_call_mapping",
+    "S11_no_cross_backend_rendering",
+    "S11_no_mock_data_for_evidential_figure",
+    "S11_exemplar_boundary_and_similarity_report"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -78,5 +85,15 @@
     "packet_ref": "examples/packets/phase10_s11_figure_caption_artifact_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "blocker": null
-  }
+  },
+  "capability_adapters": [
+    {
+      "adapter_id": "S11NatureFigureDirectCall",
+      "adapter_ref": "runtime/adapters/S11NatureFigureDirectCall.adapter.json",
+      "call_step": "S11.nature_figure_production_pass",
+      "source": "third_party/nature-figure",
+      "parity_manifest_ref": "third_party/nature-figure/PARITY_MANIFEST.json",
+      "authority_boundary": "S11 remains controller-owned; adapter is helper only"
+    }
+  ]
 }

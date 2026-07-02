@@ -499,7 +499,14 @@ S11_REQUIRED_VERIFIER_CHECKS = {
     "caption_claim_boundary_preserved",
     "completion_not_claimed",
     "editable_source_or_render_plan_present",
+    "exemplar_boundary_and_similarity_checked",
     "image_integrity_record_present",
+    "nature_figure_backend_gate_checked",
+    "nature_figure_direct_call_mapping_complete",
+    "nature_figure_parity_manifest_verified",
+    "nature_figure_vendor_verified",
+    "no_cross_backend_rendering",
+    "no_mock_data_for_evidential_figure",
     "no_recursive_dispatch",
     "panel_claim_trace_complete",
     "polish_preserves_evidence_meaning",
@@ -508,6 +515,42 @@ S11_REQUIRED_VERIFIER_CHECKS = {
     "supported_claims_preserved",
     "visual_contract_obeyed",
     "write_path_obeyed",
+}
+S11_NATURE_UPSTREAM_COMMIT = "c91df241a7a963ea151687ac669c5534404f53e5"
+S11_NATURE_VENDOR_PATH = "third_party/nature-figure"
+S11_NATURE_PARITY_TARGET = "nature-figure@2.0.0"
+S11_NATURE_PARITY_MANIFEST = "third_party/nature-figure/PARITY_MANIFEST.json"
+S11_NATURE_CALL_STEP = "S11.nature_figure_production_pass"
+S11_NATURE_WRITE_PREFIXES = ("examples/candidate-artifacts/", "figures/src/", "figures/generated/")
+S11_NATURE_CANDIDATE_PREFIXES = ("examples/candidate-artifacts/",)
+S11_NATURE_SOURCE_PREFIXES = ("examples/candidate-artifacts/", "figures/src/")
+S11_NATURE_SCRIPT_PREFIXES = ("figures/src/",)
+S11_NATURE_RENDER_PREFIXES = ("figures/generated/",)
+S11_NATURE_DATA_PREFIXES = ("examples/materials/",)
+S11_NATURE_BACKEND_TOOLS = {"python": "python3", "r": "Rscript"}
+S11_NATURE_BACKEND_FRAGMENTS = {
+    "python": "static/fragments/backend/python.md",
+    "r": "static/fragments/backend/r.md",
+}
+S11_NATURE_REQUIRED_LOADED_COMPONENTS = {
+    "SKILL.md",
+    "manifest.yaml",
+    "static/core/contract.md",
+    "static/core/stance.md",
+    "references/figure-contract.md",
+    "references/qa-contract.md",
+    "references/design-theory.md",
+}
+S11_NATURE_REQUIRED_QA_FLAGS = {
+    "source_data_trace_ok",
+    "claim_boundary_preserved",
+    "proof_role_preserved",
+    "s11_mapping_complete",
+    "cross_backend_rendering_absent",
+    "mock_data_absent_or_non_evidential",
+    "exemplar_boundary_preserved",
+    "accessibility_contract_present",
+    "editable_source_or_render_plan_present",
 }
 S12_COMPLETION_BOUNDARY = "structured_integrated_candidate_only_no_pdf_export_no_final_manuscript_no_untracked_rewrite"
 S12_COMPLETION_OVERCLAIM_KEYS = {
@@ -4409,6 +4452,10 @@ def _require_s11_required_modules(payload: dict[str, Any], errors: list[Validati
         "figure_contract_compliance",
         "generated_artifacts",
         "editable_source_bundle",
+        "nature_figure_capability_report",
+        "nature_figure_contract",
+        "nature_figure_execution",
+        "nature_figure_qa_report",
         "source_data_trace",
         "panel_claim_trace",
         "caption_legend_draft",
@@ -4428,6 +4475,152 @@ def _require_s11_required_modules(payload: dict[str, Any], errors: list[Validati
     missing = [field for field in required if not _has_non_empty_payload_value(payload.get(field))]
     if missing:
         errors.append(issue("E_S11_ARTIFACT_BUNDLE_REQUIRED", f"S11FigureCaptionArtifactBundle missing required modules: {missing}"))
+
+
+def _s11_path_has_prefix(path: str, prefixes: tuple[str, ...]) -> bool:
+    return any(path.startswith(prefix) for prefix in prefixes)
+
+
+def _validate_s11_safe_paths(paths: Any, label: str, prefixes: tuple[str, ...], code: str, errors: list[ValidationIssue]) -> None:
+    for path in _s08_string_items(paths):
+        if not _s09_path_is_safe(path) or not _s11_path_has_prefix(path, prefixes):
+            errors.append(issue(code, f"{label} contains unsafe or wrong-scope path: {path}"))
+
+
+def _s11_nature_direct_call_enabled(payload: dict[str, Any]) -> bool:
+    return isinstance(payload.get("nature_figure_capability_report"), dict)
+
+
+def _validate_s11_nature_figure_direct_call(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
+    capability = _require_mapping(payload, "nature_figure_capability_report", "E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED", errors)
+    _require_mapping_fields(
+        capability,
+        "nature_figure_capability_report",
+        ["parity_target", "upstream_commit", "vendor_path", "parity_manifest_ref", "direct_call_step"],
+        "E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED",
+        errors,
+    )
+    loaded_components = _require_s09_list(
+        capability,
+        "nature_figure_capability_report",
+        "loaded_components",
+        "E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED",
+        errors,
+    )
+    if capability is not None:
+        expected_pairs = {
+            "parity_target": S11_NATURE_PARITY_TARGET,
+            "upstream_commit": S11_NATURE_UPSTREAM_COMMIT,
+            "vendor_path": S11_NATURE_VENDOR_PATH,
+            "parity_manifest_ref": S11_NATURE_PARITY_MANIFEST,
+            "direct_call_step": S11_NATURE_CALL_STEP,
+        }
+        for key, expected in expected_pairs.items():
+            if capability.get(key) != expected:
+                errors.append(issue("E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED", f"nature_figure_capability_report.{key} must be {expected!r}"))
+        missing_components = sorted(S11_NATURE_REQUIRED_LOADED_COMPONENTS - loaded_components)
+        if missing_components:
+            errors.append(issue("E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED", f"nature_figure_capability_report.loaded_components missing {missing_components}"))
+        for key in ("s11_contract_overrides_skill", "capability_floor_preserved"):
+            if capability.get(key) is not True:
+                errors.append(issue("E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED", f"nature_figure_capability_report.{key} must be true"))
+
+    contract = _require_mapping(payload, "nature_figure_contract", "E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", errors)
+    _require_mapping_fields(
+        contract,
+        "nature_figure_contract",
+        ["core_conclusion", "archetype", "backend", "selected_backend_fragment"],
+        "E_S11_NATURE_FIGURE_CONTRACT_REQUIRED",
+        errors,
+    )
+    _require_s09_list(contract, "nature_figure_contract", "evidence_chain", "E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", errors)
+    _require_s09_list(contract, "nature_figure_contract", "review_risk_checks", "E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", errors)
+    if contract is not None:
+        backend = contract.get("backend")
+        expected_fragment = S11_NATURE_BACKEND_FRAGMENTS.get(str(backend))
+        if backend not in S11_NATURE_BACKEND_TOOLS:
+            errors.append(issue("E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", "nature_figure_contract.backend must be python or r"))
+        elif contract.get("selected_backend_fragment") != expected_fragment:
+            errors.append(issue("E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", "nature_figure_contract.selected_backend_fragment must match backend"))
+        if contract.get("backend_selected_before_worker") is not True:
+            errors.append(issue("E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", "nature_figure_contract.backend_selected_before_worker must be true"))
+        if expected_fragment is not None and expected_fragment not in loaded_components:
+            errors.append(issue("E_S11_NATURE_FIGURE_CAPABILITY_REQUIRED", "nature_figure_capability_report.loaded_components must include selected backend fragment"))
+        journal = as_mapping(contract.get("journal_export_contract"))
+        if journal is None:
+            errors.append(issue("E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", "nature_figure_contract.journal_export_contract must be a mapping"))
+        else:
+            target_formats = set(_s08_string_items(journal.get("target_formats")))
+            if not {"svg", "pdf"}.issubset(target_formats):
+                errors.append(issue("E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", "nature_figure_contract.journal_export_contract.target_formats must include svg and pdf"))
+            for key in ("editable_text_required", "source_data_trace_required"):
+                if journal.get(key) is not True:
+                    errors.append(issue("E_S11_NATURE_FIGURE_CONTRACT_REQUIRED", f"nature_figure_contract.journal_export_contract.{key} must be true"))
+
+    execution = _require_mapping(payload, "nature_figure_execution", "E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", errors)
+    _require_mapping_fields(
+        execution,
+        "nature_figure_execution",
+        ["call_step", "backend", "selected_tool", "runtime_status", "script_path"],
+        "E_S11_NATURE_FIGURE_EXECUTION_REQUIRED",
+        errors,
+    )
+    _require_s09_list(execution, "nature_figure_execution", "rendered_files_planned", "E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", errors)
+    if execution is not None:
+        backend = execution.get("backend")
+        expected_fragment = S11_NATURE_BACKEND_FRAGMENTS.get(str(backend))
+        if backend not in S11_NATURE_BACKEND_TOOLS:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", "nature_figure_execution.backend must be python or r"))
+        elif execution.get("selected_tool") != S11_NATURE_BACKEND_TOOLS[backend]:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", "nature_figure_execution.selected_tool must match selected backend"))
+        if expected_fragment is not None and contract is not None and contract.get("selected_backend_fragment") != expected_fragment:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", "nature_figure_contract.selected_backend_fragment must match execution backend"))
+        if execution.get("call_step") != S11_NATURE_CALL_STEP:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", f"nature_figure_execution.call_step must be {S11_NATURE_CALL_STEP!r}"))
+        if execution.get("runtime_status") not in {"render_plan_only", "executed", "blocked"}:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", "nature_figure_execution.runtime_status is invalid"))
+        if not _s09_path_is_safe(str(execution.get("script_path") or "")) or not str(execution.get("script_path") or "").startswith("figures/src/"):
+            errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", "nature_figure_execution.script_path must be a safe figures/src path"))
+        _validate_s11_safe_paths(
+            execution.get("rendered_files_planned"),
+            "nature_figure_execution.rendered_files_planned",
+            S11_NATURE_RENDER_PREFIXES,
+            "E_S11_NATURE_FIGURE_PATH_REQUIRED",
+            errors,
+        )
+        for key in ("backend_exclusive",):
+            if execution.get(key) is not True:
+                errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", f"nature_figure_execution.{key} must be true"))
+        for key in ("worker_backend_question_asked", "cross_backend_used", "mock_data_used"):
+            if execution.get(key) is not False:
+                errors.append(issue("E_S11_NATURE_FIGURE_EXECUTION_REQUIRED", f"nature_figure_execution.{key} must be false"))
+
+    qa = _require_mapping(payload, "nature_figure_qa_report", "E_S11_NATURE_FIGURE_QA_REQUIRED", errors)
+    _require_s09_list(qa, "nature_figure_qa_report", "checks_completed", "E_S11_NATURE_FIGURE_QA_REQUIRED", errors)
+    if qa is not None:
+        for key in S11_NATURE_REQUIRED_QA_FLAGS:
+            if qa.get(key) is not True:
+                errors.append(issue("E_S11_NATURE_FIGURE_QA_REQUIRED", f"nature_figure_qa_report.{key} must be true"))
+        if qa.get("final_export_claimed") is not False:
+            errors.append(issue("E_S11_NATURE_FIGURE_QA_REQUIRED", "nature_figure_qa_report.final_export_claimed must be false"))
+
+    exemplar = as_mapping(payload.get("exemplar_design_analysis"))
+    transfer = as_mapping(payload.get("design_transfer_plan"))
+    similarity = as_mapping(payload.get("similarity_risk_report"))
+    if exemplar is not None and exemplar.get("exemplar_used") is True:
+        _require_s09_list(exemplar, "exemplar_design_analysis", "design_features_observed", "E_S11_NATURE_FIGURE_EXEMPLAR_BOUNDARY_REQUIRED", errors)
+        _require_s09_list(exemplar, "exemplar_design_analysis", "prohibited_copy_features", "E_S11_NATURE_FIGURE_EXEMPLAR_BOUNDARY_REQUIRED", errors)
+    if transfer is not None:
+        if transfer.get("direct_copy_forbidden") is not True or transfer.get("exact_layout_copy_forbidden") is not True:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXEMPLAR_BOUNDARY_REQUIRED", "design_transfer_plan must forbid direct and exact-layout copying"))
+        if transfer.get("transfer_mode") not in {"not_applicable", "abstract_design_principles_only"}:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXEMPLAR_BOUNDARY_REQUIRED", "design_transfer_plan.transfer_mode must avoid direct style copying"))
+    if similarity is not None:
+        for key in ("exact_layout_copied", "distinctive_style_copied"):
+            if similarity.get(key) is not False:
+                errors.append(issue("E_S11_NATURE_FIGURE_EXEMPLAR_BOUNDARY_REQUIRED", f"similarity_risk_report.{key} must be false"))
+        if similarity.get("similarity_risk") not in {"none", "low", "medium"}:
+            errors.append(issue("E_S11_NATURE_FIGURE_EXEMPLAR_BOUNDARY_REQUIRED", "similarity_risk_report.similarity_risk must be none, low, or medium"))
 
 
 def _validate_s11_authority_and_packet(payload: dict[str, Any], errors: list[ValidationIssue]) -> tuple[str, str]:
@@ -4465,7 +4658,8 @@ def _validate_s11_authority_and_packet(payload: dict[str, Any], errors: list[Val
     if report is not None:
         packet_id = str(report.get("packet_id") or "")
         write_paths = _s08_string_items(report.get("allowed_write_paths_used"))
-        output_path = write_paths[0] if write_paths else ""
+        candidate_paths = [path for path in write_paths if path.startswith("examples/candidate-artifacts/")]
+        output_path = candidate_paths[0] if candidate_paths else (write_paths[0] if write_paths else "")
         if report.get("target_visual_type") not in S11_VISUAL_TYPES:
             errors.append(issue("E_S11_PACKET_COMPLIANCE_REQUIRED", f"target_visual_type must be one of {sorted(S11_VISUAL_TYPES)}"))
         if report.get("single_writer_lock_observed") is not True:
@@ -4478,7 +4672,19 @@ def _validate_s11_authority_and_packet(payload: dict[str, Any], errors: list[Val
         missing_forbidden = sorted(S09B_REQUIRED_FORBIDDEN_ROUTES - forbidden)
         if missing_forbidden:
             errors.append(issue("E_S11_PACKET_COMPLIANCE_REQUIRED", f"packet_compliance_report.forbidden_routes_observed missing {missing_forbidden}"))
-        if len(write_paths) != 1 or not _s09_path_is_safe(output_path) or not output_path.startswith("examples/candidate-artifacts/"):
+        if _s11_nature_direct_call_enabled(payload):
+            invalid_paths = [
+                path
+                for path in write_paths
+                if not _s09_path_is_safe(path) or not _s11_path_has_prefix(path, S11_NATURE_WRITE_PREFIXES)
+            ]
+            if invalid_paths:
+                errors.append(issue("E_S11_ALLOWED_WRITE_PATH_REQUIRED", f"packet_compliance_report.allowed_write_paths_used contains unsafe S11 nature paths: {invalid_paths}"))
+            if not candidate_paths:
+                errors.append(issue("E_S11_ALLOWED_WRITE_PATH_REQUIRED", "S11 nature direct call must include a candidate-artifact output path"))
+            if not any(path.startswith("figures/src/") for path in write_paths):
+                errors.append(issue("E_S11_ALLOWED_WRITE_PATH_REQUIRED", "S11 nature direct call must include an editable figures/src path"))
+        elif len(write_paths) != 1 or not _s09_path_is_safe(output_path) or not output_path.startswith("examples/candidate-artifacts/"):
             errors.append(issue("E_S11_ALLOWED_WRITE_PATH_REQUIRED", "packet_compliance_report.allowed_write_paths_used must contain one safe candidate-artifact path"))
     return packet_id, output_path
 
@@ -4512,8 +4718,9 @@ def _validate_s11_contract_and_artifacts(payload: dict[str, Any], errors: list[V
             if artifact.get("status") not in S11_ARTIFACT_STATUSES:
                 errors.append(issue("E_S11_GENERATED_ARTIFACTS_REQUIRED", f"generated_artifacts[{idx}].status is invalid"))
             path = str(artifact.get("path") or "")
-            if not _s09_path_is_safe(path) or not path.startswith("examples/candidate-artifacts/"):
-                errors.append(issue("E_S11_ALLOWED_WRITE_PATH_REQUIRED", f"generated_artifacts[{idx}].path must be a safe candidate artifact path"))
+            allowed_prefixes = S11_NATURE_WRITE_PREFIXES if _s11_nature_direct_call_enabled(payload) else ("examples/candidate-artifacts/",)
+            if not _s09_path_is_safe(path) or not _s11_path_has_prefix(path, allowed_prefixes):
+                errors.append(issue("E_S11_ALLOWED_WRITE_PATH_REQUIRED", f"generated_artifacts[{idx}].path must be a safe S11 artifact path"))
 
     editable = _require_mapping(payload, "editable_source_bundle", "E_S11_EDITABLE_SOURCE_REQUIRED", errors)
     _require_mapping_fields(editable, "editable_source_bundle", ["visual_id"], "E_S11_EDITABLE_SOURCE_REQUIRED", errors)
@@ -4521,6 +4728,21 @@ def _validate_s11_contract_and_artifacts(payload: dict[str, Any], errors: list[V
         _require_s09_list(editable, "editable_source_bundle", key, "E_S11_EDITABLE_SOURCE_REQUIRED", errors)
     if editable is not None and editable.get("source_available") is not True:
         errors.append(issue("E_S11_EDITABLE_SOURCE_REQUIRED", "editable_source_bundle.source_available must be true or a missing-material route is required"))
+    if editable is not None and _s11_nature_direct_call_enabled(payload):
+        _validate_s11_safe_paths(
+            editable.get("source_files"),
+            "editable_source_bundle.source_files",
+            S11_NATURE_SOURCE_PREFIXES,
+            "E_S11_NATURE_FIGURE_PATH_REQUIRED",
+            errors,
+        )
+        _validate_s11_safe_paths(
+            editable.get("script_files"),
+            "editable_source_bundle.script_files",
+            S11_NATURE_SCRIPT_PREFIXES,
+            "E_S11_NATURE_FIGURE_PATH_REQUIRED",
+            errors,
+        )
 
     rendered = as_mapping(payload.get("rendered_output_bundle"))
     render_plan = as_mapping(payload.get("render_plan_if_not_rendered"))
@@ -4529,9 +4751,25 @@ def _validate_s11_contract_and_artifacts(payload: dict[str, Any], errors: list[V
     if rendered is not None:
         _require_mapping_fields(rendered, "rendered_output_bundle", ["visual_id", "render_status"], "E_S11_RENDER_OR_PLAN_REQUIRED", errors)
         _require_s09_list(rendered, "rendered_output_bundle", "rendered_files", "E_S11_RENDER_OR_PLAN_REQUIRED", errors)
+        if _s11_nature_direct_call_enabled(payload):
+            _validate_s11_safe_paths(
+                rendered.get("rendered_files"),
+                "rendered_output_bundle.rendered_files",
+                S11_NATURE_RENDER_PREFIXES,
+                "E_S11_NATURE_FIGURE_PATH_REQUIRED",
+                errors,
+            )
     if render_plan is not None:
         _require_mapping_fields(render_plan, "render_plan_if_not_rendered", ["visual_id", "required_command_or_tool", "reproducibility_notes"], "E_S11_RENDER_OR_PLAN_REQUIRED", errors)
         _require_s09_list(render_plan, "render_plan_if_not_rendered", "expected_outputs", "E_S11_RENDER_OR_PLAN_REQUIRED", errors)
+        if _s11_nature_direct_call_enabled(payload):
+            _validate_s11_safe_paths(
+                render_plan.get("expected_outputs"),
+                "render_plan_if_not_rendered.expected_outputs",
+                S11_NATURE_RENDER_PREFIXES,
+                "E_S11_NATURE_FIGURE_PATH_REQUIRED",
+                errors,
+            )
 
 
 def _validate_s11_traces_caption_and_quality(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
@@ -4601,6 +4839,11 @@ def _validate_s11_integrity_accessibility_return(payload: dict[str, Any], packet
         _require_s09_list(integrity, "image_integrity_record", key, "E_S11_IMAGE_INTEGRITY_REQUIRED", errors, allow_empty=key in {"missing_assets", "rendered_files"})
     if integrity is not None and integrity.get("integrity_status") not in {"candidate_ok", "render_plan_recorded"}:
         errors.append(issue("E_S11_IMAGE_INTEGRITY_REQUIRED", "image_integrity_record.integrity_status must be candidate_ok or render_plan_recorded"))
+    if integrity is not None and _s11_nature_direct_call_enabled(payload):
+        _validate_s11_safe_paths(integrity.get("rendered_files"), "image_integrity_record.rendered_files", S11_NATURE_RENDER_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
+        _validate_s11_safe_paths(integrity.get("source_files"), "image_integrity_record.source_files", S11_NATURE_SOURCE_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
+        _validate_s11_safe_paths(integrity.get("data_files"), "image_integrity_record.data_files", S11_NATURE_DATA_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
+        _validate_s11_safe_paths(integrity.get("script_files"), "image_integrity_record.script_files", S11_NATURE_SCRIPT_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
 
     stats = _require_mapping(payload, "figure_statistics", "E_S11_FIGURE_STATISTICS_REQUIRED", errors)
     _require_mapping_fields(stats, "figure_statistics", ["visual_id"], "E_S11_FIGURE_STATISTICS_REQUIRED", errors)
@@ -4635,6 +4878,11 @@ def _validate_s11_integrity_accessibility_return(payload: dict[str, Any], packet
             errors.append(issue("E_S11_EXPORT_MANIFEST_REQUIRED", "export_manifest.final_export_claimed must be false"))
         if export.get("candidate_status") != "candidate":
             errors.append(issue("E_S11_EXPORT_MANIFEST_REQUIRED", "export_manifest.candidate_status must be candidate"))
+        if _s11_nature_direct_call_enabled(payload):
+            _validate_s11_safe_paths(export.get("export_files"), "export_manifest.export_files", S11_NATURE_CANDIDATE_PREFIXES + S11_NATURE_RENDER_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
+            _validate_s11_safe_paths(export.get("source_files"), "export_manifest.source_files", S11_NATURE_SOURCE_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
+            _validate_s11_safe_paths(export.get("data_files"), "export_manifest.data_files", S11_NATURE_DATA_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
+            _validate_s11_safe_paths(export.get("script_files"), "export_manifest.script_files", S11_NATURE_SCRIPT_PREFIXES, "E_S11_NATURE_FIGURE_PATH_REQUIRED", errors)
 
     coverage = _require_mapping(payload, "coverage_ledger", "E_S11_COVERAGE_LEDGER_REQUIRED", errors)
     for key in (
@@ -4696,6 +4944,7 @@ def _validate_s11_figure_caption_artifact_bundle(payload: dict[str, Any], errors
     _require_s11_payload_header(payload, "ppg-s11-figure-caption-artifact-bundle/v0.1", "E_S11_ARTIFACT_BUNDLE_REQUIRED", errors)
     _require_s11_required_modules(payload, errors)
     packet_id, output_path = _validate_s11_authority_and_packet(payload, errors)
+    _validate_s11_nature_figure_direct_call(payload, errors)
     _validate_s11_contract_and_artifacts(payload, errors)
     _validate_s11_traces_caption_and_quality(payload, errors)
     _validate_s11_integrity_accessibility_return(payload, packet_id, output_path, errors)

@@ -51,6 +51,11 @@ SAFE_WRITE_PREFIXES = (
     "examples/materials/",
     "runs/",
 )
+S11_NATURE_WRITE_PREFIXES = (
+    "examples/candidate-artifacts/",
+    "figures/src/",
+    "figures/generated/",
+)
 REQUIRED_FORBIDDEN_ROUTES = {
     "mark_graph_complete",
     "dispatch_subagents",
@@ -70,6 +75,17 @@ SAFE_ALLOWED_ACTIONS = {
     "return_evidence",
 }
 SAFE_ALLOWED_TOOLS = {"none"}
+S11_NATURE_BACKEND_TOOLS = {"python": "python3", "r": "Rscript"}
+S11_NATURE_BACKEND_FRAGMENTS = {
+    "python": "static/fragments/backend/python.md",
+    "r": "static/fragments/backend/r.md",
+}
+S11_NATURE_PACKET_FIELDS = {"nature_figure_direct_call", "figure_backend", "render_execution_policy"}
+S11_NATURE_PARITY_TARGET = "nature-figure@2.0.0"
+S11_NATURE_UPSTREAM_COMMIT = "c91df241a7a963ea151687ac669c5534404f53e5"
+S11_NATURE_PARITY_MANIFEST = "third_party/nature-figure/PARITY_MANIFEST.json"
+S11_NATURE_ADAPTER_REF = "runtime/adapters/S11NatureFigureDirectCall.adapter.json"
+S11_NATURE_CALL_STEP = "S11.nature_figure_production_pass"
 CANONICAL_STAGE_ID_RE = re.compile(r"^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$")
 ALLOWED_PACKET_FIELDS = {
     "schema_version",
@@ -95,6 +111,9 @@ ALLOWED_PACKET_FIELDS = {
     "terminology_and_surface_controls",
     "visual_quality_profile",
     "visual_polish_policy",
+    "nature_figure_direct_call",
+    "figure_backend",
+    "render_execution_policy",
     "s12_input_package",
     "s10_text_candidates",
     "s11_visual_candidates",
@@ -197,11 +216,25 @@ def _list_values(value: Any) -> set[str]:
     return {str(item) for item in value}
 
 
+def _is_s11_nature_figure_direct_call(data: dict[str, Any]) -> bool:
+    direct_call = data.get("nature_figure_direct_call")
+    backend = data.get("figure_backend")
+    return (
+        data.get("stage_id") == "S11"
+        and isinstance(direct_call, dict)
+        and direct_call.get("enabled") is True
+        and isinstance(backend, dict)
+        and backend.get("selected_backend") in S11_NATURE_BACKEND_TOOLS
+    )
+
+
 def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     errors: list[ValidationIssue] = []
     read_paths = data.get("allowed_read_paths")
     write_paths = data.get("allowed_write_paths")
     output_path = data.get("output_artifact_path")
+    s11_direct_call = _is_s11_nature_figure_direct_call(data)
+    write_prefixes = S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
 
     if not is_non_empty_string_list(read_paths):
         errors.append(issue("E_TASK_ALLOWED_READ_PATHS_REQUIRED", "allowed_read_paths must be a non-empty list of string paths"))
@@ -209,7 +242,7 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
         errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "allowed_write_paths must be a non-empty list of string paths"))
     for field_name, paths, prefixes in (
         ("allowed_read_paths", read_paths, SAFE_READ_PREFIXES),
-        ("allowed_write_paths", write_paths, SAFE_WRITE_PREFIXES),
+        ("allowed_write_paths", write_paths, write_prefixes),
     ):
         if isinstance(paths, list):
             for path in paths:
@@ -218,8 +251,12 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     if not is_non_empty_string(output_path):
         errors.append(issue("E_TASK_OUTPUT_PATH_REQUIRED", "output_artifact_path must be a non-empty string"))
     elif isinstance(write_paths, list) and all(is_non_empty_string(path) for path in write_paths):
-        if write_paths != [output_path]:
+        if not s11_direct_call and write_paths != [output_path]:
             errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "allowed_write_paths must contain exactly output_artifact_path for strict worker packets"))
+        if s11_direct_call and not str(output_path).startswith("examples/candidate-artifacts/"):
+            errors.append(issue("E_TASK_OUTPUT_PATH_REQUIRED", "S11 nature-figure direct-call output_artifact_path must remain under examples/candidate-artifacts/"))
+        if s11_direct_call and str(output_path) not in write_paths:
+            errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "S11 nature-figure direct-call packets must include output_artifact_path in allowed_write_paths"))
         if not any(_path_is_within(str(output_path), str(path)) for path in write_paths):
             errors.append(issue("E_TASK_OUTPUT_OUTSIDE_ALLOWED_WRITES", "output_artifact_path must be within allowed_write_paths"))
     return errors
@@ -266,7 +303,13 @@ def _validate_authority_fields(data: dict[str, Any]) -> list[ValidationIssue]:
 
     allowed_tools_raw = data.get("allowed_tools")
     allowed_tools = _list_values(allowed_tools_raw)
-    if allowed_tools and (allowed_tools != SAFE_ALLOWED_TOOLS or allowed_tools_raw != ["none"]):
+    if _is_s11_nature_figure_direct_call(data):
+        backend = data.get("figure_backend")
+        assert isinstance(backend, dict)
+        expected_tool = S11_NATURE_BACKEND_TOOLS[str(backend.get("selected_backend"))]
+        if allowed_tools_raw != [expected_tool]:
+            errors.append(issue("E_TASK_ALLOWED_TOOLS_REQUIRED", f"S11 nature-figure direct-call allowed_tools must be exactly: {expected_tool}"))
+    elif allowed_tools and (allowed_tools != SAFE_ALLOWED_TOOLS or allowed_tools_raw != ["none"]):
         errors.append(issue("E_TASK_ALLOWED_TOOLS_REQUIRED", "allowed_tools must be exactly: none"))
     return errors
 
@@ -293,6 +336,12 @@ def validate(data: Any) -> list[ValidationIssue]:
     unknown_fields = sorted(set(data) - ALLOWED_PACKET_FIELDS)
     if unknown_fields:
         errors.append(issue("E_TASK_UNKNOWN_FIELD", f"unknown TaskPacket fields are not allowed: {', '.join(unknown_fields)}"))
+    nature_fields = sorted(S11_NATURE_PACKET_FIELDS & set(data))
+    if nature_fields and not _is_s11_nature_figure_direct_call(data):
+        errors.append(issue(
+            "E_TASK_NATURE_FIGURE_DIRECT_CALL_FORBIDDEN",
+            f"nature-figure packet fields are allowed only for enabled S11 direct-call packets: {', '.join(nature_fields)}",
+        ))
     if data.get("schema_version") and data.get("schema_version") != "ppg-task-packet/v0.1":
         errors.append(issue("E_ENVELOPE_REQUIRED", "schema_version must be ppg-task-packet/v0.1"))
     stage_id = data.get("stage_id")
@@ -346,6 +395,50 @@ def validate(data: Any) -> list[ValidationIssue]:
             errors.append(issue("E_TASK_FIELD_REQUIRED", f"{field_name} must be a non-empty mapping when present"))
     if "coverage_ledgers_required" in data and not is_non_empty_string_list(data.get("coverage_ledgers_required")):
         errors.append(issue("E_TASK_FIELD_REQUIRED", "coverage_ledgers_required must be a non-empty list of strings when present"))
+    if data.get("stage_id") == "S11" and "nature_figure_direct_call" in data:
+        direct_call = data.get("nature_figure_direct_call")
+        backend = data.get("figure_backend")
+        render_policy = data.get("render_execution_policy")
+        if not isinstance(direct_call, dict) or direct_call.get("enabled") is not True:
+            errors.append(issue("E_TASK_NATURE_FIGURE_DIRECT_CALL_REQUIRED", "nature_figure_direct_call.enabled must be true when present"))
+        elif (
+            direct_call.get("source") != "vendored"
+            or direct_call.get("adapter_ref") != S11_NATURE_ADAPTER_REF
+            or direct_call.get("parity_manifest_ref") != S11_NATURE_PARITY_MANIFEST
+            or direct_call.get("parity_target") != S11_NATURE_PARITY_TARGET
+            or direct_call.get("upstream_commit") != S11_NATURE_UPSTREAM_COMMIT
+            or direct_call.get("call_step") != S11_NATURE_CALL_STEP
+            or direct_call.get("s11_contract_overrides_skill") is not True
+            or direct_call.get("worker_completion_forbidden") is not True
+            or direct_call.get("no_recursive_orchestration") is not True
+        ):
+            errors.append(issue("E_TASK_NATURE_FIGURE_DIRECT_CALL_REQUIRED", "nature_figure_direct_call must bind pinned vendored S11 adapter, parity metadata, and authority boundary"))
+        if not isinstance(backend, dict):
+            errors.append(issue("E_TASK_NATURE_FIGURE_BACKEND_REQUIRED", "figure_backend is required for S11 nature-figure direct-call"))
+        else:
+            selected = backend.get("selected_backend")
+            expected_tool = S11_NATURE_BACKEND_TOOLS.get(str(selected))
+            expected_fragment = S11_NATURE_BACKEND_FRAGMENTS.get(str(selected))
+            if expected_tool is None:
+                errors.append(issue("E_TASK_NATURE_FIGURE_BACKEND_REQUIRED", "figure_backend.selected_backend must be python or r"))
+            elif backend.get("selected_tool") != expected_tool:
+                errors.append(issue("E_TASK_NATURE_FIGURE_BACKEND_REQUIRED", "figure_backend.selected_tool must match selected_backend"))
+            if expected_fragment is not None and backend.get("selected_backend_fragment") != expected_fragment:
+                errors.append(issue("E_TASK_NATURE_FIGURE_BACKEND_REQUIRED", "figure_backend.selected_backend_fragment must match selected_backend"))
+            if backend.get("backend_exclusive") is not True or backend.get("worker_may_ask_backend_question") is not False:
+                errors.append(issue("E_TASK_NATURE_FIGURE_BACKEND_REQUIRED", "figure_backend must enforce exclusive preselected backend with no worker question"))
+            if backend.get("cross_backend_rendering_forbidden") is not True:
+                errors.append(issue("E_TASK_NATURE_FIGURE_BACKEND_REQUIRED", "figure_backend.cross_backend_rendering_forbidden must be true"))
+        if isinstance(direct_call, dict) and isinstance(backend, dict):
+            selected = str(backend.get("selected_backend"))
+            expected_fragment = S11_NATURE_BACKEND_FRAGMENTS.get(selected)
+            loaded_components = set(direct_call.get("required_loaded_components") or [])
+            if expected_fragment is not None and expected_fragment not in loaded_components:
+                errors.append(issue("E_TASK_NATURE_FIGURE_DIRECT_CALL_REQUIRED", "nature_figure_direct_call.required_loaded_components must include selected backend fragment"))
+        if not isinstance(render_policy, dict):
+            errors.append(issue("E_TASK_NATURE_FIGURE_RENDER_POLICY_REQUIRED", "render_execution_policy is required for S11 nature-figure direct-call"))
+        elif render_policy.get("missing_runtime_rule") != "return_missing_material_or_authorized_render_plan_do_not_switch_backend":
+            errors.append(issue("E_TASK_NATURE_FIGURE_RENDER_POLICY_REQUIRED", "render_execution_policy must preserve upstream missing-runtime no-cross-backend rule"))
 
     errors.extend(_validate_paths(data))
     errors.extend(_validate_authority_fields(data))

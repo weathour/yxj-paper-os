@@ -357,6 +357,9 @@ claim boundaries, evidence encoding, supported claim sets, or required caveats.
 - `image_integrity_record`, `visual_polish_policy`,
   `visual_polish_report`, `figure_statistics`, `accessibility_check`, and
   `export_manifest`;
+- `nature_figure_capability_report`, `nature_figure_contract`,
+  `nature_figure_execution`, and `nature_figure_qa_report` when the vendored
+  `nature-figure` direct-call slot is enabled;
 - `coverage_ledger`, `candidate_artifact_return`, `verifier_evidence`,
   `remaining_risks`, and `missing_material_report`.
 
@@ -365,6 +368,14 @@ evidence packages, source-data locators, and caption briefs; it still produces
 figure statistics, image integrity record, caption brief, and figure export
 bundle. The stronger bundle makes visual polish auditable rather than turning
 S11 into an unconstrained design pass.
+
+The `S11.nature_figure_production_pass` direct-call slot is an internal helper
+boundary, not a new stage. It loads the vendored `nature-figure` router and the
+preselected Python/R backend fragment, then maps all figure-source, rendered
+candidate, QA, and design-transfer outputs back into
+`S11FigureCaptionArtifactBundle`. The direct-call slot must not change S08 proof
+role, S04 claim boundaries, source-data provenance, or S11 candidate-only
+completion status.
 
 #### S12 integration and consistency report materials
 

@@ -1,0 +1,394 @@
+{
+  "schema_version": "ppg-task-packet/v0.1",
+  "packet_id": "invalid-s11-nature-bad-backend-fragment-packet",
+  "status": "planned",
+  "stage_id": "S11",
+  "stage_contract_ref": "examples/stage-contracts/S11.stage-contract.json",
+  "task_kind": "figure_caption_artifact",
+  "agent_type": "executor",
+  "mission": "Produce a candidate figure/caption/formal-artifact bundle from the supplied S08 visual/formal contract, S04 claim boundaries, S01 source-data locators, S07 terminology/surface controls, and S09B authority boundaries. Improve visual clarity, readability, accessibility, and journal fit without changing what the visual/formal object is allowed to prove. Return editable source, render plan, source-data trace, panel-claim trace, caption-claim trace, image integrity record, visual polish report, evidence, remaining risks, and CandidateArtifactReturn only.",
+  "target_material": "phase10_s11_figure_caption_bundle",
+  "input_materials": [
+    "phase10_s08_visual_formal_plan",
+    "phase10_s04_claim_admissibility",
+    "s01_source_evidence_inventory_v1",
+    "evidence_inventory_v1",
+    "phase10_s07_surface_control"
+  ],
+  "mandatory_controls": {
+    "visual_formal_plan": "phase10_s08_visual_formal_plan",
+    "claim_boundary": "phase10_s04_claim_admissibility",
+    "source_inventory": "s01_source_evidence_inventory_v1",
+    "evidence_inventory": "evidence_inventory_v1",
+    "surface_control": "phase10_s07_surface_control",
+    "nature_overlay_ref": "runtime/stage_overlay_registry.json#nature_expert_writing",
+    "nature_overlay_stage_binding": "S11",
+    "nature_overlay_packet_clauses": [
+      "nature_overlay_ref:nature_expert_writing",
+      "nature_stage_binding:S11",
+      "nature_overlay_role:primary"
+    ]
+  },
+  "evidence_anchors": [
+    "examples/materials/phase10_s08_visual_formal_plan.yaml",
+    "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "examples/materials/s01_source_evidence_inventory.v1.yaml",
+    "examples/materials/evidence_inventory.v1.yaml",
+    "examples/materials/phase10_s07_surface_control.yaml"
+  ],
+  "forbidden_routes": [
+    "mark_graph_complete",
+    "mark_manuscript_complete",
+    "claim_submission_or_publication_readiness",
+    "dispatch_subagents",
+    "write_outside_allowed_write_paths",
+    "change_owner_intent",
+    "alter_unrelated_sections",
+    "introduce_new_claims",
+    "strengthen_claims_beyond_s04"
+  ],
+  "allowed_actions": [
+    "read_material_bundle",
+    "draft_candidate_artifact",
+    "return_evidence"
+  ],
+  "allowed_read_paths": [
+    "examples/materials/phase10_s08_visual_formal_plan.yaml",
+    "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "examples/materials/s01_source_evidence_inventory.v1.yaml",
+    "examples/materials/evidence_inventory.v1.yaml",
+    "examples/materials/phase10_s07_surface_control.yaml"
+  ],
+  "allowed_write_paths": [
+    "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+    "figures/src/phase10_s11_authority_loss_reconfiguration.py",
+    "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+    "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
+  ],
+  "allowed_tools": [
+    "python3"
+  ],
+  "output_artifact_path": "examples/candidate-artifacts/phase10_s11_figure_caption_bundle.md",
+  "expected_output_schema": "ppg-s11-figure-caption-artifact-bundle/v0.1",
+  "expected_material_type": "CandidateArtifactReturn",
+  "expected_payload_schema": "ppg-candidate-return/v0.1",
+  "authority_and_target": {
+    "packet_id": "phase10_s11_figure_caption_artifact_packet_v1",
+    "target_visual_id": "fig:authority-loss-reconfiguration-schematic",
+    "target_visual_type": "schematic",
+    "target_output_kind": "figure_caption_bundle",
+    "completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "single_writer_lock": "phase10_s11_figure_caption_bundle_lock"
+  },
+  "s08_visual_formal_contract": {
+    "visual_id": "fig:authority-loss-reconfiguration-schematic",
+    "visual_type": "schematic",
+    "proposed_title": "Authority-loss reconfiguration schematic",
+    "target_section": "intro",
+    "main_or_supplement": "main",
+    "reader_question_answered": "How does the reconfiguration mechanism respond to authority loss?",
+    "proof_role": "explanatory",
+    "explanatory_or_evidential": "explanatory",
+    "supported_claims": [
+      "claim_authority_loss_requires_bounded_reconfiguration"
+    ],
+    "unsupported_claims": [
+      "universal safety guarantee"
+    ],
+    "source_s04_capsules": [
+      "phase10_s04_claim_admissibility"
+    ],
+    "required_panels": [
+      "panel-a-authority-loss",
+      "panel-b-bounded-reconfiguration"
+    ],
+    "required_data": [
+      "examples/materials/evidence_inventory.v1.yaml"
+    ],
+    "backend_route_ref": "S11-render-plan-only",
+    "caption_brief_ref": "phase10_s08_visual_formal_plan.caption_legend_brief",
+    "terminology_constraints": [
+      "bounded reconfiguration",
+      "authority-loss event"
+    ],
+    "cognitive_load_risk": "low",
+    "accessibility_constraints": [
+      "colorblind safe palette",
+      "readable panel labels"
+    ],
+    "status": "candidate_ready"
+  },
+  "panel_evidence_package": [
+    {
+      "visual_id": "fig:authority-loss-reconfiguration-schematic",
+      "panel_id": "panel-a-authority-loss",
+      "panel_role": "show degraded authority path",
+      "visual_encoding": "schematic arrow with muted authority path",
+      "source_data": "examples/materials/evidence_inventory.v1.yaml",
+      "evidence_ref": "phase10_s04_claim_admissibility",
+      "supported_claim": "claim_authority_loss_requires_bounded_reconfiguration",
+      "forbidden_claim": "universal safety guarantee",
+      "required_axis_or_label": "Authority degraded",
+      "required_caveat": "schematic explanatory only"
+    }
+  ],
+  "claim_boundary_controls": {
+    "claim_capsules": [
+      "phase10_s04_claim_admissibility"
+    ],
+    "allowed_wording_map": [
+      "bounded authority-loss reconfiguration"
+    ],
+    "forbidden_wording_map": [
+      "guarantees universal safety"
+    ],
+    "support_strength_map": [
+      "bounded"
+    ],
+    "required_caveats": [
+      "schematic explanatory only"
+    ],
+    "result_package_boundary_matrix": [
+      "no empirical-performance claim in schematic caption"
+    ],
+    "unsupported_claim_register": [
+      "universal safety guarantee"
+    ]
+  },
+  "source_data_package": {
+    "source_data_inventory": [
+      "examples/materials/s01_source_evidence_inventory.v1.yaml"
+    ],
+    "figure_source_data_inventory": [
+      "examples/materials/evidence_inventory.v1.yaml"
+    ],
+    "result_artifact_manifest": [
+      "render plan only in this fixture"
+    ],
+    "script_or_generation_route_inventory": [
+      "scripts/not_required_for_fixture_render_plan"
+    ],
+    "data_availability_status": "available_for_trace_not_rendered",
+    "citation_or_reference_sidecar": [
+      "examples/materials/evidence_inventory.v1.yaml"
+    ]
+  },
+  "terminology_and_surface_controls": {
+    "terminology_surface_register": [
+      "phase10_s07_surface_control"
+    ],
+    "internal_id_ban_list": [
+      "fig:authority-loss-reconfiguration-schematic",
+      "claim_authority_loss_requires_bounded_reconfiguration"
+    ],
+    "forbidden_expression_list": [
+      "guarantees universal safety"
+    ],
+    "caption_surface_rules": [
+      "concise explanatory caption"
+    ],
+    "claim_strength_surface_rules": [
+      "bounded language only"
+    ]
+  },
+  "visual_quality_profile": {
+    "journal_style_constraints": [
+      "clean two-panel schematic"
+    ],
+    "target_export_formats": [
+      "pdf",
+      "svg"
+    ],
+    "color_policy": "colorblind-safe muted authority-loss palette",
+    "colorblind_safe_required": true,
+    "font_policy": "consistent sans-serif labels",
+    "minimum_label_size": "8pt at target width",
+    "axis_label_policy": "not applicable for schematic",
+    "legend_policy": "inline labels preferred",
+    "panel_label_policy": "A/B labels upper-left",
+    "whitespace_policy": "avoid crowding",
+    "line_width_policy": "consistent arrows",
+    "marker_policy": "not applicable",
+    "vector_or_raster_policy": "vector preferred",
+    "resolution_requirements": "export at publication target size",
+    "accessibility_requirements": [
+      "colorblind safe",
+      "readable labels"
+    ],
+    "visual_hierarchy_rules": [
+      "degraded authority path visually secondary to bounded response path"
+    ]
+  },
+  "visual_polish_policy": {
+    "priority_order": [
+      "claim_honesty",
+      "evidence_fidelity",
+      "reader_clarity",
+      "accessibility",
+      "journal_style_fit",
+      "aesthetic_polish"
+    ],
+    "allowed_changes": [
+      "improve_panel_alignment",
+      "improve_label_readability",
+      "use_colorblind_safe_palette",
+      "adjust_spacing_and_whitespace",
+      "clarify_legend_position",
+      "normalize_fonts_and_line_widths",
+      "improve_export_quality",
+      "improve_caption_readability_within_boundary"
+    ],
+    "forbidden_changes": [
+      "change_proof_role",
+      "change_supported_claims",
+      "strengthen_caption_claims",
+      "hide_negative_or_uncertain_results",
+      "remove_required_caveats",
+      "remove_required_panels",
+      "change_axis_scale_to_exaggerate_effect",
+      "treat_schematic_as_empirical_evidence",
+      "add_decorative_elements_implying_unsupported_mechanism",
+      "cherry_pick_prettier_examples",
+      "copy_exemplar_visual_style_too_closely"
+    ]
+  },
+  "nature_figure_direct_call": {
+    "enabled": true,
+    "source": "vendored",
+    "adapter_ref": "runtime/adapters/S11NatureFigureDirectCall.adapter.json",
+    "skill_ref": "third_party/nature-figure",
+    "parity_manifest_ref": "third_party/nature-figure/PARITY_MANIFEST.json",
+    "parity_target": "nature-figure@2.0.0",
+    "upstream_commit": "c91df241a7a963ea151687ac669c5534404f53e5",
+    "call_step": "S11.nature_figure_production_pass",
+    "s11_contract_overrides_skill": true,
+    "worker_completion_forbidden": true,
+    "no_recursive_orchestration": true,
+    "required_loaded_components": [
+      "SKILL.md",
+      "manifest.yaml",
+      "static/core/contract.md",
+      "static/core/stance.md",
+      "static/fragments/backend/python.md",
+      "references/figure-contract.md",
+      "references/qa-contract.md",
+      "references/design-theory.md"
+    ],
+    "expected_return_modules": [
+      "nature_figure_capability_report",
+      "nature_figure_contract",
+      "nature_figure_execution",
+      "nature_figure_qa_report",
+      "S11FigureCaptionArtifactBundle"
+    ]
+  },
+  "figure_backend": {
+    "selected_backend": "python",
+    "selection_source": "S08_backend_route",
+    "backend_exclusive": true,
+    "worker_may_ask_backend_question": false,
+    "cross_backend_rendering_forbidden": true,
+    "selected_tool": "python3",
+    "selected_backend_fragment": "static/fragments/backend/r.md"
+  },
+  "render_execution_policy": {
+    "mode": "render_plan_allowed",
+    "selected_backend_runtime_check_required": true,
+    "missing_runtime_rule": "return_missing_material_or_authorized_render_plan_do_not_switch_backend",
+    "mock_data_forbidden_for_evidential_figures": true,
+    "schematic_without_empirical_data_allowed": true,
+    "rendered_candidate_paths": [
+      "figures/generated/phase10_s11_authority_loss_reconfiguration.svg",
+      "figures/generated/phase10_s11_authority_loss_reconfiguration.pdf"
+    ],
+    "editable_source_paths": [
+      "figures/src/phase10_s11_authority_loss_reconfiguration.py"
+    ]
+  },
+  "internal_execution_protocol": {
+    "work_queue_required": true,
+    "coverage_ledger_required": true,
+    "unresolved_register_required": true,
+    "downstream_handoff_required": true,
+    "no_silent_omission": true,
+    "no_new_claims": true,
+    "no_claim_strengthening": true,
+    "required_passes": [
+      {
+        "pass_id": "boot_authority_boundary",
+        "required_output": "authority_boundary_confirmed"
+      },
+      {
+        "pass_id": "extract_s08_contract",
+        "required_output": "proof_role_preserved"
+      },
+      {
+        "pass_id": "extract_panel_evidence_package",
+        "required_output": "panel_claim_trace"
+      },
+      {
+        "pass_id": "extract_source_data_and_backend_route",
+        "required_output": "source_data_trace"
+      },
+      {
+        "pass_id": "perform_visual_polish_with_policy",
+        "required_output": "visual_polish_report"
+      },
+      {
+        "pass_id": "nature_figure_production_pass",
+        "required_output": "nature_figure_execution"
+      },
+      {
+        "pass_id": "return_candidate_artifact",
+        "required_output": "CandidateArtifactReturn"
+      }
+    ]
+  },
+  "output_contract": {
+    "material_type": "CandidateArtifactReturn",
+    "payload_schema": "ppg-candidate-return/v0.1",
+    "completion_boundary": "visual_artifact_candidate_only_no_graph_or_manuscript_completion",
+    "required_modules": [
+      "candidate_artifact",
+      "source_data_trace",
+      "panel_claim_trace",
+      "caption_claim_trace",
+      "image_integrity_record",
+      "visual_polish_report",
+      "nature_figure_capability_report",
+      "nature_figure_contract",
+      "nature_figure_execution",
+      "nature_figure_qa_report",
+      "accessibility_check",
+      "export_manifest",
+      "evidence",
+      "remaining_risks"
+    ]
+  },
+  "coverage_ledgers_required": [
+    "visual_contract_compliance",
+    "source_data_trace",
+    "panel_caption_claim_trace",
+    "visual_quality_trace"
+  ],
+  "validators": [
+    "validate_packet:phase10_stage_binding",
+    "content_validator:S11_packet_compliance",
+    "content_validator:S11_visual_polish_report",
+    "stage_overlay:nature_expert_writing:S11"
+  ],
+  "return_format": {
+    "candidate_artifact": "required",
+    "evidence": "required",
+    "remaining_risks": "required",
+    "missing_material_report": "required_if_blocked"
+  },
+  "ingestion_target": "phase10_s11_figure_caption_bundle",
+  "stop_condition": "Return candidate artifact/material, evidence, and remaining risks only; do not mark graph, manuscript, final export, submission, or publication completion.",
+  "failure_report_format": "ppg-missing-material-report/v0.1",
+  "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; obey S08 proof role and S04 claim boundaries; MissingMaterialReport required when source data or visual contract is missing; return candidate/evidence only.",
+  "completion_forbidden": true,
+  "no_recursive_orchestration": true,
+  "owner_gate_required": false
+}
