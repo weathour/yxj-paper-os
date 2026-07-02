@@ -2927,6 +2927,12 @@
             }
           },
           "additionalProperties": true
+        },
+        "source_writeback_evidence": {
+          "type": "object"
+        },
+        "post_writeback_validation": {
+          "type": "object"
         }
       },
       "additionalProperties": true

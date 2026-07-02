@@ -745,6 +745,71 @@ S16_REQUIRED_VERIFIER_CHECKS = {
     "feedback_route_declared",
     "no_submission_or_publication_claim",
 }
+S16_DELIVERY_TARGET_KINDS = {
+    "export_hygiene_handoff",
+    "template_only_handoff",
+    "materials_only",
+    "compiled_initial_draft",
+    "revised_compiled_pdf",
+}
+S16_COMPILED_DELIVERY_TARGETS = {"compiled_initial_draft", "revised_compiled_pdf"}
+S16_NON_COMPILED_DELIVERY_TARGETS = S16_DELIVERY_TARGET_KINDS - S16_COMPILED_DELIVERY_TARGETS
+S16_REQUESTED_TARGET_SOURCES = {
+    "owner_intake",
+    "manager_active_target",
+    "runtime_active_target",
+    "repair_backflow",
+    "fixture_contract",
+}
+S16_ACTIVE_TARGET_SOURCES = {"manager_active_target", "runtime_active_target"}
+S16_COMPILED_READINESS_KEYS = {"content_ready", "build_ready", "render_clean", "repository_clean", "handoff_ready"}
+S16_COMPILED_TARGET_POLICY = {
+    "compiled_pdf_claimed": True,
+    "requires_content_bearing_pdf": True,
+    "requires_source_writeback": True,
+    "allows_template_only_handoff": False,
+    "allows_candidate_only_completion": False,
+    "requires_post_writeback_s12": True,
+    "requires_final_s16_content_ready_pass": True,
+}
+S16_NON_COMPILED_TARGET_POLICY = {
+    "compiled_pdf_claimed": False,
+}
+S16_SOURCE_WRITEBACK_REQUIRED_FIELDS = {
+    "latex_writeback_plan_ref",
+    "latex_writeback_patchset_ref",
+    "latex_writeback_apply_report_ref",
+    "source_tree_after_writeback_ref",
+    "claim_boundary_audit_ref",
+    "template_compatibility_check_ref",
+    "status",
+}
+S16_POST_WRITEBACK_REQUIRED_FIELDS = {
+    "s12_post_writeback_ref",
+    "build_after_writeback_ref",
+    "rendered_surface_review_ref",
+    "pdf_text_ref",
+    "pdf_text_sha256",
+    "output_pdf_ref",
+    "output_pdf_sha256",
+    "status",
+}
+S16_COMPILED_SURFACE_BOOL_FIELDS = {
+    "template_only_text_absent",
+    "manuscript_not_started_absent",
+    "placeholder_text_absent",
+    "body_paragraphs_present",
+    "actual_bibliography_rendered",
+    "paper_facing_figures_captions_present",
+    "internal_stage_id_leakage_absent",
+}
+S16_TEMPLATE_SENTINELS = {
+    "manuscript not started",
+    "template-only",
+    "template only",
+    "placeholder",
+    "validator_placeholder",
+}
 
 
 def _require_mapping(payload: dict[str, Any], field: str, code: str, errors: list[ValidationIssue]) -> dict[str, Any] | None:
@@ -6128,6 +6193,120 @@ def _validate_s16_evidence_mode(payload: dict[str, Any], errors: list[Validation
             errors.append(issue("E_S16_LIVE_EXPORT_VERIFICATION_REQUIRED", "live_export_verification.status must be passed_live_export_verification for live_export material"))
 
 
+def _s16_require_bool(container: dict[str, Any] | None, field: str, key: str, expected: bool | None, code: str, errors: list[ValidationIssue]) -> None:
+    if container is None:
+        return
+    value = container.get(key)
+    if not isinstance(value, bool):
+        errors.append(issue(code, f"{field}.{key} must be a boolean"))
+    elif expected is not None and value is not expected:
+        errors.append(issue(code, f"{field}.{key} must be {str(expected).lower()}"))
+
+
+def _s16_require_safe_ref(container: dict[str, Any] | None, field: str, key: str, code: str, errors: list[ValidationIssue]) -> str | None:
+    if container is None:
+        return None
+    value = container.get(key)
+    if not is_non_empty_string(value):
+        errors.append(issue(code, f"{field}.{key} must be a non-empty string"))
+        return None
+    text = str(value)
+    if not _s09_path_is_safe(text):
+        errors.append(issue(code, f"{field}.{key} must be a safe repo-relative file path"))
+    return text
+
+
+def _validate_s16_delivery_target(payload: dict[str, Any], errors: list[ValidationIssue]) -> tuple[str | None, bool]:
+    target = _require_mapping(payload, "delivery_target", "E_S16_DELIVERY_TARGET_REQUIRED", errors)
+    _require_mapping_fields(
+        target,
+        "delivery_target",
+        ["kind", "target_ref", "requested_target_source"],
+        "E_S16_DELIVERY_TARGET_REQUIRED",
+        errors,
+    )
+    for key in (
+        "compiled_pdf_claimed",
+        "requires_content_bearing_pdf",
+        "requires_source_writeback",
+        "allows_template_only_handoff",
+        "allows_candidate_only_completion",
+        "requires_post_writeback_s12",
+        "requires_final_s16_content_ready_pass",
+    ):
+        _s16_require_bool(target, "delivery_target", key, None, "E_S16_DELIVERY_TARGET_REQUIRED", errors)
+    if target is None:
+        return None, False
+
+    kind = target.get("kind")
+    source = target.get("requested_target_source")
+    if kind not in S16_DELIVERY_TARGET_KINDS:
+        errors.append(issue("E_S16_DELIVERY_TARGET_REQUIRED", "delivery_target.kind invalid"))
+    if source not in S16_REQUESTED_TARGET_SOURCES:
+        errors.append(issue("E_S16_DELIVERY_TARGET_REQUIRED", "delivery_target.requested_target_source invalid"))
+    if is_non_empty_string(target.get("target_ref")) and str(target.get("target_ref")).strip() != str(target.get("target_ref")):
+        errors.append(issue("E_S16_DELIVERY_TARGET_REQUIRED", "delivery_target.target_ref must be trimmed"))
+
+    if source in S16_ACTIVE_TARGET_SOURCES:
+        _require_mapping_fields(
+            target,
+            "delivery_target",
+            ["active_target_kind", "active_target_ref"],
+            "E_S16_DELIVERY_TARGET_BINDING",
+            errors,
+        )
+        if target.get("active_target_kind") != kind:
+            errors.append(issue("E_S16_DELIVERY_TARGET_BINDING", "delivery_target.active_target_kind must match delivery_target.kind"))
+        active_ref = target.get("active_target_ref")
+        target_ref = target.get("target_ref")
+        chain = _s16_string_items(target.get("target_ref_chain"))
+        if is_non_empty_string(active_ref) and is_non_empty_string(target_ref) and active_ref != target_ref and str(active_ref) not in chain:
+            errors.append(issue("E_S16_DELIVERY_TARGET_BINDING", "delivery_target.active_target_ref must match target_ref or appear in target_ref_chain"))
+
+    compiled = kind in S16_COMPILED_DELIVERY_TARGETS
+    expected_policy = S16_COMPILED_TARGET_POLICY if compiled else S16_NON_COMPILED_TARGET_POLICY
+    code = "E_S16_COMPILED_TARGET_GATE" if compiled else "E_S16_TEMPLATE_ONLY_HANDOFF_BOUNDARY"
+    for key, expected in expected_policy.items():
+        _s16_require_bool(target, "delivery_target", key, expected, code, errors)
+    if kind in S16_NON_COMPILED_DELIVERY_TARGETS and target.get("compiled_pdf_claimed") is not False:
+        errors.append(issue("E_S16_TEMPLATE_ONLY_HANDOFF_BOUNDARY", "non-compiled delivery targets must not claim compiled PDF delivery"))
+    return str(kind) if isinstance(kind, str) else None, compiled
+
+
+def _validate_s16_compiled_source_writeback(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
+    evidence = _require_mapping(payload, "source_writeback_evidence", "E_S16_SOURCE_WRITEBACK_REQUIRED", errors)
+    if evidence is not None:
+        missing = sorted(field for field in S16_SOURCE_WRITEBACK_REQUIRED_FIELDS if field not in evidence)
+        if missing:
+            errors.append(issue("E_S16_SOURCE_WRITEBACK_REQUIRED", f"source_writeback_evidence missing {missing}"))
+        for key in sorted(S16_SOURCE_WRITEBACK_REQUIRED_FIELDS - {"status"}):
+            _s16_require_safe_ref(evidence, "source_writeback_evidence", key, "E_S16_SOURCE_WRITEBACK_REQUIRED", errors)
+        if evidence.get("status") != "applied":
+            errors.append(issue("E_S16_SOURCE_WRITEBACK_REQUIRED", "source_writeback_evidence.status must be applied"))
+
+    validation = _require_mapping(payload, "post_writeback_validation", "E_S16_POST_WRITEBACK_VALIDATION_REQUIRED", errors)
+    if validation is not None:
+        missing = sorted(field for field in S16_POST_WRITEBACK_REQUIRED_FIELDS if field not in validation)
+        if missing:
+            errors.append(issue("E_S16_POST_WRITEBACK_VALIDATION_REQUIRED", f"post_writeback_validation missing {missing}"))
+        for key in sorted(S16_POST_WRITEBACK_REQUIRED_FIELDS - {"status", "pdf_text_sha256", "output_pdf_sha256"}):
+            _s16_require_safe_ref(validation, "post_writeback_validation", key, "E_S16_POST_WRITEBACK_VALIDATION_REQUIRED", errors)
+        for key in ("pdf_text_sha256", "output_pdf_sha256"):
+            if not _s16_valid_sha256(validation.get(key)):
+                errors.append(issue("E_S16_POST_WRITEBACK_VALIDATION_REQUIRED", f"post_writeback_validation.{key} must be a lowercase sha256"))
+        if validation.get("status") != "pass":
+            errors.append(issue("E_S16_POST_WRITEBACK_VALIDATION_REQUIRED", "post_writeback_validation.status must be pass"))
+
+
+def _validate_s16_compiled_readiness(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
+    readiness = as_mapping(payload.get("readiness_state_separation"))
+    if readiness is None:
+        return
+    for key in sorted(S16_COMPILED_READINESS_KEYS):
+        if readiness.get(key) != "pass":
+            errors.append(issue("E_S16_COMPILED_TARGET_GATE", f"compiled PDF target requires readiness_state_separation.{key} to be pass"))
+
+
 def _validate_s16_readiness_and_upstream(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
     readiness = _require_mapping(payload, "readiness_state_separation", "E_S16_READINESS_STATE_REQUIRED", errors)
     _require_mapping_fields(
@@ -6201,6 +6380,36 @@ def _validate_s16_build_and_render(payload: dict[str, Any], errors: list[Validat
             errors.append(issue("E_S16_RENDERED_SURFACE_REQUIRED", "rendered_surface_check.page_count must be a positive integer"))
         if anomalies:
             errors.append(issue("E_S16_RENDERED_SURFACE_REQUIRED", "rendered_surface_check.obvious_rendering_anomalies must be empty for clean export"))
+
+
+def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
+    surface = _require_mapping(payload, "rendered_surface_check", "E_S16_PDF_SEMANTIC_SURFACE", errors)
+    validation = as_mapping(payload.get("post_writeback_validation"))
+    if surface is None:
+        return
+    text_ref = _s16_require_safe_ref(surface, "rendered_surface_check", "rendered_text_ref", "E_S16_PDF_SEMANTIC_SURFACE", errors)
+    pdf_ref = _s16_require_safe_ref(surface, "rendered_surface_check", "source_pdf_ref", "E_S16_PDF_SEMANTIC_SURFACE", errors)
+    if not _s16_valid_sha256(surface.get("rendered_text_sha256")):
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.rendered_text_sha256 must be a lowercase sha256"))
+    if not _s16_valid_sha256(surface.get("source_pdf_sha256")):
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.source_pdf_sha256 must be a lowercase sha256"))
+    if validation is not None:
+        if text_ref is not None and validation.get("pdf_text_ref") != text_ref:
+            errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.rendered_text_ref must match post_writeback_validation.pdf_text_ref"))
+        if surface.get("rendered_text_sha256") != validation.get("pdf_text_sha256"):
+            errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.rendered_text_sha256 must match post_writeback_validation.pdf_text_sha256"))
+        if pdf_ref is not None and validation.get("output_pdf_ref") != pdf_ref:
+            errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.source_pdf_ref must match post_writeback_validation.output_pdf_ref"))
+        if surface.get("source_pdf_sha256") != validation.get("output_pdf_sha256"):
+            errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.source_pdf_sha256 must match post_writeback_validation.output_pdf_sha256"))
+    for key in sorted(S16_COMPILED_SURFACE_BOOL_FIELDS):
+        if surface.get(key) is not True:
+            errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.{key} must be true for compiled PDF targets"))
+    figures = _s16_string_items(surface.get("figures_present"))
+    captions = _s16_string_items(surface.get("captions_present"))
+    lower_tokens = " ".join(str(item).lower() for item in [*figures, *captions, surface.get("rendered_surface_semantics", "")])
+    if any(sentinel in lower_tokens for sentinel in S16_TEMPLATE_SENTINELS):
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check must not use template/placeholder sentinel evidence for compiled PDF targets"))
 
 
 def _validate_s16_manifests(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
@@ -6348,8 +6557,14 @@ def _validate_s16_export_handoff_package(payload: dict[str, Any], errors: list[V
     _require_s16_required_modules(payload, errors)
     _validate_s16_authority(payload, errors)
     _validate_s16_evidence_mode(payload, errors)
+    _delivery_target_kind, compiled_target = _validate_s16_delivery_target(payload, errors)
     _validate_s16_readiness_and_upstream(payload, errors)
+    if compiled_target:
+        _validate_s16_compiled_readiness(payload, errors)
+        _validate_s16_compiled_source_writeback(payload, errors)
     _validate_s16_build_and_render(payload, errors)
+    if compiled_target:
+        _validate_s16_compiled_semantic_surface(payload, errors)
     _validate_s16_manifests(payload, errors)
     _validate_s16_data_repo_handoff(payload, errors)
     _validate_s16_validator(payload, errors)

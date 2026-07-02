@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_MATERIAL = ROOT / "scripts" / "validate_material.py"
 VERIFY_LIVE = ROOT / "scripts" / "verify_s16_live_export_evidence.py"
 MATERIAL = ROOT / "examples/materials/phase10_s16_export_handoff_package.json"
+COMPILED_MATERIAL = ROOT / "examples/materials/phase10_s16_compiled_initial_draft_package.json"
 PUBLIC_CONSUMES = [
     "closed S12 integrated manuscript candidate",
     "S13 review closure evidence",
@@ -89,6 +90,12 @@ REQUIRED_DIMS = {
     "s16_nature_overlay",
 }
 NEGATIVES = {
+    "invalid-s16-export-handoff-active-target-downcast.json": "E_S16_DELIVERY_TARGET_BINDING",
+    "invalid-s16-export-handoff-compiled-target-missing-semantic-surface.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-missing-source-writeback.json": "E_S16_SOURCE_WRITEBACK_REQUIRED",
+    "invalid-s16-export-handoff-compiled-target-template-only.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-content-blocked.json": "E_S16_COMPILED_TARGET_GATE",
+    "invalid-s16-export-handoff-missing-delivery-target.json": "E_S16_DELIVERY_TARGET_REQUIRED",
     "invalid-s16-export-handoff-bad-readiness.json": "E_S16_READINESS_STATE_REQUIRED",
     "invalid-s16-export-handoff-unresolved-upstream.json": "E_S16_UPSTREAM_CLOSURE_REQUIRED",
     "invalid-s16-export-handoff-build-failed.json": "E_S16_BUILD_SUCCESS_REQUIRED",
@@ -130,6 +137,9 @@ def verify_fixtures() -> None:
     result = run([sys.executable, str(VALIDATE_MATERIAL), str(MATERIAL)])
     if result.returncode != 0:
         fail("E_S16_POSITIVE", result.stdout)
+    compiled_result = run([sys.executable, str(VALIDATE_MATERIAL), str(COMPILED_MATERIAL)])
+    if compiled_result.returncode != 0:
+        fail("E_S16_COMPILED_POSITIVE", compiled_result.stdout)
     result = run([sys.executable, str(VERIFY_LIVE), str(MATERIAL)])
     if result.returncode != 0 or "PPG_S16_LIVE_EXPORT_EVIDENCE_PROJECTION_OK" not in result.stdout:
         fail("E_S16_LIVE_PROJECTION", result.stdout)
