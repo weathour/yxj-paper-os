@@ -75,6 +75,7 @@ S00-S08 控制物料
 8. [`docs/STANDARD_PAPER_WORKSPACE.md`](docs/STANDARD_PAPER_WORKSPACE.md)
 9. [`docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`](docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md)
 10. [`docs/NATURE_STAGE_OVERLAY_SPEC.md`](docs/NATURE_STAGE_OVERLAY_SPEC.md)
+11. [`docs/stages/README.md`](docs/stages/README.md) — 双语逐阶段说明，覆盖功能、输入、任务包、输出、validator 与实现索引。
 
 ## 验证
 

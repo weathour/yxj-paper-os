@@ -83,6 +83,7 @@ The machine source of truth is `runtime/stage_registry.json` plus `examples/stag
 8. [`docs/STANDARD_PAPER_WORKSPACE.md`](docs/STANDARD_PAPER_WORKSPACE.md) — cross-repository paper workspace contract.
 9. [`docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md`](docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md) — controlled manuscript source writeback.
 10. [`docs/NATURE_STAGE_OVERLAY_SPEC.md`](docs/NATURE_STAGE_OVERLAY_SPEC.md) — stage-local venue overlay controls.
+11. [`docs/stages/README.md`](docs/stages/README.md) — bilingual per-stage guides for purpose, inputs, packets, outputs, validators, and implementation.
 
 ## Validation quick start
 

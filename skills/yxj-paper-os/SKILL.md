@@ -55,7 +55,8 @@ Do not rewrite the whole paper by default. First classify feedback, attribute it
 9. `docs/VALIDATION_AND_TESTING.md`
 10. `docs/STANDARD_PAPER_WORKSPACE.md` when a local paper repository is involved
 11. `docs/LATEX_SOURCE_WRITEBACK_PROTOCOL.md` when source writeback is requested or implied
-12. `runtime/stage_registry.json` and relevant StageContracts when mapping work to `S00-S16/G01/G02`
+12. `docs/stages/README.md` and the relevant bilingual stage guide when explaining or operating a specific `S00-S16` stage
+13. `runtime/stage_registry.json` and relevant StageContracts when mapping work to `S00-S16/G01/G02`
 
 ## Runtime inspection commands
 
