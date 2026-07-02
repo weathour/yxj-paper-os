@@ -243,3 +243,15 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S16 让人能看的交付物清洁可查。它可以导出和验证，但仍不能声称投稿或发表准备完成。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S16 makes the human-readable handoff clean. It can export and verify, but it still does not claim submission or publication readiness. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Failed compiled-target recovery loop
+
+For `compiled_initial_draft` and `revised_compiled_pdf`, S16 failure is a routing signal, not a terminal handoff. The controller should preserve the failed package as evidence, create a finding with the deterministic error code, and route it as follows:
+
+1. target missing/mismatch -> S00 or manager active-target authority, then regenerate S16;
+2. missing source writeback -> S14 plan plus S15 source-writeback repair;
+3. missing post-writeback validation -> S12 post-writeback integration consistency;
+4. bad rendered/PDF text semantics -> S12/S13/S15 depending on whether the source, review, or export evidence is responsible;
+5. export/hash/build-only hygiene -> S16 rerun.
+
+Only after the repaired downstream flow reaches S16 with the same compiled `delivery_target` and all compiled gates passing may the controller claim an owner-readable compiled draft handoff.

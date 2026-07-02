@@ -226,3 +226,9 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S15 只修 S14 授权的范围，并证明修复是局部的、没有破坏无关图节点。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S15 repairs only what S14 authorized. It proves that the fix was local and did not damage unrelated graph nodes. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Source-writeback repairs for compiled delivery
+
+S15 repair execution can be candidate-only for ordinary graph repairs, but S16 compiled targets require source-writeback when the PDF source is not content-bearing. The S15 repair report should include or reference the LatexWritebackPlan, patchset, apply report, source-tree-after snapshot, claim-boundary audit, and template-compatibility check when resolving an S16 delivery gap.
+
+If S15 returns only a revised candidate while the compiled target requires source writeback, S16 must continue to fail with `E_S16_SOURCE_WRITEBACK_REQUIRED` and route back through S14/S15 instead of accepting a template-only PDF.

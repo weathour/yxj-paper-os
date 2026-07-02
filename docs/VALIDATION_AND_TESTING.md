@@ -628,3 +628,22 @@ Expected aggregate signal:
 ```text
 PPG_LIFECYCLE_CONTRACT_OK
 ```
+
+## S16 target-global delivery gate tests
+
+The S16 target-global delivery gate is covered by focused fixture and live-export checks:
+
+```bash
+python3 scripts/verify_s16_export_handoff_package.py
+python3 scripts/verify_s16_live_export_evidence.py examples/materials/phase10_s16_compiled_live_export_package.json
+python3 scripts/verify_s16_live_export_evidence.py examples/materials/invalid-s16-live-export-template-pdf-text.json  # must fail E_S16_LIVE_TEXT
+```
+
+Regression expectations:
+
+- S16 materials without `payload.delivery_target` fail `E_S16_DELIVERY_TARGET_REQUIRED`.
+- Compiled targets with blocked readiness fail `E_S16_COMPILED_TARGET_GATE`.
+- Compiled targets without source-writeback evidence fail `E_S16_SOURCE_WRITEBACK_REQUIRED`.
+- Compiled targets without post-writeback validation fail `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED`.
+- Compiled targets with template/manuscript-not-started/placeholder rendered text fail `E_S16_PDF_SEMANTIC_SURFACE` or `E_S16_LIVE_TEXT`.
+- Existing non-compiled export-hygiene/template handoffs remain valid only with explicit non-compiled `delivery_target`.

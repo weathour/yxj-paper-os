@@ -23,3 +23,17 @@ When the controller has an owner/manager/runtime active target, `delivery_target
 ## Standalone boundary
 
 This contract is owned by yxj-paper-os schemas, validators, registry, and docs. OMX/yxj-paper-auto may read it as a personal orchestration adapter, but they are not runtime dependencies or authority sources.
+
+## Delivery-gap backflow routing
+
+When a compiled target fails in S16, the controller must not treat the S16 package as a terminal draft. It must create a bounded finding/backflow item and route it to the nearest accountable stage:
+
+| S16 failure signal | Nearest accountable route | Required repair packet/evidence |
+| --- | --- | --- |
+| `E_S16_DELIVERY_TARGET_REQUIRED` or `E_S16_DELIVERY_TARGET_BINDING` | S00/manager target authority, then S16 | Target clarification or active-target binding repair, then regenerated S16 package. |
+| `E_S16_COMPILED_TARGET_GATE` with `content_ready`/`repository_clean` blocked | S14 -> S15 and/or S12 | Delivery-gap repair plan plus source/writeback task packet; rerun post-writeback S12 and S16. |
+| `E_S16_SOURCE_WRITEBACK_REQUIRED` | S15 source-writeback repair | LatexWritebackPlan, patchset, apply report, source-tree-after snapshot, claim-boundary and template-compatibility evidence. |
+| `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED` | S12 post-writeback integration | Post-writeback S12 integration consistency report, build-after-writeback evidence, rendered surface review. |
+| `E_S16_PDF_SEMANTIC_SURFACE` or `E_S16_LIVE_TEXT` | S12/S13/S15 depending on cause | If source lacks content, repair/writeback; if PDF extraction/hash evidence is missing, rerun S16 live export; if semantic content is bad, route content feedback to S14. |
+
+The repaired flow must proceed downstream again (`responsible stage -> S12/S13 as needed -> S16`) instead of marking S16 complete with `content_ready: blocked`.

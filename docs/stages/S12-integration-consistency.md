@@ -226,3 +226,9 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S12 生成后续可审查的结构化集成候选稿。它不是 PDF 编译，也不是最终接受。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S12 creates the machine-readable integrated candidate that later review can attack. It is not PDF compilation and not final acceptance. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Post-writeback compiled-target mode
+
+S12 remains a structured integration stage, but a compiled S16 target can require a **post-writeback S12** pass. In that mode, S12 consumes the applied LaTeX writeback/source tree and verifies that candidate text, figures, references, and claim boundaries are actually represented in the manuscript source before S16 export.
+
+If S16 reports `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED` or semantic PDF gaps, the controller should route back to S12 with a post-writeback integration packet rather than accepting a candidate-only S12 report as sufficient for an initial/revised compiled PDF.

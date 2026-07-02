@@ -217,3 +217,9 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S14 决定“修哪里”，不是全篇乱修。它把每个 finding 路由到最近责任物料，防止全局重写。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S14 decides where to repair, not how to repair everything. It prevents global rewrites by routing each finding to the nearest responsible material. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## S16 delivery-gap planning
+
+S14 owns planning for content/delivery gaps discovered at S16. A finding such as `content_ready: blocked`, `template_only_handoff`, missing source-writeback evidence, missing post-writeback S12, or failed rendered-text semantics must become a repair plan that names the nearest responsible stage and downstream stale set.
+
+For compiled PDF targets, an S14 plan must not stop at “rerun S16”. It should specify whether the repair starts at S15 source writeback, S12 post-writeback integration, S13 post-writeback review, or S16 export hygiene, and it must require the repaired flow to reach S16 again with the same `delivery_target`.
