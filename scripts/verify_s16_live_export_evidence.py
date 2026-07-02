@@ -80,8 +80,9 @@ def paragraph_count(text: str) -> int:
 def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[str, str]) -> None:
     surface = payload.get("rendered_surface_check")
     post = payload.get("post_writeback_validation")
-    if not isinstance(surface, dict) or not isinstance(post, dict):
-        fail("E_S16_LIVE_TEXT", "compiled targets require rendered_surface_check and post_writeback_validation")
+    build = payload.get("build_run_report")
+    if not isinstance(surface, dict) or not isinstance(post, dict) or not isinstance(build, dict):
+        fail("E_S16_LIVE_TEXT", "compiled targets require rendered_surface_check, post_writeback_validation, and build_run_report")
     text_ref = str(surface.get("rendered_text_ref") or post.get("pdf_text_ref") or "")
     if not text_ref:
         fail("E_S16_LIVE_TEXT", "compiled targets require rendered_text_ref/pdf_text_ref")
@@ -109,6 +110,22 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
         fail("E_S16_LIVE_TEXT", "rendered text must include a references/bibliography anchor for compiled targets")
     if surface.get("actual_bibliography_rendered") is not True or surface.get("body_paragraphs_present") is not True:
         fail("E_S16_LIVE_TEXT", "compiled target surface booleans must confirm bibliography and body paragraphs")
+    pdf_ref = str(surface.get("source_pdf_ref") or "")
+    if not pdf_ref:
+        fail("E_S16_LIVE_PDF_BINDING", "compiled targets require rendered_surface_check.source_pdf_ref")
+    if post.get("output_pdf_ref") != pdf_ref or build.get("output_pdf") != pdf_ref:
+        fail("E_S16_LIVE_PDF_BINDING", "source_pdf_ref must match post_writeback_validation.output_pdf_ref and build_run_report.output_pdf")
+    expected_pdf_hash = str(surface.get("source_pdf_sha256") or "")
+    if expected_pdf_hash != str(post.get("output_pdf_sha256") or ""):
+        fail("E_S16_LIVE_PDF_BINDING", "source PDF hash must match post_writeback_validation.output_pdf_sha256")
+    if hash_manifest.get(pdf_ref) != expected_pdf_hash:
+        fail("E_S16_LIVE_PDF_BINDING", "source PDF ref must be hash-listed in file_hash_manifest")
+    pdf_path = safe_repo_file(pdf_ref)
+    if not pdf_path.is_file():
+        fail("E_S16_LIVE_PDF_BINDING", f"missing source PDF file: {pdf_ref}")
+    actual_pdf_hash = sha256(pdf_path)
+    if actual_pdf_hash != expected_pdf_hash:
+        fail("E_S16_LIVE_PDF_BINDING", f"source PDF hash mismatch for {pdf_ref}")
 
 
 def verify_projection(payload: dict[str, Any]) -> None:

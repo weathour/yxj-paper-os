@@ -6386,6 +6386,7 @@ def _validate_s16_build_and_render(payload: dict[str, Any], errors: list[Validat
 def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
     surface = _require_mapping(payload, "rendered_surface_check", "E_S16_PDF_SEMANTIC_SURFACE", errors)
     validation = as_mapping(payload.get("post_writeback_validation"))
+    build = as_mapping(payload.get("build_run_report"))
     if surface is None:
         return
     text_ref = _s16_require_safe_ref(surface, "rendered_surface_check", "rendered_text_ref", "E_S16_PDF_SEMANTIC_SURFACE", errors)
@@ -6403,6 +6404,8 @@ def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: lis
             errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.source_pdf_ref must match post_writeback_validation.output_pdf_ref"))
         if surface.get("source_pdf_sha256") != validation.get("output_pdf_sha256"):
             errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.source_pdf_sha256 must match post_writeback_validation.output_pdf_sha256"))
+        if build is not None and pdf_ref is not None and build.get("output_pdf") != pdf_ref:
+            errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "compiled target source_pdf_ref must match build_run_report.output_pdf"))
     for key in sorted(S16_COMPILED_SURFACE_BOOL_FIELDS):
         if surface.get(key) is not True:
             errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.{key} must be true for compiled PDF targets"))
