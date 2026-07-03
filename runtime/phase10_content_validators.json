@@ -1583,6 +1583,11 @@
           "dimension_id": "s15_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S15 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s15_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S15 evidence that repair followed S14 packet scope, recorded local diff, stale resolution, unrelated-node preservation, finding resolution, no-new-risk scan, and verifier evidence without graph/export claims"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1606,7 +1611,8 @@
         "s15_no_new_high_severity",
         "s15_overlay_clause_preserved",
         "s15_candidate_return_schema",
-        "s15_no_completion_claim"
+        "s15_no_completion_claim",
+        "s15_stage_quality_contract"
       ],
       "stage_id": "S15",
       "stage_name": "Repair execution and local regeneration",
@@ -1719,6 +1725,11 @@
           "dimension_id": "s16_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S16 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s16_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S16 evidence that export/handoff is bound to delivery_target, upstream closure, readiness separation, build/render/hash/repository hygiene, feedback route, and no manuscript-quality/submission overclaim"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1752,7 +1763,8 @@
         "s16_unresolved_risk_leakage_absent",
         "s16_semantic_failure_attribution",
         "s16_template_only_handoff_boundary",
-        "s16_no_submission_ready_overclaim"
+        "s16_no_submission_ready_overclaim",
+        "s16_stage_quality_contract"
       ],
       "stage_id": "S16",
       "stage_name": "Export repository hygiene and handoff",

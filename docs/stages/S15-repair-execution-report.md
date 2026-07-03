@@ -232,3 +232,12 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 S15 repair execution can be candidate-only for ordinary graph repairs, but S16 compiled targets require source-writeback when the PDF source is not content-bearing. The S15 repair report should include or reference the LatexWritebackPlan, patchset, apply report, source-tree-after snapshot, claim-boundary audit, and template-compatibility check when resolving an S16 delivery gap.
 
 If S15 returns only a revised candidate while the compiled target requires source writeback, S16 must continue to fail with `E_S16_SOURCE_WRITEBACK_REQUIRED` and route back through S14/S15 instead of accepting a template-only PDF.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S15 executes only S14-authorized local repairs. Producer packets must include the strict repair task, base version, affected downstream stale set, protected unrelated nodes, and validation plan. The return must include `repair_task_ack`, `pre_repair_snapshot`, `target_material_diff`, revised candidate, `affected_downstream_regeneration_log`, `stale_resolution_report`, `unrelated_node_preservation_report`, `finding_resolution_evidence`, updated validator report, no-new-risk scan, CandidateArtifactReturn, and verifier evidence. S15 returns evidence and candidates; it does not commit graph state or claim export readiness.
+
+**中文。** S15 只执行 S14 授权的局部修复。Producer 包必须包含 strict repair task、base version、affected downstream stale set、protected unrelated nodes 和 validation plan。返回必须包含 `repair_task_ack`、`pre_repair_snapshot`、`target_material_diff`、修订候选、`affected_downstream_regeneration_log`、`stale_resolution_report`、`unrelated_node_preservation_report`、`finding_resolution_evidence`、updated validator report、no-new-risk scan、CandidateArtifactReturn 和 verifier evidence。S15 只返回证据和候选，不提交图状态，也不声称 export readiness。
+
+Stage-quality focus / 阶段质量焦点：strict repair scope, diff locality, stale propagation, unrelated-node preservation, and no graph/export overclaim.
+

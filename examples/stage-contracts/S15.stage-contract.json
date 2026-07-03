@@ -59,7 +59,8 @@
     "S15_no_new_high_severity",
     "S15_overlay_clause_preserved",
     "S15_candidate_return_schema",
-    "S15_no_completion_claim"
+    "S15_no_completion_claim",
+    "S15_stage_quality_contract"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -71,5 +72,105 @@
     "packet_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "status": "linked_strict_packet"
+  },
+  "stage_quality_contract": {
+    "schema_version": "ppg-stage-quality-contract/v0.1",
+    "stage_id": "S15",
+    "active_profile_source": "strict S14 repair packet plus active material graph slice and validation plan; no global venue/profile default",
+    "must_read_materials": [
+      {
+        "material_ref": "S14_repair_task_packet",
+        "read_mode": "full",
+        "required_extractions": [
+          "repair_task_id",
+          "allowed_paths",
+          "allowed_actions",
+          "stop_condition",
+          "validation_plan"
+        ]
+      },
+      {
+        "material_ref": "target_material_base_version",
+        "read_mode": "full",
+        "required_extractions": [
+          "base_hash",
+          "base_content_ref",
+          "material_version"
+        ]
+      },
+      {
+        "material_ref": "affected_downstream_stale_set",
+        "read_mode": "full",
+        "required_extractions": [
+          "stale_nodes",
+          "required_regeneration",
+          "required_revalidation"
+        ]
+      },
+      {
+        "material_ref": "protected_unrelated_node_list",
+        "read_mode": "full",
+        "required_extractions": [
+          "protected_materials",
+          "unchanged_checks",
+          "forbidden_scope"
+        ]
+      }
+    ],
+    "required_extractions": [
+      "repair_task_ack",
+      "pre_repair_snapshot",
+      "target_material_diff",
+      "revised_material_candidate",
+      "affected_downstream_regeneration_log",
+      "stale_resolution_report",
+      "unrelated_node_preservation_report",
+      "finding_resolution_evidence",
+      "updated_validator_report",
+      "new_risk_scan",
+      "CandidateArtifactReturn",
+      "missing_material_report",
+      "verifier_evidence"
+    ],
+    "producer_return_obligations": [
+      "strict repair_task_ack tied to the S14 task id, base version, allowed paths/actions, protected nodes, and stop condition",
+      "pre_repair_snapshot and target_material_diff limited to allowed scope",
+      "revised_material_candidate plus regenerated affected downstream outputs only when authorized",
+      "affected_downstream_regeneration_log and stale_resolution_report",
+      "unrelated_node_preservation_report proving protected nodes remained unchanged",
+      "finding_resolution_evidence, updated_validator_report, new_risk_scan, CandidateArtifactReturn, and verifier_evidence",
+      "no graph commit, export readiness, submission readiness, bare S09 packet, or global rewrite claim"
+    ],
+    "audit_verifier_obligations": {
+      "inherits_all_producer_inputs": true,
+      "checks": [
+        "repair execution exactly matches the S14 packet scope and stop condition",
+        "target_material_diff is local and allowed paths/actions are respected",
+        "affected downstream stale nodes are regenerated, revalidated, or explicitly still stale with reason",
+        "unrelated_node_preservation_report proves protected nodes unchanged",
+        "finding resolution status and no-new-high-severity scan are evidence-backed",
+        "S15 returns candidates/evidence only; controller owns graph commit and export routing"
+      ]
+    },
+    "downstream_design_force": [
+      "S12/S13 receive regenerated candidates and updated validator evidence for post-repair revalidation",
+      "S16 sees repaired closure only after S12/S13/S14/S15 evidence is complete",
+      "RenderedManuscriptAuditGate can distinguish repaired source/material evidence from export/handoff claims"
+    ],
+    "failure_severity_policy": {
+      "BLOCKING": "repair packet ack, local diff, stale resolution, unrelated-node preservation, or verifier evidence is missing",
+      "MAJOR": "repair expands scope, performs global rewrite, introduces high-severity risk, or claims export/graph completion",
+      "MINOR": "local metadata, report label, or candidate-return detail defect without scope/risk drift",
+      "WATCH": "residual risk tracked for S12/S13/S16 without forced unrelated-node rerun"
+    },
+    "nearest_responsible_stage_policy": "S15 owns scoped repair execution defects; bad repair plans route back to S14 and missing upstream substance routes to the concrete source stage.",
+    "affected_downstream_nodes": [
+      "S12",
+      "S13",
+      "S14",
+      "S16",
+      "RenderedManuscriptAuditGate"
+    ],
+    "anti_over_strictness_boundary": "MINOR/WATCH repair-report issues may be corrected locally; do not widen scope unless validation proves affected downstream or protected-node risk."
   }
 }

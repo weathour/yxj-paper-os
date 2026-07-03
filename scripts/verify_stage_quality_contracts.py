@@ -46,7 +46,7 @@ REQUIRED_CONTRACT_KEYS = [
     "anti_over_strictness_boundary",
 ]
 SEVERITIES = ["BLOCKING", "MAJOR", "MINOR", "WATCH"]
-REQUIRED_STAGE_CONTRACT_IDS = ["S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B", "S10", "S11", "S12", "S13", "S14"]
+REQUIRED_STAGE_CONTRACT_IDS = ["S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
 STAGE_REQUIRED_TERMS = {
     "S09A": ["hard_constraints", "control_priority_map", "conflict_resolution_log", "downstream_packet_requirements"],
     "S09B": ["selected_controls", "unit_material_closure", "material_access_manifest", "material_read_obligations"],
@@ -55,6 +55,8 @@ STAGE_REQUIRED_TERMS = {
     "S12": ["module_inventory", "assembly_manifest", "trace_index", "backflow_queue"],
     "S13": ["review_object_inventory", "review_findings", "finding_actionability_report", "S14_route"],
     "S14": ["finding_intake_ledger", "nearest_responsible_stage_map", "repair_scope_plan", "protected_unrelated_nodes"],
+    "S15": ["repair_task_ack", "target_material_diff", "stale_resolution_report", "unrelated_node_preservation_report"],
+    "S16": ["delivery_target", "readiness_state_separation", "file_hash_manifest", "human_feedback_intake_route"],
 }
 
 
@@ -110,6 +112,8 @@ def validate_contract(obj: dict[str, Any]) -> list[str]:
         errors.append("E_STAGE_QUALITY_GLOBAL_PROFILE_DEFAULT")
     if re.search(r"Every\s+WATCH.*Every\s+MINOR.*block|WATCH.*MINOR.*force\s+a\s+full\s+rerun|MINOR.*WATCH.*must\s+block", text, re.I | re.S):
         errors.append("E_STAGE_QUALITY_OVERSTRICT_MINOR_WATCH")
+    if str(obj.get("stage_id", "")) == "S16" and re.search(r"S16[^.]{0,80}(proves|certifies|guarantees|is)[^.]{0,80}manuscript quality|export package[^.]{0,80}submission-ready|export/handoff[^.]{0,80}manuscript quality pass", text, re.I):
+        errors.append("E_STAGE_QUALITY_S16_EXPORT_QUALITY_OVERCLAIM")
     stage_id = str(obj.get("stage_id", ""))
     for term in STAGE_REQUIRED_TERMS.get(stage_id, []):
         if term not in text:

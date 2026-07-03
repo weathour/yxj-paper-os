@@ -278,3 +278,12 @@ Only after the repaired downstream flow reaches S16 with the same compiled `deli
 ### Rendered text sidecar boundary
 
 For compiled targets, S16 consumes a rendered-text sidecar generated from the same output PDF by the build/export pipeline. The sidecar must be hash-listed and bound to `post_writeback_validation`; if it is absent, stale, generated from another PDF, or used to downcast an active compiled target to export hygiene, S16 fails and routes the finding back to the responsible writeback/integration/export step.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S16 is an export/handoff hygiene gate, not a manuscript-quality acceptance gate. It must bind to an explicit `delivery_target`, verify S12/S13/S14/S15 closure, keep content/build/render/repository/handoff/submission-gated readiness states separate, produce build/render/export/hash/repository evidence, and return `manager_handoff_report`, `owner_gate_report`, and `human_feedback_intake_route`. It may supply evidence to RenderedManuscriptAuditGate, but it cannot substitute for that downstream quality audit or claim submission/publication readiness.
+
+**中文。** S16 是 export/handoff hygiene gate，不是 manuscript-quality acceptance gate。它必须绑定明确 `delivery_target`，验证 S12/S13/S14/S15 closure，区分 content/build/render/repository/handoff/submission-gated readiness states，产出 build/render/export/hash/repository 证据，并返回 `manager_handoff_report`、`owner_gate_report` 和 `human_feedback_intake_route`。它可以为 RenderedManuscriptAuditGate 提供证据，但不能替代后续质量审计，也不能声称投稿/发表就绪。
+
+Stage-quality focus / 阶段质量焦点：delivery target binding, readiness-state separation, live/projection evidence boundary, repository hygiene, feedback routing, and no manuscript/submission overclaim.
+

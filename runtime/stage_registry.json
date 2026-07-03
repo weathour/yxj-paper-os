@@ -1082,7 +1082,8 @@
         "S15_no_new_high_severity",
         "S15_overlay_clause_preserved",
         "S15_candidate_return_schema",
-        "S15_no_completion_claim"
+        "S15_no_completion_claim",
+        "S15_stage_quality_contract"
       ],
       "backflow_targets": [
         "S09B",
@@ -1095,7 +1096,8 @@
       "activation_policy": "activate when repair task exists",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S15.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S15.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S15.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S16",
@@ -1153,7 +1155,8 @@
         "S16_compiled_pdf_target_gate",
         "S16_delivery_target_binding",
         "S16_delivery_target_declared",
-        "S16_no_submission_ready_overclaim"
+        "S16_no_submission_ready_overclaim",
+        "S16_stage_quality_contract"
       ],
       "backflow_targets": [
         "S12",
@@ -1167,7 +1170,8 @@
       "activation_policy": "activate when PDF/export, owner preview, handoff, or pre-submission hygiene evidence is requested",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S16.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S16.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S16.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "G01",
