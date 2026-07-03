@@ -288,3 +288,34 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S09 是规划与生产之间的适配器。它防止 S10/S11 worker 收到模糊的“写一下这个”提示。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S09 is the adapter between planning and production. It prevents S10/S11 workers from receiving vague “write this” prompts. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## 12. Lossless Material-Closure Hardening / 无损物料闭包加固
+
+**EN.** S09 must not become a semantic compression layer. `control_digest` is a navigation aid only: it may summarize why the packet exists, but it must not replace dereferencing the original current-authority materials. S09B therefore owns a lossless material-routing contract for every S10/S11 writing or artifact packet.
+
+**中文。** S09 不能成为语义压缩层。`control_digest` 只能用于导航：它可以说明 packet 为什么存在，但不能替代对当前权威原始物料的读取。因而，S09B 对每个 S10/S11 写作或 artifact packet 负有无损物料路由契约。
+
+Canonical S09B/S09B→S10 material-closure modules / 标准模块：
+
+```text
+control_digest_policy
+global_material_coverage
+unit_material_closure
+material_access_manifest
+material_read_obligations
+deferred_control_ledger
+section_specific_blockers
+```
+
+Required semantics / 必须语义：
+
+- `control_digest_policy` marks `control_digest` as `non_authoritative_navigation_only` and forbids using it as evidence.
+- `global_material_coverage` records manuscript-level claim, reader-question, evidence-artifact, visual/formal, and deferred-control coverage for the writing batch.
+- `unit_material_closure` records the complete current-authority material closure for the target unit.
+- `material_access_manifest` records authority roots, allowed authority statuses, forbidden statuses, and required selectors.
+- `material_read_obligations` says which original materials/selectors the worker must read and that read receipts are required before drafting.
+- `deferred_control_ledger` prevents “defer then drop”: blocking deferred controls must be resolved by a later packet or routed to backflow.
+- `section_specific_blockers` makes section-critical omissions blocking. For example, an evaluation packet without exact metrics/result artifact locators must return a MissingMaterialReport rather than thin prose.
+
+The rejected alias `must_read_material_closure` must not be introduced; use `unit_material_closure` plus `material_read_obligations`.
+

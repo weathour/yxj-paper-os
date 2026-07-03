@@ -223,3 +223,34 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S10 是写作 worker 环节，但不是自由写作。它只能按任务包写，并返回候选稿，不代表稿件已接受。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S10 is the writing worker stage, but it is not free writing. It writes only within the packet and returns a candidate, not an accepted manuscript. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## 12. Material Hydration and Read-Receipt Gate / 物料水合与阅读回执门控
+
+**EN.** S10 must hydrate the required material closure before drafting. A worker acknowledgement that it used `allowed_read_paths` is not sufficient. S10 must return structured evidence that every required current-authority material and selector was read or that drafting was blocked by a MissingMaterialReport.
+
+**中文。** S10 在写作前必须先完成必需物料闭包的水合。仅声明使用了 `allowed_read_paths` 不足够。S10 必须返回结构化证据，证明每个必需的当前权威物料和 selector 已被读取，或者因缺失而以 MissingMaterialReport 阻断写作。
+
+Canonical S10 modules / 标准模块：
+
+```text
+material_hydration_report
+material_read_receipt_ledger
+```
+
+Required semantics / 必须语义：
+
+- `material_hydration_report.status` is `pass` only when all required materials are read and no blocking material is missing.
+- `required_materials_total` must equal the number of required materials declared by the S09B packet.
+- `required_materials_read` must match the consumed receipt count for required materials.
+- `unread_required_materials` and `blocked_missing_materials` must be empty before S10 may return candidate prose.
+- `material_read_receipt_ledger.receipts[]` records `material_ref`, `selectors_read`, optional `hash_seen`, `used_for`, and `status`.
+- If hydration is blocked, S10 must not emit `candidate_text_unit.status: candidate`; it must return a MissingMaterialReport routed to the nearest responsible stage.
+
+Blocked-output conflict rule / 阻断输出冲突规则：
+
+```text
+material_hydration_report.status == blocked
+OR unread_required_materials / blocked_missing_materials non-empty
+=> candidate_text_unit.status=candidate is invalid.
+```
+

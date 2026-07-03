@@ -654,3 +654,28 @@ Regression expectations:
 ### Active-target downcast regression
 
 `invalid-s16-export-handoff-implicit-active-target-downcast.json` proves that a package cannot omit the active-target source by declaring `requested_target_source: fixture_contract` while still carrying a compiled `active_target_kind`. Any declared `active_target_kind`/`active_target_ref` must bind to `delivery_target.kind` and `target_ref`/`target_ref_chain`; otherwise validation fails `E_S16_DELIVERY_TARGET_BINDING`.
+
+## S09/S10 Material-Closure Validation
+
+S09B validation must reject packets that provide only `allowed_read_paths` without explicit material closure and read obligations. Expected S09B error families include:
+
+```text
+E_S09B_CONTROL_DIGEST_POLICY_REQUIRED
+E_S09B_GLOBAL_COVERAGE_REQUIRED
+E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED
+E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED
+E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED
+E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED
+E_S09B_SECTION_BLOCKERS_REQUIRED
+```
+
+S10 validation must reject candidate prose when material hydration is absent, incomplete, or blocked. Expected S10 error families include:
+
+```text
+E_S10_MATERIAL_HYDRATION_REQUIRED
+E_S10_MATERIAL_READ_RECEIPT_REQUIRED
+E_S10_BLOCKED_MATERIAL_OUTPUT_CONFLICT
+```
+
+Final acceptance should run positive focused verifiers and negative fixtures for these codes; a positive-only green run is not sufficient for milestone acceptance.
+

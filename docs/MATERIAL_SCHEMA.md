@@ -605,3 +605,29 @@ Validators should lint paper-facing text fields such as `draft_text`, `caption_t
 ## S16 target-global delivery hardening
 
 S16 `ppg-s16-export-handoff-package/v0.1` requires `payload.delivery_target`. This in-place safety hardening prevents stage-local export hygiene from being mistaken for compiled PDF target completion. Compiled initial/revised PDF targets require source-writeback, post-writeback validation, and content-bearing rendered text evidence; explicit template-only/export-hygiene handoffs remain non-compiled targets.
+
+## S09/S10 Material-Closure Schema Extension
+
+The S09B and S10 material payload schemas include explicit material-closure modules so that upstream material cannot be silently compressed away before writing.
+
+S09B canonical modules:
+
+```text
+control_digest_policy
+global_material_coverage
+unit_material_closure
+material_access_manifest
+material_read_obligations
+deferred_control_ledger
+section_specific_blockers
+```
+
+S10 canonical modules:
+
+```text
+material_hydration_report
+material_read_receipt_ledger
+```
+
+These modules are graph-control evidence, not paper-facing prose. `control_digest` remains non-authoritative. Required material selectors and read receipts must point back to original materials rather than to digest summaries.
+
