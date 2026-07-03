@@ -1,10 +1,10 @@
 {
   "schema_version": "ppg-material/v0.1",
-  "material_id": "phase10_s10_candidate_text_return",
+  "material_id": "invalid_s10_candidate_text_return_missing_material_hydration",
   "version": "v1",
   "status": "candidate",
   "material_type": "S10CandidateTextReturn",
-  "summary": "Packet-bounded S10 candidate text return with prose, traces, CandidateArtifactReturn, and writer/verifier evidence.",
+  "summary": "Invalid S10 fixture for invalid s10 candidate text return missing material hydration.",
   "payload": {
     "schema_version": "ppg-s10-candidate-text-return/v0.1",
     "stage_id": "S10",
@@ -51,70 +51,6 @@
         "strengthen_claims_beyond_s04"
       ],
       "missing_packet_fields": [],
-      "blocked": false
-    },
-    "material_hydration_report": {
-      "status": "pass",
-      "packet_id": "phase10_s09b_s10_intro_callout_packet_v1",
-      "required_materials": [
-        "examples/materials/phase10_s09a_rich_control_bundle.yaml",
-        "examples/materials/phase10_s04_claim_admissibility.yaml",
-        "examples/materials/phase10_s05_reader_spine.yaml",
-        "examples/materials/phase10_s06_object_granularity.yaml",
-        "examples/materials/phase10_s07_surface_control.yaml",
-        "examples/materials/phase10_s08_visual_formal_plan.yaml"
-      ],
-      "hydrated_materials": [
-        "examples/materials/phase10_s09a_rich_control_bundle.yaml",
-        "examples/materials/phase10_s04_claim_admissibility.yaml",
-        "examples/materials/phase10_s05_reader_spine.yaml",
-        "examples/materials/phase10_s06_object_granularity.yaml",
-        "examples/materials/phase10_s07_surface_control.yaml",
-        "examples/materials/phase10_s08_visual_formal_plan.yaml"
-      ],
-      "missing_materials": [],
-      "required_selectors_by_material": {
-        "examples/materials/phase10_s09a_rich_control_bundle.yaml": [
-          "hard_constraints",
-          "context_usage_instructions"
-        ],
-        "examples/materials/phase10_s04_claim_admissibility.yaml": [
-          "support_strength_map"
-        ],
-        "examples/materials/phase10_s05_reader_spine.yaml": [
-          "reader_spine"
-        ],
-        "examples/materials/phase10_s06_object_granularity.yaml": [
-          "object_cards"
-        ],
-        "examples/materials/phase10_s07_surface_control.yaml": [
-          "terminology_rules"
-        ],
-        "examples/materials/phase10_s08_visual_formal_plan.yaml": [
-          "figure_contracts"
-        ]
-      },
-      "hydrated_selectors_by_material": {
-        "examples/materials/phase10_s09a_rich_control_bundle.yaml": [
-          "hard_constraints",
-          "context_usage_instructions"
-        ],
-        "examples/materials/phase10_s04_claim_admissibility.yaml": [
-          "support_strength_map"
-        ],
-        "examples/materials/phase10_s05_reader_spine.yaml": [
-          "reader_spine"
-        ],
-        "examples/materials/phase10_s06_object_granularity.yaml": [
-          "object_cards"
-        ],
-        "examples/materials/phase10_s07_surface_control.yaml": [
-          "terminology_rules"
-        ],
-        "examples/materials/phase10_s08_visual_formal_plan.yaml": [
-          "figure_contracts"
-        ]
-      },
       "blocked": false
     },
     "material_read_receipt_ledger": {

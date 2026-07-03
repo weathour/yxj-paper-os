@@ -1,10 +1,10 @@
 {
   "schema_version": "ppg-material/v0.1",
-  "material_id": "phase10_s10_candidate_text_return",
+  "material_id": "invalid_s10_candidate_text_return_missing_read_receipts",
   "version": "v1",
   "status": "candidate",
   "material_type": "S10CandidateTextReturn",
-  "summary": "Packet-bounded S10 candidate text return with prose, traces, CandidateArtifactReturn, and writer/verifier evidence.",
+  "summary": "Invalid S10 fixture for invalid s10 candidate text return missing read receipts.",
   "payload": {
     "schema_version": "ppg-s10-candidate-text-return/v0.1",
     "stage_id": "S10",
@@ -115,64 +115,6 @@
           "figure_contracts"
         ]
       },
-      "blocked": false
-    },
-    "material_read_receipt_ledger": {
-      "status": "pass",
-      "reader_agent_type": "writer",
-      "packet_id": "phase10_s09b_s10_intro_callout_packet_v1",
-      "receipts": [
-        {
-          "material_ref": "examples/materials/phase10_s09a_rich_control_bundle.yaml",
-          "selectors_read": [
-            "hard_constraints",
-            "context_usage_instructions"
-          ],
-          "receipt_status": "read",
-          "source_packet_obligation": "material_read_obligations.required_selectors_by_material"
-        },
-        {
-          "material_ref": "examples/materials/phase10_s04_claim_admissibility.yaml",
-          "selectors_read": [
-            "support_strength_map"
-          ],
-          "receipt_status": "read",
-          "source_packet_obligation": "material_read_obligations.required_selectors_by_material"
-        },
-        {
-          "material_ref": "examples/materials/phase10_s05_reader_spine.yaml",
-          "selectors_read": [
-            "reader_spine"
-          ],
-          "receipt_status": "read",
-          "source_packet_obligation": "material_read_obligations.required_selectors_by_material"
-        },
-        {
-          "material_ref": "examples/materials/phase10_s06_object_granularity.yaml",
-          "selectors_read": [
-            "object_cards"
-          ],
-          "receipt_status": "read",
-          "source_packet_obligation": "material_read_obligations.required_selectors_by_material"
-        },
-        {
-          "material_ref": "examples/materials/phase10_s07_surface_control.yaml",
-          "selectors_read": [
-            "terminology_rules"
-          ],
-          "receipt_status": "read",
-          "source_packet_obligation": "material_read_obligations.required_selectors_by_material"
-        },
-        {
-          "material_ref": "examples/materials/phase10_s08_visual_formal_plan.yaml",
-          "selectors_read": [
-            "figure_contracts"
-          ],
-          "receipt_status": "read",
-          "source_packet_obligation": "material_read_obligations.required_selectors_by_material"
-        }
-      ],
-      "missing_receipts": [],
       "blocked": false
     },
     "candidate_text_unit": {

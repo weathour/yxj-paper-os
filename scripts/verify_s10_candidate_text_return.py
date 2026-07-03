@@ -51,6 +51,8 @@ REQUIRED_SCHEMA_FIELDS = {
     "completion_boundary",
     "authority_boundary",
     "packet_compliance_report",
+    "material_hydration_report",
+    "material_read_receipt_ledger",
     "candidate_text_unit",
     "section_or_unit_skeleton",
     "move_trace",
@@ -138,6 +140,10 @@ NEGATIVE_FIXTURES = {
     ROOT / "examples/materials/invalid-s10-candidate-text-return-missing-verifier-evidence.json": "E_S10_VERIFIER_EVIDENCE_REQUIRED",
     ROOT / "examples/materials/invalid-s10-candidate-text-return-blocked-missing-material.json": "E_S10_MISSING_MATERIAL_REPORT_REQUIRED",
     ROOT / "examples/materials/invalid-s10-candidate-text-return-final-acceptance.json": "E_S10_NO_FINAL_ACCEPTANCE",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-missing-material-hydration.json": "E_S10_MATERIAL_HYDRATION_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-missing-read-receipts.json": "E_S10_MATERIAL_READ_RECEIPT_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-candidate-output-with-missing-material.json": "E_S10_BLOCKED_OUTPUT_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-unread-required-selector.json": "E_S10_MATERIAL_READ_RECEIPT_REQUIRED",
 }
 
 
@@ -261,6 +267,15 @@ def _verify_material_cross_refs() -> None:
     candidate_return = _load_json(S10_RETURN)
     if payload.get("candidate_artifact_return") != candidate_return:
         _fail("E_S10_RETURN_EMBED", "embedded CandidateArtifactReturn must match fixture")
+    hydration = payload.get("material_hydration_report", {})
+    receipts = payload.get("material_read_receipt_ledger", {})
+    required_materials = set(hydration.get("required_materials", []))
+    hydrated_materials = set(hydration.get("hydrated_materials", []))
+    if not required_materials or required_materials != hydrated_materials or hydration.get("missing_materials") != []:
+        _fail("E_S10_MATERIAL_HYDRATION", "S10 material hydration report must close every required material")
+    receipt_materials = {receipt.get("material_ref") for receipt in receipts.get("receipts", []) if isinstance(receipt, dict)}
+    if required_materials != receipt_materials or receipts.get("missing_receipts") != []:
+        _fail("E_S10_MATERIAL_READ_RECEIPTS", "S10 read receipt ledger must cover every required material")
     if payload.get("candidate_text_unit", {}).get("output_artifact_path") != "examples/candidate-artifacts/phase10_intro_callout_candidate.md":
         _fail("E_S10_CANDIDATE_PATH", "candidate text unit path mismatch")
     if payload.get("verifier_evidence", {}).get("verification_status") not in {"pass", "pass_with_risks"}:

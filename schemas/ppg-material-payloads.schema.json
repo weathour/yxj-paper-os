@@ -2203,6 +2203,8 @@
         "completion_boundary",
         "authority_boundary",
         "packet_compliance_report",
+        "material_hydration_report",
+        "material_read_receipt_ledger",
         "candidate_text_unit",
         "section_or_unit_skeleton",
         "move_trace",
@@ -2285,6 +2287,12 @@
           }
         },
         "missing_material_report": {
+          "type": "object"
+        },
+        "material_hydration_report": {
+          "type": "object"
+        },
+        "material_read_receipt_ledger": {
           "type": "object"
         }
       },
