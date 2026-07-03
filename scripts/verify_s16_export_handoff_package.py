@@ -19,6 +19,10 @@ LIVE_TEMPLATE_TEXT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export
 LIVE_MISMATCHED_SOURCE_PDF_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-mismatched-source-pdf-ref.json"
 LIVE_MISSING_TEXT_EXPORT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-text-export-manifest.json"
 LIVE_MISSING_SOURCE_WRITEBACK_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-source-writeback-file.json"
+LIVE_MISSING_BODY_CITATION_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-body-citation-anchor.json"
+LIVE_MISSING_VISUAL_CALLOUT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-visual-callout.json"
+LIVE_INTERNAL_LEXICON_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-internal-lexicon.json"
+LIVE_UNRESOLVED_RISK_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-unresolved-risk-leakage.json"
 PUBLIC_CONSUMES = [
     "closed S12 integrated manuscript candidate",
     "S13 review closure evidence",
@@ -160,6 +164,12 @@ def run(args: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(args, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False)
 
 
+def assert_live_negative(path: Path, expected_code: str, label: str) -> None:
+    result = run([sys.executable, str(VERIFY_LIVE), str(path)])
+    if result.returncode == 0 or expected_code not in result.stdout:
+        fail(label, result.stdout)
+
+
 def verify_fixtures() -> None:
     result = run([sys.executable, str(VALIDATE_MATERIAL), str(MATERIAL)])
     if result.returncode != 0:
@@ -185,6 +195,26 @@ def verify_fixtures() -> None:
     bad_source_writeback = run([sys.executable, str(VERIFY_LIVE), str(LIVE_MISSING_SOURCE_WRITEBACK_NEGATIVE)])
     if bad_source_writeback.returncode == 0 or "E_S16_LIVE_EVIDENCE" not in bad_source_writeback.stdout:
         fail("E_S16_LIVE_SOURCE_WRITEBACK_NEGATIVE", bad_source_writeback.stdout)
+    assert_live_negative(
+        LIVE_MISSING_BODY_CITATION_NEGATIVE,
+        "E_S16_LIVE_TEXT",
+        "E_S16_LIVE_MISSING_BODY_CITATION_NEGATIVE",
+    )
+    assert_live_negative(
+        LIVE_MISSING_VISUAL_CALLOUT_NEGATIVE,
+        "E_S16_LIVE_TEXT",
+        "E_S16_LIVE_MISSING_VISUAL_CALLOUT_NEGATIVE",
+    )
+    assert_live_negative(
+        LIVE_INTERNAL_LEXICON_NEGATIVE,
+        "E_S16_LIVE_TEXT",
+        "E_S16_LIVE_INTERNAL_LEXICON_NEGATIVE",
+    )
+    assert_live_negative(
+        LIVE_UNRESOLVED_RISK_NEGATIVE,
+        "E_S16_LIVE_TEXT",
+        "E_S16_LIVE_UNRESOLVED_RISK_NEGATIVE",
+    )
     for name, expected_code in NEGATIVES.items():
         result = run([sys.executable, str(VALIDATE_MATERIAL), str(ROOT / "examples/materials" / name)])
         if result.returncode == 0 or expected_code not in result.stdout:

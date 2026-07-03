@@ -112,8 +112,8 @@
       ],
       "references_present": true,
       "obvious_rendering_anomalies": [],
-      "rendered_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
-      "rendered_text_sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d",
+      "rendered_text_ref": "examples/local-paper/sample-paper-workspace/build/main-no-body-citation.txt",
+      "rendered_text_sha256": "0d075a1221635400186b1b2f3aa2fa7d9654318b876bf79cc0639fb62a9caad5",
       "source_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
       "source_pdf_sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e",
       "template_only_text_absent": true,
@@ -184,6 +184,11 @@
           "sha256": "553d7050cb70eb73004895074cb0d09b48f2463e915b9a54785f504fb60890e9"
         },
         {
+          "path": "examples/local-paper/sample-paper-workspace/build/main-no-body-citation.txt",
+          "kind": "report",
+          "sha256": "0d075a1221635400186b1b2f3aa2fa7d9654318b876bf79cc0639fb62a9caad5"
+        },
+        {
           "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
           "kind": "report",
           "sha256": "c182302fdcbba92e7b84cdb0962140b3c069c3ccfeac13449c3ace844913e666"
@@ -247,8 +252,8 @@
         "sha256": "553d7050cb70eb73004895074cb0d09b48f2463e915b9a54785f504fb60890e9"
       },
       {
-        "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
-        "sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d"
+        "path": "examples/local-paper/sample-paper-workspace/build/main-no-body-citation.txt",
+        "sha256": "0d075a1221635400186b1b2f3aa2fa7d9654318b876bf79cc0639fb62a9caad5"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
@@ -363,8 +368,7 @@
         "handoff_complete",
         "feedback_route_declared",
         "no_submission_or_publication_claim"
-      ],
-      "notes": "Negative fixture: rendered text sidecar remains hash-listed but is omitted from export_manifest.exported_files."
+      ]
     },
     "remaining_risks": [
       "Owner-facing reading may produce new content findings; those must be routed through S14 rather than direct source edits."
@@ -382,8 +386,8 @@
       "s12_post_writeback_ref": "examples/materials/phase10_s12_integration_report.json",
       "build_after_writeback_ref": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
       "rendered_surface_review_ref": "examples/local-paper/sample-paper-workspace/build/rendered-surface-review.json",
-      "pdf_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
-      "pdf_text_sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d",
+      "pdf_text_ref": "examples/local-paper/sample-paper-workspace/build/main-no-body-citation.txt",
+      "pdf_text_sha256": "0d075a1221635400186b1b2f3aa2fa7d9654318b876bf79cc0639fb62a9caad5",
       "output_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
       "output_pdf_sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e",
       "status": "pass"

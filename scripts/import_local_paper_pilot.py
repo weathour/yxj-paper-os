@@ -172,14 +172,69 @@ def write_s16_live_export_fixture_artifacts(out: Path) -> None:
     write_text_artifact(
         out,
         "build/main.txt",
-        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture. "
+        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture [1]. "
         "The first body paragraph states the problem, explains the cyber-physical safety context, and connects "
         "experiment evidence to the manuscript contribution using complete draft language. It contains enough "
-        "natural language to serve as a rendered-text smoke fixture for the compiled target gate.\n\n"
+        "natural language to serve as a rendered-text smoke fixture for the compiled target gate while keeping "
+        "the citation anchor in the paper body.\n\n"
         "The second body paragraph discusses methods, data, figure references, and claim boundaries. It mentions "
         "Figure 1 as a real paper-facing figure and describes how the evidence supports a bounded initial draft "
         "rather than a publication or submission claim. The paragraph is intentionally long enough to be counted "
-        "as body content by the live verifier.\n\n"
+        "as body content by the live verifier and keeps manager handoff limitations outside the manuscript surface.\n\n"
+        "References\n"
+        "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main-no-body-citation.txt",
+        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture. "
+        "The first body paragraph states the problem, explains the cyber-physical safety context, and connects "
+        "experiment evidence to the manuscript contribution using complete draft language. It intentionally omits "
+        "a body citation anchor so the live S16 verifier can prove that a References heading alone is insufficient.\n\n"
+        "The second body paragraph discusses methods, data, figure references, and claim boundaries. It mentions "
+        "Figure 1 as a real paper-facing figure and describes how the evidence supports a bounded initial draft "
+        "rather than a publication or submission claim. The paragraph is intentionally long enough to be counted "
+        "as body content by the live verifier and keeps manager handoff limitations outside the manuscript surface.\n\n"
+        "References\n"
+        "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main-no-visual-callout.txt",
+        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture [1]. "
+        "The first body paragraph states the problem, explains the cyber-physical safety context, and connects "
+        "experiment evidence to the manuscript contribution using complete draft language. It contains enough "
+        "natural language to serve as a rendered-text smoke fixture for the compiled target gate.\n\n"
+        "The second body paragraph discusses methods, data, visual evidence, and claim boundaries without naming "
+        "the required paper-facing visual artifact. It describes how the evidence supports a bounded initial draft "
+        "rather than a publication or submission claim. The paragraph is intentionally long enough to be counted "
+        "as body content by the live verifier and keeps manager handoff limitations outside the manuscript surface.\n\n"
+        "References\n"
+        "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main-internal-lexicon.txt",
+        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture [1]. "
+        "The first body paragraph states the problem, explains the cyber-physical safety context, and connects "
+        "experiment evidence to the manuscript contribution using complete draft language. It contains enough "
+        "natural language to serve as a rendered-text smoke fixture for the compiled target gate.\n\n"
+        "The second body paragraph discusses methods, data, Figure 1, and claim boundaries, but it leaks raw metric rows "
+        "from the internal experiment ledger into the paper-facing manuscript surface. The paragraph is intentionally "
+        "long enough to be counted as body content by the live verifier.\n\n"
+        "References\n"
+        "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.\n",
+    )
+    write_text_artifact(
+        out,
+        "build/main-unresolved-risk-leakage.txt",
+        "Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture [1]. "
+        "The first body paragraph states the problem, explains the cyber-physical safety context, and connects "
+        "experiment evidence to the manuscript contribution using complete draft language. It contains enough "
+        "natural language to serve as a rendered-text smoke fixture for the compiled target gate.\n\n"
+        "The second body paragraph discusses methods, data, Figure 1, and claim boundaries. Future work should add "
+        "validated citations and contract-bound figures and tables. This sentence is intentionally invalid because "
+        "unresolved manager handoff risk must not appear in paper-facing text.\n\n"
         "References\n"
         "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.\n",
     )

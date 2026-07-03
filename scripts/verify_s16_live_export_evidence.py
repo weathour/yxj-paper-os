@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+import re
 import subprocess
 import sys
 from typing import Any, NoReturn
@@ -23,6 +24,30 @@ NEGATIVE_TEXT_SENTINELS = (
     "tbd",
 )
 POSITIVE_REFERENCE_ANCHORS = ("references", "bibliography", "参考文献")
+BODY_CITATION_RE = re.compile(r"(?:\[(?:\d+|[A-Za-z][A-Za-z0-9_:-]*)(?:\s*,\s*(?:\d+|[A-Za-z][A-Za-z0-9_:-]*))*\])|(?:\([A-Z][A-Za-z-]+(?:\s+et\s+al\.)?,?\s+(?:19|20)\d{2}[a-z]?\))")
+REFERENCE_ENTRY_RE = re.compile(r"(?m)^\s*(?:\[\d+\]|\d+\.|[A-Z][A-Za-z-]+,\s+[A-Z])\s+\S+")
+FORBIDDEN_INTERNAL_TERMS = (
+    "l3 unified scene",
+    "current l3 package",
+    "controller row",
+    "controller rows",
+    "raw metric row",
+    "raw metric rows",
+    "project local row",
+    "project local rows",
+    "registered score",
+    "platform proxy exclusion",
+)
+UNRESOLVED_RISK_LEAKAGE_PHRASES = (
+    "future work should add validated citations",
+    "future work should add citations",
+    "future work should add figures",
+    "future work should add tables",
+    "future work should add validated citations and contract bound figures and tables",
+    "should add validated citations",
+    "should add contract bound figures",
+    "add validated citations and contract bound figures",
+)
 SOURCE_WRITEBACK_REF_KEYS = (
     "latex_writeback_plan_ref",
     "latex_writeback_patchset_ref",
@@ -92,6 +117,28 @@ def paragraph_count(text: str) -> int:
     return sum(1 for part in text.replace("\r\n", "\n").split("\n\n") if len(part.strip()) >= 80)
 
 
+def string_items(value: Any) -> list[str]:
+    if isinstance(value, str) and value.strip():
+        return [value.strip()]
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if isinstance(item, str) and item.strip()]
+    return []
+
+
+def normalize_text(value: str) -> str:
+    lowered = value.lower()
+    for char in "-_/.,;:()[]{}":
+        lowered = lowered.replace(char, " ")
+    return " ".join(lowered.split())
+
+
+def split_body_and_references(text: str) -> tuple[str, str]:
+    match = re.search(r"(?im)^\s*(references|bibliography|参考文献)\s*$", text)
+    if not match:
+        return text, ""
+    return text[: match.start()], text[match.end() :]
+
+
 def verify_hashed_evidence_ref(section: str, key: str, value: Any, hash_manifest: dict[str, str], exported_paths: set[str]) -> None:
     if not isinstance(value, str) or not value:
         fail("E_S16_LIVE_EVIDENCE", f"{section}.{key} must be a non-empty ref")
@@ -149,15 +196,51 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
         fail("E_S16_LIVE_TEXT", f"rendered text hash mismatch for {text_ref}")
     text = text_from(text_path)
     lowered = text.lower()
+    normalized = normalize_text(text)
     for sentinel in NEGATIVE_TEXT_SENTINELS:
         if sentinel in lowered:
             fail("E_S16_LIVE_TEXT", f"rendered text contains forbidden sentinel: {sentinel}")
+    for term in FORBIDDEN_INTERNAL_TERMS:
+        if term in normalized:
+            fail("E_S16_LIVE_TEXT", f"rendered text contains forbidden internal term: {term}")
+    for phrase in UNRESOLVED_RISK_LEAKAGE_PHRASES:
+        if phrase in normalized:
+            fail("E_S16_LIVE_TEXT", f"rendered text contains unresolved manager-risk leakage: {phrase}")
     if len(text.strip()) < 500 or paragraph_count(text) < 2:
         fail("E_S16_LIVE_TEXT", "rendered text must contain multiple body paragraphs for compiled targets")
     if not any(anchor in lowered for anchor in POSITIVE_REFERENCE_ANCHORS):
         fail("E_S16_LIVE_TEXT", "rendered text must include a references/bibliography anchor for compiled targets")
     if surface.get("actual_bibliography_rendered") is not True or surface.get("body_paragraphs_present") is not True:
         fail("E_S16_LIVE_TEXT", "compiled target surface booleans must confirm bibliography and body paragraphs")
+    body_text, reference_text = split_body_and_references(text)
+    body_lower = body_text.lower()
+    if not BODY_CITATION_RE.search(body_text):
+        fail("E_S16_LIVE_TEXT", "rendered body text must include citation anchors before the references section")
+    declared_body_citations = string_items(surface.get("body_citation_anchors"))
+    if not declared_body_citations:
+        fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list body_citation_anchors")
+    if not any(anchor.lower() in body_lower for anchor in declared_body_citations):
+        fail("E_S16_LIVE_TEXT", "declared body_citation_anchors must appear in rendered body text")
+    declared_reference_entries = string_items(surface.get("reference_entries"))
+    if not declared_reference_entries:
+        fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list reference_entries")
+    if not reference_text.strip() or not REFERENCE_ENTRY_RE.search(reference_text):
+        fail("E_S16_LIVE_TEXT", "rendered references section must include at least one reference entry")
+    visual_callouts = surface.get("visual_formal_callouts")
+    if not isinstance(visual_callouts, list) or not visual_callouts:
+        fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list visual_formal_callouts")
+    for idx, callout in enumerate(visual_callouts):
+        if not isinstance(callout, dict):
+            fail("E_S16_LIVE_TEXT", f"visual_formal_callouts[{idx}] must be an object")
+        text_value = str(callout.get("callout_text") or "").strip()
+        if not text_value:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_callouts[{idx}].callout_text must be non-empty")
+        if text_value.lower() not in body_lower:
+            fail("E_S16_LIVE_TEXT", f"visual/formal callout must appear in rendered body text: {text_value}")
+    if surface.get("forbidden_internal_terms_detected") not in ([], None):
+        fail("E_S16_LIVE_TEXT", "compiled target surface evidence must not list forbidden internal terms")
+    if surface.get("unresolved_paper_facing_phrases_detected") not in ([], None):
+        fail("E_S16_LIVE_TEXT", "compiled target surface evidence must not list unresolved paper-facing phrases")
     pdf_ref = str(surface.get("source_pdf_ref") or "")
     if not pdf_ref:
         fail("E_S16_LIVE_PDF_BINDING", "compiled targets require rendered_surface_check.source_pdf_ref")

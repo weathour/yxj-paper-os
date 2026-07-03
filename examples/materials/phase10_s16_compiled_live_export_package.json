@@ -113,7 +113,7 @@
       "references_present": true,
       "obvious_rendering_anomalies": [],
       "rendered_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
-      "rendered_text_sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91",
+      "rendered_text_sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d",
       "source_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
       "source_pdf_sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e",
       "template_only_text_absent": true,
@@ -186,7 +186,7 @@
         {
           "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
           "kind": "report",
-          "sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91"
+          "sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d"
         },
         {
           "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
@@ -253,7 +253,7 @@
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/build/main.txt",
-        "sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91"
+        "sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d"
       },
       {
         "path": "examples/local-paper/sample-paper-workspace/paper-os/writeback/compiled-draft-plan.json",
@@ -387,7 +387,7 @@
       "build_after_writeback_ref": "examples/local-paper/sample-paper-workspace/build/latexmk.log",
       "rendered_surface_review_ref": "examples/local-paper/sample-paper-workspace/build/rendered-surface-review.json",
       "pdf_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
-      "pdf_text_sha256": "7901dbffdbc4bae683404caacc3c0f5908e352fef667d7aa4aa96e6822529c91",
+      "pdf_text_sha256": "05e4bd7cc1609f5d31fa170aa3fd39943df381f4a068cbbacae038efbf27f27d",
       "output_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
       "output_pdf_sha256": "4bfc54d1b91013d4df264030055b54fe7abe646edfa09ba5a9cb88819c44e60e",
       "status": "pass"
