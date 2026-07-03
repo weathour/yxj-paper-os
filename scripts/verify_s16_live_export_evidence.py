@@ -234,7 +234,9 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
         fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list reference_entries")
     if not reference_text.strip() or not REFERENCE_ENTRY_RE.search(reference_text):
         fail("E_S16_LIVE_TEXT", "rendered references section must include at least one reference entry")
-    exported_files = (payload.get("export_manifest") or {}).get("exported_files") if isinstance(payload.get("export_manifest"), dict) else []
+    export_manifest = payload.get("export_manifest")
+    raw_exported_files = export_manifest.get("exported_files") if isinstance(export_manifest, dict) else []
+    exported_files = raw_exported_files if isinstance(raw_exported_files, list) else []
     exported_kinds = {
         str(item.get("path") or ""): str(item.get("kind") or "")
         for item in exported_files
