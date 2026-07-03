@@ -223,3 +223,12 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 S14 owns planning for content/delivery gaps discovered at S16. A finding such as `content_ready: blocked`, `template_only_handoff`, missing source-writeback evidence, missing post-writeback S12, or failed rendered-text semantics must become a repair plan that names the nearest responsible stage and downstream stale set.
 
 For compiled PDF targets, an S14 plan must not stop at “rerun S16”. It should specify whether the repair starts at S15 source writeback, S12 post-writeback integration, S13 post-writeback review, or S16 export hygiene, and it must require the repaired flow to reach S16 again with the same `delivery_target`.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S14 is the routing and planning gate that prevents global rewrites. It must read every accepted finding, validator report, affected graph slice, and owner gate policy, then produce `finding_intake_ledger`, `finding_normalization_table`, `nearest_responsible_stage_map`, local `repair_scope_plan`, protected unrelated nodes, repair task packets, response action map, owner gate report, and validation plan. It does not execute repair.
+
+**中文。** S14 是防止全局重写的路由与计划门。它必须读取每个 accepted finding、validator report、affected graph slice 和 owner gate policy，然后产出 `finding_intake_ledger`、`finding_normalization_table`、`nearest_responsible_stage_map`、局部 `repair_scope_plan`、protected unrelated nodes、repair task packets、response action map、owner gate report 和 validation plan。S14 不执行修复。
+
+Stage-quality focus / 阶段质量焦点：nearest-responsible-stage routing, bounded repair locality, owner-gate preservation, and no bare S09/global rewrite.
+

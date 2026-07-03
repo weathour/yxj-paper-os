@@ -1,0 +1,105 @@
+{
+  "schema_version": "ppg-stage-quality-contract/v0.1",
+  "stage_id": "S12",
+  "active_profile_source": "S10/S11 candidate returns plus active paper profile and S04-S08 controls; no global venue/profile default",
+  "must_read_materials": [
+    {
+      "material_ref": "S10_candidate_returns",
+      "read_mode": "full",
+      "required_extractions": [
+        "candidate_text_units",
+        "material_read_receipt_ledger",
+        "claim_evidence_trace",
+        "visual_callout_trace"
+      ]
+    },
+    {
+      "material_ref": "S11_figure_caption_artifact_bundles",
+      "read_mode": "full",
+      "required_extractions": [
+        "artifact_refs",
+        "caption_claim_trace",
+        "source_data_trace",
+        "current_latex_slots"
+      ]
+    },
+    {
+      "material_ref": "S04_S08_upstream_controls",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "allowed_claims",
+        "reader_spine",
+        "object_granularity",
+        "surface_rules",
+        "visual_contracts"
+      ]
+    },
+    {
+      "material_ref": "section_move_plan",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "module_order",
+        "promise_map",
+        "expected_callouts"
+      ]
+    }
+  ],
+  "required_extractions": [
+    "module_inventory",
+    "assembly_manifest",
+    "integrated_manuscript_candidate",
+    "trace_index",
+    "claim_boundary_audit",
+    "promise_satisfaction_report",
+    "cross_section_consistency_report",
+    "terminology_consistency_report",
+    "object_granularity_consistency_report",
+    "figure_text_alignment_report",
+    "surface_consistency_report",
+    "stale_material_report",
+    "integration_findings",
+    "backflow_queue",
+    "validator_report",
+    "CandidateArtifactReturn"
+  ],
+  "producer_return_obligations": [
+    "module_inventory that classifies included, missing, duplicate, stale, and excluded S10/S11 modules",
+    "assembly_manifest with source module versions and decisions",
+    "integrated_manuscript_candidate as a structured review object, not final prose or PDF",
+    "trace_index for claim, citation, terminology, object, figure, caption, and callout bindings",
+    "consistency audit suite and stale_material_report",
+    "integration_findings with severity, evidence, affected artifact, nearest stage, and local repair scope",
+    "backflow_queue for S14 and CandidateArtifactReturn without export/final/acceptance claims"
+  ],
+  "audit_verifier_obligations": {
+    "inherits_all_producer_inputs": true,
+    "checks": [
+      "every included text/figure/caption module has trace evidence and read receipts",
+      "integrated candidate is review-ready but not export-ready or final",
+      "claim, promise, terminology, object, figure-text, surface, stale, and backflow audits are complete",
+      "findings include nearest responsible stage and local repair scope",
+      "S12 performs no PDF export, final claim, or untracked rewrite",
+      "controller completion remains outside S12"
+    ]
+  },
+  "downstream_design_force": [
+    "S13 reviews a structured S12 object with trace_index rather than a PDF or prose blob",
+    "S14 receives integration_findings/backflow_queue with nearest-stage hints",
+    "S16 and RenderedManuscriptAuditGate can reject export/readiness claims if S12 trace/audit closure is missing"
+  ],
+  "failure_severity_policy": {
+    "BLOCKING": "module inventory, trace index, or critical consistency/backflow audit is missing",
+    "MAJOR": "integrated candidate overclaims readiness, hides stale material, or lacks actionable findings",
+    "MINOR": "local manifest, trace label, or wording issue without consistency/authority drift",
+    "WATCH": "reviewer-risk signal tracked for S13 without forced full integration rerun"
+  },
+  "nearest_responsible_stage_policy": "S12 owns integration/consistency and trace-index defects; source candidate defects route to S10/S11 or upstream controls by material source.",
+  "affected_downstream_nodes": [
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "RenderedManuscriptAuditGate"
+  ],
+  "anti_over_strictness_boundary": "MINOR/WATCH integration polish does not force S10/S11 regeneration unless the trace, claim, stale, or consistency audit shows substantive failure."
+}

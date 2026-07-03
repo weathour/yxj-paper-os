@@ -226,3 +226,12 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S13 是批评者，不是改写者。它攻击候选稿，让主 agent 能修正确的上游物料。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S13 is a critic, not a rewriter. It attacks the candidate so the controller can repair the right upstream material. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S13 must attack the structured S12 object and return actionable loss signals, not rewrite the manuscript. Findings need severity, evidence, affected artifact, location, rationale, source trace, nearest responsible stage, and `S14_route`. Vague reviewer reactions are either rejected, downgraded to WATCH, or decomposed before handoff. PDF-primary review, repair execution, and completion claims are forbidden.
+
+**中文。** S13 必须攻击结构化 S12 对象并返回可执行 loss signals，而不是改写稿件。Finding 需要 severity、evidence、affected artifact、location、rationale、source trace、nearest responsible stage 和 `S14_route`。模糊审稿意见要么拒绝、降为 WATCH，要么拆解后再交接。禁止 PDF-primary review、执行修复或声称完成。
+
+Stage-quality focus / 阶段质量焦点：actionable review findings, finding_actionability_report, S14 routing, and no rewrite/repair authority.
+

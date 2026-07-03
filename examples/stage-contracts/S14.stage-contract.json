@@ -69,7 +69,8 @@
     "S14_owner_gate_status",
     "S14_task_packet_compile",
     "S14_no_execution",
-    "S14_no_completion_claim"
+    "S14_no_completion_claim",
+    "S14_stage_quality_contract"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -81,5 +82,105 @@
     "packet_ref": null,
     "return_contract_ref": null,
     "status": "not_required"
+  },
+  "stage_quality_contract": {
+    "schema_version": "ppg-stage-quality-contract/v0.1",
+    "stage_id": "S14",
+    "active_profile_source": "accepted S12/S13/S16/human findings plus owner gate policy and current material graph slice; no global venue/profile default",
+    "must_read_materials": [
+      {
+        "material_ref": "accepted_findings",
+        "read_mode": "full",
+        "required_extractions": [
+          "finding_id",
+          "severity",
+          "evidence",
+          "affected_artifact",
+          "source_trace",
+          "S14_route"
+        ]
+      },
+      {
+        "material_ref": "validator_reports",
+        "read_mode": "targeted",
+        "required_extractions": [
+          "blocking_checks",
+          "stale_nodes",
+          "failed_validators"
+        ]
+      },
+      {
+        "material_ref": "affected_material_graph_slice",
+        "read_mode": "full",
+        "required_extractions": [
+          "material_versions",
+          "dependency_edges",
+          "protected_unrelated_nodes"
+        ]
+      },
+      {
+        "material_ref": "owner_gate_policy",
+        "read_mode": "targeted",
+        "required_extractions": [
+          "owner_gated_decisions",
+          "semantic_boundary",
+          "external_action_boundary"
+        ]
+      }
+    ],
+    "required_extractions": [
+      "finding_intake_ledger",
+      "finding_normalization_table",
+      "failure_type_classification",
+      "nearest_responsible_stage_map",
+      "affected_material_graph_slice",
+      "repair_scope_plan",
+      "protected_unrelated_nodes",
+      "repair_task_packets",
+      "response_action_map",
+      "priority_schedule",
+      "owner_gate_report",
+      "validation_plan",
+      "unresolved_or_ambiguous_findings",
+      "no_bare_S09_route"
+    ],
+    "producer_return_obligations": [
+      "finding_intake_ledger covering every accepted input finding",
+      "finding_normalization_table with duplicate/rejected/non-actionable rationale",
+      "nearest_responsible_stage_map to concrete stages/materials with no bare S09 route",
+      "repair_scope_plan that names smallest safe scope, stale downstream nodes, and protected_unrelated_nodes",
+      "repair_task_packets or upstream task plans for each accepted finding",
+      "response_action_map, priority_schedule, owner_gate_report, validation_plan, and unresolved_or_ambiguous_findings",
+      "no repair execution, no completion claim, and no global rewrite scope"
+    ],
+    "audit_verifier_obligations": {
+      "inherits_all_producer_inputs": true,
+      "checks": [
+        "every accepted finding is normalized, routed, scoped, and assigned validation evidence",
+        "nearest_responsible_stage_map uses concrete stages/materials and rejects bare S09/global rewrite routes",
+        "repair locality protects unrelated nodes and marks affected downstream stale nodes",
+        "owner-gated semantics and external actions remain owner-gated",
+        "repair_task_packets are planned only and not executed in S14",
+        "controller completion remains outside S14"
+      ]
+    },
+    "downstream_design_force": [
+      "S15 receives bounded repair packets with protected nodes and validation plan",
+      "upstream stages receive precise backflow tasks instead of global rewrite instructions",
+      "S16 and RenderedManuscriptAuditGate can verify that accepted findings have planned/closed repair routes before handoff"
+    ],
+    "failure_severity_policy": {
+      "BLOCKING": "accepted finding lacks intake coverage, nearest responsible stage route, repair scope, or owner gate status",
+      "MAJOR": "plan uses global rewrite, bare S09, hidden stale nodes, or executes repair inside S14",
+      "MINOR": "local priority, label, or response-action metadata defect without scope/routing drift",
+      "WATCH": "ambiguous owner/reviewer preference tracked without autonomous semantic repair"
+    },
+    "nearest_responsible_stage_policy": "S14 owns backflow normalization/routing defects; substantive content defects are assigned to the nearest responsible production/control stage.",
+    "affected_downstream_nodes": [
+      "S15",
+      "S16",
+      "RenderedManuscriptAuditGate"
+    ],
+    "anti_over_strictness_boundary": "MINOR/WATCH findings may stay as risk/clarification items; only accepted BLOCKING/MAJOR repair items require S15 or upstream repair tasks."
   }
 }

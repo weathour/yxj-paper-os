@@ -892,7 +892,8 @@
         "S12_no_pdf_export",
         "S12_no_final_claim",
         "S12_no_untracked_rewrite",
-        "S12_candidate_return_complete"
+        "S12_candidate_return_complete",
+        "S12_stage_quality_contract"
       ],
       "backflow_targets": [
         "S04",
@@ -911,7 +912,8 @@
       "activation_policy": "activate when multiple modules are integrated",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S12.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S12.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S12.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S13",
@@ -958,7 +960,8 @@
         "S13_no_uncontrolled_rewrite",
         "S13_no_pdf_primary_review",
         "S13_candidate_return_complete",
-        "S13_verifier_evidence"
+        "S13_verifier_evidence",
+        "S13_stage_quality_contract"
       ],
       "backflow_targets": [
         "S14"
@@ -967,7 +970,8 @@
       "activation_policy": "activate when candidate manuscript/module exists",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S13.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S13.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S13.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S14",
@@ -1012,7 +1016,8 @@
         "S14_owner_gate_status",
         "S14_task_packet_compile",
         "S14_no_execution",
-        "S14_no_completion_claim"
+        "S14_no_completion_claim",
+        "S14_stage_quality_contract"
       ],
       "backflow_targets": [
         "S04",
@@ -1033,7 +1038,8 @@
       "activation_policy": "activate when review finding exists",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S14.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S14.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S14.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S15",

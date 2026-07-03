@@ -1,0 +1,100 @@
+{
+  "schema_version": "ppg-stage-quality-contract/v0.1",
+  "stage_id": "S13",
+  "active_profile_source": "S12 structured candidate package plus active reviewer/venue profile controls; no global venue/profile default",
+  "must_read_materials": [
+    {
+      "material_ref": "S12_integrated_candidate_package",
+      "read_mode": "full",
+      "required_extractions": [
+        "review_object_inventory",
+        "trace_index",
+        "validator_report",
+        "backflow_queue"
+      ]
+    },
+    {
+      "material_ref": "S10_S11_candidate_traces",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "claim_evidence_trace",
+        "caption_claim_trace",
+        "source_data_trace"
+      ]
+    },
+    {
+      "material_ref": "S04_S08_upstream_controls",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "claim_boundaries",
+        "reader_spine",
+        "object_granularity",
+        "surface_rules",
+        "visual_contracts"
+      ]
+    },
+    {
+      "material_ref": "active_review_profile",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "reviewer_panel_roles",
+        "desk_risk_lenses",
+        "severity_policy"
+      ]
+    }
+  ],
+  "required_extractions": [
+    "review_object_inventory",
+    "review_scope",
+    "reviewer_panel_report",
+    "desk_reject_risk_report",
+    "reader_experience_report",
+    "claim_evidence_review",
+    "figure_caption_review",
+    "review_findings",
+    "finding_actionability_report",
+    "S14_route",
+    "validator_report",
+    "CandidateArtifactReturn",
+    "verifier_evidence",
+    "no_pdf_primary_review"
+  ],
+  "producer_return_obligations": [
+    "adversarial review report over the structured S12 object only",
+    "reviewer_panel_report and desk/reader/claim/evidence/figure/caption loss-signal reports",
+    "review_findings with severity, evidence, affected artifact, affected location, rationale, source trace, nearest responsible stage, and S14 route",
+    "finding_actionability_report that rejects vague findings and deduplicates overlaps",
+    "CandidateArtifactReturn and verifier_evidence",
+    "explicit no rewrite, no repair execution, no PDF-primary-review, and no completion boundary"
+  ],
+  "audit_verifier_obligations": {
+    "inherits_all_producer_inputs": true,
+    "checks": [
+      "S13 reviews the structured S12 object and not a rendered PDF as primary object",
+      "all accepted findings are actionable with evidence, location, severity, source trace, nearest responsible stage, and S14 route",
+      "vague/global rewrite advice is rejected or decomposed before handoff",
+      "no rewrite or repair execution occurs inside S13",
+      "verifier evidence audits the same S12/S10/S11/upstream inputs",
+      "controller completion remains outside S13"
+    ]
+  },
+  "downstream_design_force": [
+    "S14 receives only normalized actionable findings with S14_route and nearest responsible stage hints",
+    "S15 never receives a direct S13 rewrite instruction without S14 repair planning",
+    "RenderedManuscriptAuditGate can distinguish adversarial findings from accepted repairs or export readiness"
+  ],
+  "failure_severity_policy": {
+    "BLOCKING": "review object inventory, actionable findings schema, or S14 route is missing",
+    "MAJOR": "review becomes a rewrite/repair/PDF-primary pass or findings lack evidence/location/severity",
+    "MINOR": "local reviewer label or rationale defect that does not alter routing/actionability",
+    "WATCH": "speculative reviewer risk retained as risk signal without forced repair"
+  },
+  "nearest_responsible_stage_policy": "S13 owns adversarial review/report defects; content defects are routed as findings to S14, never repaired directly by S13.",
+  "affected_downstream_nodes": [
+    "S14",
+    "S15",
+    "S16",
+    "RenderedManuscriptAuditGate"
+  ],
+  "anti_over_strictness_boundary": "MINOR/WATCH review comments do not automatically become repair tasks; S14 decides accepted repair scope after actionability review."
+}

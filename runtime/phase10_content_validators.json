@@ -1343,6 +1343,11 @@
           "dimension_id": "s12_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S12 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s12_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S12 evidence that integration consumed full S10/S11 returns, produced module inventory, assembly manifest, trace_index, audit suite, and backflow queue without export/final claims"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1372,7 +1377,8 @@
         "s12_no_pdf_export",
         "s12_no_final_claim",
         "s12_no_untracked_rewrite",
-        "s12_candidate_return_complete"
+        "s12_candidate_return_complete",
+        "s12_stage_quality_contract"
       ],
       "stage_id": "S12",
       "stage_name": "Integration and consistency pass",
@@ -1420,6 +1426,11 @@
           "dimension_id": "s13_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S13 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s13_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S13 evidence that adversarial review used the structured S12 object, produced actionable review findings and finding_actionability_report, routed to S14, and did not rewrite or repair"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1447,7 +1458,8 @@
         "s13_no_uncontrolled_rewrite",
         "s13_no_pdf_primary_review",
         "s13_candidate_return_complete",
-        "s13_verifier_evidence"
+        "s13_verifier_evidence",
+        "s13_stage_quality_contract"
       ],
       "stage_id": "S13",
       "stage_name": "Adversarial manuscript review",
@@ -1495,6 +1507,11 @@
           "dimension_id": "s14_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S14 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s14_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S14 evidence that accepted findings were normalized into nearest_responsible_stage_map, local repair scopes, protected nodes, owner gates, task plans, and validation plan without execution"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1517,7 +1534,8 @@
         "s14_owner_gate_status",
         "s14_task_packet_compile",
         "s14_no_execution",
-        "s14_no_completion_claim"
+        "s14_no_completion_claim",
+        "s14_stage_quality_contract"
       ],
       "stage_id": "S14",
       "stage_name": "Backflow compilation and repair planning",

@@ -232,3 +232,12 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 S12 remains a structured integration stage, but a compiled S16 target can require a **post-writeback S12** pass. In that mode, S12 consumes the applied LaTeX writeback/source tree and verifies that candidate text, figures, references, and claim boundaries are actually represented in the manuscript source before S16 export.
 
 If S16 reports `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED` or semantic PDF gaps, the controller should route back to S12 with a post-writeback integration packet rather than accepting a candidate-only S12 report as sufficient for an initial/revised compiled PDF.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S12 must integrate structured S10/S11 candidate returns, not just paste prose together. Producer packets should include the full candidate modules, material read receipts, claim/caption/source traces, upstream controls, and section move plan. The return must include `module_inventory`, `assembly_manifest`, `integrated_manuscript_candidate`, `trace_index`, consistency audits, `integration_findings`, `backflow_queue`, and CandidateArtifactReturn. S12 is review-ready only; it cannot export PDF, claim final readiness, or perform untracked rewrites.
+
+**中文。** S12 必须集成结构化 S10/S11 候选返回，而不是拼贴正文。Producer 包应包含完整 candidate modules、material read receipts、claim/caption/source traces、上游控制和 section move plan。返回必须包含 `module_inventory`、`assembly_manifest`、`integrated_manuscript_candidate`、`trace_index`、一致性审计、`integration_findings`、`backflow_queue` 和 CandidateArtifactReturn。S12 只达到 review-ready，不能导出 PDF、声称最终就绪或执行未追踪改写。
+
+Stage-quality focus / 阶段质量焦点：structured integration, trace-index closure, and no export/final/rewrite overclaim.
+
