@@ -20,16 +20,21 @@
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_2",
-      "ref": "construction matrix"
+      "ref": "S09B material read obligations"
     },
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_3",
-      "ref": "terminology register"
+      "ref": "construction matrix"
     },
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_4",
+      "ref": "terminology register"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s10_declared_input_5",
       "ref": "claim visibility"
     },
     {
@@ -66,7 +71,7 @@
     "owner_decision_log.jsonl#source_write_policy"
   ],
   "packet_ref": "packets/S10.task-packet.json",
-  "packet_template_ref": "examples/packets/intro_writing_packet.v2.yaml",
+  "packet_template_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
   "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
   "schema_version": "ppg-phase12-dispatch-record/v0.1",
   "source_read_only": true,

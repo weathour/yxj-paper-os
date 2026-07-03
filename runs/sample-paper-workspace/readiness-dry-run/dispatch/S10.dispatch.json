@@ -20,16 +20,21 @@
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_2",
-      "ref": "construction matrix"
+      "ref": "S09B material read obligations"
     },
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_3",
-      "ref": "terminology register"
+      "ref": "construction matrix"
     },
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_4",
+      "ref": "terminology register"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s10_declared_input_5",
       "ref": "claim visibility"
     },
     {

@@ -16,7 +16,7 @@
     "python3"
   ],
   "allowed_write_paths": [
-    "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S11.candidate.json"
+    "runs/unregistered-phase12-runtime/candidate-artifacts/S11.candidate.json"
   ],
   "authority_and_target": {
     "completion_forbidden": true,
@@ -88,7 +88,7 @@
     "introduce_new_claims",
     "strengthen_claims_beyond_s04"
   ],
-  "ingestion_target": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S11.candidate.json",
+  "ingestion_target": "runs/unregistered-phase12-runtime/candidate-artifacts/S11.candidate.json",
   "input_materials": [
     "phase10_s08_visual_formal_plan",
     "phase10_s04_claim_admissibility",
@@ -181,7 +181,7 @@
     "worker_completion_forbidden": true
   },
   "no_recursive_orchestration": true,
-  "output_artifact_path": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S11.candidate.json",
+  "output_artifact_path": "runs/unregistered-phase12-runtime/candidate-artifacts/S11.candidate.json",
   "output_contract": {
     "completion_boundary": "visual_artifact_candidate_only_no_graph_or_manuscript_completion",
     "material_type": "CandidateArtifactReturn",

@@ -1,4 +1,21 @@
 {
+  "adversarial_review_protocol": {
+    "ordered_execution_required": true,
+    "required_passes": [
+      "boot_authority_boundary",
+      "review_object_inventory",
+      "review_scope_definition",
+      "claim_evidence_attack",
+      "reader_path_attack",
+      "method_result_attack",
+      "figure_caption_attack",
+      "terminology_surface_attack",
+      "desk_reject_risk_synthesis",
+      "review_findings_generation",
+      "finding_actionability_gate",
+      "candidate_return"
+    ]
+  },
   "agent_type": "critic",
   "allowed_actions": [
     "read_material_bundle",
@@ -6,11 +23,14 @@
     "return_evidence"
   ],
   "allowed_read_paths": [
-    "examples/materials/evidence_inventory.v1.yaml",
-    "examples/materials/claim_boundary_map.v2.yaml",
-    "examples/materials/reader_spine.v1.yaml",
-    "examples/materials/terminology_register.v1.yaml",
-    "examples/materials/reference_sidecar.v1.yaml"
+    "examples/materials/phase10_s12_integration_report.json",
+    "examples/materials/phase10_s10_candidate_text_return.json",
+    "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+    "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "examples/materials/phase10_s05_reader_spine.yaml",
+    "examples/materials/phase10_s06_object_granularity.yaml",
+    "examples/materials/phase10_s07_surface_control.yaml",
+    "examples/materials/phase10_s08_visual_formal_plan.yaml"
   ],
   "allowed_tools": [
     "none"
@@ -20,31 +40,90 @@
   ],
   "completion_forbidden": true,
   "evidence_anchors": [
-    "examples/materials/evidence_inventory.v1.yaml",
-    "examples/materials/claim_boundary_map.v2.yaml",
-    "examples/materials/reader_spine.v1.yaml",
-    "examples/materials/terminology_register.v1.yaml",
-    "examples/materials/reference_sidecar.v1.yaml"
+    "examples/materials/phase10_s12_integration_report.json",
+    "examples/materials/phase10_s10_candidate_text_return.json",
+    "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+    "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "examples/materials/phase10_s05_reader_spine.yaml",
+    "examples/materials/phase10_s06_object_granularity.yaml",
+    "examples/materials/phase10_s07_surface_control.yaml",
+    "examples/materials/phase10_s08_visual_formal_plan.yaml"
   ],
+  "expected_material_type": "S13AdversarialReviewReport",
   "expected_output_schema": "ppg-material/v0.1",
+  "expected_payload_schema": "ppg-s13-adversarial-review-report/v0.1",
   "failure_report_format": "MissingMaterialReport with run-owned candidate path, consumed material ids, validator evidence, and no source-repository writes",
+  "finding_taxonomy": {
+    "required_finding_fields": [
+      "finding_id",
+      "finding_type",
+      "severity",
+      "affected_artifact",
+      "affected_location",
+      "evidence",
+      "reviewer_rationale",
+      "source_trace",
+      "nearest_responsible_stage",
+      "recommended_backflow_target",
+      "suggested_repair_scope",
+      "blocks_progression",
+      "resolution_status"
+    ],
+    "severity_values": [
+      "low",
+      "medium",
+      "high",
+      "blocker"
+    ]
+  },
   "forbidden_routes": [
     "mark_graph_complete",
     "dispatch_subagents",
     "write_outside_allowed_write_paths",
-    "change_owner_intent"
+    "change_owner_intent",
+    "alter_unrelated_sections",
+    "claim_submission_or_publication_readiness",
+    "introduce_new_claims",
+    "mark_manuscript_complete",
+    "strengthen_claims_beyond_s04"
   ],
   "ingestion_target": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S13.candidate.json",
   "input_materials": [
-    "evidence_inventory_v1",
-    "claim_boundary_map_v2",
-    "reader_spine_v1",
-    "terminology_register_v1",
-    "reference_sidecar_v1"
+    "phase10_s12_integration_report",
+    "phase10_s10_candidate_text_return",
+    "phase10_s11_figure_caption_artifact_bundle",
+    "phase10_s04_claim_admissibility",
+    "phase10_s05_reader_spine",
+    "phase10_s06_object_granularity",
+    "phase10_s07_rhetoric_surface_control",
+    "phase10_s08_visual_formal_plan"
   ],
+  "internal_execution_protocol": {
+    "required_passes": [
+      "boot_authority_boundary",
+      "review_object_inventory",
+      "review_scope_definition",
+      "claim_evidence_attack",
+      "reader_path_attack",
+      "method_result_attack",
+      "figure_caption_attack",
+      "terminology_surface_attack",
+      "desk_reject_risk_synthesis",
+      "review_findings_generation",
+      "finding_actionability_gate",
+      "candidate_return"
+    ],
+    "subagent_execution_order": "sequential_inside_single_critic_context",
+    "verifier_lane_required": true
+  },
+  "local_backflow_routing_rules": {
+    "accepted_findings_route_to": "S14",
+    "direct_repair_forbidden": true,
+    "local_repair_scope_required": true,
+    "nearest_responsible_stage_required": true,
+    "whole_manuscript_rewrite_forbidden": true
+  },
   "mandatory_controls": {
-    "claim_boundary": "claim_boundary_map_v2",
-    "evidence_inventory": "evidence_inventory_v1",
     "nature_overlay_packet_clauses": [
       "nature_overlay_ref:nature_expert_writing",
       "nature_stage_binding:S13",
@@ -52,13 +131,47 @@
     ],
     "nature_overlay_ref": "runtime/stage_overlay_registry.json#nature_expert_writing",
     "nature_overlay_stage_binding": "S13",
-    "reader_spine": "reader_spine_v1",
-    "reference_sidecar": "reference_sidecar_v1",
-    "terminology_register": "terminology_register_v1"
+    "s04_claim_boundary_ref": "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "s05_reader_spine_ref": "examples/materials/phase10_s05_reader_spine.yaml",
+    "s06_object_granularity_ref": "examples/materials/phase10_s06_object_granularity.yaml",
+    "s07_surface_control_ref": "examples/materials/phase10_s07_surface_control.yaml",
+    "s08_visual_formal_ref": "examples/materials/phase10_s08_visual_formal_plan.yaml",
+    "s10_candidate_trace_ref": "examples/materials/phase10_s10_candidate_text_return.json",
+    "s11_visual_caption_trace_ref": "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+    "s12_integrated_candidate_package": "examples/materials/phase10_s12_integration_report.json"
   },
-  "mission": "Generate actionable adversarial review findings routed to nearest responsible upstream material.",
+  "mission": "Review the S12 structured integrated candidate package and associated traces/control materials as an adversarial critic; generate actionable review/loss findings with severity, evidence, affected artifacts, affected locations, nearest responsible stage, and S14 routing; do not rewrite, repair, review a PDF as the primary object, export PDF, mark completion, or dispatch agents.",
   "no_recursive_orchestration": true,
   "output_artifact_path": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S13.candidate.json",
+  "output_contract": {
+    "each_finding_must_include": [
+      "severity",
+      "evidence",
+      "affected_artifact",
+      "affected_location",
+      "nearest_responsible_stage",
+      "recommended_backflow_target"
+    ],
+    "rejected_output_patterns": [
+      "vague_review_comment_without_evidence_or_location",
+      "rewritten_manuscript_text",
+      "pdf_primary_review",
+      "direct_repair_execution"
+    ],
+    "required_outputs": [
+      "review_scope",
+      "review_object_inventory",
+      "reviewer_panel_report",
+      "desk_reject_risk_report",
+      "reader_experience_report",
+      "claim_evidence_review",
+      "figure_caption_review",
+      "review_findings",
+      "finding_actionability_report",
+      "validator_report",
+      "candidate_artifact_return"
+    ]
+  },
   "owner_gate_required": false,
   "packet_id": "phase10_s13_adversarial_review_packet_v1.phase12_run",
   "return_format": {
@@ -67,17 +180,56 @@
     "missing_material_report": "required_if_blocked",
     "remaining_risks": "required"
   },
+  "reviewer_panel_profile": [
+    "technical_method_reviewer",
+    "empirical_evaluation_reviewer",
+    "domain_application_reviewer",
+    "journal_scope_or_editorial_reviewer"
+  ],
+  "s13_review_input_package": {
+    "pdf_primary_review_forbidden": true,
+    "primary_object": "structured_s12_integrated_candidate_package",
+    "required_sources": [
+      "s12_integrated_candidate_package",
+      "s12_validator_report",
+      "s10_candidate_traces",
+      "s11_visual_caption_traces",
+      "s04_claim_boundaries",
+      "s05_reader_spine",
+      "s06_object_granularity_controls",
+      "s07_surface_controls",
+      "s08_visual_formal_contracts"
+    ]
+  },
   "schema_version": "ppg-task-packet/v0.1",
   "stage_contract_ref": "examples/stage-contracts/S13.stage-contract.json",
   "stage_id": "S13",
   "status": "planned",
   "stop_condition": "S13 candidate artifact written to the run-owned Phase12 path only; return evidence without claiming graph, manuscript, submission, or publication completion.",
-  "target_material": "phase10_s13_adversarial_review",
+  "structured_s12_candidate": {
+    "integrated_candidate_ref": "examples/materials/phase10_s12_integration_report.json#payload.integrated_manuscript_candidate",
+    "module_inventory_ref": "examples/materials/phase10_s12_integration_report.json#payload.module_inventory",
+    "trace_index_ref": "examples/materials/phase10_s12_integration_report.json#payload.trace_index",
+    "validator_report_ref": "examples/materials/phase10_s12_integration_report.json#payload.validator_report"
+  },
+  "target_material": "phase10_s13_adversarial_review_report",
   "task_kind": "adversarial_review",
   "validators": [
     "validate_packet:phase10_stage_binding",
-    "content_validator:S13",
+    "content_validator:S13_review_object_inventory",
+    "content_validator:S13_review_scope",
+    "content_validator:S13_reviewer_panel_report",
+    "content_validator:S13_desk_reject_risk_report",
+    "content_validator:S13_reader_experience_report",
+    "content_validator:S13_claim_evidence_review",
+    "content_validator:S13_figure_caption_review",
+    "content_validator:S13_review_findings_schema",
+    "content_validator:S13_finding_actionability",
+    "content_validator:S13_backflow_target_validity",
+    "content_validator:S13_no_uncontrolled_rewrite",
+    "content_validator:S13_no_pdf_primary_review",
+    "content_validator:S13_candidate_return_complete",
     "stage_overlay:nature_expert_writing:S13"
   ],
-  "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only."
+  "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only; S13 reviews structured S12 candidate not PDF and routes findings to S14 without repair execution."
 }

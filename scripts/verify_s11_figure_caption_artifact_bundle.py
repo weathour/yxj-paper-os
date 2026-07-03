@@ -173,6 +173,7 @@ NEGATIVE_PACKET_FIXTURES = {
     ROOT / "examples/packets/invalid-non-s11-nature-fields-packet.json": "E_TASK_NATURE_FIGURE_DIRECT_CALL_FORBIDDEN",
     ROOT / "examples/packets/invalid-s11-nature-bad-backend-fragment-packet.json": "E_TASK_NATURE_FIGURE_BACKEND_REQUIRED",
     ROOT / "examples/packets/invalid-s11-nature-bad-upstream-commit-packet.json": "E_TASK_NATURE_FIGURE_DIRECT_CALL_REQUIRED",
+    ROOT / "examples/packets/invalid-s11-nature-unregistered-runtime-projection-packet.json": "E_TASK_ALLOWED_PATH_TOO_BROAD",
 }
 
 

@@ -153,6 +153,8 @@ NEGATIVE_FIXTURES = {
     ROOT / "examples/materials/invalid-s10-candidate-text-return-unread-required-selector.json": "E_S10_MATERIAL_READ_RECEIPT_REQUIRED",
     ROOT / "examples/materials/invalid-s10-candidate-text-return-underdeclared-material.json": "E_S10_MATERIAL_HYDRATION_REQUIRED",
     ROOT / "examples/materials/invalid-s10-candidate-text-return-underdeclared-selector.json": "E_S10_MATERIAL_HYDRATION_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-extra-hydrated-material.json": "E_S10_MATERIAL_HYDRATION_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-extra-read-receipt.json": "E_S10_MATERIAL_READ_RECEIPT_REQUIRED",
 }
 
 

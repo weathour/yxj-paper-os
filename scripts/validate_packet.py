@@ -232,6 +232,29 @@ def _list_values(value: Any) -> set[str]:
     return {str(item) for item in value}
 
 
+def _material_ref_parts(ref: str) -> tuple[str, str]:
+    """Split a material selector ref into material path + selector.
+
+    Historical intro packets used bare material refs for whole-payload reads.
+    Treat those as `#payload` so legacy whole-payload packets can still be
+    compared losslessly against explicit selector obligations.
+    """
+
+    material, sep, selector = ref.partition("#")
+    return material, selector if sep else "payload"
+
+
+def _material_selector_map(refs: Any) -> dict[str, set[str]]:
+    selector_map: dict[str, set[str]] = {}
+    if not is_non_empty_string_list(refs):
+        return selector_map
+    assert isinstance(refs, list)
+    for ref in refs:
+        material, selector = _material_ref_parts(str(ref))
+        selector_map.setdefault(material, set()).add(selector)
+    return selector_map
+
+
 def _is_s11_nature_figure_direct_call(data: dict[str, Any]) -> bool:
     direct_call = data.get("nature_figure_direct_call")
     backend = data.get("figure_backend")
@@ -250,8 +273,26 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     write_paths = data.get("allowed_write_paths")
     output_path = data.get("output_artifact_path")
     s11_direct_call = _is_s11_nature_figure_direct_call(data)
-    s11_runtime_projection = s11_direct_call and str(data.get("packet_id", "")).endswith((".phase10_run", ".phase12_run"))
-    write_prefixes = (S11_NATURE_WRITE_PREFIXES + ("runs/",)) if s11_runtime_projection else S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
+    packet_id = str(data.get("packet_id", ""))
+    s11_phase10_projection = s11_direct_call and packet_id.endswith(".phase10_run")
+    s11_phase12_projection = s11_direct_call and packet_id.endswith(".phase12_run")
+    s11_runtime_prefixes = (
+        ("runs/sample-paper-workspace/readiness-dry-run/",) if s11_phase10_projection else ()
+    ) + (
+        (
+            "runs/sample-paper-workspace/formal-full-flow-runtime-test/",
+            "runs/.phase12-negative-",
+            "runs/.phase12-negative.",
+        )
+        if s11_phase12_projection
+        else ()
+    )
+    s11_runtime_projection = bool(s11_runtime_prefixes)
+    write_prefixes = (
+        S11_NATURE_WRITE_PREFIXES + s11_runtime_prefixes
+        if s11_runtime_projection
+        else S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
+    )
 
     if not is_non_empty_string_list(read_paths):
         errors.append(issue("E_TASK_ALLOWED_READ_PATHS_REQUIRED", "allowed_read_paths must be a non-empty list of string paths"))
@@ -350,6 +391,11 @@ def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[Validat
     if not _requires_s09b_to_s10_closure(data):
         return []
     errors: list[ValidationIssue] = []
+    allowed_read_paths = set(_list_values(data.get("allowed_read_paths")))
+    closure_materials: set[str] = set()
+    closure_selectors: dict[str, set[str]] = {}
+    required_materials: set[str] = set()
+    required_selectors_by_material: dict[str, set[str]] = {}
 
     digest_policy = data.get("control_digest_policy")
     if not isinstance(digest_policy, dict):
@@ -384,6 +430,8 @@ def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[Validat
         for key in ("must_dereference", "block_if_missing"):
             if not is_non_empty_string_list(closure.get(key)):
                 errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", f"unit_material_closure.{key} must be a non-empty list of strings"))
+        closure_selectors = _material_selector_map(closure.get("must_dereference"))
+        closure_materials = set(closure_selectors)
 
     access = data.get("material_access_manifest")
     if not isinstance(access, dict):
@@ -399,7 +447,6 @@ def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[Validat
     if not isinstance(obligations, dict):
         errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations is required for S09B-emitted S10 writing packets"))
     else:
-        required_materials = set()
         if not is_non_empty_string_list(obligations.get("required_materials")):
             errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_materials must be a non-empty list of strings"))
         else:
@@ -414,9 +461,20 @@ def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[Validat
             for material, selector_list in selectors.items():
                 if not is_non_empty_string(str(material)) or not is_non_empty_string_list(selector_list):
                     errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material entries must map material refs to non-empty selector lists"))
+                else:
+                    required_selectors_by_material[str(material)] = set(str(selector) for selector in selector_list)
         for key in ("read_receipt_required", "hydration_required_before_drafting"):
             if obligations.get(key) is not True:
                 errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", f"material_read_obligations.{key} must be true"))
+        if required_materials:
+            if allowed_read_paths != required_materials:
+                errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "allowed_read_paths must exactly match material_read_obligations.required_materials for S10 writing packets"))
+            if closure_materials and closure_materials != required_materials:
+                errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.must_dereference materials must exactly match material_read_obligations.required_materials"))
+        if closure_selectors and required_selectors_by_material:
+            for material, required_selector_set in sorted(required_selectors_by_material.items()):
+                if closure_selectors.get(material, set()) != required_selector_set:
+                    errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", f"unit_material_closure.must_dereference selectors for {material!r} must exactly match material_read_obligations.required_selectors_by_material"))
 
     deferred = data.get("deferred_control_ledger")
     if not isinstance(deferred, dict):

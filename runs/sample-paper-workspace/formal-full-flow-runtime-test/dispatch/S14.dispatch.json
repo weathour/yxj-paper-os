@@ -15,7 +15,7 @@
     {
       "kind": "contract_declared",
       "material_id": "s14_declared_input_1",
-      "ref": "review outputs"
+      "ref": "accepted S13/S16/validator findings"
     },
     {
       "kind": "contract_declared",
@@ -25,7 +25,12 @@
     {
       "kind": "contract_declared",
       "material_id": "s14_declared_input_3",
-      "ref": "affected materials graph"
+      "ref": "affected material graph slice"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s14_declared_input_4",
+      "ref": "owner gate policy"
     },
     {
       "kind": "source_or_runtime_ref",

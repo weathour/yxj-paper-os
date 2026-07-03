@@ -6,11 +6,15 @@
     "return_evidence"
   ],
   "allowed_read_paths": [
-    "examples/materials/evidence_inventory.v1.yaml",
-    "examples/materials/claim_boundary_map.v2.yaml",
-    "examples/materials/reader_spine.v1.yaml",
-    "examples/materials/terminology_register.v1.yaml",
-    "examples/materials/reference_sidecar.v1.yaml"
+    "examples/materials/phase10_s10_candidate_text_return.json",
+    "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+    "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "examples/materials/phase10_s05_reader_spine.yaml",
+    "examples/materials/phase10_s06_object_granularity.yaml",
+    "examples/materials/phase10_s07_surface_control.yaml",
+    "examples/materials/phase10_s08_visual_formal_plan.yaml",
+    "examples/materials/phase10_s09a_rich_control_bundle.yaml",
+    "examples/materials/phase10_s09b_task_packet_assembly.yaml"
   ],
   "allowed_tools": [
     "none"
@@ -19,32 +23,83 @@
     "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S12.candidate.json"
   ],
   "completion_forbidden": true,
-  "evidence_anchors": [
-    "examples/materials/evidence_inventory.v1.yaml",
-    "examples/materials/claim_boundary_map.v2.yaml",
-    "examples/materials/reader_spine.v1.yaml",
-    "examples/materials/terminology_register.v1.yaml",
-    "examples/materials/reference_sidecar.v1.yaml"
+  "coverage_ledgers_required": [
+    "module_inventory",
+    "trace_index",
+    "consistency_audit",
+    "findings_routing"
   ],
-  "expected_output_schema": "ppg-material/v0.1",
+  "evidence_anchors": [
+    "examples/materials/phase10_s10_candidate_text_return.json",
+    "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+    "examples/materials/phase10_s04_claim_admissibility.yaml",
+    "examples/materials/phase10_s05_reader_spine.yaml",
+    "examples/materials/phase10_s06_object_granularity.yaml",
+    "examples/materials/phase10_s07_surface_control.yaml",
+    "examples/materials/phase10_s08_visual_formal_plan.yaml",
+    "examples/materials/phase10_s09a_rich_control_bundle.yaml",
+    "examples/materials/phase10_s09b_task_packet_assembly.yaml"
+  ],
+  "expected_material_type": "S12IntegrationConsistencyReport",
+  "expected_output_schema": "ppg-s12-integration-consistency-report/v0.1",
+  "expected_payload_schema": "ppg-s12-integration-consistency-report/v0.1",
   "failure_report_format": "MissingMaterialReport with run-owned candidate path, consumed material ids, validator evidence, and no source-repository writes",
   "forbidden_routes": [
     "mark_graph_complete",
+    "mark_manuscript_complete",
+    "claim_submission_or_publication_readiness",
     "dispatch_subagents",
     "write_outside_allowed_write_paths",
-    "change_owner_intent"
+    "change_owner_intent",
+    "alter_unrelated_sections",
+    "introduce_new_claims",
+    "strengthen_claims_beyond_s04"
   ],
   "ingestion_target": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S12.candidate.json",
   "input_materials": [
-    "evidence_inventory_v1",
-    "claim_boundary_map_v2",
-    "reader_spine_v1",
-    "terminology_register_v1",
-    "reference_sidecar_v1"
+    "phase10_s10_candidate_text_return",
+    "phase10_s11_figure_caption_artifact_bundle",
+    "phase10_s04_claim_admissibility",
+    "phase10_s05_reader_spine",
+    "phase10_s06_object_granularity",
+    "phase10_s07_surface_control",
+    "phase10_s08_visual_formal_plan",
+    "phase10_s09a_rich_control_bundle",
+    "phase10_s09b_task_packet_assembly"
   ],
+  "internal_execution_protocol": {
+    "coverage_ledger_required": true,
+    "downstream_handoff_required": true,
+    "no_claim_strengthening": true,
+    "no_new_claims": true,
+    "no_silent_omission": true,
+    "required_passes": [
+      {
+        "pass_id": "boot_authority_boundary",
+        "required_output": "no_pdf_no_final_no_untracked_rewrite"
+      },
+      {
+        "pass_id": "module_inventory",
+        "required_output": "included_missing_duplicate_stale_modules"
+      },
+      {
+        "pass_id": "trace_index_generation",
+        "required_output": "claim_object_terminology_figure_trace_index"
+      },
+      {
+        "pass_id": "consistency_audits",
+        "required_output": "claim_promise_cross_section_terminology_object_figure_surface_stale_audits"
+      },
+      {
+        "pass_id": "findings_and_backflow_queue",
+        "required_output": "severity_ranked_findings_with_nearest_stage_routing"
+      }
+    ],
+    "unresolved_register_required": true,
+    "work_queue_required": true
+  },
   "mandatory_controls": {
-    "claim_boundary": "claim_boundary_map_v2",
-    "evidence_inventory": "evidence_inventory_v1",
+    "claim_boundary": "phase10_s04_claim_admissibility",
     "nature_overlay_packet_clauses": [
       "nature_overlay_ref:nature_expert_writing",
       "nature_stage_binding:S12",
@@ -52,13 +107,34 @@
     ],
     "nature_overlay_ref": "runtime/stage_overlay_registry.json#nature_expert_writing",
     "nature_overlay_stage_binding": "S12",
-    "reader_spine": "reader_spine_v1",
-    "reference_sidecar": "reference_sidecar_v1",
-    "terminology_register": "terminology_register_v1"
+    "object_granularity": "phase10_s06_object_granularity",
+    "reader_spine": "phase10_s05_reader_spine",
+    "s09a_bundle": "phase10_s09a_rich_control_bundle",
+    "s09b_packet_assembly": "phase10_s09b_task_packet_assembly",
+    "s10_candidate": "phase10_s10_candidate_text_return",
+    "s11_visual_bundle": "phase10_s11_figure_caption_artifact_bundle",
+    "surface_control": "phase10_s07_surface_control",
+    "visual_formal_plan": "phase10_s08_visual_formal_plan"
   },
-  "mission": "Check integrated candidate consistency across claims, terminology, figures, and sections.",
+  "mission": "Compile a structured integrated manuscript candidate package from S10 candidate text and S11 visual/formal artifact bundles, then audit claim boundaries, promises, cross-section consistency, terminology, object granularity, figure-text alignment, surface consistency, stale materials, findings, and S14/S15 backflow routing. Do not compile PDF, export final PDF, perform untracked rewrite, or claim final manuscript/submission/publication readiness.",
   "no_recursive_orchestration": true,
   "output_artifact_path": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S12.candidate.json",
+  "output_contract": {
+    "completion_boundary": "structured_integrated_candidate_only_no_pdf_export_no_final_manuscript_no_untracked_rewrite",
+    "material_type": "S12IntegrationConsistencyReport",
+    "payload_schema": "ppg-s12-integration-consistency-report/v0.1",
+    "required_modules": [
+      "module_inventory",
+      "assembly_manifest",
+      "integrated_manuscript_candidate",
+      "trace_index",
+      "audits",
+      "integration_findings",
+      "backflow_queue",
+      "validator_report",
+      "candidate_artifact_return"
+    ]
+  },
   "owner_gate_required": false,
   "packet_id": "phase10_s12_integration_consistency_packet_v1.phase12_run",
   "return_format": {
@@ -67,17 +143,76 @@
     "missing_material_report": "required_if_blocked",
     "remaining_risks": "required"
   },
+  "s10_text_candidates": [
+    "candidate_text_unit",
+    "section_or_unit_skeleton",
+    "move_trace",
+    "claim_evidence_trace",
+    "terminology_trace",
+    "object_granularity_trace",
+    "visual_callout_trace",
+    "candidate_artifact_return"
+  ],
+  "s11_visual_candidates": [
+    "generated_artifacts",
+    "caption_legend_draft",
+    "panel_claim_trace",
+    "caption_claim_trace",
+    "image_integrity_record",
+    "visual_polish_report",
+    "export_manifest",
+    "candidate_artifact_return"
+  ],
+  "s12_input_package": {
+    "s10_text_candidate_ref": "examples/materials/phase10_s10_candidate_text_return.json",
+    "s11_visual_candidate_ref": "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+    "structured_inputs_required": true,
+    "upstream_controls_required": true
+  },
   "schema_version": "ppg-task-packet/v0.1",
   "stage_contract_ref": "examples/stage-contracts/S12.stage-contract.json",
   "stage_id": "S12",
+  "stale_material_policy": {
+    "require_findings_not_rewrite": true,
+    "stale_if_upstream_changes": "S04/S05/S06/S07/S08/S09/S10/S11"
+  },
   "status": "planned",
   "stop_condition": "S12 candidate artifact written to the run-owned Phase12 path only; return evidence without claiming graph, manuscript, submission, or publication completion.",
   "target_material": "phase10_s12_integration_report",
   "task_kind": "integration_consistency",
+  "upstream_control_materials": {
+    "s04": [
+      "claim_capsules",
+      "allowed_wording_map",
+      "forbidden_wording_map"
+    ],
+    "s05": [
+      "reader_question_progression",
+      "claim_to_section_spine"
+    ],
+    "s06": [
+      "object_representation_matrix",
+      "granularity_progression_map"
+    ],
+    "s07": [
+      "terminology_surface_register",
+      "forbidden_expression_list"
+    ],
+    "s08": [
+      "figure_contracts",
+      "panel_evidence_map"
+    ],
+    "s09": [
+      "s09a_rich_control_bundles",
+      "s09b_task_packets"
+    ]
+  },
   "validators": [
     "validate_packet:phase10_stage_binding",
-    "content_validator:S12",
+    "content_validator:S12_module_inventory",
+    "content_validator:S12_trace_index",
+    "content_validator:S12_no_pdf_export",
     "stage_overlay:nature_expert_writing:S12"
   ],
-  "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; MissingMaterialReport required when materials are missing; return candidate/evidence only."
+  "worker_boot_clause": "completion_forbidden; no_recursive_orchestration; allowed_write_paths; no PDF export; no final manuscript claim; no uncontrolled rewrite; MissingMaterialReport required when structured inputs are missing; return candidate/evidence only."
 }

@@ -241,11 +241,13 @@ NEGATIVE_FIXTURES = {
     ROOT / "examples/materials/invalid-s09b-task-packet-assembly-missing-material-closure.yaml": "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED",
     ROOT / "examples/materials/invalid-s09b-task-packet-assembly-rejected-alias.yaml": "E_S09B_FORBIDDEN_ALIAS_FIELD",
     ROOT / "examples/materials/invalid-s09b-task-packet-assembly-selector-map-missing-material.yaml": "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED",
+    ROOT / "examples/materials/invalid-s09b-task-packet-assembly-closure-selector-mismatch.yaml": "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED",
 }
 NEGATIVE_PACKET_FIXTURES = {
     ROOT / "examples/packets/invalid-s09b-s10-missing-read-obligations.yaml": "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED",
     ROOT / "examples/packets/invalid-s09b-s10-renamed-missing-closure.yaml": "E_S09B_CONTROL_DIGEST_POLICY_REQUIRED",
     ROOT / "examples/packets/invalid-s09b-s10-selector-map-missing-material.yaml": "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED",
+    ROOT / "examples/packets/invalid-s09b-s10-closure-selector-mismatch.yaml": "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED",
 }
 
 

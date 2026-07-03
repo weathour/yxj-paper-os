@@ -314,6 +314,7 @@ Required semantics / 必须语义：
 - `unit_material_closure` records the complete current-authority material closure for the target unit.
 - `material_access_manifest` records authority roots, allowed authority statuses, forbidden statuses, and required selectors.
 - `material_read_obligations` says which original materials/selectors the worker must read and that read receipts are required before drafting.
+- For S10 writing packets, `allowed_read_paths`, `unit_material_closure.must_dereference` material refs, and `material_read_obligations.required_materials` must normalize to the same material set; `unit_material_closure.must_dereference` selectors must exactly match `material_read_obligations.required_selectors_by_material`.
 - `deferred_control_ledger` prevents “defer then drop”: blocking deferred controls must be resolved by a later packet or routed to backflow.
 - `section_specific_blockers` makes section-critical omissions blocking. For example, an evaluation packet without exact metrics/result artifact locators must return a MissingMaterialReport rather than thin prose.
 

@@ -378,7 +378,7 @@
         "phase12_s10_material_v1"
       ],
       "packet_ref": "packets/S10.task-packet.json",
-      "packet_template_ref": "examples/packets/intro_writing_packet.v2.yaml",
+      "packet_template_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
       "requires_worker_task_packet": true,
       "stage_contract_ref": "examples/stage-contracts/S10.stage-contract.json",
       "stage_id": "S10",
@@ -523,7 +523,7 @@
         "phase12_s15_material_v1"
       ],
       "packet_ref": "packets/S15.task-packet.json",
-      "packet_template_ref": "examples/packets/claim_repair_packet.v1.yaml",
+      "packet_template_ref": "examples/packets/phase10_s15_scoped_repair_packet.v1.yaml",
       "requires_worker_task_packet": true,
       "stage_contract_ref": "examples/stage-contracts/S15.stage-contract.json",
       "stage_id": "S15",

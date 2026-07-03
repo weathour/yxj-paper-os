@@ -1,5 +1,5 @@
 schema_version: ppg-material/v0.1
-material_id: invalid_s09b_task_packet_assembly_rejected_alias
+material_id: phase10_s09b_task_packet_assembly
 version: v1
 status: candidate
 material_type: S09BTaskPacketAssembly
@@ -7,8 +7,8 @@ created_at: "2026-07-01T00:00:00Z"
 created_by: s09b_task_packet_assembly
 source_inputs:
   - phase10_s09a_rich_control_bundle
-artifact_path: examples/materials/invalid-s09b-task-packet-assembly-rejected-alias.yaml
-summary: Invalid S09B fixture carrying rejected must_read_material_closure alias.
+artifact_path: examples/materials/phase10_s09b_task_packet_assembly.yaml
+summary: S09B deterministic assembly record for a bounded S10 target-unit TaskPacket.
 payload:
   schema_version: ppg-s09b-task-packet-assembly/v0.1
   stage_id: S09B
@@ -44,8 +44,6 @@ payload:
     do_not_use_as_claim_refs:
       - S08 schematic role
       - S02 exemplar patterns
-  must_read_material_closure:
-    rejected_alias: true
   control_digest_policy:
     status: non_authoritative_navigation_only
     may_not_be_cited_as_evidence: true
@@ -68,7 +66,6 @@ payload:
     closure_status: complete
     must_dereference:
       - examples/materials/phase10_s09a_rich_control_bundle.yaml#hard_constraints
-      - examples/materials/phase10_s09a_rich_control_bundle.yaml#context_usage_instructions
       - examples/materials/phase10_s04_claim_admissibility.yaml#support_strength_map
       - examples/materials/phase10_s05_reader_spine.yaml#reader_spine
       - examples/materials/phase10_s06_object_granularity.yaml#object_cards

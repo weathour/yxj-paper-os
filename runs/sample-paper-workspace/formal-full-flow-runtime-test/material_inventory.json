@@ -202,7 +202,7 @@
         "S14"
       ],
       "material_id": "phase12_s13_material_v1",
-      "material_type": "reviewer_panel_report",
+      "material_type": "adversarial_review_report",
       "producer_stage": "S13",
       "stale": false,
       "status": "committed_for_runtime_test",
@@ -216,7 +216,7 @@
         "S15"
       ],
       "material_id": "phase12_s14_material_v1",
-      "material_type": "narrative_backflow_task",
+      "material_type": "normalized_backflow_repair_plan",
       "producer_stage": "S14",
       "stale": false,
       "status": "committed_for_runtime_test",
@@ -230,7 +230,7 @@
         "S16"
       ],
       "material_id": "phase12_s15_material_v1",
-      "material_type": "revised_material",
+      "material_type": "repair_execution_report",
       "producer_stage": "S15",
       "stale": false,
       "status": "repaired",
@@ -244,7 +244,7 @@
         "G01"
       ],
       "material_id": "phase12_s16_material_v1",
-      "material_type": "export_manifest",
+      "material_type": "export_handoff_package",
       "producer_stage": "S16",
       "stale": false,
       "status": "committed_for_runtime_test",

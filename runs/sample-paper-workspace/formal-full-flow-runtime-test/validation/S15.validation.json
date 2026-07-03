@@ -27,7 +27,17 @@
     "repair_locality",
     "stage_overlay_binding",
     "controller_route_only",
-    "stage_overlay_packet_clause"
+    "stage_overlay_packet_clause",
+    "s15_strict_packet_ack",
+    "s15_missing_material_report",
+    "s15_diff_locality",
+    "s15_unrelated_nodes_unchanged",
+    "s15_stale_propagation",
+    "s15_finding_resolution",
+    "s15_no_new_high_severity",
+    "s15_overlay_clause_preserved",
+    "s15_candidate_return_schema",
+    "s15_no_completion_claim"
   ],
   "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
   "schema_version": "ppg-phase12-stage-validation/v0.1",

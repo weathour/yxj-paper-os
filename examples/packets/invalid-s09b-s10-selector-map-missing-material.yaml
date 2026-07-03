@@ -122,6 +122,7 @@ unit_material_closure:
   closure_status: complete
   must_dereference:
     - examples/materials/phase10_s09a_rich_control_bundle.yaml#hard_constraints
+    - examples/materials/phase10_s09a_rich_control_bundle.yaml#context_usage_instructions
     - examples/materials/phase10_s04_claim_admissibility.yaml#support_strength_map
     - examples/materials/phase10_s05_reader_spine.yaml#reader_spine
     - examples/materials/phase10_s06_object_granularity.yaml#object_cards

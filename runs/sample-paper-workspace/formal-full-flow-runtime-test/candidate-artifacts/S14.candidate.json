@@ -15,7 +15,7 @@
     {
       "kind": "contract_declared",
       "material_id": "s14_declared_input_1",
-      "ref": "review outputs"
+      "ref": "accepted S13/S16/validator findings"
     },
     {
       "kind": "contract_declared",
@@ -25,7 +25,12 @@
     {
       "kind": "contract_declared",
       "material_id": "s14_declared_input_3",
-      "ref": "affected materials graph"
+      "ref": "affected material graph slice"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s14_declared_input_4",
+      "ref": "owner gate policy"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -44,7 +49,7 @@
       "ref": "artifacts/S13-adversarial-manuscript-review.json"
     }
   ],
-  "content_summary": "Phase12 formal runtime-test candidate for S14 (Backflow compilation and repair planning). Consumes pilot materials 6; records bounded controller-owned candidate evidence only.",
+  "content_summary": "Phase12 formal runtime-test candidate for S14 (Backflow compilation and repair planning). Consumes pilot materials 7; records bounded controller-owned candidate evidence only.",
   "controller_commit_required": true,
   "no_recursive_orchestration": true,
   "packet_ref": null,

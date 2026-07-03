@@ -38,6 +38,11 @@
       "ref": "return format"
     },
     {
+      "kind": "contract_declared",
+      "material_id": "s09b_declared_input_6",
+      "ref": "material closure obligations"
+    },
+    {
       "kind": "source_or_runtime_ref",
       "material_id": "s09b_source_ref_examples-packets-intro-writing-packet-v2-yaml",
       "ref": "examples/packets/intro_writing_packet.v2.yaml"

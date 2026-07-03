@@ -38,6 +38,11 @@
       "ref": "return format"
     },
     {
+      "kind": "contract_declared",
+      "material_id": "s09b_declared_input_6",
+      "ref": "material closure obligations"
+    },
+    {
       "kind": "source_or_runtime_ref",
       "material_id": "s09b_source_ref_examples-packets-intro-writing-packet-v2-yaml",
       "ref": "examples/packets/intro_writing_packet.v2.yaml"
@@ -60,7 +65,7 @@
       "ref": "artifacts/S15-repair-execution-and-local-regeneration.json"
     }
   ],
-  "content_summary": "Phase12 formal runtime-test candidate for S09B (Per-unit task packet assembly). Consumes pilot materials 9; records bounded controller-owned candidate evidence only.",
+  "content_summary": "Phase12 formal runtime-test candidate for S09B (Per-unit task packet assembly). Consumes pilot materials 10; records bounded controller-owned candidate evidence only.",
   "controller_commit_required": true,
   "no_recursive_orchestration": true,
   "packet_ref": null,

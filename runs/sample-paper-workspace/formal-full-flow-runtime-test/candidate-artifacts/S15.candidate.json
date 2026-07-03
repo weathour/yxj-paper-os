@@ -15,17 +15,22 @@
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_1",
-      "ref": "backflow task packet"
+      "ref": "strict S14 repair task packet"
     },
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_2",
-      "ref": "target material"
+      "ref": "target material base version"
     },
     {
       "kind": "contract_declared",
       "material_id": "s15_declared_input_3",
-      "ref": "stale downstream set"
+      "ref": "affected downstream stale set"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s15_declared_input_4",
+      "ref": "protected unrelated node list"
     },
     {
       "kind": "source_or_runtime_ref",
@@ -44,7 +49,7 @@
       "ref": "artifacts/S14-backflow-compilation-and-repair-planning.json"
     }
   ],
-  "content_summary": "Phase12 formal runtime-test candidate for S15 (Repair execution and local regeneration). Consumes pilot materials 6; records bounded controller-owned candidate evidence only.",
+  "content_summary": "Phase12 formal runtime-test candidate for S15 (Repair execution and local regeneration). Consumes pilot materials 7; records bounded controller-owned candidate evidence only.",
   "controller_commit_required": true,
   "no_recursive_orchestration": true,
   "packet_ref": "packets/S15.task-packet.json",

@@ -3245,6 +3245,19 @@ def _s08_string_items(value: Any) -> list[str]:
     return []
 
 
+def _material_ref_parts(ref: str) -> tuple[str, str]:
+    material, sep, selector = ref.partition("#")
+    return material, selector if sep else "payload"
+
+
+def _material_selector_map(refs: Any) -> dict[str, set[str]]:
+    selector_map: dict[str, set[str]] = {}
+    for ref in _s08_string_items(refs):
+        material, selector = _material_ref_parts(ref)
+        selector_map.setdefault(material, set()).add(selector)
+    return selector_map
+
+
 def _require_s08_string_items(
     record: dict[str, Any],
     label: str,
@@ -4273,6 +4286,7 @@ def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[Valida
             errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", "global_material_coverage.blocks_s10_batch must be false for a ready S09B packet"))
 
     closure = _require_mapping(payload, "unit_material_closure", "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors)
+    closure_selectors: dict[str, set[str]] = {}
     if closure is not None:
         _require_mapping_fields(closure, "unit_material_closure", ["target_unit_id"], "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors)
         if closure.get("closure_status") != "complete":
@@ -4281,6 +4295,7 @@ def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[Valida
             _require_s09_list(closure, "unit_material_closure", key, "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors)
         _require_s09_list(closure, "unit_material_closure", "may_read_background", "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors, allow_empty=True)
         _require_s09_list(closure, "unit_material_closure", "forbidden_materials", "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors, allow_empty=True)
+        closure_selectors = _material_selector_map(closure.get("must_dereference"))
         target = as_mapping(payload.get("target_unit"))
         if target is not None and is_non_empty_string(target.get("unit_id")) and closure.get("target_unit_id") != target.get("unit_id"):
             errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.target_unit_id must match target_unit.unit_id"))
@@ -4294,6 +4309,7 @@ def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[Valida
     obligations = _require_mapping(payload, "material_read_obligations", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors)
     if obligations is not None:
         required_materials = set(_require_s09_list(obligations, "material_read_obligations", "required_materials", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors))
+        required_selectors_by_material: dict[str, set[str]] = {}
         selectors = obligations.get("required_selectors_by_material")
         if not isinstance(selectors, dict) or not selectors:
             errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material must be a non-empty mapping"))
@@ -4304,9 +4320,17 @@ def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[Valida
             for material, selector_list in selectors.items():
                 if not is_non_empty_string(str(material)) or not _s08_string_items(selector_list):
                     errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material entries must map material refs to non-empty selector lists"))
+                else:
+                    required_selectors_by_material[str(material)] = set(_s08_string_items(selector_list))
         for key in ("read_receipt_required", "hydration_required_before_drafting"):
             if obligations.get(key) is not True:
                 errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", f"material_read_obligations.{key} must be true"))
+        if required_materials and closure_selectors and set(closure_selectors) != required_materials:
+            errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.must_dereference materials must exactly match material_read_obligations.required_materials"))
+        if closure_selectors and required_selectors_by_material:
+            for material, required_selector_set in sorted(required_selectors_by_material.items()):
+                if closure_selectors.get(material, set()) != required_selector_set:
+                    errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", f"unit_material_closure.must_dereference selectors for {material!r} must exactly match material_read_obligations.required_selectors_by_material"))
 
     deferred = _require_mapping(payload, "deferred_control_ledger", "E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", errors)
     if deferred is not None:
@@ -4511,6 +4535,11 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
         if missing_hydration:
             errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", f"material_hydration_report.hydrated_materials missing required materials {missing_hydration}"))
             errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must return a blocked output instead of candidate text until all required materials are hydrated"))
+        expected_hydrated_materials = packet_required_materials or required_materials
+        extra_hydration = sorted(hydrated_materials - expected_hydrated_materials)
+        if extra_hydration:
+            errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", f"material_hydration_report.hydrated_materials contains materials not required by the S09B packet {extra_hydration}"))
+            errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when hydrated materials diverge from S09B packet obligations"))
         required_selectors = hydration.get("required_selectors_by_material")
         hydrated_selectors = hydration.get("hydrated_selectors_by_material")
         if not isinstance(required_selectors, dict) or not required_selectors:
@@ -4581,6 +4610,10 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
         material_ref = str(record.get("material_ref") or "")
         if material_ref:
             seen_materials.add(material_ref)
+            expected_materials = packet_required_materials or required_materials
+            if expected_materials and material_ref not in expected_materials:
+                errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].material_ref is not required by the S09B packet"))
+                errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when read receipts diverge from S09B packet obligations"))
             missing_selectors = sorted(required_selectors_by_material.get(material_ref, set()) - set(selectors_read))
             if missing_selectors:
                 errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].selectors_read missing required selectors {missing_selectors}"))
@@ -4590,6 +4623,10 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
     if missing_read_materials:
         errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts missing required materials {missing_read_materials}"))
         errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output until every required material has a read receipt"))
+    extra_read_materials = sorted(seen_materials - expected_receipt_materials)
+    if extra_read_materials:
+        errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts contains materials not required by the S09B packet {extra_read_materials}"))
+        errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when read receipts contain materials outside S09B packet obligations"))
 
 
 def _validate_s10_candidate_text_unit(payload: dict[str, Any], packet_id: str, output_path: str, errors: list[ValidationIssue]) -> None:
