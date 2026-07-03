@@ -27,6 +27,11 @@
       "ref": "return format"
     },
     {
+      "kind": "contract_declared",
+      "material_id": "s09b_declared_input_6",
+      "ref": "material closure obligations"
+    },
+    {
       "kind": "source_or_runtime_ref",
       "material_id": "s09b_source_ref_examples-packets-intro-writing-packet-v2-yaml",
       "ref": "examples/packets/intro_writing_packet.v2.yaml"
@@ -58,7 +63,7 @@
       "artifact_id": "s09b_pilot_output",
       "artifact_path": "artifacts/S09B-per-unit-task-packet-assembly.json",
       "artifact_type": "script_check_output",
-      "description": "task packet; section move plan; single-writer lock; missing material report"
+      "description": "task packet; section move plan; single-writer lock; material closure manifest"
     }
   ],
   "recommended_agent_type": "main",

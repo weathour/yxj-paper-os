@@ -12,6 +12,8 @@
   "completion_boundary": "placeholder proves run readiness only; it is not worker-produced manuscript content",
   "expected_outputs": [
     "candidate text unit",
+    "material hydration report",
+    "material read receipt ledger",
     "CandidateArtifactReturn"
   ],
   "packet_ref": "packets/S10.task-packet.json",

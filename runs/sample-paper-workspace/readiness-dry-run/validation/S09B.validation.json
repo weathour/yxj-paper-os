@@ -10,7 +10,7 @@
     }
   ],
   "completion_boundary": "validation proves run readiness only; controller retains completion authority",
-  "dimension_count": 8,
+  "dimension_count": 9,
   "evidence": [
     "S09B StageContract is linked",
     "S09B PilotStageRun is present",
@@ -35,6 +35,13 @@
     "s09b_selected_controls_propagated",
     "s09b_context_usage_preserved",
     "s09b_background_not_claim_authority",
+    "s09b_control_digest_policy",
+    "s09b_global_material_coverage",
+    "s09b_unit_material_closure",
+    "s09b_material_access_manifest",
+    "s09b_material_read_obligations",
+    "s09b_deferred_control_ledger",
+    "s09b_section_specific_blockers",
     "s09b_return_format",
     "s09b_missing_material_report",
     "s09b_authority_boundary",

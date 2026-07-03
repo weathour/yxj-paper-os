@@ -10,7 +10,7 @@
     }
   ],
   "completion_boundary": "validation proves run readiness only; controller retains completion authority",
-  "dimension_count": 9,
+  "dimension_count": 10,
   "evidence": [
     "S10 StageContract is linked",
     "S10 PilotStageRun is present",
@@ -29,6 +29,9 @@
     "s10_packet_compliance",
     "s10_candidate_text_schema",
     "s10_allowed_write_path",
+    "s10_material_hydration_report",
+    "s10_material_read_receipt_ledger",
+    "s10_blocked_output_on_missing_material",
     "s10_claim_evidence_trace",
     "s10_claim_boundary_preserved",
     "s10_no_new_claims",

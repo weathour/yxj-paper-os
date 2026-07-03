@@ -6,13 +6,15 @@
     "forbidden_overclaim_boundary": "no manuscript claim is active until a fresh S00/S01/S04 intake promotes evidence and claim wording",
     "manuscript_state": "not_started"
   },
-  "consumed_ref_count": 9,
+  "consumed_ref_count": 10,
   "contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
   "pilot_note": "Deterministic local-paper pilot projection. It validates stage wiring and material boundaries without mutating or claiming completion of the source manuscript.",
   "projected_outputs": [
     "task packet",
     "section move plan",
     "single-writer lock",
+    "material closure manifest",
+    "material read obligations",
     "missing material report"
   ],
   "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",

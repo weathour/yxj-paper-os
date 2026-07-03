@@ -51,11 +51,27 @@
     ]
   },
   "completion_forbidden": true,
+  "control_digest_policy": {
+    "may_not_be_cited_as_evidence": true,
+    "may_not_replace_material_dereference": true,
+    "status": "non_authoritative_navigation_only"
+  },
   "coverage_ledgers_required": [
     "selected_control_bundle",
     "evidence_trace",
     "remaining_risks"
   ],
+  "deferred_control_ledger": {
+    "blocking_unresolved_count": 0,
+    "controls": [
+      {
+        "blocking_before_s12": true,
+        "control_id": "alg-formal-method-details",
+        "required_for": "later Method packet",
+        "status": "deferred_nonblocking_for_target_unit"
+      }
+    ]
+  },
   "descriptive_not_prescriptive_controls": {
     "background_context_not_claim_authority": true,
     "no_fixed_sentence_or_paragraph_counts": true,
@@ -84,6 +100,25 @@
     "introduce_new_claims",
     "strengthen_claims_beyond_s04"
   ],
+  "global_material_coverage": {
+    "blocks_s10_batch": false,
+    "claims_covered": [
+      "claim_authority_loss_requires_bounded_reconfiguration"
+    ],
+    "deferred_controls_open": [
+      "alg-formal-method-details deferred to later Method packet"
+    ],
+    "evidence_artifacts_covered": [
+      "examples/materials/phase10_s04_claim_admissibility.yaml#support_strength_map"
+    ],
+    "reader_questions_covered": [
+      "rq-problem-pressure"
+    ],
+    "status": "pass",
+    "visual_formal_needs_covered": [
+      "fig:authority-loss-reconfiguration-schematic"
+    ]
+  },
   "hard_constraints": {
     "allowed_wording": [
       "bounded reconfiguration under authority-loss conditions",
@@ -184,6 +219,59 @@
     "surface_control": "phase10_s07_surface_control",
     "visual_formal_plan": "phase10_s08_visual_formal_plan"
   },
+  "material_access_manifest": {
+    "allowed_authority_status": [
+      "candidate",
+      "committed"
+    ],
+    "authority_root": "examples/materials/phase10_s09a_rich_control_bundle.yaml",
+    "forbidden_status": [
+      "stale",
+      "archive_reference_only",
+      "owner_gated_unresolved"
+    ],
+    "required_selectors": [
+      "hard_constraints",
+      "claim_control_bundle",
+      "reader_context_bundle",
+      "object_context_bundle",
+      "surface_control_bundle",
+      "visual_formal_control_bundle"
+    ]
+  },
+  "material_read_obligations": {
+    "hydration_required_before_drafting": true,
+    "read_receipt_required": true,
+    "required_materials": [
+      "examples/materials/phase10_s09a_rich_control_bundle.yaml",
+      "examples/materials/phase10_s04_claim_admissibility.yaml",
+      "examples/materials/phase10_s05_reader_spine.yaml",
+      "examples/materials/phase10_s06_object_granularity.yaml",
+      "examples/materials/phase10_s07_surface_control.yaml",
+      "examples/materials/phase10_s08_visual_formal_plan.yaml"
+    ],
+    "required_selectors_by_material": {
+      "examples/materials/phase10_s04_claim_admissibility.yaml": [
+        "support_strength_map"
+      ],
+      "examples/materials/phase10_s05_reader_spine.yaml": [
+        "reader_spine"
+      ],
+      "examples/materials/phase10_s06_object_granularity.yaml": [
+        "object_cards"
+      ],
+      "examples/materials/phase10_s07_surface_control.yaml": [
+        "terminology_rules"
+      ],
+      "examples/materials/phase10_s08_visual_formal_plan.yaml": [
+        "figure_contracts"
+      ],
+      "examples/materials/phase10_s09a_rich_control_bundle.yaml": [
+        "hard_constraints",
+        "context_usage_instructions"
+      ]
+    }
+  },
   "mission": "Produce a candidate target-unit draft for the intro mechanism callout using only the S09A-selected rich controls. Preserve S04 claim boundaries, S05 reader function, S06 object granularity, S07 terminology/surface controls, and S08 visual callout boundary. Return candidate artifact, evidence trace, and remaining risks only; do not mark graph or manuscript completion.",
   "negative_controls": {
     "certainty_overreach": [
@@ -276,13 +364,20 @@
         ],
         "stop_condition": "One bounded candidate paragraph plus traces; no section-wide rewrite.",
         "visual_callouts": [
-          {
-            "fig": "authority-loss-reconfiguration-schematic"
-          }
+          "fig:authority-loss-reconfiguration-schematic"
         ]
       }
     ],
     "target_unit_id": "unit-intro-mechanism-callout"
+  },
+  "section_specific_blockers": {
+    "block_if_missing": [
+      "S04 claim/evidence boundary",
+      "S05 reader question",
+      "S07 surface-control guard"
+    ],
+    "missing_material_policy": "block_candidate_output",
+    "section_type": "introduction"
   },
   "single_writer_lock": {
     "allowed_write_path": "examples/candidate-artifacts/phase10_intro_callout_candidate.md",
@@ -304,6 +399,30 @@
       "avoid internal IDs in paper-facing prose",
       "no rigid template sentence counts"
     ]
+  },
+  "unit_material_closure": {
+    "block_if_missing": [
+      "S04 claim/evidence boundary",
+      "S05 reader question",
+      "S07 internal-id ban list"
+    ],
+    "closure_status": "complete",
+    "forbidden_materials": [
+      "stale_or_archive_material_without_repromotion",
+      "owner_gated_private_decisions"
+    ],
+    "may_read_background": [
+      "examples/materials/phase10_s09a_rich_control_bundle.yaml#global_orientation"
+    ],
+    "must_dereference": [
+      "examples/materials/phase10_s09a_rich_control_bundle.yaml#hard_constraints",
+      "examples/materials/phase10_s04_claim_admissibility.yaml#support_strength_map",
+      "examples/materials/phase10_s05_reader_spine.yaml#reader_spine",
+      "examples/materials/phase10_s06_object_granularity.yaml#object_cards",
+      "examples/materials/phase10_s07_surface_control.yaml#terminology_rules",
+      "examples/materials/phase10_s08_visual_formal_plan.yaml#figure_contracts"
+    ],
+    "target_unit_id": "unit-intro-mechanism-callout"
   },
   "validators": [
     "validate_packet:phase10_stage_binding",

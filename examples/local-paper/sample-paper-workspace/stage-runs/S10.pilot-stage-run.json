@@ -9,16 +9,21 @@
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_2",
-      "ref": "construction matrix"
+      "ref": "S09B material read obligations"
     },
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_3",
-      "ref": "terminology register"
+      "ref": "construction matrix"
     },
     {
       "kind": "contract_declared",
       "material_id": "s10_declared_input_4",
+      "ref": "terminology register"
+    },
+    {
+      "kind": "contract_declared",
+      "material_id": "s10_declared_input_5",
       "ref": "claim visibility"
     },
     {
@@ -58,7 +63,7 @@
       "artifact_id": "s10_pilot_output",
       "artifact_path": "artifacts/S10-main-text-production.json",
       "artifact_type": "candidate_or_repair_projection",
-      "description": "candidate text unit; CandidateArtifactReturn"
+      "description": "candidate text unit; material hydration report; material read receipt ledger; CandidateArtifactReturn"
     }
   ],
   "recommended_agent_type": "writer",

@@ -3471,18 +3471,21 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "contract": {
             "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
             "activation_policy": "activate when a worker needs a section/unit packet",
-            "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with S09A usage labels preserved",
+            "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with lossless material closure, read obligations, and S09A usage labels preserved",
             "consumes": [
                 "selected control bundle",
                 "evidence anchors",
                 "target unit",
                 "validator refs",
-                "return format"
+                "return format",
+                "material closure obligations"
             ],
             "produces": [
                 "task packet",
                 "section move plan",
                 "single-writer lock",
+                "material closure manifest",
+                "material read obligations",
                 "missing material report"
             ],
             "validators": [
@@ -3498,6 +3501,13 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S09B_selected_controls_propagated",
                 "S09B_context_usage_preserved",
                 "S09B_background_not_claim_authority",
+                "S09B_control_digest_policy",
+                "S09B_global_material_coverage",
+                "S09B_unit_material_closure",
+                "S09B_material_access_manifest",
+                "S09B_material_read_obligations",
+                "S09B_deferred_control_ledger",
+                "S09B_section_specific_blockers",
                 "S09B_return_format",
                 "S09B_missing_material_report",
                 "S09B_authority_boundary",
@@ -3561,6 +3571,11 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "ref": "return format"
             },
             {
+                "kind": "contract_declared",
+                "material_id": "s09b_declared_input_6",
+                "ref": "material closure obligations"
+            },
+            {
                 "kind": "source_or_runtime_ref",
                 "material_id": "s09b_source_ref_examples-packets-intro-writing-packet-v2-yaml",
                 "ref": "examples/packets/intro_writing_packet.v2.yaml"
@@ -3608,6 +3623,11 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "kind": "contract_declared",
                 "material_id": "s09b_declared_input_5",
                 "ref": "return format"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s09b_declared_input_6",
+                "ref": "material closure obligations"
             }
         ],
         "upstream_inputs": [
@@ -3641,7 +3661,7 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "artifact_id": "s09b_pilot_output",
                 "artifact_path": "artifacts/S09B-per-unit-task-packet-assembly.json",
                 "artifact_type": "script_check_output",
-                "description": "task packet; section move plan; single-writer lock; missing material report",
+                "description": "task packet; section move plan; single-writer lock; material closure manifest",
                 "payload": {
                     "artifact_kind": "script_check_output",
                     "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
@@ -3649,9 +3669,11 @@ window.PPG_RUNTIME_GRAPH = (() => {
                         "task packet",
                         "section move plan",
                         "single-writer lock",
+                        "material closure manifest",
+                        "material read obligations",
                         "missing material report"
                     ],
-                    "consumed_ref_count": 9,
+                    "consumed_ref_count": 10,
                     "claim_boundary_snapshot": {
                         "active_method": null,
                         "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
@@ -3745,21 +3767,27 @@ window.PPG_RUNTIME_GRAPH = (() => {
         "contract": {
             "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
             "activation_policy": "activate when writing execution is needed",
-            "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
+            "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, material hydration, read receipts, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
             "consumes": [
                 "S09B task packet",
+                "S09B material read obligations",
                 "construction matrix",
                 "terminology register",
                 "claim visibility"
             ],
             "produces": [
                 "candidate text unit",
+                "material hydration report",
+                "material read receipt ledger",
                 "CandidateArtifactReturn"
             ],
             "validators": [
                 "S10_packet_compliance",
                 "S10_candidate_text_schema",
                 "S10_allowed_write_path",
+                "S10_material_hydration_report",
+                "S10_material_read_receipt_ledger",
+                "S10_blocked_output_on_missing_material",
                 "S10_claim_evidence_trace",
                 "S10_claim_boundary_preserved",
                 "S10_no_new_claims",
@@ -3820,16 +3848,21 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s10_declared_input_2",
-                "ref": "construction matrix"
+                "ref": "S09B material read obligations"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s10_declared_input_3",
-                "ref": "terminology register"
+                "ref": "construction matrix"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s10_declared_input_4",
+                "ref": "terminology register"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s10_declared_input_5",
                 "ref": "claim visibility"
             },
             {
@@ -3869,16 +3902,21 @@ window.PPG_RUNTIME_GRAPH = (() => {
             {
                 "kind": "contract_declared",
                 "material_id": "s10_declared_input_2",
-                "ref": "construction matrix"
+                "ref": "S09B material read obligations"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s10_declared_input_3",
-                "ref": "terminology register"
+                "ref": "construction matrix"
             },
             {
                 "kind": "contract_declared",
                 "material_id": "s10_declared_input_4",
+                "ref": "terminology register"
+            },
+            {
+                "kind": "contract_declared",
+                "material_id": "s10_declared_input_5",
                 "ref": "claim visibility"
             }
         ],
@@ -3918,15 +3956,17 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "artifact_id": "s10_pilot_output",
                 "artifact_path": "artifacts/S10-main-text-production.json",
                 "artifact_type": "candidate_or_repair_projection",
-                "description": "candidate text unit; CandidateArtifactReturn",
+                "description": "candidate text unit; material hydration report; material read receipt ledger; CandidateArtifactReturn",
                 "payload": {
                     "artifact_kind": "candidate_or_repair_projection",
                     "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
                     "projected_outputs": [
                         "candidate text unit",
+                        "material hydration report",
+                        "material read receipt ledger",
                         "CandidateArtifactReturn"
                     ],
-                    "consumed_ref_count": 9,
+                    "consumed_ref_count": 10,
                     "claim_boundary_snapshot": {
                         "active_method": null,
                         "evidence_spine": "experiments/results/L3_method_faithful_unified_scene_20260625/",
