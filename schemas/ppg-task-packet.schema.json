@@ -500,6 +500,14 @@
     },
     "section_specific_blockers": {
       "type": "object"
+    },
+    "packet_quality_contract": {
+      "type": "object",
+      "description": "Optional producer packet quality contract; must extend existing material closure/read-obligation fields rather than replace them."
+    },
+    "audit_verifier_packet_quality_contract": {
+      "type": "object",
+      "description": "Optional audit/verifier quality contract; audit inherits all producer inputs and adds stricter checks."
     }
   },
   "allOf": [

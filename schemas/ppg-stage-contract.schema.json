@@ -25,78 +25,238 @@
     "worker_packet_coverage"
   ],
   "properties": {
-    "schema_version": {"const": "ppg-stage-contract/v0.1"},
-    "stage_id": {"type": "string", "pattern": "^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"},
-    "stage_name": {"type": "string", "minLength": 1},
-    "purpose": {"type": "string", "minLength": 1},
-    "execution_mode": {"enum": ["owner_gated", "script_generated", "agent_generated", "hybrid_generated"]},
-    "recommended_agent_type": {"type": "string", "minLength": 1},
+    "schema_version": {
+      "const": "ppg-stage-contract/v0.1"
+    },
+    "stage_id": {
+      "type": "string",
+      "pattern": "^(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"
+    },
+    "stage_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_mode": {
+      "enum": [
+        "owner_gated",
+        "script_generated",
+        "agent_generated",
+        "hybrid_generated"
+      ]
+    },
+    "recommended_agent_type": {
+      "type": "string",
+      "minLength": 1
+    },
     "subagent_lane_policy": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["policy", "default_lane_count", "producer_agent_type", "verifier_agent_type", "escalate_to_double_when", "rationale"],
+      "required": [
+        "policy",
+        "default_lane_count",
+        "producer_agent_type",
+        "verifier_agent_type",
+        "escalate_to_double_when",
+        "rationale"
+      ],
       "properties": {
-        "policy": {"type": "string", "enum": ["mandatory_double", "conditional_double", "single_with_deterministic_validation"]},
-        "default_lane_count": {"type": "integer", "enum": [1, 2]},
-        "producer_agent_type": {"type": "string", "minLength": 1},
-        "verifier_agent_type": {"type": ["string", "null"]},
-        "escalate_to_double_when": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-        "rationale": {"type": "string", "minLength": 1}
+        "policy": {
+          "type": "string",
+          "enum": [
+            "mandatory_double",
+            "conditional_double",
+            "single_with_deterministic_validation"
+          ]
+        },
+        "default_lane_count": {
+          "type": "integer",
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "producer_agent_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verifier_agent_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "escalate_to_double_when": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
-    "requires_worker_task_packet": {"type": "boolean"},
-    "consumes": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
-    "produces": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
-    "validators": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
-    "backflow_targets": {"type": "array", "items": {"type": "string", "minLength": 1}},
-    "completion_gate": {"type": "string", "minLength": 1},
-    "activation_policy": {"type": "string", "minLength": 1},
-    "coverage_status": {"type": "string", "minLength": 1},
-    "registry_ref": {"const": "runtime/stage_registry.json"},
+    "requires_worker_task_packet": {
+      "type": "boolean"
+    },
+    "consumes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "produces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "validators": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "backflow_targets": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "completion_gate": {
+      "type": "string",
+      "minLength": 1
+    },
+    "activation_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "coverage_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_ref": {
+      "const": "runtime/stage_registry.json"
+    },
     "stage_local_overlays": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["overlay_id", "binding_strength", "registry_ref", "packet_clause_validator"],
+        "required": [
+          "overlay_id",
+          "binding_strength",
+          "registry_ref",
+          "packet_clause_validator"
+        ],
         "properties": {
-          "overlay_id": {"type": "string", "minLength": 1},
-          "binding_strength": {"enum": ["primary", "support", "light", "governance", "derivative"]},
-          "registry_ref": {"const": "runtime/stage_overlay_registry.json"},
-          "packet_clause_validator": {"type": "string", "pattern": "^stage_overlay:[^:]+:(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"}
+          "overlay_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "binding_strength": {
+            "enum": [
+              "primary",
+              "support",
+              "light",
+              "governance",
+              "derivative"
+            ]
+          },
+          "registry_ref": {
+            "const": "runtime/stage_overlay_registry.json"
+          },
+          "packet_clause_validator": {
+            "type": "string",
+            "pattern": "^stage_overlay:[^:]+:(S(0[0-8]|09A|09B|1[0-6])|G0[12])$"
+          }
         }
       }
     },
     "worker_authority_boundary": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["completion_forbidden", "no_recursive_orchestration", "controller_owned_completion"],
+      "required": [
+        "completion_forbidden",
+        "no_recursive_orchestration",
+        "controller_owned_completion"
+      ],
       "properties": {
-        "completion_forbidden": {"const": true},
-        "no_recursive_orchestration": {"const": true},
-        "controller_owned_completion": {"const": true}
+        "completion_forbidden": {
+          "const": true
+        },
+        "no_recursive_orchestration": {
+          "const": true
+        },
+        "controller_owned_completion": {
+          "const": true
+        }
       }
     },
     "worker_packet_coverage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "packet_ref", "return_contract_ref", "blocker"],
+      "required": [
+        "status",
+        "packet_ref",
+        "return_contract_ref",
+        "blocker"
+      ],
       "properties": {
-        "status": {"enum": ["linked_strict_packet", "planned_with_blocker", "not_required"]},
+        "status": {
+          "enum": [
+            "linked_strict_packet",
+            "planned_with_blocker",
+            "not_required"
+          ]
+        },
         "packet_ref": {
           "oneOf": [
-            {"type": "null"},
-            {"type": "string", "pattern": "^examples/packets/[^\\s\\\\]+\\.(yaml|yml|json)$"}
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^examples/packets/[^\\s\\\\]+\\.(yaml|yml|json)$"
+            }
           ]
         },
         "return_contract_ref": {
           "oneOf": [
-            {"type": "null"},
-            {"type": "string", "pattern": "^schemas/ppg-candidate-return\\.schema\\.json$"}
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^schemas/ppg-candidate-return\\.schema\\.json$"
+            }
           ]
         },
-        "blocker": {"type": ["string", "null"], "minLength": 1}
+        "blocker": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
       }
+    },
+    "stage_quality_contract": {
+      "$ref": "ppg-stage-quality-contract.schema.json"
     }
   },
   "additionalProperties": true
