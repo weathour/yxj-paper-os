@@ -419,6 +419,7 @@ S09B_MATERIAL_CLOSURE_FIELDS = {
 }
 S09B_REJECTED_ALIAS_FIELDS = {"must_read_material_closure"}
 S10_COMPLETION_BOUNDARY = "candidate_text_only_no_graph_manuscript_submission_or_publication_completion"
+S10_RECEIPT_SOURCE_PACKET_OBLIGATION = "material_read_obligations.required_selectors_by_material"
 S10_COMPLETION_OVERCLAIM_KEYS = {
     "acceptance_readiness",
     "final_acceptance",
@@ -4327,6 +4328,9 @@ def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[Valida
                 errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", f"material_read_obligations.{key} must be true"))
         if required_materials and closure_selectors and set(closure_selectors) != required_materials:
             errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.must_dereference materials must exactly match material_read_obligations.required_materials"))
+        allowed_read_materials = set(_material_selector_map(payload.get("allowed_read_paths")))
+        if required_materials and allowed_read_materials != required_materials:
+            errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "allowed_read_paths must exactly match material_read_obligations.required_materials"))
         if closure_selectors and required_selectors_by_material:
             for material, required_selector_set in sorted(required_selectors_by_material.items()):
                 if closure_selectors.get(material, set()) != required_selector_set:
@@ -4602,6 +4606,8 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
         for key in ("material_ref", "receipt_status", "source_packet_obligation"):
             if not is_non_empty_string(record.get(key)):
                 errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].{key} must be a non-empty string"))
+        if record.get("source_packet_obligation") != S10_RECEIPT_SOURCE_PACKET_OBLIGATION:
+            errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].source_packet_obligation must be {S10_RECEIPT_SOURCE_PACKET_OBLIGATION!r}"))
         selectors_read = _s08_string_items(record.get("selectors_read"))
         if not selectors_read:
             errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].selectors_read must be a non-empty list of strings"))
@@ -4618,6 +4624,10 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
             if missing_selectors:
                 errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].selectors_read missing required selectors {missing_selectors}"))
                 errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output until every required selector has a read receipt"))
+            extra_selectors = sorted(set(selectors_read) - required_selectors_by_material.get(material_ref, set()))
+            if extra_selectors:
+                errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].selectors_read contains selectors not required by the S09B packet {extra_selectors}"))
+                errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when read receipt selectors diverge from S09B packet obligations"))
     expected_receipt_materials = packet_required_materials or required_materials
     missing_read_materials = sorted(expected_receipt_materials - seen_materials)
     if missing_read_materials:

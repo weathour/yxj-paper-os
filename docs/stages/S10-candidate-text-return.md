@@ -244,7 +244,7 @@ Required semantics / 必须语义：
 - `material_hydration_report.required_materials` must exactly match the S09B packet `material_read_obligations.required_materials`.
 - `material_hydration_report.hydrated_materials` must exactly match the same set: no missing required material and no extra material outside the S09B packet obligations.
 - `required_selectors_by_material` and `hydrated_selectors_by_material` must exactly match the S09B packet selector obligations.
-- `material_read_receipt_ledger.receipts[]` records `material_ref`, `selectors_read`, `source_packet_obligation`, and `receipt_status: read`; receipt material refs must exactly match the S09B packet obligations and `missing_receipts` must be empty.
+- `material_read_receipt_ledger.receipts[]` records `material_ref`, `selectors_read`, `source_packet_obligation`, and `receipt_status: read`; receipt material refs and `selectors_read` must exactly match the S09B packet obligations, `source_packet_obligation` must be `material_read_obligations.required_selectors_by_material`, and `missing_receipts` must be empty.
 - If hydration or read receipts are blocked or diverge from packet obligations, S10 must not emit `candidate_text_unit.status: candidate`; it must return a MissingMaterialReport routed to the nearest responsible stage.
 
 Blocked-output conflict rule / 阻断输出冲突规则：
