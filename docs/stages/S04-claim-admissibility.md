@@ -216,3 +216,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S04 是“这句话能不能说”的关口。它把想法变成 admitted、weakened、rejected 或 backflowed 的 claim capsule。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S04 is the “can we say this?” gate. It turns ideas into admitted, weakened, rejected, or backflowed claim capsules. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must not be accepted only because its artifact exists. It must preserve enough upstream authority and design force for downstream stages to execute without guessing. Producer packets may include all relevant source, owner, profile, evidence, and design materials; audit/verifier packets inherit the same inputs and add stricter sufficiency checks.
+
+**中文。** 本阶段不能因为产物存在就算完成。它必须为下游保留足够的权威、证据和设计约束。生产包可以给足所有相关输入；审核包必须继承生产包全部输入，并追加更严格的充分性检查。
+
+Stage-quality focus / 阶段质量焦点：`claim admissibility and persuasive burden gate`.
+
+Required extraction examples / 必须抽取示例：atomic_claim_register, support_strength_map, allowed_wording_map, forbidden_wording_map, citation_burden, visual_or_table_burden.
+
+Downstream design force / 下游设计力：S10 can develop claims deeply without strengthening them; S11 captions preserve claim boundaries; S13/rendered gate can trace claim/evidence failures.
+
+Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
+

@@ -210,3 +210,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S01 是论文证据仓库地图。它告诉后续有哪些材料、在哪里，但不判断哪些主张能说。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S01 is the paper's evidence warehouse map. It tells later stages what exists and where it is; it does not decide what claims are admissible. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must not be accepted only because its artifact exists. It must preserve enough upstream authority and design force for downstream stages to execute without guessing. Producer packets may include all relevant source, owner, profile, evidence, and design materials; audit/verifier packets inherit the same inputs and add stricter sufficiency checks.
+
+**中文。** 本阶段不能因为产物存在就算完成。它必须为下游保留足够的权威、证据和设计约束。生产包可以给足所有相关输入；审核包必须继承生产包全部输入，并追加更严格的充分性检查。
+
+Stage-quality focus / 阶段质量焦点：`source evidence and citation locator gate`.
+
+Required extraction examples / 必须抽取示例：source_locator_register, citation_locator_register, evidence_artifact_locator, figure_source_data_locator, unresolved_locator_register.
+
+Downstream design force / 下游设计力：S02 can compute profile statistics; S04 can bind claims to evidence/citations; S08/S11 can bind figures to source data.
+
+Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
+

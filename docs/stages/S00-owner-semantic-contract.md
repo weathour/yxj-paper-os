@@ -196,3 +196,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S00 是“不要误解作者”的关口。它不让 worker 写作，而是记录这篇论文允许变成什么、不能悄悄变成什么。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S00 is the “do not misunderstand the owner” gate. It does not ask a worker to write; it records what the paper is allowed to become and what it must not silently turn into. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must not be accepted only because its artifact exists. It must preserve enough upstream authority and design force for downstream stages to execute without guessing. Producer packets may include all relevant source, owner, profile, evidence, and design materials; audit/verifier packets inherit the same inputs and add stricter sufficiency checks.
+
+**中文。** 本阶段不能因为产物存在就算完成。它必须为下游保留足够的权威、证据和设计约束。生产包可以给足所有相关输入；审核包必须继承生产包全部输入，并追加更严格的充分性检查。
+
+Stage-quality focus / 阶段质量焦点：`owner quality and authority gate`.
+
+Required extraction examples / 必须抽取示例：owner_quality_goal, active_venue_or_route_profile, claim_scope_boundary, owner_gate_register, downstream_stale_policy.
+
+Downstream design force / 下游设计力：all downstream stages inherit quality ambition and owner boundaries; S02/S05/S09/S13/rendered gate can consume owner targets.
+
+Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
+

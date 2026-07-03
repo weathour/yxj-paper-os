@@ -1,0 +1,78 @@
+{
+  "schema_version": "ppg-stage-quality-contract/v0.1",
+  "stage_id": "S01",
+  "active_profile_source": "S00 route/profile plus workspace source inventory",
+  "must_read_materials": [
+    {
+      "material_ref": "workspace_source_roots",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "latex_paths",
+        "bibtex_paths",
+        "evidence_artifact_paths",
+        "figure_source_paths",
+        "template_paths"
+      ]
+    },
+    {
+      "material_ref": "S00_owner_semantic_contract",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "privacy_boundary",
+        "claim_scope_boundary",
+        "active_profile"
+      ]
+    }
+  ],
+  "required_extractions": [
+    "source_locator_register",
+    "citation_locator_register",
+    "evidence_artifact_locator",
+    "figure_source_data_locator",
+    "unresolved_locator_register"
+  ],
+  "producer_return_obligations": [
+    "source coverage ledger",
+    "freshness report",
+    "privacy boundary report",
+    "missing locator register",
+    "obligation coverage ledger",
+    "missing material report when blocked"
+  ],
+  "audit_verifier_obligations": {
+    "inherits_all_producer_inputs": true,
+    "checks": [
+      "all citable sources have locators or missing entries",
+      "template/exemplar full-text availability known",
+      "citation bank supports downstream related work",
+      "private sources are not promoted",
+      "downstream usefulness",
+      "nearest responsible stage routing"
+    ]
+  },
+  "downstream_design_force": [
+    "S02 can compute profile statistics",
+    "S04 can bind claims to evidence/citations",
+    "S08/S11 can bind figures to source data"
+  ],
+  "failure_severity_policy": {
+    "BLOCKING": "missing critical evidence/citation/template locator for declared target",
+    "MAJOR": "citation readiness weak for high-quality related work",
+    "MINOR": "local trace, label, or wording defect that does not alter authority",
+    "WATCH": "potential reviewer risk tracked without forced full rerun"
+  },
+  "nearest_responsible_stage_policy": "S01 for locator/freshness/privacy defects",
+  "affected_downstream_nodes": [
+    "S02",
+    "S04",
+    "S08",
+    "S09B",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S16",
+    "RenderedManuscriptAuditGate"
+  ],
+  "anti_over_strictness_boundary": "MINOR and WATCH findings enter local revision or risk ledger; they do not force full downstream rerun by default."
+}

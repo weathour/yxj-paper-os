@@ -200,3 +200,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S02 是侦察，不是写作。它说明领域如何组织、同路线论文通常怎样表达，同时防止把统计画像误当成硬性生成规则。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S02 is reconnaissance, not writing. It explains how the field is organized and how papers in this route tend to speak, while explicitly preventing statistical profiles from becoming rigid generation rules. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must not be accepted only because its artifact exists. It must preserve enough upstream authority and design force for downstream stages to execute without guessing. Producer packets may include all relevant source, owner, profile, evidence, and design materials; audit/verifier packets inherit the same inputs and add stricter sufficiency checks.
+
+**中文。** 本阶段不能因为产物存在就算完成。它必须为下游保留足够的权威、证据和设计约束。生产包可以给足所有相关输入；审核包必须继承生产包全部输入，并追加更严格的充分性检查。
+
+Stage-quality focus / 阶段质量焦点：`active venue profile and TemplateStats gate`.
+
+Required extraction examples / 必须抽取示例：VenueProfile, TemplateStats, section_length_bands, figure_table_formula_density, citation_reference_density, rhetorical_move_profile, sample_limits.
+
+Downstream design force / 下游设计力：S05/S07/S09/S10 receive section depth and language/profile targets; S08/S11 receive visual/formal density targets; S13/rendered gate receive template parity baselines.
+
+Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
+

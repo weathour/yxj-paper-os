@@ -65,6 +65,11 @@
           "dimension_id": "s00_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S00 evidence for passive stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s00_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S00 evidence that producer inputs are sufficient, audit inherits producer inputs, downstream design force is explicit, and BLOCKING/MAJOR failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -81,7 +86,8 @@
         "blocked_route_register",
         "no_worker_semantic_change",
         "downstream_stale_policy",
-        "no_completion_overclaim"
+        "no_completion_overclaim",
+        "s00_stage_quality_contract"
       ],
       "stage_id": "S00",
       "stage_name": "Owner semantic contract",
@@ -139,6 +145,11 @@
           "dimension_id": "s01_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S01 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s01_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S01 evidence that producer inputs are sufficient, audit inherits producer inputs, downstream design force is explicit, and BLOCKING/MAJOR failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -158,7 +169,8 @@
         "freshness_hash_provenance",
         "read_only_inventory_boundary",
         "no_claim_admissibility_decision",
-        "no_completion_overclaim"
+        "no_completion_overclaim",
+        "s01_stage_quality_contract"
       ],
       "stage_id": "S01",
       "stage_name": "Source citation evidence inventory",
@@ -206,6 +218,11 @@
           "dimension_id": "s02_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S02 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s02_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S02 evidence that producer inputs are sufficient, audit inherits producer inputs, downstream design force is explicit, and BLOCKING/MAJOR failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -227,7 +244,8 @@
         "s02_no_final_claim_wording",
         "s02_unresolved_backflow_register",
         "s02_downstream_handoff_coverage",
-        "no_completion_overclaim"
+        "no_completion_overclaim",
+        "s02_stage_quality_contract"
       ],
       "stage_id": "S02",
       "stage_name": "Research scene exemplar SOTA analysis",
@@ -275,6 +293,11 @@
           "dimension_id": "s03_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S03 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s03_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S03 evidence that producer inputs are sufficient, audit inherits producer inputs, downstream design force is explicit, and BLOCKING/MAJOR failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -297,7 +320,8 @@
         "s03_s04_handoff_coverage",
         "s03_anti_rhetoric_guard",
         "s03_no_claim_admissibility_or_final_wording",
-        "no_completion_overclaim"
+        "no_completion_overclaim",
+        "s03_stage_quality_contract"
       ],
       "stage_id": "S03",
       "stage_name": "Novelty and contribution option analysis",
@@ -360,6 +384,11 @@
           "dimension_id": "s04_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S04 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s04_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S04 evidence that producer inputs are sufficient, audit inherits producer inputs, downstream design force is explicit, and BLOCKING/MAJOR failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -382,7 +411,8 @@
         "s04_result_package_boundary",
         "s04_claim_transformation_log",
         "s04_downstream_handoff_coverage",
-        "s04_no_final_prose_or_completion_overclaim"
+        "s04_no_final_prose_or_completion_overclaim",
+        "s04_stage_quality_contract"
       ],
       "stage_id": "S04",
       "stage_name": "Evidence-to-claim admissibility",

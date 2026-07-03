@@ -116,10 +116,20 @@ def main() -> None:
     if missing_required:
         fail(f"schema missing required keys: {missing_required}")
 
-    positive = load_json(FIXTURE_DIR / "stage-quality-contract.pass.json")
-    errors = validate_contract(positive)
-    if errors:
-        fail(f"positive fixture failed: {errors}")
+    for positive_path in sorted(FIXTURE_DIR.glob("*.pass.json")):
+        positive = load_json(positive_path)
+        errors = validate_contract(positive)
+        if errors:
+            fail(f"{positive_path.name} positive fixture failed: {errors}")
+
+    for contract_path in sorted((ROOT / "examples" / "stage-contracts").glob("S0[0-4].stage-contract.json")):
+        data = load_json(contract_path)
+        sqc = data.get("stage_quality_contract")
+        if not isinstance(sqc, dict):
+            fail(f"{contract_path.name} missing stage_quality_contract")
+        errors = validate_contract(sqc)
+        if errors:
+            fail(f"{contract_path.name} stage_quality_contract failed: {errors}")
 
     for path in sorted(FIXTURE_DIR.glob("invalid-*.json")):
         obj = load_json(path)

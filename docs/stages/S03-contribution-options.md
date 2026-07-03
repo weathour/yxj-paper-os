@@ -206,3 +206,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S03 问的是“这篇论文可能贡献什么”，并阻止没有证据的新颖性想法过早变成主张。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S03 asks “what could this paper plausibly contribute?” and keeps unsupported novelty ideas from becoming claims too early. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must not be accepted only because its artifact exists. It must preserve enough upstream authority and design force for downstream stages to execute without guessing. Producer packets may include all relevant source, owner, profile, evidence, and design materials; audit/verifier packets inherit the same inputs and add stricter sufficiency checks.
+
+**中文。** 本阶段不能因为产物存在就算完成。它必须为下游保留足够的权威、证据和设计约束。生产包可以给足所有相关输入；审核包必须继承生产包全部输入，并追加更严格的充分性检查。
+
+Stage-quality focus / 阶段质量焦点：`contribution option and reviewer attack gate`.
+
+Required extraction examples / 必须抽取示例：supported_contribution_options, rejected_options, owner_gated_options, reviewer_attack_map, S04_handoff.
+
+Downstream design force / 下游设计力：S04 receives claim candidates and forbidden options; S05/S07/S13 receive reviewer attack obligations; S10 introduction/discussion depth is grounded.
+
+Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
+

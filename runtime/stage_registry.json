@@ -68,7 +68,8 @@
         "external action boundary",
         "no worker semantic change",
         "downstream stale/backflow effects",
-        "no completion or submission overclaim"
+        "no completion or submission overclaim",
+        "S00_stage_quality_contract"
       ],
       "backflow_targets": [
         "owner"
@@ -77,7 +78,8 @@
       "activation_policy": "activate when owner motivation, venue, claim scope, or private-source policy is unclear",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S00.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S00.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S00.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S01",
@@ -124,7 +126,8 @@
         "S01_freshness_hash_report",
         "S01_no_claim_admissibility",
         "S01_unresolved_locator_register",
-        "S01_no_completion_overclaim"
+        "S01_no_completion_overclaim",
+        "S01_stage_quality_contract"
       ],
       "backflow_targets": [
         "S00",
@@ -134,7 +137,8 @@
       "activation_policy": "activate when source or evidence inventory is missing/stale",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S01.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S01.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S01.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S02",
@@ -175,7 +179,8 @@
         "S02_template_copying_boundary",
         "S02_unresolved_backflow_register",
         "S02_downstream_handoff_coverage",
-        "S02_no_claim_or_completion_freeze"
+        "S02_no_claim_or_completion_freeze",
+        "S02_stage_quality_contract"
       ],
       "backflow_targets": [
         "S01",
@@ -185,7 +190,8 @@
       "activation_policy": "activate when field/template/SOTA is uncertain",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S02.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S02.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S02.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S03",
@@ -227,7 +233,8 @@
         "S03_reviewer_attack_map",
         "S03_s04_handoff_coverage",
         "S03_no_claim_admissibility_or_final_wording",
-        "S03_no_completion_overclaim"
+        "S03_no_completion_overclaim",
+        "S03_stage_quality_contract"
       ],
       "backflow_targets": [
         "S00",
@@ -238,7 +245,8 @@
       "activation_policy": "activate when contribution is unstable or weak",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S03.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S03.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S03.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S04",
@@ -282,7 +290,8 @@
         "S04_result_package_boundary",
         "S04_claim_transformation_log",
         "S04_downstream_handoff_coverage",
-        "S04_no_final_prose_or_completion_overclaim"
+        "S04_no_final_prose_or_completion_overclaim",
+        "S04_stage_quality_contract"
       ],
       "backflow_targets": [
         "S01",
@@ -293,7 +302,8 @@
       "activation_policy": "activate before claim-bearing writing or review",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S04.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S04.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S04.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S05",
