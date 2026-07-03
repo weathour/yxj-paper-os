@@ -407,6 +407,15 @@ S09B_BOOT_REQUIRED_TERMS = {
     "no_recursive_orchestration",
     "s04",
 }
+S09B_MATERIAL_CLOSURE_FIELDS = {
+    "control_digest_policy",
+    "global_material_coverage",
+    "unit_material_closure",
+    "material_access_manifest",
+    "material_read_obligations",
+    "deferred_control_ledger",
+    "section_specific_blockers",
+}
 S10_COMPLETION_BOUNDARY = "candidate_text_only_no_graph_manuscript_submission_or_publication_completion"
 S10_COMPLETION_OVERCLAIM_KEYS = {
     "acceptance_readiness",
@@ -3882,6 +3891,13 @@ def _require_s09b_required_modules(payload: dict[str, Any], errors: list[Validat
         "target_unit",
         "selected_control_bundle_ref",
         "control_digest",
+        "control_digest_policy",
+        "global_material_coverage",
+        "unit_material_closure",
+        "material_access_manifest",
+        "material_read_obligations",
+        "deferred_control_ledger",
+        "section_specific_blockers",
         "task_mission",
         "allowed_read_paths",
         "allowed_write_paths",
@@ -4231,6 +4247,84 @@ def _validate_s09b_digest_move_and_controls(payload: dict[str, Any], errors: lis
         _require_s09_list(usage, "context_usage_instructions", key, "E_S09B_CONTEXT_USAGE_REQUIRED", errors)
 
 
+def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
+    digest_policy = _require_mapping(payload, "control_digest_policy", "E_S09B_CONTROL_DIGEST_POLICY_REQUIRED", errors)
+    if digest_policy is not None:
+        if digest_policy.get("status") != "non_authoritative_navigation_only":
+            errors.append(issue("E_S09B_CONTROL_DIGEST_POLICY_REQUIRED", "control_digest_policy.status must be non_authoritative_navigation_only"))
+        for key in ("may_not_be_cited_as_evidence", "may_not_replace_material_dereference"):
+            if digest_policy.get(key) is not True:
+                errors.append(issue("E_S09B_CONTROL_DIGEST_POLICY_REQUIRED", f"control_digest_policy.{key} must be true"))
+
+    coverage = _require_mapping(payload, "global_material_coverage", "E_S09B_GLOBAL_COVERAGE_REQUIRED", errors)
+    if coverage is not None:
+        if coverage.get("status") != "pass":
+            errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", "global_material_coverage.status must be pass for an emitted writing packet"))
+        for key in ("claims_covered", "reader_questions_covered", "evidence_artifacts_covered", "visual_formal_needs_covered"):
+            _require_s09_list(coverage, "global_material_coverage", key, "E_S09B_GLOBAL_COVERAGE_REQUIRED", errors)
+        _require_s09_list(coverage, "global_material_coverage", "deferred_controls_open", "E_S09B_GLOBAL_COVERAGE_REQUIRED", errors, allow_empty=True)
+        if coverage.get("blocks_s10_batch") is not False:
+            errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", "global_material_coverage.blocks_s10_batch must be false for a ready S09B packet"))
+
+    closure = _require_mapping(payload, "unit_material_closure", "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors)
+    if closure is not None:
+        _require_mapping_fields(closure, "unit_material_closure", ["target_unit_id"], "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors)
+        if closure.get("closure_status") != "complete":
+            errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.closure_status must be complete"))
+        for key in ("must_dereference", "block_if_missing"):
+            _require_s09_list(closure, "unit_material_closure", key, "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors)
+        _require_s09_list(closure, "unit_material_closure", "may_read_background", "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors, allow_empty=True)
+        _require_s09_list(closure, "unit_material_closure", "forbidden_materials", "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", errors, allow_empty=True)
+        target = as_mapping(payload.get("target_unit"))
+        if target is not None and is_non_empty_string(target.get("unit_id")) and closure.get("target_unit_id") != target.get("unit_id"):
+            errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.target_unit_id must match target_unit.unit_id"))
+
+    access = _require_mapping(payload, "material_access_manifest", "E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED", errors)
+    if access is not None:
+        _require_mapping_fields(access, "material_access_manifest", ["authority_root"], "E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED", errors)
+        for key in ("allowed_authority_status", "forbidden_status", "required_selectors"):
+            _require_s09_list(access, "material_access_manifest", key, "E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED", errors)
+
+    obligations = _require_mapping(payload, "material_read_obligations", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors)
+    if obligations is not None:
+        _require_s09_list(obligations, "material_read_obligations", "required_materials", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors)
+        selectors = obligations.get("required_selectors_by_material")
+        if not isinstance(selectors, dict) or not selectors:
+            errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material must be a non-empty mapping"))
+        else:
+            for material, selector_list in selectors.items():
+                if not is_non_empty_string(str(material)) or not _s08_string_items(selector_list):
+                    errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material entries must map material refs to non-empty selector lists"))
+        for key in ("read_receipt_required", "hydration_required_before_drafting"):
+            if obligations.get(key) is not True:
+                errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", f"material_read_obligations.{key} must be true"))
+
+    deferred = _require_mapping(payload, "deferred_control_ledger", "E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", errors)
+    if deferred is not None:
+        controls = deferred.get("controls")
+        if controls != [] and not is_non_empty_mapping_list(controls):
+            errors.append(issue("E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", "deferred_control_ledger.controls must be a list of mappings"))
+        if isinstance(controls, list):
+            for idx, control in enumerate(controls):
+                if not isinstance(control, dict):
+                    continue
+                for key in ("control_id", "required_for", "status"):
+                    if not is_non_empty_string(control.get(key)):
+                        errors.append(issue("E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", f"deferred_control_ledger.controls[{idx}].{key} must be a non-empty string"))
+                if "blocking_before_s12" in control and not isinstance(control.get("blocking_before_s12"), bool):
+                    errors.append(issue("E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", f"deferred_control_ledger.controls[{idx}].blocking_before_s12 must be boolean when present"))
+        count = deferred.get("blocking_unresolved_count")
+        if not isinstance(count, int) or count < 0:
+            errors.append(issue("E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", "deferred_control_ledger.blocking_unresolved_count must be a non-negative integer"))
+
+    blockers = _require_mapping(payload, "section_specific_blockers", "E_S09B_SECTION_BLOCKERS_REQUIRED", errors)
+    if blockers is not None:
+        _require_mapping_fields(blockers, "section_specific_blockers", ["section_type"], "E_S09B_SECTION_BLOCKERS_REQUIRED", errors)
+        _require_s09_list(blockers, "section_specific_blockers", "block_if_missing", "E_S09B_SECTION_BLOCKERS_REQUIRED", errors)
+        if blockers.get("missing_material_policy") != "block_candidate_output":
+            errors.append(issue("E_S09B_SECTION_BLOCKERS_REQUIRED", "section_specific_blockers.missing_material_policy must be block_candidate_output"))
+
+
 def _validate_s09b_return_lock_and_packet(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
     validators = set(_s08_string_items(payload.get("validators")))
     if not {"validate_packet:phase10_stage_binding", "stage_overlay:nature_expert_writing:S10"} <= validators:
@@ -4274,6 +4368,7 @@ def _validate_s09b_task_packet_assembly(payload: dict[str, Any], errors: list[Va
 
     _validate_s09b_identity_paths_and_authority(payload, errors)
     _validate_s09b_digest_move_and_controls(payload, errors)
+    _validate_s09b_material_closure(payload, errors)
     _validate_s09b_return_lock_and_packet(payload, errors)
     candidate = _require_mapping(payload, "candidate_return", "E_S09B_TASK_PACKET_ASSEMBLY_REQUIRED", errors)
     _require_mapping_fields(candidate, "candidate_return", ["candidate_artifact"], "E_S09B_TASK_PACKET_ASSEMBLY_REQUIRED", errors)

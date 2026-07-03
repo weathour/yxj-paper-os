@@ -2058,6 +2058,13 @@
         "target_unit",
         "selected_control_bundle_ref",
         "control_digest",
+        "control_digest_policy",
+        "global_material_coverage",
+        "unit_material_closure",
+        "material_access_manifest",
+        "material_read_obligations",
+        "deferred_control_ledger",
+        "section_specific_blockers",
         "task_mission",
         "allowed_read_paths",
         "allowed_write_paths",
@@ -2163,6 +2170,27 @@
           "type": "object"
         },
         "candidate_return": {
+          "type": "object"
+        },
+        "control_digest_policy": {
+          "type": "object"
+        },
+        "global_material_coverage": {
+          "type": "object"
+        },
+        "unit_material_closure": {
+          "type": "object"
+        },
+        "material_access_manifest": {
+          "type": "object"
+        },
+        "material_read_obligations": {
+          "type": "object"
+        },
+        "deferred_control_ledger": {
+          "type": "object"
+        },
+        "section_specific_blockers": {
           "type": "object"
         }
       }

@@ -97,6 +97,13 @@ S09B_REQUIRED_SCHEMA = {
     "target_unit",
     "selected_control_bundle_ref",
     "control_digest",
+    "control_digest_policy",
+    "global_material_coverage",
+    "unit_material_closure",
+    "material_access_manifest",
+    "material_read_obligations",
+    "deferred_control_ledger",
+    "section_specific_blockers",
     "task_mission",
     "allowed_read_paths",
     "allowed_write_paths",
@@ -118,6 +125,15 @@ S09B_REQUIRED_SCHEMA = {
     "packet_authority_boundary",
     "emitted_task_packet",
     "candidate_return",
+}
+S09B_MATERIAL_CLOSURE_FIELDS = {
+    "control_digest_policy",
+    "global_material_coverage",
+    "unit_material_closure",
+    "material_access_manifest",
+    "material_read_obligations",
+    "deferred_control_ledger",
+    "section_specific_blockers",
 }
 S09A_REQUIRED_PHASE10_DIMENSIONS = {
     "s09a_target_unit_profile",
@@ -207,6 +223,10 @@ NEGATIVE_FIXTURES = {
     ROOT / "examples/materials/invalid-s09b-task-packet-assembly-candidate-content.yaml": "E_S09B_NO_CANDIDATE_CONTENT",
     ROOT / "examples/materials/invalid-s09b-task-packet-assembly-completion-overclaim.yaml": "E_S09B_NO_COMPLETION_OVERCLAIM",
     ROOT / "examples/materials/invalid-s09b-task-packet-assembly-missing-emitted-packet.yaml": "E_S09B_EMITTED_PACKET_REQUIRED",
+    ROOT / "examples/materials/invalid-s09b-task-packet-assembly-missing-material-closure.yaml": "E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED",
+}
+NEGATIVE_PACKET_FIXTURES = {
+    ROOT / "examples/packets/invalid-s09b-s10-missing-read-obligations.yaml": "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED",
 }
 
 
@@ -249,6 +269,12 @@ def _verify_fixtures() -> None:
             _fail("E_S09_NEGATIVE_FIXTURE", f"{path} should fail with {expected_code} but validated")
         if expected_code not in result.stdout:
             _fail("E_S09_NEGATIVE_FIXTURE", f"{path} should fail with {expected_code}; got:\n{result.stdout}")
+    for path, expected_code in NEGATIVE_PACKET_FIXTURES.items():
+        result = _run(VALIDATE_PACKET, path)
+        if result.returncode == 0:
+            _fail("E_S09_NEGATIVE_PACKET_FIXTURE", f"{path} should fail with {expected_code} but validated")
+        if expected_code not in result.stdout:
+            _fail("E_S09_NEGATIVE_PACKET_FIXTURE", f"{path} should fail with {expected_code}; got:\n{result.stdout}")
 
 
 def _verify_schema() -> None:
@@ -319,6 +345,9 @@ def _verify_s09b_packet() -> None:
     packet = _load_yaml(S09B_PACKET)
     if packet.get("stage_id") != "S10" or packet.get("stage_contract_ref") != "examples/stage-contracts/S10.stage-contract.json":
         _fail("E_S09_PACKET", "S09B emitted packet must target S10 with S10 stage contract")
+    missing_closure_modules = S09B_MATERIAL_CLOSURE_FIELDS - set(packet)
+    if missing_closure_modules:
+        _fail("E_S09_PACKET", f"S09B emitted packet missing material-closure modules {sorted(missing_closure_modules)}")
     forbidden = set(packet.get("forbidden_routes", [])) if isinstance(packet.get("forbidden_routes"), list) else set()
     required_extra = {"mark_manuscript_complete", "claim_submission_or_publication_readiness", "alter_unrelated_sections", "introduce_new_claims", "strengthen_claims_beyond_s04"}
     missing = required_extra - forbidden

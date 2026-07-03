@@ -479,6 +479,27 @@
     },
     "regression_scan_requirements": {
       "type": "object"
+    },
+    "control_digest_policy": {
+      "type": "object"
+    },
+    "global_material_coverage": {
+      "type": "object"
+    },
+    "unit_material_closure": {
+      "type": "object"
+    },
+    "material_access_manifest": {
+      "type": "object"
+    },
+    "material_read_obligations": {
+      "type": "object"
+    },
+    "deferred_control_ledger": {
+      "type": "object"
+    },
+    "section_specific_blockers": {
+      "type": "object"
     }
   },
   "allOf": [

@@ -1,5 +1,5 @@
 schema_version: ppg-task-packet/v0.1
-packet_id: phase10_s09b_s10_intro_callout_packet_v1
+packet_id: invalid_s09b_s10_missing_read_obligations
 status: planned
 stage_id: S10
 stage_contract_ref: examples/stage-contracts/S10.stage-contract.json
@@ -152,30 +152,7 @@ material_access_manifest:
     - object_context_bundle
     - surface_control_bundle
     - visual_formal_control_bundle
-material_read_obligations:
-  required_materials:
-    - examples/materials/phase10_s09a_rich_control_bundle.yaml
-    - examples/materials/phase10_s04_claim_admissibility.yaml
-    - examples/materials/phase10_s05_reader_spine.yaml
-    - examples/materials/phase10_s06_object_granularity.yaml
-    - examples/materials/phase10_s07_surface_control.yaml
-    - examples/materials/phase10_s08_visual_formal_plan.yaml
-  required_selectors_by_material:
-    examples/materials/phase10_s09a_rich_control_bundle.yaml:
-      - hard_constraints
-      - context_usage_instructions
-    examples/materials/phase10_s04_claim_admissibility.yaml:
-      - support_strength_map
-    examples/materials/phase10_s05_reader_spine.yaml:
-      - reader_spine
-    examples/materials/phase10_s06_object_granularity.yaml:
-      - object_cards
-    examples/materials/phase10_s07_surface_control.yaml:
-      - terminology_rules
-    examples/materials/phase10_s08_visual_formal_plan.yaml:
-      - figure_contracts
-  read_receipt_required: true
-  hydration_required_before_drafting: true
+material_read_obligations: {}
 deferred_control_ledger:
   controls:
     - control_id: alg-formal-method-details

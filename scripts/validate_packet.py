@@ -152,6 +152,13 @@ ALLOWED_PACKET_FIELDS = {
     "output_contract",
     "coverage_ledgers_required",
     "descriptive_not_prescriptive_controls",
+    "control_digest_policy",
+    "global_material_coverage",
+    "unit_material_closure",
+    "material_access_manifest",
+    "material_read_obligations",
+    "deferred_control_ledger",
+    "section_specific_blockers",
     "validators",
     "return_format",
     "single_writer_lock",
@@ -170,6 +177,15 @@ BOOT_REQUIRED_TERMS = (
     "allowed_write_paths",
     "missingmaterialreport",
 )
+S09B_TO_S10_CLOSURE_FIELDS = {
+    "control_digest_policy",
+    "global_material_coverage",
+    "unit_material_closure",
+    "material_access_manifest",
+    "material_read_obligations",
+    "deferred_control_ledger",
+    "section_specific_blockers",
+}
 
 
 def _is_non_empty_mapping(value: Any) -> bool:
@@ -326,6 +342,97 @@ def _validate_worker_boot_clause(data: dict[str, Any]) -> list[ValidationIssue]:
     return []
 
 
+def _requires_s09b_to_s10_closure(data: dict[str, Any]) -> bool:
+    packet_id = str(data.get("packet_id") or "").lower()
+    return (
+        data.get("stage_id") == "S10"
+        and data.get("task_kind") == "writing"
+        and ("s09b" in packet_id or bool(S09B_TO_S10_CLOSURE_FIELDS & set(data)))
+    )
+
+
+def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[ValidationIssue]:
+    if not _requires_s09b_to_s10_closure(data):
+        return []
+    errors: list[ValidationIssue] = []
+
+    digest_policy = data.get("control_digest_policy")
+    if not isinstance(digest_policy, dict):
+        errors.append(issue("E_S09B_CONTROL_DIGEST_POLICY_REQUIRED", "control_digest_policy is required for S09B-emitted S10 writing packets"))
+    else:
+        if digest_policy.get("status") != "non_authoritative_navigation_only":
+            errors.append(issue("E_S09B_CONTROL_DIGEST_POLICY_REQUIRED", "control_digest_policy.status must be non_authoritative_navigation_only"))
+        for key in ("may_not_be_cited_as_evidence", "may_not_replace_material_dereference"):
+            if digest_policy.get(key) is not True:
+                errors.append(issue("E_S09B_CONTROL_DIGEST_POLICY_REQUIRED", f"control_digest_policy.{key} must be true"))
+
+    coverage = data.get("global_material_coverage")
+    if not isinstance(coverage, dict):
+        errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", "global_material_coverage is required for S09B-emitted S10 writing packets"))
+    else:
+        if coverage.get("status") != "pass":
+            errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", "global_material_coverage.status must be pass"))
+        for key in ("claims_covered", "reader_questions_covered", "evidence_artifacts_covered", "visual_formal_needs_covered"):
+            if not is_non_empty_string_list(coverage.get(key)):
+                errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", f"global_material_coverage.{key} must be a non-empty list of strings"))
+        if coverage.get("blocks_s10_batch") is not False:
+            errors.append(issue("E_S09B_GLOBAL_COVERAGE_REQUIRED", "global_material_coverage.blocks_s10_batch must be false"))
+
+    closure = data.get("unit_material_closure")
+    if not isinstance(closure, dict):
+        errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure is required for S09B-emitted S10 writing packets"))
+    else:
+        if not is_non_empty_string(closure.get("target_unit_id")):
+            errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.target_unit_id must be non-empty"))
+        if closure.get("closure_status") != "complete":
+            errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", "unit_material_closure.closure_status must be complete"))
+        for key in ("must_dereference", "block_if_missing"):
+            if not is_non_empty_string_list(closure.get(key)):
+                errors.append(issue("E_S09B_UNIT_MATERIAL_CLOSURE_REQUIRED", f"unit_material_closure.{key} must be a non-empty list of strings"))
+
+    access = data.get("material_access_manifest")
+    if not isinstance(access, dict):
+        errors.append(issue("E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED", "material_access_manifest is required for S09B-emitted S10 writing packets"))
+    else:
+        if not is_non_empty_string(access.get("authority_root")):
+            errors.append(issue("E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED", "material_access_manifest.authority_root must be non-empty"))
+        for key in ("allowed_authority_status", "forbidden_status", "required_selectors"):
+            if not is_non_empty_string_list(access.get(key)):
+                errors.append(issue("E_S09B_MATERIAL_ACCESS_MANIFEST_REQUIRED", f"material_access_manifest.{key} must be a non-empty list of strings"))
+
+    obligations = data.get("material_read_obligations")
+    if not isinstance(obligations, dict):
+        errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations is required for S09B-emitted S10 writing packets"))
+    else:
+        if not is_non_empty_string_list(obligations.get("required_materials")):
+            errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_materials must be a non-empty list of strings"))
+        selectors = obligations.get("required_selectors_by_material")
+        if not isinstance(selectors, dict) or not selectors:
+            errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material must be a non-empty mapping"))
+        for key in ("read_receipt_required", "hydration_required_before_drafting"):
+            if obligations.get(key) is not True:
+                errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", f"material_read_obligations.{key} must be true"))
+
+    deferred = data.get("deferred_control_ledger")
+    if not isinstance(deferred, dict):
+        errors.append(issue("E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", "deferred_control_ledger is required for S09B-emitted S10 writing packets"))
+    elif not isinstance(deferred.get("blocking_unresolved_count"), int):
+        errors.append(issue("E_S09B_DEFERRED_CONTROL_LEDGER_REQUIRED", "deferred_control_ledger.blocking_unresolved_count must be an integer"))
+
+    blockers = data.get("section_specific_blockers")
+    if not isinstance(blockers, dict):
+        errors.append(issue("E_S09B_SECTION_BLOCKERS_REQUIRED", "section_specific_blockers is required for S09B-emitted S10 writing packets"))
+    else:
+        if not is_non_empty_string(blockers.get("section_type")):
+            errors.append(issue("E_S09B_SECTION_BLOCKERS_REQUIRED", "section_specific_blockers.section_type must be non-empty"))
+        if not is_non_empty_string_list(blockers.get("block_if_missing")):
+            errors.append(issue("E_S09B_SECTION_BLOCKERS_REQUIRED", "section_specific_blockers.block_if_missing must be a non-empty list of strings"))
+        if blockers.get("missing_material_policy") != "block_candidate_output":
+            errors.append(issue("E_S09B_SECTION_BLOCKERS_REQUIRED", "section_specific_blockers.missing_material_policy must be block_candidate_output"))
+
+    return errors
+
+
 def validate(data: Any) -> list[ValidationIssue]:
     errors = require_mapping_document(data)
     if errors:
@@ -454,6 +561,7 @@ def validate(data: Any) -> list[ValidationIssue]:
         errors.append(issue("E_TASK_OWNER_GATE_FORBIDDEN", "owner_gate_required must be false for strict worker packets"))
 
     errors.extend(_validate_worker_boot_clause(data))
+    errors.extend(_validate_s09b_to_s10_material_closure(data))
     errors.extend(lint_paper_facing_terms(data))
     return errors
 

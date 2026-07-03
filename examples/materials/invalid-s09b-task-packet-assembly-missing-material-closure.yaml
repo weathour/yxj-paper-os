@@ -1,5 +1,5 @@
 schema_version: ppg-material/v0.1
-material_id: phase10_s09b_task_packet_assembly
+material_id: invalid_s09b_task_packet_assembly_missing_material_closure
 version: v1
 status: candidate
 material_type: S09BTaskPacketAssembly
@@ -7,8 +7,8 @@ created_at: "2026-07-01T00:00:00Z"
 created_by: s09b_task_packet_assembly
 source_inputs:
   - phase10_s09a_rich_control_bundle
-artifact_path: examples/materials/phase10_s09b_task_packet_assembly.yaml
-summary: S09B deterministic assembly record for a bounded S10 target-unit TaskPacket.
+artifact_path: examples/materials/invalid-s09b-task-packet-assembly-missing-material-closure.yaml
+summary: Invalid S09B task packet assembly fixture with incomplete unit material closure.
 payload:
   schema_version: ppg-s09b-task-packet-assembly/v0.1
   stage_id: S09B
@@ -63,23 +63,11 @@ payload:
     blocks_s10_batch: false
   unit_material_closure:
     target_unit_id: unit-intro-mechanism-callout
-    closure_status: complete
+    closure_status: incomplete
     must_dereference:
       - examples/materials/phase10_s09a_rich_control_bundle.yaml#hard_constraints
-      - examples/materials/phase10_s04_claim_admissibility.yaml#support_strength_map
-      - examples/materials/phase10_s05_reader_spine.yaml#questions
-      - examples/materials/phase10_s06_object_granularity.yaml#object_cards
-      - examples/materials/phase10_s07_surface_control.yaml#terminology_rules
-      - examples/materials/phase10_s08_visual_formal_plan.yaml#figure_contracts
-    may_read_background:
-      - examples/materials/phase10_s09a_rich_control_bundle.yaml#global_orientation
-    forbidden_materials:
-      - stale_or_archive_material_without_repromotion
-      - owner_gated_private_decisions
     block_if_missing:
       - S04 claim/evidence boundary
-      - S05 reader question
-      - S07 internal-id ban list
   material_access_manifest:
     authority_root: examples/materials/phase10_s09a_rich_control_bundle.yaml
     allowed_authority_status:
