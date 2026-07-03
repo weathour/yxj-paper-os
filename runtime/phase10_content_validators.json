@@ -955,6 +955,11 @@
           "dimension_id": "s09a_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S09A evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s09a_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S09A evidence that producer inputs cover all target-unit controls, audit inherits those inputs, downstream packet requirements are concrete, and missing controls route to nearest responsible stages"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -982,7 +987,8 @@
         "s09a_no_task_packet_compilation",
         "s09a_no_final_content",
         "s09a_no_completion_overclaim",
-        "s09a_no_bare_s09"
+        "s09a_no_bare_s09",
+        "s09a_stage_quality_contract"
       ],
       "stage_id": "S09A",
       "stage_name": "Control-material selection",
@@ -1035,6 +1041,11 @@
           "dimension_id": "s09b_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S09B evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s09b_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S09B evidence that TaskPacket assembly is lossless, material closure/read obligations are exact, audit inherits producer inputs, and generic prompt compression is rejected"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1069,7 +1080,8 @@
         "s09b_emitted_packet_validates",
         "s09b_no_candidate_content",
         "s09b_no_completion_overclaim",
-        "s09b_no_bare_s09"
+        "s09b_no_bare_s09",
+        "s09b_stage_quality_contract"
       ],
       "stage_id": "S09B",
       "stage_name": "Per-unit task packet assembly",

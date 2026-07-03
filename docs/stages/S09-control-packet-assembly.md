@@ -319,3 +319,18 @@ Required semantics / 必须语义：
 - `section_specific_blockers` makes section-critical omissions blocking. For example, an evaluation packet without exact metrics/result artifact locators must return a MissingMaterialReport rather than thin prose.
 
 The rejected alias `must_read_material_closure` must not be introduced; use `unit_material_closure` plus `material_read_obligations`.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S09A and S09B are the anti-compression hinge of the whole runtime. S09A must read all target-unit controls from S04-S08 plus the active profile and return a rich, priority-ordered, conflict-resolved control bundle. S09B must preserve that bundle losslessly in a validate_packet-clean TaskPacket, including `unit_material_closure`, `material_access_manifest`, `material_read_obligations`, allowed paths, forbidden routes, return format, and single-writer lock. A generic “write this section” packet is a blocking failure.
+
+**中文。** S09A/S09B 是整个运行时防止信息压缩的枢纽。S09A 必须读取目标单元所需的 S04-S08 控制与 active profile，并返回丰富、有优先级、已消解冲突的控制束。S09B 必须把该控制束无损保留到能通过 `validate_packet` 的 TaskPacket 中，包括 `unit_material_closure`、`material_access_manifest`、`material_read_obligations`、allowed paths、forbidden routes、return format 与 single-writer lock。泛化的“写一下本节”任务包属于 blocking failure。
+
+Stage-quality focus / 阶段质量焦点：`S09A selected-controls completeness` and `S09B lossless packet assembly`.
+
+Required extraction examples / 必须抽取示例：hard_constraints, control_priority_map, conflict_resolution_log, context_usage_instructions, downstream_packet_requirements, packet_identity, selected_controls_lossless_projection, unit_material_closure, material_access_manifest, material_read_obligations.
+
+Downstream design force / 下游设计力：S10/S11 receive concrete packet obligations and must return read receipts; S12/S13/S16 and RenderedManuscriptAuditGate can trace generated units back to exact S09A/S09B controls.
+
+If these obligations are absent or too weak, route the defect to `S09A` for control selection or `S09B` for packet compilation; missing upstream substance routes to the concrete source stage, never bare `S09`.
+

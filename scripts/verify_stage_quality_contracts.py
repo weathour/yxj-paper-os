@@ -46,6 +46,11 @@ REQUIRED_CONTRACT_KEYS = [
     "anti_over_strictness_boundary",
 ]
 SEVERITIES = ["BLOCKING", "MAJOR", "MINOR", "WATCH"]
+REQUIRED_STAGE_CONTRACT_IDS = ["S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B"]
+STAGE_REQUIRED_TERMS = {
+    "S09A": ["hard_constraints", "control_priority_map", "conflict_resolution_log", "downstream_packet_requirements"],
+    "S09B": ["selected_controls", "unit_material_closure", "material_access_manifest", "material_read_obligations"],
+}
 
 
 def fail(message: str) -> NoReturn:
@@ -94,11 +99,16 @@ def validate_contract(obj: dict[str, Any]) -> list[str]:
     severity = obj.get("failure_severity_policy")
     if not isinstance(severity, dict) or any(not isinstance(severity.get(level), str) or not severity[level].strip() for level in SEVERITIES):
         errors.append("E_STAGE_QUALITY_SEVERITY")
-    text = json.dumps(obj, ensure_ascii=False)
+    text_obj = {key: value for key, value in obj.items() if key != "expected_failure_code"}
+    text = json.dumps(text_obj, ensure_ascii=False)
     if re.search(r"All\s+yxj-paper-os\s+papers\s+must\s+use\s+KBS|KBS\s+as\s+the\s+default\s+profile", text, re.I):
         errors.append("E_STAGE_QUALITY_GLOBAL_PROFILE_DEFAULT")
     if re.search(r"Every\s+WATCH.*Every\s+MINOR.*block|WATCH.*MINOR.*force\s+a\s+full\s+rerun|MINOR.*WATCH.*must\s+block", text, re.I | re.S):
         errors.append("E_STAGE_QUALITY_OVERSTRICT_MINOR_WATCH")
+    stage_id = str(obj.get("stage_id", ""))
+    for term in STAGE_REQUIRED_TERMS.get(stage_id, []):
+        if term not in text:
+            errors.append(f"E_STAGE_QUALITY_STAGE_TERMS:{stage_id}:{term}")
     return errors
 
 
@@ -122,7 +132,8 @@ def main() -> None:
         if errors:
             fail(f"{positive_path.name} positive fixture failed: {errors}")
 
-    for contract_path in sorted((ROOT / "examples" / "stage-contracts").glob("S0[0-8].stage-contract.json")):
+    for sid in REQUIRED_STAGE_CONTRACT_IDS:
+        contract_path = ROOT / "examples" / "stage-contracts" / f"{sid}.stage-contract.json"
         data = load_json(contract_path)
         sqc = data.get("stage_quality_contract")
         if not isinstance(sqc, dict):

@@ -597,7 +597,8 @@
         "S09A_coverage_ledger",
         "S09A_downstream_packet_requirements",
         "S09A_no_bare_S09",
-        "S09A_no_task_packet_or_final_content"
+        "S09A_no_task_packet_or_final_content",
+        "S09A_stage_quality_contract"
       ],
       "backflow_targets": [
         "S04",
@@ -610,7 +611,8 @@
       "activation_policy": "activate before per-unit packet assembly",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S09A.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S09A.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S09A.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S09B",
@@ -671,7 +673,8 @@
         "S09B_missing_material_report",
         "S09B_authority_boundary",
         "S09B_emitted_packet_validates",
-        "S09B_no_bare_S09"
+        "S09B_no_bare_S09",
+        "S09B_stage_quality_contract"
       ],
       "backflow_targets": [
         "S09A",
@@ -682,7 +685,8 @@
       "activation_policy": "activate when a worker needs a section/unit packet",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S09B.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S09B.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S09B.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S10",
