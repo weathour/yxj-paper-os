@@ -759,7 +759,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "external action boundary",
                 "no worker semantic change",
                 "downstream stale/backflow effects",
-                "no completion or submission overclaim"
+                "no completion or submission overclaim",
+                "S00_stage_quality_contract"
             ],
             "backflow_targets": [
                 "owner"
@@ -992,7 +993,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S01_freshness_hash_report",
                 "S01_no_claim_admissibility",
                 "S01_unresolved_locator_register",
-                "S01_no_completion_overclaim"
+                "S01_no_completion_overclaim",
+                "S01_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S00",
@@ -1277,7 +1279,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S02_template_copying_boundary",
                 "S02_unresolved_backflow_register",
                 "S02_downstream_handoff_coverage",
-                "S02_no_claim_or_completion_freeze"
+                "S02_no_claim_or_completion_freeze",
+                "S02_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S01",
@@ -1529,7 +1532,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S03_reviewer_attack_map",
                 "S03_s04_handoff_coverage",
                 "S03_no_claim_admissibility_or_final_wording",
-                "S03_no_completion_overclaim"
+                "S03_no_completion_overclaim",
+                "S03_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S00",
@@ -1793,7 +1797,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S04_result_package_boundary",
                 "S04_claim_transformation_log",
                 "S04_downstream_handoff_coverage",
-                "S04_no_final_prose_or_completion_overclaim"
+                "S04_no_final_prose_or_completion_overclaim",
+                "S04_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S01",
@@ -2102,7 +2107,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S05_s06_s07_s08_handoff_coverage",
                 "S05_coherence_overpromise_audit",
                 "S05_no_new_claims_or_final_prose",
-                "S05_no_completion_overclaim"
+                "S05_no_completion_overclaim",
+                "S05_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S00",
@@ -2374,7 +2380,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S06_unresolved_object_report",
                 "S06_downstream_handoff",
                 "S06_no_new_claims_or_final_prose",
-                "S06_no_completion_overclaim"
+                "S06_no_completion_overclaim",
+                "S06_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S05",
@@ -2642,7 +2649,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S07_unresolved_surface_control_report",
                 "S07_downstream_handoff",
                 "S07_no_new_claims_or_claim_strengthening",
-                "S07_no_final_prose_or_completion_overclaim"
+                "S07_no_final_prose_or_completion_overclaim",
+                "S07_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S06",
@@ -2906,7 +2914,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S08_coverage_ledger",
                 "S08_unresolved_visual_object_report",
                 "S08_downstream_handoff",
-                "S08_no_new_claims_or_completion_overclaim"
+                "S08_no_new_claims_or_completion_overclaim",
+                "S08_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S05",
@@ -3191,7 +3200,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S09A_coverage_ledger",
                 "S09A_downstream_packet_requirements",
                 "S09A_no_bare_S09",
-                "S09A_no_task_packet_or_final_content"
+                "S09A_no_task_packet_or_final_content",
+                "S09A_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S04",
@@ -3512,7 +3522,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S09B_missing_material_report",
                 "S09B_authority_boundary",
                 "S09B_emitted_packet_validates",
-                "S09B_no_bare_S09"
+                "S09B_no_bare_S09",
+                "S09B_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S09A",
@@ -3802,7 +3813,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S10_candidate_return_complete",
                 "S10_writer_evidence",
                 "S10_verifier_evidence",
-                "S10_authority_boundary"
+                "S10_authority_boundary",
+                "S10_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S09B",
@@ -4096,7 +4108,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S11_nature_figure_direct_call_mapping",
                 "S11_no_cross_backend_rendering",
                 "S11_no_mock_data_for_evidential_figure",
-                "S11_exemplar_boundary_and_similarity_report"
+                "S11_exemplar_boundary_and_similarity_report",
+                "S11_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S08",
@@ -4375,7 +4388,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S12_no_pdf_export",
                 "S12_no_final_claim",
                 "S12_no_untracked_rewrite",
-                "S12_candidate_return_complete"
+                "S12_candidate_return_complete",
+                "S12_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S04",
@@ -4674,7 +4688,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S13_no_uncontrolled_rewrite",
                 "S13_no_pdf_primary_review",
                 "S13_candidate_return_complete",
-                "S13_verifier_evidence"
+                "S13_verifier_evidence",
+                "S13_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S14"
@@ -4934,7 +4949,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S14_owner_gate_status",
                 "S14_task_packet_compile",
                 "S14_no_execution",
-                "S14_no_completion_claim"
+                "S14_no_completion_claim",
+                "S14_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S04",
@@ -5206,7 +5222,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S15_no_new_high_severity",
                 "S15_overlay_clause_preserved",
                 "S15_candidate_return_schema",
-                "S15_no_completion_claim"
+                "S15_no_completion_claim",
+                "S15_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S09B",
@@ -5485,7 +5502,8 @@ window.PPG_RUNTIME_GRAPH = (() => {
                 "S16_compiled_pdf_target_gate",
                 "S16_delivery_target_binding",
                 "S16_delivery_target_declared",
-                "S16_no_submission_ready_overclaim"
+                "S16_no_submission_ready_overclaim",
+                "S16_stage_quality_contract"
             ],
             "backflow_targets": [
                 "S12",
