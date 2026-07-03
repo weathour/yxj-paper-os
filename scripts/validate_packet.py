@@ -277,7 +277,13 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     s11_phase10_projection = s11_direct_call and packet_id.endswith(".phase10_run")
     s11_phase12_projection = s11_direct_call and packet_id.endswith(".phase12_run")
     s11_runtime_prefixes = (
-        ("runs/sample-paper-workspace/readiness-dry-run/",) if s11_phase10_projection else ()
+        (
+            "runs/sample-paper-workspace/readiness-dry-run/",
+            "runs/.phase10-negative-",
+            "runs/.phase10-negative.",
+        )
+        if s11_phase10_projection
+        else ()
     ) + (
         (
             "runs/sample-paper-workspace/formal-full-flow-runtime-test/",
