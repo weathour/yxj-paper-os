@@ -69,3 +69,14 @@ A bibliography heading alone does not prove citation use. A text mention of a fi
 | Post-writeback rendered-surface evidence missing | S12, then S16 |
 
 These routes are part of the target-global delivery contract. A controller may aggregate multiple routes into one repair plan, but it must not report the compiled PDF target as achieved while any route remains unresolved.
+
+## RenderedManuscriptAuditGate handoff
+
+S16 export evidence is input to `RenderedManuscriptAuditGate`; it is not itself a manuscript-quality pass. For compiled targets, run:
+
+```bash
+python3 scripts/verify_rendered_manuscript_audit_gate.py
+```
+
+The gate consumes the S16 export package, PDF/text/hash refs, source-writeback evidence, and post-writeback validation before deciding whether rendered manuscript surface defects route to S14/S15/S12/S16 or remain MINOR/WATCH owner-visible risks.
+

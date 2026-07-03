@@ -1,0 +1,68 @@
+{
+  "schema_version": "ppg-rendered-manuscript-audit-gate/v0.1",
+  "gate_id": "RenderedManuscriptAuditGate",
+  "target_binding": {
+    "delivery_target_kind": "compiled_initial_draft",
+    "active_target_ref": "owner-target://initial-draft-pdf",
+    "source": "S16.delivery_target",
+    "compiled_target": true
+  },
+  "input_refs": {
+    "s16_export_handoff_package_ref": "examples/materials/phase10_s16_export_handoff_package.json",
+    "output_pdf_ref": "build/manuscript.pdf",
+    "rendered_text_ref": "build/manuscript.pdf.txt",
+    "file_hash_manifest_ref": "build/file-hash-manifest.json",
+    "source_writeback_evidence_ref": "examples/materials/latex_writeback_apply_report.pass.json",
+    "post_writeback_validation_ref": "examples/materials/phase10_s12_integration_report.json"
+  },
+  "rendered_inputs": {
+    "pdf_sha256": "sha256:pdf-pass",
+    "rendered_text_sha256": "sha256:text-pass",
+    "template_only_detected": false,
+    "internal_lexicon_detected": false,
+    "unresolved_risk_leakage_detected": false,
+    "rendered_text_excerpt": "Introduction text with [1] style citation anchor, method section, results, references, and figure callout."
+  },
+  "quality_checks": [
+    {
+      "check_id": "local_copy_polish",
+      "status": "risk",
+      "severity": "MINOR",
+      "evidence_ref": "audit/rendered-copy-risk.md",
+      "nearest_responsible_stage": "S10",
+      "finding_route": "local S15 repair if owner requests"
+    },
+    {
+      "check_id": "reviewer_preference_watch",
+      "status": "risk",
+      "severity": "WATCH",
+      "evidence_ref": "audit/watch-list.md",
+      "nearest_responsible_stage": "S13",
+      "finding_route": "risk ledger only"
+    }
+  ],
+  "severity_summary": {
+    "BLOCKING": 0,
+    "MAJOR": 0,
+    "MINOR": 2,
+    "WATCH": 3
+  },
+  "decision": {
+    "status": "blocked",
+    "rationale": "Blocked due only to MINOR/WATCH polish and preference items.",
+    "owner_gate_required": true,
+    "submission_ready_claimed": false
+  },
+  "handoff_boundary": {
+    "s16_export_is_input_not_quality_gate": true,
+    "submission_owner_gated": true,
+    "publication_claim_forbidden": true
+  },
+  "feedback_route": [
+    "rendered content defects -> S14 nearest-stage routing",
+    "export/hash evidence defects -> S16 rerun",
+    "semantic repair -> S14/S15 then S12/S13/S16",
+    "submission/publication decision -> owner"
+  ],
+  "expected_failure_code": "E_RENDERED_GATE_OVERSTRICT_MINOR_WATCH"
+}

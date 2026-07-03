@@ -678,3 +678,18 @@ E_S10_BLOCKED_OUTPUT_REQUIRED
 ```
 
 Final acceptance should run positive focused verifiers and negative fixtures for these codes; a positive-only green run is not sufficient for milestone acceptance.
+
+## RenderedManuscriptAuditGate
+
+Rendered manuscript quality is checked after S16 export/handoff evidence exists. S16 does not substitute for this gate. Positive and hostile fixtures live under `examples/delivery/`; run:
+
+```bash
+python3 scripts/verify_rendered_manuscript_audit_gate.py
+```
+
+Expected aggregate signal:
+
+```text
+PPG_RENDERED_MANUSCRIPT_AUDIT_GATE_OK
+```
+

@@ -287,3 +287,11 @@ For compiled targets, S16 consumes a rendered-text sidecar generated from the sa
 
 Stage-quality focus / 阶段质量焦点：delivery target binding, readiness-state separation, live/projection evidence boundary, repository hygiene, feedback routing, and no manuscript/submission overclaim.
 
+## RenderedManuscriptAuditGate linkage
+
+S16 supplies export/build/render/hash/repository evidence to `RenderedManuscriptAuditGate`, but S16 must not claim manuscript-quality acceptance. The rendered gate consumes S16 refs and decides whether rendered manuscript surface failures route to S14/S15/S12/S16 or remain MINOR/WATCH risks. Verify the linked gate with:
+
+```bash
+python3 scripts/verify_rendered_manuscript_audit_gate.py
+```
+
