@@ -240,3 +240,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S08 在真正画图前决定哪些内容应该成为图、表、公式、算法或补充材料。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S08 decides what should become a figure, table, formula, algorithm, or supplement before anyone draws it. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must convert upstream design into downstream constraints rather than returning advisory prose. Producer packets should include all relevant owner, profile, claim, reader, object, rhetoric, and visual materials needed for this stage. Audit/verifier packets inherit those inputs and check whether the stage output gives later stages enough design force to execute without guessing.
+
+**中文。** 本阶段必须把上游设计转成下游约束，而不是只产出建议性文本。生产包应给足本阶段需要的 owner/profile/claim/reader/object/rhetoric/visual 材料；审核包继承这些输入，并检查产物是否真正给下游提供了可执行设计力。
+
+Stage-quality focus / 阶段质量焦点：`visual formal plan and density gate`.
+
+Required extraction examples / 必须抽取示例：visual_needs, figure_contracts, table_contracts, formal_object_contracts, source_routes, placement_and_density_budget.
+
+Downstream design force / 下游设计力：S09B/S10 receive callout obligations; S11 receives artifact contracts; S12/S16/rendered gate verify actual figure/table realization.
+
+If these obligations are absent or too weak, the failure routes to `S08` or its nearest upstream source rather than being hidden as a later S10/S12/S16 defect.
+

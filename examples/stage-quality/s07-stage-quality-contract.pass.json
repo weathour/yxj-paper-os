@@ -1,0 +1,80 @@
+{
+  "schema_version": "ppg-stage-quality-contract/v0.1",
+  "stage_id": "S07",
+  "active_profile_source": "S02 language profile plus S04/S05/S06 controls",
+  "must_read_materials": [
+    {
+      "material_ref": "S02_research_dossier",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "template_language_profile",
+        "citation_patterns"
+      ]
+    },
+    {
+      "material_ref": "S04_claim_admissibility",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "allowed_wording",
+        "forbidden_wording"
+      ]
+    },
+    {
+      "material_ref": "S06_object_granularity",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "terminology_candidates",
+        "object_names"
+      ]
+    }
+  ],
+  "required_extractions": [
+    "terminology_register",
+    "rhetorical_move_matrix",
+    "allowed_forbidden_surface_rules",
+    "anti_slop_controls",
+    "internal_residue_bans"
+  ],
+  "producer_return_obligations": [
+    "surface control profile",
+    "terminology rules",
+    "paragraph move obligations",
+    "S10/S12/S13 scans",
+    "obligation coverage ledger",
+    "missing material report when blocked"
+  ],
+  "audit_verifier_obligations": {
+    "inherits_all_producer_inputs": true,
+    "checks": [
+      "terminology first-use and consistency are enforceable",
+      "rhetorical moves support reader spine",
+      "forbidden/internal workflow residue is blocked",
+      "language profile is guidance not copied template",
+      "downstream usefulness",
+      "nearest responsible stage routing"
+    ]
+  },
+  "downstream_design_force": [
+    "S10 writes with clear moves and terminology",
+    "S12/S16 scan internal residue",
+    "Rendered gate checks language and terminology quality"
+  ],
+  "failure_severity_policy": {
+    "BLOCKING": "forbidden claim wording or internal workflow residue permitted",
+    "MAJOR": "language/move obligations too vague for high-quality manuscript",
+    "MINOR": "local trace, label, or wording defect that does not alter authority",
+    "WATCH": "potential reviewer risk tracked without forced full rerun"
+  },
+  "nearest_responsible_stage_policy": "S07 for terminology/rhetoric/surface defects",
+  "affected_downstream_nodes": [
+    "S08",
+    "S09B",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S16",
+    "RenderedManuscriptAuditGate"
+  ],
+  "anti_over_strictness_boundary": "MINOR and WATCH findings enter local revision or risk ledger; they do not force full downstream rerun by default."
+}

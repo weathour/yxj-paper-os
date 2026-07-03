@@ -223,3 +223,18 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S07 控制论文“怎么说”，但不把语言变成机械模板。它把 S02 的语言画像转成灵活约束，而不是句子配方。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S07 controls how the paper may sound without making it mechanically templated. It turns S02 language profiles into flexible constraints, not rigid sentence recipes. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** This stage must convert upstream design into downstream constraints rather than returning advisory prose. Producer packets should include all relevant owner, profile, claim, reader, object, rhetoric, and visual materials needed for this stage. Audit/verifier packets inherit those inputs and check whether the stage output gives later stages enough design force to execute without guessing.
+
+**中文。** 本阶段必须把上游设计转成下游约束，而不是只产出建议性文本。生产包应给足本阶段需要的 owner/profile/claim/reader/object/rhetoric/visual 材料；审核包继承这些输入，并检查产物是否真正给下游提供了可执行设计力。
+
+Stage-quality focus / 阶段质量焦点：`rhetoric terminology and surface-control gate`.
+
+Required extraction examples / 必须抽取示例：terminology_register, rhetorical_move_matrix, allowed_forbidden_surface_rules, anti_slop_controls, internal_residue_bans.
+
+Downstream design force / 下游设计力：S10 writes with clear moves and terminology; S12/S16 scan internal residue; Rendered gate checks language and terminology quality.
+
+If these obligations are absent or too weak, the failure routes to `S07` or its nearest upstream source rather than being hidden as a later S10/S12/S16 defect.
+

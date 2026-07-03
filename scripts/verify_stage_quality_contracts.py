@@ -122,7 +122,7 @@ def main() -> None:
         if errors:
             fail(f"{positive_path.name} positive fixture failed: {errors}")
 
-    for contract_path in sorted((ROOT / "examples" / "stage-contracts").glob("S0[0-4].stage-contract.json")):
+    for contract_path in sorted((ROOT / "examples" / "stage-contracts").glob("S0[0-8].stage-contract.json")):
         data = load_json(contract_path)
         sqc = data.get("stage_quality_contract")
         if not isinstance(sqc, dict):

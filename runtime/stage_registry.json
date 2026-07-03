@@ -349,7 +349,8 @@
         "S05_s06_s07_s08_handoff_coverage",
         "S05_coherence_overpromise_audit",
         "S05_no_new_claims_or_final_prose",
-        "S05_no_completion_overclaim"
+        "S05_no_completion_overclaim",
+        "S05_stage_quality_contract"
       ],
       "backflow_targets": [
         "S00",
@@ -360,7 +361,8 @@
       "activation_policy": "activate for new section or major rewrite",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S05.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S05.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S05.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S06",
@@ -410,7 +412,8 @@
         "S06_unresolved_object_report",
         "S06_downstream_handoff",
         "S06_no_new_claims_or_final_prose",
-        "S06_no_completion_overclaim"
+        "S06_no_completion_overclaim",
+        "S06_stage_quality_contract"
       ],
       "backflow_targets": [
         "S05",
@@ -420,7 +423,8 @@
       "activation_policy": "activate for full paper route or when object repetition risk exists",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S06.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S06.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S06.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S07",
@@ -466,7 +470,8 @@
         "S07_unresolved_surface_control_report",
         "S07_downstream_handoff",
         "S07_no_new_claims_or_claim_strengthening",
-        "S07_no_final_prose_or_completion_overclaim"
+        "S07_no_final_prose_or_completion_overclaim",
+        "S07_stage_quality_contract"
       ],
       "backflow_targets": [
         "S06",
@@ -477,7 +482,8 @@
       "activation_policy": "activate before writing execution",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S07.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S07.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S07.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S08",
@@ -528,7 +534,8 @@
         "S08_coverage_ledger",
         "S08_unresolved_visual_object_report",
         "S08_downstream_handoff",
-        "S08_no_new_claims_or_completion_overclaim"
+        "S08_no_new_claims_or_completion_overclaim",
+        "S08_stage_quality_contract"
       ],
       "backflow_targets": [
         "S05",
@@ -539,7 +546,8 @@
       "activation_policy": "activate before any figure/table/algorithm/formula becomes paper-facing or when S05/S06/S04 imply a visual/formal object need",
       "coverage_status": "planned_with_worker_packet",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S08.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S08.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S08.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S09A",

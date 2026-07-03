@@ -485,6 +485,11 @@
           "dimension_id": "s05_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S05 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s05_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S05 evidence that rich upstream design is converted into downstream obligations, audit inherits producer inputs, and weak design-force failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -511,7 +516,8 @@
         "s05_coherence_overpromise_audit",
         "s05_no_new_claims",
         "s05_no_final_prose",
-        "s05_no_completion_overclaim"
+        "s05_no_completion_overclaim",
+        "s05_stage_quality_contract"
       ],
       "stage_id": "S05",
       "stage_name": "Paper spine and reader-question synthesis",
@@ -604,6 +610,11 @@
           "dimension_id": "s06_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S06 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s06_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S06 evidence that rich upstream design is converted into downstream obligations, audit inherits producer inputs, and weak design-force failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -633,7 +644,8 @@
         "s06_downstream_handoff_coverage",
         "s06_no_new_claims",
         "s06_no_final_prose",
-        "s06_no_completion_overclaim"
+        "s06_no_completion_overclaim",
+        "s06_stage_quality_contract"
       ],
       "stage_id": "S06",
       "stage_name": "Object representation and granularity design",
@@ -711,6 +723,11 @@
           "dimension_id": "s07_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S07 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s07_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S07 evidence that rich upstream design is converted into downstream obligations, audit inherits producer inputs, and weak design-force failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -740,7 +757,8 @@
         "s07_no_final_prose",
         "s07_no_completion_overclaim",
         "s07_no_rigid_language_template",
-        "s07_no_internal_id_leakage"
+        "s07_no_internal_id_leakage",
+        "s07_stage_quality_contract"
       ],
       "stage_id": "S07",
       "stage_name": "Rhetoric terminology and surface-control synthesis",
@@ -838,6 +856,11 @@
           "dimension_id": "s08_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S08 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s08_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S08 evidence that rich upstream design is converted into downstream obligations, audit inherits producer inputs, and weak design-force failures route to nearest responsible stage"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -873,7 +896,8 @@
         "s08_no_final_figures",
         "s08_no_final_captions",
         "s08_no_schematic_as_empirical_evidence",
-        "s08_no_completion_overclaim"
+        "s08_no_completion_overclaim",
+        "s08_stage_quality_contract"
       ],
       "stage_id": "S08",
       "stage_name": "Visual and formal object planning",
