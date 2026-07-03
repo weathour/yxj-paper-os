@@ -231,4 +231,3 @@ For compiled PDF targets, an S14 plan must not stop at “rerun S16”. It shoul
 **中文。** S14 是防止全局重写的路由与计划门。它必须读取每个 accepted finding、validator report、affected graph slice 和 owner gate policy，然后产出 `finding_intake_ledger`、`finding_normalization_table`、`nearest_responsible_stage_map`、局部 `repair_scope_plan`、protected unrelated nodes、repair task packets、response action map、owner gate report 和 validation plan。S14 不执行修复。
 
 Stage-quality focus / 阶段质量焦点：nearest-responsible-stage routing, bounded repair locality, owner-gate preservation, and no bare S09/global rewrite.
-

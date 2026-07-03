@@ -333,4 +333,3 @@ Required extraction examples / 必须抽取示例：hard_constraints, control_pr
 Downstream design force / 下游设计力：S10/S11 receive concrete packet obligations and must return read receipts; S12/S13/S16 and RenderedManuscriptAuditGate can trace generated units back to exact S09A/S09B controls.
 
 If these obligations are absent or too weak, route the defect to `S09A` for control selection or `S09B` for packet compilation; missing upstream substance routes to the concrete source stage, never bare `S09`.
-

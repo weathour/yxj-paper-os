@@ -220,4 +220,3 @@ Required extraction examples / 必须抽取示例：supported_contribution_optio
 Downstream design force / 下游设计力：S04 receives claim candidates and forbidden options; S05/S07/S13 receive reviewer attack obligations; S10 introduction/discussion depth is grounded.
 
 Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
-

@@ -230,4 +230,3 @@ Required extraction examples / 必须抽取示例：atomic_claim_register, suppo
 Downstream design force / 下游设计力：S10 can develop claims deeply without strengthening them; S11 captions preserve claim boundaries; S13/rendered gate can trace claim/evidence failures.
 
 Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
-

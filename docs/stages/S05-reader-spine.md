@@ -227,4 +227,3 @@ Required extraction examples / 必须抽取示例：reader_questions, section_jo
 Downstream design force / 下游设计力：S10 receives paragraph-depth obligations; S12 checks promise/payoff; S13 can attack unresolved reader questions.
 
 If these obligations are absent or too weak, the failure routes to `S05` or its nearest upstream source rather than being hidden as a later S10/S12/S16 defect.
-

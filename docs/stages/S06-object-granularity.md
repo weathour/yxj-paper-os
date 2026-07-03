@@ -239,4 +239,3 @@ Required extraction examples / 必须抽取示例：object_cards, variable_cards
 Downstream design force / 下游设计力：S10 method/evaluation must define objects and variables; S11 figures/tables know objects and relations; S12 checks object consistency.
 
 If these obligations are absent or too weak, the failure routes to `S06` or its nearest upstream source rather than being hidden as a later S10/S12/S16 defect.
-

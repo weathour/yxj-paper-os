@@ -294,4 +294,3 @@ S16 supplies export/build/render/hash/repository evidence to `RenderedManuscript
 ```bash
 python3 scripts/verify_rendered_manuscript_audit_gate.py
 ```
-

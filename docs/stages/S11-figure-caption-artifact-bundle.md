@@ -257,4 +257,3 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 Stage-quality focus / 阶段质量焦点：`S08/S09B/S10/LaTeX-slot input closure`, `proof-role preservation`, and `renderable artifact/caption traceability`.
 
 Downstream design force / 下游设计力：S12/S13/S16/RenderedManuscriptAuditGate can verify rendered figure/caption presence, references, source-data meaning, and caption-claim boundaries from S11 traces instead of re-inferring them from a PDF.
-

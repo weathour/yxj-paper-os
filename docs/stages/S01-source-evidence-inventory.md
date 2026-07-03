@@ -224,4 +224,3 @@ Required extraction examples / 必须抽取示例：source_locator_register, cit
 Downstream design force / 下游设计力：S02 can compute profile statistics; S04 can bind claims to evidence/citations; S08/S11 can bind figures to source data.
 
 Blocking or major failures must name the nearest responsible stage and affected downstream nodes instead of defaulting to whole-paper rewrite. MINOR/WATCH findings do not force a full downstream rerun by default.
-

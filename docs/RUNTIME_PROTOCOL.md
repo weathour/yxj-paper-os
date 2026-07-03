@@ -613,4 +613,3 @@ After S16 creates a human-readable export/handoff package, the controller may ru
 ```bash
 python3 scripts/verify_rendered_manuscript_audit_gate.py
 ```
-

@@ -237,4 +237,3 @@ Required extraction examples / 必须抽取示例：terminology_register, rhetor
 Downstream design force / 下游设计力：S10 writes with clear moves and terminology; S12/S16 scan internal residue; Rendered gate checks language and terminology quality.
 
 If these obligations are absent or too weak, the failure routes to `S07` or its nearest upstream source rather than being hidden as a later S10/S12/S16 defect.
-

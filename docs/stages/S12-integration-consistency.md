@@ -240,4 +240,3 @@ If S16 reports `E_S16_POST_WRITEBACK_VALIDATION_REQUIRED` or semantic PDF gaps, 
 **中文。** S12 必须集成结构化 S10/S11 候选返回，而不是拼贴正文。Producer 包应包含完整 candidate modules、material read receipts、claim/caption/source traces、上游控制和 section move plan。返回必须包含 `module_inventory`、`assembly_manifest`、`integrated_manuscript_candidate`、`trace_index`、一致性审计、`integration_findings`、`backflow_queue` 和 CandidateArtifactReturn。S12 只达到 review-ready，不能导出 PDF、声称最终就绪或执行未追踪改写。
 
 Stage-quality focus / 阶段质量焦点：structured integration, trace-index closure, and no export/final/rewrite overclaim.
-

@@ -254,4 +254,3 @@ Required extraction examples / 必须抽取示例：visual_needs, figure_contrac
 Downstream design force / 下游设计力：S09B/S10 receive callout obligations; S11 receives artifact contracts; S12/S16/rendered gate verify actual figure/table realization.
 
 If these obligations are absent or too weak, the failure routes to `S08` or its nearest upstream source rather than being hidden as a later S10/S12/S16 defect.
-

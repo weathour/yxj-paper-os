@@ -265,4 +265,3 @@ OR hydration/read-receipt materials or selectors diverge from S09B packet obliga
 Stage-quality focus / 阶段质量焦点：`read-before-write`, `packet-bounded candidate`, and `mandatory verifier inheritance`.
 
 Downstream design force / 下游设计力：S12/S13/S16/RenderedManuscriptAuditGate consume candidate text together with hydration/read receipts and claim/citation/visual traces; prose alone is not a valid handoff.
-

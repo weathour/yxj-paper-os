@@ -240,4 +240,3 @@ If S15 returns only a revised candidate while the compiled target requires sourc
 **中文。** S15 只执行 S14 授权的局部修复。Producer 包必须包含 strict repair task、base version、affected downstream stale set、protected unrelated nodes 和 validation plan。返回必须包含 `repair_task_ack`、`pre_repair_snapshot`、`target_material_diff`、修订候选、`affected_downstream_regeneration_log`、`stale_resolution_report`、`unrelated_node_preservation_report`、`finding_resolution_evidence`、updated validator report、no-new-risk scan、CandidateArtifactReturn 和 verifier evidence。S15 只返回证据和候选，不提交图状态，也不声称 export readiness。
 
 Stage-quality focus / 阶段质量焦点：strict repair scope, diff locality, stale propagation, unrelated-node preservation, and no graph/export overclaim.
-

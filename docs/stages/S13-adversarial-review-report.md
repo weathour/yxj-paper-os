@@ -234,4 +234,3 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S13 必须攻击结构化 S12 对象并返回可执行 loss signals，而不是改写稿件。Finding 需要 severity、evidence、affected artifact、location、rationale、source trace、nearest responsible stage 和 `S14_route`。模糊审稿意见要么拒绝、降为 WATCH，要么拆解后再交接。禁止 PDF-primary review、执行修复或声称完成。
 
 Stage-quality focus / 阶段质量焦点：actionable review findings, finding_actionability_report, S14 routing, and no rewrite/repair authority.
-

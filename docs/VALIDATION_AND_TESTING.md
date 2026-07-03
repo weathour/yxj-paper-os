@@ -692,4 +692,3 @@ Expected aggregate signal:
 ```text
 PPG_RENDERED_MANUSCRIPT_AUDIT_GATE_OK
 ```
-
