@@ -5,13 +5,14 @@
     "S14",
     "S15"
   ],
-  "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with S09A usage labels preserved",
+  "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with lossless material closure, read obligations, and S09A usage labels preserved",
   "consumes": [
     "selected control bundle",
     "evidence anchors",
     "target unit",
     "validator refs",
-    "return format"
+    "return format",
+    "material closure obligations"
   ],
   "coverage_status": "planned_full_stage",
   "execution_mode": "script_generated",
@@ -19,6 +20,8 @@
     "task packet",
     "section move plan",
     "single-writer lock",
+    "material closure manifest",
+    "material read obligations",
     "missing material report"
   ],
   "purpose": "Compile one bounded, authority-safe per-unit TaskPacket from an S09A selected control bundle.",
@@ -61,6 +64,13 @@
     "S09B_selected_controls_propagated",
     "S09B_context_usage_preserved",
     "S09B_background_not_claim_authority",
+    "S09B_control_digest_policy",
+    "S09B_global_material_coverage",
+    "S09B_unit_material_closure",
+    "S09B_material_access_manifest",
+    "S09B_material_read_obligations",
+    "S09B_deferred_control_ledger",
+    "S09B_section_specific_blockers",
     "S09B_return_format",
     "S09B_missing_material_report",
     "S09B_authority_boundary",

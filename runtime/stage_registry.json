@@ -618,12 +618,15 @@
         "evidence anchors",
         "target unit",
         "validator refs",
-        "return format"
+        "return format",
+        "material closure obligations"
       ],
       "produces": [
         "task packet",
         "section move plan",
         "single-writer lock",
+        "material closure manifest",
+        "material read obligations",
         "missing material report"
       ],
       "validators": [
@@ -639,6 +642,13 @@
         "S09B_selected_controls_propagated",
         "S09B_context_usage_preserved",
         "S09B_background_not_claim_authority",
+        "S09B_control_digest_policy",
+        "S09B_global_material_coverage",
+        "S09B_unit_material_closure",
+        "S09B_material_access_manifest",
+        "S09B_material_read_obligations",
+        "S09B_deferred_control_ledger",
+        "S09B_section_specific_blockers",
         "S09B_return_format",
         "S09B_missing_material_report",
         "S09B_authority_boundary",
@@ -650,7 +660,7 @@
         "S14",
         "S15"
       ],
-      "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with S09A usage labels preserved",
+      "completion_gate": "S09BTaskPacketAssembly emits a validate_packet-clean, single-writer, completion-forbidden, non-recursive packet with lossless material closure, read obligations, and S09A usage labels preserved",
       "activation_policy": "activate when a worker needs a section/unit packet",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
@@ -677,18 +687,24 @@
       },
       "consumes": [
         "S09B task packet",
+        "S09B material read obligations",
         "construction matrix",
         "terminology register",
         "claim visibility"
       ],
       "produces": [
         "candidate text unit",
+        "material hydration report",
+        "material read receipt ledger",
         "CandidateArtifactReturn"
       ],
       "validators": [
         "S10_packet_compliance",
         "S10_candidate_text_schema",
         "S10_allowed_write_path",
+        "S10_material_hydration_report",
+        "S10_material_read_receipt_ledger",
+        "S10_blocked_output_on_missing_material",
         "S10_claim_evidence_trace",
         "S10_claim_boundary_preserved",
         "S10_no_new_claims",
@@ -715,7 +731,7 @@
         "S08",
         "S15"
       ],
-      "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
+      "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, material hydration, read receipts, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
       "activation_policy": "activate when writing execution is needed",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,

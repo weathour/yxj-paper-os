@@ -23,12 +23,15 @@ S10_PACKET = ROOT / "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.y
 S10_DRAFT = ROOT / "examples/candidate-artifacts/phase10_intro_callout_candidate.md"
 S10_RETURN = ROOT / "examples/candidate_returns/phase10_intro_callout_candidate_return.json"
 S10_MATERIAL = ROOT / "examples/materials/phase10_s10_candidate_text_return.json"
-PUBLIC_CONSUMES = ["S09B task packet", "construction matrix", "terminology register", "claim visibility"]
-PUBLIC_PRODUCES = ["candidate text unit", "CandidateArtifactReturn"]
+PUBLIC_CONSUMES = ["S09B task packet", "S09B material read obligations", "construction matrix", "terminology register", "claim visibility"]
+PUBLIC_PRODUCES = ["candidate text unit", "material hydration report", "material read receipt ledger", "CandidateArtifactReturn"]
 REQUIRED_REGISTRY_VALIDATORS = {
     "S10_packet_compliance",
     "S10_candidate_text_schema",
     "S10_allowed_write_path",
+    "S10_material_hydration_report",
+    "S10_material_read_receipt_ledger",
+    "S10_blocked_output_on_missing_material",
     "S10_claim_evidence_trace",
     "S10_claim_boundary_preserved",
     "S10_no_new_claims",
@@ -70,6 +73,7 @@ REQUIRED_SCHEMA_FIELDS = {
 }
 REQUIRED_PHASE10_DIMENSIONS = {
     "s10_packet_compliance",
+    "s10_material_hydration_and_read_receipts",
     "s10_candidate_text_unit",
     "s10_claim_evidence_trace",
     "s10_move_trace",
@@ -83,6 +87,9 @@ REQUIRED_PHASE10_CHECKS = {
     "s10_packet_compliance",
     "s10_candidate_text_schema",
     "s10_allowed_write_path",
+    "s10_material_hydration_report",
+    "s10_material_read_receipt_ledger",
+    "s10_blocked_output_on_missing_material",
     "s10_claim_evidence_trace",
     "s10_claim_boundary_preserved",
     "s10_no_new_claims",

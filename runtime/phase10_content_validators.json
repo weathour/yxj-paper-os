@@ -963,6 +963,11 @@
           "required_evidence": "S09B evidence that S09A hard/local/background/negative labels are preserved"
         },
         {
+          "dimension_id": "s09b_material_closure",
+          "name": "lossless material closure and read obligations",
+          "required_evidence": "S09B evidence that control_digest is non-authoritative and target-unit material closure, access manifest, read obligations, deferred controls, and blockers are explicit before S10 emission"
+        },
+        {
           "dimension_id": "s09b_return_lock_stale",
           "name": "return lock stale policy",
           "required_evidence": "S09B evidence for return format, single-writer lock, stale policy, and missing-material format"
@@ -997,6 +1002,13 @@
         "s09b_selected_controls_propagated",
         "s09b_context_usage_preserved",
         "s09b_background_not_claim_authority",
+        "s09b_control_digest_policy",
+        "s09b_global_material_coverage",
+        "s09b_unit_material_closure",
+        "s09b_material_access_manifest",
+        "s09b_material_read_obligations",
+        "s09b_deferred_control_ledger",
+        "s09b_section_specific_blockers",
         "s09b_return_format",
         "s09b_missing_material_report",
         "s09b_authority_boundary",
@@ -1016,6 +1028,11 @@
           "dimension_id": "s10_packet_compliance",
           "name": "S09B packet compliance",
           "required_evidence": "packet id, target unit, allowed paths, validators, return format, forbidden routes, and single-writer lock are acknowledged"
+        },
+        {
+          "dimension_id": "s10_material_hydration_and_read_receipts",
+          "name": "material hydration and read receipts",
+          "required_evidence": "S10 evidence that every S09B-required material and selector was hydrated and read before candidate output; missing or unread materials force blocked output"
         },
         {
           "dimension_id": "s10_candidate_text_unit",
@@ -1071,6 +1088,9 @@
         "s10_packet_compliance",
         "s10_candidate_text_schema",
         "s10_allowed_write_path",
+        "s10_material_hydration_report",
+        "s10_material_read_receipt_ledger",
+        "s10_blocked_output_on_missing_material",
         "s10_claim_evidence_trace",
         "s10_claim_boundary_preserved",
         "s10_no_new_claims",

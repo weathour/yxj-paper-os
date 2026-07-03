@@ -22,8 +22,8 @@ S09B_MATERIAL = ROOT / "examples/materials/phase10_s09b_task_packet_assembly.yam
 S09B_PACKET = ROOT / "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml"
 S09A_PUBLIC_CONSUMES = ["claim controls", "spine controls", "granularity controls", "surface rules", "target unit"]
 S09A_PUBLIC_PRODUCES = ["selected control bundle", "control priority map", "missing control report"]
-S09B_PUBLIC_CONSUMES = ["selected control bundle", "evidence anchors", "target unit", "validator refs", "return format"]
-S09B_PUBLIC_PRODUCES = ["task packet", "section move plan", "single-writer lock", "missing material report"]
+S09B_PUBLIC_CONSUMES = ["selected control bundle", "evidence anchors", "target unit", "validator refs", "return format", "material closure obligations"]
+S09B_PUBLIC_PRODUCES = ["task packet", "section move plan", "single-writer lock", "material closure manifest", "material read obligations", "missing material report"]
 S09A_REQUIRED_VALIDATORS = {
     "S09A_target_unit_profile",
     "S09A_hard_constraints_present",
@@ -56,6 +56,13 @@ S09B_REQUIRED_VALIDATORS = {
     "S09B_selected_controls_propagated",
     "S09B_context_usage_preserved",
     "S09B_background_not_claim_authority",
+    "S09B_control_digest_policy",
+    "S09B_global_material_coverage",
+    "S09B_unit_material_closure",
+    "S09B_material_access_manifest",
+    "S09B_material_read_obligations",
+    "S09B_deferred_control_ledger",
+    "S09B_section_specific_blockers",
     "S09B_return_format",
     "S09B_missing_material_report",
     "S09B_authority_boundary",
@@ -153,6 +160,7 @@ S09B_REQUIRED_PHASE10_DIMENSIONS = {
     "s09b_authority_boundary",
     "s09b_unit_move_plan",
     "s09b_selected_controls_propagated",
+    "s09b_material_closure",
     "s09b_return_lock_stale",
     "s09b_emitted_packet_validates",
     "s09b_nature_overlay",
@@ -191,6 +199,13 @@ S09B_REQUIRED_PHASE10_CHECKS = {
     "s09b_selected_controls_propagated",
     "s09b_context_usage_preserved",
     "s09b_background_not_claim_authority",
+    "s09b_control_digest_policy",
+    "s09b_global_material_coverage",
+    "s09b_unit_material_closure",
+    "s09b_material_access_manifest",
+    "s09b_material_read_obligations",
+    "s09b_deferred_control_ledger",
+    "s09b_section_specific_blockers",
     "s09b_return_format",
     "s09b_missing_material_report",
     "s09b_authority_boundary",

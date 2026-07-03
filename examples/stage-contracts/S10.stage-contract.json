@@ -10,9 +10,10 @@
     "S08",
     "S15"
   ],
-  "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
+  "completion_gate": "S10CandidateTextReturn validates candidate prose, packet compliance, material hydration, read receipts, trace ledgers, CandidateArtifactReturn, writer/verifier evidence, and authority boundary; controller owns acceptance and completion",
   "consumes": [
     "S09B task packet",
+    "S09B material read obligations",
     "construction matrix",
     "terminology register",
     "claim visibility"
@@ -21,6 +22,8 @@
   "execution_mode": "agent_generated",
   "produces": [
     "candidate text unit",
+    "material hydration report",
+    "material read receipt ledger",
     "CandidateArtifactReturn"
   ],
   "purpose": "Produce packet-bounded, claim-safe candidate prose units from validated S09B task packets with traceable controls and mandatory verifier evidence.",
@@ -54,6 +57,9 @@
     "S10_packet_compliance",
     "S10_candidate_text_schema",
     "S10_allowed_write_path",
+    "S10_material_hydration_report",
+    "S10_material_read_receipt_ledger",
+    "S10_blocked_output_on_missing_material",
     "S10_claim_evidence_trace",
     "S10_claim_boundary_preserved",
     "S10_no_new_claims",
