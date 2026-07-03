@@ -6109,6 +6109,11 @@ def _collect_s16_required_manifest_paths(payload: dict[str, Any]) -> set[str]:
         required.add(str(surface["rendered_text_ref"]))
     if surface is not None and is_non_empty_string(surface.get("source_pdf_ref")):
         required.add(str(surface["source_pdf_ref"]))
+    artifact_refs = surface.get("visual_formal_artifact_refs") if surface is not None else None
+    if isinstance(artifact_refs, list):
+        for record in artifact_refs:
+            if isinstance(record, dict) and is_non_empty_string(record.get("exported_file")):
+                required.add(str(record["exported_file"]))
     post_writeback = as_mapping(payload.get("post_writeback_validation"))
     if post_writeback is not None:
         keys = ("pdf_text_ref", "output_pdf_ref")
@@ -6539,11 +6544,10 @@ def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: lis
             if is_non_empty_string(source_ref) and not _s09_path_is_safe(str(source_ref)):
                 errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].source_ref must be safe"))
             exported_file = record.get("exported_file")
-            if exported_file is not None:
-                if not is_non_empty_string(exported_file) or not _s09_path_is_safe(str(exported_file)):
-                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be a safe non-empty path"))
-                elif str(exported_file) not in exported_paths or str(exported_file) not in hash_paths:
-                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be exported and hash-listed"))
+            if not is_non_empty_string(exported_file) or not _s09_path_is_safe(str(exported_file)):
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be a safe non-empty path"))
+            elif str(exported_file) not in exported_paths or str(exported_file) not in hash_paths:
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be exported and hash-listed"))
             if is_non_empty_string(record.get("artifact_id")):
                 artifact_id = str(record["artifact_id"])
                 artifact_ids.add(artifact_id)

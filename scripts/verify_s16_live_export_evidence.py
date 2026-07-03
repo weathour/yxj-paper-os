@@ -38,6 +38,7 @@ FORBIDDEN_INTERNAL_TERMS = (
     "registered score",
     "platform proxy exclusion",
 )
+VISUAL_FORMAL_ARTIFACT_TYPES = {"algorithm", "figure", "formula", "schematic", "table"}
 UNRESOLVED_RISK_LEAKAGE_PHRASES = (
     "future work should add validated citations",
     "future work should add citations",
@@ -229,14 +230,55 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
     visual_callouts = surface.get("visual_formal_callouts")
     if not isinstance(visual_callouts, list) or not visual_callouts:
         fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list visual_formal_callouts")
+    callout_artifact_ids: set[str] = set()
     for idx, callout in enumerate(visual_callouts):
         if not isinstance(callout, dict):
             fail("E_S16_LIVE_TEXT", f"visual_formal_callouts[{idx}] must be an object")
+        artifact_id = str(callout.get("artifact_id") or "").strip()
+        artifact_type = str(callout.get("artifact_type") or "").strip()
+        if not artifact_id:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_callouts[{idx}].artifact_id must be non-empty")
+        if artifact_type not in VISUAL_FORMAL_ARTIFACT_TYPES:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_callouts[{idx}].artifact_type invalid")
+        callout_artifact_ids.add(artifact_id)
         text_value = str(callout.get("callout_text") or "").strip()
         if not text_value:
             fail("E_S16_LIVE_TEXT", f"visual_formal_callouts[{idx}].callout_text must be non-empty")
         if text_value.lower() not in body_lower:
             fail("E_S16_LIVE_TEXT", f"visual/formal callout must appear in rendered body text: {text_value}")
+    artifact_refs = surface.get("visual_formal_artifact_refs")
+    if not isinstance(artifact_refs, list) or not artifact_refs:
+        fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list visual_formal_artifact_refs")
+    artifact_ref_ids: set[str] = set()
+    for idx, artifact_ref in enumerate(artifact_refs):
+        if not isinstance(artifact_ref, dict):
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}] must be an object")
+        artifact_id = str(artifact_ref.get("artifact_id") or "").strip()
+        artifact_type = str(artifact_ref.get("artifact_type") or "").strip()
+        if not artifact_id:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].artifact_id must be non-empty")
+        if artifact_type not in VISUAL_FORMAL_ARTIFACT_TYPES:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].artifact_type invalid")
+        if artifact_ref.get("status") != "pass":
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].status must be pass")
+        artifact_ref_ids.add(artifact_id)
+        exported_file = str(artifact_ref.get("exported_file") or "").strip()
+        if not exported_file:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must be non-empty")
+        if exported_file not in exported_paths:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must be listed in export_manifest.exported_files")
+        expected_artifact_hash = hash_manifest.get(exported_file)
+        if not expected_artifact_hash:
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must be hash-listed in file_hash_manifest")
+        artifact_path = safe_repo_file(exported_file)
+        if not artifact_path.is_file():
+            fail("E_S16_LIVE_TEXT", f"missing visual/formal artifact file: {exported_file}")
+        actual_artifact_hash = sha256(artifact_path)
+        if actual_artifact_hash != expected_artifact_hash:
+            fail("E_S16_LIVE_TEXT", f"visual/formal artifact hash mismatch for {exported_file}")
+    missing_artifacts = sorted(callout_artifact_ids - artifact_ref_ids)
+    if missing_artifacts:
+        fail("E_S16_LIVE_TEXT", f"visual/formal callouts lack artifact refs: {missing_artifacts}")
     if surface.get("forbidden_internal_terms_detected") not in ([], None):
         fail("E_S16_LIVE_TEXT", "compiled target surface evidence must not list forbidden internal terms")
     if surface.get("unresolved_paper_facing_phrases_detected") not in ([], None):

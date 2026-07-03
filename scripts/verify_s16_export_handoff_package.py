@@ -21,6 +21,7 @@ LIVE_MISSING_TEXT_EXPORT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-
 LIVE_MISSING_SOURCE_WRITEBACK_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-source-writeback-file.json"
 LIVE_MISSING_BODY_CITATION_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-body-citation-anchor.json"
 LIVE_MISSING_VISUAL_CALLOUT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-visual-callout.json"
+LIVE_MISSING_VISUAL_ARTIFACT_EXPORT_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-missing-visual-artifact-exported-file.json"
 LIVE_INTERNAL_LEXICON_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-internal-lexicon.json"
 LIVE_UNRESOLVED_RISK_NEGATIVE = ROOT / "examples/materials/invalid-s16-live-export-unresolved-risk-leakage.json"
 PUBLIC_CONSUMES = [
@@ -120,6 +121,7 @@ NEGATIVES = {
     "invalid-s16-export-handoff-compiled-target-missing-body-citation-anchors.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-missing-reference-entries.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-missing-visual-formal-artifact.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-missing-visual-artifact-exported-file.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-internal-lexicon.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-unresolved-risk-leakage.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-missing-failure-attribution.json": "E_S16_SEMANTIC_FAILURE_ATTRIBUTION",
@@ -204,6 +206,11 @@ def verify_fixtures() -> None:
         LIVE_MISSING_VISUAL_CALLOUT_NEGATIVE,
         "E_S16_LIVE_TEXT",
         "E_S16_LIVE_MISSING_VISUAL_CALLOUT_NEGATIVE",
+    )
+    assert_live_negative(
+        LIVE_MISSING_VISUAL_ARTIFACT_EXPORT_NEGATIVE,
+        "E_S16_PDF_SEMANTIC_SURFACE",
+        "E_S16_LIVE_MISSING_VISUAL_ARTIFACT_EXPORT_NEGATIVE",
     )
     assert_live_negative(
         LIVE_INTERNAL_LEXICON_NEGATIVE,
