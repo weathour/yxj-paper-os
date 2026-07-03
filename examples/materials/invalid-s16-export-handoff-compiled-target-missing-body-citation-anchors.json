@@ -112,6 +112,7 @@
       ],
       "references_present": true,
       "obvious_rendering_anomalies": [],
+      "rendered_text_ref": "examples/local-paper/sample-paper-workspace/build/main.txt",
       "rendered_text_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
       "source_pdf_ref": "examples/local-paper/sample-paper-workspace/build/main.pdf",
       "source_pdf_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
@@ -122,7 +123,36 @@
       "actual_bibliography_rendered": true,
       "paper_facing_figures_captions_present": true,
       "internal_stage_id_leakage_absent": true,
-      "rendered_surface_semantics": "Content-bearing compiled initial draft fixture with body paragraphs, bibliography, figures, captions, and clean rendered manuscript surface."
+      "rendered_surface_semantics": "Content-bearing compiled initial draft fixture with body paragraphs, bibliography, figures, captions, and clean rendered manuscript surface.",
+      "body_citation_anchors_present": true,
+      "body_citation_anchors": [],
+      "reference_entries_present": true,
+      "reference_entries": [
+        "[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026."
+      ],
+      "visual_formal_callouts_present": true,
+      "visual_formal_callouts": [
+        {
+          "callout_id": "fig1_callout",
+          "artifact_id": "fig1",
+          "artifact_type": "figure",
+          "callout_text": "Figure 1"
+        }
+      ],
+      "required_visual_formal_artifacts_present": true,
+      "visual_formal_artifact_refs": [
+        {
+          "artifact_id": "fig1",
+          "artifact_type": "figure",
+          "source_ref": "examples/materials/phase10_s11_figure_caption_artifact_bundle.json",
+          "exported_file": "examples/local-paper/sample-paper-workspace/figures/figure1.pdf",
+          "status": "pass"
+        }
+      ],
+      "forbidden_internal_terms_absent": true,
+      "forbidden_internal_terms_detected": [],
+      "unresolved_manager_risk_leakage_absent": true,
+      "unresolved_paper_facing_phrases_detected": []
     },
     "export_manifest": {
       "exported_files": [

@@ -74,6 +74,12 @@ REQUIRED_REGISTRY_VALIDATORS = {
     "S16_delivery_target_binding",
     "S16_compiled_pdf_target_gate",
     "S16_pdf_semantic_surface",
+    "S16_body_citation_anchors_present",
+    "S16_reference_entries_present",
+    "S16_visual_formal_artifacts_present",
+    "S16_internal_lexicon_absent",
+    "S16_unresolved_risk_leakage_absent",
+    "S16_semantic_failure_attribution",
     "S16_template_only_handoff_boundary",
     "S16_no_submission_ready_overclaim",
 }
@@ -90,6 +96,12 @@ REQUIRED_DIMS = {
     "s16_target_binding",
     "s16_compiled_pdf_target_gate",
     "s16_pdf_semantic_surface",
+    "s16_body_citation_anchors_present",
+    "s16_reference_entries_present",
+    "s16_visual_formal_artifacts_present",
+    "s16_internal_lexicon_absent",
+    "s16_unresolved_risk_leakage_absent",
+    "s16_semantic_failure_attribution",
     "s16_template_only_handoff_boundary",
     "s16_no_submission_publication_overclaim",
     "s16_nature_overlay",
@@ -101,6 +113,12 @@ NEGATIVES = {
     "invalid-s16-export-handoff-active-target-downcast.json": "E_S16_DELIVERY_TARGET_BINDING",
     "invalid-s16-export-handoff-implicit-active-target-downcast.json": "E_S16_DELIVERY_TARGET_BINDING",
     "invalid-s16-export-handoff-compiled-target-missing-semantic-surface.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-missing-body-citation-anchors.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-missing-reference-entries.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-missing-visual-formal-artifact.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-internal-lexicon.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-unresolved-risk-leakage.json": "E_S16_PDF_SEMANTIC_SURFACE",
+    "invalid-s16-export-handoff-compiled-target-missing-failure-attribution.json": "E_S16_SEMANTIC_FAILURE_ATTRIBUTION",
     "invalid-s16-export-handoff-compiled-target-missing-source-writeback.json": "E_S16_SOURCE_WRITEBACK_REQUIRED",
     "invalid-s16-export-handoff-compiled-target-template-only.json": "E_S16_PDF_SEMANTIC_SURFACE",
     "invalid-s16-export-handoff-compiled-target-content-blocked.json": "E_S16_COMPILED_TARGET_GATE",
@@ -180,6 +198,8 @@ def verify_schema_material() -> None:
     missing = REQUIRED_SCHEMA_FIELDS - set(props["S16ExportHandoffPackage"].get("required", []))
     if missing:
         fail("E_S16_SCHEMA", f"missing {sorted(missing)}")
+    if "compiled_semantic_failure_attribution" not in props["S16ExportHandoffPackage"].get("properties", {}):
+        fail("E_S16_SCHEMA", "missing compiled_semantic_failure_attribution schema property")
     material = load_json(MATERIAL)
     payload = material["payload"]
     if payload["authority_boundary"].get("external_submission_performed") is not False:
@@ -201,6 +221,27 @@ def verify_schema_material() -> None:
         fail("E_S16_HASHES", f"hash mismatch for {mismatch}")
     if payload["human_feedback_intake_route"].get("if_content_feedback") != "route_to_S14":
         fail("E_S16_FEEDBACK_ROUTE", "content feedback must route to S14")
+    compiled_payload = load_json(COMPILED_MATERIAL)["payload"]
+    compiled_surface = compiled_payload["rendered_surface_check"]
+    for key in (
+        "body_citation_anchors",
+        "reference_entries",
+        "visual_formal_callouts",
+        "visual_formal_artifact_refs",
+        "forbidden_internal_terms_detected",
+        "unresolved_paper_facing_phrases_detected",
+    ):
+        if key not in compiled_surface:
+            fail("E_S16_SCHEMA", f"compiled rendered_surface_check missing {key}")
+    attribution = compiled_payload.get("compiled_semantic_failure_attribution", {})
+    for key in (
+        "missing_citation_or_reference",
+        "missing_visual_formal_artifact",
+        "internal_lexicon_leakage",
+        "unresolved_manager_risk_leakage",
+    ):
+        if key not in attribution:
+            fail("E_S16_ATTRIBUTION", f"compiled_semantic_failure_attribution missing {key}")
     clean_export = json.loads(json.dumps(material))
     clean_export["payload"]["repository_hygiene_report"]["dirty_worktree_classification"]["source_changes"] = []
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as handle:

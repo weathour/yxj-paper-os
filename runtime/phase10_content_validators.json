@@ -1565,6 +1565,36 @@
           "required_evidence": "S16 evidence includes hash-bound rendered text refs and proves content-bearing body, bibliography, figures/captions, and absence of template-only/manuscript-not-started/placeholders for compiled targets."
         },
         {
+          "dimension_id": "s16_body_citation_anchors_present",
+          "name": "Body citation anchors",
+          "required_evidence": "S16 evidence that compiled-target body text contains citation anchors; a bibliography heading alone is insufficient."
+        },
+        {
+          "dimension_id": "s16_reference_entries_present",
+          "name": "Rendered reference entries",
+          "required_evidence": "S16 evidence that compiled-target references are rendered as non-empty entries."
+        },
+        {
+          "dimension_id": "s16_visual_formal_artifacts_present",
+          "name": "Visual/formal artifact coverage",
+          "required_evidence": "S16 evidence that compiled-target visual/formal callouts map to exported/hash-bound figure, table, algorithm, formula, or schematic artifacts."
+        },
+        {
+          "dimension_id": "s16_internal_lexicon_absent",
+          "name": "Internal lexicon leakage absent",
+          "required_evidence": "S16 evidence that paper-facing rendered text does not contain internal lab/stage/row/raw-metric terms."
+        },
+        {
+          "dimension_id": "s16_unresolved_risk_leakage_absent",
+          "name": "Unresolved-risk leakage absent",
+          "required_evidence": "S16 evidence that manager handoff risks or missing-material notices did not leak into paper-facing prose."
+        },
+        {
+          "dimension_id": "s16_semantic_failure_attribution",
+          "name": "Semantic failure attribution routes",
+          "required_evidence": "S16 evidence maps compiled semantic failures to nearest responsible upstream stages for S14/backflow repair."
+        },
+        {
           "dimension_id": "s16_template_only_handoff_boundary",
           "name": "Template-only handoff boundary",
           "required_evidence": "S16 evidence allows template-only/build-hygiene handoff only as an explicit non-compiled target and forbids treating it as initial/revised compiled PDF delivery."
@@ -1599,6 +1629,12 @@
         "s16_delivery_target_binding",
         "s16_compiled_pdf_target_gate",
         "s16_pdf_semantic_surface",
+        "s16_body_citation_anchors_present",
+        "s16_reference_entries_present",
+        "s16_visual_formal_artifacts_present",
+        "s16_internal_lexicon_absent",
+        "s16_unresolved_risk_leakage_absent",
+        "s16_semantic_failure_attribution",
         "s16_template_only_handoff_boundary",
         "s16_no_submission_ready_overclaim"
       ],

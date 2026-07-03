@@ -8,7 +8,7 @@
     "S16",
     "owner"
   ],
-  "completion_gate": "S16ExportHandoffPackage proves explicit delivery target, target binding, upstream closure, separated readiness states, successful human-readable export/build, rendered-surface and semantic text checks, manifest hashes, repository hygiene classification, handoff completeness, feedback routing, and owner-gated/no-submission-publication boundary; compiled PDF targets require content-bearing PDF/source-writeback evidence and cannot be template-only or blocked.",
+  "completion_gate": "S16ExportHandoffPackage proves explicit delivery target, target binding, upstream closure, separated readiness states, successful human-readable export/build, rendered-surface and semantic text checks, manifest hashes, repository hygiene classification, handoff completeness, feedback routing, and owner-gated/no-submission-publication boundary; compiled PDF targets require content-bearing PDF/source-writeback evidence and cannot be template-only or blocked; compiled semantic surface evidence must include body citation anchors, rendered reference entries, visual/formal artifact coverage, internal-lexicon absence, unresolved-risk leakage absence, and semantic-failure attribution routes.",
   "consumes": [
     "closed S12 integrated manuscript candidate",
     "S13 review closure evidence",
@@ -66,6 +66,12 @@
     "S16_projection_vs_live_export_boundary",
     "S16_template_only_handoff_boundary",
     "S16_pdf_semantic_surface",
+    "S16_body_citation_anchors_present",
+    "S16_reference_entries_present",
+    "S16_visual_formal_artifacts_present",
+    "S16_internal_lexicon_absent",
+    "S16_unresolved_risk_leakage_absent",
+    "S16_semantic_failure_attribution",
     "S16_compiled_pdf_target_gate",
     "S16_delivery_target_binding",
     "S16_delivery_target_declared",

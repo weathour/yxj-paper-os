@@ -2933,6 +2933,9 @@
         },
         "post_writeback_validation": {
           "type": "object"
+        },
+        "compiled_semantic_failure_attribution": {
+          "type": "object"
         }
       },
       "additionalProperties": true

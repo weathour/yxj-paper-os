@@ -166,6 +166,12 @@ S16 requires `payload.delivery_target`. A structurally valid export handoff is n
 - `S16_projection_vs_live_export_boundary`
 - `S16_template_only_handoff_boundary`
 - `S16_pdf_semantic_surface`
+- `S16_body_citation_anchors_present`
+- `S16_reference_entries_present`
+- `S16_visual_formal_artifacts_present`
+- `S16_internal_lexicon_absent`
+- `S16_unresolved_risk_leakage_absent`
+- `S16_semantic_failure_attribution`
 - `S16_compiled_pdf_target_gate`
 - `S16_delivery_target_binding`
 - `S16_delivery_target_declared`
@@ -173,6 +179,12 @@ S16 requires `payload.delivery_target`. A structurally valid export handoff is n
 
 **Negative fixtures cover / 负例覆盖：**
 
+- `examples/materials/invalid-s16-export-handoff-compiled-target-missing-body-citation-anchors.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-missing-reference-entries.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-missing-visual-formal-artifact.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-internal-lexicon.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-unresolved-risk-leakage.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-missing-failure-attribution.json`
 - `examples/materials/invalid-s16-export-handoff-authority-submitted.json`
 - `examples/materials/invalid-s16-export-handoff-bad-readiness.json`
 - `examples/materials/invalid-s16-export-handoff-build-failed.json`
@@ -200,6 +212,11 @@ Run the focused verifier / 运行聚焦验证器：
 ```bash
 python3 scripts/verify_s16_export_handoff_package.py
 ```
+
+
+### Compiled semantic surface sub-gates
+
+For compiled initial/revised PDF targets, `S16_pdf_semantic_surface` is decomposed into deterministic sub-gates: body citation anchors, rendered reference entries, visual/formal callout-to-artifact coverage, internal lexicon absence, unresolved-risk leakage absence, and semantic-failure attribution routes. A `References` heading alone is insufficient, and manager handoff risk text must remain in handoff/repair reports rather than paper-facing conclusions.
 
 ## 9. Downstream Handoffs / 下游交接
 

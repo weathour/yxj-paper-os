@@ -736,6 +736,12 @@ S16_REQUIRED_VERIFIER_CHECKS = {
     "target_binding_checked",
     "compiled_pdf_target_gate_checked",
     "semantic_surface_checked",
+    "body_citation_anchors_checked",
+    "reference_entries_checked",
+    "visual_formal_artifacts_checked",
+    "internal_lexicon_checked",
+    "unresolved_risk_leakage_checked",
+    "semantic_failure_attribution_checked",
     "template_only_boundary_checked",
     "build_success_recorded",
     "rendered_surface_checked",
@@ -799,9 +805,22 @@ S16_COMPILED_SURFACE_BOOL_FIELDS = {
     "manuscript_not_started_absent",
     "placeholder_text_absent",
     "body_paragraphs_present",
+    "body_citation_anchors_present",
+    "reference_entries_present",
     "actual_bibliography_rendered",
     "paper_facing_figures_captions_present",
+    "visual_formal_callouts_present",
+    "required_visual_formal_artifacts_present",
     "internal_stage_id_leakage_absent",
+    "forbidden_internal_terms_absent",
+    "unresolved_manager_risk_leakage_absent",
+}
+S16_VISUAL_FORMAL_ARTIFACT_TYPES = {"algorithm", "figure", "formula", "schematic", "table"}
+S16_SEMANTIC_FAILURE_ATTRIBUTION_ROUTES = {
+    "missing_citation_or_reference": {"S01", "S02", "S04", "S09B", "S10", "S12", "S16"},
+    "missing_visual_formal_artifact": {"S08", "S11", "S12", "S16"},
+    "internal_lexicon_leakage": {"S07", "S09B", "S10", "S12", "S16"},
+    "unresolved_manager_risk_leakage": {"S12", "S13", "S14", "S15", "S16"},
 }
 S16_TEMPLATE_SENTINELS = {
     "manuscript not started",
@@ -6457,6 +6476,98 @@ def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: lis
     lower_tokens = " ".join(str(item).lower() for item in [*figures, *captions, surface.get("rendered_surface_semantics", "")])
     if any(sentinel in lower_tokens for sentinel in S16_TEMPLATE_SENTINELS):
         errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check must not use template/placeholder sentinel evidence for compiled PDF targets"))
+
+    body_citations = _require_s16_list(surface, "rendered_surface_check", "body_citation_anchors", "E_S16_PDF_SEMANTIC_SURFACE", errors)
+    if not body_citations:
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "compiled PDF targets require rendered_surface_check.body_citation_anchors to prove body citation use"))
+    references = _require_s16_list(surface, "rendered_surface_check", "reference_entries", "E_S16_PDF_SEMANTIC_SURFACE", errors)
+    if not references:
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "compiled PDF targets require rendered_surface_check.reference_entries to prove non-empty rendered references"))
+
+    exported_paths = {
+        str(record.get("path") or "")
+        for record in (as_mapping(payload.get("export_manifest")) or {}).get("exported_files", [])
+        if isinstance(record, dict)
+    }
+    hash_paths = {
+        str(record.get("path") or "")
+        for record in payload.get("file_hash_manifest", [])
+        if isinstance(record, dict)
+    }
+    figure_ids = {
+        str(record.get("figure_id"))
+        for record in payload.get("figure_file_checklist", [])
+        if isinstance(record, dict) and record.get("status") == "pass" and is_non_empty_string(record.get("figure_id"))
+    }
+
+    callouts = surface.get("visual_formal_callouts")
+    if not is_non_empty_mapping_list(callouts):
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.visual_formal_callouts must be a non-empty list for compiled PDF targets"))
+        callout_ids: set[str] = set()
+    else:
+        assert isinstance(callouts, list)
+        callout_ids = set()
+        for idx, record in enumerate(callouts):
+            assert isinstance(record, dict)
+            for key in ("callout_id", "artifact_id", "artifact_type", "callout_text"):
+                if not is_non_empty_string(record.get(key)):
+                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_callouts[{idx}].{key} must be a non-empty string"))
+            artifact_type = record.get("artifact_type")
+            if artifact_type not in S16_VISUAL_FORMAL_ARTIFACT_TYPES:
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_callouts[{idx}].artifact_type invalid"))
+            if is_non_empty_string(record.get("artifact_id")):
+                callout_ids.add(str(record["artifact_id"]))
+
+    artifact_refs = surface.get("visual_formal_artifact_refs")
+    if not is_non_empty_mapping_list(artifact_refs):
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.visual_formal_artifact_refs must be a non-empty list for compiled PDF targets"))
+        artifact_ids: set[str] = set()
+    else:
+        assert isinstance(artifact_refs, list)
+        artifact_ids = set()
+        for idx, record in enumerate(artifact_refs):
+            assert isinstance(record, dict)
+            for key in ("artifact_id", "artifact_type", "source_ref", "status"):
+                if not is_non_empty_string(record.get(key)):
+                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].{key} must be a non-empty string"))
+            artifact_type = record.get("artifact_type")
+            if artifact_type not in S16_VISUAL_FORMAL_ARTIFACT_TYPES:
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].artifact_type invalid"))
+            if record.get("status") != "pass":
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].status must be pass"))
+            source_ref = record.get("source_ref")
+            if is_non_empty_string(source_ref) and not _s09_path_is_safe(str(source_ref)):
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].source_ref must be safe"))
+            exported_file = record.get("exported_file")
+            if exported_file is not None:
+                if not is_non_empty_string(exported_file) or not _s09_path_is_safe(str(exported_file)):
+                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be a safe non-empty path"))
+                elif str(exported_file) not in exported_paths or str(exported_file) not in hash_paths:
+                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be exported and hash-listed"))
+            if is_non_empty_string(record.get("artifact_id")):
+                artifact_id = str(record["artifact_id"])
+                artifact_ids.add(artifact_id)
+                if artifact_type == "figure" and figure_ids and artifact_id not in figure_ids:
+                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].artifact_id must match a passing figure_file_checklist entry"))
+
+    missing_artifacts = sorted(callout_ids - artifact_ids)
+    if missing_artifacts:
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"visual/formal callouts lack artifact refs {missing_artifacts}"))
+
+    detected_internal = _require_s16_list(surface, "rendered_surface_check", "forbidden_internal_terms_detected", "E_S16_PDF_SEMANTIC_SURFACE", errors, allow_empty=True)
+    if detected_internal:
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.forbidden_internal_terms_detected must be empty for compiled PDF targets"))
+    leaked_unresolved = _require_s16_list(surface, "rendered_surface_check", "unresolved_paper_facing_phrases_detected", "E_S16_PDF_SEMANTIC_SURFACE", errors, allow_empty=True)
+    if leaked_unresolved:
+        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "rendered_surface_check.unresolved_paper_facing_phrases_detected must be empty for compiled PDF targets"))
+
+    attribution = _require_mapping(payload, "compiled_semantic_failure_attribution", "E_S16_SEMANTIC_FAILURE_ATTRIBUTION", errors)
+    if attribution is not None:
+        for route_key, required_stages in sorted(S16_SEMANTIC_FAILURE_ATTRIBUTION_ROUTES.items()):
+            route = set(_require_s16_list(attribution, "compiled_semantic_failure_attribution", route_key, "E_S16_SEMANTIC_FAILURE_ATTRIBUTION", errors))
+            missing = sorted(required_stages - route)
+            if missing:
+                errors.append(issue("E_S16_SEMANTIC_FAILURE_ATTRIBUTION", f"compiled_semantic_failure_attribution.{route_key} missing stages {missing}"))
 
 
 def _validate_s16_manifests(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
