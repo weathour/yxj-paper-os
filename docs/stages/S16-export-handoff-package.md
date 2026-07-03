@@ -182,6 +182,8 @@ S16 requires `payload.delivery_target`. A structurally valid export handoff is n
 - `examples/materials/invalid-s16-export-handoff-compiled-target-missing-body-citation-anchors.json`
 - `examples/materials/invalid-s16-export-handoff-compiled-target-missing-reference-entries.json`
 - `examples/materials/invalid-s16-export-handoff-compiled-target-missing-visual-formal-artifact.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-missing-visual-artifact-exported-file.json`
+- `examples/materials/invalid-s16-export-handoff-compiled-target-wrong-visual-artifact-exported-file.json`
 - `examples/materials/invalid-s16-export-handoff-compiled-target-internal-lexicon.json`
 - `examples/materials/invalid-s16-export-handoff-compiled-target-unresolved-risk-leakage.json`
 - `examples/materials/invalid-s16-export-handoff-compiled-target-missing-failure-attribution.json`

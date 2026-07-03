@@ -701,7 +701,7 @@ S16_COMPLETION_OVERCLAIM_KEYS = {
 }
 S16_READINESS_STATES = {"pass", "fail", "blocked"}
 S16_CLOSURE_STATUSES = {"closed", "not_applicable", "owner_accepted_risk"}
-S16_EXPORT_KINDS = {"pdf", "tex", "bib", "figure", "supplement", "report", "log"}
+S16_EXPORT_KINDS = {"pdf", "tex", "bib", "figure", "table", "algorithm", "formula", "schematic", "supplement", "report", "log"}
 S16_EVIDENCE_MODES = {"fixture_projection", "live_export"}
 S16_NARRATIVE_OVERCLAIM_PHRASES = {
     "accepted for publication",
@@ -816,6 +816,13 @@ S16_COMPILED_SURFACE_BOOL_FIELDS = {
     "unresolved_manager_risk_leakage_absent",
 }
 S16_VISUAL_FORMAL_ARTIFACT_TYPES = {"algorithm", "figure", "formula", "schematic", "table"}
+S16_VISUAL_FORMAL_EXPORT_KIND_BY_ARTIFACT_TYPE = {
+    "algorithm": "algorithm",
+    "figure": "figure",
+    "formula": "formula",
+    "schematic": "schematic",
+    "table": "table",
+}
 S16_SEMANTIC_FAILURE_ATTRIBUTION_ROUTES = {
     "missing_citation_or_reference": {"S01", "S02", "S04", "S09B", "S10", "S12", "S16"},
     "missing_visual_formal_artifact": {"S08", "S11", "S12", "S16"},
@@ -6489,20 +6496,26 @@ def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: lis
     if not references:
         errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", "compiled PDF targets require rendered_surface_check.reference_entries to prove non-empty rendered references"))
 
-    exported_paths = {
-        str(record.get("path") or "")
+    exported_kinds = {
+        str(record.get("path") or ""): str(record.get("kind") or "")
         for record in (as_mapping(payload.get("export_manifest")) or {}).get("exported_files", [])
         if isinstance(record, dict)
     }
+    exported_paths = set(exported_kinds)
     hash_paths = {
         str(record.get("path") or "")
         for record in payload.get("file_hash_manifest", [])
         if isinstance(record, dict)
     }
-    figure_ids = {
-        str(record.get("figure_id"))
+    figure_files = {
+        str(record.get("figure_id")): str(record.get("exported_file"))
         for record in payload.get("figure_file_checklist", [])
-        if isinstance(record, dict) and record.get("status") == "pass" and is_non_empty_string(record.get("figure_id"))
+        if (
+            isinstance(record, dict)
+            and record.get("status") == "pass"
+            and is_non_empty_string(record.get("figure_id"))
+            and is_non_empty_string(record.get("exported_file"))
+        )
     }
 
     callouts = surface.get("visual_formal_callouts")
@@ -6548,11 +6561,17 @@ def _validate_s16_compiled_semantic_surface(payload: dict[str, Any], errors: lis
                 errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be a safe non-empty path"))
             elif str(exported_file) not in exported_paths or str(exported_file) not in hash_paths:
                 errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must be exported and hash-listed"))
+            elif exported_kinds.get(str(exported_file)) != S16_VISUAL_FORMAL_EXPORT_KIND_BY_ARTIFACT_TYPE.get(str(artifact_type)):
+                errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file kind must match artifact_type"))
             if is_non_empty_string(record.get("artifact_id")):
                 artifact_id = str(record["artifact_id"])
                 artifact_ids.add(artifact_id)
-                if artifact_type == "figure" and figure_ids and artifact_id not in figure_ids:
-                    errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].artifact_id must match a passing figure_file_checklist entry"))
+                if artifact_type == "figure":
+                    expected_figure_file = figure_files.get(artifact_id)
+                    if not expected_figure_file:
+                        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].artifact_id must match a passing figure_file_checklist entry"))
+                    elif is_non_empty_string(exported_file) and str(exported_file) != expected_figure_file:
+                        errors.append(issue("E_S16_PDF_SEMANTIC_SURFACE", f"rendered_surface_check.visual_formal_artifact_refs[{idx}].exported_file must match figure_file_checklist for {artifact_id}"))
 
     missing_artifacts = sorted(callout_ids - artifact_ids)
     if missing_artifacts:

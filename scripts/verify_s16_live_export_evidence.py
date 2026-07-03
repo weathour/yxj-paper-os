@@ -39,6 +39,13 @@ FORBIDDEN_INTERNAL_TERMS = (
     "platform proxy exclusion",
 )
 VISUAL_FORMAL_ARTIFACT_TYPES = {"algorithm", "figure", "formula", "schematic", "table"}
+VISUAL_FORMAL_EXPORT_KIND_BY_ARTIFACT_TYPE = {
+    "algorithm": "algorithm",
+    "figure": "figure",
+    "formula": "formula",
+    "schematic": "schematic",
+    "table": "table",
+}
 UNRESOLVED_RISK_LEAKAGE_PHRASES = (
     "future work should add validated citations",
     "future work should add citations",
@@ -227,6 +234,22 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
         fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list reference_entries")
     if not reference_text.strip() or not REFERENCE_ENTRY_RE.search(reference_text):
         fail("E_S16_LIVE_TEXT", "rendered references section must include at least one reference entry")
+    exported_files = (payload.get("export_manifest") or {}).get("exported_files") if isinstance(payload.get("export_manifest"), dict) else []
+    exported_kinds = {
+        str(item.get("path") or ""): str(item.get("kind") or "")
+        for item in exported_files
+        if isinstance(item, dict)
+    }
+    figure_files = {
+        str(item.get("figure_id")): str(item.get("exported_file"))
+        for item in payload.get("figure_file_checklist", [])
+        if (
+            isinstance(item, dict)
+            and item.get("status") == "pass"
+            and str(item.get("figure_id") or "").strip()
+            and str(item.get("exported_file") or "").strip()
+        )
+    }
     visual_callouts = surface.get("visual_formal_callouts")
     if not isinstance(visual_callouts, list) or not visual_callouts:
         fail("E_S16_LIVE_TEXT", "compiled target surface evidence must list visual_formal_callouts")
@@ -267,6 +290,14 @@ def verify_compiled_text_surface(payload: dict[str, Any], hash_manifest: dict[st
             fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must be non-empty")
         if exported_file not in exported_paths:
             fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must be listed in export_manifest.exported_files")
+        if exported_kinds.get(exported_file) != VISUAL_FORMAL_EXPORT_KIND_BY_ARTIFACT_TYPE.get(artifact_type):
+            fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file kind must match artifact_type")
+        if artifact_type == "figure":
+            expected_figure_file = figure_files.get(artifact_id)
+            if not expected_figure_file:
+                fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].artifact_id must match a passing figure_file_checklist entry")
+            if exported_file != expected_figure_file:
+                fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must match figure_file_checklist for {artifact_id}")
         expected_artifact_hash = hash_manifest.get(exported_file)
         if not expected_artifact_hash:
             fail("E_S16_LIVE_TEXT", f"visual_formal_artifact_refs[{idx}].exported_file must be hash-listed in file_hash_manifest")
