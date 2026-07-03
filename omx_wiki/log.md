@@ -15,3 +15,7 @@
 ## [2026-07-02T16:46:35.405Z] ingest
 - **Pages:** autopilot-repair-run-plan-seed-for-yxj-paper-os.md
 - **Summary:** Created new page "Autopilot Repair Run Plan Seed for YXJ Paper OS"
+
+## [2026-07-03T01:20:00Z] ingest
+- **Pages:** yxj-paper-os-compiled-draft-semantic-surface-failure-taxonomy.md
+- **Summary:** Added full compiled draft semantic surface failure taxonomy and nearest-stage attribution.

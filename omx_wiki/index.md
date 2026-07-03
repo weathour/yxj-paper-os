@@ -1,8 +1,10 @@
 # Wiki Index
 
-> 4 pages | Last updated: 2026-07-02T16:46:35.406Z
+> 5 pages | Last updated: 2026-07-02T16:46:35.406Z
 
 ## architecture
+
+- [YXJ Paper OS Compiled Draft Semantic Surface Failure Taxonomy](yxj-paper-os-compiled-draft-semantic-surface-failure-taxonomy.md) — Full compiled PDF semantic gate failure taxonomy and nearest-stage attribution.
 
 - [YXJ Paper OS Stage Acceptance Gap Audit](yxj-paper-os-stage-acceptance-gap-audit.md) — # YXJ Paper OS Stage Acceptance Gap Audit
 
