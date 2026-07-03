@@ -46,10 +46,12 @@ REQUIRED_CONTRACT_KEYS = [
     "anti_over_strictness_boundary",
 ]
 SEVERITIES = ["BLOCKING", "MAJOR", "MINOR", "WATCH"]
-REQUIRED_STAGE_CONTRACT_IDS = ["S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B"]
+REQUIRED_STAGE_CONTRACT_IDS = ["S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09A", "S09B", "S10", "S11"]
 STAGE_REQUIRED_TERMS = {
     "S09A": ["hard_constraints", "control_priority_map", "conflict_resolution_log", "downstream_packet_requirements"],
     "S09B": ["selected_controls", "unit_material_closure", "material_access_manifest", "material_read_obligations"],
+    "S10": ["material_hydration_report", "material_read_receipt_ledger", "claim_evidence_trace", "verifier_evidence"],
+    "S11": ["S10_text_callout_context", "current_latex_slots", "source_data_trace", "caption_claim_trace"],
 }
 
 

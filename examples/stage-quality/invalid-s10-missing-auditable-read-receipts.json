@@ -1,0 +1,61 @@
+{
+  "schema_version": "ppg-stage-quality-contract/v0.1",
+  "stage_id": "S10",
+  "active_profile_source": "validated S09B task packet plus active paper profile and stage-local overlay controls; no global venue/profile default",
+  "must_read_materials": [
+    {
+      "material_ref": "S09B_task_packet",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "packet_identity",
+        "return_format"
+      ]
+    },
+    {
+      "material_ref": "S04_claim_admissibility",
+      "read_mode": "targeted",
+      "required_extractions": [
+        "allowed_claims"
+      ]
+    }
+  ],
+  "required_extractions": [
+    "packet_compliance_report",
+    "candidate text unit",
+    "claim_evidence_trace",
+    "CandidateArtifactReturn"
+  ],
+  "producer_return_obligations": [
+    "candidate text unit and a short evidence note"
+  ],
+  "audit_verifier_obligations": {
+    "inherits_all_producer_inputs": true,
+    "checks": [
+      "candidate text exists",
+      "claim trace exists"
+    ]
+  },
+  "downstream_design_force": [
+    "S12 receives candidate text plus hydration/read-receipt/trace ledgers, not prose alone",
+    "S13 can review exact unsupported spans and packet compliance failures",
+    "S14/S15 can route local writing defects back to S10 or the exact upstream source stage",
+    "S16 and RenderedManuscriptAuditGate can compare rendered text against S10 claim/evidence and citation anchors"
+  ],
+  "failure_severity_policy": {
+    "BLOCKING": "mandatory S09B material is unread, missing, or not acknowledged by read receipts",
+    "MAJOR": "candidate introduces/strengthens claims, violates packet scope, or lacks verifier evidence",
+    "MINOR": "local wording, trace label, or scan metadata defect without claim/authority drift",
+    "WATCH": "reviewer-risk or style concern tracked without forced upstream rerun"
+  },
+  "nearest_responsible_stage_policy": "S10 owns candidate production and read-receipt defects; upstream control defects route to S09B/S09A/S04-S08 by source, not to a global rewrite.",
+  "affected_downstream_nodes": [
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "RenderedManuscriptAuditGate"
+  ],
+  "anti_over_strictness_boundary": "MINOR/WATCH prose or trace polish issues do not force upstream control reruns unless they reveal unsupported claims, unread materials, or packet violations.",
+  "expected_failure_code": "E_STAGE_QUALITY_STAGE_TERMS:S10:material_read_receipt_ledger"
+}

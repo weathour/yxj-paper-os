@@ -247,3 +247,14 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 **中文。** S11 不是简单“美化”。它在生成视觉候选时保留 proof role、源数据、claim 边界和可访问性。 它的作用是把本环节的判断变成可检查、可回流、可被下游安全消费的结构化物料，而不是让后续 agent 依赖印象或自由发挥。
 
 **EN.** S11 is not “make it pretty.” It preserves proof role, source data, claim boundaries, and accessibility while producing visual candidates. Its role is to turn this stage's judgments into structured, checkable, backflow-ready materials that downstream agents can consume safely instead of relying on impressions or free-form improvisation.
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S11 is a proof-role preserving artifact stage, not a styling request. Producer packets must include S08 visual/formal contracts, S09B artifact packet obligations, source-data package, S10 text callout context, and `current_latex_slots`. The return must bind every artifact/caption to source data, panel claims, caption claims, editable sources, render/render-plan, image integrity, visual polish policy/report, accessibility, export manifest, CandidateArtifactReturn, and verifier evidence.
+
+**中文。** S11 是保留 proof role 的 artifact 阶段，不是“美化一下”。Producer 包必须包含 S08 visual/formal contract、S09B artifact packet obligations、source-data package、S10 text callout context 和 `current_latex_slots`。返回必须把每个 artifact/caption 绑定到 source data、panel claims、caption claims、editable sources、render/render-plan、image integrity、visual polish policy/report、accessibility、export manifest、CandidateArtifactReturn 和 verifier evidence。
+
+Stage-quality focus / 阶段质量焦点：`S08/S09B/S10/LaTeX-slot input closure`, `proof-role preservation`, and `renderable artifact/caption traceability`.
+
+Downstream design force / 下游设计力：S12/S13/S16/RenderedManuscriptAuditGate can verify rendered figure/caption presence, references, source-data meaning, and caption-claim boundaries from S11 traces instead of re-inferring them from a PDF.
+

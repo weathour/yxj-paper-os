@@ -741,7 +741,8 @@
         "S10_candidate_return_complete",
         "S10_writer_evidence",
         "S10_verifier_evidence",
-        "S10_authority_boundary"
+        "S10_authority_boundary",
+        "S10_stage_quality_contract"
       ],
       "backflow_targets": [
         "S09B",
@@ -757,7 +758,8 @@
       "activation_policy": "activate when writing execution is needed",
       "coverage_status": "planned_full_stage",
       "pilot_required": true,
-      "contract_ref": "examples/stage-contracts/S10.stage-contract.json"
+      "contract_ref": "examples/stage-contracts/S10.stage-contract.json",
+      "stage_quality_contract_ref": "examples/stage-contracts/S10.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S11",
@@ -813,7 +815,8 @@
         "S11_nature_figure_direct_call_mapping",
         "S11_no_cross_backend_rendering",
         "S11_no_mock_data_for_evidential_figure",
-        "S11_exemplar_boundary_and_similarity_report"
+        "S11_exemplar_boundary_and_similarity_report",
+        "S11_stage_quality_contract"
       ],
       "backflow_targets": [
         "S08",
@@ -837,7 +840,8 @@
           "parity_manifest_ref": "third_party/nature-figure/PARITY_MANIFEST.json",
           "authority_boundary": "S11 remains controller-owned; adapter is helper only"
         }
-      ]
+      ],
+      "stage_quality_contract_ref": "examples/stage-contracts/S11.stage-contract.json#stage_quality_contract"
     },
     {
       "stage_id": "S12",

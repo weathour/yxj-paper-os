@@ -1139,6 +1139,11 @@
           "dimension_id": "s10_nature_overlay",
           "name": "Nature expert-writing overlay binding",
           "required_evidence": "S10 evidence for stage-local Nature overlay binding with controller-only routing"
+        },
+        {
+          "dimension_id": "s10_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S10 evidence that the producer received all packet/material obligations, returned hydration/read receipts and trace ledgers, and mandatory verifier evidence audited the same inputs"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1171,7 +1176,8 @@
         "s10_candidate_return_complete",
         "s10_writer_evidence",
         "s10_verifier_evidence",
-        "s10_authority_boundary"
+        "s10_authority_boundary",
+        "s10_stage_quality_contract"
       ],
       "stage_id": "S10",
       "stage_name": "Main-text production",
@@ -1244,6 +1250,11 @@
           "dimension_id": "s11_exemplar_similarity_boundary",
           "name": "exemplar and similarity boundary",
           "required_evidence": "reference-style learning transfers only abstract design principles and records copy/similarity-risk controls"
+        },
+        {
+          "dimension_id": "s11_stage_quality_contract",
+          "name": "stage quality contract",
+          "required_evidence": "S11 evidence that artifact/caption production consumed S08/S09B/S10 callout/current LaTeX slot inputs, preserved proof role, and verifier audit inherited producer inputs"
         }
       ],
       "failure_boundary": "Report blocker/backflow requirement; do not mark manuscript or graph complete.",
@@ -1278,7 +1289,8 @@
         "S11_nature_figure_direct_call_mapping",
         "S11_no_cross_backend_rendering",
         "S11_no_mock_data_for_evidential_figure",
-        "S11_exemplar_boundary_and_similarity_report"
+        "S11_exemplar_boundary_and_similarity_report",
+        "s11_stage_quality_contract"
       ],
       "stage_id": "S11",
       "stage_name": "Figure caption formal artifact production",

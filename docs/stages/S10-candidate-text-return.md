@@ -255,3 +255,14 @@ OR missing_materials / missing_receipts non-empty
 OR hydration/read-receipt materials or selectors diverge from S09B packet obligations
 => candidate_text_unit.status=candidate is invalid.
 ```
+
+## Stage-quality upgrade contract / 阶段质量升级合同
+
+**EN.** S10 packets must be large enough to let a writer execute without guessing: the producer receives the full S09B packet, material closure, material access manifest, material read obligations, claim controls, reader/object/surface controls, and visual-callout obligations. The return must include `material_hydration_report`, `material_read_receipt_ledger`, trace ledgers, writer evidence, verifier evidence, and a bounded CandidateArtifactReturn. If mandatory material is missing or unread, S10 returns a blocked missing-material result rather than thin prose.
+
+**中文。** S10 的输入包必须足够大，使 writer 不需要猜：producer 要拿到完整 S09B packet、material closure、material access manifest、material read obligations、claim 控制、reader/object/surface 控制和 visual-callout 义务。返回必须包含 `material_hydration_report`、`material_read_receipt_ledger`、trace ledgers、writer evidence、verifier evidence 和受限 CandidateArtifactReturn。若强制材料缺失或未读，S10 必须返回 blocked missing-material，而不是产出空薄正文。
+
+Stage-quality focus / 阶段质量焦点：`read-before-write`, `packet-bounded candidate`, and `mandatory verifier inheritance`.
+
+Downstream design force / 下游设计力：S12/S13/S16/RenderedManuscriptAuditGate consume candidate text together with hydration/read receipts and claim/citation/visual traces; prose alone is not a valid handoff.
+

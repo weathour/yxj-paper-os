@@ -74,7 +74,8 @@
     "S10_candidate_return_complete",
     "S10_writer_evidence",
     "S10_verifier_evidence",
-    "S10_authority_boundary"
+    "S10_authority_boundary",
+    "S10_stage_quality_contract"
   ],
   "worker_authority_boundary": {
     "completion_forbidden": true,
@@ -86,5 +87,119 @@
     "packet_ref": "examples/packets/phase10_s09b_s10_intro_callout_packet.v1.yaml",
     "return_contract_ref": "schemas/ppg-candidate-return.schema.json",
     "blocker": null
+  },
+  "stage_quality_contract": {
+    "schema_version": "ppg-stage-quality-contract/v0.1",
+    "stage_id": "S10",
+    "active_profile_source": "validated S09B task packet plus active paper profile and stage-local overlay controls; no global venue/profile default",
+    "must_read_materials": [
+      {
+        "material_ref": "S09B_task_packet",
+        "read_mode": "full",
+        "required_extractions": [
+          "packet_identity",
+          "allowed_paths",
+          "forbidden_routes",
+          "return_format",
+          "single_writer_lock"
+        ]
+      },
+      {
+        "material_ref": "S09B_material_read_obligations",
+        "read_mode": "full",
+        "required_extractions": [
+          "unit_material_closure",
+          "material_access_manifest",
+          "material_read_obligations"
+        ]
+      },
+      {
+        "material_ref": "S04_claim_admissibility",
+        "read_mode": "targeted",
+        "required_extractions": [
+          "allowed_claims",
+          "forbidden_wording",
+          "support_strength",
+          "caveats"
+        ]
+      },
+      {
+        "material_ref": "S05_S06_S07_controls",
+        "read_mode": "targeted",
+        "required_extractions": [
+          "reader_question",
+          "object_granularity",
+          "terminology_rules",
+          "rhetorical_moves"
+        ]
+      },
+      {
+        "material_ref": "S08_visual_formal_plan",
+        "read_mode": "targeted",
+        "required_extractions": [
+          "visual_callout_obligations",
+          "caption_boundary",
+          "artifact_refs"
+        ]
+      }
+    ],
+    "required_extractions": [
+      "packet_compliance_report",
+      "material_hydration_report",
+      "material_read_receipt_ledger",
+      "section_or_unit_skeleton",
+      "move_trace",
+      "claim_evidence_trace",
+      "terminology_trace",
+      "object_granularity_trace",
+      "visual_callout_trace",
+      "forbidden_expression_scan",
+      "coverage_ledger",
+      "CandidateArtifactReturn",
+      "writer_execution_evidence",
+      "verifier_evidence"
+    ],
+    "producer_return_obligations": [
+      "blocked missing-material return instead of candidate text when any mandatory read obligation is unsatisfied",
+      "candidate text unit bounded to the S09B target and allowed write path",
+      "material_hydration_report and material_read_receipt_ledger keyed to S09B material_read_obligations",
+      "claim_evidence_trace for every claim-bearing span with support strength and caveat",
+      "move, terminology, object granularity, and visual callout traces",
+      "forbidden_expression_scan and internal-id leakage scan",
+      "CandidateArtifactReturn plus writer_execution_evidence for later verifier audit"
+    ],
+    "audit_verifier_obligations": {
+      "inherits_all_producer_inputs": true,
+      "checks": [
+        "all S09B material_read_obligations are acknowledged by read receipts before candidate text is accepted",
+        "candidate text obeys packet scope and does not introduce or strengthen claims",
+        "claim/evidence, move, terminology, object, and visual traces cover the whole candidate unit",
+        "writer evidence and verifier evidence are both present for mandatory double-lane production",
+        "missing material blocks output instead of being hidden as weak prose",
+        "controller acceptance/completion remains outside S10"
+      ]
+    },
+    "downstream_design_force": [
+      "S12 receives candidate text plus hydration/read-receipt/trace ledgers, not prose alone",
+      "S13 can review exact unsupported spans and packet compliance failures",
+      "S14/S15 can route local writing defects back to S10 or the exact upstream source stage",
+      "S16 and RenderedManuscriptAuditGate can compare rendered text against S10 claim/evidence and citation anchors"
+    ],
+    "failure_severity_policy": {
+      "BLOCKING": "mandatory S09B material is unread, missing, or not acknowledged by read receipts",
+      "MAJOR": "candidate introduces/strengthens claims, violates packet scope, or lacks verifier evidence",
+      "MINOR": "local wording, trace label, or scan metadata defect without claim/authority drift",
+      "WATCH": "reviewer-risk or style concern tracked without forced upstream rerun"
+    },
+    "nearest_responsible_stage_policy": "S10 owns candidate production and read-receipt defects; upstream control defects route to S09B/S09A/S04-S08 by source, not to a global rewrite.",
+    "affected_downstream_nodes": [
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "RenderedManuscriptAuditGate"
+    ],
+    "anti_over_strictness_boundary": "MINOR/WATCH prose or trace polish issues do not force upstream control reruns unless they reveal unsupported claims, unread materials, or packet violations."
   }
 }

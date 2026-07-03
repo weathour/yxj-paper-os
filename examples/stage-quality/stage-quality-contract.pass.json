@@ -6,21 +6,52 @@
     {
       "material_ref": "examples/materials/phase10_s09a_rich_control_bundle.yaml",
       "read_mode": "targeted",
-      "required_extractions": ["section_depth_obligations", "citation_targets", "visual_callouts"]
+      "required_extractions": [
+        "section_depth_obligations",
+        "citation_targets",
+        "visual_callouts"
+      ]
     },
     {
       "material_ref": "S09B packet material_read_obligations",
       "read_mode": "full",
-      "required_extractions": ["required_materials", "required_selectors_by_material"]
+      "required_extractions": [
+        "required_materials",
+        "required_selectors_by_material"
+      ]
     }
   ],
-  "required_extractions": ["claim_burden", "reader_question", "terminology_boundary", "visual_formal_callout"],
-  "producer_return_obligations": ["material_hydration_report", "material_read_receipt_ledger", "obligation_coverage_ledger", "candidate_artifact_return"],
+  "required_extractions": [
+    "claim_burden",
+    "reader_question",
+    "terminology_boundary",
+    "visual_formal_callout",
+    "claim_evidence_trace",
+    "verifier_evidence"
+  ],
+  "producer_return_obligations": [
+    "material_hydration_report",
+    "material_read_receipt_ledger",
+    "obligation_coverage_ledger",
+    "candidate_artifact_return",
+    "claim_evidence_trace",
+    "verifier_evidence"
+  ],
   "audit_verifier_obligations": {
     "inherits_all_producer_inputs": true,
-    "checks": ["section_depth", "claim_evidence_citation_realization", "template_profile_contribution", "no_new_claims"]
+    "checks": [
+      "section_depth",
+      "claim_evidence_citation_realization",
+      "template_profile_contribution",
+      "no_new_claims",
+      "claim_evidence_trace",
+      "verifier_evidence"
+    ]
   },
-  "downstream_design_force": ["S12 can integrate without guessing", "S13 can audit exact failed obligations"],
+  "downstream_design_force": [
+    "S12 can integrate without guessing",
+    "S13 can audit exact failed obligations"
+  ],
   "failure_severity_policy": {
     "BLOCKING": "missing critical material or unsafe claim",
     "MAJOR": "thin section or missing citation/visual obligation",
@@ -28,6 +59,11 @@
     "WATCH": "possible reviewer risk without forced rerun"
   },
   "nearest_responsible_stage_policy": "S10 for ignored packet obligations; S09B or earlier if obligations were absent from the packet",
-  "affected_downstream_nodes": ["S12", "S13", "S16", "RenderedManuscriptAuditGate"],
+  "affected_downstream_nodes": [
+    "S12",
+    "S13",
+    "S16",
+    "RenderedManuscriptAuditGate"
+  ],
   "anti_over_strictness_boundary": "MINOR and WATCH do not force full downstream rerun by default"
 }
