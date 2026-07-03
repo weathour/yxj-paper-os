@@ -250,8 +250,8 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     write_paths = data.get("allowed_write_paths")
     output_path = data.get("output_artifact_path")
     s11_direct_call = _is_s11_nature_figure_direct_call(data)
-    s11_phase10_projection = s11_direct_call and str(data.get("packet_id", "")).endswith(".phase10_run")
-    write_prefixes = (S11_NATURE_WRITE_PREFIXES + ("runs/",)) if s11_phase10_projection else S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
+    s11_runtime_projection = s11_direct_call and str(data.get("packet_id", "")).endswith((".phase10_run", ".phase12_run"))
+    write_prefixes = (S11_NATURE_WRITE_PREFIXES + ("runs/",)) if s11_runtime_projection else S11_NATURE_WRITE_PREFIXES if s11_direct_call else SAFE_WRITE_PREFIXES
 
     if not is_non_empty_string_list(read_paths):
         errors.append(issue("E_TASK_ALLOWED_READ_PATHS_REQUIRED", "allowed_read_paths must be a non-empty list of string paths"))
@@ -270,7 +270,7 @@ def _validate_paths(data: dict[str, Any]) -> list[ValidationIssue]:
     elif isinstance(write_paths, list) and all(is_non_empty_string(path) for path in write_paths):
         if not s11_direct_call and write_paths != [output_path]:
             errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "allowed_write_paths must contain exactly output_artifact_path for strict worker packets"))
-        if s11_direct_call and not s11_phase10_projection and not str(output_path).startswith("examples/candidate-artifacts/"):
+        if s11_direct_call and not s11_runtime_projection and not str(output_path).startswith("examples/candidate-artifacts/"):
             errors.append(issue("E_TASK_OUTPUT_PATH_REQUIRED", "S11 nature-figure direct-call output_artifact_path must remain under examples/candidate-artifacts/"))
         if s11_direct_call and str(output_path) not in write_paths:
             errors.append(issue("E_TASK_ALLOWED_WRITE_PATHS_REQUIRED", "S11 nature-figure direct-call packets must include output_artifact_path in allowed_write_paths"))
@@ -343,12 +343,7 @@ def _validate_worker_boot_clause(data: dict[str, Any]) -> list[ValidationIssue]:
 
 
 def _requires_s09b_to_s10_closure(data: dict[str, Any]) -> bool:
-    packet_id = str(data.get("packet_id") or "").lower()
-    return (
-        data.get("stage_id") == "S10"
-        and data.get("task_kind") == "writing"
-        and ("s09b" in packet_id or bool(S09B_TO_S10_CLOSURE_FIELDS & set(data)))
-    )
+    return data.get("stage_id") == "S10" and data.get("task_kind") == "writing"
 
 
 def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[ValidationIssue]:
@@ -404,11 +399,21 @@ def _validate_s09b_to_s10_material_closure(data: dict[str, Any]) -> list[Validat
     if not isinstance(obligations, dict):
         errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations is required for S09B-emitted S10 writing packets"))
     else:
+        required_materials = set()
         if not is_non_empty_string_list(obligations.get("required_materials")):
             errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_materials must be a non-empty list of strings"))
+        else:
+            required_materials = set(str(item) for item in obligations.get("required_materials", []))
         selectors = obligations.get("required_selectors_by_material")
         if not isinstance(selectors, dict) or not selectors:
             errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material must be a non-empty mapping"))
+        else:
+            selector_materials = set(str(material) for material in selectors)
+            if required_materials and selector_materials != required_materials:
+                errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material keys must exactly match required_materials"))
+            for material, selector_list in selectors.items():
+                if not is_non_empty_string(str(material)) or not is_non_empty_string_list(selector_list):
+                    errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material entries must map material refs to non-empty selector lists"))
         for key in ("read_receipt_required", "hydration_required_before_drafting"):
             if obligations.get(key) is not True:
                 errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", f"material_read_obligations.{key} must be true"))

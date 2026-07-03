@@ -79,6 +79,13 @@ PACKET_KEY_ORDER = [
     "allowed_tools",
     "output_artifact_path",
     "expected_output_schema",
+    "control_digest_policy",
+    "global_material_coverage",
+    "unit_material_closure",
+    "material_access_manifest",
+    "material_read_obligations",
+    "deferred_control_ledger",
+    "section_specific_blockers",
     "validators",
     "return_format",
     "ingestion_target",
@@ -293,6 +300,60 @@ def _apply_nature_overlay(packet: dict[str, Any]) -> dict[str, Any]:
     return packet
 
 
+def _s10_intro_material_closure() -> dict[str, Any]:
+    required_materials = [
+        "examples/materials/evidence_inventory.v1.yaml",
+        "examples/materials/claim_boundary_map.v2.yaml",
+        "examples/materials/reader_spine.v1.yaml",
+    ]
+    selectors = {material: ["payload"] for material in required_materials}
+    return {
+        "control_digest_policy": {
+            "status": "non_authoritative_navigation_only",
+            "may_not_be_cited_as_evidence": True,
+            "may_not_replace_material_dereference": True,
+        },
+        "global_material_coverage": {
+            "status": "pass",
+            "claims_covered": ["claim_boundary_map_v2"],
+            "reader_questions_covered": ["reader_spine_v1"],
+            "evidence_artifacts_covered": ["evidence_inventory_v1"],
+            "visual_formal_needs_covered": ["not_applicable_for_intro_v2"],
+            "deferred_controls_open": [],
+            "blocks_s10_batch": False,
+        },
+        "unit_material_closure": {
+            "target_unit_id": "intro_draft_v2",
+            "closure_status": "complete",
+            "must_dereference": required_materials,
+            "may_read_background": [],
+            "forbidden_materials": ["stale_or_archive_material_without_repromotion"],
+            "block_if_missing": ["evidence inventory", "claim boundary", "reader spine"],
+        },
+        "material_access_manifest": {
+            "authority_root": "examples/materials/claim_boundary_map.v2.yaml",
+            "allowed_authority_status": ["candidate", "committed", "validated"],
+            "forbidden_status": ["stale", "archive_reference_only", "owner_gated_unresolved"],
+            "required_selectors": ["payload"],
+        },
+        "material_read_obligations": {
+            "required_materials": required_materials,
+            "required_selectors_by_material": selectors,
+            "read_receipt_required": True,
+            "hydration_required_before_drafting": True,
+        },
+        "deferred_control_ledger": {
+            "controls": [],
+            "blocking_unresolved_count": 0,
+        },
+        "section_specific_blockers": {
+            "section_type": "introduction",
+            "block_if_missing": ["evidence inventory", "claim boundary", "reader spine"],
+            "missing_material_policy": "block_candidate_output",
+        },
+    }
+
+
 def _intro_packet() -> dict[str, Any]:
     packet = _base_packet()
     packet.update(
@@ -327,6 +388,7 @@ def _intro_packet() -> dict[str, Any]:
             "allowed_write_paths": ["examples/candidate-artifacts/intro_draft.v2.md"],
             "output_artifact_path": "examples/candidate-artifacts/intro_draft.v2.md",
             "expected_output_schema": "ppg-section-draft/v0.1",
+            **_s10_intro_material_closure(),
             "validators": [
                 "validate_packet:phase6",
                 "validate_material:claim_boundary_map_v2",

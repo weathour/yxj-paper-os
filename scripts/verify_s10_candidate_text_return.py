@@ -151,6 +151,8 @@ NEGATIVE_FIXTURES = {
     ROOT / "examples/materials/invalid-s10-candidate-text-return-missing-read-receipts.json": "E_S10_MATERIAL_READ_RECEIPT_REQUIRED",
     ROOT / "examples/materials/invalid-s10-candidate-text-return-candidate-output-with-missing-material.json": "E_S10_BLOCKED_OUTPUT_REQUIRED",
     ROOT / "examples/materials/invalid-s10-candidate-text-return-unread-required-selector.json": "E_S10_MATERIAL_READ_RECEIPT_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-underdeclared-material.json": "E_S10_MATERIAL_HYDRATION_REQUIRED",
+    ROOT / "examples/materials/invalid-s10-candidate-text-return-underdeclared-selector.json": "E_S10_MATERIAL_HYDRATION_REQUIRED",
 }
 
 
@@ -179,19 +181,23 @@ def _run(args: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(args, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False)
 
 
+def _validate_material_cmd(path: Path) -> list[str]:
+    return [sys.executable, str(VALIDATE_MATERIAL), str(path), "--packet", str(S10_PACKET)]
+
+
 def _verify_positive_and_negative_fixtures() -> None:
     positive_commands = [
         [sys.executable, str(VALIDATE_PACKET), str(S10_PACKET)],
         [sys.executable, str(VALIDATE_SECTION), str(S10_DRAFT)],
         [sys.executable, str(VALIDATE_RETURN), str(S10_RETURN), "--packet", str(S10_PACKET)],
-        [sys.executable, str(VALIDATE_MATERIAL), str(S10_MATERIAL)],
+        _validate_material_cmd(S10_MATERIAL),
     ]
     for cmd in positive_commands:
         result = _run(cmd)
         if result.returncode != 0:
             _fail("E_S10_POSITIVE_FIXTURE", f"positive fixture failed: {' '.join(cmd)}\n{result.stdout}")
     for path, expected_code in NEGATIVE_FIXTURES.items():
-        result = _run([sys.executable, str(VALIDATE_MATERIAL), str(path)])
+        result = _run(_validate_material_cmd(path))
         if result.returncode == 0:
             _fail("E_S10_NEGATIVE_FIXTURE", f"{path} should fail with {expected_code} but validated")
         if expected_code not in result.stdout:

@@ -17,6 +17,15 @@
     "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S10.candidate.json"
   ],
   "completion_forbidden": true,
+  "control_digest_policy": {
+    "may_not_be_cited_as_evidence": true,
+    "may_not_replace_material_dereference": true,
+    "status": "non_authoritative_navigation_only"
+  },
+  "deferred_control_ledger": {
+    "blocking_unresolved_count": 0,
+    "controls": []
+  },
   "evidence_anchors": [
     "examples/materials/evidence_inventory.v1.yaml",
     "examples/materials/claim_boundary_map.v2.yaml",
@@ -30,6 +39,23 @@
     "write_outside_allowed_write_paths",
     "change_owner_intent"
   ],
+  "global_material_coverage": {
+    "blocks_s10_batch": false,
+    "claims_covered": [
+      "claim_boundary_map_v2"
+    ],
+    "deferred_controls_open": [],
+    "evidence_artifacts_covered": [
+      "evidence_inventory_v1"
+    ],
+    "reader_questions_covered": [
+      "reader_spine_v1"
+    ],
+    "status": "pass",
+    "visual_formal_needs_covered": [
+      "not_applicable_for_phase12_s10_run"
+    ]
+  },
   "ingestion_target": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S10.candidate.json",
   "input_materials": [
     "evidence_inventory_v1",
@@ -48,6 +74,42 @@
     "nature_overlay_stage_binding": "S10",
     "reader_spine": "reader_spine_v1"
   },
+  "material_access_manifest": {
+    "allowed_authority_status": [
+      "candidate",
+      "committed",
+      "validated"
+    ],
+    "authority_root": "examples/materials/claim_boundary_map.v2.yaml",
+    "forbidden_status": [
+      "stale",
+      "archive_reference_only",
+      "owner_gated_unresolved"
+    ],
+    "required_selectors": [
+      "payload"
+    ]
+  },
+  "material_read_obligations": {
+    "hydration_required_before_drafting": true,
+    "read_receipt_required": true,
+    "required_materials": [
+      "examples/materials/evidence_inventory.v1.yaml",
+      "examples/materials/claim_boundary_map.v2.yaml",
+      "examples/materials/reader_spine.v1.yaml"
+    ],
+    "required_selectors_by_material": {
+      "examples/materials/claim_boundary_map.v2.yaml": [
+        "payload"
+      ],
+      "examples/materials/evidence_inventory.v1.yaml": [
+        "payload"
+      ],
+      "examples/materials/reader_spine.v1.yaml": [
+        "payload"
+      ]
+    }
+  },
   "mission": "Draft a candidate introduction section from bounded claim and reader-spine materials.",
   "no_recursive_orchestration": true,
   "output_artifact_path": "runs/sample-paper-workspace/formal-full-flow-runtime-test/candidate-artifacts/S10.candidate.json",
@@ -60,12 +122,39 @@
     "remaining_risks": "required"
   },
   "schema_version": "ppg-task-packet/v0.1",
+  "section_specific_blockers": {
+    "block_if_missing": [
+      "evidence inventory",
+      "claim boundary",
+      "reader spine"
+    ],
+    "missing_material_policy": "block_candidate_output",
+    "section_type": "introduction"
+  },
   "stage_contract_ref": "examples/stage-contracts/S10.stage-contract.json",
   "stage_id": "S10",
   "status": "planned",
   "stop_condition": "S10 candidate artifact written to the run-owned Phase12 path only; return evidence without claiming graph, manuscript, submission, or publication completion.",
   "target_material": "intro_draft_v2",
   "task_kind": "writing",
+  "unit_material_closure": {
+    "block_if_missing": [
+      "evidence inventory",
+      "claim boundary",
+      "reader spine"
+    ],
+    "closure_status": "complete",
+    "forbidden_materials": [
+      "stale_or_archive_material_without_repromotion"
+    ],
+    "may_read_background": [],
+    "must_dereference": [
+      "examples/materials/evidence_inventory.v1.yaml",
+      "examples/materials/claim_boundary_map.v2.yaml",
+      "examples/materials/reader_spine.v1.yaml"
+    ],
+    "target_unit_id": "intro_draft_v2"
+  },
   "validators": [
     "validate_packet:phase6",
     "validate_material:claim_boundary_map_v2",

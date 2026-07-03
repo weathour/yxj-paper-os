@@ -216,6 +216,7 @@ Specialist agents and scripts may return candidates or evidence; they never own 
 - Phase validators / Phase 验证配置：[`runtime/phase10_content_validators.json`](../../runtime/phase10_content_validators.json)
 - Material schema / 物料 schema：[`schemas/ppg-material-payloads.schema.json`](../../schemas/ppg-material-payloads.schema.json)
 - Material validator / 物料验证器：[`scripts/validate_material.py`](../../scripts/validate_material.py)
+  - S10 candidate returns must be validated with `--packet <S09B-emitted S10 TaskPacket>` so hydration/read receipts are checked against packet obligations.
 - Focused verifier / 聚焦验证器：[`scripts/verify_s10_candidate_text_return.py`](../../scripts/verify_s10_candidate_text_return.py)
 
 ## 12. Plain-Language Summary / 通俗总结
@@ -239,18 +240,18 @@ material_read_receipt_ledger
 
 Required semantics / 必须语义：
 
-- `material_hydration_report.status` is `pass` only when all required materials are read and no blocking material is missing.
-- `required_materials_total` must equal the number of required materials declared by the S09B packet.
-- `required_materials_read` must match the consumed receipt count for required materials.
-- `unread_required_materials` and `blocked_missing_materials` must be empty before S10 may return candidate prose.
-- `material_read_receipt_ledger.receipts[]` records `material_ref`, `selectors_read`, optional `hash_seen`, `used_for`, and `status`.
-- If hydration is blocked, S10 must not emit `candidate_text_unit.status: candidate`; it must return a MissingMaterialReport routed to the nearest responsible stage.
+- `material_hydration_report.status` is `pass` only when all required materials are hydrated and no blocking material is missing.
+- `material_hydration_report.required_materials` must exactly match the S09B packet `material_read_obligations.required_materials`.
+- `material_hydration_report.hydrated_materials` must cover the same set; `missing_materials` must be empty before S10 may return candidate prose.
+- `required_selectors_by_material` and `hydrated_selectors_by_material` must exactly match the S09B packet selector obligations.
+- `material_read_receipt_ledger.receipts[]` records `material_ref`, `selectors_read`, `source_packet_obligation`, and `receipt_status: read`; `missing_receipts` must be empty.
+- If hydration or read receipts are blocked or diverge from packet obligations, S10 must not emit `candidate_text_unit.status: candidate`; it must return a MissingMaterialReport routed to the nearest responsible stage.
 
 Blocked-output conflict rule / 阻断输出冲突规则：
 
 ```text
-material_hydration_report.status == blocked
-OR unread_required_materials / blocked_missing_materials non-empty
+material_hydration_report.status != pass
+OR missing_materials / missing_receipts non-empty
+OR hydration/read-receipt materials or selectors diverge from S09B packet obligations
 => candidate_text_unit.status=candidate is invalid.
 ```
-

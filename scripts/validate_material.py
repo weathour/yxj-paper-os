@@ -2,6 +2,7 @@
 """Validate PPG material fixture envelopes and Phase 4 P1 payload semantics."""
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import sys
 from typing import Any
@@ -416,6 +417,7 @@ S09B_MATERIAL_CLOSURE_FIELDS = {
     "deferred_control_ledger",
     "section_specific_blockers",
 }
+S09B_REJECTED_ALIAS_FIELDS = {"must_read_material_closure"}
 S10_COMPLETION_BOUNDARY = "candidate_text_only_no_graph_manuscript_submission_or_publication_completion"
 S10_COMPLETION_OVERCLAIM_KEYS = {
     "acceptance_readiness",
@@ -4291,11 +4293,14 @@ def _validate_s09b_material_closure(payload: dict[str, Any], errors: list[Valida
 
     obligations = _require_mapping(payload, "material_read_obligations", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors)
     if obligations is not None:
-        _require_s09_list(obligations, "material_read_obligations", "required_materials", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors)
+        required_materials = set(_require_s09_list(obligations, "material_read_obligations", "required_materials", "E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", errors))
         selectors = obligations.get("required_selectors_by_material")
         if not isinstance(selectors, dict) or not selectors:
             errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material must be a non-empty mapping"))
         else:
+            selector_materials = set(str(material) for material in selectors)
+            if required_materials and selector_materials != required_materials:
+                errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material keys must exactly match required_materials"))
             for material, selector_list in selectors.items():
                 if not is_non_empty_string(str(material)) or not _s08_string_items(selector_list):
                     errors.append(issue("E_S09B_MATERIAL_READ_OBLIGATIONS_REQUIRED", "material_read_obligations.required_selectors_by_material entries must map material refs to non-empty selector lists"))
@@ -4360,6 +4365,9 @@ def _validate_s09b_return_lock_and_packet(payload: dict[str, Any], errors: list[
 
 def _validate_s09b_task_packet_assembly(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
     _require_s09b_payload_header(payload, "ppg-s09b-task-packet-assembly/v0.1", "E_S09B_TASK_PACKET_ASSEMBLY_REQUIRED", errors)
+    rejected = sorted(S09B_REJECTED_ALIAS_FIELDS & set(payload))
+    if rejected:
+        errors.append(issue("E_S09B_FORBIDDEN_ALIAS_FIELD", f"S09BTaskPacketAssembly must not use rejected alias fields: {rejected}"))
     _require_s09b_required_modules(payload, errors)
     if payload.get("completion_boundary") != S09B_COMPLETION_BOUNDARY:
         errors.append(issue("E_S09B_COMPLETION_BOUNDARY", f"completion_boundary must be {S09B_COMPLETION_BOUNDARY!r}"))
@@ -4455,7 +4463,30 @@ def _validate_s10_packet_compliance(payload: dict[str, Any], errors: list[Valida
     return packet_id, output_path
 
 
-def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packet_id: str, errors: list[ValidationIssue]) -> None:
+def _s10_packet_obligations(packet: dict[str, Any] | None, packet_id: str, errors: list[ValidationIssue]) -> tuple[set[str], dict[str, set[str]]]:
+    if packet is None:
+        errors.append(issue("E_S10_PACKET_OBLIGATIONS_REQUIRED", "S10 candidate validation requires --packet pointing to the S09B-emitted S10 TaskPacket"))
+        return set(), {}
+    if packet.get("stage_id") != "S10" or packet.get("task_kind") != "writing":
+        errors.append(issue("E_S10_PACKET_OBLIGATIONS_REQUIRED", "S10 --packet must be an S10 writing TaskPacket"))
+    if packet_id and packet.get("packet_id") != packet_id:
+        errors.append(issue("E_S10_PACKET_OBLIGATIONS_REQUIRED", "S10 --packet packet_id must match packet_compliance_report.packet_id"))
+    obligations = packet.get("material_read_obligations")
+    if not isinstance(obligations, dict):
+        errors.append(issue("E_S10_PACKET_OBLIGATIONS_REQUIRED", "S10 --packet must carry material_read_obligations"))
+        return set(), {}
+    required_materials = set(_s08_string_items(obligations.get("required_materials")))
+    selectors_raw = obligations.get("required_selectors_by_material")
+    selectors: dict[str, set[str]] = {}
+    if isinstance(selectors_raw, dict):
+        selectors = {str(material): set(_s08_string_items(selector_list)) for material, selector_list in selectors_raw.items()}
+    if not required_materials or set(selectors) != required_materials or any(not selector_set for selector_set in selectors.values()):
+        errors.append(issue("E_S10_PACKET_OBLIGATIONS_REQUIRED", "S10 --packet material_read_obligations must exactly map every required material to required selectors"))
+    return required_materials, selectors
+
+
+def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packet_id: str, packet: dict[str, Any] | None, errors: list[ValidationIssue]) -> None:
+    packet_required_materials, packet_required_selectors = _s10_packet_obligations(packet, packet_id, errors)
     hydration = _require_mapping(payload, "material_hydration_report", "E_S10_MATERIAL_HYDRATION_REQUIRED", errors)
     required_materials: set[str] = set()
     hydrated_materials: set[str] = set()
@@ -4465,6 +4496,9 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
         required_materials = set(_require_s09_list(hydration, "material_hydration_report", "required_materials", "E_S10_MATERIAL_HYDRATION_REQUIRED", errors))
         hydrated_materials = set(_require_s09_list(hydration, "material_hydration_report", "hydrated_materials", "E_S10_MATERIAL_HYDRATION_REQUIRED", errors))
         missing_materials = _require_s09_list(hydration, "material_hydration_report", "missing_materials", "E_S10_MATERIAL_HYDRATION_REQUIRED", errors, allow_empty=True)
+        if packet_required_materials and required_materials != packet_required_materials:
+            errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", "material_hydration_report.required_materials must exactly match S09B packet material_read_obligations.required_materials"))
+            errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when required materials diverge from the S09B packet"))
         if packet_id and hydration.get("packet_id") != packet_id:
             errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", "material_hydration_report.packet_id must match packet_compliance_report.packet_id"))
         if hydration.get("status") != "pass":
@@ -4484,8 +4518,26 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
         if not isinstance(hydrated_selectors, dict) or not hydrated_selectors:
             errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", "material_hydration_report.hydrated_selectors_by_material must be a non-empty mapping"))
         if isinstance(required_selectors, dict) and isinstance(hydrated_selectors, dict):
+            required_selector_keys = set(str(material) for material in required_selectors)
+            hydrated_selector_keys = set(str(material) for material in hydrated_selectors)
+            expected_selector_keys = packet_required_materials or required_materials
+            if expected_selector_keys and required_selector_keys != expected_selector_keys:
+                errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", "material_hydration_report.required_selectors_by_material keys must exactly match S09B packet required materials"))
+                errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when required selector declarations diverge from the S09B packet"))
+            if expected_selector_keys and hydrated_selector_keys != expected_selector_keys:
+                errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", "material_hydration_report.hydrated_selectors_by_material keys must exactly match S09B packet required materials"))
+                errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when hydrated selector declarations diverge from the S09B packet"))
+            for material, packet_selectors in sorted(packet_required_selectors.items()):
+                declared = set(_s08_string_items(required_selectors.get(material)))
+                hydrated = set(_s08_string_items(hydrated_selectors.get(material)))
+                if declared != packet_selectors:
+                    errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", f"material_hydration_report.required_selectors_by_material[{material!r}] must exactly match S09B packet selectors"))
+                    errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output when selector obligations diverge from the S09B packet"))
+                if hydrated != packet_selectors:
+                    errors.append(issue("E_S10_MATERIAL_HYDRATION_REQUIRED", f"material_hydration_report.hydrated_selectors_by_material[{material!r}] must exactly match S09B packet selectors"))
+                    errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output until every S09B-required selector is hydrated"))
             for material in sorted(required_materials):
-                required = set(_s08_string_items(required_selectors.get(material)))
+                required = packet_required_selectors.get(material) or set(_s08_string_items(required_selectors.get(material)))
                 hydrated = set(_s08_string_items(hydrated_selectors.get(material)))
                 required_selectors_by_material[material] = required
                 if not required:
@@ -4533,7 +4585,8 @@ def _validate_s10_material_hydration_and_receipts(payload: dict[str, Any], packe
             if missing_selectors:
                 errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts[{idx}].selectors_read missing required selectors {missing_selectors}"))
                 errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output until every required selector has a read receipt"))
-    missing_read_materials = sorted(required_materials - seen_materials)
+    expected_receipt_materials = packet_required_materials or required_materials
+    missing_read_materials = sorted(expected_receipt_materials - seen_materials)
     if missing_read_materials:
         errors.append(issue("E_S10_MATERIAL_READ_RECEIPT_REQUIRED", f"material_read_receipt_ledger.receipts missing required materials {missing_read_materials}"))
         errors.append(issue("E_S10_BLOCKED_OUTPUT_REQUIRED", "S10 must block candidate output until every required material has a read receipt"))
@@ -4708,7 +4761,7 @@ def _validate_s10_scan_coverage_return_and_evidence(payload: dict[str, Any], pac
         errors.append(issue("E_S10_MISSING_MATERIAL_REPORT_REQUIRED", "missing_material_report.status must be not_blocked for candidate output"))
 
 
-def _validate_s10_candidate_text_return(payload: dict[str, Any], errors: list[ValidationIssue]) -> None:
+def _validate_s10_candidate_text_return(payload: dict[str, Any], errors: list[ValidationIssue], packet: dict[str, Any] | None = None) -> None:
     _require_s10_payload_header(payload, "ppg-s10-candidate-text-return/v0.1", "E_S10_CANDIDATE_TEXT_RETURN_REQUIRED", errors)
     _require_s10_required_modules(payload, errors)
     completion_key = _contains_forbidden_key(payload, S10_COMPLETION_OVERCLAIM_KEYS)
@@ -4720,7 +4773,7 @@ def _validate_s10_candidate_text_return(payload: dict[str, Any], errors: list[Va
 
     _validate_s10_completion_boundary(payload, errors)
     packet_id, output_path = _validate_s10_packet_compliance(payload, errors)
-    _validate_s10_material_hydration_and_receipts(payload, packet_id, errors)
+    _validate_s10_material_hydration_and_receipts(payload, packet_id, packet, errors)
     _validate_s10_candidate_text_unit(payload, packet_id, output_path, errors)
     _validate_s10_skeleton_and_traces(payload, errors)
     _validate_s10_scan_coverage_return_and_evidence(payload, packet_id, output_path, errors)
@@ -6945,7 +6998,7 @@ def _validate_s16_export_handoff_package(payload: dict[str, Any], errors: list[V
     _validate_s16_validator(payload, errors)
 
 
-def _validate_material_payload(data: dict[str, Any], errors: list[ValidationIssue]) -> None:
+def _validate_material_payload(data: dict[str, Any], errors: list[ValidationIssue], packet: dict[str, Any] | None = None) -> None:
     payload = _payload(data, errors)
     if payload is None:
         return
@@ -6985,7 +7038,7 @@ def _validate_material_payload(data: dict[str, Any], errors: list[ValidationIssu
     elif material_type == "S09BTaskPacketAssembly":
         _validate_s09b_task_packet_assembly(payload, errors)
     elif material_type == "S10CandidateTextReturn":
-        _validate_s10_candidate_text_return(payload, errors)
+        _validate_s10_candidate_text_return(payload, errors, packet)
     elif material_type == "S11FigureCaptionArtifactBundle":
         _validate_s11_figure_caption_artifact_bundle(payload, errors)
     elif material_type == "S12IntegrationConsistencyReport":
@@ -7000,7 +7053,7 @@ def _validate_material_payload(data: dict[str, Any], errors: list[ValidationIssu
         _validate_s16_export_handoff_package(payload, errors)
 
 
-def validate(data: Any) -> list[ValidationIssue]:
+def validate(data: Any, packet: dict[str, Any] | None = None) -> list[ValidationIssue]:
     errors = require_mapping_document(data)
     if errors:
         return errors
@@ -7015,20 +7068,28 @@ def validate(data: Any) -> list[ValidationIssue]:
     if data.get("schema_version") and data.get("schema_version") != "ppg-material/v0.1":
         errors.append(issue("E_ENVELOPE_REQUIRED", "schema_version must be ppg-material/v0.1"))
     errors.extend(validate_runtime_status(data))
-    _validate_material_payload(data, errors)
+    _validate_material_payload(data, errors, packet)
     errors.extend(lint_paper_facing_terms(data))
     return errors
 
 
 def main() -> int:
-    if len(sys.argv) != 2:
-        print("usage: validate_material.py <material.json|yaml>", file=sys.stderr)
-        return 2
-    path = Path(sys.argv[1])
+    parser = argparse.ArgumentParser(description="Validate PPG material fixtures.")
+    parser.add_argument("material", type=Path)
+    parser.add_argument("--packet", type=Path, help="Authoritative S09B-emitted TaskPacket for S10CandidateTextReturn validation.")
+    args = parser.parse_args()
+    path = args.material
     data, errors = load_document(path)
     if errors:
         return print_result(path, errors)
-    return print_result(path, validate(data))
+    packet = None
+    if args.packet is not None:
+        packet, packet_errors = load_document(args.packet)
+        if packet_errors:
+            return print_result(args.packet, packet_errors)
+        if not isinstance(packet, dict):
+            return print_result(args.packet, [issue("E_S10_PACKET_OBLIGATIONS_REQUIRED", "S10 --packet must be a mapping")])
+    return print_result(path, validate(data, packet=packet))
 
 
 if __name__ == "__main__":

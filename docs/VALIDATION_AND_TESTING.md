@@ -674,8 +674,7 @@ S10 validation must reject candidate prose when material hydration is absent, in
 ```text
 E_S10_MATERIAL_HYDRATION_REQUIRED
 E_S10_MATERIAL_READ_RECEIPT_REQUIRED
-E_S10_BLOCKED_MATERIAL_OUTPUT_CONFLICT
+E_S10_BLOCKED_OUTPUT_REQUIRED
 ```
 
 Final acceptance should run positive focused verifiers and negative fixtures for these codes; a positive-only green run is not sufficient for milestone acceptance.
-

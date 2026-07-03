@@ -318,4 +318,3 @@ Required semantics / 必须语义：
 - `section_specific_blockers` makes section-critical omissions blocking. For example, an evaluation packet without exact metrics/result artifact locators must return a MissingMaterialReport rather than thin prose.
 
 The rejected alias `must_read_material_closure` must not be introduced; use `unit_material_closure` plus `material_read_obligations`.
-

@@ -44,6 +44,72 @@ allowed_tools:
   - "none"
 output_artifact_path: examples/candidate-artifacts/intro_draft.v2.md
 expected_output_schema: ppg-section-draft/v0.1
+control_digest_policy:
+  status: non_authoritative_navigation_only
+  may_not_be_cited_as_evidence: true
+  may_not_replace_material_dereference: true
+global_material_coverage:
+  status: pass
+  claims_covered:
+    - claim_boundary_map_v2
+  reader_questions_covered:
+    - reader_spine_v1
+  evidence_artifacts_covered:
+    - evidence_inventory_v1
+  visual_formal_needs_covered:
+    - not_applicable_for_intro_v2
+  deferred_controls_open:
+  blocks_s10_batch: false
+unit_material_closure:
+  target_unit_id: intro_draft_v2
+  closure_status: complete
+  must_dereference:
+    - examples/materials/evidence_inventory.v1.yaml
+    - examples/materials/claim_boundary_map.v2.yaml
+    - examples/materials/reader_spine.v1.yaml
+  may_read_background:
+  forbidden_materials:
+    - stale_or_archive_material_without_repromotion
+  block_if_missing:
+    - evidence inventory
+    - claim boundary
+    - reader spine
+material_access_manifest:
+  authority_root: examples/materials/claim_boundary_map.v2.yaml
+  allowed_authority_status:
+    - candidate
+    - committed
+    - validated
+  forbidden_status:
+    - stale
+    - archive_reference_only
+    - owner_gated_unresolved
+  required_selectors:
+    - payload
+material_read_obligations:
+  required_materials:
+    - examples/materials/evidence_inventory.v1.yaml
+    - examples/materials/claim_boundary_map.v2.yaml
+    - examples/materials/reader_spine.v1.yaml
+  required_selectors_by_material:
+    examples/materials/evidence_inventory.v1.yaml:
+      - payload
+    examples/materials/claim_boundary_map.v2.yaml:
+      - payload
+    examples/materials/reader_spine.v1.yaml:
+      - payload
+  read_receipt_required: true
+  hydration_required_before_drafting: true
+deferred_control_ledger:
+  controls:
+  blocking_unresolved_count: 0
+section_specific_blockers:
+  section_type: introduction
+  block_if_missing:
+    - evidence inventory
+    - claim boundary
+    - reader spine
+  missing_material_policy: block_candidate_output
 validators:
   - "validate_packet:phase6"
   - "validate_material:claim_boundary_map_v2"

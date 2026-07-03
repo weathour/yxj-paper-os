@@ -605,4 +605,3 @@ S16 `ppg-s16-export-handoff-package/v0.1` requires `payload.delivery_target`. Th
 S09/S10 production must preserve original material authority. Runtime controllers should treat S09 summaries as navigation and require S09B packets to carry current-authority material closure modules (`control_digest_policy`, `global_material_coverage`, `unit_material_closure`, `material_access_manifest`, `material_read_obligations`, `deferred_control_ledger`, and `section_specific_blockers`).
 
 S10 workers must complete a material hydration pass before drafting and return `material_hydration_report` plus `material_read_receipt_ledger`. Missing section-critical material is a blocking condition, not a non-blocking `remaining_risks` note. S12/S16 should consume the same receipts when checking integration and rendered delivery surfaces.
-

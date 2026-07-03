@@ -630,4 +630,3 @@ material_read_receipt_ledger
 ```
 
 These modules are graph-control evidence, not paper-facing prose. `control_digest` remains non-authoritative. Required material selectors and read receipts must point back to original materials rather than to digest summaries.
-
