@@ -1,92 +1,96 @@
 # yxj-paper-os Handoff
 
-Status: clean rewrite branch baseline.
+Status: active minimal implementation branch.
 
 ## Current branch
 
 `yxj-paper-os-slot-skill-redesign`
 
-This branch intentionally deletes the old Paper Production Graph runtime and
-restarts `yxj-paper-os` as a standard Codex plugin scaffold.
+This branch intentionally deleted the old Paper Production Graph runtime and rebuilds `yxj-paper-os` as a standard Codex plugin with one public paper-planning skill.
 
-## Philosophy document
-
-Read [`docs/BRANCH_PHILOSOPHY.md`](docs/BRANCH_PHILOSOPHY.md) for the current clean-rewrite rationale, target slot-based paper-planning architecture, and external skill/repository inventory.
-
-## Current architecture
+## Governing architecture
 
 ```text
-yxj-paper-os/
-  .codex-plugin/
-    plugin.json        # Codex plugin manifest
-  skills/
-    yxj-paper-os/
-      SKILL.md         # single public plugin skill, currently scaffold-only
-  scripts/
-    .gitkeep           # placeholder for future repo-local helper scripts
-  assets/
-    .gitkeep           # placeholder for future plugin assets
-  references/
-    README.md          # reference submodule policy
-    external/          # pinned external reference repositories
-  README.md            # minimal scaffold documentation
-  HANDOFF.md           # current architecture and branch handoff
-  .gitignore
+Single Skill, Five Internal Playbooks
 ```
 
-The plugin currently exposes one skill:
+Public surface:
 
-- `yxj-paper-os`: a clean scaffold skill for rebuilding the paper-planning
-  workflow incrementally.
+```text
+skills/yxj-paper-os/SKILL.md
+```
 
-No old runtime behavior is currently present in this branch. In particular, this
-branch does not currently provide:
+Internal resources:
 
+```text
+skills/yxj-paper-os/
+  references/
+    00-project-route.md
+    01-materials-inventory.md
+    02-claim-evidence-boundary.md
+    03-writing-structure.md
+    04-design-pack-compiler.md
+  assets/templates/
+    00_PROJECT_ROUTE.md
+    01_MATERIALS_INVENTORY.md
+    02_CLAIM_EVIDENCE_BOUNDARY.md
+    03_WRITING_STRUCTURE.md
+    04_WRITING_DESIGN_PACK.md
+  scripts/
+    verify_design_pack.py
+```
+
+## Product contract
+
+`yxj-paper-os` is a pre-writing information-completion gate. It helps Codex ask focused questions, fill planning Markdown files, and compile `04_WRITING_DESIGN_PACK.md` only when hard blockers are resolved.
+
+Hard blockers for design-pack generation:
+
+1. project route;
+2. core materials;
+3. core contribution;
+4. claim-evidence boundary;
+5. writing structure;
+6. external handoff route.
+
+The plugin must block and ask when these are missing. It must not emit a final design pack full of unresolved placeholders.
+
+## Non-goals
+
+This branch does not provide:
+
+- manuscript drafting;
+- external skill execution;
 - Paper Production Graph runtime;
 - S00-S16/G01/G02 stage registry;
-- validators, schemas, examples, runtime viewer, or LaTeX writeback;
-- manuscript drafting, figure production, citation lookup, reviewer simulation,
-  formatting, submission, upload, publication, or acceptance claims.
+- large validator matrix;
+- native citation lookup;
+- reviewer simulation;
+- LaTeX writeback, formatting export, submission, upload, publication, or acceptance claims.
 
-## Validation
+Historical phase/slot names may remain only as background context in old history. They are not the MVP public workflow.
 
-Use the plugin-creator validator as the baseline check:
+## Branch and version management
 
-```bash
-python3 /home/weathour/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
-```
-
-Expected output:
-
-```text
-Plugin validation passed: /home/weathour/plugins/yxj-paper-os
-```
-
-## Branch and version-management method
-
-- `main`: preserve the old implementation/history unless explicitly replaced
-  by a reviewed merge.
+- `main`: preserve historical implementation unless explicitly merged or replaced.
 - `yxj-paper-os-slot-skill-redesign`: active clean rewrite branch.
 - Commit policy: small commits that keep the plugin valid after each step.
 - Version policy:
-  - keep `.codex-plugin/plugin.json` at `0.1.0` while the scaffold is being
-    rebuilt;
-  - bump patch versions for validated internal scaffold additions;
-  - bump minor version when a user-facing skill or stable workspace contract is
-    added;
-  - do not claim production paper behavior until it is implemented and
-    owner-gated.
-- Migration policy: rebuild forward from this scaffold; recover old material
-  from `main` or Git history only when deliberately reintroduced.
+  - keep `.codex-plugin/plugin.json` at `0.1.0` during MVP rebuild;
+  - bump patch for validated internal additions if desired;
+  - bump minor only after the owner accepts a stable user-facing workspace contract.
+- Migration policy: rebuild forward from the minimal plugin surface; recover old runtime pieces only by explicit decision.
 
-## Recommended next steps
+## Validation
 
-1. Add Markdown slot templates for the new paper-planning workflow.
-2. Add a dependency-free template validator.
-3. Add `yxj-paper-init` as the first real native skill.
-4. Add one minimal example workspace.
-5. Expand only after the plugin validator and any new local validators pass.
+Workspace/design-pack validation is repo-local:
+
+```bash
+python3 skills/yxj-paper-os/scripts/verify_design_pack.py <paper_project>
+```
+
+For development, also run the plugin and skill validators from the active Codex installation. Keep those as environment-provided checks; do not make user-home or machine-local validator paths part of the public plugin contract.
 
 ## External references
 
-The current reference repositories are pinned as Git submodules under `references/external/`. Read `references/README.md` before using or updating them.
+`references/external/` is reference-only. External writing or review tools may receive `04_WRITING_DESIGN_PACK.md` as a handoff artifact, but this plugin must not execute those tools automatically.
