@@ -1,8 +1,0 @@
-schema_version: ppg-material/v0.1
-material_id: reference_sidecar
-version: v1
-status: stale
-material_type: ReferenceSidecar
-summary: Stale sidecar connected only by weak references; must not become stale frontier.
-payload:
-  note: weak references are provenance, not active control dependencies

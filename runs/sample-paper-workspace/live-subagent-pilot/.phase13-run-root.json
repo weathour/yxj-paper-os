@@ -1,7 +1,0 @@
-{
-  "cleanup_authority": "Phase13 may clean this directory only after this marker or matching manifest is present",
-  "ownership": "live-subagent-pilot",
-  "run_id": "sample-paper-workspace.live-subagent-pilot",
-  "run_root": "runs/sample-paper-workspace/live-subagent-pilot",
-  "schema_version": "ppg-phase13-run-root-owner/v0.1"
-}

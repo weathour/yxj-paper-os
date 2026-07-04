@@ -1,9 +1,0 @@
-schema_version: ppg-material/v0.1
-material_id: reader_spine
-version: invalid-missing-questions
-status: candidate
-material_type: ReaderSpine
-summary: Invalid reader spine missing reader questions.
-payload:
-  notes:
-    - this fixture intentionally omits questions

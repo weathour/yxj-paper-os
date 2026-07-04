@@ -1,6 +1,0 @@
-schema_version: ppg-review-finding/v0.1
-finding_id: invalid_missing_target
-status: validated
-failure_type: overclaim
-severity: high
-summary: Missing target should be rejected.

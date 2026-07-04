@@ -1,5 +1,0 @@
-schema_version: ppg-delivery-gate/v0.1
-gate_id: invalid_delivery_gate_status
-status: passed
-unresolved_blockers:
-  - this blocker must not be bypassed by a status typo

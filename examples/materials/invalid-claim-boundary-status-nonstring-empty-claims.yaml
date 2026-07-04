@@ -1,8 +1,0 @@
-schema_version: ppg-material/v0.1
-material_id: claim_boundary_map
-version: invalid-status-nonstring-empty-claims
-status: [bad_status]
-material_type: ClaimBoundaryMap
-summary: Invalid claim boundary with non-string status and missing allowed claims must not traceback.
-payload:
-  note: allowed_claims intentionally omitted to hit the empty-claims branch

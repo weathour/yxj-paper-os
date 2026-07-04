@@ -1,6 +1,0 @@
-Security-state-aware mixed platoon control is evaluated through a content-bearing manuscript fixture [1]. The first body paragraph states the problem, explains the cyber-physical safety context, and connects experiment evidence to the manuscript contribution using complete draft language. It contains enough natural language to serve as a rendered-text smoke fixture for the compiled target gate.
-
-The second body paragraph discusses methods, data, Figure 1, and claim boundaries. Future work should add validated citations and contract-bound figures and tables. This sentence is intentionally invalid because unresolved manager handoff risk must not appear in paper-facing text.
-
-References
-[1] Jane Doe. Fixture Reference for Paper OS validation. Journal, 2026.

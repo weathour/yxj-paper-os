@@ -1,8 +1,0 @@
-{
-  "schema_version": "ppg-validator-report/v0.1",
-  "report_id": "claim_boundary_map_candidate_v3_ready_report",
-  "validator_id": "claim_strength_validator_v1",
-  "target_node": "claim_boundary_map_candidate_v3_ready",
-  "status": "pass",
-  "summary": "ClaimBoundaryMap v3 ready candidate passes claim strength validation for dry-run commit planning."
-}

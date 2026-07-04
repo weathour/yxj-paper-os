@@ -1,10 +1,9 @@
 __pycache__/
 *.pyc
 .DS_Store
-.omx/
+.env
 node_modules/
 dist/
 build/
-.env
-
-graphify-out/cache/
+.omx/
+.codegraph/

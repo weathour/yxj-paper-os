@@ -1,9 +1,0 @@
-schema_version: ppg-material/v0.1
-material_id: reader_spine
-version: invalid-questions-shape
-status: candidate
-material_type: ReaderSpine
-summary: Reader questions must be string list entries.
-payload:
-  questions:
-    - [why fresh V2X authority can degrade]

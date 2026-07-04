@@ -1,7 +1,0 @@
-{
-  "cleanup_authority": "this directory may be cleaned only by Phase12 after this marker or a matching Phase12 manifest is present",
-  "ownership": "formal-full-flow-runtime-test",
-  "run_id": "sample-paper-workspace.formal-full-flow-runtime-test",
-  "run_root": "runs/sample-paper-workspace/formal-full-flow-runtime-test",
-  "schema_version": "ppg-phase12-run-root-owner/v0.1"
-}

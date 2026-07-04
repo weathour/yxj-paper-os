@@ -1,6 +1,0 @@
-schema_version: ppg-review-closure/v0.1
-closure_id: invalid_review_closure_status
-status: done
-finding_id: overclaim_review_finding_v1
-evidence:
-  - evidence exists but status vocabulary is invalid

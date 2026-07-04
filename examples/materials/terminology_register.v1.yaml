@@ -1,9 +1,0 @@
-schema_version: ppg-material/v0.1
-material_id: terminology_register
-version: v1
-status: stale
-material_type: TerminologyRegister
-summary: Stale terminology register on the active control path; used to test stale frontier priority.
-payload:
-  stale_terms:
-    - autonomous route

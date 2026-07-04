@@ -1,5 +1,0 @@
-schema_version: ppg-delivery-gate/v0.1
-gate_id: invalid_delivery_gate_status_nonstring
-status: [bad_status]
-unresolved_blockers:
-  - this blocker must not cause a traceback through an unhashable status

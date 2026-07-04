@@ -1,3 +1,0 @@
-# References
-
-Sample references placeholder.

@@ -1,6 +1,0 @@
-schema_version: ppg-delivery-gate/v0.1
-gate_id: phase4_delivery_gate_v1
-status: pass
-closures:
-  - overclaim_closure_v1
-unresolved_blockers: []

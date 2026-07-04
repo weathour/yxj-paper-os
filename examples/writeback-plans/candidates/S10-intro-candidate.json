@@ -1,8 +1,0 @@
-{
-  "candidate_id": "fixture-paper.s10.introduction-marker-writeback.v1",
-  "stage_id": "S10",
-  "status": "candidate_only",
-  "controller_commit_required": true,
-  "target_path": "manuscript/sections/01_intro.tex",
-  "evidence_refs": ["examples/writeback-plans/fixture-paper/manuscript/sections/01_intro.tex#PPG-WRITEBACK-START:S10-INTRO"]
-}
