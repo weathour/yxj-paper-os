@@ -1,19 +1,20 @@
 ---
 name: yxj-paper-os
-description: Use for traffic, computer-science, or AI paper projects when Codex needs to initialize or inspect a lightweight paper-planning workspace, guide the user through missing project/material/claim/structure information, enforce claim-evidence boundaries, compile 04_WRITING_DESIGN_PACK.md, or validate a yxj writing design pack before handing off to downstream writing modules.
+description: Use for traffic, computer-science, or AI paper projects when Codex needs to initialize or inspect a lightweight six-file paper-planning workspace, guide the user through 20 required information dimensions, enforce claim-evidence boundaries, compile 04_WRITING_DESIGN_PACK.md, or validate a yxj writing design pack before handing off to downstream writing modules.
 ---
 
 # yxj-paper-os
 
-Operate `yxj-paper-os` as one public guided workflow with five internal playbooks.
+Operate `yxj-paper-os` as one public guided workflow with five internal playbooks and one public dimension index.
 
 Do not split the MVP into public subskills. Load only the internal playbook needed for the current missing area.
 
 ## Workspace contract
 
-Use exactly these five project files:
+Use exactly these six project files:
 
 ```text
+00_DIMENSION_INDEX.md
 00_PROJECT_ROUTE.md
 01_MATERIALS_INVENTORY.md
 02_CLAIM_EVIDENCE_BOUNDARY.md
@@ -21,22 +22,41 @@ Use exactly these five project files:
 04_WRITING_DESIGN_PACK.md
 ```
 
+`00_DIMENSION_INDEX.md` is required and public. It is a status/pointer checklist for the 20 required dimensions, not a sixth content silo. The five other files hold the actual project information.
+
 If files are missing, copy templates from `assets/templates/` before filling content.
 
 ## Core workflow
 
-1. **Inspect / initialize.** Check whether the five files exist. If not, create them from `assets/templates/`.
-2. **Find the first blocker.** Read the current files and identify the first missing hard-blocker category.
-3. **Load one playbook.** Read the matching file under `references/`:
-   - `00-project-route.md` for target venue, paper type, topic, and positioning.
-   - `01-materials-inventory.md` for experiments, results, figures, data, code, baselines, and metrics.
-   - `02-claim-evidence-boundary.md` for contribution, claims, evidence, wording, and limitations.
-   - `03-writing-structure.md` for reader spine, section jobs, and figure storyline.
-   - `04-design-pack-compiler.md` for final handoff compilation.
-4. **Ask one focused question when blocked.** If required information is missing, ask only the next highest-leverage question and wait for the answer. Do not batch many questions unless the user explicitly asks for a form to fill.
-5. **Update the relevant Markdown file.** Normalize the answer into the proper file. Preserve uncertainty as explicit `absent`, `deferred`, or `rejected` decisions instead of pretending completeness.
-6. **Compile only when clear.** Generate or update `04_WRITING_DESIGN_PACK.md` only after all hard blockers are resolved.
-7. **Validate.** Run `scripts/verify_design_pack.py <paper_project>` when a design pack is ready.
+1. **Inspect / initialize.** Check whether the six files exist. If not, create them from `assets/templates/`.
+2. **Read the dimension index first.** Confirm D00-D19 exist in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?` values.
+3. **Find the first blocker.** Read the current files and identify the first missing hard-blocker category or unhandled dimension.
+4. **Load one playbook.** Read the matching file under `references/`:
+   - `00-project-route.md` for D01, D03, D04: owner decisions, project brief, target route, paper type, topic, and positioning.
+   - `01-materials-inventory.md` for D05, D06, D07, D08: materials, evidence, user-provided sources, and research notes.
+   - `02-claim-evidence-boundary.md` for D10, D11, D12, D13, and secondary claim-side D16/D17: contribution options, claims, evidence, wording, limitations, and risk.
+   - `03-writing-structure.md` for D09, D14, D15, primary D16, primary D17, and D18: exemplar language, reader spine, outline, object granularity, surface control, and visuals.
+   - `04-design-pack-compiler.md` for D00, D02, D19 and final handoff compilation.
+5. **Ask one focused question when blocked.** If required information is missing, ask only the next highest-leverage question and wait for the answer. Do not batch many questions unless the user explicitly asks for a form to fill.
+6. **Update the relevant Markdown file and the index.** Normalize the answer into the proper content file, then update the matching row in `00_DIMENSION_INDEX.md`. Preserve uncertainty as explicit `not_applicable`, `absent`, `deferred`, or `rejected` decisions with reasons instead of pretending completeness.
+7. **Compile only when clear.** Generate or update `04_WRITING_DESIGN_PACK.md` only after all hard blockers are resolved and all 20 dimensions are handled.
+8. **Validate.** Run `scripts/verify_design_pack.py <paper_project>` when a design pack is ready.
+
+## Dimension handling gate
+
+Each D00-D19 row in `00_DIMENSION_INDEX.md` must have:
+
+| Field | Rule |
+|---|---|
+| `ID` | One of D00-D19, each exactly once |
+| `Dimension` | Legacy/source dimension label |
+| `Current home` | The content file or index file that owns the information |
+| `Status` | `filled`, `not_applicable`, `absent`, `deferred`, or `rejected` |
+| `Reason / owner note` | Non-placeholder explanation |
+| `Pointer or handoff` | Non-placeholder file+section pointer for `filled`, or a handoff note for non-filled statuses |
+| `Blocks design pack?` | `yes` or `no`; means readiness-critical if unhandled, not currently blocking after it is handled |
+
+A dimension is handled when it is substantively filled or explicitly marked `not_applicable`, `absent`, `deferred`, or `rejected` with a reason and pointer/handoff note. A structurally valid design pack proves this contract was checked; it does not prove semantic adequacy of the paper plan.
 
 ## Hard blockers
 
@@ -44,6 +64,7 @@ Block design-pack compilation and ask for missing information when any category 
 
 | Blocker | Minimum required information |
 |---|---|
+| `dimension-index` | D00-D19 present with valid status, reason, pointer/handoff, and `Blocks design pack?` value |
 | `project-route` | target venue/family, paper type, topic, traffic/computer positioning |
 | `core-materials` | experiment/result/figure/table/data/code/baseline/metric locations or explicit absence decisions |
 | `core-contribution` | problem, object, method/system/model, one-sentence contribution |
@@ -60,9 +81,10 @@ Do not:
 - draft manuscript prose;
 - execute external skills automatically;
 - search for citations or invent BibTeX entries;
-- invent experiments, data, baselines, metrics, results, or evidence anchors;
+- invent experiments, data, baselines, metrics, results, sources, or evidence anchors;
 - strengthen claims beyond evidence;
-- build a runtime graph, stage registry, worker orchestration, or large validator matrix;
+- build a runtime graph, stage registry, worker orchestration, backflow runtime, or large validator matrix;
+- restore the old 20 public workspace files;
 - claim submission, upload, publication, acceptance, or final-paper completion.
 
 External writing tools may receive `04_WRITING_DESIGN_PACK.md`, but they cannot override claim/evidence/owner boundaries.
@@ -71,7 +93,7 @@ External writing tools may receive `04_WRITING_DESIGN_PACK.md`, but they cannot 
 
 When reporting progress, name:
 
-- which of the five files changed;
-- which hard blockers remain;
+- which of the six files changed;
+- which hard blockers or dimension IDs remain unhandled;
 - whether `04_WRITING_DESIGN_PACK.md` is valid or still blocked;
 - which validation command was run and its result.

@@ -2,11 +2,25 @@
 
 > Final handoff artifact. Do not leave template placeholders in the final version.
 
+## Dimension Coverage Summary
+
+| ID | Status | Pointer or handoff | Blocks design pack? |
+|---|---|---|---|
+| TODO | TODO | TODO | TODO |
+
 ## Project Route
 
 TODO
 
 ## Material Boundary
+
+TODO
+
+## Source / Citation Boundary
+
+TODO
+
+## Research Dossier Notes
 
 TODO
 
@@ -25,6 +39,10 @@ TODO
 TODO
 
 ## Forbidden Wording
+
+TODO
+
+## Limitations and Risks
 
 TODO
 

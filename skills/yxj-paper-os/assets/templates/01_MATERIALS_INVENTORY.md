@@ -26,6 +26,24 @@ TODO
 
 TODO
 
+## Evidence Inventory
+
+| Evidence anchor | Type | Location | Supports claim/dimension | Status |
+|---|---|---|---|---|
+| TODO | TODO | TODO | TODO | TODO |
+
+## Source and Citation Bank
+
+> User-provided or candidate sources only. Do not invent BibTeX entries.
+
+TODO
+
+## Research Dossier
+
+> Existing related-work notes, exemplar papers, or known gaps if supplied. Mark absent/deferred rather than inventing sources.
+
+TODO
+
 ## Existing Text Fragments
 
 TODO

@@ -2,14 +2,14 @@
 
 `yxj-paper-os` is a minimal Codex plugin for preparing traffic / computer-science / AI paper projects before manuscript drafting.
 
-It does **not** write the manuscript. It guides Codex to collect the missing upstream information, blocks when required information is absent, and produces a writing-design handoff for downstream writing modules.
+It does **not** write the manuscript. It guides Codex to collect missing upstream information, blocks when required information is unhandled, and produces a writing-design handoff for downstream writing modules.
 
 ## MVP architecture
 
 ```text
 Single public skill
   + five internal playbooks
-  + five Markdown templates
+  + six Markdown workspace templates
   + one lightweight validator
 ```
 
@@ -19,10 +19,11 @@ The public surface is one skill:
 skills/yxj-paper-os/SKILL.md
 ```
 
-The internal planning files are:
+The public paper workspace has exactly six files:
 
 ```text
 paper_project/
+  00_DIMENSION_INDEX.md
   00_PROJECT_ROUTE.md
   01_MATERIALS_INVENTORY.md
   02_CLAIM_EVIDENCE_BOUNDARY.md
@@ -30,15 +31,19 @@ paper_project/
   04_WRITING_DESIGN_PACK.md
 ```
 
+`00_DIMENSION_INDEX.md` is the required public checklist for the 20 information dimensions. It records whether each dimension is filled, not applicable, absent, deferred, or rejected, with a reason and a pointer/handoff note.
+
 `04_WRITING_DESIGN_PACK.md` is the handoff artifact for writing, figure, citation, polishing, or review tools.
 
 ## What the plugin owns
 
 - project route and venue/type positioning;
 - material and evidence location;
+- source/citation candidate notes supplied by the user;
 - contribution and claim-evidence boundary;
 - allowed / forbidden wording;
 - reader spine and writing structure;
+- 20-dimension readiness status;
 - external handoff constraints.
 
 ## What the plugin does not own
@@ -60,7 +65,7 @@ yxj-paper-os/
   skills/yxj-paper-os/
     SKILL.md
     references/          # internal playbooks
-    assets/templates/    # Markdown templates
+    assets/templates/    # six Markdown workspace templates
     scripts/             # lightweight validation
   docs/BRANCH_PHILOSOPHY.md
   references/            # external reference repos, not runtime dependencies
@@ -72,10 +77,12 @@ yxj-paper-os/
 
 ## Validation
 
-Portable workspace validation is repo-local:
+Portable structural workspace validation is repo-local:
 
 ```bash
 python3 skills/yxj-paper-os/scripts/verify_design_pack.py <paper_project>
 ```
 
 During plugin development, also run the Codex plugin and skill validators provided by the local Codex installation. Those tools are environment-provided and are not required runtime dependencies of this repository.
+
+Structural validation checks the six-file contract, dimension-index completeness, and claim/evidence anchors. It does not prove semantic adequacy of the paper plan.

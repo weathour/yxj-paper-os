@@ -2,6 +2,13 @@
 
 > Fill through yxj-paper-os guided intake. Template placeholders are not final content.
 
+## Project Brief
+
+- Project / paper slug: TODO
+- Research topic: TODO
+- Traffic / computer-science / AI positioning: TODO
+- Working thesis: TODO
+
 ## Target Route
 
 - Venue / venue family: TODO
