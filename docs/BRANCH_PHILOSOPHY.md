@@ -35,7 +35,7 @@
 ## 3. MVP 架构
 
 ```text
-Single Skill, Five Internal Playbooks
+Single Skill, Five Internal Playbooks, Six Workspace Files
 ```
 
 公开 skill 只有一个：
@@ -55,10 +55,11 @@ skills/yxj-paper-os/references/
   04-design-pack-compiler.md
 ```
 
-对应用户项目中的五个 Markdown 文件：
+对应用户项目中的六个 Markdown 文件：
 
 ```text
 paper_project/
+  00_DIMENSION_INDEX.md
   00_PROJECT_ROUTE.md
   01_MATERIALS_INVENTORY.md
   02_CLAIM_EVIDENCE_BOUNDARY.md
@@ -66,7 +67,7 @@ paper_project/
   04_WRITING_DESIGN_PACK.md
 ```
 
-这个结构是第一版的公共契约。不要把旧的 20-slot、S00-S16 或多 public skill 体系作为 MVP 用户界面。
+这个结构是当前公共契约：二十个信息维度以 `D00-D19` 行收敛在 `00_DIMENSION_INDEX.md` 中，实际内容仍写入五个内容文件。不要把旧的 20 public files、S00-S16 或多 public skill 体系作为 MVP 用户界面。
 
 ## 4. 真正需要的是什么
 

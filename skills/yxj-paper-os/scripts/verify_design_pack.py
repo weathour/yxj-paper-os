@@ -36,6 +36,8 @@ REQUIRED_HEADINGS = {
         "Project Brief",
         "Target Route",
         "Topic and Positioning",
+        "Audience and Reviewer Expectation",
+        "Owner Decisions",
         "Forbidden Routes",
         "Route Readiness",
     ],
@@ -49,6 +51,7 @@ REQUIRED_HEADINGS = {
         "Evidence Inventory",
         "Source and Citation Bank",
         "Research Dossier",
+        "Existing Text Fragments",
         "Explicit Absences",
     ],
     "02_CLAIM_EVIDENCE_BOUNDARY.md": [
@@ -70,6 +73,7 @@ REQUIRED_HEADINGS = {
         "Surface Control",
         "Figure / Table Storyline",
         "Visual Plan",
+        "Paragraph / Function Map",
         "Drafting Constraints",
     ],
     FINAL_PACK: [
@@ -103,6 +107,7 @@ DIMENSION_COLUMNS = [
 ]
 VALID_DIMENSION_STATUSES = {"filled", "not_applicable", "absent", "deferred", "rejected"}
 VALID_BLOCKS_VALUES = {"yes", "no"}
+FINAL_COVERAGE_COLUMNS = ["ID", "Status", "Pointer or handoff", "Blocks design pack?"]
 
 PLACEHOLDER_RE = re.compile(r"\b(?:TODO|TBD|REPLACE_ME|UNKNOWN)\b|\[\s*\.\.\.\s*\]", re.IGNORECASE)
 CLAIM_FILES = ("02_CLAIM_EVIDENCE_BOUNDARY.md", FINAL_PACK)
@@ -166,6 +171,25 @@ def parse_markdown_table(section: str) -> tuple[list[str], list[dict[str, str]]]
     return header, rows
 
 
+def normalize_table_value(value: str) -> str:
+    return re.sub(r"\s+", " ", value.strip())
+
+
+def normalize_anchor(value: str) -> str:
+    value = value.strip().strip("`").strip()
+    value = re.sub(r"^#+", "", value).strip()
+    match = re.fullmatch(r"\[([^\]]+)\]\([^)]*\)", value)
+    if match:
+        value = match.group(1).strip()
+    return value.strip().strip("`").strip()
+
+
+def split_anchor_list(value: str) -> list[str]:
+    cleaned = re.sub(r"<br\s*/?>", ",", value, flags=re.IGNORECASE)
+    parts = re.split(r"[,;；，、\n]+", cleaned)
+    return [anchor for part in parts if (anchor := normalize_anchor(part))]
+
+
 def first_present(row: dict[str, str], names: list[str]) -> str:
     lowered = {normalize_heading(k): v for k, v in row.items()}
     for name in names:
@@ -223,15 +247,16 @@ def validate_filled_pointer(row_label: str, pointer: str, contents: dict[str, st
         errors.append(f"{row_label}: filled pointer target section is empty or placeholder: {file_name}#{anchor_slug}")
 
 
-def validate_dimension_index(text: str, contents: dict[str, str], errors: list[str]) -> None:
+def validate_dimension_index(text: str, contents: dict[str, str], errors: list[str]) -> dict[str, dict[str, str]]:
+    rows_by_id: dict[str, dict[str, str]] = {}
     section = section_content(text, "Dimension Status Index")
     if section is None:
         errors.append(f"{DIMENSION_INDEX}: missing ## Dimension Status Index")
-        return
+        return rows_by_id
     header, rows = parse_markdown_table(section)
     if not header or not rows:
         errors.append(f"{DIMENSION_INDEX}: Dimension Status Index must contain a Markdown table with D00-D19 rows")
-        return
+        return rows_by_id
     if header != DIMENSION_COLUMNS:
         errors.append(
             f"{DIMENSION_INDEX}: Dimension Status Index columns must be exactly: "
@@ -255,6 +280,7 @@ def validate_dimension_index(text: str, contents: dict[str, str], errors: list[s
         if dim_id in seen:
             errors.append(f"{label}: duplicate dimension ID {dim_id}")
         seen.add(dim_id)
+        rows_by_id[dim_id] = row
         if dim_id not in REQUIRED_DIMENSION_IDS:
             errors.append(f"{label}: unexpected dimension ID {dim_id}")
         if not dimension or has_placeholder(dimension):
@@ -275,9 +301,41 @@ def validate_dimension_index(text: str, contents: dict[str, str], errors: list[s
     missing = sorted(REQUIRED_DIMENSION_IDS - seen)
     if missing:
         errors.append(f"{DIMENSION_INDEX}: missing required dimension IDs: {', '.join(missing)}")
+    return rows_by_id
 
 
-def validate_claim_table(file_name: str, text: str, errors: list[str]) -> None:
+def validate_evidence_inventory(text: str, errors: list[str]) -> set[str]:
+    file_name = "01_MATERIALS_INVENTORY.md"
+    section = section_content(text, "Evidence Inventory")
+    if section is None:
+        errors.append(f"{file_name}: missing ## Evidence Inventory")
+        return set()
+    header, rows = parse_markdown_table(section)
+    if not header or not rows:
+        errors.append(f"{file_name}: Evidence Inventory must contain a Markdown table with evidence anchors")
+        return set()
+
+    anchors: set[str] = set()
+    for idx, row in enumerate(rows, start=1):
+        label = f"{file_name}: Evidence Inventory row {idx}"
+        anchor = first_present(row, ["Evidence anchor", "Evidence anchors", "Anchor", "ID"])
+        status = first_present(row, ["Status"])
+        if not anchor or has_placeholder(anchor):
+            errors.append(f"{label}: evidence anchor is missing or placeholder")
+            continue
+        normalized = normalize_anchor(anchor)
+        if not normalized:
+            errors.append(f"{label}: evidence anchor is empty after normalization")
+            continue
+        if normalized in anchors:
+            errors.append(f"{label}: duplicate evidence anchor {normalized}")
+        anchors.add(normalized)
+        if not status or has_placeholder(status):
+            errors.append(f"{label}: status is required and must not be placeholder")
+    return anchors
+
+
+def validate_claim_table(file_name: str, text: str, evidence_anchors: set[str], errors: list[str]) -> None:
     section = section_content(text, "Claim-Evidence Map")
     if section is None:
         errors.append(f"{file_name}: missing ## Claim-Evidence Map")
@@ -301,12 +359,76 @@ def validate_claim_table(file_name: str, text: str, errors: list[str]) -> None:
             errors.append(f"{label}: claim is missing or placeholder")
         if not deferred and (not evidence or has_placeholder(evidence)):
             errors.append(f"{label}: evidence anchor is required unless status is deferred/rejected")
+        elif not deferred:
+            anchors = split_anchor_list(evidence)
+            if not anchors:
+                errors.append(f"{label}: evidence anchor is required unless status is deferred/rejected")
+            for anchor in anchors:
+                if anchor.lower() in {"n/a", "na", "none", "absent"}:
+                    errors.append(f"{label}: evidence anchor {anchor!r} requires deferred/rejected status")
+                elif anchor not in evidence_anchors:
+                    errors.append(f"{label}: evidence anchor {anchor!r} is not listed in 01_MATERIALS_INVENTORY.md#Evidence Inventory")
         if not support or has_placeholder(support):
             errors.append(f"{label}: support strength is required and must not be placeholder")
         if not forbidden or has_placeholder(forbidden):
             errors.append(f"{label}: forbidden wording is required and must not be placeholder")
         if FINAL_PACK == file_name and (not status or has_placeholder(status)):
             errors.append(f"{label}: final design pack requires explicit status")
+
+
+def validate_dimension_coverage_summary(text: str, index_rows: dict[str, dict[str, str]], errors: list[str]) -> None:
+    section = section_content(text, "Dimension Coverage Summary")
+    if section is None:
+        errors.append(f"{FINAL_PACK}: missing ## Dimension Coverage Summary")
+        return
+    header, rows = parse_markdown_table(section)
+    if not header or not rows:
+        errors.append(f"{FINAL_PACK}: Dimension Coverage Summary must contain a Markdown table with D00-D19 rows")
+        return
+    if header != FINAL_COVERAGE_COLUMNS:
+        errors.append(
+            f"{FINAL_PACK}: Dimension Coverage Summary columns must be exactly: "
+            + " | ".join(FINAL_COVERAGE_COLUMNS)
+        )
+
+    seen: set[str] = set()
+    for idx, row in enumerate(rows, start=1):
+        label = f"{FINAL_PACK}: Dimension Coverage Summary row {idx}"
+        dim_id = first_present(row, ["ID"])
+        status = first_present(row, ["Status"]).lower()
+        pointer = first_present(row, ["Pointer or handoff"])
+        blocks = first_present(row, ["Blocks design pack?"]).lower()
+
+        if not dim_id:
+            errors.append(f"{label}: ID is missing")
+            continue
+        if dim_id in seen:
+            errors.append(f"{label}: duplicate dimension ID {dim_id}")
+        seen.add(dim_id)
+        if dim_id not in REQUIRED_DIMENSION_IDS:
+            errors.append(f"{label}: unexpected dimension ID {dim_id}")
+        if status not in VALID_DIMENSION_STATUSES:
+            errors.append(f"{label}: invalid Status {status!r}; expected one of {', '.join(sorted(VALID_DIMENSION_STATUSES))}")
+        if not pointer or has_placeholder(pointer):
+            errors.append(f"{label}: Pointer or handoff is missing or placeholder")
+        if blocks not in VALID_BLOCKS_VALUES:
+            errors.append(f"{label}: Blocks design pack? must be yes or no")
+
+        index_row = index_rows.get(dim_id)
+        if index_row:
+            index_status = first_present(index_row, ["Status"]).lower()
+            index_pointer = first_present(index_row, ["Pointer or handoff"])
+            index_blocks = first_present(index_row, ["Blocks design pack?"]).lower()
+            if status and index_status and status != index_status:
+                errors.append(f"{label}: Status does not match {DIMENSION_INDEX} ({status!r} != {index_status!r})")
+            if pointer and index_pointer and normalize_table_value(pointer) != normalize_table_value(index_pointer):
+                errors.append(f"{label}: Pointer or handoff does not match {DIMENSION_INDEX}")
+            if blocks and index_blocks and blocks != index_blocks:
+                errors.append(f"{label}: Blocks design pack? does not match {DIMENSION_INDEX} ({blocks!r} != {index_blocks!r})")
+
+    missing = sorted(REQUIRED_DIMENSION_IDS - seen)
+    if missing:
+        errors.append(f"{FINAL_PACK}: Dimension Coverage Summary missing required dimension IDs: {', '.join(missing)}")
 
 
 def validate_workspace(workspace: Path) -> list[str]:
@@ -340,15 +462,22 @@ def validate_workspace(workspace: Path) -> list[str]:
             elif has_placeholder(content):
                 errors.append(f"{file_name}: section ## {heading} contains unresolved placeholder")
 
+    index_rows: dict[str, dict[str, str]] = {}
     if DIMENSION_INDEX in contents:
-        validate_dimension_index(contents[DIMENSION_INDEX], contents, errors)
+        index_rows = validate_dimension_index(contents[DIMENSION_INDEX], contents, errors)
 
-    if FINAL_PACK in contents and has_placeholder(contents[FINAL_PACK]):
-        errors.append(f"{FINAL_PACK}: final handoff contains unresolved placeholder")
+    evidence_anchors: set[str] = set()
+    if "01_MATERIALS_INVENTORY.md" in contents:
+        evidence_anchors = validate_evidence_inventory(contents["01_MATERIALS_INVENTORY.md"], errors)
+
+    if FINAL_PACK in contents:
+        validate_dimension_coverage_summary(contents[FINAL_PACK], index_rows, errors)
+        if has_placeholder(contents[FINAL_PACK]):
+            errors.append(f"{FINAL_PACK}: final handoff contains unresolved placeholder")
 
     for file_name in CLAIM_FILES:
         if file_name in contents:
-            validate_claim_table(file_name, contents[file_name], errors)
+            validate_claim_table(file_name, contents[file_name], evidence_anchors, errors)
 
     return errors
 

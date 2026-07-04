@@ -11,7 +11,7 @@ This branch intentionally deleted the old Paper Production Graph runtime and reb
 ## Governing architecture
 
 ```text
-Single Skill, Five Internal Playbooks
+Single Skill, Five Internal Playbooks, Six Workspace Files
 ```
 
 Public surface:
@@ -31,6 +31,7 @@ skills/yxj-paper-os/
     03-writing-structure.md
     04-design-pack-compiler.md
   assets/templates/
+    00_DIMENSION_INDEX.md
     00_PROJECT_ROUTE.md
     01_MATERIALS_INVENTORY.md
     02_CLAIM_EVIDENCE_BOUNDARY.md
@@ -42,7 +43,7 @@ skills/yxj-paper-os/
 
 ## Product contract
 
-`yxj-paper-os` is a pre-writing information-completion gate. It helps Codex ask focused questions, fill planning Markdown files, and compile `04_WRITING_DESIGN_PACK.md` only when hard blockers are resolved.
+`yxj-paper-os` is a pre-writing information-completion gate. It helps Codex ask focused questions, fill six planning Markdown files, track D00-D19 in `00_DIMENSION_INDEX.md`, and compile `04_WRITING_DESIGN_PACK.md` only when hard blockers are resolved.
 
 Hard blockers for design-pack generation:
 
@@ -68,7 +69,7 @@ This branch does not provide:
 - reviewer simulation;
 - LaTeX writeback, formatting export, submission, upload, publication, or acceptance claims.
 
-Historical phase/slot names may remain only as background context in old history. They are not the MVP public workflow.
+Historical phase/slot names and older five-file planning notes may remain only as background context in old history. They are not the MVP public workflow.
 
 ## Branch and version management
 

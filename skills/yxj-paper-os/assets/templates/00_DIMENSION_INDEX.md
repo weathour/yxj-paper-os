@@ -29,7 +29,7 @@
 | D14 | 20_reader_spine.md | 03_WRITING_STRUCTURE.md | TODO | TODO | TODO | yes |
 | D15 | 21_manuscript_outline.md | 03_WRITING_STRUCTURE.md | TODO | TODO | TODO | yes |
 | D16 | 22_object_granularity.md | 03_WRITING_STRUCTURE.md + 02_CLAIM_EVIDENCE_BOUNDARY.md | TODO | TODO | TODO | yes |
-| D17 | 23_surface_control.md | 03_WRITING_STRUCTURE.md + 02_CLAIM_EVIDENCE_BOUNDARY.md | TODO | TODO | TODO | no |
+| D17 | 23_surface_control.md | 03_WRITING_STRUCTURE.md + 02_CLAIM_EVIDENCE_BOUNDARY.md | TODO | TODO | TODO | yes |
 | D18 | 24_visual_plan.md | 03_WRITING_STRUCTURE.md + 01_MATERIALS_INVENTORY.md | TODO | TODO | TODO | yes |
 | D19 | 25_WRITING_DESIGN_PACK.md | 04_WRITING_DESIGN_PACK.md | TODO | TODO | TODO | yes |
 
