@@ -2,6 +2,10 @@
 
 Use this playbook when `01_MATERIALS_INVENTORY.md` is missing or incomplete, or when D05/D06/D07/D08 in `00_DIMENSION_INDEX.md` are unhandled.
 
+## Dimension rubric reference
+
+For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is a central internal rubric/reference, not a sixth task playbook and not a public workspace file. Do not duplicate its full D00-D19 rubric here.
+
 ## Dimension IDs covered
 
 | ID | Dimension | Home |

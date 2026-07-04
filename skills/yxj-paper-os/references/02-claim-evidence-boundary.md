@@ -2,6 +2,10 @@
 
 Use this playbook when `02_CLAIM_EVIDENCE_BOUNDARY.md` is missing, when claims lack evidence anchors, or when D10/D11/D12/D13 or claim-side D16/D17 in `00_DIMENSION_INDEX.md` are unhandled.
 
+## Dimension rubric reference
+
+For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is a central internal rubric/reference, not a sixth task playbook and not a public workspace file. Do not duplicate its full D00-D19 rubric here.
+
 ## Dimension IDs covered
 
 | ID | Dimension | Home |

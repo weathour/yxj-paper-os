@@ -5,9 +5,9 @@ description: Use for traffic, computer-science, or AI paper projects when Codex 
 
 # yxj-paper-os
 
-Operate `yxj-paper-os` as one public guided workflow with five internal playbooks and one public dimension index.
+Operate `yxj-paper-os` as one public guided workflow with five task playbooks, one central internal dimension rubric, and one public dimension index.
 
-Do not split the MVP into public subskills. Load only the internal playbook needed for the current missing area.
+Do not split the MVP into public subskills. Load the central internal rubric only when judging D00-D19 sufficiency, then load only the task playbook needed for the current missing area.
 
 ## Workspace contract
 
@@ -30,17 +30,28 @@ If files are missing, copy templates from `assets/templates/` before filling con
 
 1. **Inspect / initialize.** Check whether the six files exist. If not, create them from `assets/templates/`.
 2. **Read the dimension index first.** Confirm D00-D19 exist in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?` values.
-3. **Find the first blocker.** Read the current files and identify the first missing hard-blocker category or unhandled dimension.
-4. **Load one playbook.** Read the matching file under `references/`:
+3. **Use the central internal rubric for sufficiency.** Read `references/00-dimension-rubric.md` when deciding whether a dimension is only `minimum`, has reached `standard`, can remain deferred, or may allow design-pack compilation. The rubric is not a sixth task playbook and does not change the public index schema.
+4. **Find the first blocker.** Read the current files and identify the first missing hard-blocker category, unhandled dimension, or critical dimension that has not reached `standard`.
+5. **Load one task playbook.** Read the matching file under `references/`:
    - `00-project-route.md` for D01, D03, D04: owner decisions, project brief, target route, paper type, topic, and positioning.
    - `01-materials-inventory.md` for D05, D06, D07, D08: materials, evidence, user-provided sources, and research notes.
    - `02-claim-evidence-boundary.md` for D10, D11, D12, D13, and secondary claim-side D16/D17: contribution options, claims, evidence, wording, limitations, and risk.
    - `03-writing-structure.md` for D09, D14, D15, primary D16, primary D17, and D18: exemplar language, reader spine, outline, object granularity, surface control, and visuals.
    - `04-design-pack-compiler.md` for D00, D02, D19 and final handoff compilation.
-5. **Ask one focused question when blocked.** If required information is missing, ask only the next highest-leverage question and wait for the answer. Do not batch many questions unless the user explicitly asks for a form to fill.
-6. **Update the relevant Markdown file and the index.** Normalize the answer into the proper content file, then update the matching row in `00_DIMENSION_INDEX.md`. Preserve uncertainty as explicit `not_applicable`, `absent`, `deferred`, or `rejected` decisions with reasons instead of pretending completeness.
-7. **Compile only when clear.** Generate or update `04_WRITING_DESIGN_PACK.md` only after all hard blockers are resolved and all 20 dimensions are handled.
-8. **Validate.** Run `scripts/verify_design_pack.py <paper_project>` when a design pack is ready.
+6. **Ask one focused question when blocked.** If required information is missing, ask only the next highest-leverage question and wait for the answer. Do not batch many questions unless the user explicitly asks for a form to fill.
+7. **Update the relevant Markdown file and the index.** Normalize the answer into the proper content file, then update the matching row in `00_DIMENSION_INDEX.md`. Preserve uncertainty as explicit `not_applicable`, `absent`, `deferred`, or `rejected` decisions with reasons instead of pretending completeness.
+8. **Compile only when clear.** Generate or update `04_WRITING_DESIGN_PACK.md` only after all hard blockers are resolved, all 20 dimensions are handled, and every critical-standard dimension has reached `standard` under the internal rubric.
+9. **Validate.** Run `scripts/verify_design_pack.py <paper_project>` when a design pack is ready.
+
+## Internal dimension rubric
+
+Use `references/00-dimension-rubric.md` as the central internal source for D00-D19 sufficiency. It defines `minimum`, `standard`, and `ideal` guidance, the critical-standard set, proposal/confirmation rules, write targets, and defer/reject behavior.
+
+This rubric is not a public skill, not a sixth task playbook, and not a public workspace file. Do not add tier columns or tier status values to `00_DIMENSION_INDEX.md`; express the result through the existing `Status`, `Reason / owner note`, and `Pointer or handoff` fields.
+
+Critical-standard dimensions that must reach `standard` before compiling the final design pack are exactly: `D04,D05,D06,D10,D11,D12,D13,D14,D15,D16,D17,D18`. Non-critical dimensions still require at least `minimum` handling; `ideal` never blocks.
+
+Owner-gated facts, route decisions, contribution choices, claims, evidence anchors, source/citation facts, and forbidden routes require owner confirmation before final `filled`/standard handling. Agent-designable structural dimensions may be proposed and marked standard only when grounded in confirmed upstream material and rationale.
 
 ## Dimension handling gate
 
