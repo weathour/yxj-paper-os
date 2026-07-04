@@ -12,6 +12,11 @@ A standard Codex plugin scaffold for rebuilding `yxj-paper-os` from a clean bran
 - `skills/` — plugin skills
 - `scripts/` — repo-local helper scripts
 - `assets/` — optional plugin assets
+- `references/` — pinned external reference repositories as Git submodules
+
+## External references
+
+- [`references/README.md`](references/README.md) documents the external reference submodules used for traffic/computer-science paper-planning rebuild work.
 
 ## Validation
 

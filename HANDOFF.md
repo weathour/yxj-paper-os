@@ -26,6 +26,9 @@ yxj-paper-os/
     .gitkeep           # placeholder for future repo-local helper scripts
   assets/
     .gitkeep           # placeholder for future plugin assets
+  references/
+    README.md          # reference submodule policy
+    external/          # pinned external reference repositories
   README.md            # minimal scaffold documentation
   HANDOFF.md           # current architecture and branch handoff
   .gitignore
@@ -83,3 +86,7 @@ Plugin validation passed: /home/weathour/plugins/yxj-paper-os
 3. Add `yxj-paper-init` as the first real native skill.
 4. Add one minimal example workspace.
 5. Expand only after the plugin validator and any new local validators pass.
+
+## External references
+
+The current reference repositories are pinned as Git submodules under `references/external/`. Read `references/README.md` before using or updating them.

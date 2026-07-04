@@ -1,0 +1,15 @@
+[submodule "references/external/nature-skills"]
+	path = references/external/nature-skills
+	url = https://github.com/Yuan1z0825/nature-skills
+[submodule "references/external/research-paper-writing-skills"]
+	path = references/external/research-paper-writing-skills
+	url = https://github.com/Master-cai/Research-Paper-Writing-Skills
+[submodule "references/external/academic-research-skills-codex"]
+	path = references/external/academic-research-skills-codex
+	url = https://github.com/Imbad0202/academic-research-skills-codex
+[submodule "references/external/paperdebugger"]
+	path = references/external/paperdebugger
+	url = https://github.com/PaperDebugger/paperdebugger
+[submodule "references/external/pantheonos"]
+	path = references/external/pantheonos
+	url = https://github.com/aristoteleo/PantheonOS

@@ -7,6 +7,8 @@
 
 ## 1. 当前分支为什么存在
 
+本分支面向交通与计算机/AI 论文场景；医学、临床和 medical-AI 专用写作路线不作为默认目标。
+
 这个分支不是对旧 `yxj-paper-os` 做小修小补，而是一次有意的清空重建。
 
 旧版本尝试把论文写作管理为完整的 Paper Production Graph runtime：阶段注册、物料图、任务包、候选输出、验证器、回流、修复、导出、运行复盘等全部内建。理论上完整，但实际使用中暴露出几个问题：
@@ -158,7 +160,7 @@ phase2/25_WRITING_DESIGN_PACK.md
 
 ## 6. 提到的外部 Skill / 仓库清单
 
-下面列出此前讨论中提到、且适合被本分支作为 handoff 目标或参考对象的外部项目。核验时间为 2026-07-04；采用前仍应重新检查仓库活跃度、license、安装方式和 skill 目录结构。
+下面列出此前讨论中提到、且适合交通与计算机/AI 论文场景的 handoff 目标或参考对象。核验时间为 2026-07-04；采用前仍应重新检查仓库活跃度、license、安装方式和 skill 目录结构。当前已在 `references/external/` 以 Git submodule 方式固定这些参考仓库。
 
 ### 6.1 优先 handoff 候选
 
@@ -166,7 +168,6 @@ phase2/25_WRITING_DESIGN_PACK.md
 |---|---|---|---|---|
 | Nature 风格写作、润色、图件、引用、审稿等 | `Yuan1z0825/nature-skills` | <https://github.com/Yuan1z0825/nature-skills> | 作为 Phase 3+ 主要外部 handoff；可路由到 `nature-writing`、`nature-polishing`、`nature-figure`、`nature-citation`、`nature-reviewer`、`nature-data`、`nature-response` 等 | 不把它 vendored 进本仓库；只通过 design pack 显式交接 |
 | ML/CV/NLP 论文写作 | `Master-cai/Research-Paper-Writing-Skills` | <https://github.com/Master-cai/Research-Paper-Writing-Skills> | AI/ML/算法/实验 repo 到 paper 的外部写作路线候选 | 仅在主题适配时使用；不让其改写 claim boundary |
-| 医学、临床、medical-AI writing | `Aperivue/medsci-skills` | <https://github.com/Aperivue/medsci-skills> | 医学、临床、AI validation、case report、meta-analysis 等路线的外部写作候选 | reporting guideline 和 owner gates 必须先在 design pack 中明确 |
 | Codex-native academic research suite | `Imbad0202/academic-research-skills-codex` | <https://github.com/Imbad0202/academic-research-skills-codex> | 可拆用 research/write/review/revise/finalize 中适合的阶段；作为成熟 workflow 参考 | 不直接复制 10+ stage 大流程，避免重回复杂 runtime |
 | 原版 academic research skills | `Imbad0202/academic-research-skills` | <https://github.com/Imbad0202/academic-research-skills> | 作为 Claude Code 原版参考；对比 Codex 版结构 | 不是本插件直接依赖 |
 
@@ -187,12 +188,12 @@ phase2/25_WRITING_DESIGN_PACK.md
 | `scientific-writing` | 通用 IMRAD / 科学论文写作 | 作为可能已安装的本地/社区 skill；本仓库只在 design pack 里声明 handoff 输入 |
 | `citation-management` | 引用管理 | 作为辅助技能类别；具体工具在项目中按需确认 |
 | `PaperMentor` | Overleaf inline feedback / writing tutor | 找到论文/项目描述，但未在本分支锁定 GitHub 仓库；暂列参考概念 |
-| `PaperDebugger` | 审稿与编辑辅助 | 已有 GitHub 项目；默认仍作为外部工具而非内置依赖 |
-| `OverCite` | citation insertion | 已有 GitHub 项目；默认仍作为外部工具而非内置依赖 |
+| `PaperDebugger` | 审稿与编辑辅助 | 已加入 `references/external/paperdebugger`；默认仍作为外部工具而非内置依赖 |
+| `OverCite` | citation insertion | 未加入当前参考 submodules；默认仍作为外部工具而非内置依赖 |
 
 ## 7. 外部仓库采用规则
 
-1. **不默认 vendoring。** 外部 skill/repo 不直接复制进本仓库，除非明确需要并记录 license、来源 commit 和同步策略。
+1. **参考仓库用 submodule 固定，不默认 vendoring。** `references/external/` 只保存上游仓库指针与工作副本，外部 skill/repo 不直接复制进插件运行面；除非明确需要并记录 license、来源 commit 和同步策略，否则不要把第三方文件改写成插件自有文件。
 2. **Design pack 是唯一 handoff 契约。** 外部 skill 必须消费 `WRITING_DESIGN_PACK.md`，不能从模型记忆推断 claim、证据、target journal 或 owner gates。
 3. **只交候选，不交权威。** 外部 skill 可以生成候选正文、图件、引用、审稿意见或润色稿；最终是否采用由 owner / 本插件后续确认逻辑决定。
 4. **禁止越权。** 外部 skill 不得加强 claim、不许伪造 citation、不许绕过 limitation/risk、不许声明投稿/发表完成。
