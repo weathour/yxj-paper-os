@@ -9,6 +9,10 @@ Status: clean rewrite branch baseline.
 This branch intentionally deletes the old Paper Production Graph runtime and
 restarts `yxj-paper-os` as a standard Codex plugin scaffold.
 
+## Philosophy document
+
+Read [`docs/BRANCH_PHILOSOPHY.md`](docs/BRANCH_PHILOSOPHY.md) for the current clean-rewrite rationale, target slot-based paper-planning architecture, and external skill/repository inventory.
+
 ## Current architecture
 
 ```text
