@@ -77,6 +77,20 @@ paper_project/
 2. **知道什么时候不能继续。** 缺硬阻塞信息时停止生成 design pack，并让 Codex 继续追问。
 3. **知道如何交接。** 把已补齐的信息整理成 `04_WRITING_DESIGN_PACK.md`。
 
+下一层交互契约仍然保持这个简化原则：
+
+```text
+D00-D19 rubric → question card → user answer → workspace write → index update → compile gate
+```
+
+用户看到的是五个阶段：
+
+```text
+Route → Materials → Claim/Evidence → Writing Structure → Handoff
+```
+
+问题卡是交互格式，不是 runtime。若当前环境有 `omx question`，可以把同一张卡渲染成结构化选择题；若没有，就使用 Markdown 问题卡。两者写入同一组六文件，不引入 OMX 作为插件依赖。
+
 不需要：
 
 - runtime graph；

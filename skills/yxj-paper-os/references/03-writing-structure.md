@@ -42,6 +42,26 @@ Ask one focused question at a time. Prefer this order:
 6. “Are there supplied exemplar papers or language profiles, or should that dimension be marked absent/deferred?”
 7. “Where should the paper be conservative because evidence is limited?”
 
+## Question card pattern
+
+Use this card when D14-D18 or the `writing-structure` blocker is first unresolved.
+
+```text
+Current stage: Writing Structure
+Dimension / blocker: D14-D18 / writing-structure
+Why this matters: downstream drafting needs an argument spine, section jobs, object granularity, surface controls, and figure storyline before prose is written.
+Mode chosen: candidate-confirmation when route/materials/claims are confirmed enough for an outline proposal; reconciliation when D16/D17 disagree across files.
+Question: Which structure decision should I record or reconcile?
+Options:
+A. reader spine — write the problem→object→method/result→limitation question path to 03_WRITING_STRUCTURE.md#Reader Spine.
+B. section jobs — write section-level responsibilities to #Manuscript Outline and #Section Jobs.
+C. object/surface control — write primary D16/D17 guidance to #Object Granularity and #Surface Control.
+D. visual storyline — write existing/needed figure-table sequence to #Figure / Table Storyline and #Visual Plan.
+E. D16/D17 conflict — run reconciliation and choose whether structure-side or claim-side wording is authoritative before compile.
+F. no visuals / deferred visuals — record rationale and downstream limitation; pass only if no active claim depends on missing visual evidence.
+Agent action after answer: update 03_WRITING_STRUCTURE.md and D14/D15/D16/D17/D18 rows in 00_DIMENSION_INDEX.md; if claim wording changes, update 02_CLAIM_EVIDENCE_BOUNDARY.md too.
+```
+
 ## Hard blocker
 
 Block design-pack compilation if:

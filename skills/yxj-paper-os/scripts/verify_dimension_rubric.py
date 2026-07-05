@@ -64,6 +64,61 @@ INDEX_COLUMNS = [
     "Blocks design pack?",
 ]
 VALID_STATUSES_LITERAL = '{"filled", "not_applicable", "absent", "deferred", "rejected"}'
+SKILL_INTERACTION_PHRASES = [
+    "Wake-up identity",
+    "I prepare your paper project as six planning files and one writing design pack.",
+    "User-facing phases",
+    "Route → Materials → Claim/Evidence → Writing Structure → Handoff",
+    "Interaction modes",
+    "focused-question",
+    "quick-form",
+    "candidate-confirmation",
+    "reconciliation",
+    "stale-alert",
+    "Question cards",
+    "Agent action after answer",
+    "omx question --input",
+    "Markdown question cards remain the standalone fallback",
+]
+PLAYBOOK_CARD_PHRASES = [
+    "## Question card pattern",
+    "Current stage:",
+    "Dimension / blocker:",
+    "Why this matters:",
+    "Mode chosen:",
+    "Options:",
+    "Agent action after answer:",
+]
+COMPILER_GATE_PHRASES = [
+    "## Compile decision table",
+    "D00-D19 missing",
+    "Invalid status or placeholder",
+    "Non-critical dimension reaches minimum",
+    "Critical-standard dimension only reaches minimum",
+    "Owner-gated route/claim/evidence/source/forbidden wording unconfirmed",
+    "D16/D17 primary and claim-side statements conflict",
+    "D04 route deferred",
+    "D18 no visuals",
+    "Final pack contains TODO/TBD/UNKNOWN/REPLACE_ME",
+    "External writing/citation skill not executed",
+    "Blocks design pack? = yes",
+    "readiness-critical if unhandled",
+    "D16/D17 canonical write rule",
+    "03_WRITING_STRUCTURE.md#Object Granularity",
+    "03_WRITING_STRUCTURE.md#Surface Control",
+    "02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity",
+    "reconciliation",
+]
+RUBRIC_INTERACTION_PHRASES = [
+    "Question-card interpretation",
+    "focused-question",
+    "quick-form",
+    "candidate-confirmation",
+    "reconciliation",
+    "stale-alert",
+    "final-route deferral",
+    "no-visual rationale",
+]
 
 
 def section_for_id(text: str, dim_id: str) -> str:
@@ -88,6 +143,12 @@ def parse_first_table_header(text: str, heading: str) -> list[str]:
         if stripped.startswith("|"):
             return [cell.strip() for cell in stripped.strip("|").split("|")]
     return []
+
+
+def require_phrases(label: str, text: str, phrases: list[str], errors: list[str]) -> None:
+    for phrase in phrases:
+        if phrase not in text:
+            errors.append(f"{label}: missing required phrase: {phrase}")
 
 
 def main() -> int:
@@ -122,6 +183,7 @@ def main() -> int:
     ]:
         if required_phrase not in rubric_text:
             errors.append(f"rubric missing required invariant phrase: {required_phrase}")
+    require_phrases("rubric interaction guidance", rubric_text, RUBRIC_INTERACTION_PHRASES, errors)
 
     if not SKILL.is_file():
         errors.append(f"missing skill: {SKILL}")
@@ -134,6 +196,7 @@ def main() -> int:
         ]:
             if phrase not in skill_text:
                 errors.append(f"SKILL.md missing rubric wiring phrase: {phrase}")
+        require_phrases("SKILL.md interaction guidance", skill_text, SKILL_INTERACTION_PHRASES, errors)
 
     for playbook in TASK_PLAYBOOKS:
         if not playbook.is_file():
@@ -144,6 +207,16 @@ def main() -> int:
             errors.append(f"{playbook.name}: missing rubric reference")
         if "Do not duplicate its full D00-D19 rubric here" not in text:
             errors.append(f"{playbook.name}: missing no-duplication rule")
+        require_phrases(f"{playbook.name} question-card guidance", text, PLAYBOOK_CARD_PHRASES, errors)
+
+    compiler = ROOT / "references" / "04-design-pack-compiler.md"
+    if compiler.is_file():
+        require_phrases(
+            "04-design-pack-compiler.md compile gate guidance",
+            compiler.read_text(encoding="utf-8"),
+            COMPILER_GATE_PHRASES,
+            errors,
+        )
 
     actual_templates = {path.name for path in TEMPLATES.glob("*.md")}
     if actual_templates != EXPECTED_TEMPLATES:

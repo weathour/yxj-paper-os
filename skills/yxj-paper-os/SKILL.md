@@ -9,6 +9,19 @@ Operate `yxj-paper-os` as one public guided workflow with five task playbooks, o
 
 Do not split the MVP into public subskills. Load the central internal rubric only when judging D00-D19 sufficiency, then load only the task playbook needed for the current missing area.
 
+## Wake-up identity
+
+On first use in a paper project, introduce the workflow in this compact form:
+
+```text
+I prepare your paper project as six planning files and one writing design pack.
+I will not draft manuscript prose, invent citations, or execute external writing skills.
+I will inspect or initialize the workspace, identify the first blocker, choose a question mode, explain why, and ask one answerable card or a low-risk quick form.
+User-facing phases: Route → Materials → Claim/Evidence → Writing Structure → Handoff.
+```
+
+This is agent guidance, not a runtime system. Do not build a state machine, helper daemon, worker orchestration, or external UI dependency around it.
+
 ## Workspace contract
 
 Use exactly these six project files:
@@ -25,6 +38,52 @@ Use exactly these six project files:
 `00_DIMENSION_INDEX.md` is required and public. It is a status/pointer checklist for the 20 required dimensions, not a sixth content silo. The five other files hold the actual project information.
 
 If files are missing, copy templates from `assets/templates/` before filling content.
+
+## User-facing phases
+
+Do not present D00-D19 as twenty user tasks at first contact. Use five phases for conversation and progress, while keeping D IDs in status/evidence reports:
+
+| Phase | Internal dimensions | Purpose |
+|---|---|---|
+| Route | D01, D03, D04 | owner decisions, project brief, target route, paper type, audience |
+| Materials | D05, D06, D07, D08 | real materials, evidence anchors, supplied sources, research notes |
+| Claim/Evidence | D10, D11, D12, D13, claim-side D16/D17 | contribution, claims, support strength, wording boundary, limitations |
+| Writing Structure | D09, D14, D15, primary D16/D17, D18 | exemplar status, reader spine, outline, object/surface control, visuals |
+| Handoff | D00, D02, D19 | workspace metadata, stale flags, final design-pack compilation |
+
+## Interaction modes
+
+Choose the mode automatically from the first current blocker and state the reason.
+
+| Mode | Use when | Rule |
+|---|---|---|
+| `focused-question` | one owner-gated answer determines the next branch | Default for route, claim, evidence, source, or forbidden wording blockers. |
+| `quick-form` | empty workspace or several low-risk fields can be collected together | Use 8-12 concise fields at most; do not hide major owner decisions inside a long form. |
+| `candidate-confirmation` | confirmed upstream material lets the agent propose options | Present candidates as non-final until the owner confirms owner-gated facts/claims/evidence/sources/wording. |
+| `reconciliation` | cross-file or cross-dimension statements conflict | Show the conflict and ask which version is authoritative before compiling. |
+| `stale-alert` | D02 indicates a downstream pack may be stale | Ask whether to recompile, defer handoff, or record owner-accepted risk. |
+
+## Question cards
+
+A question card is the canonical interaction layer:
+
+```text
+Current stage: <Route | Materials | Claim/Evidence | Writing Structure | Handoff>
+Dimension / blocker: <Dxx or hard-blocker name>
+Why this matters: <one sentence>
+Mode chosen: focused-question | quick-form | candidate-confirmation | reconciliation | stale-alert
+Question: <single answerable question or compact low-risk form>
+Options:
+A. <answer path> — <consequence / file write>
+B. <answer path> — <consequence / file write>
+C. defer — <what can continue / what remains blocked>
+D. absent or rejected — <downstream limitation>
+Agent action after answer: update <file#section> and the matching Dxx row in 00_DIMENSION_INDEX.md.
+```
+
+Keep cards short. Ask one card at a time unless `quick-form` is justified.
+
+If an attached OMX question UI is available, the same card may be rendered with `omx question --input ... --json` using `type: "single-answerable"` or `type: "multi-answerable"`. `omx question` is only an optional renderer. Markdown question cards remain the standalone fallback and the public behavior of this plugin.
 
 ## Core workflow
 

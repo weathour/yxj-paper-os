@@ -43,6 +43,25 @@ Ask one focused question at a time. Prefer this order:
 6. “Which related-work notes are absent and should be marked absent/deferred rather than invented?”
 7. “Which expected materials are absent and should be marked absent rather than invented?”
 
+## Question card pattern
+
+Use this card when D05/D06 or the `core-materials` blocker is first unresolved.
+
+```text
+Current stage: Materials
+Dimension / blocker: D05-D06 / core-materials
+Why this matters: claims cannot be planned until real materials and evidence anchors are locatable or explicitly absent.
+Mode chosen: quick-form if the workspace is empty; focused-question if one evidence anchor is blocking a claim.
+Question: Which material/evidence state should I record now?
+Options:
+A. results/figures/tables exist — record paths or labels in 01_MATERIALS_INVENTORY.md#Results and Experiments and #Figures and Tables.
+B. data/code/baselines/metrics exist — record locations and categories in the matching material sections.
+C. evidence anchor for a claim exists — assign an anchor such as E1 in #Evidence Inventory and link it later to D11.
+D. absent material — record explicit absence in #Explicit Absences and prevent supported claims that depend on it.
+E. deferred material — record the missing artifact and consequence as a handoff; do not invent results or anchors.
+Agent action after answer: update 01_MATERIALS_INVENTORY.md and the D05/D06 rows in 00_DIMENSION_INDEX.md; if a claim is affected, keep D11 deferred until anchored.
+```
+
 ## Hard blocker
 
 Block design-pack compilation if materials are not locatable and no explicit absence/defer/reject decision exists for:

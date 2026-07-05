@@ -35,6 +35,16 @@ paper_project/
 
 `04_WRITING_DESIGN_PACK.md` is the handoff artifact for writing, figure, citation, polishing, or review tools.
 
+## Guided intake model
+
+The skill should feel like a lightweight guided form, not a runtime system. The agent first explains that it prepares six planning files and one writing design pack, then works through five user-facing phases:
+
+```text
+Route → Materials → Claim/Evidence → Writing Structure → Handoff
+```
+
+Internally, those phases are backed by the D00-D19 rubric and `00_DIMENSION_INDEX.md`. When information is missing, the agent should ask a short question card with options, consequences, and the file/D-row it will update. If an OMX question UI is available it may render the same card through `omx question`, but Markdown cards remain the standalone fallback.
+
 ## What the plugin owns
 
 - project route and venue/type positioning;

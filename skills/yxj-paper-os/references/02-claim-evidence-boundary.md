@@ -46,6 +46,25 @@ Ask one focused question at a time. Prefer this order:
 7. “Which stronger wording must be forbidden because evidence does not support it?”
 8. “What limitation or risk should downstream writing keep visible?”
 
+## Question card pattern
+
+Use this card when D10-D13 or the `claim-evidence` blocker is first unresolved.
+
+```text
+Current stage: Claim/Evidence
+Dimension / blocker: D10-D13 / claim-evidence
+Why this matters: downstream writing may only state claims that are selected, evidenced, bounded, and risk-aware.
+Mode chosen: candidate-confirmation when candidate claims can be proposed from confirmed materials; focused-question when owner must choose a claim or evidence anchor.
+Question: How should this core contribution or claim be handled?
+Options:
+A. selected contribution / active claim — write the owner-confirmed contribution or claim to #Contribution Options or #Claim-Evidence Map with evidence anchor and support strength.
+B. conservative wording — write allowed wording and matching forbidden wording to #Allowed Wording and #Forbidden Wording.
+C. limitation/risk — write the constraint to #Limitations and Risks and keep downstream wording conservative.
+D. deferred claim — record why evidence is not ready; keep D11/D12 blocked for final design-pack compilation.
+E. rejected overclaim — write it to #Deferred or Rejected Claims and forbid downstream writing from reviving it.
+Agent action after answer: update 02_CLAIM_EVIDENCE_BOUNDARY.md, mirror any evidence-anchor dependency to D06 if needed, and update D10/D11/D12/D13 in 00_DIMENSION_INDEX.md.
+```
+
 ## Hard blocker
 
 Block design-pack compilation if:

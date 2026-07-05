@@ -41,6 +41,52 @@ Do not compile the final design pack when any hard blocker remains:
 
 If blocked, report the missing blocker or dimension ID and ask the next focused question instead.
 
+## Compile decision table
+
+Use this table before creating or updating `04_WRITING_DESIGN_PACK.md`.
+
+| Condition | Result |
+|---|---|
+| D00-D19 missing from `00_DIMENSION_INDEX.md` | Block; repair the index before content compilation. |
+| Invalid status or placeholder reason/pointer/handoff | Block; ask or repair the relevant row. |
+| Non-critical dimension reaches minimum with explicit reason/handoff | May pass that dimension. |
+| Critical-standard dimension only reaches minimum | Continue asking; do not compile final design pack. |
+| Owner-gated route/claim/evidence/source/forbidden wording unconfirmed | Keep as candidate/deferred; do not mark standard/filled. |
+| Agent-designable structure is grounded in confirmed material and rationale | May propose and mark standard when the write target records the rationale. |
+| D16/D17 primary and claim-side statements conflict | Block and ask a reconciliation card. |
+| D04 route deferred | Continue upstream intake, but final pack requires owner-confirmed route or explicit final-route deferral acceptance. |
+| D18 no visuals | Pass only with no-visual rationale, alternative storyline, and no active visual-dependent claim. |
+| Final pack contains TODO/TBD/UNKNOWN/REPLACE_ME | Invalid; do not hand off. |
+| External writing/citation skill not executed | Not blocking; this plugin only recommends handoff and does not execute external skills. |
+
+`Blocks design pack? = yes` means the dimension is readiness-critical if unhandled. It does not mean the row is currently blocking after it has a valid handled status, reason, and pointer/handoff.
+
+## D16/D17 canonical write rule
+
+- D16 primary pointer normally lives in `03_WRITING_STRUCTURE.md#Object Granularity`.
+- D17 primary pointer normally lives in `03_WRITING_STRUCTURE.md#Surface Control`.
+- Claim-side D16/D17 details may live in `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity`, `#Allowed Wording`, and `#Forbidden Wording`.
+- If primary and claim-side statements conflict, block compilation and ask a `reconciliation` question card before writing the final design pack.
+
+## Question card pattern
+
+Use this card when D00/D02/D19 or the `external-route` / final handoff blocker is unresolved.
+
+```text
+Current stage: Handoff
+Dimension / blocker: D00/D02/D19 / design-pack compile gate
+Why this matters: the final design pack must be current, placeholder-free, and bounded before downstream writing tools use it.
+Mode chosen: stale-alert for changed upstream material; focused-question for one missing handoff route; reconciliation if compile inputs conflict.
+Question: What should happen before final handoff?
+Options:
+A. compile now — only if every D00-D19 row is handled and critical-standard dimensions are standard.
+B. recompile after stale change — update D02 and regenerate D19 from current upstream files.
+C. defer handoff — record the missing blocker and ask the next focused question instead of compiling.
+D. invalid final pack — if TODO/TBD/UNKNOWN/REPLACE_ME remains, mark D19 deferred and repair the source section.
+E. external route only — record the recommended downstream writing/figure/citation/review route without executing it.
+Agent action after answer: update 00_DIMENSION_INDEX.md#Readiness Gate and 04_WRITING_DESIGN_PACK.md only when the compile decision table passes.
+```
+
 ## Required design-pack sections
 
 `04_WRITING_DESIGN_PACK.md` must include:

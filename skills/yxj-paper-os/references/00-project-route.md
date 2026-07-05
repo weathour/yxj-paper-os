@@ -36,6 +36,25 @@ Ask one focused question at a time. Prefer this order:
 4. “Which route or claim boundary is owner-gated and should not be inferred automatically?”
 5. “What route should be avoided even if it sounds attractive?”
 
+## Question card pattern
+
+Use this card when D04 or the `project-route` blocker is first unresolved.
+
+```text
+Current stage: Route
+Dimension / blocker: D04 / project-route
+Why this matters: target route controls paper type, audience expectation, claim strength, and downstream writing route.
+Mode chosen: focused-question, because venue family and paper type are owner-gated branch decisions.
+Question: Which target route should this paper use for planning?
+Options:
+A. intelligent-transportation journal/conference — write venue family, paper type, and reviewer expectation to 00_PROJECT_ROUTE.md#Target Route.
+B. computer-science / AI method venue — write method-oriented audience and evidence expectations to 00_PROJECT_ROUTE.md#Audience and Reviewer Expectation.
+C. application / systems venue — write deployment/system expectation and required material gaps to 00_PROJECT_ROUTE.md#Target Route.
+D. defer route — continue Materials intake, but final 04_WRITING_DESIGN_PACK.md remains blocked until owner confirms route or explicitly accepts final-route deferral.
+E. rejected route — record the forbidden route in 00_PROJECT_ROUTE.md#Forbidden Routes and keep it out of downstream handoff.
+Agent action after answer: update 00_PROJECT_ROUTE.md#Target Route, including the paper-type line, or #Audience and Reviewer Expectation as applicable, then update D04 in 00_DIMENSION_INDEX.md.
+```
+
 ## Hard blocker
 
 Block design-pack compilation if any of these are absent and not explicitly marked `not_applicable`, `absent`, `deferred`, or `rejected` with a reason in `00_DIMENSION_INDEX.md`:
