@@ -19,6 +19,17 @@ For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation 
 
 After updating claim content, update the matching dimension rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
+## First-batch cross-boundary reminder
+
+The central rubric owns the full D07/D08/D09/D18/D19 rules. In this claim/evidence playbook, enforce the shared boundary before allowing any claim to become active:
+
+- Sources, citation candidates, research dossier notes, exemplar/style guidance, design-pack summaries, and visual plans are not evidence anchors by themselves.
+- A claim may be supported only when D06 identifies a locatable evidence anchor and D11 maps the active claim to that anchor with support strength and wording boundaries.
+- D07/D08 can explain context, citation needs, conflicts, gaps, or handoff risks; they cannot prove novelty, source truth, or claim truth.
+- D09 can constrain style and D17 surface control; it cannot raise claim strength.
+- D18 can plan visuals; needed/deferred/absent visuals cannot support active claims.
+- D19 can summarize the boundary as a structural handoff; it cannot convert unresolved sources, visuals, or dossier notes into readiness.
+
 ## Required fields
 
 - Problem statement.

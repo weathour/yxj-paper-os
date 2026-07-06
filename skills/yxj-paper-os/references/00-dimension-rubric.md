@@ -41,6 +41,19 @@ The rubric decides what is missing; the playbooks decide how to ask. Use questio
 
 `standard` means the answer is operational enough for downstream writing to act without guessing. It does not require ideal background research, manuscript prose, citation search, or external skill execution.
 
+
+## First-batch boundary rules
+
+Use this first-batch guidance for D04, D07, D08, D09, D14, D15, D18, D19, D00, and D02. The central rubric is the source of truth; task playbooks should contain only focused cards or pointers.
+
+- `source ≠ evidence ≠ claim`: D07 source records and D08 dossier notes cannot strengthen D11 claims unless a D06 evidence anchor and D11 support relation exist.
+- `route ≠ audience expectation`: D04 separates owner-confirmed route/profile from agent-inferred reviewer questions and route risks.
+- `exemplar style ≠ citation source`: D09 may guide language fingerprint; if an exemplar is cited or used as a source, handle it under D07.
+- `visual plan ≠ evidence artifact`: D18 planned, needed, deferred, or absent visuals cannot support active claims unless actual evidence exists in D06 and the claim mapping exists in D11.
+- `design pack ≠ manuscript prose`: D19 is a structural handoff and submission blueprint with risk notes, not manuscript, submission, publication, or acceptance readiness.
+- `metadata/staleness ≠ semantic adequacy`: D00/D02 freshness and completeness checks do not prove claim truth, source truth, novelty, prose quality, visual quality, or manuscript adequacy.
+- Mechanical gates may check structure, presence, explicit absence/defer reasons, cross-reference consistency, status values, and placeholder absence only. They must not judge venue fit, novelty, source authority, citation truth, argument persuasiveness, style similarity, visual correctness, or readiness for submission.
+
 ## Required entry fields
 
 Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension type, Purpose, Primary home / write target, Owner/source of truth, Minimum sufficiency, Standard sufficiency, Ideal sufficiency, Agent may propose?, Owner confirmation required?, Ask prompts, Candidate options pattern, Status examples, Stop / defer / reject rule, Common failure modes, Downstream handoff note.
@@ -52,12 +65,18 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **ID:** D00
 - **Name / legacy label:** 00_META.md
 - **Dimension type:** metadata/compiler
-- **Purpose:** Track workspace identity and readiness metadata so the agent knows which project state it is updating.
+- **Purpose:** Track workspace identity and readiness metadata so the agent knows which project state it is updating, without treating metadata freshness as semantic adequacy.
 - **Primary home / write target:** 00_DIMENSION_INDEX.md#Workspace Metadata
 - **Owner/source of truth:** agent-maintained; owner confirms project identity if ambiguous
-- **Minimum sufficiency:** Project slug/date/readiness state are explicit or safely derived from the workspace.
-- **Standard sufficiency:** Metadata is current enough for handoff, with owner identity/route ambiguity resolved or deferred.
-- **Ideal sufficiency:** Includes run/date notes and concise provenance for major intake changes.
+- **Minimum sufficiency:** Project slug/date/readiness state are explicit or safely derived from the workspace, with any ambiguity visible.
+- **Standard sufficiency:** Workspace identity metadata records project slug, owner/project identity or ambiguity note, created/updated timestamps, last source revision if known, readiness state, and a semantic-adequacy disclaimer.
+- **Ideal sufficiency:** Includes run/date notes, concise provenance for major intake changes, and why any ambiguous identity or source revision can remain deferred.
+- **First-batch upgraded goal:** Clarify workspace identity and readiness metadata as a compiler guardrail, not as evidence of paper quality, source truth, claim validity, or manuscript adequacy.
+- **Field-category families / table intent:** Project slug; owner/project identity; created/updated timestamps; last source revision; readiness state; ambiguity note; semantic-adequacy disclaimer. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check metadata presence, non-placeholder values, and explicit ambiguity/defer notes; must not treat recent timestamps or completed metadata as semantic freshness or adequacy.
+- **Cross-dimension dependencies:** D02 stale gate; D19 validation notes; all workspace file identity assumptions.
+- **Non-goals:** Do not infer owner identity, venue/claim adequacy, or paper quality from metadata.
+- **User-burden tier:** Light by default; deep only when provenance or ownership ambiguity materially affects handoff.
 - **Agent may propose?:** Yes, for mechanical metadata.
 - **Owner confirmation required?:** Only when project identity or owner decision is ambiguous.
 - **Ask prompts:**
@@ -66,8 +85,8 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Candidate options pattern:** Offer a normalized slug/date/readiness summary from file context; ask owner only for ambiguous identity.
 - **Status examples:** `D00 | filled | workspace metadata updated | 00_DIMENSION_INDEX.md#Workspace Metadata | yes`
 - **Stop / defer / reject rule:** If project identity is unclear, mark deferred and ask owner before final handoff.
-- **Common failure modes:** Treating stale metadata as proof that content is current; inventing owner identity.
-- **Downstream handoff note:** Downstream writing may use this only for workspace identity, not paper claims.
+- **Common failure modes:** Treating stale metadata as proof that content is current; inventing owner identity; using D00 to imply manuscript readiness.
+- **Downstream handoff note:** Downstream writing may use this only for workspace identity and freshness hints, not paper claims or semantic adequacy.
 
 ### D01 — OWNER_DECISIONS.md
 
@@ -96,12 +115,18 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **ID:** D02
 - **Name / legacy label:** STALE_FLAGS.md
 - **Dimension type:** metadata/compiler
-- **Purpose:** Track whether upstream changes make the design pack stale.
+- **Purpose:** Track whether upstream changes make the design pack stale, and state the recompile or risk-handoff action without judging content truth.
 - **Primary home / write target:** 00_DIMENSION_INDEX.md#Readiness Gate
 - **Owner/source of truth:** agent-maintained from local edits and owner updates
 - **Minimum sufficiency:** Readiness/stale state is explicit, even if simply 'not assessed yet'.
-- **Standard sufficiency:** Changed dimensions and required recompile/handoff action are named.
-- **Ideal sufficiency:** Includes a concise stale-dependency note for changed materials/claims/structure.
+- **Standard sufficiency:** Changed dimensions, affected pack section, stale-since marker, recompile requirement, owner decision state, required action, and semantic-risk note are named when a design pack exists or may be reused.
+- **Ideal sufficiency:** Includes a concise stale-dependency note for changed materials/claims/structure and the consequence of deferring recompile.
+- **First-batch upgraded goal:** Express dependency freshness between upstream dimensions and D19 so handoff users know what changed and what must be recompiled.
+- **Field-category families / table intent:** Changed dimension; affected pack section; stale since; recompile required; owner decision; required action; semantic risk note. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check explicit stale/deferred/recompile notes and obvious D19 incompatibility when structured stale data exists; must not infer content truth, claim validity, or semantic adequacy from stale=false.
+- **Cross-dimension dependencies:** D00 timestamps; all upstream dimensions; D19 compile/readiness note.
+- **Non-goals:** Metadata update does not clear stale risk; stale=false does not prove claims, citations, visuals, or manuscript quality are valid.
+- **User-burden tier:** Light for a new workspace/no pack; default whenever D19 exists; deep after major upstream changes.
 - **Agent may propose?:** Yes.
 - **Owner confirmation required?:** Only when deciding whether to ignore a stale flag.
 - **Ask prompts:**
@@ -109,9 +134,9 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
   - Should the design pack be recompiled before writing?
 - **Candidate options pattern:** Infer stale flags from modified upstream files; do not infer content truth.
 - **Status examples:** `D02 | deferred | D11 changed after design pack | Handoff: recompile design pack before writing | yes`
-- **Stop / defer / reject rule:** If any critical upstream dimension changed after D19, block handoff until recompile or owner defers.
-- **Common failure modes:** Treating old design pack as current after claim/material edits.
-- **Downstream handoff note:** Downstream writing should pause when stale flags remain unresolved.
+- **Stop / defer / reject rule:** If any critical upstream dimension changed after D19, block handoff until recompile or owner defers with an explicit risk note.
+- **Common failure modes:** Treating old design pack as current after claim/material edits; treating timestamp freshness as semantic adequacy.
+- **Downstream handoff note:** Downstream writing should pause or carry an explicit risk note when stale flags remain unresolved.
 
 ### D03 — 00_project_brief.md
 
@@ -140,22 +165,28 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **ID:** D04
 - **Name / legacy label:** 01_target_journal_profile.md
 - **Dimension type:** owner-decision
-- **Purpose:** Define target venue/family, paper type, and reviewer expectations.
+- **Purpose:** Define target venue/family, paper type, route profile, audience, reviewer expectations, and hard constraints as a planning target.
 - **Primary home / write target:** 00_PROJECT_ROUTE.md#Target Route + 00_PROJECT_ROUTE.md#Audience and Reviewer Expectation
 - **Owner/source of truth:** owner/user, with agent route options
-- **Minimum sufficiency:** A venue family or explicit deferred route exists.
-- **Standard sufficiency:** Venue/family, paper type, audience/reviewer expectations, and forbidden route boundaries are owner-confirmed; final-route deferral is allowed only when the owner explicitly accepts the downstream uncertainty.
-- **Ideal sufficiency:** Includes alternative routes rejected/deferred with tradeoffs.
+- **Minimum sufficiency:** A venue family, route/profile placeholder, or explicit deferred route exists with downstream uncertainty visible.
+- **Standard sufficiency:** Venue family, article/paper type, content/format/reporting fit intent, primary audience, reviewer expectation, hard constraints, forbidden routes, and owner confirmation state are recorded; final-route deferral is allowed only when the owner explicitly accepts downstream uncertainty.
+- **Ideal sufficiency:** Includes alternative routes rejected/deferred with tradeoffs and route-specific consequences for D14/D15/D18/D19.
+- **First-batch upgraded goal:** Upgrade from a venue label to a venue/profile route intent that separates owner-confirmed route from inferred audience/reviewer expectations.
+- **Field-category families / table intent:** Venue family; article type; content-fit intent; format-fit intent; reporting-fit intent; primary audience; reviewer expectation; hard constraints; forbidden routes; owner confirmation state. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check route decision state, audience/reviewer content, hard-constraint/forbidden-route notes, and pointers to route sections; must not judge actual venue fit or acceptance likelihood.
+- **Cross-dimension dependencies:** D01 owner decisions; D03 brief; D14 reader path; D15 outline/section jobs; D18 visual format/storyline; D19 submission blueprint.
+- **Non-goals:** Do not infer owner-confirmed venue from exemplars, source notes, or dossier notes; do not claim fit, novelty, or readiness.
+- **User-burden tier:** Default for ordinary projects; deep for high-stakes venue targeting or strict formatting/reporting routes.
 - **Agent may propose?:** Yes, to propose route options.
 - **Owner confirmation required?:** Yes before marking standard/filled.
 - **Ask prompts:**
   - What venue or venue family should this paper target?
   - What paper type is this: method, system, benchmark, application, survey, or other?
-- **Candidate options pattern:** Offer 2-4 route options with pros/risks, such as intelligent-transportation venue, computer-science/AI method venue, application/systems venue, or deferred route; recommend one only as candidate until owner selects.
+- **Candidate options pattern:** Offer 2-4 route/profile options with content/format/reporting risks, such as intelligent-transportation venue, computer-science/AI method venue, application/systems venue, or deferred route; recommend one only as candidate until owner selects.
 - **Status examples:** `D04 | filled | owner selected intelligent-transportation venue family | 00_PROJECT_ROUTE.md#Target Route | yes`
 - **Stop / defer / reject rule:** If owner has not selected, mark deferred; continue upstream intake only, and do not compile final pack unless owner confirms venue family/paper type/audience or explicitly accepts final-route deferral.
-- **Common failure modes:** Inferring venue certainty; switching to medical/clinical framing unasked.
-- **Downstream handoff note:** Downstream writing should follow route expectations but not claim guaranteed fit.
+- **Common failure modes:** Inferring venue certainty; switching to medical/clinical framing unasked; merging audience expectation with owner-confirmed route.
+- **Downstream handoff note:** Downstream writing should follow route/profile expectations and hard constraints but not claim guaranteed fit.
 
 ### D05 — 02_material_inventory.md
 
@@ -206,12 +237,18 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **ID:** D07
 - **Name / legacy label:** 04_source_and_citation_bank.md
 - **Dimension type:** source-citation
-- **Purpose:** Record known source/citation candidates and citation boundaries without native search.
+- **Purpose:** Record known source/citation candidates, source roles, citation status, and citation boundaries without native search or claim support inflation.
 - **Primary home / write target:** 01_MATERIALS_INVENTORY.md#Source and Citation Bank
 - **Owner/source of truth:** user-provided candidate sources only
-- **Minimum sufficiency:** Citation bank is supplied, absent, or deferred with no-invention note.
-- **Standard sufficiency:** Known candidate sources are separated from missing/deferred citation work, source roles are visible, and no invented BibTeX or native citation search is implied.
-- **Ideal sufficiency:** Includes source roles and downstream lookup needs.
+- **Minimum sufficiency:** Citation bank is supplied, absent, or deferred with no-invention and source/evidence/claim boundary notes.
+- **Standard sufficiency:** Known candidate sources are separated from missing/deferred citation work; source identity, role, citation status, owner confirmation, locator/version/category, key use, limitation, reuse permission, and handoff need are visible when applicable.
+- **Ideal sufficiency:** Includes downstream lookup needs, source-role limitations, and explicit links showing when a source is background context rather than evidence.
+- **First-batch upgraded goal:** Upgrade to a source-role and citation-boundary registry so supplied sources are organized without becoming automatic evidence or claim support.
+- **Field-category families / table intent:** Source identity; source role; citation status; owner confirmation; locator such as DOI/URL/page/section/version or explicit absence; key use; limitation; reuse permission; handoff need. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May require table shape or explicit absent/deferred reason; must not verify citation truth, bibliography correctness, source authority, or claim support.
+- **Cross-dimension dependencies:** D06 evidence inventory; D08 research dossier; D11 claim-evidence map; D12 wording boundary; D19 source/citation boundary.
+- **Non-goals:** D07 does not itself support claims; source-to-claim support routes through D06 evidence anchors and D11 claim mapping.
+- **User-burden tier:** Light if no sources supplied; default when sources are supplied; deep for citation-heavy or reuse-sensitive projects.
 - **Agent may propose?:** No, except to organize supplied sources.
 - **Owner confirmation required?:** Yes for source existence and citation choices.
 - **Ask prompts:**
@@ -219,43 +256,55 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
   - Should missing sources be marked absent/deferred rather than invented?
 - **Candidate options pattern:** Offer source-role categories: background, baseline, method, dataset, standard, exemplar, absent, or deferred-to-downstream; never supply source facts for the owner.
 - **Status examples:** `D07 | absent | owner supplied no citation candidates; plugin must not search | Handoff: downstream may ask owner for sources | yes`
-- **Stop / defer / reject rule:** If no sources are supplied, mark absent/deferred; do not block standard dimensions if source work is explicitly handed off.
-- **Common failure modes:** Inventing references; turning related-work guesses into citations.
-- **Downstream handoff note:** Downstream citation modules may receive the boundary but must not treat it as completed bibliography.
+- **Stop / defer / reject rule:** If no sources are supplied, mark absent/deferred; do not block standard dimensions if source work is explicitly handed off and no active claim depends on a missing source/evidence path.
+- **Common failure modes:** Inventing references; turning related-work guesses into citations; using a source list as evidence for a claim.
+- **Downstream handoff note:** Downstream citation modules may receive the boundary but must not treat it as completed bibliography or evidence support.
 
 ### D08 — 10_research_dossier.md
 
 - **ID:** D08
 - **Name / legacy label:** 10_research_dossier.md
 - **Dimension type:** source-citation
-- **Purpose:** Capture related-work notes, exemplar notes, known gaps, and absent research context.
+- **Purpose:** Capture related-work notes, exemplar notes, research context, synthesis/gap notes, counterevidence, and absent research-context boundaries without inferring novelty.
 - **Primary home / write target:** 01_MATERIALS_INVENTORY.md#Research Dossier + 04_WRITING_DESIGN_PACK.md#Research Dossier Notes
 - **Owner/source of truth:** user-provided notes or explicit absence
-- **Minimum sufficiency:** Research notes are present, absent, or deferred explicitly.
-- **Standard sufficiency:** Known dossier notes are organized by role, missing research context is visible as handoff, and novelty/related-work claims are not inferred from absence.
-- **Ideal sufficiency:** Includes relation to venue expectations and claim boundaries.
+- **Minimum sufficiency:** Research notes are present, absent, or deferred explicitly with downstream consequence.
+- **Standard sufficiency:** Known dossier notes distinguish research/context boundary, study-level notes, theme-level synthesis, conflict map, gap hypothesis, counterevidence, unresolved source needs, and downstream consequence when absent/deferred.
+- **Ideal sufficiency:** Includes relation to venue expectations, claim boundaries, limitation risks, and explicit unresolved research tasks.
+- **First-batch upgraded goal:** Upgrade from note pile to research-context and synthesis/gap intent while preserving that absence does not prove novelty.
+- **Field-category families / table intent:** Research question/context boundary; study-level notes; theme-level synthesis; conflict map; gap hypothesis; counterevidence; unresolved source needs; downstream consequence. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May require explicit dossier status and risk/handoff note; must not infer novelty, related-work adequacy, source truth, or citation authority.
+- **Cross-dimension dependencies:** D07 sources; D10 contribution options; D11 claims; D13 limitations; D14 reader path; D19 semantic-risk note.
+- **Non-goals:** Do not turn dossier notes into manuscript prose, citation truth, novelty judgment, or claim support without D06/D11 anchors.
+- **User-burden tier:** Light if absent with risk note; default for known related-work context; deep for review/synthesis-heavy projects.
 - **Agent may propose?:** Only to organize supplied notes.
 - **Owner confirmation required?:** Yes for claims about sources or research gaps.
 - **Ask prompts:**
   - Which related-work notes are absent and should be marked absent/deferred rather than invented?
-  - Do you have exemplar papers or known gaps to preserve?
-- **Candidate options pattern:** Offer dossier buckets: known related work, exemplar style, gap notes, unresolved source needs, absent dossier, or deferred research task.
+  - Do you have exemplar papers, known gaps, conflicts, or counterevidence to preserve?
+- **Candidate options pattern:** Offer dossier buckets: known related work, theme synthesis, conflict/counterevidence, gap notes, unresolved source needs, absent dossier, or deferred research task.
 - **Status examples:** `D08 | deferred | no related-work dossier supplied | Handoff: downstream writing asks owner for source notes | no`
 - **Stop / defer / reject rule:** If absent, record absence and downstream consequence; do not synthesize literature from memory.
-- **Common failure modes:** Smuggling citation search into planning; overstating novelty from missing dossier.
-- **Downstream handoff note:** Downstream research/writing should treat dossier notes as owner-supplied only.
+- **Common failure modes:** Smuggling citation search into planning; overstating novelty from missing dossier; using source notes as evidence anchors.
+- **Downstream handoff note:** Downstream research/writing should treat dossier notes as owner-supplied context and risk, not proof of novelty or claim truth.
 
 ### D09 — 11_exemplar_language_profile.md
 
 - **ID:** D09
 - **Name / legacy label:** 11_exemplar_language_profile.md
 - **Dimension type:** agent-designable-structure
-- **Purpose:** Capture language/style exemplars or explicitly mark that no exemplar profile is supplied.
+- **Purpose:** Capture language/style exemplars, route-consistent style fingerprint, and forbidden imitation boundaries, or explicitly mark no exemplar profile.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Exemplar Language Profile
 - **Owner/source of truth:** user-supplied exemplars or generic route constraints
-- **Minimum sufficiency:** Exemplar profile is supplied, absent, or deferred.
-- **Standard sufficiency:** If supplied, usable style constraints are summarized; if absent, generic route constraints are noted.
-- **Ideal sufficiency:** Includes positive and negative style examples from owner-provided exemplars.
+- **Minimum sufficiency:** Exemplar profile is supplied, absent, or deferred with status and rationale.
+- **Standard sufficiency:** Exemplar status/role, positive style rules, forbidden imitation, voice/tense/hedge/terminology/banned-pattern guidance, and D12/D17 wording links are visible when applicable.
+- **Ideal sufficiency:** Includes positive and negative style examples from owner-provided exemplars and route-specific surface constraints without copying source prose.
+- **First-batch upgraded goal:** Upgrade from “has exemplar?” to a style fingerprint with forbidden imitation and claim-strength boundaries.
+- **Field-category families / table intent:** Exemplar status; exemplar role; positive style rules; forbidden imitation; voice/tense; hedge strength; terminology density; banned patterns; D12/D17 wording links. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May require status and rationale when filled/absent/deferred; must not judge prose quality, style similarity, or authorial quality.
+- **Cross-dimension dependencies:** D04 venue tone; D07 if an exemplar is cited as a source; D12 wording boundary; D17 surface control; D19 handoff constraints.
+- **Non-goals:** Exemplar style must not raise claim strength, create citations, or become source evidence unless separately handled in D07 and anchored through D06/D11 when claim-bearing.
+- **User-burden tier:** Light when absent; default when one style target exists; deep for journal/style-sensitive drafting.
 - **Agent may propose?:** Yes, for generic route-consistent language constraints.
 - **Owner confirmation required?:** Yes for naming specific exemplar papers or style sources.
 - **Ask prompts:**
@@ -264,8 +313,8 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Candidate options pattern:** Offer generic style controls only when no exemplar is supplied; do not invent exemplar sources.
 - **Status examples:** `D09 | absent | owner supplied no exemplar profile | Handoff: downstream uses generic route constraints | no`
 - **Stop / defer / reject rule:** If no exemplar exists, mark absent/deferred; do not block design pack if route/structure are otherwise clear.
-- **Common failure modes:** Inventing exemplar papers; copying manuscript prose style claims.
-- **Downstream handoff note:** Downstream writing may use generic constraints but not fake exemplar citations.
+- **Common failure modes:** Inventing exemplar papers; copying manuscript prose style claims; using style as evidence for stronger claims.
+- **Downstream handoff note:** Downstream writing may use generic constraints but not fake exemplar citations or unsupported claim strength.
 
 ### D10 — 12_contribution_options.md
 
@@ -360,12 +409,18 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **ID:** D14
 - **Name / legacy label:** 20_reader_spine.md
 - **Dimension type:** agent-designable-structure
-- **Purpose:** Define the reader's question-and-answer path through the paper.
+- **Purpose:** Define the reader's question-and-answer path through the paper, linked to route, claims, evidence, limitations, and transitions.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Reader Spine
 - **Owner/source of truth:** agent proposal grounded in confirmed route/materials/claims
 - **Minimum sufficiency:** A rough reader question sequence exists.
-- **Standard sufficiency:** Reader spine follows confirmed route, contribution, claim-evidence, limitation boundaries, and the intended reviewer question sequence.
-- **Ideal sufficiency:** Includes alternative spine rejected and rationale for section order.
+- **Standard sufficiency:** Reader spine records reader persona, question sequence, expected answers, linked claim/evidence/limitation, forbidden questions, and transition rationale while following confirmed route, contribution, evidence, and limitation boundaries.
+- **Ideal sufficiency:** Includes alternative spine rejected and rationale for section order and reviewer expectation tradeoffs.
+- **First-batch upgraded goal:** Upgrade outline-adjacent notes into a reader question path that downstream drafting can follow without guessing the argument order.
+- **Field-category families / table intent:** Reader persona; question sequence; expected answer; linked claim; linked evidence; linked limitation; forbidden question; transition rationale. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check structured question-path shape and cross-reference presence; must not judge argument persuasiveness or reviewer satisfaction.
+- **Cross-dimension dependencies:** D04 audience/reviewer profile; D10 contribution; D11 evidence; D13 limitations; D15 section jobs; D18 visual storyline.
+- **Non-goals:** Reader spine is not a section outline, not manuscript prose, and not copied reviewer expectation.
+- **User-burden tier:** Default; deep when the paper needs careful argument design.
 - **Agent may propose?:** Yes.
 - **Owner confirmation required?:** Owner confirmation optional unless spine changes claim/route emphasis.
 - **Ask prompts:**
@@ -374,20 +429,26 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Candidate options pattern:** Propose a spine from route + contribution + evidence, such as problem→gap→object→method/system→evidence→limitation; note assumptions and ask if emphasis changes claims.
 - **Status examples:** `D14 | filled | reader question sequence derived from confirmed claims and materials | 03_WRITING_STRUCTURE.md#Reader Spine | yes`
 - **Stop / defer / reject rule:** If claims/materials are unconfirmed, keep spine deferred/candidate.
-- **Common failure modes:** Creating a spine around unsupported claims; drafting prose instead of structure.
-- **Downstream handoff note:** Downstream writing uses the spine as argument order.
+- **Common failure modes:** Creating a spine around unsupported claims; drafting prose instead of structure; confusing reader path with section titles.
+- **Downstream handoff note:** Downstream writing uses the spine as argument order and must preserve linked evidence/limitation boundaries.
 
 ### D15 — 21_manuscript_outline.md
 
 - **ID:** D15
 - **Name / legacy label:** 21_manuscript_outline.md
 - **Dimension type:** agent-designable-structure
-- **Purpose:** Define manuscript outline and section jobs for downstream drafting.
+- **Purpose:** Define manuscript outline and section-job responsibilities for downstream drafting without writing manuscript prose.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Manuscript Outline + 03_WRITING_STRUCTURE.md#Section Jobs
 - **Owner/source of truth:** agent proposal grounded in route/type/claims
 - **Minimum sufficiency:** A section list or explicit outline deferral exists.
-- **Standard sufficiency:** Outline and section jobs match paper type, route, reader spine, evidence, limitations, and figure/table responsibilities without drafting prose.
-- **Ideal sufficiency:** Includes paragraph/function map and section-level evidence responsibilities.
+- **Standard sufficiency:** Outline and section jobs pair each section with job, input dimensions, output promise, required evidence, forbidden content, length/paragraph-function hints, and downstream constraints matched to paper type, route, reader spine, limitations, and figure/table responsibilities.
+- **Ideal sufficiency:** Includes paragraph/function map, section-level evidence responsibilities, and rejected outline alternatives.
+- **First-batch upgraded goal:** Upgrade section titles into a section-job matrix so each section has a defined function and evidence responsibility.
+- **Field-category families / table intent:** Section; job; input dimensions; output promise; required evidence; forbidden content; length hint; paragraph/function map; downstream constraint. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check section/job pairing and presence of required responsibility categories; must not judge rhetorical optimality or draft prose quality.
+- **Cross-dimension dependencies:** D04 paper type; D11 claims/evidence; D13 limitations; D14 reader spine; D18 visuals; D19 blueprint.
+- **Non-goals:** Do not draft manuscript prose, optimize rhetoric semantically, or let an outline create unsupported claims.
+- **User-burden tier:** Default; deep for complex or multi-claim papers.
 - **Agent may propose?:** Yes.
 - **Owner confirmation required?:** Owner confirmation needed if outline chooses among materially different paper types.
 - **Ask prompts:**
@@ -396,8 +457,8 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Candidate options pattern:** Offer outline variants by paper type, such as method, system, benchmark, application, or survey; ask owner when the choice changes route or contribution.
 - **Status examples:** `D15 | filled | outline and section jobs aligned to route and reader spine | 03_WRITING_STRUCTURE.md#Manuscript Outline | yes`
 - **Stop / defer / reject rule:** If route/type/claims are unresolved, outline remains deferred/candidate.
-- **Common failure modes:** Over-specific manuscript drafting; generic outline unrelated to evidence.
-- **Downstream handoff note:** Downstream writing should treat section jobs as task constraints.
+- **Common failure modes:** Over-specific manuscript drafting; generic outline unrelated to evidence; section jobs that omit limitations or required evidence.
+- **Downstream handoff note:** Downstream writing should treat section jobs as task constraints, not as finished prose.
 
 ### D16 — 22_object_granularity.md
 
@@ -448,12 +509,18 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **ID:** D18
 - **Name / legacy label:** 24_visual_plan.md
 - **Dimension type:** agent-designable-structure/material
-- **Purpose:** Plan figure/table storyline and identify visual handoff needs.
+- **Purpose:** Plan figure/table storyline, visual evidence boundaries, and handoff needs while separating planned visuals from actual evidence.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Visual Plan + 03_WRITING_STRUCTURE.md#Figure / Table Storyline
 - **Owner/source of truth:** agent proposal grounded in supplied figures/tables/material gaps
-- **Minimum sufficiency:** Existing or needed figures/tables are listed, or visual plan is deferred with rationale.
-- **Standard sufficiency:** Visual storyline links supplied/needed figures and tables to reader spine, claims, materials, and no-visual/deferred-visual rationale when applicable.
-- **Ideal sufficiency:** Includes visual order, missing figure needs, and downstream figure-skill handoff constraints.
+- **Minimum sufficiency:** Existing, needed, deferred, absent, or no-visual rationale is listed with consequence.
+- **Standard sufficiency:** Visual plan records visual id/type/status, story role, linked claim/evidence/reader step, data needed, panel order, legend job, accessibility check, and handoff; any missing/no-visual path states why no active claim depends on missing visual evidence.
+- **Ideal sufficiency:** Includes visual order, panel/legend intent, missing figure needs, accessibility notes, and downstream figure-skill handoff constraints.
+- **First-batch upgraded goal:** Upgrade from a figure/table list to visual storyline plus visual evidence boundary.
+- **Field-category families / table intent:** Visual id; type; status such as existing/needed/deferred/absent; story role; linked claim; linked evidence; linked reader step; data needed; panel order; legend job; accessibility check; handoff. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check valid status categories, explicit no-visual/deferred rationale, and cross-reference presence; must not validate figure quality, visual correctness, or design quality.
+- **Cross-dimension dependencies:** D05 materials; D06 evidence; D11 claims; D14 reader path; D15 section jobs; D19 visual handoff.
+- **Non-goals:** Needed/deferred visuals cannot support active claims; D18 is not generated figure evidence and does not prove visual quality.
+- **User-burden tier:** Light for no-visual rationale; default for figure/table papers; deep for visual-heavy submissions.
 - **Agent may propose?:** Yes, from confirmed materials and claims.
 - **Owner confirmation required?:** Yes if inventing/adding a new figure changes scope or evidence claims.
 - **Ask prompts:**
@@ -462,20 +529,26 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Candidate options pattern:** Offer visual sequence from existing figures/tables, no-visual rationale, needed overview figure, or deferred figure/table handoff; mark missing visuals as needed, not invented.
 - **Status examples:** `D18 | filled | visual storyline grounded in supplied F1/T1 and missing overview figure handoff | 03_WRITING_STRUCTURE.md#Visual Plan | yes`
 - **Stop / defer / reject rule:** If no visual evidence/storyline exists, pass only with explicit no-visual rationale, alternative storyline, and no active visual-dependent claim; otherwise mark absent/deferred with downstream consequence.
-- **Common failure modes:** Inventing figures; implying results shown in visuals that do not exist.
-- **Downstream handoff note:** Downstream figure modules may use this as a plan, not as generated artifact evidence.
+- **Common failure modes:** Inventing figures; implying results shown in visuals that do not exist; using planned visuals as evidence anchors.
+- **Downstream handoff note:** Downstream figure modules may use this as a plan, not as generated artifact evidence or proof of claim support.
 
 ### D19 — 25_WRITING_DESIGN_PACK.md
 
 - **ID:** D19
 - **Name / legacy label:** 25_WRITING_DESIGN_PACK.md
 - **Dimension type:** handoff
-- **Purpose:** Compile the final writing design pack only after dimension gates are satisfied.
+- **Purpose:** Compile the final writing design pack as a structural handoff and submission blueprint only after dimension gates are satisfied.
 - **Primary home / write target:** 04_WRITING_DESIGN_PACK.md#Dimension Coverage Summary
 - **Owner/source of truth:** agent compiler after gates pass
-- **Minimum sufficiency:** D19 is deferred until upstream dimensions are handled.
-- **Standard sufficiency:** Design pack covers route, materials, source boundary, claims, wording, risks, structure, visuals, and handoff constraints with D00-D18 handled and no TODO/TBD/UNKNOWN/REPLACE_ME placeholders.
-- **Ideal sufficiency:** Includes optional gaps and downstream recommendations without executing external skills.
+- **Minimum sufficiency:** D19 is deferred until upstream dimensions are handled, or records the exact blocker and handoff consequence.
+- **Standard sufficiency:** Design pack covers dimension coverage, submission blueprint, semantic-risk note, statement inventory, supplement boundary, external handoff routes, unresolved dimension consequences, validation notes, route, materials, source boundary, claims, wording, risks, structure, and visuals with D00-D18 handled and no TODO/TBD/UNKNOWN/REPLACE_ME placeholders.
+- **Ideal sufficiency:** Includes optional gaps and downstream recommendations without executing external skills, plus concise risk notes for unresolved but owner-accepted boundaries.
+- **First-batch upgraded goal:** Upgrade to submission blueprint plus semantic-risk handoff, while avoiding manuscript, submission, publication, or semantic readiness claims.
+- **Field-category families / table intent:** Dimension coverage; submission blueprint; semantic-risk note; statement inventory; supplement boundary; external handoff routes; unresolved dimension consequences; validation notes. Use category-family wording rather than locking final public field names.
+- **Mechanical gate intent:** May check section/table coverage, status/pointer consistency, stale-risk handling, and unresolved placeholder absence; must not claim manuscript, publication, submission, acceptance, or semantic readiness.
+- **Cross-dimension dependencies:** D00 identity; D02 stale status; D04 route; D07/D08 boundaries; D11/D12 claims/wording; D14/D15/D18 structure.
+- **Non-goals:** D19 is not manuscript prose, not external skill execution, not citation/figure production, and not a final readiness score.
+- **User-burden tier:** Default for all final handoffs; deep when multiple downstream routes or supplement/submission constraints exist.
 - **Agent may propose?:** Yes, to compile from confirmed/handled inputs.
 - **Owner confirmation required?:** Owner confirmation needed only for unresolved owner-gated assumptions.
 - **Ask prompts:**
@@ -483,6 +556,6 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
   - Should this handoff go to generic writing, figure, citation, or review tools?
 - **Candidate options pattern:** Compile only from existing six-file content; options are compile now, ask next blocker, recompile stale pack, or record external handoff route without executing it; do not fill unknowns with TODO.
 - **Status examples:** `D19 | filled | design pack compiled after all dimensions handled | 04_WRITING_DESIGN_PACK.md#Dimension Coverage Summary | yes`
-- **Stop / defer / reject rule:** If any critical standard or minimum handling gate fails, do not compile final pack; ask next focused question.
-- **Common failure modes:** Leaving TODOs; executing external skills; treating design pack as manuscript completion.
-- **Downstream handoff note:** Downstream tools receive the design pack but cannot override owner/evidence boundaries.
+- **Stop / defer / reject rule:** If any critical standard or minimum handling gate fails, do not compile final pack; ask next focused question or record explicit owner-accepted risk where allowed.
+- **Common failure modes:** Leaving TODOs; executing external skills; treating design pack as manuscript completion or submission readiness.
+- **Downstream handoff note:** Downstream tools receive the design pack as a structural blueprint with risk boundaries; they cannot override owner/evidence/source/stale boundaries.

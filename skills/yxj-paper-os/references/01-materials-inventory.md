@@ -17,6 +17,16 @@ For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation 
 
 After updating material content, update the matching D05-D08 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
+## First-batch D07/D08 source and dossier pointers
+
+`00-dimension-rubric.md` remains the source of truth for D07/D08 sufficiency. Use this playbook only for focused intake and boundary cards:
+
+- `source ≠ evidence ≠ claim`: a source list (D07) or dossier note (D08) cannot support or strengthen a claim unless a D06 evidence anchor exists and D11 maps the claim to that anchor.
+- D07 should organize supplied source/citation candidates by category-family intent: source identity, source role, citation status, owner confirmation, locator/version or explicit absence, key use, limitation, reuse permission, and handoff need.
+- D08 should organize research-context notes by category-family intent: research/context boundary, study notes, theme synthesis, conflict map, gap hypothesis, counterevidence, unresolved source needs, and downstream consequence.
+- If no sources or dossier notes are supplied, record absence/defer status and risk; do not search, invent BibTeX, infer novelty, or imply related-work adequacy.
+- Mechanical checks may require a table shape or explicit absent/deferred reason; they must not verify citation truth, source authority, novelty, or claim support.
+
 ## Required fields
 
 - Experiment/result locations.

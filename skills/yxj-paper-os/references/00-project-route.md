@@ -16,6 +16,16 @@ For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation 
 
 After updating route content, update the matching D01/D03/D04 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
+## First-batch D04 route/profile pointer
+
+`00-dimension-rubric.md` remains the source of truth for D04 sufficiency. In this playbook, treat D04 as a focused venue/profile card, not as a full rubric copy:
+
+- Separate owner-confirmed route from agent-inferred audience or reviewer expectation.
+- Capture category-family intent for venue family, article type, content/format/reporting fit, primary audience, reviewer expectation, hard constraints, forbidden routes, and owner confirmation state.
+- Record route/profile uncertainty as `deferred` or explicit owner-accepted final-route deferral; do not silently convert dossier notes, exemplars, or writing style into a venue decision.
+- Use hard constraints to constrain D14 reader path, D15 section jobs, D18 visual format/storyline, and D19 submission blueprint.
+- Mechanical checks may confirm that route/profile content and pointers exist; they must not judge actual venue fit, novelty, or acceptance likelihood.
+
 ## Required fields
 
 - Project brief: project/paper slug, topic, domain positioning, working thesis.

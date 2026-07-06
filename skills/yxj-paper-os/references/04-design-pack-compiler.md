@@ -16,6 +16,16 @@ For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation 
 
 After compiling, update D00/D02/D19 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
+## First-batch D19/D02 handoff pointers
+
+`00-dimension-rubric.md` remains the source of truth for D00/D02/D19 sufficiency. This compiler playbook should only apply focused compile and stale-gate cards:
+
+- D19 is a structural handoff/submission blueprint plus semantic-risk note. It may summarize dimension coverage, submission blueprint, statement inventory, supplement boundary, external handoff routes, unresolved dimension consequences, and validation notes.
+- D19 must not claim manuscript readiness, submission readiness, publication readiness, acceptance likelihood, novelty, citation truth, prose quality, visual quality, or semantic adequacy.
+- D02 stale gate should name category-family intent for changed dimension, affected pack section, stale since, recompile required, owner decision, required action, and semantic risk note when a prior design pack may be reused.
+- A fresh D00/D02 state does not prove semantic adequacy. It only proves the metadata/stale decision was structurally handled.
+- Mechanical checks may inspect coverage, status/pointer consistency, stale/D19 incompatibility when explicitly structured, and placeholder absence; they must not execute external writing/citation/figure skills or score semantic quality.
+
 ## Inputs
 
 Read these files first:

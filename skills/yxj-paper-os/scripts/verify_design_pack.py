@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Lightweight yxj-paper-os design-pack validator.
 
-Checks structural readiness for the six-file workspace. It does not judge
-writing quality, search citations, run external skills, or model a runtime
-graph.
+Checks structural validity for the six-file workspace. It does not judge
+semantic adequacy, search citations, run external skills, or model a runtime
+graph. A pass is a mechanical handoff check, not manuscript readiness.
 """
 
 from __future__ import annotations
@@ -79,10 +79,13 @@ REQUIRED_HEADINGS = {
     FINAL_PACK: [
         "Dimension Coverage Summary",
         "Project Route",
+        "Submission Blueprint",
         "Material Boundary",
         "Source / Citation Boundary",
         "Research Dossier Notes",
+        "Semantic-Risk and Unresolved-Risk Notes",
         "Core Contribution",
+        "Statement Inventory",
         "Claim-Evidence Map",
         "Allowed Wording",
         "Forbidden Wording",
@@ -90,6 +93,7 @@ REQUIRED_HEADINGS = {
         "Reader Spine",
         "Writing Structure",
         "Visual and Figure Storyline",
+        "D02 Stale Gate",
         "External Skill Handoff",
         "Validation Notes",
     ],
@@ -112,6 +116,25 @@ FINAL_COVERAGE_COLUMNS = ["ID", "Status", "Pointer or handoff", "Blocks design p
 PLACEHOLDER_RE = re.compile(r"\b(?:TODO|TBD|REPLACE_ME|UNKNOWN)\b|\[\s*\.\.\.\s*\]", re.IGNORECASE)
 CLAIM_FILES = ("02_CLAIM_EVIDENCE_BOUNDARY.md", FINAL_PACK)
 DEFER_STATUSES = {"deferred", "rejected", "not claimed", "not-claimed"}
+UNAVAILABLE_VISUAL_STATUS_RE = re.compile(
+    r"\b(?:needed|deferred|absent|planned|missing|not\s+available|to\s+be\s+created|pending)\b",
+    re.IGNORECASE,
+)
+ACTIVE_VISUAL_EVIDENCE_RE = re.compile(
+    r"\b(?:needed|deferred|absent|planned|missing)\b[^|\n]*(?:visual|figure|table)\b|"
+    r"\b(?:visual|figure|table)\b[^|\n]*(?:needed|deferred|absent|planned|missing)\b",
+    re.IGNORECASE,
+)
+STALE_SIGNAL_RE = re.compile(r"\b(?:stale|changed|recompile|out[-\s]?of[-\s]?date)\b", re.IGNORECASE)
+RECOMPILE_REQUIRED_RE = re.compile(r"\b(?:yes|true|required|must|recompile|stale)\b", re.IGNORECASE)
+RECOMPILE_NOT_REQUIRED_RE = re.compile(
+    r"\b(?:no|false|none|n/a|na|not[_\s-]?applicable|not\s+required|no\s+recompile)\b",
+    re.IGNORECASE,
+)
+STALE_ACTION_RE = re.compile(
+    r"\b(?:recompile|defer|deferred|owner\s+accepted|accepted\s+risk|waive|waived|carry|carried|risk|block|blocked)\b",
+    re.IGNORECASE,
+)
 
 
 def normalize_heading(text: str) -> str:
@@ -171,6 +194,13 @@ def parse_markdown_table(section: str) -> tuple[list[str], list[dict[str, str]]]
     return header, rows
 
 
+def parse_optional_table(text: str, heading: str) -> tuple[list[str], list[dict[str, str]]]:
+    section = section_content(text, heading)
+    if section is None:
+        return [], []
+    return parse_markdown_table(section)
+
+
 def normalize_table_value(value: str) -> str:
     return re.sub(r"\s+", " ", value.strip())
 
@@ -197,6 +227,25 @@ def first_present(row: dict[str, str], names: list[str]) -> str:
         if value:
             return value.strip()
     return ""
+
+
+def status_is_unavailable(value: str) -> bool:
+    normalized = normalize_table_value(value)
+    if not normalized or RECOMPILE_NOT_REQUIRED_RE.search(normalized):
+        return False
+    return bool(UNAVAILABLE_VISUAL_STATUS_RE.search(normalized))
+
+
+def requires_recompile(value: str) -> bool:
+    normalized = normalize_table_value(value)
+    if not normalized or RECOMPILE_NOT_REQUIRED_RE.search(normalized):
+        return False
+    return bool(RECOMPILE_REQUIRED_RE.search(normalized))
+
+
+def row_has_real_values(row: dict[str, str]) -> bool:
+    values = [normalize_table_value(value) for value in row.values()]
+    return any(value and not has_placeholder(value) and not RECOMPILE_NOT_REQUIRED_RE.fullmatch(value) for value in values)
 
 
 def validate_template_surface(errors: list[str]) -> None:
@@ -304,18 +353,19 @@ def validate_dimension_index(text: str, contents: dict[str, str], errors: list[s
     return rows_by_id
 
 
-def validate_evidence_inventory(text: str, errors: list[str]) -> set[str]:
+def validate_evidence_inventory(text: str, errors: list[str]) -> tuple[set[str], set[str]]:
     file_name = "01_MATERIALS_INVENTORY.md"
     section = section_content(text, "Evidence Inventory")
     if section is None:
         errors.append(f"{file_name}: missing ## Evidence Inventory")
-        return set()
+        return set(), set()
     header, rows = parse_markdown_table(section)
     if not header or not rows:
         errors.append(f"{file_name}: Evidence Inventory must contain a Markdown table with evidence anchors")
-        return set()
+        return set(), set()
 
     anchors: set[str] = set()
+    unavailable_anchors: set[str] = set()
     for idx, row in enumerate(rows, start=1):
         label = f"{file_name}: Evidence Inventory row {idx}"
         anchor = first_present(row, ["Evidence anchor", "Evidence anchors", "Anchor", "ID"])
@@ -332,10 +382,19 @@ def validate_evidence_inventory(text: str, errors: list[str]) -> set[str]:
         anchors.add(normalized)
         if not status or has_placeholder(status):
             errors.append(f"{label}: status is required and must not be placeholder")
-    return anchors
+        elif status_is_unavailable(status):
+            unavailable_anchors.add(normalized)
+    return anchors, unavailable_anchors
 
 
-def validate_claim_table(file_name: str, text: str, evidence_anchors: set[str], errors: list[str]) -> None:
+def validate_claim_table(
+    file_name: str,
+    text: str,
+    evidence_anchors: set[str],
+    unavailable_evidence_anchors: set[str],
+    unavailable_visual_anchors: set[str],
+    errors: list[str],
+) -> None:
     section = section_content(text, "Claim-Evidence Map")
     if section is None:
         errors.append(f"{file_name}: missing ## Claim-Evidence Map")
@@ -360,6 +419,11 @@ def validate_claim_table(file_name: str, text: str, evidence_anchors: set[str], 
         if not deferred and (not evidence or has_placeholder(evidence)):
             errors.append(f"{label}: evidence anchor is required unless status is deferred/rejected")
         elif not deferred:
+            if ACTIVE_VISUAL_EVIDENCE_RE.search(evidence):
+                errors.append(
+                    f"{label}: active claim evidence explicitly cites a needed/deferred/absent visual; "
+                    "D18 visual plans are structural only until backed by an available D06 evidence anchor"
+                )
             anchors = split_anchor_list(evidence)
             if not anchors:
                 errors.append(f"{label}: evidence anchor is required unless status is deferred/rejected")
@@ -368,6 +432,16 @@ def validate_claim_table(file_name: str, text: str, evidence_anchors: set[str], 
                     errors.append(f"{label}: evidence anchor {anchor!r} requires deferred/rejected status")
                 elif anchor not in evidence_anchors:
                     errors.append(f"{label}: evidence anchor {anchor!r} is not listed in 01_MATERIALS_INVENTORY.md#Evidence Inventory")
+                elif anchor in unavailable_evidence_anchors:
+                    errors.append(
+                        f"{label}: evidence anchor {anchor!r} is marked needed/deferred/absent/planned in "
+                        "01_MATERIALS_INVENTORY.md#Evidence Inventory and cannot support an active claim"
+                    )
+                elif anchor in unavailable_visual_anchors:
+                    errors.append(
+                        f"{label}: evidence anchor {anchor!r} is a needed/deferred/absent visual in D18 and "
+                        "cannot support an active claim without available D06 evidence"
+                    )
         if not support or has_placeholder(support):
             errors.append(f"{label}: support strength is required and must not be placeholder")
         if not forbidden or has_placeholder(forbidden):
@@ -431,6 +505,146 @@ def validate_dimension_coverage_summary(text: str, index_rows: dict[str, dict[st
         errors.append(f"{FINAL_PACK}: Dimension Coverage Summary missing required dimension IDs: {', '.join(missing)}")
 
 
+def collect_unavailable_visual_anchors(contents: dict[str, str]) -> set[str]:
+    unavailable: set[str] = set()
+    visual_sources = [
+        ("03_WRITING_STRUCTURE.md", "Visual Plan"),
+        ("03_WRITING_STRUCTURE.md", "Figure / Table Storyline"),
+        (FINAL_PACK, "Visual and Figure Storyline"),
+    ]
+    for file_name, heading in visual_sources:
+        text = contents.get(file_name)
+        if not text:
+            continue
+        _, rows = parse_optional_table(text, heading)
+        for row in rows:
+            visual_id = first_present(
+                row,
+                [
+                    "Visual id",
+                    "Visual/table id",
+                    "Visual",
+                    "Figure",
+                    "Table",
+                    "ID",
+                    "Story step",
+                ],
+            )
+            status_text = " ".join(
+                first_present(row, names)
+                for names in [
+                    ["Type and status", "Status"],
+                    ["Evidence boundary"],
+                    ["Data/evidence needed"],
+                    ["Handoff"],
+                ]
+            )
+            if visual_id and not has_placeholder(visual_id) and status_is_unavailable(status_text):
+                unavailable.add(normalize_anchor(visual_id))
+    return unavailable
+
+
+def validate_d19_handoff_structure(text: str, errors: list[str]) -> None:
+    lower_text = text.lower()
+    required_structural_phrases = [
+        ("submission blueprint", "submission blueprint"),
+        ("semantic-risk", "semantic-risk note"),
+        ("External Skill Handoff", "external handoff route"),
+        ("Validation Notes", "validation notes"),
+    ]
+    for phrase, label in required_structural_phrases:
+        if phrase.lower() not in lower_text:
+            errors.append(f"{FINAL_PACK}: missing D19 structural {label}; validation is structural, not semantic adequacy")
+
+    blueprint_header, blueprint_rows = parse_optional_table(text, "Submission Blueprint")
+    if blueprint_header and blueprint_header != ["Blueprint prompt", "Planned note or handoff", "Risk or constraint"]:
+        errors.append(f"{FINAL_PACK}: Submission Blueprint columns changed; found {blueprint_header}")
+    if blueprint_header and not blueprint_rows:
+        errors.append(f"{FINAL_PACK}: Submission Blueprint must contain at least one structural handoff row")
+
+    risk_header, risk_rows = parse_optional_table(text, "Semantic-Risk and Unresolved-Risk Notes")
+    if risk_header and risk_header != ["Risk area", "Unresolved dimension/source", "Consequence or handoff"]:
+        errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes columns changed; found {risk_header}")
+    if risk_header and not risk_rows:
+        errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes must contain at least one structural risk row")
+
+
+def validate_stale_d19_consistency(
+    final_text: str,
+    index_rows: dict[str, dict[str, str]],
+    errors: list[str],
+) -> None:
+    d02_row = index_rows.get("D02", {})
+    d19_row = index_rows.get("D19", {})
+    d02_status = first_present(d02_row, ["Status"]).lower()
+    d02_reason_pointer = " ".join(
+        [
+            first_present(d02_row, ["Reason / owner note"]),
+            first_present(d02_row, ["Pointer or handoff"]),
+        ]
+    )
+    d19_status = first_present(d19_row, ["Status"]).lower()
+    risk_validation_text = " ".join(
+        section_content(final_text, heading) or ""
+        for heading in ["Semantic-Risk and Unresolved-Risk Notes", "Validation Notes"]
+    )
+
+    stale_header, stale_rows = parse_optional_table(final_text, "D02 Stale Gate")
+    if stale_header and stale_header != [
+        "Changed dimension",
+        "Affected pack section",
+        "Stale since",
+        "Recompile required?",
+        "Owner decision / required action",
+        "Semantic-risk note",
+    ]:
+        errors.append(f"{FINAL_PACK}: D02 Stale Gate columns changed; found {stale_header}")
+
+    explicit_stale_from_index = d02_status in {"deferred", "rejected"} or bool(STALE_SIGNAL_RE.search(d02_reason_pointer))
+    explicit_stale_from_table = False
+    unresolved_recompile = False
+    stale_row_texts: list[str] = []
+    for idx, row in enumerate(stale_rows, start=1):
+        if not row_has_real_values(row):
+            continue
+        label = f"{FINAL_PACK}: D02 Stale Gate row {idx}"
+        changed_dimension = first_present(row, ["Changed dimension"])
+        affected_section = first_present(row, ["Affected pack section"])
+        stale_since = first_present(row, ["Stale since"])
+        recompile = first_present(row, ["Recompile required?"])
+        action = first_present(row, ["Owner decision / required action"])
+        risk_note = first_present(row, ["Semantic-risk note"])
+        row_text = " ".join([changed_dimension, affected_section, stale_since, recompile, action, risk_note])
+
+        if has_placeholder(row_text):
+            continue
+        stale_row_texts.append(row_text)
+        if STALE_SIGNAL_RE.search(row_text) or requires_recompile(recompile):
+            explicit_stale_from_table = True
+        if requires_recompile(recompile) and not STALE_ACTION_RE.search(" ".join([action, risk_note])):
+            unresolved_recompile = True
+            errors.append(
+                f"{label}: structured stale data says recompile is required but lacks an owner action or semantic-risk handoff"
+            )
+
+    carried_stale_text = " ".join(stale_row_texts + [risk_validation_text])
+    if stale_rows and explicit_stale_from_table and not STALE_SIGNAL_RE.search(carried_stale_text):
+        errors.append(
+            f"{FINAL_PACK}: structured D02 stale data exists but D19 risk/validation sections do not carry a stale or recompile note"
+        )
+
+    if explicit_stale_from_index and d19_status == "filled" and not STALE_SIGNAL_RE.search(carried_stale_text):
+        errors.append(
+            f"{DIMENSION_INDEX}: D02 carries stale/recompile risk while D19 is filled; "
+            f"{FINAL_PACK} must carry an explicit structural stale-risk or recompile handoff"
+        )
+
+    if unresolved_recompile and d19_status == "filled":
+        errors.append(
+            f"{DIMENSION_INDEX}: D19 is filled while D02 structured stale data has unresolved recompile-required state"
+        )
+
+
 def validate_workspace(workspace: Path) -> list[str]:
     errors: list[str] = []
     validate_template_surface(errors)
@@ -467,17 +681,31 @@ def validate_workspace(workspace: Path) -> list[str]:
         index_rows = validate_dimension_index(contents[DIMENSION_INDEX], contents, errors)
 
     evidence_anchors: set[str] = set()
+    unavailable_evidence_anchors: set[str] = set()
     if "01_MATERIALS_INVENTORY.md" in contents:
-        evidence_anchors = validate_evidence_inventory(contents["01_MATERIALS_INVENTORY.md"], errors)
+        evidence_anchors, unavailable_evidence_anchors = validate_evidence_inventory(
+            contents["01_MATERIALS_INVENTORY.md"], errors
+        )
+
+    unavailable_visual_anchors = collect_unavailable_visual_anchors(contents)
 
     if FINAL_PACK in contents:
         validate_dimension_coverage_summary(contents[FINAL_PACK], index_rows, errors)
+        validate_d19_handoff_structure(contents[FINAL_PACK], errors)
+        validate_stale_d19_consistency(contents[FINAL_PACK], index_rows, errors)
         if has_placeholder(contents[FINAL_PACK]):
             errors.append(f"{FINAL_PACK}: final handoff contains unresolved placeholder")
 
     for file_name in CLAIM_FILES:
         if file_name in contents:
-            validate_claim_table(file_name, contents[file_name], evidence_anchors, errors)
+            validate_claim_table(
+                file_name,
+                contents[file_name],
+                evidence_anchors,
+                unavailable_evidence_anchors,
+                unavailable_visual_anchors,
+                errors,
+            )
 
     return errors
 

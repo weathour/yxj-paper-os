@@ -19,6 +19,16 @@ For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation 
 
 After updating structure content, update the matching D09/D14-D18 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
+## First-batch structure cards
+
+`00-dimension-rubric.md` remains the source of truth. Use these as focused structure cards/pointers:
+
+- **D09 style fingerprint:** record exemplar status/role, positive style rules, forbidden imitation, voice/tense, hedge strength, terminology density, banned patterns, and D12/D17 wording links. If an exemplar is cited as a source, route that fact through D07. Style never raises claim strength.
+- **D14 reader spine:** record reader persona, question sequence, expected answers, linked claim/evidence/limitation, forbidden questions, and transition rationale. This is the reader path, not a section outline or manuscript prose.
+- **D15 section-job matrix:** pair each section with job, input dimensions, output promise, required evidence, forbidden content, length or paragraph/function hints, and downstream constraints. Do not draft prose or let section jobs create unsupported claims.
+- **D18 visual storyline/brief:** record visual id/type/status, story role, linked claim/evidence/reader step, data needed, panel order, legend job, accessibility check, and handoff. Existing visuals may point to evidence only through D06/D11; needed/deferred visuals remain plan items.
+- Mechanical checks may require status/rationale, question-path shape, section/job pairing, visual status, and explicit no-visual/deferred rationale; they must not judge prose quality, rhetoric, visual quality, or figure correctness.
+
 ## Required fields
 
 - Exemplar language profile if user-supplied; otherwise explicit absent/deferred status.
