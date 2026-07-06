@@ -37,7 +37,29 @@ Use exactly these six project files:
 
 `00_DIMENSION_INDEX.md` is required and public. It is a status/pointer checklist for the 20 required dimensions, not a sixth content silo. The five other files hold the actual project information.
 
-If files are missing, copy templates from `assets/templates/` before filling content.
+## Dashboard submode
+
+Keep `yxj-paper-os` as one public skill. Do not create a separate public dashboard skill.
+
+When the user asks for `yxj-paper-os dashboard`, `dashboard`, `维度 dashboard`, or an equivalent dashboard request while using this skill, enter dashboard mode instead of the normal initialize-and-fill workflow.
+
+Dashboard mode runs the read-only static generator:
+
+```bash
+python3 skills/yxj-paper-os/scripts/generate_dashboard.py <paper_project>
+```
+
+The generator reads the six Markdown workspace files and may write only:
+
+```text
+<paper_project>/.yxj-paper-os/dashboard.html
+```
+
+Dashboard mode must never initialize a workspace, copy templates, create missing Markdown files, repair Markdown, write manuscript prose, run external skills, perform semantic scoring, prove paper readiness, start a runtime/server/watcher/graph, or add public workspace files. Missing or malformed source files become dashboard warnings or a bounded generator failure; they must not trigger template copying or source writeback.
+
+The dashboard is structural visibility only. The six Markdown files remain the source of truth, and `scripts/verify_design_pack.py <paper_project>` remains the validator of record for the structural design-pack contract.
+
+Outside dashboard mode, if files are missing, copy templates from `assets/templates/` before filling content.
 
 ## User-facing phases
 

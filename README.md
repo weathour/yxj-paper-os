@@ -93,6 +93,14 @@ Portable structural workspace validation is repo-local:
 python3 skills/yxj-paper-os/scripts/verify_design_pack.py <paper_project>
 ```
 
+For offline structural dashboard visibility, use the existing `yxj-paper-os` skill submode triggered by `yxj-paper-os dashboard`, `dashboard`, or `维度 dashboard`, or run the generator directly:
+
+```bash
+python3 skills/yxj-paper-os/scripts/generate_dashboard.py <paper_project>
+```
+
+The dashboard writes only `<paper_project>/.yxj-paper-os/dashboard.html`. It does not initialize workspaces, copy templates, create or repair Markdown, write manuscript prose, run external skills, perform semantic scoring, prove paper readiness, start a runtime/server/watcher/graph, or add public workspace files. The six Markdown files remain the source of truth; the dashboard is structural visibility only, and `verify_design_pack.py` remains the validator of record.
+
 During plugin development, also run the Codex plugin and skill validators provided by the local Codex installation. Those tools are environment-provided and are not required runtime dependencies of this repository.
 
 Structural validation checks the six-file contract, dimension-index completeness, and claim/evidence anchors. It does not prove semantic adequacy of the paper plan.
