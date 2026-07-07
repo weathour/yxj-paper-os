@@ -35,6 +35,30 @@ TODO
 | D09 exemplar/style profile | D12/D17 wording and style constraints | Raise claim strength or create citation evidence | Claim wording remains bounded by D11/D12 |
 | D18 visual plan | Figure/table storyline and visual handoff | Let needed/deferred/absent visuals support active claims | Existing evidence anchor in D06 + D11 mapping |
 
+## Writing-Surface Claim Boundary Matrix
+
+> Map writing-surface plans to claim support limits before downstream drafting. This table stores constraints and handoff notes, not manuscript prose.
+
+| Writing surface | Allowed planning role | Required evidence or owner gate | Forbidden overclaim / handoff note |
+|---|---|---|---|
+| Front matter / hook | State scope and risk boundaries for title/abstract/keywords/hooks | Owner-confirmed route plus D10-D13 claim/evidence state | Do not draft or strengthen claims for front matter |
+| Introduction / related work | Frame problem, gap, contribution role, and citation function | D07/D08 notes plus D10/D11 confirmation | Gap language remains candidate unless owner confirms support |
+| Method / reporting / reproducibility | Separate implementation/reporting facts from method claims | D05/D06 artifact locations and D13 limitations | Do not imply reproducibility proof from checklist presence |
+| Results / visuals / captions / tables | Bind result claims to anchors and visual/table status | Available D06 evidence plus D18 status | Needed/deferred visuals and captions cannot support active claims |
+| Downstream route matrix | Carry constraints to external writing routes | D19 structural handoff only | Recommend routes only; do not execute external skills |
+
+## Front-Matter and Caption Wording Constraints
+
+> Constraints only: title, abstract, keyword, graphical-hook, caption, and table text must be drafted later by downstream writing under these boundaries.
+
+| Surface | Allowed wording constraint | Banned wording or risk | Source dimension |
+|---|---|---|---|
+| Title / short hook | TODO | TODO | D04/D10/D12 |
+| Abstract contribution sentence | TODO | TODO | D10/D11/D12/D13 |
+| Keywords / controlled terms | TODO | TODO | D04/D07/D09 |
+| Graphical or visual hook | TODO | TODO | D18/D19 |
+| Caption or table result statement | TODO | TODO | D06/D11/D18 |
+
 ## Allowed Wording
 
 TODO

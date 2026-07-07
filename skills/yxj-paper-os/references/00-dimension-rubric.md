@@ -54,9 +54,35 @@ Use this first-batch guidance for D04, D07, D08, D09, D14, D15, D18, D19, D00, a
 - `metadata/staleness ≠ semantic adequacy`: D00/D02 freshness and completeness checks do not prove claim truth, source truth, novelty, prose quality, visual quality, or manuscript adequacy.
 - Mechanical gates may check structure, presence, explicit absence/defer reasons, cross-reference consistency, status values, and placeholder absence only. They must not judge venue fit, novelty, source authority, citation truth, argument persuasiveness, style similarity, visual correctness, or readiness for submission.
 
+## Six-track writing-surface crosswalk
+
+This second-batch crosswalk is internal planning guidance. It maps writing-surface needs into the existing D00-D19 dimensions, five content homes, and D19 handoff. It does not create public dimensions, public files, public status values, public track columns, or a separate user-facing workflow.
+
+Tier internal-only rule: `minimum`, `standard`, and `ideal` remain rubric judgments only. When a track affects `00_DIMENSION_INDEX.md`, express it through the existing `Status`, `Reason / owner note`, `Pointer or handoff`, and `Blocks design pack?` fields using only `filled`, `not_applicable`, `absent`, `deferred`, or `rejected`.
+
+| Track | Primary dimensions | Primary internal homes | Internal field families | Mechanical gate intent | Boundary |
+|---|---|---|---|---|---|
+| Front matter / hook | D04, D09, D12, D14, D15, D18, D19; secondary D01/D03 | `00_PROJECT_ROUTE.md`, `03_WRITING_STRUCTURE.md`, `04_WRITING_DESIGN_PACK.md` | Route/title/abstract/keyword constraints; owner-gated front-matter inputs; hook purpose; visual-hook status; exemplar/style constraints; allowed/forbidden surface terms; section/job implications; handoff notes | Check that front-matter and hook planning rows have owner-confirmed, deferred, absent, or rejected state; check route/structure/visual links are present; check planned hook material is not treated as completed evidence | Planning constraints only; no draft-ready title, abstract, keyword, graphical-hook, or caption copy |
+| Intro-related / citation function | D07, D08, D10, D11, D13, D14; secondary D04/D15/D19 | `01_MATERIALS_INVENTORY.md`, `02_CLAIM_EVIDENCE_BOUNDARY.md`, `03_WRITING_STRUCTURE.md`, `04_WRITING_DESIGN_PACK.md` | Source role; citation function such as background/gap/contrast/benchmark/method lineage/limitation/counterpoint; related-work move; gap or problem claim; claim-to-evidence link; unresolved source need; counterevidence/risk note | Check source/function buckets, owner/source status, D06 evidence anchor dependency, D11 claim mapping dependency, and explicit unresolved-source consequences | Source notes and citation functions do not create support; no new source facts, no new reference entries, and no novelty or authority judgment |
+| Method / reporting / repro | D04, D05, D06, D13, D15, D19; secondary D02 | `00_PROJECT_ROUTE.md`, `01_MATERIALS_INVENTORY.md`, `03_WRITING_STRUCTURE.md`, `04_WRITING_DESIGN_PACK.md` | Method object/component; reporting guideline or statement need; data/code/artifact availability state; implementation-detail location; protocol/parameter boundary; baseline/metric material state; reproducibility gap; limitation and risk note | Check locatable material or explicit absence/defer consequence; check method/reporting facts trace to D05/D06 or owner confirmation; check D19 statement inventory and unresolved-risk notes | Do not create method facts, data, code, baselines, metrics, or outcome values |
+| Results / visual / captions / tables / accessibility | D05, D06, D11, D12, D13, D14, D15, D18, D19 | `01_MATERIALS_INVENTORY.md`, `02_CLAIM_EVIDENCE_BOUNDARY.md`, `03_WRITING_STRUCTURE.md`, `04_WRITING_DESIGN_PACK.md` | Result artifact; table/figure id; visual status such as existing/needed/deferred/absent; caption job; legend job; table role; statistic-display note; accessibility or alt-text need; linked claim/evidence/reader step; overclaim boundary | Check existing/needed/deferred/absent status and rationale; check every active result/visual claim has D06/D11 support; check needed/deferred visuals are not used as active evidence; check caption/table/accessibility items are handoff constraints | No new results, no invented visual/table facts, and no caption/table text used as evidence |
+| Downstream route matrix | D01, D02, D07, D08, D18, D19; references all critical-standard dimensions | `04_WRITING_DESIGN_PACK.md` plus source sections that feed D19 | Route candidate; input pack section; allowed handoff scope; blocked or deferred action; source/evidence/visual boundary; stale-risk note; owner decision; unresolved dimension consequence | Check route rows are recommendations/handoff constraints only; check no row claims a downstream action already happened; check D19 compiles only after D00-D18 handling and stale-gate resolution or explicit owner risk note | Handoff planning only; no automatic downstream action, acceptance prediction, or readiness certification |
+| Templates / validators | D00-D19 contract | Existing six templates, `verify_dimension_rubric.py`, `verify_design_pack.py`, and test fixtures | Template section/table presence; D00-D19 coverage; public status set; pointer/handoff reasons; placeholder rejection; public-schema guard; cross-reference presence; forbidden-promise scan | Check structure, headings, columns, statuses, non-placeholder values, pointers, and explicit absence/defer reasons; keep checks mechanical and actionable | Do not add public files, index columns, public status values, or scholarly-quality scoring |
+
+### Internal field-family routing notes
+
+- Front matter / hook fields normally start in D04 route constraints, flow through D14/D15 structure jobs and D18 visual-hook state, and surface in D19 as constraints and handoff notes only.
+- Intro-related / citation function fields normally start in D07/D08 source and dossier records, become claim/gap boundaries through D10/D11/D13, and shape D14 reader moves without bypassing evidence anchors.
+- Method / reporting / repro fields normally start as D04 route/reporting implications and D05/D06 material locations, then become D15 section jobs and D19 statement or reproducibility notes.
+- Results / visual / captions / tables / accessibility fields normally start as D05/D06 materials, become D11/D12/D13 claim and wording boundaries, then become D18 visual/table plans and D19 handoff constraints.
+- Downstream route matrix fields belong to D19 but must preserve D01 owner decisions, D02 stale state, D07/D08 source boundaries, and D18 visual boundaries.
+- Templates / validators fields are structure checks for existing files only; they are not paper-quality judgments and do not alter the D00-D19 identity set.
+
 ## Required entry fields
 
-Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension type, Purpose, Primary home / write target, Owner/source of truth, Minimum sufficiency, Standard sufficiency, Ideal sufficiency, Agent may propose?, Owner confirmation required?, Ask prompts, Candidate options pattern, Status examples, Stop / defer / reject rule, Common failure modes, Downstream handoff note.
+Every D00-D19 entry below preserves these legacy rubric fields where applicable: ID, Name / legacy label, Dimension type, Purpose, Primary home / write target, Owner/source of truth, Minimum sufficiency, Standard sufficiency, Ideal sufficiency, Agent may propose?, Owner confirmation required?, Ask prompts, Candidate options pattern, Status examples, Stop / defer / reject rule, Common failure modes, Downstream handoff note.
+
+Every D00-D19 entry also carries exactly one internal question-depth ladder label set: Dimension essence, Minimum probe, Standard probe, Depth probe, Conflict probe, Weak-answer handling, Stop condition, Write-normalization rule, Owner-confirmation rule, Downstream consequence, and Mechanical gate intent. These ladder labels are internal guidance for agent questioning, sufficiency judgment, write normalization, and mechanical validation only; they do not create public index columns, public statuses, public workspace files, public template fields, or manuscript prose.
 
 ## Dimension entries
 
@@ -66,6 +92,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 00_META.md
 - **Dimension type:** metadata/compiler
 - **Purpose:** Track workspace identity and readiness metadata so the agent knows which project state it is updating, without treating metadata freshness as semantic adequacy.
+- **Dimension essence:** Decide whether workspace identity and freshness metadata are explicit without implying semantic adequacy.
+- **Minimum probe:** What slug/date/readiness state should be recorded, and is any identity detail ambiguous?
+- **Standard probe:** Which owner/project identity, source revision, timestamps, readiness state, and semantic-adequacy disclaimer belong in metadata?
+- **Depth probe:** What provenance or intake-change note would prevent stale or wrong-project handoff?
+- **Conflict probe:** Does D00 freshness conflict with D02 stale flags or D19 validation notes?
+- **Weak-answer handling:** Mark ambiguous identity or unknown revision deferred; keep only safe mechanical metadata.
+- **Stop condition:** Stop when identity and freshness fields are explicit, or the ambiguity is deferred with consequence.
+- **Write-normalization rule:** Write only workspace metadata/readiness notes and update the D00 row status and pointer.
+- **Owner-confirmation rule:** Required only when owner/project identity or a provenance decision is ambiguous.
+- **Downstream consequence:** Downstream may use identity and freshness hints, not claim, source, or paper-quality proof.
+- **Mechanical gate intent:** Check metadata presence, non-placeholder values, and ambiguity/defer notes; never score semantic adequacy.
 - **Primary home / write target:** 00_DIMENSION_INDEX.md#Workspace Metadata
 - **Owner/source of truth:** agent-maintained; owner confirms project identity if ambiguous
 - **Minimum sufficiency:** Project slug/date/readiness state are explicit or safely derived from the workspace, with any ambiguity visible.
@@ -73,7 +110,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes run/date notes, concise provenance for major intake changes, and why any ambiguous identity or source revision can remain deferred.
 - **First-batch upgraded goal:** Clarify workspace identity and readiness metadata as a compiler guardrail, not as evidence of paper quality, source truth, claim validity, or manuscript adequacy.
 - **Field-category families / table intent:** Project slug; owner/project identity; created/updated timestamps; last source revision; readiness state; ambiguity note; semantic-adequacy disclaimer. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check metadata presence, non-placeholder values, and explicit ambiguity/defer notes; must not treat recent timestamps or completed metadata as semantic freshness or adequacy.
+- **First-batch mechanical gate note:** May check metadata presence, non-placeholder values, and explicit ambiguity/defer notes; must not treat recent timestamps or completed metadata as semantic freshness or adequacy.
 - **Cross-dimension dependencies:** D02 stale gate; D19 validation notes; all workspace file identity assumptions.
 - **Non-goals:** Do not infer owner identity, venue/claim adequacy, or paper quality from metadata.
 - **User-burden tier:** Light by default; deep only when provenance or ownership ambiguity materially affects handoff.
@@ -94,6 +131,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** OWNER_DECISIONS.md
 - **Dimension type:** owner-decision
 - **Purpose:** Record owner-gated decisions, forbidden routes, and decisions the agent may not infer.
+- **Dimension essence:** Decide which owner-gated decisions, forbidden routes, and non-inferable boundaries control the workspace.
+- **Minimum probe:** Which decision or forbidden route is already known, or should this dimension record that none is known?
+- **Standard probe:** Which route, claim, evidence, citation, or handoff choices must not be inferred automatically?
+- **Depth probe:** What tempting route or claim should be rejected, and why would it distort the project?
+- **Conflict probe:** Which D04, D10, D11, or D19 assumption conflicts with an owner gate?
+- **Weak-answer handling:** Keep vague or later decisions deferred with the exact pending choice; do not promote candidates to decisions.
+- **Stop condition:** Stop when the owner confirms the decision set, confirms none, or defers a named gate with consequence.
+- **Write-normalization rule:** Record decisions in `00_PROJECT_ROUTE.md#Owner Decisions` and update the D01 row.
+- **Owner-confirmation rule:** Mandatory for all final owner-gated decisions and forbidden routes.
+- **Downstream consequence:** Downstream tools must preserve these gates and cannot override them with agent preference.
+- **Mechanical gate intent:** Check explicit decision/defer/reject state and pointer; do not judge whether the owner decision is wise.
 - **Primary home / write target:** 00_PROJECT_ROUTE.md#Owner Decisions + 00_DIMENSION_INDEX.md#Owner Notes
 - **Owner/source of truth:** owner/user
 - **Minimum sufficiency:** At least one owner decision or explicit statement that no special owner gate is known.
@@ -116,6 +164,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** STALE_FLAGS.md
 - **Dimension type:** metadata/compiler
 - **Purpose:** Track whether upstream changes make the design pack stale, and state the recompile or risk-handoff action without judging content truth.
+- **Dimension essence:** Decide whether upstream changes make the design pack stale and what recompile or risk action follows.
+- **Minimum probe:** Has anything changed after the last pack, or is stale state not assessed yet?
+- **Standard probe:** Which dimensions changed, which pack sections are affected, what stale-since marker exists, and what action is required?
+- **Depth probe:** Which dependency changed enough that reusing D19 would mislead downstream writing?
+- **Conflict probe:** Does a D19 pack timestamp or content conflict with current upstream dimensions or owner decisions?
+- **Weak-answer handling:** Mark not-assessed or unresolved stale state deferred and carry a visible stale-risk note.
+- **Stop condition:** Stop when there is no prior pack, no stale conflict, or a recompile/risk action is explicit.
+- **Write-normalization rule:** Write the stale/readiness note in the dimension index gate area and update the D02 row.
+- **Owner-confirmation rule:** Required only to ignore, defer, or accept risk from a stale/recompile flag.
+- **Downstream consequence:** Downstream must pause, recompile, or carry the explicit stale-risk note.
+- **Mechanical gate intent:** Check stale/deferred/recompile notes and D19 incompatibility markers; never infer content truth from stale=false.
 - **Primary home / write target:** 00_DIMENSION_INDEX.md#Readiness Gate
 - **Owner/source of truth:** agent-maintained from local edits and owner updates
 - **Minimum sufficiency:** Readiness/stale state is explicit, even if simply 'not assessed yet'.
@@ -123,7 +182,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes a concise stale-dependency note for changed materials/claims/structure and the consequence of deferring recompile.
 - **First-batch upgraded goal:** Express dependency freshness between upstream dimensions and D19 so handoff users know what changed and what must be recompiled.
 - **Field-category families / table intent:** Changed dimension; affected pack section; stale since; recompile required; owner decision; required action; semantic risk note. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check explicit stale/deferred/recompile notes and obvious D19 incompatibility when structured stale data exists; must not infer content truth, claim validity, or semantic adequacy from stale=false.
+- **First-batch mechanical gate note:** May check explicit stale/deferred/recompile notes and obvious D19 incompatibility when structured stale data exists; must not infer content truth, claim validity, or semantic adequacy from stale=false.
 - **Cross-dimension dependencies:** D00 timestamps; all upstream dimensions; D19 compile/readiness note.
 - **Non-goals:** Metadata update does not clear stale risk; stale=false does not prove claims, citations, visuals, or manuscript quality are valid.
 - **User-burden tier:** Light for a new workspace/no pack; default whenever D19 exists; deep after major upstream changes.
@@ -144,6 +203,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 00_project_brief.md
 - **Dimension type:** owner-decision
 - **Purpose:** State the project topic, domain, object, and working thesis at planning level.
+- **Dimension essence:** Decide the planning-level topic, domain, object, and working thesis without drafting manuscript copy.
+- **Minimum probe:** What one-sentence topic or project brief should anchor the workspace?
+- **Standard probe:** Which domain positioning, research object, and working thesis should downstream use without guessing?
+- **Depth probe:** What boundary prevents hype, overbroad domain claims, or a wrong object framing?
+- **Conflict probe:** Does the brief conflict with D04 route, D10 contribution, or D16 object granularity?
+- **Weak-answer handling:** Treat broad areas as deferred until object/topic is explicit; do not turn them into claims.
+- **Stop condition:** Stop when the brief constrains route and claims, or the missing object/topic is named as blocker.
+- **Write-normalization rule:** Write the normalized brief to `00_PROJECT_ROUTE.md#Project Brief` and update the D03 row.
+- **Owner-confirmation rule:** Required when the topic, thesis, or boundary is inferred or materially changed.
+- **Downstream consequence:** Downstream may use the brief as planning input, not as manuscript prose or evidence.
+- **Mechanical gate intent:** Check nonblank brief or explicit deferral and pointer; do not judge topic quality.
 - **Primary home / write target:** 00_PROJECT_ROUTE.md#Project Brief
 - **Owner/source of truth:** owner/user, with agent normalization
 - **Minimum sufficiency:** A one-sentence topic or project brief exists.
@@ -166,6 +236,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 01_target_journal_profile.md
 - **Dimension type:** owner-decision
 - **Purpose:** Define target venue/family, paper type, route profile, audience, reviewer expectations, and hard constraints as a planning target.
+- **Dimension essence:** Decide the owner-confirmed route, venue family, paper type, audience, and hard constraints.
+- **Minimum probe:** What route/profile is known, or should route remain explicitly deferred with uncertainty?
+- **Standard probe:** Which venue family, article type, audience, reviewer expectation, constraints, forbidden routes, and owner state are recorded?
+- **Depth probe:** Which route tradeoff changes structure, visuals, reporting, or downstream handoff expectations?
+- **Conflict probe:** Does the selected route conflict with D01 gates, D03 brief, D14 spine, D15 outline, or D18 visual plan?
+- **Weak-answer handling:** Keep unselected route options as candidates/deferred; do not claim venue fit or acceptance likelihood.
+- **Stop condition:** Stop when owner confirms route/profile or explicitly accepts final-route deferral risk.
+- **Write-normalization rule:** Write route/audience constraints to `00_PROJECT_ROUTE.md` and update the D04 row.
+- **Owner-confirmation rule:** Mandatory before standard/filled route handling.
+- **Downstream consequence:** Downstream follows route constraints but cannot claim guaranteed fit, novelty, or readiness.
+- **Mechanical gate intent:** Check route decision state, constraints, forbidden-route notes, and pointers; do not judge venue fit.
 - **Primary home / write target:** 00_PROJECT_ROUTE.md#Target Route + 00_PROJECT_ROUTE.md#Audience and Reviewer Expectation
 - **Owner/source of truth:** owner/user, with agent route options
 - **Minimum sufficiency:** A venue family, route/profile placeholder, or explicit deferred route exists with downstream uncertainty visible.
@@ -173,7 +254,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes alternative routes rejected/deferred with tradeoffs and route-specific consequences for D14/D15/D18/D19.
 - **First-batch upgraded goal:** Upgrade from a venue label to a venue/profile route intent that separates owner-confirmed route from inferred audience/reviewer expectations.
 - **Field-category families / table intent:** Venue family; article type; content-fit intent; format-fit intent; reporting-fit intent; primary audience; reviewer expectation; hard constraints; forbidden routes; owner confirmation state. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check route decision state, audience/reviewer content, hard-constraint/forbidden-route notes, and pointers to route sections; must not judge actual venue fit or acceptance likelihood.
+- **First-batch mechanical gate note:** May check route decision state, audience/reviewer content, hard-constraint/forbidden-route notes, and pointers to route sections; must not judge actual venue fit or acceptance likelihood.
 - **Cross-dimension dependencies:** D01 owner decisions; D03 brief; D14 reader path; D15 outline/section jobs; D18 visual format/storyline; D19 submission blueprint.
 - **Non-goals:** Do not infer owner-confirmed venue from exemplars, source notes, or dossier notes; do not claim fit, novelty, or readiness.
 - **User-burden tier:** Default for ordinary projects; deep for high-stakes venue targeting or strict formatting/reporting routes.
@@ -194,6 +275,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 02_material_inventory.md
 - **Dimension type:** factual-material
 - **Purpose:** Inventory real materials: results, figures, data, code, baselines, metrics, and absences.
+- **Dimension essence:** Inventory real materials and explicit absences so claims cannot rely on invented results or artifacts.
+- **Minimum probe:** Which results, figures, data, code, baselines, metrics, or absences are known by category?
+- **Standard probe:** Where are core materials locatable, which are absent/deferred, and which planned items are not completed evidence?
+- **Depth probe:** Which material can support which claim or section, and what provenance or scope limit matters?
+- **Conflict probe:** Does the material inventory conflict with D06 anchors, D11 claims, or D18 visual status?
+- **Weak-answer handling:** Mark missing materials absent/deferred with consequence; never invent locations, metrics, or outcomes.
+- **Stop condition:** Stop when material states are explicit enough to allow or block related claims.
+- **Write-normalization rule:** Write material categories to `01_MATERIALS_INVENTORY.md#Results and Experiments` and update D05.
+- **Owner-confirmation rule:** Required for material existence, location, and interpretation.
+- **Downstream consequence:** Downstream may use only listed material boundaries and absence/defer notes.
+- **Mechanical gate intent:** Check category/status/pointer presence and planned-vs-complete separation; do not judge result quality.
 - **Primary home / write target:** 01_MATERIALS_INVENTORY.md#Results and Experiments
 - **Owner/source of truth:** user-supplied or locally locatable project material
 - **Minimum sufficiency:** Known materials or explicit absences are listed by category.
@@ -216,6 +308,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 03_evidence_inventory.md
 - **Dimension type:** evidence
 - **Purpose:** Create evidence anchors that can support or reject claims.
+- **Dimension essence:** Create evidence anchors that can support, weaken, or reject claims without inventing support.
+- **Minimum probe:** Is there at least one evidence anchor, or is evidence absence explicit?
+- **Standard probe:** Which locatable anchor, type, supported claim, support status, and owner-confirmed relation applies to each active claim?
+- **Depth probe:** What support strength, limitation, or cross-link prevents overclaiming from this anchor?
+- **Conflict probe:** Does any D11 claim, D12 wording, or D18 visual rely on a missing or mismatched anchor?
+- **Weak-answer handling:** Claims without anchors must be downgraded, deferred, or rejected; vague evidence is not standard.
+- **Stop condition:** Stop when every active core claim is anchored or removed/deferred with consequence.
+- **Write-normalization rule:** Write anchors to `01_MATERIALS_INVENTORY.md#Evidence Inventory` and update D06.
+- **Owner-confirmation rule:** Required for evidence existence and support relation.
+- **Downstream consequence:** Downstream can cite anchors only within their confirmed support limits.
+- **Mechanical gate intent:** Check anchor fields, statuses, and claim cross-references; do not verify truth or strength semantically.
 - **Primary home / write target:** 01_MATERIALS_INVENTORY.md#Evidence Inventory
 - **Owner/source of truth:** user-supplied or locatable evidence artifacts
 - **Minimum sufficiency:** At least one anchor table exists or evidence absence is explicit.
@@ -238,6 +341,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 04_source_and_citation_bank.md
 - **Dimension type:** source-citation
 - **Purpose:** Record known source/citation candidates, source roles, citation status, and citation boundaries without native search or claim support inflation.
+- **Dimension essence:** Record supplied source/citation candidates and roles without turning them into source truth or claim evidence.
+- **Minimum probe:** Are sources supplied, absent, or deferred with a no-invention boundary?
+- **Standard probe:** Which source identity, role, citation status, locator, use, limitation, permission, and handoff need are visible?
+- **Depth probe:** Which citation function or unresolved source boundary will matter to downstream writing?
+- **Conflict probe:** Does a source role conflict with D08 notes, D06 evidence anchors, or D11 claim support?
+- **Weak-answer handling:** Mark absent/deferred sources explicitly and hand off the need; do not invent references or facts.
+- **Stop condition:** Stop when supplied source state and boundary are explicit, and no active claim relies on unsupported source use.
+- **Write-normalization rule:** Write source records to `01_MATERIALS_INVENTORY.md#Source and Citation Bank` and update D07.
+- **Owner-confirmation rule:** Required for source existence, citation choices, and source-role claims.
+- **Downstream consequence:** Downstream receives a citation/source boundary, not completed bibliography or evidence support.
+- **Mechanical gate intent:** Check table shape or explicit absent/deferred reason; do not verify citation truth, authority, or support.
 - **Primary home / write target:** 01_MATERIALS_INVENTORY.md#Source and Citation Bank
 - **Owner/source of truth:** user-provided candidate sources only
 - **Minimum sufficiency:** Citation bank is supplied, absent, or deferred with no-invention and source/evidence/claim boundary notes.
@@ -245,7 +359,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes downstream lookup needs, source-role limitations, and explicit links showing when a source is background context rather than evidence.
 - **First-batch upgraded goal:** Upgrade to a source-role and citation-boundary registry so supplied sources are organized without becoming automatic evidence or claim support.
 - **Field-category families / table intent:** Source identity; source role; citation status; owner confirmation; locator such as DOI/URL/page/section/version or explicit absence; key use; limitation; reuse permission; handoff need. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May require table shape or explicit absent/deferred reason; must not verify citation truth, bibliography correctness, source authority, or claim support.
+- **First-batch mechanical gate note:** May require table shape or explicit absent/deferred reason; must not verify citation truth, bibliography correctness, source authority, or claim support.
 - **Cross-dimension dependencies:** D06 evidence inventory; D08 research dossier; D11 claim-evidence map; D12 wording boundary; D19 source/citation boundary.
 - **Non-goals:** D07 does not itself support claims; source-to-claim support routes through D06 evidence anchors and D11 claim mapping.
 - **User-burden tier:** Light if no sources supplied; default when sources are supplied; deep for citation-heavy or reuse-sensitive projects.
@@ -266,6 +380,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 10_research_dossier.md
 - **Dimension type:** source-citation
 - **Purpose:** Capture related-work notes, exemplar notes, research context, synthesis/gap notes, counterevidence, and absent research-context boundaries without inferring novelty.
+- **Dimension essence:** Organize owner-supplied research context, dossier notes, and gaps without inferring novelty or source truth.
+- **Minimum probe:** Are related-work notes present, absent, or deferred, and what consequence follows?
+- **Standard probe:** Which study notes, synthesis/gap notes, conflict map, counterevidence, and unresolved source needs are separated?
+- **Depth probe:** Which gap, conflict, or counterevidence risk constrains contribution, limitations, or reader path?
+- **Conflict probe:** Do dossier notes conflict with D07 sources, D10 contribution, D11 claims, D13 risks, or D14 spine?
+- **Weak-answer handling:** Record absence/defer state and risk; do not synthesize literature from memory.
+- **Stop condition:** Stop when research-context state and downstream consequence are explicit.
+- **Write-normalization rule:** Write dossier notes to inventory/design-pack dossier sections and update D08.
+- **Owner-confirmation rule:** Required for source claims, research-gap claims, and counterevidence interpretation.
+- **Downstream consequence:** Downstream treats notes as context and risk, not proof of novelty or claim truth.
+- **Mechanical gate intent:** Check dossier status and risk/handoff note; do not infer novelty, adequacy, source truth, or authority.
 - **Primary home / write target:** 01_MATERIALS_INVENTORY.md#Research Dossier + 04_WRITING_DESIGN_PACK.md#Research Dossier Notes
 - **Owner/source of truth:** user-provided notes or explicit absence
 - **Minimum sufficiency:** Research notes are present, absent, or deferred explicitly with downstream consequence.
@@ -273,7 +398,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes relation to venue expectations, claim boundaries, limitation risks, and explicit unresolved research tasks.
 - **First-batch upgraded goal:** Upgrade from note pile to research-context and synthesis/gap intent while preserving that absence does not prove novelty.
 - **Field-category families / table intent:** Research question/context boundary; study-level notes; theme-level synthesis; conflict map; gap hypothesis; counterevidence; unresolved source needs; downstream consequence. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May require explicit dossier status and risk/handoff note; must not infer novelty, related-work adequacy, source truth, or citation authority.
+- **First-batch mechanical gate note:** May require explicit dossier status and risk/handoff note; must not infer novelty, related-work adequacy, source truth, or citation authority.
 - **Cross-dimension dependencies:** D07 sources; D10 contribution options; D11 claims; D13 limitations; D14 reader path; D19 semantic-risk note.
 - **Non-goals:** Do not turn dossier notes into manuscript prose, citation truth, novelty judgment, or claim support without D06/D11 anchors.
 - **User-burden tier:** Light if absent with risk note; default for known related-work context; deep for review/synthesis-heavy projects.
@@ -294,6 +419,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 11_exemplar_language_profile.md
 - **Dimension type:** agent-designable-structure
 - **Purpose:** Capture language/style exemplars, route-consistent style fingerprint, and forbidden imitation boundaries, or explicitly mark no exemplar profile.
+- **Dimension essence:** Capture exemplar/style constraints and forbidden imitation boundaries without copying or inventing exemplars.
+- **Minimum probe:** Is an exemplar/language profile supplied, absent, or deferred?
+- **Standard probe:** Which style role, positive rules, forbidden imitation, voice, tense, hedge, terminology, and wording links apply?
+- **Depth probe:** Which style constraint most affects route fit, claim strength, or overclaim control?
+- **Conflict probe:** Does exemplar use conflict with D07 source handling or D12/D17 wording boundaries?
+- **Weak-answer handling:** If absent/deferred, use only generic route-consistent controls and name the limitation.
+- **Stop condition:** Stop when profile absence is explicit or constraints are usable without fake exemplar sources.
+- **Write-normalization rule:** Write to `03_WRITING_STRUCTURE.md#Exemplar Language Profile` and update D09.
+- **Owner-confirmation rule:** Required for naming specific exemplar papers or treating a source as exemplar.
+- **Downstream consequence:** Downstream may use style constraints but not fake citations, copied prose, or stronger claims.
+- **Mechanical gate intent:** Check exemplar status and rationale; do not judge prose quality, style similarity, or authorial quality.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Exemplar Language Profile
 - **Owner/source of truth:** user-supplied exemplars or generic route constraints
 - **Minimum sufficiency:** Exemplar profile is supplied, absent, or deferred with status and rationale.
@@ -301,7 +437,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes positive and negative style examples from owner-provided exemplars and route-specific surface constraints without copying source prose.
 - **First-batch upgraded goal:** Upgrade from “has exemplar?” to a style fingerprint with forbidden imitation and claim-strength boundaries.
 - **Field-category families / table intent:** Exemplar status; exemplar role; positive style rules; forbidden imitation; voice/tense; hedge strength; terminology density; banned patterns; D12/D17 wording links. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May require status and rationale when filled/absent/deferred; must not judge prose quality, style similarity, or authorial quality.
+- **First-batch mechanical gate note:** May require status and rationale when filled/absent/deferred; must not judge prose quality, style similarity, or authorial quality.
 - **Cross-dimension dependencies:** D04 venue tone; D07 if an exemplar is cited as a source; D12 wording boundary; D17 surface control; D19 handoff constraints.
 - **Non-goals:** Exemplar style must not raise claim strength, create citations, or become source evidence unless separately handled in D07 and anchored through D06/D11 when claim-bearing.
 - **User-burden tier:** Light when absent; default when one style target exists; deep for journal/style-sensitive drafting.
@@ -322,6 +458,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 12_contribution_options.md
 - **Dimension type:** claim-boundary
 - **Purpose:** List selected, rejected, or deferred contribution options with reasons.
+- **Dimension essence:** Decide selected, rejected, and deferred contribution framings with owner-confirmed boundaries.
+- **Minimum probe:** What candidate contribution exists, or should contribution selection be deferred?
+- **Standard probe:** Which selected/rejected options are owner-confirmed and tied to material, evidence, problem, object, and method/system/model framing?
+- **Depth probe:** Which framing tradeoff changes paper type, evidence burden, or route expectations?
+- **Conflict probe:** Does the contribution conflict with D03 brief, D04 route, D11 evidence, or D16 object granularity?
+- **Weak-answer handling:** Keep unconfirmed options candidate/deferred; never choose the contribution for the owner.
+- **Stop condition:** Stop when owner selects the contribution boundary or records the exact pending decision.
+- **Write-normalization rule:** Write contribution options to `02_CLAIM_EVIDENCE_BOUNDARY.md#Contribution Options` and update D10.
+- **Owner-confirmation rule:** Mandatory before standard/filled contribution handling.
+- **Downstream consequence:** Downstream must follow selected/rejected contribution boundaries.
+- **Mechanical gate intent:** Check selected/deferred/rejected state, rationale, and pointer; do not judge novelty or contribution strength.
 - **Primary home / write target:** 02_CLAIM_EVIDENCE_BOUNDARY.md#Contribution Options
 - **Owner/source of truth:** owner/user decision grounded in material/evidence
 - **Minimum sufficiency:** At least one candidate contribution option exists or is explicitly deferred.
@@ -344,6 +491,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 13_claim_evidence_map.md
 - **Dimension type:** claim-boundary/evidence
 - **Purpose:** Bind each core claim to evidence anchors and support strength.
+- **Dimension essence:** Bind each active core claim to evidence anchors, support strength, and allowed scope.
+- **Minimum probe:** Which claims are active, deferred, or rejected?
+- **Standard probe:** For each active claim, what owner-confirmed wording, evidence anchor, support strength, status, and wording boundary applies?
+- **Depth probe:** Which claim should be split, downgraded, or rejected because support is narrow or weak?
+- **Conflict probe:** Does any claim exceed D06 evidence, D12 wording, D13 limitations, or D18 visual evidence?
+- **Weak-answer handling:** Unconfirmed or unsupported claims remain candidate, deferred, or rejected; do not make them active.
+- **Stop condition:** Stop when active claims are all anchored and bounded, or removed/deferred with consequence.
+- **Write-normalization rule:** Write mapping to `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` and update D11.
+- **Owner-confirmation rule:** Required for final claim wording and evidence-to-claim support relation.
+- **Downstream consequence:** Downstream must preserve claim-evidence mapping and support strength.
+- **Mechanical gate intent:** Check claim rows, anchor links, support status, and absence of unsupported active claims; do not verify truth.
 - **Primary home / write target:** 02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map
 - **Owner/source of truth:** owner-confirmed claims plus evidence anchors
 - **Minimum sufficiency:** Claims are listed or explicitly deferred/rejected.
@@ -366,6 +524,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 14_wording_boundary.md
 - **Dimension type:** claim-boundary
 - **Purpose:** Define allowed and forbidden wording so downstream writing cannot overclaim.
+- **Dimension essence:** Define allowed and forbidden wording so downstream writing cannot overclaim.
+- **Minimum probe:** What wording boundary exists, or should it be deferred?
+- **Standard probe:** Which allowed and forbidden phrases are tied to evidence strength, object granularity, and owner-confirmed claim scope?
+- **Depth probe:** Which tempting stronger phrase must be prohibited, and what cautious alternative is allowed?
+- **Conflict probe:** Does D17 surface language or D11 claim wording exceed D06 support?
+- **Weak-answer handling:** If boundaries are missing, mark deferred and default to conservative language; do not permit stronger wording.
+- **Stop condition:** Stop when wording boundaries cover core claims or the unresolved risk is explicit.
+- **Write-normalization rule:** Write to allowed/forbidden wording sections and update D12.
+- **Owner-confirmation rule:** Required for final claim boundaries and forbidden overclaims.
+- **Downstream consequence:** Downstream treats forbidden wording as a hard boundary.
+- **Mechanical gate intent:** Check allowed/forbidden entries and links to claims/evidence; do not judge prose quality.
 - **Primary home / write target:** 02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording + 02_CLAIM_EVIDENCE_BOUNDARY.md#Forbidden Wording
 - **Owner/source of truth:** agent proposal grounded in evidence; owner confirms claim boundaries
 - **Minimum sufficiency:** At least one allowed/forbidden wording boundary exists or is explicitly deferred.
@@ -388,6 +557,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 15_limitation_and_risk_matrix.md
 - **Dimension type:** claim-boundary
 - **Purpose:** Record limitations, risks, and claim constraints that must remain visible.
+- **Dimension essence:** Keep limitations, risks, and claim constraints visible as writing guardrails.
+- **Minimum probe:** What limitation/risk exists, or does the owner explicitly say none is known with rationale?
+- **Standard probe:** Which risks tie to material gaps, evidence strength, route expectations, rejected claims, and wording constraints?
+- **Depth probe:** Which hidden limitation would change contribution, route, or reader expectation if omitted?
+- **Conflict probe:** Does the risk matrix contradict D11 claims, D12 wording, D14 reader path, or D19 handoff notes?
+- **Weak-answer handling:** Unknown limitations remain deferred; do not imply absence without owner rationale.
+- **Stop condition:** Stop when material risks are explicit or deferred with downstream consequence.
+- **Write-normalization rule:** Write risks to `02_CLAIM_EVIDENCE_BOUNDARY.md#Limitations and Risks` and update D13.
+- **Owner-confirmation rule:** Required for final material-risk interpretation and owner-known absence claims.
+- **Downstream consequence:** Downstream uses risks as guardrails, not optional caveats to drop.
+- **Mechanical gate intent:** Check risk/defer entries, rationale, and pointers; do not judge limitation adequacy.
 - **Primary home / write target:** 02_CLAIM_EVIDENCE_BOUNDARY.md#Limitations and Risks
 - **Owner/source of truth:** agent inference from gaps plus owner confirmation for material risks
 - **Minimum sufficiency:** At least one limitation/risk exists or owner explicitly says none known with rationale.
@@ -410,6 +590,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 20_reader_spine.md
 - **Dimension type:** agent-designable-structure
 - **Purpose:** Define the reader's question-and-answer path through the paper, linked to route, claims, evidence, limitations, and transitions.
+- **Dimension essence:** Define the reader's question-and-answer path through confirmed route, claims, evidence, and limits.
+- **Minimum probe:** What rough reader question sequence should structure the argument?
+- **Standard probe:** Which reader persona, question sequence, expected answers, linked claims/evidence/limitations, forbidden questions, and transitions apply?
+- **Depth probe:** Which hidden reviewer question or ordering tradeoff would change the argument path?
+- **Conflict probe:** Does the spine conflict with D04 audience, D10 contribution, D11 evidence, D15 outline, or D18 visuals?
+- **Weak-answer handling:** Keep the spine candidate/deferred when claims, materials, or route remain unconfirmed.
+- **Stop condition:** Stop when the path follows confirmed boundaries or names the exact blocker.
+- **Write-normalization rule:** Write to `03_WRITING_STRUCTURE.md#Reader Spine` and update D14.
+- **Owner-confirmation rule:** Optional unless the spine changes route, contribution, or claim emphasis.
+- **Downstream consequence:** Downstream uses the spine as argument order while preserving evidence/limitation boundaries.
+- **Mechanical gate intent:** Check question-path shape and cross-references; do not judge persuasiveness or reviewer satisfaction.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Reader Spine
 - **Owner/source of truth:** agent proposal grounded in confirmed route/materials/claims
 - **Minimum sufficiency:** A rough reader question sequence exists.
@@ -417,7 +608,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes alternative spine rejected and rationale for section order and reviewer expectation tradeoffs.
 - **First-batch upgraded goal:** Upgrade outline-adjacent notes into a reader question path that downstream drafting can follow without guessing the argument order.
 - **Field-category families / table intent:** Reader persona; question sequence; expected answer; linked claim; linked evidence; linked limitation; forbidden question; transition rationale. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check structured question-path shape and cross-reference presence; must not judge argument persuasiveness or reviewer satisfaction.
+- **First-batch mechanical gate note:** May check structured question-path shape and cross-reference presence; must not judge argument persuasiveness or reviewer satisfaction.
 - **Cross-dimension dependencies:** D04 audience/reviewer profile; D10 contribution; D11 evidence; D13 limitations; D15 section jobs; D18 visual storyline.
 - **Non-goals:** Reader spine is not a section outline, not manuscript prose, and not copied reviewer expectation.
 - **User-burden tier:** Default; deep when the paper needs careful argument design.
@@ -438,6 +629,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 21_manuscript_outline.md
 - **Dimension type:** agent-designable-structure
 - **Purpose:** Define manuscript outline and section-job responsibilities for downstream drafting without writing manuscript prose.
+- **Dimension essence:** Define outline and section-job responsibilities without drafting manuscript prose.
+- **Minimum probe:** What section list exists, or should outline work be deferred?
+- **Standard probe:** Which section jobs, input dimensions, output promises, required evidence, forbidden content, length/function hints, and constraints apply?
+- **Depth probe:** Which section job prevents unsupported prose, omitted limitations, or wrong paper-type structure?
+- **Conflict probe:** Does the outline conflict with D04 route, D11 evidence, D13 limitations, D14 spine, or D18 visuals?
+- **Weak-answer handling:** Keep outline candidate/deferred when route, type, or claims are unresolved.
+- **Stop condition:** Stop when section jobs can guide downstream writing without guessing.
+- **Write-normalization rule:** Write to manuscript outline and section-job sections, then update D15.
+- **Owner-confirmation rule:** Required if the outline chooses among materially different paper types or routes.
+- **Downstream consequence:** Downstream treats section jobs as constraints, not finished prose.
+- **Mechanical gate intent:** Check section/job pairing and responsibility categories; do not judge rhetorical optimality or draft quality.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Manuscript Outline + 03_WRITING_STRUCTURE.md#Section Jobs
 - **Owner/source of truth:** agent proposal grounded in route/type/claims
 - **Minimum sufficiency:** A section list or explicit outline deferral exists.
@@ -445,7 +647,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes paragraph/function map, section-level evidence responsibilities, and rejected outline alternatives.
 - **First-batch upgraded goal:** Upgrade section titles into a section-job matrix so each section has a defined function and evidence responsibility.
 - **Field-category families / table intent:** Section; job; input dimensions; output promise; required evidence; forbidden content; length hint; paragraph/function map; downstream constraint. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check section/job pairing and presence of required responsibility categories; must not judge rhetorical optimality or draft prose quality.
+- **First-batch mechanical gate note:** May check section/job pairing and presence of required responsibility categories; must not judge rhetorical optimality or draft prose quality.
 - **Cross-dimension dependencies:** D04 paper type; D11 claims/evidence; D13 limitations; D14 reader spine; D18 visuals; D19 blueprint.
 - **Non-goals:** Do not draft manuscript prose, optimize rhetoric semantically, or let an outline create unsupported claims.
 - **User-burden tier:** Default; deep for complex or multi-claim papers.
@@ -466,6 +668,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 22_object_granularity.md
 - **Dimension type:** claim-boundary/structure
 - **Purpose:** Clarify whether the paper is about a method, system, model, dataset, benchmark, application, or analysis object.
+- **Dimension essence:** Clarify exact research-object granularity so claims, structure, and wording target the same object.
+- **Minimum probe:** What object type is named, or should object granularity be deferred?
+- **Standard probe:** Which precise object boundary binds claims, evidence, outline, wording, and structure/claim-side consistency?
+- **Depth probe:** Which adjacent object level or non-object must be excluded to prevent overbroad claims?
+- **Conflict probe:** Do structure-side and claim-side object statements conflict with D10, D11, D12, or D17?
+- **Weak-answer handling:** Vague object language remains deferred and triggers reconciliation; do not allow broad claims.
+- **Stop condition:** Stop when the object boundary is confirmed or an exact conflict remains as a blocking defer note.
+- **Write-normalization rule:** Write reconciled object notes to both structure and claim-boundary homes, then update D16.
+- **Owner-confirmation rule:** Required when the object boundary affects claims, contribution, or paper scope.
+- **Downstream consequence:** Downstream must preserve object granularity in every claim and section job.
+- **Mechanical gate intent:** Check dual landing and reconciliation notes; do not judge the taxonomy's scholarly correctness.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Object Granularity + 02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity
 - **Owner/source of truth:** owner for claim-affecting object boundary; agent for structural phrasing
 - **Minimum sufficiency:** Research object type is named or deferred.
@@ -488,6 +701,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 23_surface_control.md
 - **Dimension type:** claim-boundary/structure
 - **Purpose:** Control terminology, tone, claim strength, and surface wording constraints.
+- **Dimension essence:** Control terminology, tone, and claim-strength surface choices across structure and claim-boundary files.
+- **Minimum probe:** What term, tone, or surface-control boundary exists, or should it be deferred?
+- **Standard probe:** Which controls map to route, evidence strength, forbidden wording, object granularity, terminology, and cross-file consistency?
+- **Depth probe:** Which term, adjective, or tone would create overclaim, wrong audience framing, or domain confusion?
+- **Conflict probe:** Do D17 controls conflict with D12 allowed/forbidden wording, D09 style, D16 object, or D04 route?
+- **Weak-answer handling:** Use conservative provisional controls or defer; never permit banned terms or unsupported adjectives.
+- **Stop condition:** Stop when controls are reconciled with claim-side boundaries or a specific conflict blocks D19.
+- **Write-normalization rule:** Write controls to surface-control and allowed-wording homes, then update D17.
+- **Owner-confirmation rule:** Required for final forbidden overclaims and domain-sensitive terms.
+- **Downstream consequence:** Downstream must obey controls as wording guardrails.
+- **Mechanical gate intent:** Check controls, banned terms, and reconciliation notes; do not judge style quality.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Surface Control + 02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording
 - **Owner/source of truth:** agent proposal grounded in route/evidence; owner confirms forbidden overclaims
 - **Minimum sufficiency:** Tone/term controls or explicit deferral exist.
@@ -510,6 +734,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 24_visual_plan.md
 - **Dimension type:** agent-designable-structure/material
 - **Purpose:** Plan figure/table storyline, visual evidence boundaries, and handoff needs while separating planned visuals from actual evidence.
+- **Dimension essence:** Plan figure/table storyline and visual evidence boundaries without treating planned visuals as evidence.
+- **Minimum probe:** Which visuals are existing, needed, deferred, absent, or unnecessary, and what consequence follows?
+- **Standard probe:** Which id/type/status, story role, linked claim/evidence/reader step, data need, panel order, legend job, accessibility note, and handoff apply?
+- **Depth probe:** Which visual, caption, or table constraint changes the evidence story or downstream handoff?
+- **Conflict probe:** Does the visual plan conflict with D05 materials, D06 evidence, D11 claims, D14 spine, or D15 section jobs?
+- **Weak-answer handling:** Mark missing visuals as needed/deferred and ensure no active claim depends on them.
+- **Stop condition:** Stop when visual state is explicit and no active claim relies on missing visual evidence, or risk is deferred.
+- **Write-normalization rule:** Write to visual plan/storyline sections and update D18 plus D19 handoff notes when needed.
+- **Owner-confirmation rule:** Required if adding or changing a figure affects scope, evidence, or claims.
+- **Downstream consequence:** Downstream receives a plan only, not generated artifact evidence or claim proof.
+- **Mechanical gate intent:** Check status categories, rationale, and cross-references; do not validate figure correctness or design quality.
 - **Primary home / write target:** 03_WRITING_STRUCTURE.md#Visual Plan + 03_WRITING_STRUCTURE.md#Figure / Table Storyline
 - **Owner/source of truth:** agent proposal grounded in supplied figures/tables/material gaps
 - **Minimum sufficiency:** Existing, needed, deferred, absent, or no-visual rationale is listed with consequence.
@@ -517,7 +752,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes visual order, panel/legend intent, missing figure needs, accessibility notes, and downstream figure-skill handoff constraints.
 - **First-batch upgraded goal:** Upgrade from a figure/table list to visual storyline plus visual evidence boundary.
 - **Field-category families / table intent:** Visual id; type; status such as existing/needed/deferred/absent; story role; linked claim; linked evidence; linked reader step; data needed; panel order; legend job; accessibility check; handoff. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check valid status categories, explicit no-visual/deferred rationale, and cross-reference presence; must not validate figure quality, visual correctness, or design quality.
+- **First-batch mechanical gate note:** May check valid status categories, explicit no-visual/deferred rationale, and cross-reference presence; must not validate figure quality, visual correctness, or design quality.
 - **Cross-dimension dependencies:** D05 materials; D06 evidence; D11 claims; D14 reader path; D15 section jobs; D19 visual handoff.
 - **Non-goals:** Needed/deferred visuals cannot support active claims; D18 is not generated figure evidence and does not prove visual quality.
 - **User-burden tier:** Light for no-visual rationale; default for figure/table papers; deep for visual-heavy submissions.
@@ -538,6 +773,17 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Name / legacy label:** 25_WRITING_DESIGN_PACK.md
 - **Dimension type:** handoff
 - **Purpose:** Compile the final writing design pack as a structural handoff and submission blueprint only after dimension gates are satisfied.
+- **Dimension essence:** Compile the design pack as a structural handoff after gates pass, not as manuscript or readiness certification.
+- **Minimum probe:** Is D19 deferred, or what exact blocker and consequence prevents compilation?
+- **Standard probe:** Do coverage, blueprint, risk notes, statements, supplement boundary, handoff routes, unresolved consequences, and validation notes cover handled D00-D18?
+- **Depth probe:** Which unresolved boundary must be surfaced so downstream tools do not overrun owner, evidence, source, or stale limits?
+- **Conflict probe:** Does D19 conflict with D02 stale state, critical-standard gaps, placeholders, or unresolved owner gates?
+- **Weak-answer handling:** Do not compile final D19; ask the next blocker or record owner-accepted risk where allowed.
+- **Stop condition:** Stop when gates are satisfied and stale risk is resolved/accepted, otherwise keep D19 deferred.
+- **Write-normalization rule:** Write only to `04_WRITING_DESIGN_PACK.md` coverage/validation/handoff sections and update D19.
+- **Owner-confirmation rule:** Required only for unresolved owner-gated assumptions or accepted risks.
+- **Downstream consequence:** Downstream receives a bounded blueprint and cannot claim manuscript, submission, publication, or acceptance readiness.
+- **Mechanical gate intent:** Check coverage, status/pointer consistency, stale-risk handling, and placeholder absence; never score readiness.
 - **Primary home / write target:** 04_WRITING_DESIGN_PACK.md#Dimension Coverage Summary
 - **Owner/source of truth:** agent compiler after gates pass
 - **Minimum sufficiency:** D19 is deferred until upstream dimensions are handled, or records the exact blocker and handoff consequence.
@@ -545,7 +791,7 @@ Every D00-D19 entry below uses these fields: ID, Name / legacy label, Dimension 
 - **Ideal sufficiency:** Includes optional gaps and downstream recommendations without executing external skills, plus concise risk notes for unresolved but owner-accepted boundaries.
 - **First-batch upgraded goal:** Upgrade to submission blueprint plus semantic-risk handoff, while avoiding manuscript, submission, publication, or semantic readiness claims.
 - **Field-category families / table intent:** Dimension coverage; submission blueprint; semantic-risk note; statement inventory; supplement boundary; external handoff routes; unresolved dimension consequences; validation notes. Use category-family wording rather than locking final public field names.
-- **Mechanical gate intent:** May check section/table coverage, status/pointer consistency, stale-risk handling, and unresolved placeholder absence; must not claim manuscript, publication, submission, acceptance, or semantic readiness.
+- **First-batch mechanical gate note:** May check section/table coverage, status/pointer consistency, stale-risk handling, and unresolved placeholder absence; must not claim manuscript, publication, submission, acceptance, or semantic readiness.
 - **Cross-dimension dependencies:** D00 identity; D02 stale status; D04 route; D07/D08 boundaries; D11/D12 claims/wording; D14/D15/D18 structure.
 - **Non-goals:** D19 is not manuscript prose, not external skill execution, not citation/figure production, and not a final readiness score.
 - **User-burden tier:** Default for all final handoffs; deep when multiple downstream routes or supplement/submission constraints exist.

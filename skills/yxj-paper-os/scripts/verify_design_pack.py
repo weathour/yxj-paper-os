@@ -35,9 +35,11 @@ REQUIRED_HEADINGS = {
     "00_PROJECT_ROUTE.md": [
         "Project Brief",
         "Target Route",
+        "Front Matter / Hook Route Constraints",
         "Topic and Positioning",
         "Audience and Reviewer Expectation",
         "Owner Decisions",
+        "Reporting, Statements, and Downstream Route Seed",
         "Forbidden Routes",
         "Route Readiness",
     ],
@@ -51,6 +53,9 @@ REQUIRED_HEADINGS = {
         "Evidence Inventory",
         "Source and Citation Bank",
         "Research Dossier",
+        "Citation Function and Related-Work Materials",
+        "Method / Reporting / Reproducibility Materials",
+        "Results / Visual / Caption / Accessibility Materials",
         "Existing Text Fragments",
         "Explicit Absences",
     ],
@@ -59,6 +64,9 @@ REQUIRED_HEADINGS = {
         "Contribution Options",
         "Object Granularity",
         "Claim-Evidence Map",
+        "Claim Support Boundary Reminder",
+        "Writing-Surface Claim Boundary Matrix",
+        "Front-Matter and Caption Wording Constraints",
         "Allowed Wording",
         "Forbidden Wording",
         "Deferred or Rejected Claims",
@@ -66,19 +74,28 @@ REQUIRED_HEADINGS = {
     ],
     "03_WRITING_STRUCTURE.md": [
         "Exemplar Language Profile",
+        "Front-Matter / Hook Planning Brief",
         "Reader Spine",
+        "Introduction / Related-Work Move Sequence",
         "Manuscript Outline",
         "Section Jobs",
+        "Method / Reporting / Reproducibility Job Plan",
         "Object Granularity",
         "Surface Control",
         "Figure / Table Storyline",
         "Visual Plan",
+        "Results Narrative / Caption / Accessibility Plan",
         "Paragraph / Function Map",
         "Drafting Constraints",
     ],
     FINAL_PACK: [
         "Dimension Coverage Summary",
+        "Six-Track Coverage",
         "Project Route",
+        "Front-Matter / Hook Planning Handoff",
+        "Introduction / Related-Work / Citation Function Handoff",
+        "Method / Reporting / Reproducibility Handoff",
+        "Results / Visual / Captions / Tables / Accessibility Handoff",
         "Submission Blueprint",
         "Material Boundary",
         "Source / Citation Boundary",
@@ -94,7 +111,9 @@ REQUIRED_HEADINGS = {
         "Writing Structure",
         "Visual and Figure Storyline",
         "D02 Stale Gate",
+        "Downstream Route Matrix",
         "External Skill Handoff",
+        "Template and Mechanical Validator Notes",
         "Validation Notes",
     ],
 }
@@ -135,6 +154,171 @@ STALE_ACTION_RE = re.compile(
     r"\b(?:recompile|defer|deferred|owner\s+accepted|accepted\s+risk|waive|waived|carry|carried|risk|block|blocked)\b",
     re.IGNORECASE,
 )
+SIX_TRACK_KEYS = {
+    "front_matter_hook": "Front matter / hook",
+    "intro_related_citation": "Introduction / related work / citation function",
+    "method_reporting_repro": "Method / reporting / reproducibility",
+    "results_visual_caption_accessibility": "Results / visual narrative / captions / tables / accessibility",
+    "downstream_route_matrix": "Downstream route matrix",
+    "templates_validators": "Templates + validators",
+}
+SIX_TRACK_COLUMNS = [
+    "Track",
+    "Input planning field locations",
+    "Design-pack output location",
+    "Boundary note",
+]
+SIX_TRACK_EXPECTED_INPUTS = {
+    "front_matter_hook": [
+        "00_PROJECT_ROUTE.md#Front Matter / Hook Route Constraints",
+        "03_WRITING_STRUCTURE.md#Front-Matter / Hook Planning Brief",
+    ],
+    "intro_related_citation": [
+        "01_MATERIALS_INVENTORY.md#Citation Function and Related-Work Materials",
+        "02_CLAIM_EVIDENCE_BOUNDARY.md#Writing-Surface Claim Boundary Matrix",
+        "03_WRITING_STRUCTURE.md#Introduction / Related-Work Move Sequence",
+    ],
+    "method_reporting_repro": [
+        "00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed",
+        "01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials",
+        "03_WRITING_STRUCTURE.md#Method / Reporting / Reproducibility Job Plan",
+    ],
+    "results_visual_caption_accessibility": [
+        "01_MATERIALS_INVENTORY.md#Results / Visual / Caption / Accessibility Materials",
+        "03_WRITING_STRUCTURE.md#Results Narrative / Caption / Accessibility Plan",
+    ],
+    "downstream_route_matrix": [
+        "00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed",
+        f"{FINAL_PACK}#External Skill Handoff",
+    ],
+    "templates_validators": [
+        f"{DIMENSION_INDEX}#Dimension Status Index",
+        f"{FINAL_PACK}#Template and Mechanical Validator Notes",
+        f"{FINAL_PACK}#Validation Notes",
+    ],
+}
+SIX_TRACK_EXPECTED_OUTPUTS = {
+    "front_matter_hook": f"{FINAL_PACK}#Front-Matter / Hook Planning Handoff",
+    "intro_related_citation": f"{FINAL_PACK}#Introduction / Related-Work / Citation Function Handoff",
+    "method_reporting_repro": f"{FINAL_PACK}#Method / Reporting / Reproducibility Handoff",
+    "results_visual_caption_accessibility": f"{FINAL_PACK}#Results / Visual / Captions / Tables / Accessibility Handoff",
+    "downstream_route_matrix": f"{FINAL_PACK}#Downstream Route Matrix",
+    "templates_validators": f"{FINAL_PACK}#Template and Mechanical Validator Notes",
+}
+FINAL_HANDOFF_TABLES = {
+    "Front-Matter / Hook Planning Handoff": [
+        "Front-matter unit",
+        "Constraint / owner-gated input",
+        "Source dimensions",
+        "Downstream handoff note",
+    ],
+    "Introduction / Related-Work / Citation Function Handoff": [
+        "Handoff item",
+        "Source planning location",
+        "Required boundary",
+        "Downstream note",
+    ],
+    "Method / Reporting / Reproducibility Handoff": [
+        "Handoff item",
+        "Artifact / checklist state",
+        "Required statement or limitation",
+        "Downstream note",
+    ],
+    "Results / Visual / Captions / Tables / Accessibility Handoff": [
+        "Handoff item",
+        "Evidence or visual status",
+        "Caption/table/accessibility constraint",
+        "Downstream note",
+    ],
+    "Template and Mechanical Validator Notes": [
+        "Check surface",
+        "Expected structural evidence",
+        "Boundary / non-goal",
+    ],
+}
+DOWNSTREAM_ROUTE_COLUMNS = [
+    "Downstream route",
+    "Eligible input sections",
+    "Constraints to pass forward",
+    "Blocker / defer note",
+]
+DOWNSTREAM_ROUTE_CATEGORIES = {
+    "writing",
+    "citation",
+    "figure",
+    "review",
+    "defer",
+}
+CLAUSE_SPLIT_RE = re.compile(r"[|;:：.。\n]+|\bbut\b", re.IGNORECASE)
+NEGATED_EXTERNAL_EXECUTION_RE = re.compile(
+    r"\b(?:not|never)\s+(?:executed|run|ran|invoked|called|launched|completed)\b|"
+    r"\b(?:do|does|did|must|should|will)\s+not\s+(?:execute|run|invoke|call|launch|complete)\b|"
+    r"\bwithout\s+(?:executing|running|invoking|calling|launching|completing)\b|"
+    r"\bno\b[^|;:.\n]{0,80}?\b(?:executed|run|ran|invoked|called|launched|completed|execution)\b",
+    re.IGNORECASE,
+)
+NEGATED_FORBIDDEN_PROMISE_RE = re.compile(
+    r"\b(?:(?:do|does|did|must|should|will|can)\s+not|cannot|can't|never|without|forbid(?:s|den)?|forbidden)\b"
+    r"[^|;:.\n]{0,80}?\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|"
+    r"manuscript[-\s]+(?:quality|readiness)|actual\s+venue\s+fit|venue\s+fit|novelty|"
+    r"source\s+authority|citation\s+truth|bibliography\s+correctness|argument\s+persuasiveness|"
+    r"prose\s+quality|style\s+similarity|visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
+    r"\b(?:not|never)\s+(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^|;:.\n]{0,80}?"
+    r"\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|manuscript[-\s]+(?:quality|readiness)|"
+    r"actual\s+venue\s+fit|venue\s+fit|novelty|source\s+authority|citation\s+truth|"
+    r"bibliography\s+correctness|argument\s+persuasiveness|prose\s+quality|style\s+similarity|"
+    r"visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
+    r"\b(?:do|does|did|must|should|will|can)\s+not\s+"
+    r"(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^|;:.\n]{0,80}?"
+    r"\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|manuscript[-\s]+(?:quality|readiness)|"
+    r"actual\s+venue\s+fit|venue\s+fit|novelty|source\s+authority|citation\s+truth|"
+    r"bibliography\s+correctness|argument\s+persuasiveness|prose\s+quality|style\s+similarity|"
+    r"visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
+    r"\b(?:cannot|can't|without|avoid|forbid|forbids|forbidden|remove|reject|rejected)\b[^|;:.\n]{0,80}?"
+    r"\b(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^|;:.\n]{0,80}?"
+    r"\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|manuscript[-\s]+(?:quality|readiness)|"
+    r"actual\s+venue\s+fit|venue\s+fit|novelty|source\s+authority|citation\s+truth|"
+    r"bibliography\s+correctness|argument\s+persuasiveness|prose\s+quality|style\s+similarity|"
+    r"visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
+    r"\b(?:no|without)\b[^|;:.\n]{0,80}?\b(?:semantic\s+scor(?:e|er|ing)|readiness\s+certification|"
+    r"publication\s+readiness|submission\s+readiness|acceptance\s+prediction)\b",
+    re.IGNORECASE,
+)
+EXTERNAL_SKILL_EXECUTION_RE = re.compile(
+    r"\b(?:executed|execute|ran|run|invoked|invoke|called|call|launched|launch|completed|complete)\b"
+    r"[^.\n|;:]{0,80}\b(?:external|downstream|writing|citation|figure|review|polish(?:ing)?|data|pdf|backend|library)\b"
+    r"[^.\n|;:]{0,40}\b(?:skill|tool|route|module)\b|"
+    r"\b(?:external|downstream|writing|citation|figure|review|polish(?:ing)?|data|pdf|backend|library)\b"
+    r"[^.\n|;:]{0,60}\b(?:skill|tool|route|module)\b"
+    r"[^.\n|;:]{0,80}\b(?:executed|ran|run|invoked|called|launched|completed)\b",
+    re.IGNORECASE,
+)
+FORBIDDEN_SEMANTIC_PROMISE_PATTERNS = [
+    (
+        re.compile(
+            r"\bclaim(?:s|ed|ing)?\s+(?:semantic[-\s]+adequacy|semantic[-\s]+readiness|paper\s+quality|"
+            r"manuscript[-\s]+quality|manuscript[-\s]+readiness|actual\s+venue\s+fit|venue\s+fit|novelty|"
+            r"source\s+authority|citation\s+truth|bibliography\s+correctness|argument\s+persuasiveness|"
+            r"prose\s+quality|style\s+similarity|visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
+            r"\b(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^.\n|;:]{0,60}"
+            r"\b(?:semantic[-\s]+adequacy|paper\s+quality|manuscript[-\s]+quality|actual\s+venue\s+fit|venue\s+fit|"
+            r"semantic[-\s]+readiness|manuscript[-\s]+readiness|novelty|source\s+authority|citation\s+truth|"
+            r"bibliography\s+correctness|argument\s+persuasiveness|"
+            r"prose\s+quality|style\s+similarity|visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b",
+            re.IGNORECASE,
+        ),
+        "semantic scoring promise",
+    ),
+    (
+        re.compile(
+            r"\b(?:manuscript|submission|publication|acceptance|semantic)[-\s]+readiness\b"
+            r"[^.\n|;:]{0,60}\b(?:passed|validated|verified|certified|approved|ready)\b|"
+            r"\b(?:ready\s+for\s+submission|publication\s+ready|acceptance\s+likely)\b",
+            re.IGNORECASE,
+        ),
+        "readiness promise",
+    ),
+]
 
 
 def normalize_heading(text: str) -> str:
@@ -569,6 +753,231 @@ def validate_d19_handoff_structure(text: str, errors: list[str]) -> None:
         errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes must contain at least one structural risk row")
 
 
+def claim_clauses(line: str) -> list[str]:
+    return [clause.strip() for clause in CLAUSE_SPLIT_RE.split(line) if clause.strip()]
+
+
+def has_unnegated_match(text: str, positive_pattern: re.Pattern[str], negated_pattern: re.Pattern[str]) -> bool:
+    masked = list(text)
+    for match in negated_pattern.finditer(text):
+        start, end = match.span()
+        masked[start:end] = " " * (end - start)
+    return bool(positive_pattern.search("".join(masked)))
+
+
+def contains_positive_external_execution(text: str) -> bool:
+    for clause in claim_clauses(text):
+        if has_unnegated_match(clause, EXTERNAL_SKILL_EXECUTION_RE, NEGATED_EXTERNAL_EXECUTION_RE):
+            return True
+    return False
+
+
+def contains_positive_forbidden_promise(text: str, pattern: re.Pattern[str]) -> bool:
+    for clause in claim_clauses(text):
+        if has_unnegated_match(clause, pattern, NEGATED_FORBIDDEN_PROMISE_RE):
+            return True
+    return False
+
+
+def validate_forbidden_claims(label: str, text: str, errors: list[str]) -> None:
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if contains_positive_external_execution(stripped):
+            errors.append(
+                f"{label}: line {line_number} appears to claim external/downstream skill execution; "
+                "yxj-paper-os may recommend handoff routes only"
+            )
+        for pattern, promise_label in FORBIDDEN_SEMANTIC_PROMISE_PATTERNS:
+            if contains_positive_forbidden_promise(stripped, pattern):
+                errors.append(
+                    f"{label}: line {line_number} appears to make a forbidden {promise_label}; "
+                    "validation is mechanical only"
+                )
+
+
+def six_track_key(value: str) -> str | None:
+    normalized = normalize_heading(value).replace("&", "and")
+    if "front" in normalized and ("matter" in normalized or "hook" in normalized):
+        return "front_matter_hook"
+    if ("intro" in normalized or "introduction" in normalized) and (
+        "related" in normalized or "citation" in normalized
+    ):
+        return "intro_related_citation"
+    if "method" in normalized and ("report" in normalized or "repro" in normalized):
+        return "method_reporting_repro"
+    if "result" in normalized and (
+        "visual" in normalized or "caption" in normalized or "table" in normalized or "accessibility" in normalized
+    ):
+        return "results_visual_caption_accessibility"
+    if "downstream" in normalized and "route" in normalized:
+        return "downstream_route_matrix"
+    if "template" in normalized and "validator" in normalized:
+        return "templates_validators"
+    return None
+
+
+def extract_dimension_ids(value: str) -> set[str]:
+    return set(re.findall(r"\bD\d{2}\b", value))
+
+
+def validate_expected_pointer(
+    label: str,
+    pointer: str,
+    expected: str,
+    contents: dict[str, str],
+    errors: list[str],
+    *,
+    role: str,
+) -> None:
+    if expected not in pointer:
+        errors.append(f"{label}: {role} must include canonical pointer {expected}")
+        return
+    validate_filled_pointer(label, expected, contents, errors)
+
+
+def validate_final_handoff_tables(text: str, errors: list[str]) -> None:
+    for heading, expected_header in FINAL_HANDOFF_TABLES.items():
+        section = section_content(text, heading)
+        if section is None:
+            errors.append(f"{FINAL_PACK}: missing ## {heading}")
+            continue
+        header, rows = parse_markdown_table(section)
+        if not header or not rows:
+            errors.append(f"{FINAL_PACK}: {heading} must contain a Markdown table with structural handoff rows")
+            continue
+        if header != expected_header:
+            errors.append(f"{FINAL_PACK}: {heading} columns must be exactly: " + " | ".join(expected_header))
+        for idx, row in enumerate(rows, start=1):
+            row_text = " ".join(row.values())
+            if has_placeholder(row_text):
+                errors.append(f"{FINAL_PACK}: {heading} row {idx} contains unresolved placeholder")
+            if not row_has_real_values(row):
+                errors.append(f"{FINAL_PACK}: {heading} row {idx} must contain at least one structural value")
+
+
+def validate_six_track_coverage(text: str, contents: dict[str, str], errors: list[str]) -> None:
+    section = section_content(text, "Six-Track Coverage")
+    if section is None:
+        errors.append(f"{FINAL_PACK}: missing ## Six-Track Coverage")
+        return
+    header, rows = parse_markdown_table(section)
+    if not header or not rows:
+        errors.append(f"{FINAL_PACK}: Six-Track Coverage must contain a Markdown table with all six writing tracks")
+        return
+    if header != SIX_TRACK_COLUMNS:
+        errors.append(f"{FINAL_PACK}: Six-Track Coverage columns must be exactly: " + " | ".join(SIX_TRACK_COLUMNS))
+
+    seen: dict[str, int] = {}
+    for idx, row in enumerate(rows, start=1):
+        label = f"{FINAL_PACK}: Six-Track Coverage row {idx}"
+        track = first_present(row, ["Track"])
+        dims = first_present(row, ["Dimension IDs"])
+        input_locations = first_present(row, ["Input planning field locations"])
+        pointer = first_present(row, ["Design-pack output location", "Workspace/design-pack pointer", "Pointer or handoff"])
+        boundary = first_present(row, ["Boundary note", "Boundary / non-goal", "Boundary"])
+
+        if not track or has_placeholder(track):
+            errors.append(f"{label}: Track is missing or placeholder")
+            continue
+        key = six_track_key(track)
+        if key is None:
+            errors.append(f"{label}: unknown six-track label {track!r}")
+        elif key in seen:
+            errors.append(f"{label}: duplicate six-track coverage row for {SIX_TRACK_KEYS[key]}")
+        else:
+            seen[key] = idx
+            for expected in SIX_TRACK_EXPECTED_INPUTS[key]:
+                validate_expected_pointer(
+                    label,
+                    input_locations,
+                    expected,
+                    contents,
+                    errors,
+                    role="Input planning field locations",
+                )
+            validate_expected_pointer(
+                label,
+                pointer,
+                SIX_TRACK_EXPECTED_OUTPUTS[key],
+                contents,
+                errors,
+                role="Design-pack output location",
+            )
+
+        if dims:
+            dim_ids = extract_dimension_ids(dims)
+            if not dim_ids:
+                errors.append(f"{label}: Dimension IDs must name one or more D00-D19 IDs")
+            unexpected = sorted(dim_ids - REQUIRED_DIMENSION_IDS)
+            if unexpected:
+                errors.append(f"{label}: Dimension IDs include unexpected IDs: {', '.join(unexpected)}")
+        elif not input_locations or has_placeholder(input_locations):
+            errors.append(f"{label}: Input planning field locations are missing or placeholder")
+        if not pointer or has_placeholder(pointer):
+            errors.append(f"{label}: Design-pack output location is missing or placeholder")
+        else:
+            validate_filled_pointer(label, pointer, contents, errors)
+        if not boundary or has_placeholder(boundary):
+            errors.append(f"{label}: Boundary / non-goal is missing or placeholder")
+
+    missing = [name for key, name in SIX_TRACK_KEYS.items() if key not in seen]
+    if missing:
+        errors.append(f"{FINAL_PACK}: Six-Track Coverage missing required tracks: {', '.join(missing)}")
+
+
+def validate_downstream_route_matrix(text: str, errors: list[str]) -> None:
+    section = section_content(text, "Downstream Route Matrix")
+    if section is None:
+        errors.append(f"{FINAL_PACK}: missing ## Downstream Route Matrix")
+        return
+    header, rows = parse_markdown_table(section)
+    if not header or not rows:
+        errors.append(f"{FINAL_PACK}: Downstream Route Matrix must contain a Markdown table with handoff routes")
+        return
+    if header != DOWNSTREAM_ROUTE_COLUMNS:
+        errors.append(f"{FINAL_PACK}: Downstream Route Matrix columns must be exactly: " + " | ".join(DOWNSTREAM_ROUTE_COLUMNS))
+
+    seen_categories: set[str] = set()
+    for idx, row in enumerate(rows, start=1):
+        label = f"{FINAL_PACK}: Downstream Route Matrix row {idx}"
+        category = first_present(row, ["Downstream route", "External route category"])
+        artifact = first_present(row, ["Eligible input sections", "Recommended handoff artifact"])
+        execution = first_present(row, ["Constraints to pass forward", "Execution state"])
+        boundary = first_present(row, ["Blocker / defer note", "Boundary / reason"])
+
+        row_text = " ".join([category, artifact, execution, boundary])
+        if has_placeholder(row_text):
+            errors.append(f"{label}: downstream route matrix row contains unresolved placeholder")
+        if not category:
+            errors.append(f"{label}: Downstream route is required")
+        if not artifact:
+            errors.append(f"{label}: Eligible input sections are required")
+        if not execution:
+            errors.append(f"{label}: Constraints to pass forward are required")
+        if not boundary:
+            errors.append(f"{label}: Blocker / defer note is required")
+        if contains_positive_external_execution(row_text):
+            errors.append(f"{label}: Execution state appears to claim an external skill was executed")
+
+        normalized = normalize_heading(category).replace("-", "/")
+        if "writing" in normalized or "manuscript" in normalized or "polishing" in normalized:
+            seen_categories.add("writing")
+        if "citation" in normalized or "reference" in normalized:
+            seen_categories.add("citation")
+        if "figure" in normalized or "visual" in normalized:
+            seen_categories.add("figure")
+        if "review" in normalized or "qa" in normalized:
+            seen_categories.add("review")
+        if "defer" in normalized or "no external" in normalized or "no route" in normalized:
+            seen_categories.add("defer")
+
+    missing = sorted(DOWNSTREAM_ROUTE_CATEGORIES - seen_categories)
+    if missing:
+        errors.append(f"{FINAL_PACK}: Downstream Route Matrix missing route categories: {', '.join(missing)}")
+
+
 def validate_stale_d19_consistency(
     final_text: str,
     index_rows: dict[str, dict[str, str]],
@@ -692,7 +1101,10 @@ def validate_workspace(workspace: Path) -> list[str]:
     if FINAL_PACK in contents:
         validate_dimension_coverage_summary(contents[FINAL_PACK], index_rows, errors)
         validate_d19_handoff_structure(contents[FINAL_PACK], errors)
+        validate_six_track_coverage(contents[FINAL_PACK], contents, errors)
+        validate_final_handoff_tables(contents[FINAL_PACK], errors)
         validate_stale_d19_consistency(contents[FINAL_PACK], index_rows, errors)
+        validate_downstream_route_matrix(contents[FINAL_PACK], errors)
         if has_placeholder(contents[FINAL_PACK]):
             errors.append(f"{FINAL_PACK}: final handoff contains unresolved placeholder")
 
@@ -706,6 +1118,9 @@ def validate_workspace(workspace: Path) -> list[str]:
                 unavailable_visual_anchors,
                 errors,
             )
+
+    for file_name, text in contents.items():
+        validate_forbidden_claims(file_name, text, errors)
 
     return errors
 

@@ -4,7 +4,7 @@ Use this playbook when `00_PROJECT_ROUTE.md` is missing or incomplete, or when D
 
 ## Dimension rubric reference
 
-For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is a central internal rubric/reference, not a sixth task playbook and not a public workspace file. Do not duplicate its full D00-D19 rubric here.
+For minimum/standard/ideal sufficiency, question-depth, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. The central rubric decides sufficiency and question-depth; this file is not a sixth task playbook and not a public workspace file. This playbook translates the current rubric gaps into compact question cards and write landings; it must not duplicate or override the central D00-D19 ladder.
 
 ## Dimension IDs covered
 
@@ -16,6 +16,16 @@ For minimum/standard/ideal sufficiency, proposal permission, owner-confirmation 
 
 After updating route content, update the matching D01/D03/D04 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
+## Question-depth translator guide
+
+Use the central rubric to judge whether the current Dxx answer is missing, minimum-only, standard-ready, deferred, or rejected. Use this table only to translate that gap into the next compact card; do not add public files, D IDs, index columns/statuses, manuscript prose, invented facts, external skill execution, semantic scoring, or runtime orchestration.
+
+| D ID(s) | Default card mode | Ask a depth follow-up when... | Reconcile or conflict-check when... | Write landing |
+|---|---|---|---|---|
+| D01 | `focused-question` | an owner gate affects route, claim, evidence, source, or handoff authority, or a tempting route needs an explicit rejection rationale | D04, D10, D11, or D19 assumes a decision the owner has not confirmed | `00_PROJECT_ROUTE.md#Owner Decisions` or `#Forbidden Routes`, then D01 row |
+| D03 | `candidate-confirmation` from supplied wording; otherwise `focused-question` | topic, domain, object, or working thesis is broad enough to let downstream claims drift | the brief conflicts with D04 route, D10 contribution, or D16 object granularity | `00_PROJECT_ROUTE.md#Project Brief`, then D03 row |
+| D04 | `focused-question` | a route tradeoff changes article type, audience, reporting, visual/storyline, or handoff expectations | route/profile conflicts with D01 gates, D03 brief, D14 spine, D15 jobs, D18 visuals, or D19 handoff | `00_PROJECT_ROUTE.md#Target Route`, `#Audience and Reviewer Expectation`, `#Route Readiness`, then D04 row |
+
 ## First-batch D04 route/profile pointer
 
 `00-dimension-rubric.md` remains the source of truth for D04 sufficiency. In this playbook, treat D04 as a focused venue/profile card, not as a full rubric copy:
@@ -25,6 +35,16 @@ After updating route content, update the matching D01/D03/D04 rows in `00_DIMENS
 - Record route/profile uncertainty as `deferred` or explicit owner-accepted final-route deferral; do not silently convert dossier notes, exemplars, or writing style into a venue decision.
 - Use hard constraints to constrain D14 reader path, D15 section jobs, D18 visual format/storyline, and D19 submission blueprint.
 - Mechanical checks may confirm that route/profile content and pointers exist; they must not judge actual venue fit, novelty, or acceptance likelihood.
+
+## Second-batch route planning additions
+
+Use these additions as planning-only route prompts. They seed downstream sections and question cards; they do not draft title, abstract, keywords, graphical-hook copy, captions, reporting statements, or manuscript prose.
+
+- **Front matter / hook constraints:** capture route implications for title style, abstract type, keyword scope, visual/graphical hook feasibility, length/format limits, and forbidden front-matter promises. Treat final title/abstract/keyword/hook wording as downstream and owner-gated.
+- **Article type → reporting implications:** record whether the route implies a method, system, benchmark, application, survey, data, reproducibility, ethics, availability, or supplement statement. This is an inventory seed only; do not certify reporting compliance.
+- **Method/reporting/repro seed:** route constraints may point D05/D06 materials and D15 section jobs to required artifacts such as code/data availability, protocol details, parameter settings, ablation expectations, or baseline disclosure.
+- **Downstream route matrix seed:** record candidate downstream writing/figure/citation/review routes as recommendations and constraints for D19. Do not execute those routes or imply the route is final before owner confirmation.
+- **Boundary invariant:** owner-gated route decisions, forbidden routes, and front-matter promises require owner confirmation before `filled` handling; agent-inferred audience or format implications remain candidates until confirmed or explicitly deferred.
 
 ## Required fields
 
@@ -63,6 +83,61 @@ C. application / systems venue — write deployment/system expectation and requi
 D. defer route — continue Materials intake, but final 04_WRITING_DESIGN_PACK.md remains blocked until owner confirms route or explicitly accepts final-route deferral.
 E. rejected route — record the forbidden route in 00_PROJECT_ROUTE.md#Forbidden Routes and keep it out of downstream handoff.
 Agent action after answer: update 00_PROJECT_ROUTE.md#Target Route, including the paper-type line, or #Audience and Reviewer Expectation as applicable, then update D04 in 00_DIMENSION_INDEX.md.
+```
+
+## Second-batch question-card seeds
+
+Use these cards only when their specific track is the current blocker. Keep one card active at a time.
+
+### Front matter / hook route constraints
+
+```text
+Current stage: Route
+Dimension / blocker: D04 with D09/D14/D15/D18/D19 / front-matter-hook constraints
+Why this matters: front matter and visual-hook planning must respect route, paper type, evidence strength, and forbidden promises before downstream writing sees the pack.
+Mode chosen: focused-question, because route-facing front-matter constraints and forbidden promises are owner-gated.
+Question: Which planning constraint should govern title/abstract/keyword/hook handoff?
+Options:
+A. title/abstract constraint — record route-facing length, abstract type, tone, and forbidden promise notes in 00_PROJECT_ROUTE.md#Target Route and hand off wording to D19.
+B. keyword scope constraint — record owner-confirmed domain/traffic/CS/AI keyword boundaries without drafting keyword text.
+C. graphical or visual hook constraint — record whether a hook is existing, needed, deferred, or rejected, and link any visual dependency to D18 rather than inventing artwork or captions.
+D. defer front matter — record downstream uncertainty and keep final D19 front-matter handoff constrained.
+E. rejected hook/promise — write the forbidden promise to #Forbidden Routes or owner decisions and keep it out of downstream handoff.
+Agent action after answer: update 00_PROJECT_ROUTE.md#Target Route, #Audience and Reviewer Expectation, or #Forbidden Routes, then update D04 and any D19 handoff note in 00_DIMENSION_INDEX.md.
+```
+
+### Reporting and reproducibility route seed
+
+```text
+Current stage: Route
+Dimension / blocker: D04 with D05/D06/D13/D15/D19 / method-reporting-repro seed
+Why this matters: article type and venue family determine which reporting, reproducibility, supplement, or availability constraints downstream planning must preserve.
+Mode chosen: candidate-confirmation when route notes imply checklist candidates; focused-question when the owner must confirm a route-required statement.
+Question: Which reporting or reproducibility route constraint should be recorded?
+Options:
+A. method/reporting checklist needed — record checklist categories such as protocol, parameters, baselines, metrics, ablations, or availability as D05/D06/D15 inputs.
+B. availability/supplement statement needed — record the statement category as a D19 handoff constraint without drafting the statement.
+C. route does not require a specific checklist — record owner-confirmed absence and downstream consequence.
+D. defer checklist — keep D19 blocked for reporting/repro details until owner or materials confirm them.
+E. rejected checklist claim — record that the project must not claim compliance or reproducibility beyond supplied artifacts.
+Agent action after answer: update 00_PROJECT_ROUTE.md#Target Route and #Route Readiness, then update D04 and hand off material gaps to D05/D06/D15/D19 rows.
+```
+
+### Downstream route matrix seed
+
+```text
+Current stage: Route
+Dimension / blocker: D01/D02/D04/D07/D08/D18/D19 / downstream route matrix seed
+Why this matters: downstream writing, citation, figure, and review tools need recommendations and constraints, not automatic execution.
+Mode chosen: focused-question, because owner decisions and external-route exclusions are authority-gated.
+Question: Which downstream route should be seeded for the design-pack matrix?
+Options:
+A. writing/polishing route candidate — record route family and constraints for D19 without invoking a writing skill.
+B. citation/source route candidate — record source/citation handoff needs from D07/D08 without searching or completing citations.
+C. figure/accessibility route candidate — record D18 visual/caption/accessibility handoff needs without creating figures or captions.
+D. no external route yet — record deferred route matrix seed and keep final handoff cautious.
+E. rejected external route — record the forbidden route or tool category and prevent runtime execution language.
+Agent action after answer: update 00_PROJECT_ROUTE.md#Owner Decisions or #Forbidden Routes and add a D19 handoff pointer in 00_DIMENSION_INDEX.md.
 ```
 
 ## Hard blocker
