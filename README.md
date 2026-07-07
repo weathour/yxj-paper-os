@@ -45,6 +45,18 @@ Route → Materials → Claim/Evidence → Writing Structure → Handoff
 
 Internally, those phases are backed by the D00-D19 rubric and `00_DIMENSION_INDEX.md`. When information is missing, the agent should ask a short question card with options, consequences, and the file/D-row it will update. If an OMX question UI is available it may render the same card through `omx question`, but Markdown cards remain the standalone fallback.
 
+## Native subagent acceleration
+
+The skill may use native subagents as bounded accelerators, while the leader remains the single user-facing owner and final file writer. Recommended defaults are:
+
+- `verifier` after inspect/init and after design-pack compilation;
+- `explore` for local Materials scans when artifacts are numerous or unclear;
+- `critic` before compiling D19 to challenge claim/evidence/wording boundaries;
+- `architect` or `writer` to propose Writing Structure from confirmed upstream material;
+- `writer` only for a leader-reviewed design-pack candidate when the compile gate passes.
+
+Subagents must not ask the user directly, invent facts, finalize owner-gated route/claim/evidence/source/wording decisions, search citations by default, execute downstream writing skills, or create extra public workspace files.
+
 ## What the plugin owns
 
 - project route and venue/type positioning;

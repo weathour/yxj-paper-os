@@ -73,6 +73,31 @@ Do not present D00-D19 as twenty user tasks at first contact. Use five phases fo
 | Writing Structure | D09, D14, D15, primary D16/D17, D18 | exemplar status, reader spine, outline, object/surface control, visuals |
 | Handoff | D00, D02, D19 | workspace metadata, stale flags, final design-pack compilation |
 
+## Native subagent acceleration policy
+
+The leader remains the only user-facing question owner, final file writer, and handoff judge. Native subagents are acceleration aids for bounded evidence collection, challenge, drafting, or verification; they do not create a second public workflow and they must stay under this skill's claim/evidence and owner-confirmation boundaries.
+
+Default subagent lanes:
+
+| Workflow point | Default? | Role | Scope | Must not do |
+|---|---:|---|---|---|
+| After inspect/init | yes | `verifier` | Read the six files, audit D00-D19 structure/statuses, placeholder tokens, stale flags, and first blocker. | Write files, ask the owner, or decide owner-gated facts. |
+| Materials scan | conditional default when local artifacts are numerous or unclear | `explore` | List candidate result/figure/table/data/code/baseline/metric/source-note artifacts from local files for owner confirmation. | Treat candidates as confirmed evidence or invent missing artifacts/outcomes. |
+| Claim/Evidence pre-compile challenge | yes before D19 compile | `critic` | Challenge unsupported claims, missing evidence anchors, weak support labels, overclaims, absent forbidden wording, and hidden limitations. | Strengthen claims, add citations/results, or finalize claim/evidence facts. |
+| Writing Structure proposal | yes after route/materials/claims are confirmed enough | `architect` or `writer` | Propose reader spine, section jobs, object granularity, surface controls, visual storyline, and paragraph/function map grounded in confirmed upstream material. | Add new claims, invent figures/exemplars, or draft manuscript prose. |
+| Design-pack compilation | optional default when compile-ready | `writer` | Draft a structured D19 candidate from current upstream files and recorded constraints. | Resolve unresolved blockers, execute external skills, or hide deferred/absent/rejected items. |
+| Post-compile validation | yes | `verifier` | Run/read structural validation, check final placeholders, D coverage, stale gate, and handoff readiness. | Claim semantic adequacy, submission readiness, acceptance, or publication completion. |
+
+Trigger rules:
+
+1. Use default lanes when they materially improve correctness or speed and the environment supports native subagents. If unavailable, perform the same checks in the leader lane and report that no subagent lane was used.
+2. Outside active team/swarm mode, do not invoke `worker`; use the specific roles above.
+3. Keep child prompts bounded and read-only unless the role is explicitly drafting a design-pack candidate for leader review.
+4. Subagents must report findings upward with file paths, D IDs, blocker category, confidence, and evidence-vs-inference boundaries.
+5. The leader integrates findings, decides the next interaction mode, writes Markdown updates, asks any owner breakpoint, and owns final verification.
+
+Hard prohibitions for subagents are the same as for the leader, plus: they must not ask the user directly, mark owner-gated facts final, search citations by default, execute downstream writing skills, create public workspace files beyond the six-file contract, or modify project files without leader integration.
+
 ## Interaction modes
 
 Choose the mode automatically from the first current blocker and state the reason.
