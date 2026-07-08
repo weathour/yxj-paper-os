@@ -63,7 +63,7 @@ This branch does not provide:
 - manuscript drafting;
 - external skill execution;
 - Paper Production Graph runtime;
-- S00-S16/G01/G02 stage registry;
+- retired runtime-stage registry;
 - large validator matrix;
 - native citation lookup;
 - reviewer simulation;

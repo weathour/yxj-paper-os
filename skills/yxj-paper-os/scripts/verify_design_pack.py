@@ -119,6 +119,38 @@ REQUIRED_HEADINGS = {
 }
 
 REQUIRED_DIMENSION_IDS = {f"D{i:02d}" for i in range(20)}
+CURRENT_DIMENSION_NAMES = {
+    "D00": "Workspace metadata",
+    "D01": "Owner decisions",
+    "D02": "Stale/readiness flags",
+    "D03": "Project brief",
+    "D04": "Target route profile",
+    "D05": "Material inventory",
+    "D06": "Evidence inventory",
+    "D07": "Source and citation bank",
+    "D08": "Research dossier",
+    "D09": "Exemplar language profile",
+    "D10": "Contribution options",
+    "D11": "Claim-evidence map",
+    "D12": "Wording boundary",
+    "D13": "Limitation and risk matrix",
+    "D14": "Reader spine",
+    "D15": "Manuscript outline",
+    "D16": "Object granularity",
+    "D17": "Surface control",
+    "D18": "Visual plan",
+    "D19": "Writing design pack",
+}
+RETIRED_STAGE_RE = re.compile(r"\bS\d{2}\b|\bG0[12]\b", re.IGNORECASE)
+RETIRED_DIMENSION_LABEL_RE = re.compile(
+    r"\b(?:"
+    r"(?:0[0-4]|1[0-5])_[a-z][A-Za-z0-9_]*"
+    r"|2[0-5]_[A-Za-z][A-Za-z0-9_]*"
+    r"|00_" + r"META"
+    r"|" + r"OWNER_" + r"DECISIONS"
+    r"|" + r"STALE_" + r"FLAGS"
+    r")\.md\b"
+)
 DIMENSION_COLUMNS = [
     "ID",
     "Dimension",
@@ -142,6 +174,12 @@ UNAVAILABLE_VISUAL_STATUS_RE = re.compile(
 ACTIVE_VISUAL_EVIDENCE_RE = re.compile(
     r"\b(?:needed|deferred|absent|planned|missing)\b[^|\n]*(?:visual|figure|table)\b|"
     r"\b(?:visual|figure|table)\b[^|\n]*(?:needed|deferred|absent|planned|missing)\b",
+    re.IGNORECASE,
+)
+SOURCE_ABSENCE_RE = re.compile(
+    r"\b(?:no\s+(?:sources?|citations?|references?)\s+(?:supplied|provided|available|known)|"
+    r"none\s+(?:supplied|provided|available|known)|not\s+(?:supplied|provided)|"
+    r"absent|deferred|missing|unavailable|no\s+citation\s+task|no\s+source\s+detail)\b",
     re.IGNORECASE,
 )
 STALE_SIGNAL_RE = re.compile(r"\b(?:stale|changed|recompile|out[-\s]?of[-\s]?date)\b", re.IGNORECASE)
@@ -249,6 +287,39 @@ DOWNSTREAM_ROUTE_CATEGORIES = {
     "review",
     "defer",
 }
+FINAL_HANDOFF_REQUIRED_PATTERNS = [
+    (re.compile(r"\bfinal\s+yxj[-\s]+paper[-\s]+os\s+handoff\b", re.IGNORECASE), "Final yxj-paper-os handoff"),
+    (re.compile(r"\bpack\s+status\s*:", re.IGNORECASE), "Pack status"),
+    (
+        re.compile(
+            rf"\bready\s+for\s*:\s*downstream\s+writing\s+planning\b[^.\n]*\b{re.escape(FINAL_PACK)}\b",
+            re.IGNORECASE,
+        ),
+        "Ready for downstream writing planning from 04_WRITING_DESIGN_PACK.md",
+    ),
+    (
+        re.compile(
+            r"\bnot\s+ready\s+for\s*:[^\n]*final\s+citations[^\n]*manuscript[-\s]+ready\s+prose"
+            r"[^\n]*submission[^\n]*publication[^\n]*acceptance[^\n]*semantic\s+adequacy",
+            re.IGNORECASE,
+        ),
+        "bounded Not ready for final citations/manuscript/submission/publication/acceptance/semantic adequacy",
+    ),
+    (re.compile(r"\bvalidation\s*:", re.IGNORECASE), "Validation"),
+    (
+        re.compile(r"\bremaining\s+deferred\s*/\s*absent\s*/\s*rejected\s+items\s*:", re.IGNORECASE),
+        "Remaining deferred/absent/rejected items",
+    ),
+    (re.compile(r"\brecommended\s+downstream\s+route", re.IGNORECASE), "Recommended downstream route(s)"),
+    (
+        re.compile(
+            r"\bno\s+external\s+(?:route|skill|handoff|module)\s+(?:executed|run|invoked)\b|"
+            r"\bexternal\s+(?:route|skill|handoff|module)\s+(?:was\s+)?not\s+(?:executed|run|invoked)\b",
+            re.IGNORECASE,
+        ),
+        "no external route executed boundary",
+    ),
+]
 CLAUSE_SPLIT_RE = re.compile(r"[|;:：.。\n]+|\bbut\b", re.IGNORECASE)
 NEGATED_EXTERNAL_EXECUTION_RE = re.compile(
     r"\b(?:not|never)\s+(?:executed|run|ran|invoked|called|launched|completed)\b|"
@@ -313,6 +384,7 @@ FORBIDDEN_SEMANTIC_PROMISE_PATTERNS = [
         re.compile(
             r"\b(?:manuscript|submission|publication|acceptance|semantic)[-\s]+readiness\b"
             r"[^.\n|;:]{0,60}\b(?:passed|validated|verified|certified|approved|ready)\b|"
+            r"\bsemantic[-\s]+adequacy\b[^.\n|;:]{0,60}\b(?:passed|validated|verified|certified|approved|ready)\b|"
             r"\b(?:ready\s+for\s+submission|publication\s+ready|acceptance\s+likely)\b",
             re.IGNORECASE,
         ),
@@ -432,6 +504,22 @@ def row_has_real_values(row: dict[str, str]) -> bool:
     return any(value and not has_placeholder(value) and not RECOMPILE_NOT_REQUIRED_RE.fullmatch(value) for value in values)
 
 
+def validate_retired_terms(file_name: str, text: str, errors: list[str]) -> None:
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        stage_match = RETIRED_STAGE_RE.search(line)
+        if stage_match:
+            errors.append(
+                f"{file_name}: line {line_number} contains retired stage/governance token "
+                f"{stage_match.group(0)!r}; use D00-D19 plus the five public phases instead"
+            )
+        label_match = RETIRED_DIMENSION_LABEL_RE.search(line)
+        if label_match:
+            errors.append(
+                f"{file_name}: line {line_number} contains retired dimension filename label "
+                f"{label_match.group(0)!r}; use the current semantic Dimension name instead"
+            )
+
+
 def validate_template_surface(errors: list[str]) -> None:
     template_dir = Path(__file__).resolve().parent.parent / "assets" / "templates"
     if not template_dir.is_dir():
@@ -518,6 +606,11 @@ def validate_dimension_index(text: str, contents: dict[str, str], errors: list[s
             errors.append(f"{label}: unexpected dimension ID {dim_id}")
         if not dimension or has_placeholder(dimension):
             errors.append(f"{label}: Dimension is missing or placeholder")
+        elif dim_id in CURRENT_DIMENSION_NAMES and dimension != CURRENT_DIMENSION_NAMES[dim_id]:
+            errors.append(
+                f"{label}: Dimension must be current semantic name "
+                f"{CURRENT_DIMENSION_NAMES[dim_id]!r}; found {dimension!r}"
+            )
         if not current_home or has_placeholder(current_home):
             errors.append(f"{label}: Current home is missing or placeholder")
         if status not in VALID_DIMENSION_STATUSES:
@@ -728,6 +821,81 @@ def collect_unavailable_visual_anchors(contents: dict[str, str]) -> set[str]:
     return unavailable
 
 
+def is_supplied_source_detail(value: str) -> bool:
+    normalized = normalize_table_value(value)
+    if not normalized or has_placeholder(normalized):
+        return False
+    if RECOMPILE_NOT_REQUIRED_RE.fullmatch(normalized):
+        return False
+    return not bool(SOURCE_ABSENCE_RE.search(normalized))
+
+
+def validate_d07_source_boundary(
+    contents: dict[str, str],
+    index_rows: dict[str, dict[str, str]],
+    errors: list[str],
+) -> None:
+    d07_row = index_rows.get("D07")
+    if not d07_row:
+        return
+    status = first_present(d07_row, ["Status"]).lower()
+    if status != "filled":
+        return
+
+    inventory_text = contents.get("01_MATERIALS_INVENTORY.md", "")
+    section = section_content(inventory_text, "Source and Citation Bank")
+    if section is None:
+        return
+
+    header, rows = parse_markdown_table(section)
+    detail_values: list[str] = []
+    if header and rows:
+        for row in rows:
+            prompt = first_present(row, ["Source/citation prompt", "Prompt", "Source prompt", "Field"])
+            detail = first_present(
+                row,
+                [
+                    "Supplied detail or explicit absence/defer note",
+                    "Source identity and locator/version",
+                    "Source identity",
+                    "Source",
+                    "Citation",
+                    "Reference",
+                    "Locator",
+                    "DOI",
+                    "URL",
+                ],
+            )
+            if prompt and not re.search(
+                r"\b(?:source\s+identity|locator|candidate|reference|citation\s+candidate|known\s+source|supplied\s+source)\b",
+                prompt,
+                re.IGNORECASE,
+            ):
+                continue
+            if detail:
+                detail_values.append(detail)
+    else:
+        detail_values.append(section)
+
+    if detail_values and any(is_supplied_source_detail(value) for value in detail_values):
+        return
+
+    errors.append(
+        f"{DIMENSION_INDEX}: D07 is marked filled but "
+        "01_MATERIALS_INVENTORY.md#Source and Citation Bank does not contain supplied source/citation detail; "
+        "mark D07 absent or deferred with a no-invention handoff when no sources are supplied"
+    )
+
+
+def validate_final_handoff_card(text: str, errors: list[str]) -> None:
+    validation_notes = section_content(text, "Validation Notes") or ""
+    external_handoff = section_content(text, "External Skill Handoff") or ""
+    search_text = "\n".join([validation_notes, external_handoff])
+    for pattern, label in FINAL_HANDOFF_REQUIRED_PATTERNS:
+        if not pattern.search(search_text):
+            errors.append(f"{FINAL_PACK}: final handoff card missing required boundary field: {label}")
+
+
 def validate_d19_handoff_structure(text: str, errors: list[str]) -> None:
     lower_text = text.lower()
     required_structural_phrases = [
@@ -751,6 +919,8 @@ def validate_d19_handoff_structure(text: str, errors: list[str]) -> None:
         errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes columns changed; found {risk_header}")
     if risk_header and not risk_rows:
         errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes must contain at least one structural risk row")
+
+    validate_final_handoff_card(text, errors)
 
 
 def claim_clauses(line: str) -> list[str]:
@@ -1076,6 +1246,7 @@ def validate_workspace(workspace: Path) -> list[str]:
             continue
         text = path.read_text(encoding="utf-8")
         contents[file_name] = text
+        validate_retired_terms(file_name, text, errors)
         for heading in REQUIRED_HEADINGS[file_name]:
             content = section_content(text, heading)
             if content is None:
@@ -1095,6 +1266,8 @@ def validate_workspace(workspace: Path) -> list[str]:
         evidence_anchors, unavailable_evidence_anchors = validate_evidence_inventory(
             contents["01_MATERIALS_INVENTORY.md"], errors
         )
+
+    validate_d07_source_boundary(contents, index_rows, errors)
 
     unavailable_visual_anchors = collect_unavailable_visual_anchors(contents)
 

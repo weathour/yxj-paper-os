@@ -10,10 +10,10 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 
 | ID | Dimension | Home |
 |---|---|---|
-| D05 | `02_material_inventory.md` | `01_MATERIALS_INVENTORY.md` |
-| D06 | `03_evidence_inventory.md` | `01_MATERIALS_INVENTORY.md#Evidence Inventory` + `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` |
-| D07 | `04_source_and_citation_bank.md` | `01_MATERIALS_INVENTORY.md#Source and Citation Bank` |
-| D08 | `10_research_dossier.md` | `01_MATERIALS_INVENTORY.md#Research Dossier` + `04_WRITING_DESIGN_PACK.md#Research Dossier Notes` |
+| D05 | `Material inventory` | `01_MATERIALS_INVENTORY.md` |
+| D06 | `Evidence inventory` | `01_MATERIALS_INVENTORY.md#Evidence Inventory` + `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` |
+| D07 | `Source and citation bank` | `01_MATERIALS_INVENTORY.md#Source and Citation Bank` |
+| D08 | `Research dossier` | `01_MATERIALS_INVENTORY.md#Research Dossier` + `04_WRITING_DESIGN_PACK.md#Research Dossier Notes` |
 
 After updating material content, update the matching D05-D08 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 

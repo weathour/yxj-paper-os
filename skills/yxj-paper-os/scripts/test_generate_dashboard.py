@@ -44,26 +44,26 @@ REQUIRED_FILES = [
 ]
 
 DIMENSION_NAMES = [
-    "00_META.md",
-    "OWNER_DECISIONS.md",
-    "STALE_FLAGS.md",
-    "00_project_brief.md",
-    "01_target_journal_profile.md",
-    "02_material_inventory.md",
-    "03_evidence_inventory.md",
-    "04_source_and_citation_bank.md",
-    "10_research_dossier.md",
-    "11_exemplar_language_profile.md",
-    "12_contribution_options.md",
-    "13_claim_evidence_map.md",
-    "14_wording_boundary.md",
-    "15_limitation_and_risk_matrix.md",
-    "20_reader_spine.md",
-    "21_manuscript_outline.md",
-    "22_object_granularity.md",
-    "23_surface_control.md",
-    "24_visual_plan.md",
-    "25_WRITING_DESIGN_PACK.md",
+    "Workspace metadata",
+    "Owner decisions",
+    "Stale/readiness flags",
+    "Project brief",
+    "Target route profile",
+    "Material inventory",
+    "Evidence inventory",
+    "Source and citation bank",
+    "Research dossier",
+    "Exemplar language profile",
+    "Contribution options",
+    "Claim-evidence map",
+    "Wording boundary",
+    "Limitation and risk matrix",
+    "Reader spine",
+    "Manuscript outline",
+    "Object granularity",
+    "Surface control",
+    "Visual plan",
+    "Writing design pack",
 ]
 
 DIMENSION_POINTERS = [
@@ -701,6 +701,16 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "",
                     "Validation is structural against the six-file and 20-dimension contract only.",
                     "",
+                    "Final yxj-paper-os handoff",
+                    "",
+                    "- Pack status: valid",
+                    "- Ready for: downstream writing planning from 04_WRITING_DESIGN_PACK.md",
+                    "- Not ready for: final citations, manuscript-ready prose, submission, publication, acceptance, or semantic adequacy claims",
+                    "- Validation: python3 skills/yxj-paper-os/scripts/verify_design_pack.py <workspace> -> pass",
+                    "- Remaining deferred/absent/rejected items: none",
+                    "- Recommended downstream route(s): writing, citation, figure, review, or defer; recommendation only; no external route executed",
+                    "- Next owner action if blocked: none for this fixture",
+                    "",
                 ]
             ),
             encoding="utf-8",
@@ -1156,14 +1166,119 @@ Text between tables must split the blocks.
 
             self.assertIn("final handoff contains unresolved placeholder", errors)
 
+    def test_validator_rejects_d07_filled_without_supplied_sources(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-d07-false-filled-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Source and Citation Bank",
+                """
+| Source/citation prompt | Supplied detail or explicit absence/defer note | Boundary or handoff |
+|---|---|---|
+| Source identity and locator/version | no sources supplied | downstream citation route asks owner |
+| Source role and citation status | absent | do not invent references |
+| Downstream citation handoff need | deferred | no citation task here |
+""",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("D07 is marked filled", errors)
+            self.assertIn("mark D07 absent or deferred", errors)
+
+    def test_validator_allows_d07_absent_with_handoff(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-d07-absent-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            absence_handoff = "Handoff: no supplied sources; downstream citation route asks owner for source detail"
+            for file_name, pattern in [
+                (
+                    "00_DIMENSION_INDEX.md",
+                    r"(\| D07 \| Source and citation bank \| 01_MATERIALS_INVENTORY\.md \| )filled(\s*\| [^|]+\| )01_MATERIALS_INVENTORY\.md#Source and Citation Bank(\s*\| yes \|)",
+                ),
+                (
+                    "04_WRITING_DESIGN_PACK.md",
+                    r"(\| D07 \| )filled(\s*\| )01_MATERIALS_INVENTORY\.md#Source and Citation Bank(\s*\| yes \|)",
+                ),
+            ]:
+                path = workspace / file_name
+                text = path.read_text(encoding="utf-8")
+                text = re.sub(pattern, rf"\1absent\2{absence_handoff}\3", text, count=1)
+                path.write_text(text, encoding="utf-8")
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Source and Citation Bank",
+                """
+| Source/citation prompt | Supplied detail or explicit absence/defer note | Boundary or handoff |
+|---|---|---|
+| Source identity and locator/version | absent | do not invent external citations |
+| Source role and citation status | absent | context only; no claim support |
+| Downstream citation handoff need | deferred | downstream citation route asks owner |
+""",
+            )
+
+            self.assertEqual([], validate_workspace(workspace))
+
+    def test_validator_rejects_missing_final_handoff_card(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-missing-final-card-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "04_WRITING_DESIGN_PACK.md",
+                "Validation Notes",
+                "Validation is structural against the six-file and 20-dimension contract only.",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("final handoff card missing required boundary field", errors)
+
+    def test_validator_rejects_retired_dimension_filename_label(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-retired-label-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            index = workspace / "00_DIMENSION_INDEX.md"
+            retired_label = "10_" + "research_dossier.md"
+            index.write_text(
+                index.read_text(encoding="utf-8").replace(
+                    "| D08 | Research dossier |",
+                    f"| D08 | {retired_label} |",
+                    1,
+                ),
+                encoding="utf-8",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("contains retired dimension filename label", errors)
+            self.assertIn("Dimension must be current semantic name 'Research dossier'", errors)
+
+    def test_validator_rejects_retired_stage_token(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-retired-stage-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            route = workspace / "00_PROJECT_ROUTE.md"
+            retired_stage = "S" + "10"
+            route.write_text(
+                route.read_text(encoding="utf-8").replace(
+                    "Journal-style software paper route",
+                    f"Retired {retired_stage} route should not appear in the current workflow.",
+                    1,
+                ),
+                encoding="utf-8",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn(f"contains retired stage/governance token '{retired_stage}'", errors)
+
     def test_validator_rejects_dimension_status_drift(self) -> None:
         with tempfile.TemporaryDirectory(prefix="yxj-paper-os-status-drift-") as tmp:
             workspace = self.make_filled_workspace(Path(tmp))
             index = workspace / "00_DIMENSION_INDEX.md"
             text = index.read_text(encoding="utf-8")
             text = text.replace(
-                "| D05 | 02_material_inventory.md | 01_MATERIALS_INVENTORY.md | filled |",
-                "| D05 | 02_material_inventory.md | 01_MATERIALS_INVENTORY.md | unknown |",
+                "| D05 | Material inventory | 01_MATERIALS_INVENTORY.md | filled |",
+                "| D05 | Material inventory | 01_MATERIALS_INVENTORY.md | unknown |",
                 1,
             )
             index.write_text(text, encoding="utf-8")
@@ -1178,7 +1293,7 @@ Text between tables must split the blocks.
             index = workspace / "00_DIMENSION_INDEX.md"
             text = index.read_text(encoding="utf-8")
             text = re.sub(
-                r"(\| D06 \| 03_evidence_inventory\.md \| 01_MATERIALS_INVENTORY\.md \| filled \| )[^|]+(\| )[^|]+(\| yes \|)",
+                r"(\| D06 \| Evidence inventory \| 01_MATERIALS_INVENTORY\.md \| filled \| )[^|]+(\| )[^|]+(\| yes \|)",
                 r"\1TODO \2TODO \3",
                 text,
                 count=1,
@@ -1381,6 +1496,20 @@ Text between tables must split the blocks.
 
             self.assertIn("forbidden semantic scoring promise", errors)
 
+    def test_validator_rejects_semantic_adequacy_approved_language(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-semantic-approved-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "04_WRITING_DESIGN_PACK.md",
+                "Validation Notes",
+                "This pack says semantic adequacy approved.",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("forbidden readiness promise", errors)
+
     def test_validator_rejects_boundary_then_semantic_promise_same_line(self) -> None:
         cases = [
             "Do not claim semantic adequacy: validator proves semantic adequacy.",
@@ -1425,7 +1554,7 @@ Text between tables must split the blocks.
             index = workspace / "00_DIMENSION_INDEX.md"
             lines = index.read_text(encoding="utf-8").splitlines()
             malformed = (
-                "| D05 | 02_material_inventory.md | 01_MATERIALS_INVENTORY.md | filled | "
+                "| D05 | Material inventory | 01_MATERIALS_INVENTORY.md | filled | "
                 "CELLCOUNT_SENTINEL malformed row with too many cells | "
                 "01_MATERIALS_INVENTORY.md#Results and Experiments | yes | EXTRA_CELL |"
             )

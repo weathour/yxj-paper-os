@@ -155,7 +155,7 @@ Blocks design pack? = yes
 
 ## 3. D00-D19 维度理解与问题卡设计
 
-### D00 — Workspace metadata / `00_META.md`
+### D00 — Workspace metadata / `Workspace metadata`
 
 **本质**：工作区身份与就绪度元数据。它回答“我正在操作哪个项目状态”，不是论文内容。
 
@@ -181,7 +181,7 @@ Blocks design pack? = yes
 
 ---
 
-### D01 — Owner decisions / `OWNER_DECISIONS.md`
+### D01 — Owner decisions / `Owner decisions`
 
 **本质**：owner-gated 决策与禁区登记簿。它记录哪些 route/claim/citation/handoff 不能由 agent 擅自推断。
 
@@ -207,7 +207,7 @@ Blocks design pack? = yes
 
 ---
 
-### D02 — Stale flags / `STALE_FLAGS.md`
+### D02 — Stale flags / `Stale/readiness flags`
 
 **本质**：design pack 新鲜度与过期门闸。它回答上游内容变更后，现有 design pack 是否仍可用。
 
@@ -233,7 +233,7 @@ Blocks design pack? = yes
 
 ---
 
-### D03 — Project brief / `00_project_brief.md`
+### D03 — Project brief / `Project brief`
 
 **本质**：项目简报。它说明项目 topic、domain positioning、research object、working thesis。不是摘要，不是 contribution 宣传语。
 
@@ -259,7 +259,7 @@ Blocks design pack? = yes
 
 ---
 
-### D04 — Target route / `01_target_journal_profile.md`
+### D04 — Target route / `Target route profile`
 
 **本质**：目标 venue/family、paper type、目标读者和审稿期待。它决定写作路线，不是保证投稿成功。
 
@@ -285,7 +285,7 @@ Blocks design pack? = yes
 
 ---
 
-### D05 — Material inventory / `02_material_inventory.md`
+### D05 — Material inventory / `Material inventory`
 
 **本质**：真实材料账本。先回答有什么真实结果、图表、数据、代码、baseline、metric，在哪里，状态如何。
 
@@ -311,7 +311,7 @@ Blocks design pack? = yes
 
 ---
 
-### D06 — Evidence inventory / `03_evidence_inventory.md`
+### D06 — Evidence inventory / `Evidence inventory`
 
 **本质**：把 D05 材料转成可追溯证据锚点。它回答哪一个 artifact 支持哪一个 claim，支持强度如何。
 
@@ -337,7 +337,7 @@ Blocks design pack? = yes
 
 ---
 
-### D07 — Source and citation bank / `04_source_and_citation_bank.md`
+### D07 — Source and citation bank / `Source and citation bank`
 
 **本质**：用户已知/已提供来源候选银行。不是检索器，不自动补 BibTeX。
 
@@ -363,7 +363,7 @@ Blocks design pack? = yes
 
 ---
 
-### D08 — Research dossier / `10_research_dossier.md`
+### D08 — Research dossier / `Research dossier`
 
 **本质**：已有研究语境、相关工作 notes、样例、gap、缺失项的备忘录。不是文献搜索。
 
@@ -389,7 +389,7 @@ Blocks design pack? = yes
 
 ---
 
-### D09 — Exemplar language profile / `11_exemplar_language_profile.md`
+### D09 — Exemplar language profile / `Exemplar language profile`
 
 **本质**：写作风格/语言画像。控制语气、组织方式、术语密度、句法节奏；无 exemplar 时退化为 generic route constraints。
 
@@ -415,7 +415,7 @@ Blocks design pack? = yes
 
 ---
 
-### D10 — Contribution options / `12_contribution_options.md`
+### D10 — Contribution options / `Contribution options`
 
 **本质**：贡献 frame 选择。先决定论文主打 method/system/model/dataset/benchmark/application/analysis 哪一种，而不是先写成果口号。
 
@@ -441,7 +441,7 @@ Blocks design pack? = yes
 
 ---
 
-### D11 — Claim-evidence map / `13_claim_evidence_map.md`
+### D11 — Claim-evidence map / `Claim-evidence map`
 
 **本质**：每条核心主张绑定 evidence anchor、support strength、status、forbidden wording。Claim 必须可审查、可降级、可拒绝。
 
@@ -477,7 +477,7 @@ Support strength 建议语义：
 
 ---
 
-### D12 — Wording boundary / `14_wording_boundary.md`
+### D12 — Wording boundary / `Wording boundary`
 
 **本质**：claim 的许可词表与禁用词表。不是润色，而是防 overclaim。
 
@@ -503,7 +503,7 @@ Support strength 建议语义：
 
 ---
 
-### D13 — Limitations and risks / `15_limitation_and_risk_matrix.md`
+### D13 — Limitations and risks / `Limitation and risk matrix`
 
 **本质**：把必须保留的限制、风险、约束系统化。它防止 downstream writing 把边界抹掉。
 
@@ -529,7 +529,7 @@ Support strength 建议语义：
 
 ---
 
-### D14 — Reader spine / `20_reader_spine.md`
+### D14 — Reader spine / `Reader spine`
 
 **本质**：读者问答路径。它不是 section list，而是论文从问题到证据到限制的论证路径。
 
@@ -555,7 +555,7 @@ Support strength 建议语义：
 
 ---
 
-### D15 — Manuscript outline / section jobs / `21_manuscript_outline.md`
+### D15 — Manuscript outline / section jobs / `Manuscript outline`
 
 **本质**：把 reader spine 落到 section-level job map。不是目录草稿，更不是正文。
 
@@ -581,7 +581,7 @@ Support strength 建议语义：
 
 ---
 
-### D16 — Object granularity / `22_object_granularity.md`
+### D16 — Object granularity / `Object granularity`
 
 **本质**：研究对象边界。贡献附着在哪个对象上：method/system/model/dataset/benchmark/application/analysis object。
 
@@ -607,7 +607,7 @@ Support strength 建议语义：
 
 ---
 
-### D17 — Surface control / `23_surface_control.md`
+### D17 — Surface control / `Surface control`
 
 **本质**：语言表面护栏：术语、语气、句式、词强度、禁止表达。不是文风美化。
 
@@ -633,7 +633,7 @@ Support strength 建议语义：
 
 ---
 
-### D18 — Visual plan / `24_visual_plan.md`
+### D18 — Visual plan / `Visual plan`
 
 **本质**：图表如何讲故事。不是“有图了”，而是图表顺序、证据角色、缺图和视觉 handoff 约束。
 
@@ -659,7 +659,7 @@ Support strength 建议语义：
 
 ---
 
-### D19 — Writing design pack / `25_WRITING_DESIGN_PACK.md`
+### D19 — Writing design pack / `Writing design pack`
 
 **本质**：最终编译动作。它收束 D00-D18 到 `04_WRITING_DESIGN_PACK.md`，不是正文生成。
 

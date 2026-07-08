@@ -73,6 +73,79 @@ Do not present D00-D19 as twenty user tasks at first contact. Use five phases fo
 | Writing Structure | D09, D14, D15, primary D16/D17, D18 | exemplar status, reader spine, outline, object/surface control, visuals |
 | Handoff | D00, D02, D19 | workspace metadata, stale flags, final design-pack compilation |
 
+## Program-mode operating contract
+
+Use this contract when an Autopilot/program-style agent is driving the skill. It is still agent guidance, not a runner or state machine.
+
+Evaluator loop:
+
+```text
+Inspect → Evaluate → Classify missing information → Auto-fill safe gaps → Ask owner breakpoint when required → Update six files → Re-evaluate → Compile 04_WRITING_DESIGN_PACK.md → Validate → Handoff
+```
+
+Classify the current workspace into one state before asking or editing:
+
+| State | Meaning | Next action |
+|---|---|---|
+| `inspect-needed` | Six-file workspace is missing or unread. | Initialize missing files from templates or read existing files. |
+| `auto-fill-safe` | The gap is derivable bookkeeping or structure grounded in confirmed material. | Fill the target section and update the matching D row with rationale. |
+| `owner-breakpoint` | The gap is owner-gated or changes route, claims, evidence, sources, or wording promises. | Stop with one human breakpoint card. |
+| `reconcile-conflict` | Cross-file or cross-dimension statements conflict. | Ask one reconciliation breakpoint before final writing. |
+| `compile-ready` | D00-D19 are handled and critical-standard dimensions are standard under the rubric. | Compile/update D19 from current upstream files. |
+| `handoff-ready` | D19 is compiled, placeholder-free, bounded, and validator-clean. | Emit the final handoff card. |
+| `blocked-invalid` | Validator or structural contract fails. | Report the concrete file/section/D-id and next repair action. |
+
+Auto-fill boundary:
+
+| Category | Agent may auto-fill | Owner confirmation required |
+|---|---|---|
+| Metadata/bookkeeping | D00 slug/date/readiness notes when derivable; D02 file-state observations; D19 mechanical compile notes. | Ambiguous owner/project identity; accepting stale risk or waiving recompile. |
+| Agent-designable structure | Candidate D09 style constraints, D14 reader spine, D15 section jobs, D16/D17 structure/surface controls, and D18 visual-plan organization when grounded in confirmed material. | Any route, claim, evidence, wording, or source choice that changes meaning or promise strength. |
+| Owner-gated facts | None as final facts; the agent may normalize or propose candidates only. | D01, D03, D04, D05, D06, D07, D08 source/gap claims, D10, D11, D12, D13, and final-route/stale-risk choices. |
+| Forbidden auto-fill | Never invent results, citations, sources, source truth, experiments, evidence anchors, claims, venue fit, novelty, publication/submission readiness, or external skill execution. | Always blocked unless the owner supplies the missing fact or decision. |
+
+Human breakpoint card and resume protocol:
+
+```text
+Human breakpoint — <stage / Dxx / blocker>
+Current state: <one sentence based on inspected files>
+Why blocked: <owner-gated fact, conflict, or missing standard-critical detail>
+Safe auto-fill already done: <none | files/sections updated>
+Decision needed: <one answerable question>
+Options:
+A. <owner-confirmed path> — writes <file#section>, updates <Dxx>, consequence <...>
+B. <defer/absence path> — writes handoff note, consequence <...>
+C. <reject path> — marks rejected, consequence <...>
+Resume action after answer: update <file#section> + Dxx row, then re-run evaluator loop.
+Stop rule: do not compile final D19 until this blocker is handled.
+```
+
+Ask one breakpoint card at a time unless the workspace is empty enough for a short quick-form. `omx question` may render the same card when available; Markdown remains the fallback. Every breakpoint must name the write target and exact resume action.
+
+Completion contract:
+
+1. Exactly the six public Markdown workspace files exist.
+2. `00_DIMENSION_INDEX.md` has D00-D19 exactly once, valid statuses, non-placeholder reasons, pointers/handoffs, and `Blocks design pack?` values.
+3. All D00-D19 dimensions are handled as `filled`, `not_applicable`, `absent`, `deferred`, or `rejected` with rationale.
+4. Critical-standard dimensions `D04,D05,D06,D10,D11,D12,D13,D14,D15,D16,D17,D18` have reached internal `standard`; non-critical dimensions have at least minimum handling.
+5. No hard blocker remains for dimension index, project route, core materials, core contribution, claim/evidence boundary, writing structure, or external route.
+6. `04_WRITING_DESIGN_PACK.md` is compiled from current upstream files and includes D19 sections, six-track coverage, downstream route matrix, stale gate, validation notes, and final handoff card.
+7. No unresolved `TODO`, `TBD`, `REPLACE_ME`, `UNKNOWN`, or `[...]` placeholder remains in final workspace content.
+8. `python3 skills/yxj-paper-os/scripts/verify_design_pack.py <paper_project>` passes.
+
+Final response/handoff card:
+
+```text
+Final yxj-paper-os handoff
+Pack status: valid / blocked
+Ready for: downstream writing planning from 04_WRITING_DESIGN_PACK.md
+Not ready for: final citations, manuscript-ready prose, submission, publication, acceptance, or semantic adequacy claims
+Validation: <command> → <pass/fail>
+Remaining deferred/absent/rejected items: <D IDs or none>
+Recommended downstream route(s): <writing/citation/figure/review/defer>, recommendation only; no external route executed
+Next owner action if blocked: <one concrete action>
+```
+
 ## Native subagent acceleration policy
 
 The leader remains the only user-facing question owner, final file writer, and handoff judge. Native subagents are acceleration aids for bounded evidence collection, challenge, drafting, or verification; they do not create a second public workflow and they must stay under this skill's claim/evidence and owner-confirmation boundaries.
@@ -166,7 +239,7 @@ Each D00-D19 row in `00_DIMENSION_INDEX.md` must have:
 | Field | Rule |
 |---|---|
 | `ID` | One of D00-D19, each exactly once |
-| `Dimension` | Legacy/source dimension label |
+| `Dimension` | Current semantic dimension name |
 | `Current home` | The content file or index file that owns the information |
 | `Status` | `filled`, `not_applicable`, `absent`, `deferred`, or `rejected` |
 | `Reason / owner note` | Non-placeholder explanation |

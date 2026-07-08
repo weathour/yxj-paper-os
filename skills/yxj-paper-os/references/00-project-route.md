@@ -10,9 +10,9 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 
 | ID | Dimension | Home |
 |---|---|---|
-| D01 | `OWNER_DECISIONS.md` | `00_DIMENSION_INDEX.md` + `00_PROJECT_ROUTE.md#Owner Decisions` |
-| D03 | `00_project_brief.md` | `00_PROJECT_ROUTE.md#Project Brief` |
-| D04 | `01_target_journal_profile.md` | `00_PROJECT_ROUTE.md#Target Route` and `#Audience and Reviewer Expectation` |
+| D01 | `Owner decisions` | `00_DIMENSION_INDEX.md` + `00_PROJECT_ROUTE.md#Owner Decisions` |
+| D03 | `Project brief` | `00_PROJECT_ROUTE.md#Project Brief` |
+| D04 | `Target route profile` | `00_PROJECT_ROUTE.md#Target Route` and `#Audience and Reviewer Expectation` |
 
 After updating route content, update the matching D01/D03/D04 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 

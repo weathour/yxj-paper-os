@@ -10,12 +10,12 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 
 | ID | Dimension | Home |
 |---|---|---|
-| D10 | `12_contribution_options.md` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Contribution Options` |
-| D11 | `13_claim_evidence_map.md` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` |
-| D12 | `14_wording_boundary.md` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording` |
-| D13 | `15_limitation_and_risk_matrix.md` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Limitations and Risks` |
-| D16 | `22_object_granularity.md` | Secondary: `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Object Granularity` |
-| D17 | `23_surface_control.md` | Secondary: claim wording in `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Surface Control` |
+| D10 | `Contribution options` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Contribution Options` |
+| D11 | `Claim-evidence map` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` |
+| D12 | `Wording boundary` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording` |
+| D13 | `Limitation and risk matrix` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Limitations and Risks` |
+| D16 | `Object granularity` | Secondary: `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Object Granularity` |
+| D17 | `Surface control` | Secondary: claim wording in `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Surface Control` |
 
 After updating claim content, update the matching dimension rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 

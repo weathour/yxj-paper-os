@@ -37,10 +37,32 @@ EXPECTED_TEMPLATES = {
     "04_WRITING_DESIGN_PACK.md",
 }
 REQUIRED_IDS = [f"D{i:02d}" for i in range(20)]
+EXPECTED_DIMENSION_NAMES = {
+    "D00": "Workspace metadata",
+    "D01": "Owner decisions",
+    "D02": "Stale/readiness flags",
+    "D03": "Project brief",
+    "D04": "Target route profile",
+    "D05": "Material inventory",
+    "D06": "Evidence inventory",
+    "D07": "Source and citation bank",
+    "D08": "Research dossier",
+    "D09": "Exemplar language profile",
+    "D10": "Contribution options",
+    "D11": "Claim-evidence map",
+    "D12": "Wording boundary",
+    "D13": "Limitation and risk matrix",
+    "D14": "Reader spine",
+    "D15": "Manuscript outline",
+    "D16": "Object granularity",
+    "D17": "Surface control",
+    "D18": "Visual plan",
+    "D19": "Writing design pack",
+}
 CRITICAL_STANDARD = "D04,D05,D06,D10,D11,D12,D13,D14,D15,D16,D17,D18"
 REQUIRED_FIELDS = [
     "ID",
-    "Name / legacy label",
+    "Name",
     "Dimension type",
     "Purpose",
     "Primary home / write target",
@@ -797,6 +819,9 @@ def main() -> int:
         for field in REQUIRED_FIELDS:
             if f"**{field}:**" not in section:
                 errors.append(f"{dim_id}: missing required field label: {field}")
+        expected_name = EXPECTED_DIMENSION_NAMES[dim_id]
+        if f"**Name:** {expected_name}" not in section:
+            errors.append(f"{dim_id}: Name must be current semantic dimension name {expected_name!r}")
 
     validate_question_depth_ladder(rubric_text, errors)
 
@@ -873,13 +898,23 @@ def main() -> int:
 
     if INDEX_TEMPLATE.is_file():
         index_text = INDEX_TEMPLATE.read_text(encoding="utf-8")
-        header = parse_first_table_header(index_text, "Dimension Status Index")
+        header, rows = parse_first_table(index_text, "Dimension Status Index")
         if header != INDEX_COLUMNS:
             errors.append(f"00_DIMENSION_INDEX.md table columns changed; found {header}")
         for cell in header:
             normalized = cell.lower().replace("_", " ")
             if any(term == normalized for term in FORBIDDEN_PUBLIC_SCHEMA_TERMS):
                 errors.append(f"00_DIMENSION_INDEX.md exposes forbidden public schema column: {cell}")
+        for row in rows:
+            if len(row) < 2:
+                continue
+            dim_id, dimension_name = row[0], row[1]
+            expected_name = EXPECTED_DIMENSION_NAMES.get(dim_id)
+            if expected_name is not None and dimension_name != expected_name:
+                errors.append(
+                    f"00_DIMENSION_INDEX.md row {dim_id}: Dimension must be current semantic name "
+                    f"{expected_name!r}; found {dimension_name!r}"
+                )
     else:
         errors.append(f"missing index template: {INDEX_TEMPLATE}")
 
@@ -891,6 +926,9 @@ def main() -> int:
         dimension_columns = python_literal_assignment(validator_text, "DIMENSION_COLUMNS")
         if dimension_columns != INDEX_COLUMNS:
             errors.append(f"verify_design_pack.py dimension index columns changed unexpectedly: {dimension_columns!r}")
+        current_dimension_names = python_literal_assignment(validator_text, "CURRENT_DIMENSION_NAMES")
+        if current_dimension_names != EXPECTED_DIMENSION_NAMES:
+            errors.append(f"verify_design_pack.py current dimension names changed unexpectedly: {current_dimension_names!r}")
         six_track_keys = python_literal_assignment(validator_text, "SIX_TRACK_KEYS")
         if six_track_keys != SIX_TRACK_KEYS:
             errors.append(f"verify_design_pack.py six-track keys changed unexpectedly: {six_track_keys!r}")

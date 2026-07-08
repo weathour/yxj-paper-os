@@ -10,12 +10,12 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 
 | ID | Dimension | Home |
 |---|---|---|
-| D09 | `11_exemplar_language_profile.md` | `03_WRITING_STRUCTURE.md#Exemplar Language Profile` |
-| D14 | `20_reader_spine.md` | `03_WRITING_STRUCTURE.md#Reader Spine` |
-| D15 | `21_manuscript_outline.md` | `03_WRITING_STRUCTURE.md#Manuscript Outline` + `#Section Jobs` |
-| D16 | `22_object_granularity.md` | Primary: `03_WRITING_STRUCTURE.md#Object Granularity`; secondary claim-side detail may live in `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity` |
-| D17 | `23_surface_control.md` | Primary: `03_WRITING_STRUCTURE.md#Surface Control`; secondary claim wording may live in `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording` |
-| D18 | `24_visual_plan.md` | `03_WRITING_STRUCTURE.md#Visual Plan` + `#Figure / Table Storyline` |
+| D09 | `Exemplar language profile` | `03_WRITING_STRUCTURE.md#Exemplar Language Profile` |
+| D14 | `Reader spine` | `03_WRITING_STRUCTURE.md#Reader Spine` |
+| D15 | `Manuscript outline` | `03_WRITING_STRUCTURE.md#Manuscript Outline` + `#Section Jobs` |
+| D16 | `Object granularity` | Primary: `03_WRITING_STRUCTURE.md#Object Granularity`; secondary claim-side detail may live in `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity` |
+| D17 | `Surface control` | Primary: `03_WRITING_STRUCTURE.md#Surface Control`; secondary claim wording may live in `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording` |
+| D18 | `Visual plan` | `03_WRITING_STRUCTURE.md#Visual Plan` + `#Figure / Table Storyline` |
 
 After updating structure content, update the matching D09/D14-D18 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 

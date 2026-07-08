@@ -29,6 +29,16 @@ Non-critical dimensions still require at least `minimum` handling. They are not 
 - If user confirmation is still needed, keep the content as candidate/deferred rather than final.
 - Never invent experiments, results, sources, citations, figures, claims, or owner decisions.
 
+## Program guardrail boundary
+
+In program-mode, the public workspace schema still does not change: no new D IDs, files, public status values, public tier columns, or public readiness columns. Use the existing `Status`, `Reason / owner note`, `Pointer or handoff`, and `Blocks design pack?` fields to express the internal judgment.
+
+- Agent-auto-fill is limited to mechanical metadata, observed stale/file-state notes, and agent-designable structure grounded in confirmed upstream material.
+- Owner-gated route decisions, source/citation facts, claim selection, evidence anchors, support strength, forbidden wording, stale-risk acceptance, and final-route choices require owner confirmation or an explicit absence/defer/reject handoff.
+- D07 false-completion rule: if D07 is `filled`, `01_MATERIALS_INVENTORY.md#Source and Citation Bank` must contain supplied source/citation detail; if no source detail is supplied, D07 should be `absent` or `deferred` with a no-invention handoff.
+- D19 final handoff must say that a valid pack is ready for downstream writing planning from `04_WRITING_DESIGN_PACK.md` only, and is not final-citation, manuscript-prose, submission, publication, acceptance, or semantic-adequacy approval.
+- Mechanical gates may check structure, status/text consistency, pointers, placeholders, D07 filled/absence consistency, final-handoff boundary text, stale carry-through, and forbidden execution/readiness language only.
+
 ## Question-card interpretation
 
 The rubric decides what is missing; the playbooks decide how to ask. Use question cards to translate the missing rubric field into one answerable user choice. Prefer:
@@ -80,16 +90,16 @@ Tier internal-only rule: `minimum`, `standard`, and `ideal` remain rubric judgme
 
 ## Required entry fields
 
-Every D00-D19 entry below preserves these legacy rubric fields where applicable: ID, Name / legacy label, Dimension type, Purpose, Primary home / write target, Owner/source of truth, Minimum sufficiency, Standard sufficiency, Ideal sufficiency, Agent may propose?, Owner confirmation required?, Ask prompts, Candidate options pattern, Status examples, Stop / defer / reject rule, Common failure modes, Downstream handoff note.
+Every D00-D19 entry below preserves these rubric fields where applicable: ID, Name, Dimension type, Purpose, Primary home / write target, Owner/source of truth, Minimum sufficiency, Standard sufficiency, Ideal sufficiency, Agent may propose?, Owner confirmation required?, Ask prompts, Candidate options pattern, Status examples, Stop / defer / reject rule, Common failure modes, Downstream handoff note.
 
 Every D00-D19 entry also carries exactly one internal question-depth ladder label set: Dimension essence, Minimum probe, Standard probe, Depth probe, Conflict probe, Weak-answer handling, Stop condition, Write-normalization rule, Owner-confirmation rule, Downstream consequence, and Mechanical gate intent. These ladder labels are internal guidance for agent questioning, sufficiency judgment, write normalization, and mechanical validation only; they do not create public index columns, public statuses, public workspace files, public template fields, or manuscript prose.
 
 ## Dimension entries
 
-### D00 — 00_META.md
+### D00 — Workspace metadata
 
 - **ID:** D00
-- **Name / legacy label:** 00_META.md
+- **Name:** Workspace metadata
 - **Dimension type:** metadata/compiler
 - **Purpose:** Track workspace identity and readiness metadata so the agent knows which project state it is updating, without treating metadata freshness as semantic adequacy.
 - **Dimension essence:** Decide whether workspace identity and freshness metadata are explicit without implying semantic adequacy.
@@ -125,10 +135,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Treating stale metadata as proof that content is current; inventing owner identity; using D00 to imply manuscript readiness.
 - **Downstream handoff note:** Downstream writing may use this only for workspace identity and freshness hints, not paper claims or semantic adequacy.
 
-### D01 — OWNER_DECISIONS.md
+### D01 — Owner decisions
 
 - **ID:** D01
-- **Name / legacy label:** OWNER_DECISIONS.md
+- **Name:** Owner decisions
 - **Dimension type:** owner-decision
 - **Purpose:** Record owner-gated decisions, forbidden routes, and decisions the agent may not infer.
 - **Dimension essence:** Decide which owner-gated decisions, forbidden routes, and non-inferable boundaries control the workspace.
@@ -158,10 +168,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Converting agent preference into owner decision; hiding forbidden routes.
 - **Downstream handoff note:** Downstream modules must preserve owner-gated decisions.
 
-### D02 — STALE_FLAGS.md
+### D02 — Stale/readiness flags
 
 - **ID:** D02
-- **Name / legacy label:** STALE_FLAGS.md
+- **Name:** Stale/readiness flags
 - **Dimension type:** metadata/compiler
 - **Purpose:** Track whether upstream changes make the design pack stale, and state the recompile or risk-handoff action without judging content truth.
 - **Dimension essence:** Decide whether upstream changes make the design pack stale and what recompile or risk action follows.
@@ -197,10 +207,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Treating old design pack as current after claim/material edits; treating timestamp freshness as semantic adequacy.
 - **Downstream handoff note:** Downstream writing should pause or carry an explicit risk note when stale flags remain unresolved.
 
-### D03 — 00_project_brief.md
+### D03 — Project brief
 
 - **ID:** D03
-- **Name / legacy label:** 00_project_brief.md
+- **Name:** Project brief
 - **Dimension type:** owner-decision
 - **Purpose:** State the project topic, domain, object, and working thesis at planning level.
 - **Dimension essence:** Decide the planning-level topic, domain, object, and working thesis without drafting manuscript copy.
@@ -230,10 +240,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Writing a promotional abstract; confusing project area with contribution.
 - **Downstream handoff note:** Downstream writing may reuse the brief as planning input, not as manuscript prose.
 
-### D04 — 01_target_journal_profile.md
+### D04 — Target route profile
 
 - **ID:** D04
-- **Name / legacy label:** 01_target_journal_profile.md
+- **Name:** Target route profile
 - **Dimension type:** owner-decision
 - **Purpose:** Define target venue/family, paper type, route profile, audience, reviewer expectations, and hard constraints as a planning target.
 - **Dimension essence:** Decide the owner-confirmed route, venue family, paper type, audience, and hard constraints.
@@ -269,10 +279,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Inferring venue certainty; switching to medical/clinical framing unasked; merging audience expectation with owner-confirmed route.
 - **Downstream handoff note:** Downstream writing should follow route/profile expectations and hard constraints but not claim guaranteed fit.
 
-### D05 — 02_material_inventory.md
+### D05 — Material inventory
 
 - **ID:** D05
-- **Name / legacy label:** 02_material_inventory.md
+- **Name:** Material inventory
 - **Dimension type:** factual-material
 - **Purpose:** Inventory real materials: results, figures, data, code, baselines, metrics, and absences.
 - **Dimension essence:** Inventory real materials and explicit absences so claims cannot rely on invented results or artifacts.
@@ -302,10 +312,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Treating planned experiments as completed; inventing metrics/results.
 - **Downstream handoff note:** Downstream writing may only use listed material boundaries.
 
-### D06 — 03_evidence_inventory.md
+### D06 — Evidence inventory
 
 - **ID:** D06
-- **Name / legacy label:** 03_evidence_inventory.md
+- **Name:** Evidence inventory
 - **Dimension type:** evidence
 - **Purpose:** Create evidence anchors that can support or reject claims.
 - **Dimension essence:** Create evidence anchors that can support, weaken, or reject claims without inventing support.
@@ -335,10 +345,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Using vague 'experiments show' without anchor; mismatching anchors to claims.
 - **Downstream handoff note:** Downstream writing must cite evidence anchors, not unsupported claims.
 
-### D07 — 04_source_and_citation_bank.md
+### D07 — Source and citation bank
 
 - **ID:** D07
-- **Name / legacy label:** 04_source_and_citation_bank.md
+- **Name:** Source and citation bank
 - **Dimension type:** source-citation
 - **Purpose:** Record known source/citation candidates, source roles, citation status, and citation boundaries without native search or claim support inflation.
 - **Dimension essence:** Record supplied source/citation candidates and roles without turning them into source truth or claim evidence.
@@ -374,10 +384,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Inventing references; turning related-work guesses into citations; using a source list as evidence for a claim.
 - **Downstream handoff note:** Downstream citation modules may receive the boundary but must not treat it as completed bibliography or evidence support.
 
-### D08 — 10_research_dossier.md
+### D08 — Research dossier
 
 - **ID:** D08
-- **Name / legacy label:** 10_research_dossier.md
+- **Name:** Research dossier
 - **Dimension type:** source-citation
 - **Purpose:** Capture related-work notes, exemplar notes, research context, synthesis/gap notes, counterevidence, and absent research-context boundaries without inferring novelty.
 - **Dimension essence:** Organize owner-supplied research context, dossier notes, and gaps without inferring novelty or source truth.
@@ -413,10 +423,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Smuggling citation search into planning; overstating novelty from missing dossier; using source notes as evidence anchors.
 - **Downstream handoff note:** Downstream research/writing should treat dossier notes as owner-supplied context and risk, not proof of novelty or claim truth.
 
-### D09 — 11_exemplar_language_profile.md
+### D09 — Exemplar language profile
 
 - **ID:** D09
-- **Name / legacy label:** 11_exemplar_language_profile.md
+- **Name:** Exemplar language profile
 - **Dimension type:** agent-designable-structure
 - **Purpose:** Capture language/style exemplars, route-consistent style fingerprint, and forbidden imitation boundaries, or explicitly mark no exemplar profile.
 - **Dimension essence:** Capture exemplar/style constraints and forbidden imitation boundaries without copying or inventing exemplars.
@@ -452,10 +462,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Inventing exemplar papers; copying manuscript prose style claims; using style as evidence for stronger claims.
 - **Downstream handoff note:** Downstream writing may use generic constraints but not fake exemplar citations or unsupported claim strength.
 
-### D10 — 12_contribution_options.md
+### D10 — Contribution options
 
 - **ID:** D10
-- **Name / legacy label:** 12_contribution_options.md
+- **Name:** Contribution options
 - **Dimension type:** claim-boundary
 - **Purpose:** List selected, rejected, or deferred contribution options with reasons.
 - **Dimension essence:** Decide selected, rejected, and deferred contribution framings with owner-confirmed boundaries.
@@ -485,10 +495,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Choosing contribution for the owner; listing options without decision rationale.
 - **Downstream handoff note:** Downstream writing must follow selected/rejected contribution boundaries.
 
-### D11 — 13_claim_evidence_map.md
+### D11 — Claim-evidence map
 
 - **ID:** D11
-- **Name / legacy label:** 13_claim_evidence_map.md
+- **Name:** Claim-evidence map
 - **Dimension type:** claim-boundary/evidence
 - **Purpose:** Bind each core claim to evidence anchors and support strength.
 - **Dimension essence:** Bind each active core claim to evidence anchors, support strength, and allowed scope.
@@ -518,10 +528,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Evidence-free claims; stronger wording than support allows; fake anchors.
 - **Downstream handoff note:** Downstream writing must preserve claim-evidence mapping and support strength.
 
-### D12 — 14_wording_boundary.md
+### D12 — Wording boundary
 
 - **ID:** D12
-- **Name / legacy label:** 14_wording_boundary.md
+- **Name:** Wording boundary
 - **Dimension type:** claim-boundary
 - **Purpose:** Define allowed and forbidden wording so downstream writing cannot overclaim.
 - **Dimension essence:** Define allowed and forbidden wording so downstream writing cannot overclaim.
@@ -551,10 +561,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Permitting universal claims from narrow experiments; hiding forbidden wording.
 - **Downstream handoff note:** Downstream writing must treat forbidden wording as a hard boundary.
 
-### D13 — 15_limitation_and_risk_matrix.md
+### D13 — Limitation and risk matrix
 
 - **ID:** D13
-- **Name / legacy label:** 15_limitation_and_risk_matrix.md
+- **Name:** Limitation and risk matrix
 - **Dimension type:** claim-boundary
 - **Purpose:** Record limitations, risks, and claim constraints that must remain visible.
 - **Dimension essence:** Keep limitations, risks, and claim constraints visible as writing guardrails.
@@ -584,10 +594,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Writing 'no limitations'; burying risks outside handoff.
 - **Downstream handoff note:** Downstream writing should reuse limitations as guardrails, not optional caveats.
 
-### D14 — 20_reader_spine.md
+### D14 — Reader spine
 
 - **ID:** D14
-- **Name / legacy label:** 20_reader_spine.md
+- **Name:** Reader spine
 - **Dimension type:** agent-designable-structure
 - **Purpose:** Define the reader's question-and-answer path through the paper, linked to route, claims, evidence, limitations, and transitions.
 - **Dimension essence:** Define the reader's question-and-answer path through confirmed route, claims, evidence, and limits.
@@ -623,10 +633,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Creating a spine around unsupported claims; drafting prose instead of structure; confusing reader path with section titles.
 - **Downstream handoff note:** Downstream writing uses the spine as argument order and must preserve linked evidence/limitation boundaries.
 
-### D15 — 21_manuscript_outline.md
+### D15 — Manuscript outline
 
 - **ID:** D15
-- **Name / legacy label:** 21_manuscript_outline.md
+- **Name:** Manuscript outline
 - **Dimension type:** agent-designable-structure
 - **Purpose:** Define manuscript outline and section-job responsibilities for downstream drafting without writing manuscript prose.
 - **Dimension essence:** Define outline and section-job responsibilities without drafting manuscript prose.
@@ -662,10 +672,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Over-specific manuscript drafting; generic outline unrelated to evidence; section jobs that omit limitations or required evidence.
 - **Downstream handoff note:** Downstream writing should treat section jobs as task constraints, not as finished prose.
 
-### D16 — 22_object_granularity.md
+### D16 — Object granularity
 
 - **ID:** D16
-- **Name / legacy label:** 22_object_granularity.md
+- **Name:** Object granularity
 - **Dimension type:** claim-boundary/structure
 - **Purpose:** Clarify whether the paper is about a method, system, model, dataset, benchmark, application, or analysis object.
 - **Dimension essence:** Clarify exact research-object granularity so claims, structure, and wording target the same object.
@@ -695,10 +705,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Mixing method/system/application levels; allowing claims about unstudied objects.
 - **Downstream handoff note:** Downstream writing must preserve object granularity in every claim.
 
-### D17 — 23_surface_control.md
+### D17 — Surface control
 
 - **ID:** D17
-- **Name / legacy label:** 23_surface_control.md
+- **Name:** Surface control
 - **Dimension type:** claim-boundary/structure
 - **Purpose:** Control terminology, tone, claim strength, and surface wording constraints.
 - **Dimension essence:** Control terminology, tone, and claim-strength surface choices across structure and claim-boundary files.
@@ -728,10 +738,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Making style generic; allowing unsupported adjectives like optimal/universal/deployed.
 - **Downstream handoff note:** Downstream writing must obey surface controls as wording guardrails.
 
-### D18 — 24_visual_plan.md
+### D18 — Visual plan
 
 - **ID:** D18
-- **Name / legacy label:** 24_visual_plan.md
+- **Name:** Visual plan
 - **Dimension type:** agent-designable-structure/material
 - **Purpose:** Plan figure/table storyline, visual evidence boundaries, and handoff needs while separating planned visuals from actual evidence.
 - **Dimension essence:** Plan figure/table storyline and visual evidence boundaries without treating planned visuals as evidence.
@@ -767,10 +777,10 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Common failure modes:** Inventing figures; implying results shown in visuals that do not exist; using planned visuals as evidence anchors.
 - **Downstream handoff note:** Downstream figure modules may use this as a plan, not as generated artifact evidence or proof of claim support.
 
-### D19 — 25_WRITING_DESIGN_PACK.md
+### D19 — Writing design pack
 
 - **ID:** D19
-- **Name / legacy label:** 25_WRITING_DESIGN_PACK.md
+- **Name:** Writing design pack
 - **Dimension type:** handoff
 - **Purpose:** Compile the final writing design pack as a structural handoff and submission blueprint only after dimension gates are satisfied.
 - **Dimension essence:** Compile the design pack as a structural handoff after gates pass, not as manuscript or readiness certification.

@@ -10,9 +10,9 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 
 | ID | Dimension | Home |
 |---|---|---|
-| D00 | `00_META.md` | `00_DIMENSION_INDEX.md#Workspace Metadata` |
-| D02 | `STALE_FLAGS.md` | `00_DIMENSION_INDEX.md#Dimension Status Index` + `#Readiness Gate` |
-| D19 | `25_WRITING_DESIGN_PACK.md` | `04_WRITING_DESIGN_PACK.md` |
+| D00 | `Workspace metadata` | `00_DIMENSION_INDEX.md#Workspace Metadata` |
+| D02 | `Stale/readiness flags` | `00_DIMENSION_INDEX.md#Dimension Status Index` + `#Readiness Gate` |
+| D19 | `Writing design pack` | `04_WRITING_DESIGN_PACK.md` |
 
 After compiling, update D00/D02/D19 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
@@ -26,12 +26,17 @@ Use the central rubric to judge whether D00/D02/D19 are missing, minimum-only, s
 | D02 | `stale-alert` | a changed upstream dimension could make a reused pack section misleading without a recompile or owner-accepted risk note | current upstream content conflicts with D19 timestamp/content, route decisions, or critical-standard rows | `00_DIMENSION_INDEX.md#Readiness Gate` and D02 row |
 | D19 | `focused-question` for one missing handoff; `reconciliation` for conflicts; `stale-alert` for outdated packs | an unresolved owner, evidence, source, visual, wording, stale, or handoff boundary must be surfaced before downstream use | critical-standard gaps, placeholders, D02 state, D16/D17 conflicts, or owner-gated assumptions contradict compile readiness | `04_WRITING_DESIGN_PACK.md` coverage/validation/handoff sections, then D19 row |
 
+## Program-mode evaluator action
+
+Use the canonical evaluator states and breakpoint card in `SKILL.md`; this compiler playbook only supplies D00/D02/D19 write landings. Auto-fill mechanical D19 coverage and validation notes only after upstream dimensions are handled. If a compile blocker is owner-gated, conflicting, stale, or D07 is falsely marked `filled` without supplied source detail, emit one breakpoint card naming the write target and resume action instead of compiling.
+
 ## First-batch D19/D02 handoff pointers
 
 `00-dimension-rubric.md` remains the source of truth for D00/D02/D19 sufficiency. This compiler playbook should only apply focused compile and stale-gate cards:
 
 - D19 is a structural handoff/submission blueprint plus semantic-risk note. It may summarize dimension coverage, submission blueprint, statement inventory, supplement boundary, external handoff routes, unresolved dimension consequences, and validation notes.
 - D19 must not claim manuscript readiness, submission readiness, publication readiness, acceptance likelihood, novelty, citation truth, prose quality, visual quality, or semantic adequacy.
+- D19 must include a final handoff card that distinguishes structural writing-planning readiness from final citations, manuscript-ready prose, submission, publication, acceptance, semantic adequacy, and downstream skill execution.
 - D02 stale gate should name category-family intent for changed dimension, affected pack section, stale since, recompile required, owner decision, required action, and semantic risk note when a prior design pack may be reused.
 - A fresh D00/D02 state does not prove semantic adequacy. It only proves the metadata/stale decision was structurally handled.
 - Mechanical checks may inspect coverage, status/pointer consistency, stale/D19 incompatibility when explicitly structured, and placeholder absence; they must not execute external writing/citation/figure skills or score semantic quality.
