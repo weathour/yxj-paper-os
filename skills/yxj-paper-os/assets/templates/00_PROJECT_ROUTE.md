@@ -25,6 +25,19 @@
 | Reviewer expectation | TODO | Inferred/candidate unless owner confirms |
 | Hard constraints and forbidden routes | TODO | Constrains D14/D15/D18/D19 |
 
+## Route Template Expectation / Quantification Trigger
+
+> Template Quantification Gate: when a target route, article type, or owner-provided template expectation exists, D19 cannot be valid until the workspace records at least 3 parseable full-text templates, source/similarity rationale, and quantitative writing-design outputs. If no such route/template expectation applies, record the owner-confirmed no-template rationale here; do not claim route-style adequacy.
+
+| Gate field | Value / rationale | Owner state / validator note |
+|---|---|---|
+| Template expectation status | TODO | yes / no / not_applicable; mirrors D19 Gate applies |
+| Trigger basis | TODO | target route, article type, owner templates, or explicit no-template route |
+| Required owner material | TODO | ask for parseable full-text template files/links, not citation-only references |
+| Minimum corpus rule | minimum 3 parseable full-text templates | Hard block for D19 valid handoff when gate applies; blocked-not-valid-handoff if incomplete |
+| No-template rationale | TODO | required when status is no/not_applicable |
+| Quantification boundary | Template statistics guide writing design only | Not D06 claim evidence and not venue/style semantic scoring |
+
 ## Front Matter / Hook Route Constraints
 
 > Planning only: record constraints, route implications, owner-gated inputs, and handoff notes for title/abstract/keywords/hooks. Do not draft title, abstract, keyword, or graphical-hook prose here.

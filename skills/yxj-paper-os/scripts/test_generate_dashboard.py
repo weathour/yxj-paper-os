@@ -86,7 +86,7 @@ DIMENSION_POINTERS = [
     "03_WRITING_STRUCTURE.md#Object Granularity",
     "03_WRITING_STRUCTURE.md#Surface Control",
     "03_WRITING_STRUCTURE.md#Visual Plan",
-    "04_WRITING_DESIGN_PACK.md#Submission Blueprint",
+    "04_WRITING_DESIGN_PACK.md#Quantification Gate Status",
 ]
 
 SPECIAL_SENTINEL = 'SPECIAL_ESCAPING_SENTINEL <script>alert("x")</script> 中文 **raw markdown** `code` & chars'
@@ -218,6 +218,17 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "| Reviewer expectation | Traceability from D00-D19 | Candidate expectation |",
                     "| Hard constraints and forbidden routes | No external network, no template copy | Constrains D19 |",
                     "",
+                    "## Route Template Expectation / Quantification Trigger",
+                    "",
+                    "| Gate field | Value / rationale | Owner state / validator note |",
+                    "|---|---|---|",
+                    "| Template expectation status | yes | Target route and article type require quantified template basis |",
+                    "| Trigger basis | Owner supplied target route plus three dashboard-style full-text templates | D04 applies the gate |",
+                    "| Required owner material | three parseable full-text template fixtures T1, T2, T3 | no citation-only records counted |",
+                    "| Minimum corpus rule | minimum 3 parseable full-text templates | D19 valid only when satisfied |",
+                    "| No-template rationale | not applicable because gate applies | no route-style adequacy waiver |",
+                    "| Quantification boundary | Template statistics guide writing design only | Not D06 claim evidence and no semantic scoring |",
+                    "",
                     "## Front Matter / Hook Route Constraints",
                     "",
                     "| Front-matter planning field | Constraint or handoff note | Owner state / linked dimensions |",
@@ -319,6 +330,14 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "| Gap hypothesis | absent | candidate only |",
                     "| Unresolved source needs | absent | no source handoff |",
                     "",
+                    "## Template Corpus / Quantification Basis",
+                    "",
+                    "| Template id | Source / locator | Full text parseable? | Route/type similarity rationale | Quantitative writing-design outputs / blocker |",
+                    "|---|---|---|---|---|",
+                    "| T1 | local full text fixture A | yes - full text parseable | same structural dashboard article type and offline tool route | language rhythm and section distribution recorded |",
+                    "| T2 | local full text fixture B | yes - full text parseable | same route family and validator-focused reporting surface | surface-reference and claim-design distribution recorded |",
+                    "| T3 | local full text fixture C | yes - full text parseable | same route constraints and visual/table planning needs | figure/table density and current-design comparison recorded |",
+                    "",
                     "## Citation Function and Related-Work Materials",
                     "",
                     "| Material role | Supplied location or explicit absence | Citation-function / related-work boundary |",
@@ -392,6 +411,13 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "",
                     "D07, D08, D09, and D18 cannot strengthen active claims without E1-style evidence anchors.",
                     "",
+                    "## Template Claim-Design Benchmark",
+                    "",
+                    "| Claim/design surface | Template-derived design observation | Current claim/design consequence | Evidence boundary |",
+                    "|---|---|---|---|",
+                    "| Dashboard write-boundary claim | templates separate tool behavior claims from interface descriptions | keep claim in method/results handoff, not front matter | Template statistics guide writing design only; E1 remains required evidence |",
+                    "| Warning visibility claim | templates keep limitation notes near result displays | carry malformed-row risk into D13/D19 | no template statistic strengthens support |",
+                    "",
                     "## Writing-Surface Claim Boundary Matrix",
                     "",
                     "| Writing surface | Allowed claim function | Required support | Boundary / forbidden escalation |",
@@ -444,6 +470,14 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "| Forbidden imitation or banned patterns | no source prose copying | style only |",
                     "| Voice / tense / hedge strength / terminology density | neutral dashboard copy | link to D12 |",
                     "",
+                    "## Template Language / Rhythm / Surface-Reference Benchmark",
+                    "",
+                    "| Quantified surface | Template corpus observation | Current design rule or blocker | Boundary |",
+                    "|---|---|---|---|",
+                    "| Language rhythm / paragraph distribution | templates use short structural paragraphs and warning notes | keep dashboard prose concise and structural | Writing design only; not D06 evidence |",
+                    "| Terminology / hedge / tense pattern | templates use present-tense structural labels with cautious hedges | avoid publication or semantic-readiness terms | Bound by D12/D17 |",
+                    "| Surface-reference pattern | templates cite local sections rather than external sources | point to six-file anchors | Citation truth remains D07/D11 |",
+                    "",
                     "## Front-Matter / Hook Planning Brief",
                     "",
                     "| Front-matter unit | Planning function | Inputs / linked dimensions | Constraint or handoff note |",
@@ -473,6 +507,13 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "|---|---|---|---|",
                     "| 1 | Dashboard overview | inspect D00-D19 | static local output |",
                     "",
+                    "## Template Structure Benchmark",
+                    "",
+                    "| Structure unit | Template corpus distribution or range | Current outline consequence | Blocker if incomplete |",
+                    "|---|---|---|---|",
+                    "| Overview / method / result handoff | three templates separate route, method, result, and limitation functions | keep dashboard overview, method, and risk sections distinct | no blocker because quantification outputs are present |",
+                    "| Paragraph/function map | templates tie each section to a validator-facing job | section jobs name evidence and forbidden content | no blocker because D15 carries the output |",
+                    "",
                     "## Section Jobs",
                     "",
                     "| Section | Job | Input dimensions | Output promise | Required evidence / visual | Forbidden content or downstream constraint |",
@@ -501,6 +542,14 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "| Story step | Visual/table id | Story role | Linked reader step / claim | Evidence boundary |",
                     "|---|---|---|---|---|",
                     "| 1 | FIG1 | dashboard visual handoff | Step 1 | existing structural fixture |",
+                    "",
+                    "## Template Visual-Density Benchmark",
+                    "",
+                    "| Visual-density surface | Template corpus observation | Current visual/table design consequence | Evidence boundary |",
+                    "|---|---|---|---|",
+                    "| Figure/table count or density pattern | templates use one dashboard screenshot plus source tables | keep FIG1 as manual QA handoff and source tables visible | D18 plan only; not visual correctness validation |",
+                    "| Caption/table/reference placement | templates place captions near result warnings | carry caption job to downstream only | Caption text drafted downstream only |",
+                    "| Accessibility or readability cue | templates preserve labels and warning center | require readable D00-D19 labels | Structural handoff only |",
                     "",
                     "## Visual Plan",
                     "",
@@ -550,7 +599,7 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "| Method / reporting / reproducibility | 00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed; 01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials; 03_WRITING_STRUCTURE.md#Method / Reporting / Reproducibility Job Plan | 04_WRITING_DESIGN_PACK.md#Method / Reporting / Reproducibility Handoff | Method/reporting/reproducibility checklist state is structural; no experiment or data invention. |",
                     "| Results / visual narrative / captions / tables / accessibility | 01_MATERIALS_INVENTORY.md#Results / Visual / Caption / Accessibility Materials; 03_WRITING_STRUCTURE.md#Results Narrative / Caption / Accessibility Plan | 04_WRITING_DESIGN_PACK.md#Results / Visual / Captions / Tables / Accessibility Handoff | Caption/table/accessibility planning cannot turn needed visuals into active evidence. |",
                     "| Downstream route matrix | 00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed; 04_WRITING_DESIGN_PACK.md#External Skill Handoff | 04_WRITING_DESIGN_PACK.md#Downstream Route Matrix | External routes are recommendations only and are not executed. |",
-                    "| Templates + validators | 00_DIMENSION_INDEX.md#Dimension Status Index; 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes; 04_WRITING_DESIGN_PACK.md#Validation Notes | 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes | Validators check structure, phrases, pointers, placeholders, statuses, and columns only. |",
+                    "| Templates + validators | 00_DIMENSION_INDEX.md#Dimension Status Index; 00_PROJECT_ROUTE.md#Route Template Expectation / Quantification Trigger; 01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis; 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes; 04_WRITING_DESIGN_PACK.md#Quantification Gate Status; 04_WRITING_DESIGN_PACK.md#Validation Notes | 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes | Validators check structure, phrases, pointers, placeholders, statuses, columns, and Template Quantification Gate fields only. |",
                     "",
                     "## Project Route",
                     "",
@@ -687,6 +736,36 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "",
                     "No external skill handoff is executed by this dashboard fixture.",
                     "",
+                    "## Current Design vs Template Comparison",
+                    "",
+                    "| Design surface | Template corpus basis | Current design decision | Boundary / blocker |",
+                    "|---|---|---|---|",
+                    "| Language rhythm / distribution | T1-T3 short structural rhythm | keep concise dashboard prose | no blocker; output present |",
+                    "| Section/function distribution | T1-T3 separate route, method, result, limitation jobs | preserve section-job matrix | D15 design only |",
+                    "| Claim-design emphasis | T1-T3 separate tool claims from UI descriptions | keep claim support tied to E1 | D06/D11 still control claim support |",
+                    "| Figure/table density and placement | T1-T3 use one screenshot plus source tables | FIG1 and source tables stay handoff material | D18 plan only |",
+                    "",
+                    "## Quantification Gate Status",
+                    "",
+                    "| Field | Value | Notes |",
+                    "|---|---|---|",
+                    "| Gate applies | yes | D04 target route and article type trigger template quantification |",
+                    "| Trigger basis | target route plus owner-supplied template corpus T1-T3 | route/type similarity rationale recorded in materials |",
+                    "| Parseable full-text template count | 3 | all three corpus records are parseable full text |",
+                    "| Source/similarity rationale present | yes | source/locator and similarity rationale recorded for T1-T3 |",
+                    "| Quantitative outputs status | present | D09/D15/D17/D18 outputs populated |",
+                    "| Blocker propagation | clear | no quantification incomplete markers remain in D02/D09/D15/D17/D18 |",
+                    "| D19 pack status | valid | valid structural handoff only |",
+                    "",
+                    "## D19 Quantification Handoff",
+                    "",
+                    "| Handoff item | Status or pointer | Downstream consequence |",
+                    "|---|---|---|",
+                    "| Template corpus basis | 01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis | T1-T3 guide writing design only |",
+                    "| Quantitative design outputs | present in D09/D15/D17/D18 sections | downstream writing receives constraints, not prose |",
+                    "| Claim-evidence boundary | Template statistics are not claim evidence | E1 and D11 remain authoritative |",
+                    "| Blocked handoff token | not applicable because gate passes | blocked-not-valid-handoff reserved for incomplete gate |",
+                    "",
                     "## Template and Mechanical Validator Notes",
                     "",
                     "| Check surface | Expected structural evidence | Boundary / non-goal |",
@@ -696,6 +775,7 @@ class DashboardGeneratorTests(unittest.TestCase):
                     "| Six-track handoff matrix | rows for all six tracks with canonical anchors | routing map only |",
                     "| Placeholder / stale gate | final pack has no placeholders and D02 risk is reconciled | freshness is not semantic adequacy |",
                     "| Claim/evidence/visual boundary | D06/D11 anchors and D18 status respected | needed visuals are not evidence |",
+                    "| Template Quantification Gate | canonical Quantification Gate Status fields and corpus cross-checks | no semantic scoring, extraction tooling, backend integration, downstream execution, public schema expansion, or hardcoded thresholds |",
                     "",
                     "## Validation Notes",
                     "",
@@ -756,6 +836,18 @@ class DashboardGeneratorTests(unittest.TestCase):
 
     def validator_errors(self, workspace: Path) -> str:
         return "\n".join(validate_workspace(workspace))
+
+    def set_quant_gate_field(self, workspace: Path, field: str, value: str, notes: str | None = None) -> None:
+        final = workspace / "04_WRITING_DESIGN_PACK.md"
+        text = final.read_text(encoding="utf-8")
+        replacement_notes = notes if notes is not None else f"test override for {field}"
+        pattern = re.compile(rf"^\| {re.escape(field)} \| [^|]* \| [^|]* \|$", re.MULTILINE)
+        self.assertRegex(text, pattern, f"missing Quantification Gate Status field {field}")
+        text = pattern.sub(f"| {field} | {value} | {replacement_notes} |", text, count=1)
+        final.write_text(text, encoding="utf-8")
+
+    def run_validator_cli(self, workspace: Path) -> subprocess.CompletedProcess[str]:
+        return self.run_python(["-B", str(VALIDATOR), str(workspace)])
 
     def test_existing_validator_still_py_compiles(self) -> None:
         result = self.run_python(["-m", "py_compile", str(VALIDATOR)])
@@ -1068,6 +1160,233 @@ Text between tables must split the blocks.
 
             self.assertEqual([], [item for item in model["warnings"] if item["scope"] == "validator"])
             self.assertEqual("结构就绪", model["readiness"]["label"])
+
+    def test_quant_gate_valid_gate_satisfied_passes_cli(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-valid-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+
+            result = self.run_validator_cli(workspace)
+
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("Structural design-pack validation passed", result.stdout)
+
+    def test_quant_gate_rejects_missing_corpus_status(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-missing-corpus-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Template Corpus / Quantification Basis",
+                "Template corpus status is described in prose only.",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("Template Corpus / Quantification Basis must contain a Markdown table", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_less_than_three_templates(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-less-than-three-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.set_quant_gate_field(workspace, "Parseable full-text template count", "2")
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Template Corpus / Quantification Basis",
+                """
+| Template id | Source / locator | Full text parseable? | Route/type similarity rationale | Quantitative writing-design outputs / blocker |
+|---|---|---|---|---|
+| T1 | local full text fixture A | yes - full text parseable | same route and article type | language output recorded |
+| T2 | local full text fixture B | yes - full text parseable | same route family | structure output recorded |
+""",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("minimum 3", errors)
+            self.assertIn("fewer than 3 parseable full-text templates", errors)
+
+    def test_quant_gate_rejects_missing_similarity_rationale(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-missing-rationale-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.set_quant_gate_field(workspace, "Source/similarity rationale present", "no")
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("Source/similarity rationale present is not yes", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_citation_only_template_records(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-citation-only-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Template Corpus / Quantification Basis",
+                """
+| Template id | Source / locator | Full text parseable? | Route/type similarity rationale | Quantitative writing-design outputs / blocker |
+|---|---|---|---|---|
+| T1 | DOI-only record | citation-only | same nominal topic but no full text | blocked-not-valid-handoff |
+| T2 | abstract page only | unparseable | same nominal route but no full text | blocked-not-valid-handoff |
+| T3 | metadata record | citation-only | same nominal article type but no full text | blocked-not-valid-handoff |
+""",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("fewer than 3 parseable full-text templates", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_template_corpus_without_parseability_column(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-no-parseability-column-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Template Corpus / Quantification Basis",
+                """
+| Template id | Source / locator | Route/type similarity rationale | Quantitative writing-design outputs / blocker |
+|---|---|---|---|
+| T1 | local full text fixture A | same route and article type with full text available | language output recorded |
+| T2 | local full text fixture B | same route family with full text available | structure output recorded |
+| T3 | local full text fixture C | same article type with full text available | visual output recorded |
+""",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("recognized parseability/status column", errors)
+            self.assertIn("fewer than 3 parseable full-text templates", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_not_full_text_parseable_records(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-not-full-text-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.replace_section_body(
+                workspace,
+                "01_MATERIALS_INVENTORY.md",
+                "Template Corpus / Quantification Basis",
+                """
+| Template id | Source / locator | Full text parseable? | Route/type similarity rationale | Quantitative writing-design outputs / blocker |
+|---|---|---|---|---|
+| T1 | local full text fixture A | yes - full text parseable | same route and article type | language output recorded |
+| T2 | local full text fixture B | yes - full text parseable | same route family | structure output recorded |
+| T3 | abstract page only | not full-text parseable | same nominal article type but no full text | blocked-not-valid-handoff |
+""",
+            )
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("fewer than 3 parseable full-text templates", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_final_handoff_blocked_when_gate_status_valid(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-final-card-blocked-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            final = workspace / "04_WRITING_DESIGN_PACK.md"
+            text = final.read_text(encoding="utf-8")
+            self.assertIn("- Pack status: valid", text)
+            final.write_text(text.replace("- Pack status: valid", "- Pack status: blocked", 1), encoding="utf-8")
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("final handoff Pack status", errors)
+            self.assertIn("Quantification Gate Status D19 pack status 'valid'", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_hidden_quant_failure_in_d02_d09_d15_d17_d18(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-hidden-failure-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            index = workspace / "00_DIMENSION_INDEX.md"
+            text = index.read_text(encoding="utf-8")
+            for dim_id in ["D02", "D09", "D15", "D17", "D18"]:
+                text = re.sub(
+                    rf"(\| {dim_id} \| [^|]+ \| [^|]+ \| filled \| )([^|]+)( \|)",
+                    rf"\1quantification incomplete for {dim_id}; \2\3",
+                    text,
+                    count=1,
+                )
+            index.write_text(text, encoding="utf-8")
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("D02/D09/D15/D17/D18 quantification incomplete marker(s)", errors)
+            self.assertIn("D15", errors)
+            self.assertIn("blocked-not-valid-handoff", errors)
+
+    def test_quant_gate_rejects_not_applicable_without_rationale_when_route_present(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-na-no-rationale-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.set_quant_gate_field(workspace, "Gate applies", "not_applicable")
+            self.set_quant_gate_field(workspace, "Trigger basis", "route style looks fine")
+            self.set_quant_gate_field(workspace, "Parseable full-text template count", "0")
+            self.set_quant_gate_field(workspace, "Source/similarity rationale present", "no")
+            self.set_quant_gate_field(workspace, "Quantitative outputs status", "not_applicable")
+
+            errors = self.validator_errors(workspace)
+
+            self.assertIn("requires an explicit owner-confirmed no-template", errors)
+
+    def test_quant_gate_blocked_incomplete_exits_nonzero_with_token(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-blocked-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            self.set_quant_gate_field(workspace, "Parseable full-text template count", "1")
+            self.set_quant_gate_field(workspace, "Quantitative outputs status", "blocked")
+            self.set_quant_gate_field(workspace, "Blocker propagation", "blocked")
+            self.set_quant_gate_field(workspace, "D19 pack status", "blocked")
+            self.replace_section_body(
+                workspace,
+                "04_WRITING_DESIGN_PACK.md",
+                "D19 Quantification Handoff",
+                """
+| Handoff item | Status or pointer | Downstream consequence |
+|---|---|---|
+| Blocked handoff token | blocked-not-valid-handoff | owner must provide missing parseable full-text templates |
+""",
+            )
+
+            result = self.run_validator_cli(workspace)
+            combined = result.stdout + result.stderr
+
+            self.assertNotEqual(result.returncode, 0, combined)
+            self.assertIn("blocked-not-valid-handoff", combined)
+
+    def test_quant_gate_allows_no_route_no_template_expectation(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="yxj-paper-os-quant-no-route-") as tmp:
+            workspace = self.make_filled_workspace(Path(tmp))
+            route = workspace / "00_PROJECT_ROUTE.md"
+            route.write_text(
+                route.read_text(encoding="utf-8")
+                .replace(
+                    "| Venue family / target route | Journal-style software paper route | Owner supplied route family |",
+                    "| Venue family / target route | no target route selected; owner confirmed no template expectation | explicit no-route rationale |",
+                )
+                .replace(
+                    "| Article or paper type | Technical report fixture | Keep wording bounded |",
+                    "| Article or paper type | not applicable because no target route is selected | owner-confirmed no-template route |",
+                )
+                .replace(
+                    "| Template expectation status | yes | Target route and article type require quantified template basis |",
+                    "| Template expectation status | not_applicable | owner-confirmed no target route/template expectation |",
+                )
+                .replace(
+                    "| Trigger basis | Owner supplied target route plus three dashboard-style full-text templates | D04 applies the gate |",
+                    "| Trigger basis | owner-confirmed no target route and no template expectation | no route-style adequacy claim |",
+                ),
+                encoding="utf-8",
+            )
+            self.set_quant_gate_field(workspace, "Gate applies", "not_applicable")
+            self.set_quant_gate_field(
+                workspace,
+                "Trigger basis",
+                "owner-confirmed no target route and no template expectation",
+                "no route-style adequacy claim",
+            )
+            self.set_quant_gate_field(workspace, "Parseable full-text template count", "0")
+            self.set_quant_gate_field(workspace, "Source/similarity rationale present", "no")
+            self.set_quant_gate_field(workspace, "Quantitative outputs status", "not_applicable")
+
+            self.assertEqual([], validate_workspace(workspace))
 
     def test_validator_rejects_missing_six_track_coverage_table(self) -> None:
         with tempfile.TemporaryDirectory(prefix="yxj-paper-os-missing-six-track-") as tmp:

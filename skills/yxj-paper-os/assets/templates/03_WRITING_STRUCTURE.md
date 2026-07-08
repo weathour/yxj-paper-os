@@ -14,6 +14,16 @@
 | Forbidden imitation or banned patterns | TODO | Do not copy source prose |
 | Voice / tense / hedge strength / terminology density | TODO | Link to D12/D17 wording controls |
 
+## Template Language / Rhythm / Surface-Reference Benchmark
+
+> Quantified language, rhythm, distribution, and surface-reference notes from parseable full-text templates. Use these notes to guide D09/D17 writing design only; do not score prose quality, style similarity, source authority, or claim truth.
+
+| Quantified surface | Template corpus observation | Current design rule or blocker | Boundary |
+|---|---|---|---|
+| Language rhythm / paragraph distribution | TODO | TODO | Writing design only; not D06 evidence |
+| Terminology / hedge / tense pattern | TODO | TODO | Bound by D12/D17 |
+| Surface-reference pattern | TODO | TODO | Citation/source truth remains D07/D11 |
+
 ## Front-Matter / Hook Planning Brief
 
 > Planning only: capture constraints, route implications, and downstream handoff notes for title/abstract/keywords/visual hooks. Do not write manuscript-ready front matter here.
@@ -51,6 +61,14 @@
 |---|---|---|---|
 | TODO | TODO | TODO | TODO |
 
+## Template Structure Benchmark
+
+> Section/paragraph/function distribution inferred from the accepted template corpus. Use it to tune D15 section jobs; do not hardcode journal thresholds or claim rhetorical optimality.
+
+| Structure unit | Template corpus distribution or range | Current outline consequence | Blocker if incomplete |
+|---|---|---|---|
+| TODO | TODO | TODO | blocked-not-valid-handoff if gate applies and output is missing |
+
 ## Section Jobs
 
 | Section | Job | Input dimensions | Output promise | Required evidence / visual | Forbidden content or downstream constraint |
@@ -83,6 +101,16 @@ TODO
 | Story step | Visual/table id | Story role | Linked reader step / claim | Evidence boundary |
 |---|---|---|---|---|
 | TODO | TODO | TODO | TODO | TODO |
+
+## Template Visual-Density Benchmark
+
+> Figure/table density and visual-reference placement from parseable full-text templates. Use it to guide D18 visual planning; planned/needed/deferred visuals still cannot support active claims.
+
+| Visual-density surface | Template corpus observation | Current visual/table design consequence | Evidence boundary |
+|---|---|---|---|
+| Figure/table count or density pattern | TODO | TODO | D18 plan only; not visual correctness validation |
+| Caption/table/reference placement | TODO | TODO | Caption text drafted downstream only |
+| Accessibility or readability cue | TODO | TODO | Structural handoff only |
 
 ## Visual Plan
 

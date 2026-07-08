@@ -51,6 +51,12 @@ Use these additions as structure and handoff prompts only. They may define jobs,
 - **Results / visual / caption / table / accessibility storyline:** plan result order, figure/table sequence, caption/legend jobs, statistic-display handoff, alt-text/accessibility constraints, and non-visual fallback notes.
 - **Templates / validator handoff:** record where structure decisions should appear in `04_WRITING_DESIGN_PACK.md` and which checks are structural only; never imply semantic scoring, external execution, or finished manuscript readiness.
 
+## Template Quantification Gate writing-structure outputs
+
+When the gate applies, D09/D15/D17/D18 need the minimum 3 parseable full-text templates plus quantitative writing-design outputs from the accepted template corpus: language rhythm/distribution, surface-reference patterns, section/function distribution, and figure/table density. If any of these outputs are missing or the corpus has fewer than 3 parseable full-text templates, write quantification incomplete in the affected D09/D15/D17/D18 landing and keep D19 blocked-not-valid-handoff.
+
+Do not hardcode journal thresholds, judge prose quality/style similarity, validate figure correctness, or draft manuscript prose from these statistics; source/similarity rationale stays a corpus-selection record, not a semantic score.
+
 ## Required fields
 
 - Exemplar language profile if user-supplied; otherwise explicit absent/deferred status.

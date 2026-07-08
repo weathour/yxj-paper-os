@@ -35,6 +35,14 @@ TODO
 | D09 exemplar/style profile | D12/D17 wording and style constraints | Raise claim strength or create citation evidence | Claim wording remains bounded by D11/D12 |
 | D18 visual plan | Figure/table storyline and visual handoff | Let needed/deferred/absent visuals support active claims | Existing evidence anchor in D06 + D11 mapping |
 
+## Template Claim-Design Benchmark
+
+> Compare template-derived design expectations against the current claim plan without treating template statistics as claim evidence. This section may change wording, section placement, emphasis, or figure/table handoff; it must not strengthen D11 support or create source truth.
+
+| Claim/design surface | Template-derived design observation | Current claim/design consequence | Evidence boundary |
+|---|---|---|---|
+| TODO | TODO | TODO | Template statistics guide writing design only; D06/D11 still decide claim support |
+
 ## Writing-Surface Claim Boundary Matrix
 
 > Map writing-surface plans to claim support limits before downstream drafting. This table stores constraints and handoff notes, not manuscript prose.

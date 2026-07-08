@@ -11,6 +11,7 @@
 ## Six-Track Coverage
 
 > This matrix records where each writing-surface track lands in the existing six-file contract. It is a routing/handoff map, not a public schema extension.
+> New gate headings and fields are landing fields inside the existing six public files and D00-D19 handoff; they do not add public files, dimensions, status values, or index columns.
 
 | Track | Input planning field locations | Design-pack output location | Boundary note |
 |---|---|---|---|
@@ -19,7 +20,7 @@
 | Method / reporting / reproducibility | 00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed; 01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials; 03_WRITING_STRUCTURE.md#Method / Reporting / Reproducibility Job Plan | 04_WRITING_DESIGN_PACK.md#Method / Reporting / Reproducibility Handoff | Checklist presence is not reproducibility proof |
 | Results / visuals / captions / tables / accessibility | 01_MATERIALS_INVENTORY.md#Results / Visual / Caption / Accessibility Materials; 03_WRITING_STRUCTURE.md#Results Narrative / Caption / Accessibility Plan | 04_WRITING_DESIGN_PACK.md#Results / Visual / Captions / Tables / Accessibility Handoff | Needed/deferred/absent visuals cannot support active claims |
 | Downstream route matrix | 00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed; 04_WRITING_DESIGN_PACK.md#External Skill Handoff | 04_WRITING_DESIGN_PACK.md#Downstream Route Matrix | Recommend only; do not execute external skills |
-| Templates + validators | 00_DIMENSION_INDEX.md#Dimension Status Index; 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes; 04_WRITING_DESIGN_PACK.md#Validation Notes | 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes | Structural checks only; no semantic scoring or readiness claim |
+| Templates + validators | 00_DIMENSION_INDEX.md#Dimension Status Index; 00_PROJECT_ROUTE.md#Route Template Expectation / Quantification Trigger; 01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis; 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes; 04_WRITING_DESIGN_PACK.md#Quantification Gate Status; 04_WRITING_DESIGN_PACK.md#Validation Notes | 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes | Structural checks only, including Template Quantification Gate presence/status; no semantic scoring or readiness claim |
 
 ## Project Route
 
@@ -172,6 +173,40 @@ TODO
 > Recommend downstream writing, figure, citation, or review routes only. Do not execute external skills from this pack.
 
 TODO
+
+## Current Design vs Template Comparison
+
+> Summarize how the current writing design differs from or follows the quantified template corpus. This comparison guides D09/D15/D17/D18 writing design only; it is not claim evidence, citation truth, or venue-fit scoring.
+
+| Design surface | Template corpus basis | Current design decision | Boundary / blocker |
+|---|---|---|---|
+| Language rhythm / distribution | TODO | TODO | blocked-not-valid-handoff if gate applies and output is missing |
+| Section/function distribution | TODO | TODO | D15 design only |
+| Claim-design emphasis | TODO | TODO | D06/D11 still control claim support |
+| Figure/table density and placement | TODO | TODO | D18 plan only |
+
+## Quantification Gate Status
+
+| Field | Value | Notes |
+|---|---|---|
+| Gate applies | TODO | yes / no / not_applicable |
+| Trigger basis | TODO | D04 target route, article type, owner templates, or explicit no-template rationale |
+| Parseable full-text template count | TODO | integer; minimum 3 when gate applies yes |
+| Source/similarity rationale present | TODO | yes / no; source/similarity rationale must be recorded when gate applies |
+| Quantitative outputs status | TODO | present / blocked / not_applicable |
+| Blocker propagation | TODO | clear / blocked; D02/D09/D15/D17/D18/D19 must agree |
+| D19 pack status | TODO | valid / blocked; blocked packs are blocked-not-valid-handoff |
+
+## D19 Quantification Handoff
+
+> If the gate applies and any required corpus/output field is missing, D19 status is blocked-not-valid-handoff and this pack is not a valid handoff. If the gate does not apply, record the owner-confirmed no-template/no-route rationale and do not claim route-style adequacy.
+
+| Handoff item | Status or pointer | Downstream consequence |
+|---|---|---|
+| Template corpus basis | TODO | 01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis |
+| Quantitative design outputs | TODO | D09/D15/D17/D18 writing design only |
+| Claim-evidence boundary | Template statistics are not claim evidence | D06/D11 remain authoritative |
+| Blocked handoff token | blocked-not-valid-handoff if incomplete | No downstream valid-pack handoff until repaired |
 
 ## Template and Mechanical Validator Notes
 

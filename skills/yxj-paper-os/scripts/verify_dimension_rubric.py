@@ -316,6 +316,49 @@ MECHANICAL_BOUNDARY_PHRASES = [
     "structural",
     "does not judge",
 ]
+QUANTIFICATION_GATE_CORE_PHRASES = [
+    "Template Quantification Gate",
+    "source/similarity rationale",
+    "blocked-not-valid-handoff",
+    "Template statistics guide writing design",
+]
+QUANTIFICATION_GATE_NON_GOAL_PHRASES = [
+    "no semantic scoring",
+    "no extraction tooling",
+    "no yxj-backend integration",
+    "no downstream execution",
+    "no public schema expansion",
+    "no hardcoded journal",
+]
+QUANTIFICATION_GATE_TEMPLATE_HEADINGS = {
+    "00_PROJECT_ROUTE.md": ["Route Template Expectation / Quantification Trigger"],
+    "01_MATERIALS_INVENTORY.md": ["Template Corpus / Quantification Basis"],
+    "02_CLAIM_EVIDENCE_BOUNDARY.md": ["Template Claim-Design Benchmark"],
+    "03_WRITING_STRUCTURE.md": [
+        "Template Language / Rhythm / Surface-Reference Benchmark",
+        "Template Structure Benchmark",
+        "Template Visual-Density Benchmark",
+    ],
+    "04_WRITING_DESIGN_PACK.md": [
+        "Current Design vs Template Comparison",
+        "Quantification Gate Status",
+        "D19 Quantification Handoff",
+    ],
+}
+QUANTIFICATION_GATE_CANONICAL_FIELDS = [
+    "Gate applies",
+    "Trigger basis",
+    "Parseable full-text template count",
+    "Source/similarity rationale present",
+    "Quantitative outputs status",
+    "Blocker propagation",
+    "D19 pack status",
+]
+MIN_THREE_PARSEABLE_RE = re.compile(
+    r"(?:minimum|at\s+least|count\s*>=)\s*(?:3|three)\s+parseable\s+full[-\s]?text\s+templates|"
+    r"count\s*>=\s*3",
+    re.IGNORECASE,
+)
 FORBIDDEN_VALIDATOR_PROMISE_PATTERNS = [
     (re.compile(r"\b(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\s+(?:actual\s+)?venue fit\b", re.IGNORECASE), "venue fit"),
     (re.compile(r"\b(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\s+novelty\b", re.IGNORECASE), "novelty"),
@@ -707,6 +750,92 @@ def require_phrase_groups(label: str, text: str, groups: list[tuple[str, list[st
             errors.append(f"{label}: missing required phrase group: {group_label} ({' | '.join(alternatives)})")
 
 
+def validate_quantification_gate_contract(
+    skill_text: str,
+    rubric_text: str,
+    playbook_texts: dict[str, str],
+    template_texts: dict[str, str],
+    validator_text: str,
+    errors: list[str],
+) -> None:
+    primary_surfaces = {
+        "SKILL.md": skill_text,
+        "00-dimension-rubric.md": rubric_text,
+    }
+    for label, text in primary_surfaces.items():
+        require_phrases(label, text, QUANTIFICATION_GATE_CORE_PHRASES, errors)
+        if not MIN_THREE_PARSEABLE_RE.search(text):
+            errors.append(f"{label}: missing minimum 3 parseable full-text templates requirement")
+        require_phrases(f"{label} quantification non-goals", text, QUANTIFICATION_GATE_NON_GOAL_PHRASES, errors)
+
+    for name, text in playbook_texts.items():
+        require_phrases(
+            name,
+            text,
+            ["Template Quantification Gate", "source/similarity rationale"],
+            errors,
+        )
+        if name in {"01-materials-inventory.md", "03-writing-structure.md", "04-design-pack-compiler.md"}:
+            if not MIN_THREE_PARSEABLE_RE.search(text):
+                errors.append(f"{name}: missing minimum 3 parseable full-text templates requirement")
+        if name == "04-design-pack-compiler.md":
+            require_phrases(
+                name,
+                text,
+                [
+                    "D19 valid handoff is hard-blocked",
+                    "blocked-not-valid-handoff",
+                    "no semantic scoring",
+                    "no extraction tooling",
+                    "no yxj-backend integration",
+                    "no downstream execution",
+                    "no public schema expansion",
+                    "no hardcoded journal thresholds",
+                ],
+                errors,
+            )
+
+    for template_name, headings in QUANTIFICATION_GATE_TEMPLATE_HEADINGS.items():
+        text = template_texts.get(template_name, "")
+        if not text:
+            errors.append(f"{template_name}: missing template text for quantification gate checks")
+            continue
+        for heading in headings:
+            if f"## {heading}" not in text:
+                errors.append(f"{template_name}: missing quantification gate heading ## {heading}")
+        if template_name in {"00_PROJECT_ROUTE.md", "01_MATERIALS_INVENTORY.md", "04_WRITING_DESIGN_PACK.md"}:
+            require_phrases(
+                template_name,
+                text,
+                ["Template Quantification Gate", "source/similarity rationale", "blocked-not-valid-handoff"],
+                errors,
+            )
+        if template_name == "04_WRITING_DESIGN_PACK.md":
+            for field in QUANTIFICATION_GATE_CANONICAL_FIELDS:
+                if f"| {field} |" not in text:
+                    errors.append(f"{template_name}: missing canonical Quantification Gate Status field {field!r}")
+
+    require_phrases(
+        "verify_design_pack.py quantification gate",
+        validator_text,
+        [
+            "QUANTIFICATION_GATE_FIELDS",
+            "Template Quantification Gate",
+            "blocked-not-valid-handoff",
+            "no semantic scoring",
+            "no extraction tooling",
+            "no yxj-backend integration",
+            "no downstream execution",
+            "no public schema expansion",
+            "no hardcoded journal thresholds",
+        ],
+        errors,
+    )
+    validator_fields = python_literal_assignment(validator_text, "QUANTIFICATION_GATE_FIELDS")
+    if validator_fields != QUANTIFICATION_GATE_CANONICAL_FIELDS:
+        errors.append(f"verify_design_pack.py canonical Quantification Gate fields changed unexpectedly: {validator_fields!r}")
+
+
 def has_unnegated_match(text: str, positive_pattern: re.Pattern[str], negated_pattern: re.Pattern[str]) -> bool:
     masked = list(text)
     for match in negated_pattern.finditer(text):
@@ -803,6 +932,10 @@ def validate_mechanical_boundary(label: str, text: str, errors: list[str], *, sc
 
 def main() -> int:
     errors: list[str] = []
+    skill_text = ""
+    validator_text = ""
+    playbook_texts: dict[str, str] = {}
+    template_texts: dict[str, str] = {}
 
     if not RUBRIC.is_file():
         errors.append(f"missing rubric: {RUBRIC}")
@@ -874,6 +1007,7 @@ def main() -> int:
             errors.append(f"missing task playbook: {playbook}")
             continue
         text = playbook.read_text(encoding="utf-8")
+        playbook_texts[playbook.name] = text
         if "00-dimension-rubric.md" not in text:
             errors.append(f"{playbook.name}: missing rubric reference")
         validate_playbook_translator_guidance(playbook, text, errors)
@@ -895,6 +1029,8 @@ def main() -> int:
     actual_templates = {path.name for path in TEMPLATES.glob("*.md")}
     if actual_templates != EXPECTED_TEMPLATES:
         errors.append(f"template surface changed; expected {sorted(EXPECTED_TEMPLATES)}, found {sorted(actual_templates)}")
+    for template in TEMPLATES.glob("*.md"):
+        template_texts[template.name] = template.read_text(encoding="utf-8")
 
     if INDEX_TEMPLATE.is_file():
         index_text = INDEX_TEMPLATE.read_text(encoding="utf-8")
@@ -954,6 +1090,15 @@ def main() -> int:
             errors.append("validator appears to claim semantic adequacy")
     else:
         errors.append(f"missing validator: {VALIDATOR}")
+
+    validate_quantification_gate_contract(
+        skill_text,
+        rubric_text,
+        playbook_texts,
+        template_texts,
+        validator_text,
+        errors,
+    )
 
     self_text = Path(__file__).read_text(encoding="utf-8")
     validate_mechanical_boundary("verify_dimension_rubric.py", self_text, errors, scan_promises=False)

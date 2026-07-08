@@ -58,6 +58,14 @@ TODO
 | Gap hypothesis | TODO | Candidate only; not a novelty judgement |
 | Unresolved source needs | TODO | TODO |
 
+## Template Corpus / Quantification Basis
+
+> Template Quantification Gate material record: record the template corpus used for writing-design quantification, including source/similarity rationale. A citation-only, abstract-only, metadata-only, missing, or unparseable record does not count toward the minimum 3 parseable full-text templates. Template statistics guide D09/D15/D17/D18 writing design; they are not D06 claim evidence unless separately promoted through claim-evidence rules.
+
+| Template id | Source / locator | Full text parseable? | Route/type similarity rationale | Quantitative writing-design outputs / blocker |
+|---|---|---|---|---|
+| TODO | TODO | yes / no / citation-only / unparseable | TODO | language rhythm, section distribution, surface references, figure/table density, or blocked-not-valid-handoff |
+
 ## Citation Function and Related-Work Materials
 
 > Citation-function planning records supplied or candidate roles only. It does not search, establish source truth, invent sources, or turn sources into evidence without D06/D11.

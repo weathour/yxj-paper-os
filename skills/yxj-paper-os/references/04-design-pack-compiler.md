@@ -52,6 +52,12 @@ Use these additions to compile planning signals from existing sections into the 
 - **Downstream route matrix:** list recommended downstream route category, required input sections, owner-gated facts still needed, forbidden actions, and whether the route is ready, deferred, absent, or rejected. Recommendations are handoff notes only.
 - **Templates / validator handoff:** state which template/design-pack sections should receive each packet and which validation expectations are mechanical only, such as section presence, non-placeholder pointers, and stale/route consistency.
 
+## Template Quantification Gate compile rule
+
+D19 valid handoff is hard-blocked by the Template Quantification Gate. The canonical `04_WRITING_DESIGN_PACK.md#Quantification Gate Status` table must be mechanically consistent: Gate applies yes requires count >= 3, Source/similarity rationale present yes (source/similarity rationale), Quantitative outputs status present, Blocker propagation clear, and D19 pack status valid. If any required field fails, D19 pack status must be blocked and the handoff must carry blocked-not-valid-handoff.
+
+Gate no/not_applicable requires a non-empty trigger/no-template rationale and must not claim route-style adequacy. This compiler does no semantic scoring, no extraction tooling, no yxj-backend integration, no downstream execution, no public schema expansion, and no hardcoded journal thresholds.
+
 ## Inputs
 
 Read these files first:

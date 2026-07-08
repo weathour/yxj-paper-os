@@ -37,6 +37,24 @@ Use exactly these six project files:
 
 `00_DIMENSION_INDEX.md` is required and public. It is a status/pointer checklist for the 20 required dimensions, not a sixth content silo. The five other files hold the actual project information.
 
+## Template Quantification Gate
+
+Template Quantification Gate is a global hard-block for target-route writing design. When D04 records a target route, article type, owner-provided templates, or any template expectation, the agent must proactively ask the owner for template materials before compiling a valid D19 handoff.
+
+Minimum standard when the gate applies:
+
+1. record at least 3 parseable full-text templates in `01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis`;
+2. record source/similarity rationale explaining why those templates match the route/article type;
+3. populate quantitative writing-design outputs for language rhythm/distribution, surface-reference pattern, section/function distribution, claim-design comparison, and figure/table density;
+4. carry any missing/incomplete quantification blocker through D02, D09, D15, D17, D18, and D19;
+5. mark D19 as `blocked-not-valid-handoff` instead of valid whenever the gate applies and any required field is missing.
+
+If fewer than 3 parseable full-text templates are available, or the owner supplies only citation-only/unparseable records, ask a focused material card for the missing full texts/links. Do not invent template statistics to pass the gate. If the owner explicitly confirms no target route/template expectation, record the no-template rationale and do not claim route-style adequacy.
+
+Template statistics guide writing design only. They may shape D09 style constraints, D15 section jobs, D17 surface controls, and D18 visual/table planning, but they are not D06 claim evidence and cannot strengthen D11 support unless separately promoted through the claim-evidence rules.
+
+Non-goals in this phase: no semantic scoring, no extraction tooling, no yxj-backend integration, no downstream execution, no public schema expansion beyond the six Markdown files and D00-D19, and no hardcoded journal/Part C numeric thresholds.
+
 ## Dashboard submode
 
 Keep `yxj-paper-os` as one public skill. Do not create a separate public dashboard skill.
@@ -128,8 +146,8 @@ Completion contract:
 2. `00_DIMENSION_INDEX.md` has D00-D19 exactly once, valid statuses, non-placeholder reasons, pointers/handoffs, and `Blocks design pack?` values.
 3. All D00-D19 dimensions are handled as `filled`, `not_applicable`, `absent`, `deferred`, or `rejected` with rationale.
 4. Critical-standard dimensions `D04,D05,D06,D10,D11,D12,D13,D14,D15,D16,D17,D18` have reached internal `standard`; non-critical dimensions have at least minimum handling.
-5. No hard blocker remains for dimension index, project route, core materials, core contribution, claim/evidence boundary, writing structure, or external route.
-6. `04_WRITING_DESIGN_PACK.md` is compiled from current upstream files and includes D19 sections, six-track coverage, downstream route matrix, stale gate, validation notes, and final handoff card.
+5. No hard blocker remains for dimension index, project route, Template Quantification Gate, core materials, core contribution, claim/evidence boundary, writing structure, or external route.
+6. `04_WRITING_DESIGN_PACK.md` is compiled from current upstream files and includes D19 sections, six-track coverage, downstream route matrix, stale gate, `Quantification Gate Status`, D19 Quantification Handoff, validation notes, and final handoff card.
 7. No unresolved `TODO`, `TBD`, `REPLACE_ME`, `UNKNOWN`, or `[...]` placeholder remains in final workspace content.
 8. `python3 skills/yxj-paper-os/scripts/verify_design_pack.py <paper_project>` passes.
 
@@ -260,6 +278,7 @@ Block design-pack compilation and ask for missing information when any category 
 | `core-contribution` | problem, object, method/system/model, one-sentence contribution |
 | `claim-evidence` | every core claim has evidence anchor, support strength, and forbidden wording boundary |
 | `writing-structure` | reader spine, section jobs, figure storyline sufficient for downstream drafting |
+| `template-quantification` | if D04 route/template expectation exists, minimum 3 parseable full-text templates, source/similarity rationale, quantitative writing-design outputs, and D19 blocker propagation |
 | `external-route` | downstream writing route/skill category and handoff constraints |
 
 A final `04_WRITING_DESIGN_PACK.md` with unresolved `TODO`, `TBD`, `REPLACE_ME`, or `UNKNOWN` is invalid.

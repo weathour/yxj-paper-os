@@ -46,6 +46,12 @@ Use these additions as planning-only route prompts. They seed downstream section
 - **Downstream route matrix seed:** record candidate downstream writing/figure/citation/review routes as recommendations and constraints for D19. Do not execute those routes or imply the route is final before owner confirmation.
 - **Boundary invariant:** owner-gated route decisions, forbidden routes, and front-matter promises require owner confirmation before `filled` handling; agent-inferred audience or format implications remain candidates until confirmed or explicitly deferred.
 
+## Template Quantification Gate route trigger
+
+Record `Route Template Expectation / Quantification Trigger` in `00_PROJECT_ROUTE.md` whenever D04 has a target route, article type, owner template material, or explicit no-template decision. Ask proactively for parseable full-text templates when the trigger is yes: minimum 3 parseable full-text templates plus source/similarity rationale are required before D19 can be valid. If the owner confirms no route/template expectation, write the no-template rationale and do not claim route-style adequacy.
+
+Template quantification is mechanical writing-design guidance only; it is not venue-fit, prose-quality, style-similarity, or claim-evidence scoring.
+
 ## Required fields
 
 - Project brief: project/paper slug, topic, domain positioning, working thesis.

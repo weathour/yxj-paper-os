@@ -88,6 +88,24 @@ Tier internal-only rule: `minimum`, `standard`, and `ideal` remain rubric judgme
 - Downstream route matrix fields belong to D19 but must preserve D01 owner decisions, D02 stale state, D07/D08 source boundaries, and D18 visual boundaries.
 - Templates / validators fields are structure checks for existing files only; they are not paper-quality judgments and do not alter the D00-D19 identity set.
 
+## Template Quantification Gate
+
+Template Quantification Gate is a standard design-pack gate, not decoration. When D04 records a target route, article type, owner-provided templates, or template expectation, D19 valid handoff requires at least 3 parseable full-text templates, source/similarity rationale, and quantitative writing-design outputs. Citation-only, abstract-only, metadata-only, missing, or unparseable records do not count. If the owner cannot supply enough parseable full text, the agent must ask for the missing materials and keep D19 as blocked-not-valid-handoff.
+
+The gate is mechanical and structural: it checks recorded applicability, parseable-template count, source/similarity rationale presence, output-status presence, and blocker propagation. Its explicit non-goals are no semantic scoring, no extraction tooling, no yxj-backend integration, no downstream execution, no public schema expansion, and no hardcoded journal thresholds. It must not judge venue fit, prose quality, style similarity, visual correctness, source authority, citation truth, novelty, or manuscript readiness.
+
+Template statistics guide writing design only. They can inform D09 exemplar language profile, D15 manuscript outline, D17 surface control, D18 visual plan, and D19 current-design comparison; they are not D06 claim evidence and cannot strengthen D11 claims without separately promoted evidence anchors.
+
+Gate-specific landing expectations:
+
+- D04 records `Route Template Expectation / Quantification Trigger`, including yes/no/not_applicable status, trigger basis, owner material need, and no-template rationale when applicable.
+- D05 records `Template Corpus / Quantification Basis`, with minimum 3 parseable full-text templates plus source/similarity rationale when the gate applies.
+- D06-D13 preserve the claim-evidence boundary: template stats may shape claim-design placement and wording, but they do not become evidence anchors or support strength.
+- D15 records section/function distribution implications from the template corpus when available, or carries quantification incomplete as a blocker.
+- D17 records surface-control implications from quantified language rhythm, surface-reference patterns, and route-safe wording controls.
+- D18 records figure/table density and visual-reference implications while preserving the planned-visuals-are-not-evidence boundary.
+- D19 records the canonical `Quantification Gate Status` table and D19 Quantification Handoff; valid is allowed only when the gate passes, otherwise blocked-not-valid-handoff.
+
 ## Required entry fields
 
 Every D00-D19 entry below preserves these rubric fields where applicable: ID, Name, Dimension type, Purpose, Primary home / write target, Owner/source of truth, Minimum sufficiency, Standard sufficiency, Ideal sufficiency, Agent may propose?, Owner confirmation required?, Ask prompts, Candidate options pattern, Status examples, Stop / defer / reject rule, Common failure modes, Downstream handoff note.
@@ -268,6 +286,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D01 owner decisions; D03 brief; D14 reader path; D15 outline/section jobs; D18 visual format/storyline; D19 submission blueprint.
 - **Non-goals:** Do not infer owner-confirmed venue from exemplars, source notes, or dossier notes; do not claim fit, novelty, or readiness.
 - **User-burden tier:** Default for ordinary projects; deep for high-stakes venue targeting or strict formatting/reporting routes.
+- **Template Quantification Gate note:** D04 must record the route/template trigger basis; a target route, article type, or owner template expectation makes template quantification applicable unless an owner-confirmed no-template rationale is recorded.
 - **Agent may propose?:** Yes, to propose route options.
 - **Owner confirmation required?:** Yes before marking standard/filled.
 - **Ask prompts:**
@@ -301,6 +320,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** Known materials or explicit absences are listed by category.
 - **Standard sufficiency:** Core results/figures/data/code/baselines/metrics are locatable or explicitly absent/deferred with consequence; planned-but-not-run work is separated from completed evidence.
 - **Ideal sufficiency:** Includes quality notes, provenance, and which claims each material can support.
+- **Template Quantification Gate note:** D05 owns the template corpus material intake; when applicable it must record minimum 3 parseable full-text templates plus source/similarity rationale, and citation-only/unparseable records do not count.
 - **Agent may propose?:** Only to classify supplied materials.
 - **Owner confirmation required?:** Yes for material existence and interpretation.
 - **Ask prompts:**
@@ -334,6 +354,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** At least one anchor table exists or evidence absence is explicit.
 - **Standard sufficiency:** Each active core claim has an evidence anchor with type, location, supported claim/dimension, support status, and owner-confirmed support relation; missing anchors force claim defer/reject/downgrade.
 - **Ideal sufficiency:** Includes evidence strength notes and cross-links to figures/tables/results.
+- **Template Quantification Gate note:** D06 evidence anchors remain separate from template statistics; template statistics guide writing design and are not claim evidence unless separately promoted through D06/D11 rules.
 - **Agent may propose?:** Only to name/normalize anchors from supplied material.
 - **Owner confirmation required?:** Yes for evidence existence and support relation.
 - **Ask prompts:**
@@ -373,6 +394,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D06 evidence inventory; D08 research dossier; D11 claim-evidence map; D12 wording boundary; D19 source/citation boundary.
 - **Non-goals:** D07 does not itself support claims; source-to-claim support routes through D06 evidence anchors and D11 claim mapping.
 - **User-burden tier:** Light if no sources supplied; default when sources are supplied; deep for citation-heavy or reuse-sensitive projects.
+- **Template Quantification Gate note:** D07 may record template sources or citation metadata, but citation-only source records do not satisfy the parseable full-text template count.
 - **Agent may propose?:** No, except to organize supplied sources.
 - **Owner confirmation required?:** Yes for source existence and citation choices.
 - **Ask prompts:**
@@ -412,6 +434,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D07 sources; D10 contribution options; D11 claims; D13 limitations; D14 reader path; D19 semantic-risk note.
 - **Non-goals:** Do not turn dossier notes into manuscript prose, citation truth, novelty judgment, or claim support without D06/D11 anchors.
 - **User-burden tier:** Light if absent with risk note; default for known related-work context; deep for review/synthesis-heavy projects.
+- **Template Quantification Gate note:** D08 may record research/context reasons for template choice, but source/similarity rationale is a writing-design basis and not novelty or claim support.
 - **Agent may propose?:** Only to organize supplied notes.
 - **Owner confirmation required?:** Yes for claims about sources or research gaps.
 - **Ask prompts:**
@@ -451,6 +474,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D04 venue tone; D07 if an exemplar is cited as a source; D12 wording boundary; D17 surface control; D19 handoff constraints.
 - **Non-goals:** Exemplar style must not raise claim strength, create citations, or become source evidence unless separately handled in D07 and anchored through D06/D11 when claim-bearing.
 - **User-burden tier:** Light when absent; default when one style target exists; deep for journal/style-sensitive drafting.
+- **Template Quantification Gate note:** D09 should carry quantified language rhythm, distribution, hedge/tense, and surface-reference design outputs when the gate applies; incomplete quantification blocks D19 valid handoff.
 - **Agent may propose?:** Yes, for generic route-consistent language constraints.
 - **Owner confirmation required?:** Yes for naming specific exemplar papers or style sources.
 - **Ask prompts:**
@@ -484,6 +508,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** At least one candidate contribution option exists or is explicitly deferred.
 - **Standard sufficiency:** Selected/rejected/deferred contribution options are owner-confirmed, tied to evidence/material dependency, and distinguish problem, object, method/system/model, and one-sentence contribution.
 - **Ideal sufficiency:** Includes tradeoffs between method/system/benchmark/application framings.
+- **Template Quantification Gate note:** D10 contribution options may be placed or emphasized using template claim-design benchmarks, but template patterns do not create contribution evidence.
 - **Agent may propose?:** Yes, as candidate options.
 - **Owner confirmation required?:** Yes before standard/filled.
 - **Ask prompts:**
@@ -517,6 +542,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** Claims are listed or explicitly deferred/rejected.
 - **Standard sufficiency:** Every active core claim has owner-confirmed wording, evidence anchor, support strength, status, and allowed/forbidden wording boundary; unsupported claims are deferred or rejected.
 - **Ideal sufficiency:** Includes claim hierarchy and downgrade/reject rationale for weak evidence.
+- **Template Quantification Gate note:** D11 claim-evidence support cannot be strengthened by template statistics; use template claim-design comparison only for placement, emphasis, and wording boundaries.
 - **Agent may propose?:** Yes, as candidate claim phrasing from confirmed material.
 - **Owner confirmation required?:** Yes before standard/filled.
 - **Ask prompts:**
@@ -550,6 +576,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** At least one allowed/forbidden wording boundary exists or is explicitly deferred.
 - **Standard sufficiency:** Allowed wording, forbidden wording, and overclaim boundaries are tied to evidence strength, object granularity, and owner-confirmed core-claim scope.
 - **Ideal sufficiency:** Includes examples of safe phrasing by claim strength.
+- **Template Quantification Gate note:** D12 allowed/forbidden wording may be guided by template language statistics, but the gate does not score prose quality or style similarity.
 - **Agent may propose?:** Yes, to propose conservative wording.
 - **Owner confirmation required?:** Yes for final claim boundaries and forbidden overclaims.
 - **Ask prompts:**
@@ -583,6 +610,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** At least one limitation/risk exists or owner explicitly says none known with rationale.
 - **Standard sufficiency:** Limitations/risks are tied to material gaps, evidence strength, route expectations, rejected claims, and downstream wording constraints.
 - **Ideal sufficiency:** Includes mitigation/handoff notes for each major limitation.
+- **Template Quantification Gate note:** D13 must carry limitations when template quantification is incomplete, insufficient, citation-only, or not applicable by owner-confirmed route rationale.
 - **Agent may propose?:** Yes, to infer candidate risks from missing materials/evidence.
 - **Owner confirmation required?:** Yes for final material risk interpretation.
 - **Ask prompts:**
@@ -661,6 +689,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D04 paper type; D11 claims/evidence; D13 limitations; D14 reader spine; D18 visuals; D19 blueprint.
 - **Non-goals:** Do not draft manuscript prose, optimize rhetoric semantically, or let an outline create unsupported claims.
 - **User-burden tier:** Default; deep for complex or multi-claim papers.
+- **Template Quantification Gate note:** D15 should reflect template section/function distribution and paragraph/job implications when the gate applies; missing outputs propagate as blocked-not-valid-handoff.
 - **Agent may propose?:** Yes.
 - **Owner confirmation required?:** Owner confirmation needed if outline chooses among materially different paper types.
 - **Ask prompts:**
@@ -727,6 +756,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Minimum sufficiency:** Tone/term controls or explicit deferral exist.
 - **Standard sufficiency:** Surface controls map to route, evidence strength, forbidden wording, object granularity, tone, terminology, and primary/claim-side consistency.
 - **Ideal sufficiency:** Includes reusable safe phrases, banned phrases, and tone examples.
+- **Template Quantification Gate note:** D17 should reflect quantified surface controls such as terminology density, hedge strength, and surface-reference rhythm without treating them as semantic scoring.
 - **Agent may propose?:** Yes, to propose conservative controls.
 - **Owner confirmation required?:** Yes for final forbidden overclaim and domain-sensitive terms.
 - **Ask prompts:**
@@ -766,6 +796,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D05 materials; D06 evidence; D11 claims; D14 reader path; D15 section jobs; D19 visual handoff.
 - **Non-goals:** Needed/deferred visuals cannot support active claims; D18 is not generated figure evidence and does not prove visual quality.
 - **User-burden tier:** Light for no-visual rationale; default for figure/table papers; deep for visual-heavy submissions.
+- **Template Quantification Gate note:** D18 should reflect figure/table density and visual-reference placement from parseable templates while preserving that planned visuals are not evidence.
 - **Agent may propose?:** Yes, from confirmed materials and claims.
 - **Owner confirmation required?:** Yes if inventing/adding a new figure changes scope or evidence claims.
 - **Ask prompts:**
@@ -805,6 +836,7 @@ Every D00-D19 entry also carries exactly one internal question-depth ladder labe
 - **Cross-dimension dependencies:** D00 identity; D02 stale status; D04 route; D07/D08 boundaries; D11/D12 claims/wording; D14/D15/D18 structure.
 - **Non-goals:** D19 is not manuscript prose, not external skill execution, not citation/figure production, and not a final readiness score.
 - **User-burden tier:** Default for all final handoffs; deep when multiple downstream routes or supplement/submission constraints exist.
+- **Template Quantification Gate note:** D19 must parse the canonical Quantification Gate Status table; valid requires gate applies yes with count >= 3, source/similarity rationale yes, quantitative outputs present, blocker propagation clear, and D19 pack status valid, or an owner-confirmed no/not_applicable rationale with no route-style adequacy claim. Otherwise emit blocked-not-valid-handoff.
 - **Agent may propose?:** Yes, to compile from confirmed/handled inputs.
 - **Owner confirmation required?:** Owner confirmation needed only for unresolved owner-gated assumptions.
 - **Ask prompts:**

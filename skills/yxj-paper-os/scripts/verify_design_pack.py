@@ -4,6 +4,10 @@
 Checks structural validity for the six-file workspace. It does not judge
 semantic adequacy, search citations, run external skills, or model a runtime
 graph. A pass is a mechanical handoff check, not manuscript readiness.
+
+Template Quantification Gate validation is mechanical only: no semantic scoring,
+no extraction tooling, no yxj-backend integration, no downstream execution,
+no public schema expansion, and no hardcoded journal thresholds.
 """
 
 from __future__ import annotations
@@ -35,6 +39,7 @@ REQUIRED_HEADINGS = {
     "00_PROJECT_ROUTE.md": [
         "Project Brief",
         "Target Route",
+        "Route Template Expectation / Quantification Trigger",
         "Front Matter / Hook Route Constraints",
         "Topic and Positioning",
         "Audience and Reviewer Expectation",
@@ -53,6 +58,7 @@ REQUIRED_HEADINGS = {
         "Evidence Inventory",
         "Source and Citation Bank",
         "Research Dossier",
+        "Template Corpus / Quantification Basis",
         "Citation Function and Related-Work Materials",
         "Method / Reporting / Reproducibility Materials",
         "Results / Visual / Caption / Accessibility Materials",
@@ -65,6 +71,7 @@ REQUIRED_HEADINGS = {
         "Object Granularity",
         "Claim-Evidence Map",
         "Claim Support Boundary Reminder",
+        "Template Claim-Design Benchmark",
         "Writing-Surface Claim Boundary Matrix",
         "Front-Matter and Caption Wording Constraints",
         "Allowed Wording",
@@ -74,15 +81,18 @@ REQUIRED_HEADINGS = {
     ],
     "03_WRITING_STRUCTURE.md": [
         "Exemplar Language Profile",
+        "Template Language / Rhythm / Surface-Reference Benchmark",
         "Front-Matter / Hook Planning Brief",
         "Reader Spine",
         "Introduction / Related-Work Move Sequence",
         "Manuscript Outline",
+        "Template Structure Benchmark",
         "Section Jobs",
         "Method / Reporting / Reproducibility Job Plan",
         "Object Granularity",
         "Surface Control",
         "Figure / Table Storyline",
+        "Template Visual-Density Benchmark",
         "Visual Plan",
         "Results Narrative / Caption / Accessibility Plan",
         "Paragraph / Function Map",
@@ -113,6 +123,9 @@ REQUIRED_HEADINGS = {
         "D02 Stale Gate",
         "Downstream Route Matrix",
         "External Skill Handoff",
+        "Current Design vs Template Comparison",
+        "Quantification Gate Status",
+        "D19 Quantification Handoff",
         "Template and Mechanical Validator Notes",
         "Validation Notes",
     ],
@@ -231,7 +244,10 @@ SIX_TRACK_EXPECTED_INPUTS = {
     ],
     "templates_validators": [
         f"{DIMENSION_INDEX}#Dimension Status Index",
+        "00_PROJECT_ROUTE.md#Route Template Expectation / Quantification Trigger",
+        "01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis",
         f"{FINAL_PACK}#Template and Mechanical Validator Notes",
+        f"{FINAL_PACK}#Quantification Gate Status",
         f"{FINAL_PACK}#Validation Notes",
     ],
 }
@@ -287,6 +303,77 @@ DOWNSTREAM_ROUTE_CATEGORIES = {
     "review",
     "defer",
 }
+QUANTIFICATION_GATE_HEADING = "Quantification Gate Status"
+QUANTIFICATION_HANDOFF_HEADING = "D19 Quantification Handoff"
+ROUTE_TEMPLATE_TRIGGER_HEADING = "Route Template Expectation / Quantification Trigger"
+TEMPLATE_CORPUS_HEADING = "Template Corpus / Quantification Basis"
+QUANTIFICATION_GATE_FIELDS = [
+    "Gate applies",
+    "Trigger basis",
+    "Parseable full-text template count",
+    "Source/similarity rationale present",
+    "Quantitative outputs status",
+    "Blocker propagation",
+    "D19 pack status",
+]
+VALID_GATE_APPLIES = {"yes", "no", "not_applicable"}
+VALID_RATIONALE_PRESENT = {"yes", "no"}
+VALID_QUANT_OUTPUT_STATUS = {"present", "blocked", "not_applicable"}
+VALID_BLOCKER_PROPAGATION = {"clear", "blocked"}
+VALID_D19_PACK_STATUS = {"valid", "blocked"}
+FINAL_HANDOFF_PACK_STATUS_RE = re.compile(
+    r"^\s*(?:[-*]\s*)?(?:\*\*)?Pack status(?:\*\*)?\s*:\s*(?P<status>.+?)\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+QUANTIFICATION_INCOMPLETE_RE = re.compile(
+    r"\b(?:quantification|quantitative|template\s+corpus|template\s+quantification)\b"
+    r"[^.\n|;:]{0,120}\b(?:incomplete|blocked|missing|insufficient|unparseable|citation[-\s]?only|"
+    r"fewer\s+than\s+3|less\s+than\s+3|not\s+available|absent|deferred)\b|"
+    r"\bblocked-not-valid-handoff\b",
+    re.IGNORECASE,
+)
+TEMPLATE_PARSEABILITY_COLUMNS = [
+    "Full text parseable?",
+    "Full text parseable",
+    "Parseable full-text?",
+    "Parseable full-text",
+    "Parseability",
+    "Full-text status",
+    "Full text status",
+    "Template parseability status",
+    "Template status",
+]
+TEMPLATE_PARSEABLE_YES_RE = re.compile(r"\b(?:yes|parseable|parsed|full[-\s]?text)\b", re.IGNORECASE)
+TEMPLATE_PARSEABLE_NO_RE = re.compile(
+    r"\b(?:no|not\b[^|;\n]{0,60}\bparseable|not\b[^|;\n]{0,60}\bparsed|"
+    r"not\b[^|;\n]{0,60}\bfull[-\s]?text|"
+    r"no\b[^|;\n]{0,60}\bfull[-\s]?text|full[-\s]?text\b[^|;\n]{0,60}\b(?:missing|absent|unavailable)|"
+    r"unparseable|citation[-\s]?only|metadata[-\s]?only|abstract[-\s]?only|"
+    r"missing|absent|deferred|needed|unavailable)\b",
+    re.IGNORECASE,
+)
+NO_TEMPLATE_RATIONALE_RE = re.compile(
+    r"\b(?:owner[-\s]?confirmed|explicit|recorded|route)\b[^.\n|;:]{0,120}"
+    r"\b(?:no|without|not[_\s-]?applicable|absent)\b[^.\n|;:]{0,120}\b(?:template|target\s+route|route|expectation)\b|"
+    r"\b(?:no|without|not[_\s-]?applicable|absent)\b[^.\n|;:]{0,120}"
+    r"\b(?:template|target\s+route|route|expectation)\b[^.\n|;:]{0,120}\b(?:owner[-\s]?confirmed|explicit|recorded|route)\b",
+    re.IGNORECASE,
+)
+TARGET_ROUTE_ABSENCE_RE = re.compile(
+    r"\b(?:no|none|absent|deferred|not[_\s-]?applicable|not\s+selected|no\s+target|no\s+route)\b",
+    re.IGNORECASE,
+)
+ROUTE_STYLE_ADEQUACY_RE = re.compile(
+    r"\b(?:route[-\s]?style|venue[-\s]?style|template[-\s]?(?:style|basis|corpus|profile|benchmark))\b"
+    r"[^.\n|;:]{0,100}\b(?:adequate|adequacy|sufficient|matched|matches|similar|fit)\b|"
+    r"\b(?:adequate|adequacy|sufficient|matched|matches|similar|fit)\b[^.\n|;:]{0,100}"
+    r"\b(?:route[-\s]?style|venue[-\s]?style|template[-\s]?(?:style|basis|corpus|profile|benchmark))\b",
+    re.IGNORECASE,
+)
+NEGATED_ROUTE_STYLE_ADEQUACY_RE = re.compile(
+    r"\b(?:no|not|never|without|cannot|can't|does\s+not|do\s+not|must\s+not|not[_\s-]?applicable)\b",
+    re.IGNORECASE,
+)
 FINAL_HANDOFF_REQUIRED_PATTERNS = [
     (re.compile(r"\bfinal\s+yxj[-\s]+paper[-\s]+os\s+handoff\b", re.IGNORECASE), "Final yxj-paper-os handoff"),
     (re.compile(r"\bpack\s+status\s*:", re.IGNORECASE), "Pack status"),
@@ -455,6 +542,69 @@ def parse_optional_table(text: str, heading: str) -> tuple[list[str], list[dict[
     if section is None:
         return [], []
     return parse_markdown_table(section)
+
+
+def parse_field_status_table(text: str, heading: str) -> tuple[list[str], dict[str, str], list[dict[str, str]]]:
+    header, rows = parse_optional_table(text, heading)
+    if not header or not rows:
+        return header, {}, rows
+
+    field_column = next((name for name in header if "field" in normalize_heading(name)), header[0])
+    value_column = next(
+        (
+            name
+            for name in header
+            if any(token in normalize_heading(name) for token in ["value", "status", "mechanical value"])
+        ),
+        header[1] if len(header) > 1 else header[0],
+    )
+    fields: dict[str, str] = {}
+    for row in rows:
+        field_name = first_present(row, [field_column, "Field", "Gate field"])
+        value = first_present(row, [value_column, "Value", "Status", "Mechanical value"])
+        if field_name:
+            fields[normalize_heading(field_name)] = value.strip()
+    return header, fields, rows
+
+
+def parse_int_field(value: str) -> int | None:
+    match = re.search(r"-?\d+", value)
+    if not match:
+        return None
+    return int(match.group(0))
+
+
+def normalized_enum_value(value: str) -> str:
+    return normalize_heading(value).replace(" ", "_").replace("-", "_")
+
+
+def template_parseability_column(header: list[str]) -> str:
+    allowed = {normalize_heading(name) for name in TEMPLATE_PARSEABILITY_COLUMNS}
+    return next((name for name in header if normalize_heading(name) in allowed), "")
+
+
+def template_status_is_parseable(value: str) -> bool:
+    if not value or has_placeholder(value):
+        return False
+    if TEMPLATE_PARSEABLE_NO_RE.search(value):
+        return False
+    return bool(TEMPLATE_PARSEABLE_YES_RE.search(value))
+
+
+def final_handoff_pack_status(text: str) -> tuple[str, str]:
+    validation_notes = section_content(text, "Validation Notes") or ""
+    external_handoff = section_content(text, "External Skill Handoff") or ""
+    search_text = "\n".join([validation_notes, external_handoff])
+    match = FINAL_HANDOFF_PACK_STATUS_RE.search(search_text)
+    if not match:
+        return "", ""
+    raw_status = match.group("status").strip().strip("`").strip()
+    normalized = normalized_enum_value(raw_status)
+    if normalized not in VALID_D19_PACK_STATUS:
+        prefix_match = re.match(r"^(valid|blocked)\b(?!\s*/)", raw_status, re.IGNORECASE)
+        if prefix_match:
+            normalized = normalized_enum_value(prefix_match.group(1))
+    return raw_status, normalized
 
 
 def normalize_table_value(value: str) -> str:
@@ -887,6 +1037,344 @@ def validate_d07_source_boundary(
     )
 
 
+def template_corpus_stats(contents: dict[str, str], errors: list[str]) -> tuple[int, bool]:
+    inventory_text = contents.get("01_MATERIALS_INVENTORY.md", "")
+    section = section_content(inventory_text, TEMPLATE_CORPUS_HEADING)
+    if section is None:
+        errors.append(f"01_MATERIALS_INVENTORY.md: missing ## {TEMPLATE_CORPUS_HEADING}")
+        return 0, False
+
+    header, rows = parse_markdown_table(section)
+    if not header or not rows:
+        errors.append(
+            f"01_MATERIALS_INVENTORY.md: {TEMPLATE_CORPUS_HEADING} must contain a Markdown table "
+            "with template corpus records"
+        )
+        return 0, False
+
+    parseability_column = template_parseability_column(header)
+    if not parseability_column:
+        errors.append(
+            f"01_MATERIALS_INVENTORY.md: {TEMPLATE_CORPUS_HEADING} must include a recognized "
+            "parseability/status column: "
+            + ", ".join(TEMPLATE_PARSEABILITY_COLUMNS)
+        )
+        return 0, False
+
+    parseable_count = 0
+    rationale_ok_count = 0
+    for idx, row in enumerate(rows, start=1):
+        label = f"01_MATERIALS_INVENTORY.md: {TEMPLATE_CORPUS_HEADING} row {idx}"
+        parseability = first_present(row, [parseability_column])
+        source = first_present(
+            row,
+            [
+                "Source / locator",
+                "Source/locator",
+                "Template source / locator",
+                "Source",
+                "Locator",
+            ],
+        )
+        rationale = first_present(
+            row,
+            [
+                "Route/type similarity rationale",
+                "Source/similarity rationale",
+                "Similarity rationale",
+                "Rationale",
+            ],
+        )
+        if not parseability or has_placeholder(parseability):
+            errors.append(f"{label}: parseability/status value is missing or placeholder")
+            continue
+        if not template_status_is_parseable(parseability):
+            continue
+        parseable_count += 1
+        if not source or has_placeholder(source):
+            errors.append(f"{label}: parseable full-text template is missing source/locator")
+        if not rationale or has_placeholder(rationale):
+            errors.append(f"{label}: parseable full-text template is missing source/similarity rationale")
+        else:
+            rationale_ok_count += 1
+
+    return parseable_count, rationale_ok_count >= 3
+
+
+def route_trigger_fields(contents: dict[str, str]) -> dict[str, str]:
+    route_text = contents.get("00_PROJECT_ROUTE.md", "")
+    _header, fields, _rows = parse_field_status_table(route_text, ROUTE_TEMPLATE_TRIGGER_HEADING)
+    return fields
+
+
+def has_target_route_expectation(contents: dict[str, str]) -> bool:
+    route_text = contents.get("00_PROJECT_ROUTE.md", "")
+    target_section = section_content(route_text, "Target Route") or ""
+    header, rows = parse_markdown_table(target_section)
+    values: list[str] = []
+    if header and rows:
+        for row in rows:
+            prompt = first_present(row, ["Route/profile prompt", "Field", "Planning surface"])
+            if re.search(r"\b(?:venue|target\s+route|article|paper\s+type)\b", prompt, re.IGNORECASE):
+                values.append(first_present(row, ["Planning note or explicit defer/absence", "Planning note", "Value"]))
+    if not values:
+        values = [
+            line.split(":", 1)[1].strip()
+            for line in target_section.splitlines()
+            if ":" in line and re.search(r"\b(?:venue|target|paper\s+type|article)\b", line, re.IGNORECASE)
+        ]
+    for value in values:
+        if value and not has_placeholder(value) and not TARGET_ROUTE_ABSENCE_RE.search(value):
+            return True
+    return False
+
+
+def explicit_no_template_rationale(*values: str) -> bool:
+    return any(value and not has_placeholder(value) and NO_TEMPLATE_RATIONALE_RE.search(value) for value in values)
+
+
+def contains_route_style_adequacy_claim(text: str) -> bool:
+    for clause in claim_clauses(text):
+        if ROUTE_STYLE_ADEQUACY_RE.search(clause) and not NEGATED_ROUTE_STYLE_ADEQUACY_RE.search(clause):
+            return True
+    return False
+
+
+def quantification_incomplete_dimensions(
+    contents: dict[str, str],
+    index_rows: dict[str, dict[str, str]],
+) -> list[str]:
+    dim_sections = {
+        "D02": [(FINAL_PACK, "D02 Stale Gate")],
+        "D09": [
+            ("03_WRITING_STRUCTURE.md", "Exemplar Language Profile"),
+            ("03_WRITING_STRUCTURE.md", "Template Language / Rhythm / Surface-Reference Benchmark"),
+        ],
+        "D15": [
+            ("03_WRITING_STRUCTURE.md", "Manuscript Outline"),
+            ("03_WRITING_STRUCTURE.md", "Section Jobs"),
+            ("03_WRITING_STRUCTURE.md", "Template Structure Benchmark"),
+        ],
+        "D17": [
+            ("03_WRITING_STRUCTURE.md", "Surface Control"),
+            ("03_WRITING_STRUCTURE.md", "Template Language / Rhythm / Surface-Reference Benchmark"),
+        ],
+        "D18": [
+            ("03_WRITING_STRUCTURE.md", "Visual Plan"),
+            ("03_WRITING_STRUCTURE.md", "Template Visual-Density Benchmark"),
+        ],
+    }
+    incomplete: list[str] = []
+    for dim_id, section_refs in dim_sections.items():
+        row = index_rows.get(dim_id, {})
+        texts = [
+            first_present(row, ["Reason / owner note"]),
+            first_present(row, ["Pointer or handoff"]),
+        ]
+        for file_name, heading in section_refs:
+            texts.append(section_content(contents.get(file_name, ""), heading) or "")
+        if QUANTIFICATION_INCOMPLETE_RE.search("\n".join(texts)):
+            incomplete.append(dim_id)
+    return incomplete
+
+
+def validate_quantification_gate(
+    contents: dict[str, str],
+    index_rows: dict[str, dict[str, str]],
+    errors: list[str],
+) -> None:
+    final_text = contents.get(FINAL_PACK, "")
+    if not final_text:
+        return
+
+    header, fields, _rows = parse_field_status_table(final_text, QUANTIFICATION_GATE_HEADING)
+    if not header or not fields:
+        errors.append(
+            f"{FINAL_PACK}: {QUANTIFICATION_GATE_HEADING} must contain a canonical Field/Value table"
+        )
+        return
+
+    missing_fields = [field for field in QUANTIFICATION_GATE_FIELDS if normalize_heading(field) not in fields]
+    if missing_fields:
+        errors.append(
+            f"{FINAL_PACK}: {QUANTIFICATION_GATE_HEADING} missing canonical field(s): "
+            + ", ".join(missing_fields)
+        )
+
+    gate_applies_raw = fields.get("gate applies", "")
+    gate_applies = normalized_enum_value(gate_applies_raw)
+    trigger_basis = fields.get("trigger basis", "")
+    count_raw = fields.get("parseable full-text template count", "")
+    rationale_raw = fields.get("source/similarity rationale present", "")
+    rationale_present = normalized_enum_value(rationale_raw)
+    outputs_status = normalized_enum_value(fields.get("quantitative outputs status", ""))
+    blocker_propagation = normalized_enum_value(fields.get("blocker propagation", ""))
+    d19_status = normalized_enum_value(fields.get("d19 pack status", ""))
+    d19_index_status = first_present(index_rows.get("D19", {}), ["Status"]).lower()
+
+    if gate_applies not in VALID_GATE_APPLIES:
+        errors.append(
+            f"{FINAL_PACK}: Gate applies must be one of yes, no, not_applicable; found {gate_applies_raw!r}"
+        )
+    if not trigger_basis or has_placeholder(trigger_basis):
+        errors.append(f"{FINAL_PACK}: Trigger basis is required for the Template Quantification Gate")
+    if rationale_present not in VALID_RATIONALE_PRESENT:
+        errors.append(
+            f"{FINAL_PACK}: Source/similarity rationale present must be yes or no; found {rationale_raw!r}"
+        )
+    if outputs_status not in VALID_QUANT_OUTPUT_STATUS:
+        errors.append(
+            f"{FINAL_PACK}: Quantitative outputs status must be present, blocked, or not_applicable; "
+            f"found {fields.get('quantitative outputs status', '')!r}"
+        )
+    if blocker_propagation not in VALID_BLOCKER_PROPAGATION:
+        errors.append(
+            f"{FINAL_PACK}: Blocker propagation must be clear or blocked; "
+            f"found {fields.get('blocker propagation', '')!r}"
+        )
+    if d19_status not in VALID_D19_PACK_STATUS:
+        errors.append(
+            f"{FINAL_PACK}: D19 pack status must be valid or blocked; "
+            f"found {fields.get('d19 pack status', '')!r}"
+        )
+
+    final_status_raw, final_status = final_handoff_pack_status(final_text)
+    if final_status_raw and final_status not in VALID_D19_PACK_STATUS:
+        errors.append(
+            f"{FINAL_PACK}: final handoff Pack status must be valid or blocked; "
+            f"found {final_status_raw!r}"
+        )
+    elif final_status and d19_status in VALID_D19_PACK_STATUS and final_status != d19_status:
+        errors.append(
+            f"{FINAL_PACK}: blocked-not-valid-handoff — final handoff Pack status "
+            f"{final_status_raw!r} conflicts with Quantification Gate Status D19 pack status {d19_status!r}"
+        )
+
+    route_fields = route_trigger_fields(contents)
+    route_gate = normalized_enum_value(
+        first_present(
+            route_fields,
+            [
+                "Template expectation status",
+                "Quantification gate applies",
+                "Gate applies",
+            ],
+        )
+    )
+    route_trigger_basis = first_present(
+        route_fields,
+        [
+            "Trigger basis",
+            "Route/type trigger basis",
+            "Owner rationale",
+        ],
+    )
+    target_route_expected = has_target_route_expectation(contents)
+    if route_gate == "yes" and gate_applies in {"no", "not_applicable"}:
+        errors.append(
+            f"{FINAL_PACK}: D04 route trigger says Template Quantification Gate applies, "
+            "but D19 gate is not yes"
+        )
+    if route_gate in {"no", "not_applicable"} and gate_applies == "yes":
+        errors.append(
+            f"{FINAL_PACK}: D19 gate applies=yes conflicts with D04 no/not_applicable template trigger"
+        )
+
+    count = parse_int_field(count_raw)
+    template_count_errors: list[str] = []
+    parseable_count, corpus_rationale_ok = template_corpus_stats(contents, template_count_errors)
+
+    hidden_incomplete = quantification_incomplete_dimensions(contents, index_rows)
+    if hidden_incomplete and d19_status == "valid":
+        errors.append(
+            f"{FINAL_PACK}: D02/D09/D15/D17/D18 quantification incomplete marker(s) "
+            f"{', '.join(hidden_incomplete)} conflict with D19 pack status valid "
+            "(blocked-not-valid-handoff)"
+        )
+    if hidden_incomplete and blocker_propagation == "clear":
+        errors.append(
+            f"{FINAL_PACK}: Blocker propagation is clear while quantification incomplete marker(s) "
+            f"exist in {', '.join(hidden_incomplete)}"
+        )
+
+    if gate_applies == "yes":
+        gate_failures: list[str] = []
+        errors.extend(template_count_errors)
+        if count is None:
+            gate_failures.append("Parseable full-text template count is missing or not an integer")
+        elif count < 3:
+            gate_failures.append("Parseable full-text template count is less than the minimum 3")
+        if parseable_count < 3:
+            gate_failures.append(
+                "01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis has fewer than 3 parseable full-text templates"
+            )
+        if rationale_present != "yes":
+            gate_failures.append("Source/similarity rationale present is not yes")
+        if not corpus_rationale_ok:
+            gate_failures.append("Template corpus lacks source/similarity rationale for at least 3 parseable records")
+        if outputs_status != "present":
+            gate_failures.append("Quantitative outputs status is not present")
+        if blocker_propagation != "clear":
+            gate_failures.append("Blocker propagation is not clear")
+        if hidden_incomplete:
+            gate_failures.append(f"Quantification incomplete markers remain in {', '.join(hidden_incomplete)}")
+
+        if gate_failures:
+            if d19_status != "blocked":
+                errors.append(
+                    f"{FINAL_PACK}: Template Quantification Gate applies=yes but D19 pack status is not blocked "
+                    "after incomplete quantification fields"
+                )
+            errors.append(
+                f"{FINAL_PACK}: blocked-not-valid-handoff — Template Quantification Gate incomplete: "
+                + "; ".join(gate_failures)
+            )
+        elif d19_status != "valid":
+            errors.append(
+                f"{FINAL_PACK}: Template Quantification Gate passes mechanically, but D19 pack status is not valid "
+                "(blocked-not-valid-handoff)"
+            )
+        if d19_index_status == "filled" and d19_status == "blocked":
+            errors.append(
+                f"{DIMENSION_INDEX}: D19 is filled while Quantification Gate Status says blocked "
+                "(blocked-not-valid-handoff)"
+            )
+
+    elif gate_applies in {"no", "not_applicable"}:
+        if target_route_expected and not explicit_no_template_rationale(trigger_basis, route_trigger_basis):
+            errors.append(
+                f"{FINAL_PACK}: gate {gate_applies_raw!r} requires an explicit owner-confirmed no-template "
+                "or no-route rationale when a target route/article type is present"
+            )
+        gate_no_text = "\n".join(
+            section_content(contents.get(file_name, ""), heading) or ""
+            for file_name, heading in [
+                ("00_PROJECT_ROUTE.md", ROUTE_TEMPLATE_TRIGGER_HEADING),
+                (FINAL_PACK, QUANTIFICATION_GATE_HEADING),
+                (FINAL_PACK, "Current Design vs Template Comparison"),
+                (FINAL_PACK, QUANTIFICATION_HANDOFF_HEADING),
+            ]
+        )
+        if contains_route_style_adequacy_claim(gate_no_text):
+            errors.append(
+                f"{FINAL_PACK}: gate {gate_applies_raw!r} must not claim route-style adequacy "
+                "from unavailable template quantification"
+            )
+        if d19_status == "blocked":
+            errors.append(f"{FINAL_PACK}: blocked-not-valid-handoff — D19 pack status is blocked")
+        elif d19_status == "valid" and blocker_propagation != "clear":
+            errors.append(f"{FINAL_PACK}: non-applicable quantification gate requires clear blocker propagation")
+
+    if d19_status == "blocked":
+        handoff = section_content(final_text, QUANTIFICATION_HANDOFF_HEADING) or ""
+        validation = section_content(final_text, "Validation Notes") or ""
+        if "blocked-not-valid-handoff" not in f"{handoff}\n{validation}":
+            errors.append(
+                f"{FINAL_PACK}: D19 pack status blocked must carry blocked-not-valid-handoff in "
+                f"## {QUANTIFICATION_HANDOFF_HEADING} or ## Validation Notes"
+            )
+
+
 def validate_final_handoff_card(text: str, errors: list[str]) -> None:
     validation_notes = section_content(text, "Validation Notes") or ""
     external_handoff = section_content(text, "External Skill Handoff") or ""
@@ -1277,6 +1765,7 @@ def validate_workspace(workspace: Path) -> list[str]:
         validate_six_track_coverage(contents[FINAL_PACK], contents, errors)
         validate_final_handoff_tables(contents[FINAL_PACK], errors)
         validate_stale_d19_consistency(contents[FINAL_PACK], index_rows, errors)
+        validate_quantification_gate(contents, index_rows, errors)
         validate_downstream_route_matrix(contents[FINAL_PACK], errors)
         if has_placeholder(contents[FINAL_PACK]):
             errors.append(f"{FINAL_PACK}: final handoff contains unresolved placeholder")

@@ -52,6 +52,10 @@ Use these additions to prevent writing-surface planning from becoming unsupporte
 - **Results / visual / caption / table boundaries:** result claims must bind to evidence anchors; captions, tables, panels, legends, and accessibility notes may hand off what to explain but cannot create evidence or stronger claims.
 - **Forbidden overclaim patterns:** record front-matter hype, introduction gap overreach, method/repro claims without artifacts, result/caption causal language, benchmark superiority claims, and visual-certainty language as D12 forbidden wording when evidence does not support them.
 
+## Template Quantification Gate claim-design boundary
+
+Use `Template Claim-Design Benchmark` to compare template-derived design patterns with the current claim plan. The comparison may alter placement, emphasis, surface wording, or figure/table handoff, but it cannot strengthen claims, create evidence anchors, verify source truth, or score semantic adequacy. Template statistics guide writing design, not claim evidence; source/similarity rationale remains a material/design-gate record, not claim support.
+
 ## Required fields
 
 - Problem statement.

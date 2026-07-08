@@ -48,6 +48,12 @@ Use these additions to inventory planning inputs for downstream writing surfaces
 - **Front-matter material hooks:** record owner-supplied graphical hook assets, key result anchors, or visual-hook constraints only as inputs to D18/D19; do not draft title, abstract, keywords, hook copy, or captions.
 - **Absent/deferred consequence language:** every missing source, method artifact, result, visual, caption, table, or accessibility input must state whether downstream writing can continue conservatively, must defer a claim, or must reject the route.
 
+## Template Quantification Gate material intake
+
+Use `Template Corpus / Quantification Basis` to ask for and record the required corpus: at least 3 parseable full-text templates with source/locator and source/similarity rationale when the gate applies. Citation-only, abstract-only, metadata-only, missing, or unparseable records are useful provenance but do not count toward the minimum. If fewer than 3 parseable full texts are available, ask the owner for the missing materials and carry blocked-not-valid-handoff.
+
+Template statistics guide D09/D15/D17/D18 writing design only; they are not D06 evidence anchors and do not verify citation truth, source authority, novelty, or claim support.
+
 ## Required fields
 
 - Experiment/result locations.
