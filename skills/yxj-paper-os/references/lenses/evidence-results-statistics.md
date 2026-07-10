@@ -4,7 +4,7 @@
 Conditional planning lens; activate only when owner materials or scope trigger applies.
 
 ## Theory and distinctions
-Separate planning facts, evidence anchors, claims, and presentation choices; do not infer missing material.
+Separate this project's research-result facts, evidence anchors, claims, uncertainty, and presentation choices; do not infer missing material. This lens does **not** own statistics about a corpus of template papers. Target-journal/target-topic text/figure/table distributions belong to `venue-template` and may guide D09/D15/D17/D18 design only. They cannot substitute for, pool with, or increase the strength of project D06/D11 evidence.
 
 ## Sufficiency predicates
 | Predicate | Required state |
@@ -22,7 +22,7 @@ Route, claim, evidence, wording, and availability decisions remain owner-confirm
 Record linked dimensions and invalidate downstream notes when source material, route, or boundary changes.
 
 ## Failure modes
-Missing inputs, invented evidence, semantic/venue scoring, and external skill execution are failures.
+Missing inputs, invented evidence, semantic/venue scoring, external skill execution, and treating template-corpus frequencies as project scientific results are failures.
 
 ## Workspace projection
 | Field | State | Pointer |

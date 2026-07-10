@@ -1,0 +1,74 @@
+{
+  "schema": "template-annotations/1.0",
+  "annotations": [
+    {
+      "doc_id": "md-rich",
+      "object_id": "md-rich#fig-1",
+      "source_sha256": "ea48da479ef96bc1f2f651859da4892731a6fef46cf882ad65b00cee39856c5c",
+      "origin": "artifact-observed",
+      "resolution": "accepted",
+      "role": {
+        "primary": "architecture",
+        "secondary": [
+          "workflow"
+        ]
+      },
+      "panels": [
+        {
+          "panel_id": "a",
+          "order": 1,
+          "role": "architecture",
+          "encodings": [
+            "diagram"
+          ]
+        },
+        {
+          "panel_id": "b",
+          "order": 2,
+          "role": "main-result",
+          "encodings": [
+            "line",
+            "uncertainty-band"
+          ]
+        }
+      ],
+      "encoding": {
+        "marks": [
+          "diagram",
+          "line"
+        ],
+        "channels": [
+          "x",
+          "y",
+          "color",
+          "line-style"
+        ],
+        "uncertainty": [
+          "band"
+        ],
+        "redundant_encoding": true
+      }
+    },
+    {
+      "doc_id": "md-rich",
+      "object_id": "md-rich#table-1",
+      "origin": "model-derived",
+      "resolution": "candidate",
+      "role": {
+        "primary": "main-result",
+        "secondary": []
+      }
+    },
+    {
+      "doc_id": "md-rich",
+      "object_id": "md-rich#eq-1",
+      "object_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "origin": "artifact-observed",
+      "resolution": "accepted",
+      "role": {
+        "primary": "formulation",
+        "secondary": []
+      }
+    }
+  ]
+}

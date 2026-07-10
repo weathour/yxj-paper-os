@@ -1,0 +1,218 @@
+{
+  "$defs": {
+    "document": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "article_type": {
+          "type": "string"
+        },
+        "derivative_of": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "doc_id": {
+          "minLength": 1,
+          "pattern": "^[^/#\\\\\\u0000]+$",
+          "type": "string"
+        },
+        "extractor": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "markdown",
+            "html",
+            "jats",
+            "txt"
+          ]
+        },
+        "inclusion_exception": {
+          "additionalProperties": false,
+          "description": "Owner-grounded authorization to retain a document that violates a declared inclusion rule. It does not erase the exception or make the document comparable.",
+          "properties": {
+            "decision_pointer": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "origin": {
+              "const": "owner-stated"
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "resolution": {
+              "const": "confirmed"
+            }
+          },
+          "required": [
+            "reason",
+            "origin",
+            "resolution",
+            "decision_pointer"
+          ],
+          "type": "object"
+        },
+        "language": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "partition": {
+          "enum": [
+            "primary_match",
+            "venue_control",
+            "topic_control",
+            "exemplar"
+          ]
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "supplement_of": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "topic_tags": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "venue": {
+          "type": "string"
+        },
+        "year": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "doc_id",
+        "path",
+        "format",
+        "partition"
+      ],
+      "type": "object"
+    },
+    "officialConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_dimensions": {
+          "items": {
+            "pattern": "^D(?:0[0-9]|1[0-9])$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "affected_scopes": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "constraint_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "design_surface": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "locator": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "statement": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "constraint_id",
+        "source_path",
+        "locator",
+        "statement",
+        "design_surface",
+        "affected_dimensions",
+        "affected_scopes"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://yxj-paper-os.local/schema/template-corpus-1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "analysis_mode": {
+      "default": "case_set",
+      "description": "Requested analysis mode and maximum intended conclusion strength for the required design_question. It is not an effective sufficiency, quality, representativeness, or venue-fit gate; emitted metric/profile uncertainty may require a weaker effective conclusion.",
+      "enum": [
+        "case_set",
+        "exploratory",
+        "distributional"
+      ]
+    },
+    "corpus_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "design_metric_ids": {
+      "description": "Required metric-registry IDs that operationalize the design_question. Effective mode and design-profile conclusions are computed only from this declared set; unrelated ready metrics cannot upgrade the answer.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "design_question": {
+      "description": "Required concrete writing-design question that activates the corpus analysis and bounds which metrics and conclusions are relevant.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "documents": {
+      "items": {
+        "$ref": "#/$defs/document"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "official_constraints": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/officialConstraint"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "template-corpus/1.0"
+    },
+    "target": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "corpus_id",
+    "design_question",
+    "design_metric_ids",
+    "documents"
+  ],
+  "title": "YXJ template corpus manifest",
+  "type": "object"
+}

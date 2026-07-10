@@ -54,7 +54,9 @@ Use these additions to prevent writing-surface planning from becoming unsupporte
 
 ## Optional Exemplar Analysis claim-design boundary
 
-Use `Template Claim-Design Benchmark` to compare template-derived design patterns with the current claim plan. The comparison may alter placement, emphasis, surface wording, or figure/table handoff, but it cannot strengthen claims, create evidence anchors, verify source truth, or score semantic adequacy. Template statistics guide writing design, not claim evidence; source/similarity rationale remains a material/design-gate record, not claim support.
+Use `Template Claim-Design Benchmark` only to compare a current `.yxj-paper-os/template-analysis/corpus-summary.json` / `design-profile.json` observation with claim **presentation**. The comparison may alter placement, emphasis, surface wording, or figure/table handoff, but it cannot strengthen claims, create D06 evidence anchors, change D11 support, verify source truth, or score semantic adequacy.
+
+Template-corpus statistics and project-result statistics are different ontological domains. The former describe how supplied papers present text/figures/tables and belong to the `venue-template` lens; the latter describe this project's research results and remain governed by `evidence-results-statistics`, D06, and D11. Never substitute, pool, or cross-promote them. Source/similarity/partition rationale is a material/design record, not scientific claim support.
 
 ## Required fields
 

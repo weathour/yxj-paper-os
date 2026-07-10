@@ -27,13 +27,17 @@
 
 ## Conditional Venue-Template Lens
 
-Activate `references/lenses/venue-template.md` only when an owner supplies a target route or parseable full-text template. Otherwise record `not_applicable`; unrelated scope is not blocked.
+Activate `references/lenses/venue-template.md` only when supplied target-journal/target-topic documents can change a requested writing surface. A known venue alone is not a corpus gate. Missing or unsupported inputs affect only linked scopes.
 
 | Field | State / note | Handoff |
 |---|---|---|
-| Route or article-type template supplied | TODO | TODO |
-| Parseable corpus / owner exception | TODO | TODO |
-| Structural constraints | TODO | TODO |
+| Design question / affected scope | TODO | TODO |
+| `design_metric_ids` / registry version | TODO | Only question-specific registry IDs may determine effective strength |
+| Analysis mode | TODO | `case_set` / `exploratory` / `distributional` |
+| `documents` / `doc_id` / `partition` boundary | TODO | Keep venue, topic, article form/time cohort, control, and exemplar roles distinct |
+| Official constraints | TODO | Only official source may create `hard_constraint` |
+| Current summary / design-profile pointers | TODO | `.yxj-paper-os/template-analysis/corpus-summary.json`; `.yxj-paper-os/template-analysis/design-profile.json` |
+| Design disposition / owner state | TODO | `follow` / `adapt` / `deliberate_divergence` / `not_applicable` |
 
 ## Front Matter / Hook Route Constraints
 

@@ -1,0 +1,469 @@
+{
+  "responses": [
+    {
+      "scenario_id": "B01",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B02",
+      "selected_actions": [
+        "RECORD_OBSERVATION",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B03",
+      "selected_actions": [
+        "ASK_OWNER",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 1,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B04",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B05",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B06",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B07",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B08",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B09",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B10",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B11",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B12",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B13",
+      "selected_actions": [
+        "INSPECT",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B14",
+      "selected_actions": [
+        "RECORD_OBSERVATION",
+        "INVALID_ACTION"
+      ],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [
+        {
+          "record_kind": "metadata",
+          "record_id": "D00",
+          "operation": "revise",
+          "resolution": "confirmed",
+          "grounding": [
+            "00_DIMENSION_INDEX.md#Workspace Metadata"
+          ]
+        }
+      ],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B15",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "DERIVE"
+      ],
+      "target_dimensions": [
+        "D05",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "record_kind": "material",
+          "record_id": "M-TA-CASE",
+          "operation": "create",
+          "analysis_mode": "case_set",
+          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
+          "origin": "artifact-observed",
+          "resolution": "confirmed"
+        }
+      ],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B16",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "DERIVE"
+      ],
+      "target_dimensions": [
+        "D05",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "record_kind": "material",
+          "record_id": "M-TA-EXP",
+          "operation": "create",
+          "analysis_mode": "distributional",
+          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
+          "origin": "model-derived",
+          "resolution": "confirmed"
+        }
+      ],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": [
+        "template_analysis"
+      ]
+    },
+    {
+      "scenario_id": "B17",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "DERIVE",
+        "PROPOSE"
+      ],
+      "target_dimensions": [
+        "D09",
+        "D15",
+        "D18"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "record_kind": "material",
+          "record_id": "M-TA-DIST",
+          "operation": "create",
+          "analysis_mode": "distributional",
+          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
+          "origin": "model-derived",
+          "resolution": "confirmed"
+        },
+        {
+          "record_kind": "design_rule",
+          "record_id": "DR-TA-01",
+          "operation": "create",
+          "target_kind": "hard_constraint",
+          "candidate_action": "adapt",
+          "origin": "model-proposed",
+          "resolution": "candidate",
+          "grounding": [
+            ".yxj-paper-os/template-analysis/design-profile.json"
+          ]
+        }
+      ],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": [
+        "template_analysis"
+      ]
+    },
+    {
+      "scenario_id": "B18",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION"
+      ],
+      "target_dimensions": [
+        "D05",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "record_kind": "material",
+          "record_id": "M-TA-PDF",
+          "operation": "create",
+          "status": "unsupported",
+          "locator": "source.pdf",
+          "origin": "artifact-observed",
+          "resolution": "confirmed"
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-TEMPLATE",
+          "readiness": "blocked",
+          "blocker": "unsupported PDF-only input"
+        },
+        {
+          "scope_id": "SCOPE-METHODS",
+          "readiness": "writer-ready",
+          "operation": "preserve"
+        }
+      ],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": [
+        "pdf_pseudo_parse"
+      ]
+    },
+    {
+      "scenario_id": "B19",
+      "selected_actions": [
+        "RECORD_OBSERVATION",
+        "KEEP_CLAIM_INACTIVE"
+      ],
+      "target_dimensions": [
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "target_scopes": [
+        "SCOPE-CLAIM"
+      ],
+      "updates": [
+        {
+          "record_kind": "claim",
+          "record_id": "C-TEMPLATE-MISUSE",
+          "operation": "revise",
+          "support": "evidence-supported",
+          "resolution": "rejected",
+          "grounding": [
+            "template statistics are writing-design observations only"
+          ]
+        }
+      ],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    },
+    {
+      "scenario_id": "B20",
+      "selected_actions": [
+        "RECORD_OBSERVATION",
+        "RECONCILE",
+        "DEPENDENCY_RECHECK",
+        "COMPILE_SCOPED_HANDOFF"
+      ],
+      "target_dimensions": [
+        "D01",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "record_kind": "decision",
+          "record_id": "DEC-TA-DIVERGE",
+          "operation": "create",
+          "candidate_action": "deliberate_divergence",
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "grounding": [
+            ".yxj-paper-os/template-analysis/design-profile.json",
+            "owner rationale"
+          ]
+        }
+      ],
+      "readiness_updates": [],
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "side_effects": []
+    }
+  ]
+}

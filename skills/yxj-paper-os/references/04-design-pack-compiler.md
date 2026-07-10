@@ -26,7 +26,7 @@ When a DEC/M/C record changes, add one `Dependency Recheck` row with the changed
 
 ## Progressive lens projection
 
-Activate 0..N lens IDs when their activation signals matter to the requested scope. Omit inactive lens and requirement tables rather than creating empty rows. A `venue-template` lens constrains only explicitly linked route/style/front-matter work. Lens theory informs safe derivation and owner questions; it never prescribes an order.
+Activate 0..N lens IDs when their activation signals matter to the requested scope. Omit inactive lens and requirement tables rather than creating empty rows. A `venue-template` lens constrains only explicitly linked route/style/front-matter/structure/visual work. When active, compile only current grounded outputs from `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json`; preserve the design question, registry-backed `design_metric_ids`, requested/effective analysis mode, `documents`/`doc_id`/`partition` boundary, denominator/missingness limitation, canonical rule kind (`hard_constraint`, `soft_band`, `sequence`, `presence`, `watch_only`), and design disposition (`follow`, `adapt`, `deliberate_divergence`, `not_applicable`). Do not copy raw metric dumps. Lens theory informs safe derivation and owner questions; it never prescribes an order.
 
 ## Handoff contents
 
@@ -37,10 +37,11 @@ A scoped handoff may contain:
 - active claims with evidence IDs, warrant, scope, uncertainty, and allowed/forbidden wording;
 - reader and section jobs with input record IDs and drafting boundaries;
 - visual/accessibility responsibilities;
+- when template analysis is relevant, compact summary/profile pointers, selected rule/disposition, and any owner-confirmed `deliberate_divergence` rationale;
 - blockers, stale/candidate content, and next actions;
 - an explicit statement that the pack is structural/scoped planning only.
 
-Do not draft manuscript prose, invent citations/results, execute downstream skills, or claim research/manuscript/submission/publication/semantic readiness.
+Do not draft manuscript prose, invent citations/results, execute downstream skills, or claim research/manuscript/submission/publication/semantic readiness. Template-corpus statistics remain D09/D15/D17/D18 design inputs and never become D06/D11 scientific evidence.
 
 ## Compiler actions
 

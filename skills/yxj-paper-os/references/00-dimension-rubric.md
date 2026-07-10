@@ -73,7 +73,7 @@ Each dimension uses these labels only as qualitative language: `minimum`, `stand
 
 **Current home:** structure file and optional `venue-template` lens.
 
-**Sufficiency:** supplied exemplars may inform surface constraints. Missing exemplars affect only linked route/style scopes; they never globally block Methods or prove venue fit.
+**Sufficiency:** supplied exemplars or a current `venue-template` analysis may inform only linked surface constraints. If statistical analysis is active, preserve its `case_set`/`exploratory`/`distributional` mode, `documents`/`doc_id`/`partition` grounding, `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json` pointers, missingness/limitations, rule type, and any owner-confirmed `deliberate_divergence`. Missing, malformed, stale, or PDF-only inputs affect only the linked template-design scope; they never globally block Methods, prove venue fit, or support D06/D11 scientific claims.
 
 ### D10 — Contribution options
 

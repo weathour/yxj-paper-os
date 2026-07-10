@@ -152,26 +152,31 @@ TODO
 
 TODO
 
-## Current Design vs Template Comparison
+## Template Statistical Design Handoff
 
-> Summarize how the current writing design differs from or follows the optional venue-template observations. This comparison guides D09/D15/D17/D18 writing design only; it is not claim evidence, citation truth, or venue-fit scoring.
+> Carry only current, grounded, scope-relevant projections from `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json`. Preserve mode/partition/denominator/missingness. This guides D09/D15/D17/D18 writing design only; it is not project-result evidence, citation truth, or venue-fit scoring.
 
-| Design surface | Optional venue-template observation | Current design decision | Boundary / blocker |
-|---|---|---|---|
-| Language rhythm / distribution | TODO | TODO | linked-scope blocked if gate applies and output is missing |
-| Section/function distribution | TODO | TODO | D15 design only |
-| Claim-design emphasis | TODO | TODO | D06/D11 still control claim support |
-| Figure/table density and placement | TODO | TODO | D18 plan only |
+| Design surface | Summary/profile pointer + observed rule | Rule kind / disposition | Current design decision or `deliberate_divergence` rationale | Boundary / blocker |
+|---|---|---|---|---|
+| Language rhythm / distribution | TODO | TODO | TODO | D09/D17 design only |
+| Section/function distribution | TODO | TODO | TODO | D15 design only |
+| Claim-presentation emphasis | TODO | TODO | TODO | D06/D11 still control scientific support |
+| Figure/table/equation/algorithm organization | TODO | TODO | TODO | D18 plan only; accepted/candidate/stale annotation coverage remains explicit |
 
 ## Conditional Venue-Template Handoff
 
-When the venue-template lens is active, carry route constraints and corpus state here; otherwise record `not_applicable`. Missing conditional inputs do not block unrelated scope.
+When the `venue-template` lens is active, carry route constraints and current analysis state here; otherwise record `not_applicable`. Missing, malformed, stale, unsupported, or PDF-only inputs do not block unrelated scope.
 
 | Handoff item | Status or pointer | Downstream consequence |
 |---|---|---|
 | Route/template activation | TODO | active or not_applicable |
-| Parseable corpus / owner exception | TODO | deferred if incomplete |
-| Structural constraints | TODO | planning only; no venue-fit claim |
+| Design question / `design_metric_ids` | TODO | Registry-backed selection; unrelated ready metrics cannot upgrade the answer |
+| Analysis mode / `documents` / `doc_id` / `partition` | TODO | `case_set` / `exploratory` / `distributional`; no fixed corpus count |
+| Corpus summary | `.yxj-paper-os/template-analysis/corpus-summary.json` | current/partial/blocked/stale/malformed; compact pointer only |
+| Statistical design profile | `.yxj-paper-os/template-analysis/design-profile.json` | canonical rule kind and disposition only |
+| Official constraints | TODO | only official source creates `hard_constraint` |
+| Deliberate divergence | TODO | owner decision/rationale and affected scope, or `not_applicable` |
+| Scientific-evidence firewall | TODO | template statistics never create D06 anchors or increase D11 support |
 
 ## Template and Mechanical Validator Notes
 
@@ -209,6 +214,7 @@ Final yxj-paper-os handoff
 | Literature differentiation | not_applicable | TODO | TODO |
 | Reproducibility governance | not_applicable | TODO | TODO |
 | Argument, language, and visual | not_applicable | TODO | TODO |
+| Venue-template corpus analysis | not_applicable | TODO | TODO |
 
 ## Scoped Handoff
 

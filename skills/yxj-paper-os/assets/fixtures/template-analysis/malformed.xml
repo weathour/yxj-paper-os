@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+  <body>
+    <sec><title>Malformed JATS</title>
+    <p>This paragraph never closes.
+  </body>
+</article>

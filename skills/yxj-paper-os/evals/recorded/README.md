@@ -1,0 +1,7 @@
+# Recorded behavior captures
+
+`fixture-current/capture-20260710-template-analysis` is the current 20-scenario offline policy fixture. `codex-current/capture-20260710-template-analysis` is a passing capture from a genuinely new, ephemeral, read-only Codex CLI session using `gpt-5.6-sol` and the structured output schema. Both match the current skill, venue-template reference, and scenario hashes.
+
+Their prompts follow `behavior-prompt/1.3`: the model sees the complete current `SKILL.md` and authoritative `references/lenses/venue-template.md`, each with a content hash, plus a neutral response vocabulary/schema. Every scenario is projected to exactly `id`, `situation`, and `context`. Required/prohibited actions, dimensions, scopes, side effects, question gates, update rules, and readiness rules remain verifier-only oracle data and must never appear in the model-visible scenario block. The current scenarios explicitly test case-set, exploratory, and distributional analysis; candidate design-rule provenance; PDF capability boundaries; scope independence; the D06/D11 firewall; and owner-confirmed deliberate divergence.
+
+The earlier `codex-fresh/capture-20260710` and `codex-policy/capture-20260710` directories are archived 14-scenario captures from the pre-template-statistics, pre-oracle-isolation policy. They are retained only for historical comparison and must not be used as current-policy validation inputs.

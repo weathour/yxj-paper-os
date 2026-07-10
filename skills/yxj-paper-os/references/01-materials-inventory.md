@@ -50,9 +50,15 @@ Use these additions to inventory planning inputs for downstream writing surfaces
 
 ## Optional Exemplar Analysis material intake
 
-Use `Optional Venue-Template Observations` to ask for and record the required corpus: at least 3 parseable full-text templates with source/locator and source/similarity rationale when the gate applies. Citation-only, abstract-only, metadata-only, missing, or unparseable records are useful provenance but do not count toward the minimum. If fewer than 3 parseable full texts are available, ask the owner for the missing materials and carry linked-scope blocked.
+When `venue-template` is active, record only the material needed for its concrete writing-design question. Canonical analyzer inputs are `documents` with stable `doc_id`, source locator/hash/capability, and explicit `partition` labels for venue, topic, article form/time cohort, control, or exemplar roles. There is no universal minimum document count:
 
-Template statistics guide D09/D15/D17/D18 writing design only; they are not D06 evidence anchors and do not verify citation truth, source authority, novelty, or claim support.
+- `case_set` records one or more document profiles without corpus-wide language;
+- `exploratory` records available-set descriptions with paper values, denominators, missingness, and selection limitations;
+- `distributional` requires comparable declared partitions and paper-level aggregation, but no fixed numeric gate or population/causal claim.
+
+PDF, scan, abstract-only, metadata-only, missing, malformed, or unsupported records remain useful provenance but cannot be pseudo-parsed or silently counted as full text. An externally extracted derivative requires source/extractor provenance. A blocked template-analysis input affects only the linked scope.
+
+Record current generated pointers compactly: `.yxj-paper-os/template-analysis/corpus-summary.json` and `.yxj-paper-os/template-analysis/design-profile.json`. Do not duplicate every hidden metric in public Markdown. Template statistics guide D09/D15/D17/D18 writing design only; they are not D06 evidence anchors and do not verify citation truth, source authority, novelty, research results, or claim support.
 
 ## Required fields
 

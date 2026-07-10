@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <front>
+    <article-meta><title-group><article-title>Cross-modal JATS fixture</article-title></title-group></article-meta>
+  </front>
+  <body>
+    <sec id="sec-methods">
+      <title>Methods</title>
+      <p>The workflow appears in <xref ref-type="fig" rid="fig-1">Fig. 1</xref>.</p>
+      <fig-group id="fig-group-1">
+        <fig id="fig-1">
+          <label>Figure 1</label>
+          <caption><p>System overview with two processing stages.</p></caption>
+          <graphic xlink:href="figure-1.svg"/>
+        </fig>
+      </fig-group>
+      <p>The objective is defined by <xref ref-type="disp-formula" rid="eq-1">Eq. (1)</xref>.</p>
+      <disp-formula id="eq-1">
+        <label>(1)</label>
+        <alternatives>
+          <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>L</mml:mi><mml:mo>=</mml:mo><mml:mn>1</mml:mn></mml:math>
+          <tex-math><![CDATA[L=1]]></tex-math>
+        </alternatives>
+      </disp-formula>
+      <p><xref ref-type="boxed-text" rid="alg-1">Algorithm 1</xref> applies the update.</p>
+      <boxed-text id="alg-1" content-type="algorithm">
+        <label>Algorithm 1</label>
+        <caption><p>Training procedure.</p></caption>
+        <code code-type="pseudocode">Input: X
+Output: theta
+Initialize theta
+for x in X:
+  update theta
+return theta</code>
+      </boxed-text>
+    </sec>
+    <sec id="sec-results">
+      <title>Results</title>
+      <p>The comparison is reported in <xref ref-type="table" rid="table-1">Table 1</xref>.</p>
+      <table-wrap-group id="table-group-1">
+        <table-wrap id="table-1">
+          <label>Table 1</label>
+          <caption><p>Main comparison.</p></caption>
+          <table>
+            <thead><tr><th>Method</th><th>Score</th><th>Runtime</th></tr></thead>
+            <tbody>
+              <tr><td>Baseline</td><td>0.71</td><td>12.0</td></tr>
+              <tr><td>Proposed</td><td>0.79</td><td>10.5</td></tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </table-wrap-group>
+    </sec>
+  </body>
+  <back>
+    <ref-list><title>References</title><ref id="r1"><mixed-citation>Fig. 99 and Table 99 are noise.</mixed-citation></ref></ref-list>
+  </back>
+</article>

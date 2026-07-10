@@ -60,11 +60,11 @@ TODO
 
 ## Conditional Venue-Template Materials
 
-When `venue-template` is active, list supplied parseable templates and structural constraints; otherwise record `not_applicable`.
+When `venue-template` is active, retain compact source/capability and hidden-artifact pointers; otherwise record `not_applicable`. Do not duplicate the hidden metric corpus here or treat template statistics as D06 evidence.
 
-| Template/material | Parseable? | Constraint or explicit absence | State |
+| Analysis mode / partition | `documents` / `doc_id` capability state | Generated pointer | State / boundary |
 |---|---|---|---|
-| TODO | TODO | TODO | active/not_applicable/deferred/absent/rejected |
+| TODO | TODO | `.yxj-paper-os/template-analysis/corpus-summary.json` or `design-profile.json` | active/not_applicable/deferred/absent/rejected; writing design only |
 
 ## Citation Function and Related-Work Materials
 
@@ -117,6 +117,7 @@ TODO
 | Literature differentiation | TODO | not_applicable | TODO |
 | Evidence, results, and statistics | TODO | not_applicable | TODO |
 | Reproducibility governance | TODO | not_applicable | TODO |
+| Venue-template corpus analysis | TODO | not_applicable | TODO |
 
 ## Material Records
 

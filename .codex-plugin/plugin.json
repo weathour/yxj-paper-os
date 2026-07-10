@@ -1,23 +1,25 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.2.0+codex.yxj20260710",
-  "description": "Model-led sparse paper-planning Codex plugin with composable academic lenses and scoped writing handoffs.",
+  "version": "0.2.0+codex.20260710081136",
+  "description": "Model-led paper planning with reproducible template-corpus statistics, composable academic lenses, and scoped writing handoffs.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Prepare paper projects for downstream writing with a design pack.",
-    "longDescription": "YXJ Paper OS prepares paper-planning workspaces with a cognitive kernel, conditional academic lenses, sparse traceable records, and scoped writing handoffs without drafting manuscripts or executing downstream skills.",
+    "shortDescription": "Design papers from evidence and target-corpus patterns.",
+    "longDescription": "YXJ Paper OS prepares paper-planning workspaces with a cognitive kernel, reproducible target-journal and target-topic corpus statistics, conditional academic lenses, sparse traceable records, and scoped writing handoffs without drafting manuscripts or executing downstream skills.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Paper planning",
+      "Reproducible template-corpus statistics",
+      "Text, structure, citation, figure, table, equation, and algorithm analysis",
       "Composable academic lenses",
       "Epistemic claim/evidence boundaries",
       "Scoped writing handoffs"
     ],
-    "defaultPrompt": "Use yxj-paper-os to prepare my paper project information and compile a writing design pack."
+    "defaultPrompt": "Use yxj-paper-os to analyze my target-journal and target-topic article corpus, prepare the paper project, and compile a scoped writing design pack."
   }
 }

@@ -54,6 +54,7 @@ TODO
 
 - Workspace schema version: 0.2
 - Public template contract: six files; no new status/tier columns.
+- Hidden generated analysis: optional `.yxj-paper-os/template-analysis/`; not a public file or D06/D11 evidence source.
 
 ## Writing Scopes
 

@@ -48,9 +48,9 @@ Use these additions as planning-only route prompts. They seed downstream section
 
 ## Optional Exemplar Analysis route trigger
 
-Record optional venue/template context only when supplied; treat it as a conditional lens for style and format notes, never as a numeric prerequisite.
+Record optional venue/template context only when it can answer a concrete writing-design question. Treat it as the conditional `venue-template` lens, never as a numeric prerequisite. Separate official venue constraints from target-venue, target-topic, article-form/time-cohort, control, and exemplar `partition` labels; one axis cannot stand in for another.
 
-Template observations is mechanical writing-design guidance only; it is not venue-fit, prose-quality, style-similarity, or claim-evidence scoring.
+Bind the concrete design question to non-empty registry-backed `design_metric_ids`, then choose `case_set`, `exploratory`, or `distributional` according to the conclusion those selected metrics actually support; unrelated metrics and raw paper counts cannot upgrade it. Do not ask for documents merely to reach a fixed count. Preserve current hidden pointers to `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json` when generated. Template observations are writing-design guidance only; they are not venue-fit, prose-quality, style-similarity, acceptance, or claim-evidence scoring.
 
 ## Required fields
 

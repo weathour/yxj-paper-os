@@ -6,4 +6,5 @@ node_modules/
 dist/
 build/
 .omx/
+.yxj-paper-os/
 .codegraph/

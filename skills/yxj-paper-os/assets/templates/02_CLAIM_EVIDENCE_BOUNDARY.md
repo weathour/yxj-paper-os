@@ -37,11 +37,11 @@ TODO
 
 ## Template Claim-Design Benchmark
 
-> Compare template-derived design expectations against the current claim plan without treating template statistics as claim evidence. This section may change wording, section placement, emphasis, or figure/table handoff; it must not strengthen D11 support or create source truth.
+> Compare a current template-analysis summary/profile against claim presentation without treating template statistics as project-result statistics or claim evidence. This section may change wording, section placement, emphasis, or figure/table handoff; it must not create a D06 anchor, strengthen D11 support, or establish source truth.
 
-| Claim/design surface | Template-derived design observation | Current claim/design consequence | Evidence boundary |
+| Claim/design surface | Summary/profile pointer and template observation | Current presentation consequence | Scientific-evidence boundary |
 |---|---|---|---|
-| TODO | TODO | TODO | Template statistics guide writing design only; D06/D11 still decide claim support |
+| TODO | TODO | TODO | Template corpus → D09/D15/D17/D18 design only; project D06/D11 still decide scientific support |
 
 ## Writing-Surface Claim Boundary Matrix
 

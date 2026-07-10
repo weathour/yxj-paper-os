@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import hashlib
+import json
 import shutil
 import subprocess
 import sys
@@ -147,6 +148,219 @@ class DashboardContractTests(unittest.TestCase):
             r = self.run_cmd(GEN, ws)
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertIn("Warnings", r.stdout)
+
+    def test_dashboard_reads_canonical_template_analysis_without_writeback(self):
+        with tempfile.TemporaryDirectory() as d:
+            ws = make_workspace(Path(d))
+            analysis = ws / ".yxj-paper-os" / "template-analysis"
+            analysis.mkdir(parents=True)
+            summary = {
+                "schema": "template-corpus-summary/1.0",
+                "analysis_id": "analysis-dashboard-fixture",
+                "corpus_id": "corpus-dashboard-fixture",
+                "analyzer_version": "test-fixture",
+                "document_count": 2,
+                "parsed_document_count": 2,
+                "groups": {
+                    "overall": {
+                        "group_id": "overall",
+                        "document_count": 2,
+                        "parsed_document_count": 2,
+                        "metrics": {
+                            "text.body_words": {
+                                "valid_n": 2,
+                                "missingness": 0,
+                                "median": 5100,
+                                "p25": 4800,
+                                "p75": 5400,
+                            }
+                        },
+                    },
+                    "by_partition": [],
+                    "by_article_type": [],
+                    "by_partition_article_type": [],
+                },
+                "sequences": {"by_document": [], "top_sequences": []},
+                "transitions": {"expected_total": 0, "observed_total": 0},
+                "lead_lag": {"valid_n": 0, "observation_n": 0},
+            }
+            profile = {
+                "schema": "template-design-profile/1.0",
+                "analysis_id": "analysis-dashboard-fixture",
+                "corpus_id": "corpus-dashboard-fixture",
+                "analyzer_version": "test-fixture",
+                "entries": [
+                    {
+                        "design_surface": "manuscript-length",
+                        "target_kind": "watch_only",
+                        "candidate_action": "adapt",
+                        "partition": "overall",
+                        "source_type": "corpus",
+                        "origin": "model-proposed",
+                        "observation": "median 5100 words",
+                        "valid_n": 2,
+                        "missingness": 0,
+                        "uncertainty": {
+                            "analysis_mode": "exploratory",
+                            "sample_size_label": "case_set",
+                            "sample_size_label_is_gate": False,
+                        },
+                        "boundary": "writing design only",
+                        "source_pointer": "corpus-summary.json#groups.overall",
+                    }
+                ],
+            }
+            (analysis / "corpus-summary.json").write_text(
+                json.dumps(summary), encoding="utf-8"
+            )
+            (analysis / "design-profile.json").write_text(
+                json.dumps(profile), encoding="utf-8"
+            )
+            before = {
+                path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in ws.glob("*.md")
+            }
+            r = self.run_cmd(GEN, ws)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            dashboard = (ws / ".yxj-paper-os" / "dashboard.html").read_text()
+            self.assertIn("text.body_words", dashboard)
+            self.assertIn("watch_only", dashboard)
+            self.assertIn("available", dashboard)
+            self.assertEqual(
+                before,
+                {
+                    path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                    for path in ws.glob("*.md")
+                },
+            )
+
+    def test_dashboard_rejects_mixed_analysis_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            ws = make_workspace(Path(directory))
+            analysis = ws / ".yxj-paper-os" / "template-analysis"
+            analysis.mkdir(parents=True)
+            summary = {
+                "schema": "template-corpus-summary/1.0",
+                "analysis_id": "analysis-new",
+                "corpus_id": "corpus-a",
+                "analyzer_version": "1.0.0",
+                "groups": {"overall": {"metrics": {"text.body_words": {"median": 1}}}},
+                "sequences": {},
+                "transitions": {},
+                "lead_lag": {},
+            }
+            profile = {
+                "schema": "template-design-profile/1.0",
+                "analysis_id": "analysis-old",
+                "corpus_id": "corpus-a",
+                "analyzer_version": "1.0.0",
+                "entries": [{"target_kind": "soft_band"}],
+            }
+            (analysis / "corpus-summary.json").write_text(
+                json.dumps(summary), encoding="utf-8"
+            )
+            (analysis / "design-profile.json").write_text(
+                json.dumps(profile), encoding="utf-8"
+            )
+            result = self.run_cmd(GEN, ws)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            dashboard = (ws / ".yxj-paper-os" / "dashboard.html").read_text()
+            self.assertIn("identity mismatch", dashboard)
+            self.assertIn("inconsistent", dashboard)
+            self.assertNotIn("soft_band", dashboard)
+            self.assertNotIn("text.body_words</td>", dashboard)
+
+    def test_dashboard_renders_priority_metrics_for_every_group(self):
+        with tempfile.TemporaryDirectory() as directory:
+            ws = make_workspace(Path(directory))
+            analysis = ws / ".yxj-paper-os" / "template-analysis"
+            analysis.mkdir(parents=True)
+
+            def group(group_id: str) -> dict:
+                metrics = {
+                    f"noise.metric_{index:02d}": {
+                        "valid_n": 3,
+                        "missingness": 0,
+                        "median": index,
+                    }
+                    for index in range(80)
+                }
+                metrics["text.body_words"] = {
+                    "valid_n": 3,
+                    "missingness": 0,
+                    "median": 5000,
+                }
+                metrics["object.figure_count"] = {
+                    "valid_n": 3,
+                    "missingness": 0,
+                    "median": 6,
+                }
+                return {
+                    "group_id": group_id,
+                    "document_count": 3,
+                    "parsed_document_count": 3,
+                    "metrics": metrics,
+                }
+
+            summary = {
+                "schema": "template-corpus-summary/1.0",
+                "analysis_id": "analysis-groups",
+                "corpus_id": "fixture-corpus",
+                "analyzer_version": "1.0.0",
+                "groups": {
+                    "overall": group("overall"),
+                    "by_partition": [group("partition:primary_match")],
+                    "by_article_type": [group("article_type:research-article")],
+                    "by_partition_article_type": [
+                        group("partition:primary_match|article_type:research-article")
+                    ],
+                },
+                "sequences": {},
+                "transitions": {},
+                "lead_lag": {},
+            }
+            profile = {
+                "schema": "template-design-profile/1.0",
+                "analysis_id": "analysis-groups",
+                "corpus_id": "fixture-corpus",
+                "analyzer_version": "1.0.0",
+                "entries": [],
+            }
+            (analysis / "corpus-summary.json").write_text(
+                json.dumps(summary), encoding="utf-8"
+            )
+            (analysis / "design-profile.json").write_text(
+                json.dumps(profile), encoding="utf-8"
+            )
+            result = self.run_cmd(GEN, ws)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            dashboard = (ws / ".yxj-paper-os" / "dashboard.html").read_text()
+            for group_id in (
+                "overall",
+                "partition:primary_match",
+                "article_type:research-article",
+                "partition:primary_match|article_type:research-article",
+            ):
+                self.assertIn(f'data-analysis-group="{group_id}"', dashboard)
+            self.assertEqual(dashboard.count("Priority metrics shown: 10"), 4)
+            self.assertEqual(dashboard.count("additional metrics omitted: 72"), 4)
+            self.assertGreaterEqual(dashboard.count("text.body_words</td>"), 4)
+            self.assertGreaterEqual(dashboard.count("object.figure_count</td>"), 4)
+
+    def test_dashboard_malformed_template_analysis_degrades_safely(self):
+        with tempfile.TemporaryDirectory() as d:
+            ws = make_workspace(Path(d))
+            analysis = ws / ".yxj-paper-os" / "template-analysis"
+            analysis.mkdir(parents=True)
+            (analysis / "corpus-summary.json").write_text(
+                '{"schema":"template-corpus-summary/1.0","groups":{}}',
+                encoding="utf-8",
+            )
+            r = self.run_cmd(GEN, ws)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            dashboard = (ws / ".yxj-paper-os" / "dashboard.html").read_text()
+            self.assertIn("malformed", dashboard)
+            self.assertIn("template-analysis", dashboard)
 
     def test_public_surface_stays_six_templates(self):
         self.assertEqual(

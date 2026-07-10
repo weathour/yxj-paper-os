@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a static yxj-paper-os structural dashboard."""
+"""Generate a static yxj-paper-os structural/template-analysis dashboard."""
 
 from __future__ import annotations
 
@@ -39,6 +39,55 @@ from verify_design_pack import (  # noqa: E402
 CACHE_DIR = ".yxj-paper-os"
 OUTPUT_NAME = "dashboard.html"
 MAX_FRAGMENT_CHARS = 6000
+TEMPLATE_ANALYSIS_DIR = "template-analysis"
+TEMPLATE_ANALYSIS_FILES = {
+    "summary": "corpus-summary.json",
+    "profile": "design-profile.json",
+}
+TEMPLATE_ANALYSIS_SCHEMAS = {
+    "summary": "template-corpus-summary/1.0",
+    "profile": "template-design-profile/1.0",
+}
+TEMPLATE_ANALYSIS_REQUIRED_KEYS = {
+    "template-corpus-summary/1.0": {
+        "analysis_id",
+        "corpus_id",
+        "analyzer_version",
+        "groups",
+        "sequences",
+        "transitions",
+        "lead_lag",
+    },
+    "template-design-profile/1.0": {
+        "analysis_id",
+        "corpus_id",
+        "analyzer_version",
+        "entries",
+    },
+}
+TEMPLATE_ANALYSIS_IDENTITY_KEYS = (
+    "analysis_id",
+    "corpus_id",
+    "analyzer_version",
+)
+MAX_ANALYSIS_BYTES = 8_000_000
+MAX_ANALYSIS_PREVIEW_CHARS = 24_000
+MAX_ANALYSIS_LIST_ITEMS = 80
+MAX_ANALYSIS_DICT_ITEMS = 120
+MAX_ANALYSIS_DEPTH = 7
+MAX_ANALYSIS_METRICS_PER_GROUP = 10
+ANALYSIS_PRIORITY_METRICS = (
+    "text.body_words",
+    "structure.section_count",
+    "structure.paragraph_count",
+    "object.figure_count",
+    "object.table_count",
+    "object.equation_count",
+    "object.algorithm_count",
+    "caption.missing_count",
+    "callout.orphan_object_count",
+    "citation.explicit_rate_per_kword",
+)
 
 STATUS_LABELS = {
     "filled": "已填写",
@@ -96,6 +145,297 @@ def load_workspace(workspace: Path) -> tuple[dict[str, str], list[dict[str, str]
         except OSError as exc:
             warnings.append(warning(file_name, f"cannot read file: {exc}"))
     return contents, warnings
+
+
+def bounded_json_value(value: Any, *, depth: int = 0) -> Any:
+    """Return a JSON-safe bounded copy for embedding in the static dashboard."""
+    if depth >= MAX_ANALYSIS_DEPTH:
+        return "[depth truncated]"
+    if value is None or isinstance(value, (bool, int, float)):
+        return value
+    if isinstance(value, str):
+        if len(value) <= MAX_FRAGMENT_CHARS:
+            return value
+        return value[:MAX_FRAGMENT_CHARS] + " [... truncated ...]"
+    if isinstance(value, list):
+        items = [
+            bounded_json_value(item, depth=depth + 1)
+            for item in value[:MAX_ANALYSIS_LIST_ITEMS]
+        ]
+        if len(value) > MAX_ANALYSIS_LIST_ITEMS:
+            items.append(f"[{len(value) - MAX_ANALYSIS_LIST_ITEMS} items truncated]")
+        return items
+    if isinstance(value, dict):
+        bounded: dict[str, Any] = {}
+        pairs = list(value.items())
+        for key, item in pairs[:MAX_ANALYSIS_DICT_ITEMS]:
+            bounded[str(key)[:256]] = bounded_json_value(item, depth=depth + 1)
+        if len(pairs) > MAX_ANALYSIS_DICT_ITEMS:
+            bounded["__truncated__"] = (
+                f"{len(pairs) - MAX_ANALYSIS_DICT_ITEMS} keys truncated"
+            )
+        return bounded
+    return str(value)[:MAX_FRAGMENT_CHARS]
+
+
+def json_preview(value: Any) -> str:
+    preview = json.dumps(
+        bounded_json_value(value),
+        ensure_ascii=False,
+        sort_keys=True,
+        indent=2,
+    )
+    if len(preview) <= MAX_ANALYSIS_PREVIEW_CHARS:
+        return preview
+    return preview[:MAX_ANALYSIS_PREVIEW_CHARS] + "\n[preview truncated]"
+
+
+def unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    value: dict[str, Any] = {}
+    for key, item in pairs:
+        if key in value:
+            raise ValueError(f"duplicate JSON key {key!r}")
+        value[key] = item
+    return value
+
+
+def reject_nonfinite_json(token: str) -> Any:
+    raise ValueError(f"non-finite JSON token {token}")
+
+
+def load_analysis_json(
+    path: Path,
+    *,
+    analysis_dir: Path,
+    label: str,
+    expected_schema: str,
+    warnings: list[dict[str, str]],
+) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "label": label,
+        "path": str(path),
+        "state": "absent",
+        "schema": "unknown",
+        "identity": {},
+        "data": {},
+        "preview": "",
+    }
+    if not path.exists():
+        return result
+    if path.is_symlink():
+        message = f"refusing to read symlinked template-analysis artifact: {path.name}"
+        warnings.append(warning("template-analysis", message))
+        result.update(state="unsafe", preview=message)
+        return result
+    try:
+        resolved = path.resolve(strict=True)
+        resolved.relative_to(analysis_dir)
+    except (OSError, ValueError) as exc:
+        message = (
+            f"template-analysis artifact escapes its directory: {path.name}: {exc}"
+        )
+        warnings.append(warning("template-analysis", message))
+        result.update(state="unsafe", preview=message)
+        return result
+    if not resolved.is_file():
+        message = f"template-analysis artifact is not a regular file: {path.name}"
+        warnings.append(warning("template-analysis", message))
+        result.update(state="malformed", preview=message)
+        return result
+    try:
+        size = resolved.stat().st_size
+    except OSError as exc:
+        message = f"cannot stat template-analysis artifact {path.name}: {exc}"
+        warnings.append(warning("template-analysis", message))
+        result.update(state="malformed", preview=message)
+        return result
+    if size > MAX_ANALYSIS_BYTES:
+        message = (
+            f"template-analysis artifact {path.name} exceeds "
+            f"{MAX_ANALYSIS_BYTES} bytes; not embedded"
+        )
+        warnings.append(warning("template-analysis", message))
+        result.update(state="oversize", preview=message)
+        return result
+    try:
+        raw = resolved.read_text(encoding="utf-8")
+        parsed = json.loads(
+            raw,
+            object_pairs_hook=unique_json_object,
+            parse_constant=reject_nonfinite_json,
+        )
+    except (
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        ValueError,
+        RecursionError,
+    ) as exc:
+        message = f"cannot read template-analysis artifact {path.name}: {exc}"
+        warnings.append(warning("template-analysis", message))
+        result.update(state="malformed", preview=message)
+        return result
+    if not isinstance(parsed, dict):
+        message = f"template-analysis artifact {path.name} must be a JSON object"
+        warnings.append(warning("template-analysis", message))
+        result.update(state="malformed", preview=message)
+        return result
+    bounded = bounded_json_value(parsed)
+    assert isinstance(bounded, dict)
+    schema = parsed.get("schema", parsed.get("schema_id", "unknown"))
+    if schema != expected_schema:
+        message = (
+            f"template-analysis artifact {path.name} has unsupported schema "
+            f"{schema!r}; expected {expected_schema!r}"
+        )
+        warnings.append(warning("template-analysis", message))
+        result.update(
+            state="malformed",
+            schema=str(schema)[:256],
+            data=bounded,
+            preview=json_preview(parsed),
+        )
+        return result
+    missing_keys = sorted(
+        TEMPLATE_ANALYSIS_REQUIRED_KEYS[expected_schema] - set(parsed)
+    )
+    invalid_identity_keys = [
+        key
+        for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
+        if key in parsed
+        and (not isinstance(parsed[key], str) or not parsed[key].strip())
+    ]
+    entries_invalid = expected_schema == TEMPLATE_ANALYSIS_SCHEMAS[
+        "profile"
+    ] and not isinstance(parsed.get("entries"), list)
+    if missing_keys or invalid_identity_keys or entries_invalid:
+        detail = (
+            "missing keys " + ", ".join(missing_keys)
+            if missing_keys
+            else "invalid identity keys " + ", ".join(invalid_identity_keys)
+            if invalid_identity_keys
+            else "entries must be a list"
+        )
+        message = f"template-analysis artifact {path.name} is malformed: {detail}"
+        warnings.append(warning("template-analysis", message))
+        result.update(
+            state="malformed",
+            schema=str(schema)[:256],
+            data=bounded,
+            preview=json_preview(parsed),
+        )
+        return result
+    result.update(
+        state="available",
+        schema=str(schema)[:256],
+        identity={key: parsed[key] for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS},
+        data=bounded,
+        preview=json_preview(parsed),
+    )
+    return result
+
+
+def build_template_analysis(
+    workspace: Path, warnings: list[dict[str, str]]
+) -> dict[str, Any]:
+    """Read optional analyzer outputs without modifying or trusting them semantically."""
+    root = workspace / CACHE_DIR / TEMPLATE_ANALYSIS_DIR
+    model: dict[str, Any] = {
+        "state": "absent",
+        "directory": str(root),
+        "summary": {
+            "label": "corpus summary",
+            "path": str(root / TEMPLATE_ANALYSIS_FILES["summary"]),
+            "state": "absent",
+            "schema": "unknown",
+            "identity": {},
+            "data": {},
+            "preview": "",
+        },
+        "profile": {
+            "label": "design profile",
+            "path": str(root / TEMPLATE_ANALYSIS_FILES["profile"]),
+            "state": "absent",
+            "schema": "unknown",
+            "identity": {},
+            "data": {},
+            "preview": "",
+        },
+        "note": (
+            "Optional hidden statistics guide writing design only; they are not D06/D11 "
+            "scientific evidence, venue-fit scoring, or acceptance prediction."
+        ),
+    }
+    if not root.exists():
+        return model
+    if root.is_symlink():
+        message = "refusing to read symlinked .yxj-paper-os/template-analysis directory"
+        warnings.append(warning("template-analysis", message))
+        model.update(state="unsafe", note=message)
+        return model
+    try:
+        resolved_workspace = workspace.resolve(strict=True)
+        resolved_root = root.resolve(strict=True)
+        resolved_root.relative_to(resolved_workspace)
+    except (OSError, ValueError) as exc:
+        message = f"template-analysis directory escapes workspace: {exc}"
+        warnings.append(warning("template-analysis", message))
+        model.update(state="unsafe", note=message)
+        return model
+    if not resolved_root.is_dir():
+        message = "template-analysis path is not a directory"
+        warnings.append(warning("template-analysis", message))
+        model.update(state="malformed", note=message)
+        return model
+
+    model["summary"] = load_analysis_json(
+        resolved_root / TEMPLATE_ANALYSIS_FILES["summary"],
+        analysis_dir=resolved_root,
+        label="corpus summary",
+        expected_schema=TEMPLATE_ANALYSIS_SCHEMAS["summary"],
+        warnings=warnings,
+    )
+    model["profile"] = load_analysis_json(
+        resolved_root / TEMPLATE_ANALYSIS_FILES["profile"],
+        analysis_dir=resolved_root,
+        label="design profile",
+        expected_schema=TEMPLATE_ANALYSIS_SCHEMAS["profile"],
+        warnings=warnings,
+    )
+    if all(model[name]["state"] == "available" for name in ("summary", "profile")):
+        summary_data = model["summary"].get("identity", {})
+        profile_data = model["profile"].get("identity", {})
+        summary_identity = tuple(
+            summary_data.get(key) for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
+        )
+        profile_identity = tuple(
+            profile_data.get(key) for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
+        )
+        if summary_identity != profile_identity:
+            labels = ", ".join(TEMPLATE_ANALYSIS_IDENTITY_KEYS)
+            message = (
+                "template-analysis summary/profile identity mismatch for "
+                f"{labels}; neither artifact was trusted"
+            )
+            warnings.append(warning("template-analysis", message))
+            for name in ("summary", "profile"):
+                model[name].update(
+                    state="inconsistent",
+                    data={},
+                    preview=message,
+                )
+            model.update(state="degraded", note=message)
+            return model
+    states = {model["summary"]["state"], model["profile"]["state"]}
+    if states == {"available"}:
+        model["state"] = "available"
+    elif states <= {"available", "absent"} and "available" in states:
+        model["state"] = "partial"
+    elif states == {"absent"}:
+        model["state"] = "absent"
+    else:
+        model["state"] = "degraded"
+    return model
 
 
 def split_table_cells(line: str) -> list[str]:
@@ -517,6 +857,7 @@ def build_model(workspace: Path) -> dict[str, Any]:
     attach_source_tables(dimensions, sections)
     handoffs = collect_external_handoffs(contents, global_warnings)
     files = build_file_inventory(contents, sections)
+    template_analysis = build_template_analysis(workspace, global_warnings)
 
     source_sections: dict[str, list[dict[str, Any]]] = {}
     for file_name, parsed_sections in sections.items():
@@ -553,6 +894,7 @@ def build_model(workspace: Path) -> dict[str, Any]:
         "handoffs": handoffs,
         "source_sections": source_sections,
         "status_counts": status_counts,
+        "template_analysis": template_analysis,
     }
 
 
@@ -564,6 +906,224 @@ def safe_json(data: Any) -> str:
         .replace("&", "\\u0026")
         .replace("\u2028", "\\u2028")
         .replace("\u2029", "\\u2029")
+    )
+
+
+def compact_json_text(value: Any, limit: int = 1800) -> str:
+    text = json.dumps(
+        bounded_json_value(value), ensure_ascii=False, sort_keys=True, indent=2
+    )
+    if len(text) <= limit:
+        return text
+    return text[:limit] + "\n[section truncated]"
+
+
+def iter_analysis_groups(group_data: Any) -> list[tuple[str, dict[str, Any]]]:
+    if not isinstance(group_data, dict):
+        return []
+    groups: list[tuple[str, dict[str, Any]]] = []
+    overall = group_data.get("overall")
+    if isinstance(overall, dict):
+        groups.append((str(overall.get("group_id", "overall")), overall))
+    for family in (
+        "by_partition",
+        "by_article_type",
+        "by_partition_article_type",
+    ):
+        collection = group_data.get(family, [])
+        if isinstance(collection, dict):
+            candidates = list(collection.values())
+        elif isinstance(collection, (list, tuple)):
+            candidates = collection
+        else:
+            continue
+        for group in candidates:
+            if isinstance(group, dict):
+                groups.append((str(group.get("group_id", f"{family}:unknown")), group))
+    return groups
+
+
+def priority_group_metrics(metrics: Any) -> tuple[list[tuple[str, Any]], int]:
+    if not isinstance(metrics, dict):
+        return [], 0
+    selected_ids = [
+        metric_id for metric_id in ANALYSIS_PRIORITY_METRICS if metric_id in metrics
+    ]
+    if len(selected_ids) < MAX_ANALYSIS_METRICS_PER_GROUP:
+        selected_set = set(selected_ids)
+        selected_ids.extend(
+            metric_id for metric_id in sorted(metrics) if metric_id not in selected_set
+        )
+    selected_ids = selected_ids[:MAX_ANALYSIS_METRICS_PER_GROUP]
+    return [(metric_id, metrics[metric_id]) for metric_id in selected_ids], max(
+        0, len(metrics) - len(selected_ids)
+    )
+
+
+def render_analysis_artifact(artifact: dict[str, Any], *, kind: str) -> str:
+    state = str(artifact.get("state", "absent"))
+    label = str(artifact.get("label", kind))
+    path = str(artifact.get("path", ""))
+    schema = str(artifact.get("schema", "unknown"))
+    if state != "available":
+        message = artifact.get("preview") or (
+            "No generated artifact is present; template analysis remains optional."
+            if state == "absent"
+            else "Artifact is unavailable and was not trusted."
+        )
+        return (
+            '<article class="analysis-artifact">'
+            f"<h3>{html.escape(label)}</h3>"
+            f'<p><span class="pill">{html.escape(state)}</span></p>'
+            f'<p class="small">{html.escape(path)}</p>'
+            f"<p>{html.escape(str(message))}</p>"
+            "</article>"
+        )
+
+    data = artifact.get("data", {})
+    if not isinstance(data, dict):
+        data = {}
+    blocks: list[str] = []
+    if kind == "summary":
+        group_data = data.get("groups", {})
+        for group_name, group in iter_analysis_groups(group_data):
+            document_count = group.get("document_count", "unknown")
+            parsed_count = group.get("parsed_document_count", "unknown")
+            failed_count = (
+                document_count - parsed_count
+                if isinstance(document_count, int) and isinstance(parsed_count, int)
+                else "unknown"
+            )
+            selected_metrics, omitted_count = priority_group_metrics(
+                group.get("metrics", {})
+            )
+            metric_rows: list[str] = []
+            for metric_id, metric in selected_metrics:
+                metric_record = (
+                    metric if isinstance(metric, dict) else {"value": metric}
+                )
+                metric_rows.append(
+                    "<tr>"
+                    f"<td>{html.escape(str(metric_id))}</td>"
+                    f"<td>{html.escape(str(metric_record.get('valid_n', 'unknown')))}</td>"
+                    f"<td>{html.escape(compact_json_text(metric_record.get('missingness', 'unknown'), 300))}</td>"
+                    f"<td>{html.escape(str(metric_record.get('median', metric_record.get('value', 'not summarized'))))}</td>"
+                    f"<td>{html.escape(str(metric_record.get('p25', 'unknown')))}</td>"
+                    f"<td>{html.escape(str(metric_record.get('p75', 'unknown')))}</td>"
+                    "</tr>"
+                )
+            blocks.append(
+                '<section class="analysis-group" '
+                f'data-analysis-group="{html.escape(group_name)}">'
+                f"<h4>{html.escape(group_name)}</h4>"
+                '<p class="small">'
+                f"Documents: {html.escape(str(document_count))}; "
+                f"parsed: {html.escape(str(parsed_count))}; "
+                f"failed: {html.escape(str(failed_count))}. "
+                f"Priority metrics shown: {len(selected_metrics)}; "
+                f"additional metrics omitted: {omitted_count}."
+                "</p>"
+                + (
+                    '<div class="analysis-table-wrap"><table>'
+                    "<thead><tr><th>Metric</th><th>valid_n</th><th>Missingness</th>"
+                    "<th>Median/value</th><th>p25</th><th>p75</th></tr></thead>"
+                    f"<tbody>{''.join(metric_rows)}</tbody></table></div>"
+                    if metric_rows
+                    else '<p class="small">No metrics available for this group.</p>'
+                )
+                + "</section>"
+            )
+        preferred = [
+            "registry_version",
+            "corpus",
+            "analysis_mode",
+            "mode",
+            "groups",
+            "overall",
+            "by_partition",
+            "by_article_type",
+            "by_partition_article_type",
+            "comparisons",
+            "partitions",
+            "partition_summaries",
+            "paper_status",
+            "document_status",
+            "coverage",
+            "extraction_coverage",
+            "metrics",
+            "missingness",
+            "sequences",
+            "transitions",
+            "lead_lag",
+            "annotations",
+            "annotation_coverage",
+            "warnings",
+        ]
+        for key in preferred:
+            if key not in data:
+                continue
+            blocks.append(
+                "<details>"
+                f"<summary>{html.escape(key)}</summary>"
+                f"<pre>{html.escape(compact_json_text(data[key]))}</pre>"
+                "</details>"
+            )
+    else:
+        entries = data.get("entries", data.get("rules", []))
+        if isinstance(entries, list):
+            rows: list[str] = []
+            for entry in entries[:MAX_ANALYSIS_LIST_ITEMS]:
+                if not isinstance(entry, dict):
+                    continue
+                rows.append(
+                    "<tr>"
+                    f"<td>{html.escape(str(entry.get('design_surface', entry.get('surface', 'unknown'))))}</td>"
+                    f"<td>{html.escape(str(entry.get('target_kind', entry.get('strength', 'unknown'))))}</td>"
+                    f"<td>{html.escape(str(entry.get('candidate_action', entry.get('action', 'candidate'))))}</td>"
+                    f"<td>{html.escape(str(entry.get('partition', 'none')))}</td>"
+                    f"<td>{html.escape(str(entry.get('source_type', 'unknown')))}</td>"
+                    f"<td>{html.escape(str(entry.get('origin', 'unknown')))}</td>"
+                    f"<td>{html.escape(compact_json_text(entry.get('observation', entry.get('message', '')), 600))}</td>"
+                    f"<td>{html.escape(str(entry.get('valid_n', 'unknown')))}</td>"
+                    f"<td>{html.escape(compact_json_text(entry.get('missingness', 'unknown'), 400))}</td>"
+                    f"<td>{html.escape(compact_json_text(entry.get('uncertainty', 'unknown'), 400))}</td>"
+                    f"<td>{html.escape(str(entry.get('boundary', 'writing design only')))}</td>"
+                    f"<td>{html.escape(str(entry.get('source_pointer', 'unknown')))}</td>"
+                    "</tr>"
+                )
+            if rows:
+                blocks.append(
+                    '<div class="analysis-table-wrap"><table>'
+                    "<thead><tr><th>Surface</th><th>Rule</th><th>Disposition</th>"
+                    "<th>Partition</th><th>Source type</th><th>Origin</th>"
+                    "<th>Observation</th><th>valid_n</th>"
+                    "<th>Missingness</th><th>Uncertainty</th><th>Boundary</th>"
+                    "<th>Source</th></tr></thead>"
+                    f"<tbody>{''.join(rows)}</tbody></table></div>"
+                )
+        for key in ("official_constraints", "deliberate_divergences", "warnings"):
+            if key in data:
+                blocks.append(
+                    "<details>"
+                    f"<summary>{html.escape(key)}</summary>"
+                    f"<pre>{html.escape(compact_json_text(data[key]))}</pre>"
+                    "</details>"
+                )
+    if not blocks:
+        blocks.append(
+            '<p class="small">No recognized compact fields; use the bounded raw preview below.</p>'
+        )
+    preview = str(artifact.get("preview", ""))
+    return (
+        '<article class="analysis-artifact">'
+        f"<h3>{html.escape(label)}</h3>"
+        f'<p><span class="pill">{html.escape(state)}</span> '
+        f'<span class="pill">{html.escape(schema)}</span></p>'
+        f'<p class="small">{html.escape(path)}</p>'
+        + "".join(blocks)
+        + "<details><summary>Bounded raw JSON preview</summary>"
+        f"<pre>{html.escape(preview)}</pre></details>"
+        "</article>"
     )
 
 
@@ -600,6 +1160,14 @@ def render_html(model: dict[str, Any]) -> str:
     )
     if not warning_html:
         warning_html = "<li>当前没有结构警告。</li>"
+    template_analysis = model.get("template_analysis", {})
+    summary_html = render_analysis_artifact(
+        template_analysis.get("summary", {}), kind="summary"
+    )
+    profile_html = render_analysis_artifact(
+        template_analysis.get("profile", {}), kind="profile"
+    )
+    analysis_html = summary_html + profile_html
 
     return f"""<!doctype html>
 <html lang="zh-CN">
@@ -713,17 +1281,28 @@ pre {{
   border-top: 1px solid var(--line);
   padding-top: 8px;
 }}
+.analysis-panel {{ grid-column: 1 / -1; }}
+.analysis-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }}
+.analysis-artifact {{ border: 1px solid var(--line); border-radius: 8px; padding: 12px; min-width: 0; }}
+.analysis-artifact h3 {{ margin-top: 0; }}
+.analysis-table-wrap {{ overflow-x: auto; }}
+table {{ width: 100%; border-collapse: collapse; font-size: 12px; }}
+th, td {{ border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }}
+th {{ background: #eef4f1; }}
+details {{ margin: 8px 0; }}
+summary {{ cursor: pointer; font-weight: 600; }}
 @media (max-width: 1080px) {{
   .layout {{ grid-template-columns: 1fr; }}
   .dim-row {{ grid-template-columns: 52px minmax(0, 1fr); }}
   .dim-row span:nth-child(n+3) {{ grid-column: 2; }}
+  .analysis-grid {{ grid-template-columns: 1fr; }}
 }}
 </style>
 </head>
 <body>
 <header>
   <h1>{html.escape(title)}</h1>
-  <p class="contract">结构化、只读、离线静态视图。它只读取 yxj-paper-os 六个 Markdown 工作区文件，生成隐藏缓存中的 HTML；不修改 Markdown，不复制模板，不做语义评分，也不声明论文或投稿就绪。</p>
+  <p class="contract">结构化、只读、离线静态视图。它读取 yxj-paper-os 六个 Markdown 工作区文件，并在存在时安全降级读取隐藏的 corpus-summary/design-profile；只写 dashboard.html，不修改 Markdown 或分析产物，不做语义/期刊适配评分，也不声明论文或投稿就绪。</p>
   <div class="badge-line">
     <span class="badge">输出：{html.escape(model["artifact"])}</span>
     <span class="badge">结构状态：{html.escape(model["readiness"]["label"])}</span>
@@ -758,6 +1337,12 @@ pre {{
   <section>
     <h2>维度详情</h2>
     <div id="detail"></div>
+  </section>
+  <section class="analysis-panel">
+    <h2>目标期刊 / 主题模板统计</h2>
+    <p>{html.escape(str(template_analysis.get("note", "Optional writing-design analysis only.")))}</p>
+    <p class="small">状态：{html.escape(str(template_analysis.get("state", "absent")))}。Malformed、stale、unsupported 或缺失产物仅降级显示，不会自动投影为写作规则。</p>
+    <div class="analysis-grid">{analysis_html}</div>
   </section>
 </main>
 <script id="dashboard-data" type="application/json">{data}</script>
@@ -941,7 +1526,10 @@ def write_dashboard(workspace: Path, html_text: str) -> Path:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Generate a read-only static yxj-paper-os dashboard from a six-file workspace."
+        description=(
+            "Generate a read-only static yxj-paper-os dashboard from the six-file "
+            "workspace and optional hidden template-analysis summaries."
+        )
     )
     parser.add_argument(
         "paper_project",

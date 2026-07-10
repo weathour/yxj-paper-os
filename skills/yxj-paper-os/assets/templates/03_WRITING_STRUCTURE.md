@@ -14,15 +14,23 @@
 | Forbidden imitation or banned patterns | TODO | Do not copy source prose |
 | Voice / tense / hedge strength / terminology density | TODO | Link to D12/D17 wording controls |
 
-## Template Language / Rhythm / Surface-Reference Benchmark
+## Template Statistical Design Profile
 
-> Quantified language, rhythm, distribution, and surface-reference notes from parseable full-text templates. Use these notes to guide D09/D17 writing design only; do not score prose quality, style similarity, source authority, or claim truth.
+> Conditional compact projection from current `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json`. Preserve the design question, selected `design_metric_ids`, requested/effective mode, partition, denominator, and missingness; project only rules that affect the requested surface. Template statistics never support D06/D11 claims or score venue fit.
 
-| Quantified surface | Template corpus observation | Current design rule or blocker | Boundary |
-|---|---|---|---|
-| Language rhythm / paragraph distribution | TODO | TODO | Writing design only; not D06 evidence |
-| Terminology / hedge / tense pattern | TODO | TODO | Bound by D12/D17 |
-| Surface-reference pattern | TODO | TODO | Citation/source truth remains D07/D11 |
+| Design surface | Summary/profile pointer + mode/partition boundary | Observed constraint/distribution + missingness | Rule kind / disposition | Current design consequence |
+|---|---|---|---|---|
+| Language / rhythm / surface reference | TODO | TODO | `hard_constraint` / `soft_band` / `sequence` / `presence` / `watch_only`; `follow` / `adapt` / `deliberate_divergence` / `not_applicable` | TODO |
+| Section / rhetorical organization | TODO | TODO | TODO | TODO |
+| Figure / table / equation / algorithm organization | TODO | TODO | TODO | TODO |
+
+## Deliberate Template Divergences
+
+> Record only owner-confirmed `deliberate_divergence` decisions. A corpus band is descriptive, not an optimality score; deviation is not failure.
+
+| Surface | Profile rule / source pointer | Intended divergence | Rationale and owner decision ID | Affected scope / recheck |
+|---|---|---|---|---|
+| TODO | TODO | TODO | TODO | TODO |
 
 ## Front-Matter / Hook Planning Brief
 
@@ -63,11 +71,11 @@
 
 ## Template Structure Benchmark
 
-> Section/paragraph/function distribution inferred from the accepted template corpus. Use it to tune D15 section jobs; do not hardcode journal thresholds or claim rhetorical optimality.
+> Section/paragraph/function distribution from the current summary/profile pointer. Use it to tune D15 section jobs; preserve mode/partition/denominators and do not hardcode journal thresholds or claim rhetorical optimality.
 
 | Structure unit | Template corpus distribution or range | Current outline consequence | Blocker if incomplete |
 |---|---|---|---|
-| TODO | TODO | TODO | linked-scope blocked if gate applies and output is missing |
+| TODO | TODO | TODO | block only a declared linked responsibility; otherwise use `watch_only` / `not_applicable` |
 
 ## Section Jobs
 
@@ -104,12 +112,13 @@ TODO
 
 ## Template Visual-Density Benchmark
 
-> Figure/table density and visual-reference placement from parseable full-text templates. Use it to guide D18 visual planning; planned/needed/deferred visuals still cannot support active claims.
+> Figure/table/equation/algorithm density, object sequence/transition, caption missingness, callout/orphan, and lead-lag observations from the current summary/profile. Use them to guide D18 visual planning; planned/needed/deferred visuals still cannot support active claims.
 
 | Visual-density surface | Template corpus observation | Current visual/table design consequence | Evidence boundary |
 |---|---|---|---|
-| Figure/table count or density pattern | TODO | TODO | D18 plan only; not visual correctness validation |
-| Caption/table/reference placement | TODO | TODO | Caption text drafted downstream only |
+| Figure/table/equation/algorithm count, density, or zero pattern | TODO | TODO | D18 plan only; not visual correctness validation |
+| Caption missingness / callout / orphan / reference lead-lag | TODO | TODO | Caption text drafted downstream only |
+| Object sequence / adjacent transition / annotation coverage | TODO | TODO | Accepted annotation may summarize; candidate/stale remains visible but excluded from main statistic |
 | Accessibility or readability cue | TODO | TODO | Structural handoff only |
 
 ## Visual Plan
@@ -144,6 +153,7 @@ TODO
 | Literature differentiation | TODO | not_applicable | TODO |
 | Research-design validity | TODO | not_applicable | TODO |
 | Argument, language, and visual | TODO | not_applicable | TODO |
+| Venue-template corpus analysis | TODO | not_applicable | TODO |
 
 ## Scoped Writing Plan
 

@@ -53,7 +53,11 @@ Use these additions as structure and handoff prompts only. They may define jobs,
 
 ## Optional exemplar signals
 
-If venue or template material is supplied, summarize useful style and layout signals with provenance. These signals are optional, non-numeric unless useful, and never block D19 or strengthen evidence.
+If venue/template documents can change a requested surface, load `lenses/venue-template.md` and preserve the design question, registry-backed `design_metric_ids`, and requested/effective `case_set`, `exploratory`, or `distributional` mode. Read the hidden `corpus-summary.json` and `design-profile.json` only when structurally current; malformed/stale/unsupported artifacts degrade to an explicit limitation rather than a guessed result.
+
+Project only high-value signals, not the raw metric dump. For each affected surface retain the summary/profile pointer, partition and denominator/missingness boundary, observed constraint or distribution, candidate design consequence, canonical rule kind (`hard_constraint`, `soft_band`, `sequence`, `presence`, or `watch_only`), design disposition (`follow`, `adapt`, `deliberate_divergence`, or `not_applicable`), and resolution. `hard_constraint` requires an official source; a distribution supplies a `soft_band`/pattern, not an optimum. Record `deliberate_divergence` with its rationale, owner state, and affected scope rather than treating it as a failed conformity score.
+
+Template statistics are optional writing-design inputs and never strengthen D06/D11 evidence, prove venue fit, or block an unrelated D19 scope.
 
 ## Required fields
 
@@ -65,6 +69,7 @@ If venue or template material is supplied, summarize useful style and layout sig
 - Figure storyline and visual plan: how figures/tables support the argument.
 - Paragraph/function map at planning level.
 - Downstream drafting notes and constraints.
+- When `venue-template` is active: compact corpus-summary/design-profile pointers, mode/partition boundary, selected statistical design rules, and any `deliberate_divergence` decisions.
 
 ## Ask when missing
 
@@ -186,6 +191,7 @@ Block design-pack compilation if:
 Update `03_WRITING_STRUCTURE.md` with:
 
 - Exemplar language profile;
+- Statistical template design profile and `deliberate_divergence` decisions when the lens is active;
 - Reader spine;
 - Manuscript outline;
 - Section jobs;

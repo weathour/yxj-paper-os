@@ -1,0 +1,589 @@
+{
+  "responses": [
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B01",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B02",
+      "selected_actions": [
+        "RECORD_OBSERVATION"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 1,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B03",
+      "selected_actions": [
+        "ASK_OWNER"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B04",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B05",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B06",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B07",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B08",
+      "selected_actions": [
+        "INSPECT",
+        "INITIALIZE_WORKSPACE"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B09",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B10",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B11",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B12",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B13",
+      "selected_actions": [
+        "INSPECT"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": []
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B14",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION"
+      ],
+      "side_effects": [],
+      "target_dimensions": [],
+      "target_scopes": [],
+      "updates": [
+        {
+          "grounding": [
+            "00_DIMENSION_INDEX.md#Workspace Metadata"
+          ],
+          "operation": "revise",
+          "record_id": "D00",
+          "record_kind": "metadata",
+          "resolution": "confirmed"
+        }
+      ]
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [
+        {
+          "blocker": "Unresolved candidate writing-design rule.",
+          "next_action": "Owner accepts, adapts, rejects, or defers the candidate.",
+          "output_pointer": null,
+          "readiness": "partial",
+          "scope_id": "SCOPE-TEMPLATE"
+        }
+      ],
+      "scenario_id": "B15",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "DERIVE",
+        "PROPOSE"
+      ],
+      "side_effects": [
+        "template_analysis"
+      ],
+      "target_dimensions": [
+        "D05",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "analysis_mode": "case_set",
+          "candidate_action": null,
+          "decision_pointer": null,
+          "grounding": [
+            "declared design metric"
+          ],
+          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
+          "operation": "create",
+          "origin": "artifact-observed",
+          "reason": "Reproducible paper-level observation.",
+          "record_id": "TM-B15",
+          "record_kind": "template_metric_observation",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "target_kind": "paper_level_measurement"
+        },
+        {
+          "analysis_mode": "case_set",
+          "candidate_action": "not_applicable",
+          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
+          "grounding": [
+            "current design profile"
+          ],
+          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
+          "operation": "create_candidate",
+          "origin": "model-proposed",
+          "reason": "Corpus-derived writing-design entries remain candidate until owner disposition.",
+          "record_id": "DR-B15",
+          "record_kind": "design_rule",
+          "resolution": "candidate",
+          "status": "candidate",
+          "support": "not_applicable",
+          "target_kind": "watch_only"
+        }
+      ]
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [
+        {
+          "blocker": "Unresolved candidate writing-design rule.",
+          "next_action": "Owner accepts, adapts, rejects, or defers the candidate.",
+          "output_pointer": null,
+          "readiness": "partial",
+          "scope_id": "SCOPE-TEMPLATE"
+        }
+      ],
+      "scenario_id": "B16",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "DERIVE",
+        "PROPOSE"
+      ],
+      "side_effects": [
+        "template_analysis"
+      ],
+      "target_dimensions": [
+        "D05",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "analysis_mode": "exploratory",
+          "candidate_action": null,
+          "decision_pointer": null,
+          "grounding": [
+            "declared design metric"
+          ],
+          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
+          "operation": "create",
+          "origin": "artifact-observed",
+          "reason": "Reproducible paper-level observation.",
+          "record_id": "TM-B16",
+          "record_kind": "template_metric_observation",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "target_kind": "paper_level_measurement"
+        },
+        {
+          "analysis_mode": "exploratory",
+          "candidate_action": "not_applicable",
+          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
+          "grounding": [
+            "current design profile"
+          ],
+          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
+          "operation": "create_candidate",
+          "origin": "model-proposed",
+          "reason": "Corpus-derived writing-design entries remain candidate until owner disposition.",
+          "record_id": "DR-B16",
+          "record_kind": "design_rule",
+          "resolution": "candidate",
+          "status": "candidate",
+          "support": "not_applicable",
+          "target_kind": "watch_only"
+        }
+      ]
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [
+        {
+          "blocker": "Unresolved candidate writing-design rule.",
+          "next_action": "Owner accepts, adapts, rejects, or defers the candidate.",
+          "output_pointer": null,
+          "readiness": "partial",
+          "scope_id": "SCOPE-TEMPLATE"
+        }
+      ],
+      "scenario_id": "B17",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION",
+        "DERIVE",
+        "PROPOSE"
+      ],
+      "side_effects": [
+        "template_analysis"
+      ],
+      "target_dimensions": [
+        "D09",
+        "D15",
+        "D18"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "analysis_mode": "distributional",
+          "candidate_action": null,
+          "decision_pointer": null,
+          "grounding": [
+            "declared design metric"
+          ],
+          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
+          "operation": "create",
+          "origin": "artifact-observed",
+          "reason": "Reproducible paper-level observation.",
+          "record_id": "TM-B17",
+          "record_kind": "template_metric_observation",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "target_kind": "paper_level_measurement"
+        },
+        {
+          "analysis_mode": "distributional",
+          "candidate_action": "adapt",
+          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
+          "grounding": [
+            "current design profile"
+          ],
+          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
+          "operation": "create_candidate",
+          "origin": "model-proposed",
+          "reason": "Corpus-derived writing-design entries remain candidate until owner disposition.",
+          "record_id": "DR-B17",
+          "record_kind": "design_rule",
+          "resolution": "candidate",
+          "status": "candidate",
+          "support": "not_applicable",
+          "target_kind": "soft_band"
+        }
+      ]
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [
+        {
+          "blocker": "Unsupported PDF-only input.",
+          "next_action": "Supply a traceable supported derivative or defer.",
+          "output_pointer": null,
+          "readiness": "blocked",
+          "scope_id": "SCOPE-TEMPLATE"
+        },
+        {
+          "blocker": "none",
+          "next_action": "none",
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#Scoped Handoff: SCOPE-METHODS",
+          "readiness": "writer-ready",
+          "scope_id": "SCOPE-METHODS"
+        }
+      ],
+      "scenario_id": "B18",
+      "selected_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION"
+      ],
+      "side_effects": [],
+      "target_dimensions": [
+        "D05",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE",
+        "SCOPE-METHODS"
+      ],
+      "updates": [
+        {
+          "analysis_mode": null,
+          "candidate_action": null,
+          "decision_pointer": null,
+          "grounding": [
+            "source.pdf"
+          ],
+          "locator": "source.pdf",
+          "operation": "create",
+          "origin": "artifact-observed",
+          "reason": "PDF is metadata-only without a traceable supported derivative.",
+          "record_id": "M-TA-PDF",
+          "record_kind": "material",
+          "resolution": "confirmed",
+          "status": "unsupported",
+          "support": "not_applicable",
+          "target_kind": "metadata_only_pdf"
+        }
+      ]
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [],
+      "scenario_id": "B19",
+      "selected_actions": [
+        "RECORD_OBSERVATION",
+        "KEEP_CLAIM_INACTIVE"
+      ],
+      "side_effects": [],
+      "target_dimensions": [
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "target_scopes": [
+        "SCOPE-CLAIM"
+      ],
+      "updates": [
+        {
+          "analysis_mode": null,
+          "candidate_action": null,
+          "decision_pointer": null,
+          "grounding": [
+            "scientific-evidence firewall"
+          ],
+          "locator": "02_CLAIM_EVIDENCE_BOUNDARY.md#Claim Records",
+          "operation": "revise",
+          "origin": "owner-stated",
+          "reason": "Template statistics describe writing and presentation only.",
+          "record_id": "C-TEMPLATE-MISUSE",
+          "record_kind": "claim",
+          "resolution": "rejected",
+          "status": "inactive",
+          "support": "evidence-unsupported",
+          "target_kind": "scientific_claim"
+        }
+      ]
+    },
+    {
+      "question": {
+        "count": 0,
+        "target": null
+      },
+      "readiness_updates": [
+        {
+          "blocker": "Other declared scope requirements must still be rechecked.",
+          "next_action": "Recheck remaining declared inputs and dependencies.",
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#Scoped Handoff: SCOPE-TEMPLATE",
+          "readiness": "partial",
+          "scope_id": "SCOPE-TEMPLATE"
+        }
+      ],
+      "scenario_id": "B20",
+      "selected_actions": [
+        "RECORD_OBSERVATION",
+        "RECONCILE",
+        "DEPENDENCY_RECHECK",
+        "COMPILE_SCOPED_HANDOFF"
+      ],
+      "side_effects": [],
+      "target_dimensions": [
+        "D01",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE"
+      ],
+      "updates": [
+        {
+          "analysis_mode": null,
+          "candidate_action": "deliberate_divergence",
+          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
+          "grounding": [
+            ".yxj-paper-os/template-analysis/design-profile.json",
+            "owner rationale"
+          ],
+          "locator": "00_PROJECT_ROUTE.md#Decision Records",
+          "operation": "create",
+          "origin": "owner-stated",
+          "reason": "Owner confirmed an intentional departure from a grounded candidate soft band.",
+          "record_id": "DEC-TA-DIVERGE",
+          "record_kind": "decision",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "target_kind": "deliberate_divergence"
+        }
+      ]
+    }
+  ]
+}
