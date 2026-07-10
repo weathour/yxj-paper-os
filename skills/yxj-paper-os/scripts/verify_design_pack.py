@@ -1,169 +1,23 @@
 #!/usr/bin/env python3
-"""Lightweight yxj-paper-os design-pack validator.
-
-Checks structural validity for the six-file workspace. It does not judge
-semantic adequacy, search citations, run external skills, or model a runtime
-graph. A pass is a mechanical handoff check, not manuscript readiness.
-
-Template Quantification Gate validation is mechanical only: no semantic scoring,
-no extraction tooling, no yxj-backend integration, no downstream execution,
-no public schema expansion, and no hardcoded journal thresholds.
-"""
+"""Mechanical sparse-schema validator for a yxj-paper-os workspace."""
 
 from __future__ import annotations
-
 import argparse
 import re
 import sys
 from pathlib import Path
 
-DIMENSION_INDEX = "00_DIMENSION_INDEX.md"
-FINAL_PACK = "04_WRITING_DESIGN_PACK.md"
-
 REQUIRED_FILES = [
-    DIMENSION_INDEX,
+    "00_DIMENSION_INDEX.md",
     "00_PROJECT_ROUTE.md",
     "01_MATERIALS_INVENTORY.md",
     "02_CLAIM_EVIDENCE_BOUNDARY.md",
     "03_WRITING_STRUCTURE.md",
-    FINAL_PACK,
+    "04_WRITING_DESIGN_PACK.md",
 ]
-
-REQUIRED_HEADINGS = {
-    DIMENSION_INDEX: [
-        "Workspace Metadata",
-        "Dimension Status Index",
-        "Readiness Gate",
-        "Owner Notes",
-    ],
-    "00_PROJECT_ROUTE.md": [
-        "Project Brief",
-        "Target Route",
-        "Route Template Expectation / Quantification Trigger",
-        "Front Matter / Hook Route Constraints",
-        "Topic and Positioning",
-        "Audience and Reviewer Expectation",
-        "Owner Decisions",
-        "Reporting, Statements, and Downstream Route Seed",
-        "Forbidden Routes",
-        "Route Readiness",
-    ],
-    "01_MATERIALS_INVENTORY.md": [
-        "Results and Experiments",
-        "Figures and Tables",
-        "Data Sources",
-        "Code / Implementation",
-        "Baselines",
-        "Metrics",
-        "Evidence Inventory",
-        "Source and Citation Bank",
-        "Research Dossier",
-        "Template Corpus / Quantification Basis",
-        "Citation Function and Related-Work Materials",
-        "Method / Reporting / Reproducibility Materials",
-        "Results / Visual / Caption / Accessibility Materials",
-        "Existing Text Fragments",
-        "Explicit Absences",
-    ],
-    "02_CLAIM_EVIDENCE_BOUNDARY.md": [
-        "Problem / Object / Contribution",
-        "Contribution Options",
-        "Object Granularity",
-        "Claim-Evidence Map",
-        "Claim Support Boundary Reminder",
-        "Template Claim-Design Benchmark",
-        "Writing-Surface Claim Boundary Matrix",
-        "Front-Matter and Caption Wording Constraints",
-        "Allowed Wording",
-        "Forbidden Wording",
-        "Deferred or Rejected Claims",
-        "Limitations and Risks",
-    ],
-    "03_WRITING_STRUCTURE.md": [
-        "Exemplar Language Profile",
-        "Template Language / Rhythm / Surface-Reference Benchmark",
-        "Front-Matter / Hook Planning Brief",
-        "Reader Spine",
-        "Introduction / Related-Work Move Sequence",
-        "Manuscript Outline",
-        "Template Structure Benchmark",
-        "Section Jobs",
-        "Method / Reporting / Reproducibility Job Plan",
-        "Object Granularity",
-        "Surface Control",
-        "Figure / Table Storyline",
-        "Template Visual-Density Benchmark",
-        "Visual Plan",
-        "Results Narrative / Caption / Accessibility Plan",
-        "Paragraph / Function Map",
-        "Drafting Constraints",
-    ],
-    FINAL_PACK: [
-        "Dimension Coverage Summary",
-        "Six-Track Coverage",
-        "Project Route",
-        "Front-Matter / Hook Planning Handoff",
-        "Introduction / Related-Work / Citation Function Handoff",
-        "Method / Reporting / Reproducibility Handoff",
-        "Results / Visual / Captions / Tables / Accessibility Handoff",
-        "Submission Blueprint",
-        "Material Boundary",
-        "Source / Citation Boundary",
-        "Research Dossier Notes",
-        "Semantic-Risk and Unresolved-Risk Notes",
-        "Core Contribution",
-        "Statement Inventory",
-        "Claim-Evidence Map",
-        "Allowed Wording",
-        "Forbidden Wording",
-        "Limitations and Risks",
-        "Reader Spine",
-        "Writing Structure",
-        "Visual and Figure Storyline",
-        "D02 Stale Gate",
-        "Downstream Route Matrix",
-        "External Skill Handoff",
-        "Current Design vs Template Comparison",
-        "Quantification Gate Status",
-        "D19 Quantification Handoff",
-        "Template and Mechanical Validator Notes",
-        "Validation Notes",
-    ],
-}
-
-REQUIRED_DIMENSION_IDS = {f"D{i:02d}" for i in range(20)}
-CURRENT_DIMENSION_NAMES = {
-    "D00": "Workspace metadata",
-    "D01": "Owner decisions",
-    "D02": "Stale/readiness flags",
-    "D03": "Project brief",
-    "D04": "Target route profile",
-    "D05": "Material inventory",
-    "D06": "Evidence inventory",
-    "D07": "Source and citation bank",
-    "D08": "Research dossier",
-    "D09": "Exemplar language profile",
-    "D10": "Contribution options",
-    "D11": "Claim-evidence map",
-    "D12": "Wording boundary",
-    "D13": "Limitation and risk matrix",
-    "D14": "Reader spine",
-    "D15": "Manuscript outline",
-    "D16": "Object granularity",
-    "D17": "Surface control",
-    "D18": "Visual plan",
-    "D19": "Writing design pack",
-}
-RETIRED_STAGE_RE = re.compile(r"\bS\d{2}\b|\bG0[12]\b", re.IGNORECASE)
-RETIRED_DIMENSION_LABEL_RE = re.compile(
-    r"\b(?:"
-    r"(?:0[0-4]|1[0-5])_[a-z][A-Za-z0-9_]*"
-    r"|2[0-5]_[A-Za-z][A-Za-z0-9_]*"
-    r"|00_" + r"META"
-    r"|" + r"OWNER_" + r"DECISIONS"
-    r"|" + r"STALE_" + r"FLAGS"
-    r")\.md\b"
-)
+DIMENSION_INDEX = REQUIRED_FILES[0]
+FINAL_PACK = REQUIRED_FILES[-1]
+REQUIRED_DIMENSION_IDS = [f"D{i:02d}" for i in range(20)]
 DIMENSION_COLUMNS = [
     "ID",
     "Dimension",
@@ -173,1632 +27,660 @@ DIMENSION_COLUMNS = [
     "Pointer or handoff",
     "Blocks design pack?",
 ]
-VALID_DIMENSION_STATUSES = {"filled", "not_applicable", "absent", "deferred", "rejected"}
+VALID_DIMENSION_STATUSES = {
+    "filled",
+    "not_applicable",
+    "absent",
+    "deferred",
+    "rejected",
+}
 VALID_BLOCKS_VALUES = {"yes", "no"}
-FINAL_COVERAGE_COLUMNS = ["ID", "Status", "Pointer or handoff", "Blocks design pack?"]
-
-PLACEHOLDER_RE = re.compile(r"\b(?:TODO|TBD|REPLACE_ME|UNKNOWN)\b|\[\s*\.\.\.\s*\]", re.IGNORECASE)
-CLAIM_FILES = ("02_CLAIM_EVIDENCE_BOUNDARY.md", FINAL_PACK)
-DEFER_STATUSES = {"deferred", "rejected", "not claimed", "not-claimed"}
-UNAVAILABLE_VISUAL_STATUS_RE = re.compile(
-    r"\b(?:needed|deferred|absent|planned|missing|not\s+available|to\s+be\s+created|pending)\b",
-    re.IGNORECASE,
-)
-ACTIVE_VISUAL_EVIDENCE_RE = re.compile(
-    r"\b(?:needed|deferred|absent|planned|missing)\b[^|\n]*(?:visual|figure|table)\b|"
-    r"\b(?:visual|figure|table)\b[^|\n]*(?:needed|deferred|absent|planned|missing)\b",
-    re.IGNORECASE,
-)
-SOURCE_ABSENCE_RE = re.compile(
-    r"\b(?:no\s+(?:sources?|citations?|references?)\s+(?:supplied|provided|available|known)|"
-    r"none\s+(?:supplied|provided|available|known)|not\s+(?:supplied|provided)|"
-    r"absent|deferred|missing|unavailable|no\s+citation\s+task|no\s+source\s+detail)\b",
-    re.IGNORECASE,
-)
-STALE_SIGNAL_RE = re.compile(r"\b(?:stale|changed|recompile|out[-\s]?of[-\s]?date)\b", re.IGNORECASE)
-RECOMPILE_REQUIRED_RE = re.compile(r"\b(?:yes|true|required|must|recompile|stale)\b", re.IGNORECASE)
-RECOMPILE_NOT_REQUIRED_RE = re.compile(
-    r"\b(?:no|false|none|n/a|na|not[_\s-]?applicable|not\s+required|no\s+recompile)\b",
-    re.IGNORECASE,
-)
-STALE_ACTION_RE = re.compile(
-    r"\b(?:recompile|defer|deferred|owner\s+accepted|accepted\s+risk|waive|waived|carry|carried|risk|block|blocked)\b",
-    re.IGNORECASE,
-)
-SIX_TRACK_KEYS = {
-    "front_matter_hook": "Front matter / hook",
-    "intro_related_citation": "Introduction / related work / citation function",
-    "method_reporting_repro": "Method / reporting / reproducibility",
-    "results_visual_caption_accessibility": "Results / visual narrative / captions / tables / accessibility",
-    "downstream_route_matrix": "Downstream route matrix",
-    "templates_validators": "Templates + validators",
-}
-SIX_TRACK_COLUMNS = [
-    "Track",
-    "Input planning field locations",
-    "Design-pack output location",
-    "Boundary note",
-]
-SIX_TRACK_EXPECTED_INPUTS = {
-    "front_matter_hook": [
-        "00_PROJECT_ROUTE.md#Front Matter / Hook Route Constraints",
-        "03_WRITING_STRUCTURE.md#Front-Matter / Hook Planning Brief",
+REQUIRED_HEADINGS = {name: [] for name in REQUIRED_FILES}
+SPARSE_TABLES = {
+    (DIMENSION_INDEX, "Writing Scopes"): [
+        "Scope ID",
+        "Writing surface",
+        "Intended output",
+        "Readiness",
+        "Available inputs",
+        "Required requirement IDs",
+        "Remaining blocker",
+        "Next action",
+        "Output pointer",
     ],
-    "intro_related_citation": [
-        "01_MATERIALS_INVENTORY.md#Citation Function and Related-Work Materials",
-        "02_CLAIM_EVIDENCE_BOUNDARY.md#Writing-Surface Claim Boundary Matrix",
-        "03_WRITING_STRUCTURE.md#Introduction / Related-Work Move Sequence",
+    (DIMENSION_INDEX, "Active Calibration Lenses"): [
+        "Lens ID",
+        "Activation basis",
+        "Affected scopes",
     ],
-    "method_reporting_repro": [
-        "00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed",
-        "01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials",
-        "03_WRITING_STRUCTURE.md#Method / Reporting / Reproducibility Job Plan",
+    (DIMENSION_INDEX, "Conditional Requirements"): [
+        "Requirement ID",
+        "Lens ID",
+        "Requirement",
+        "Affected scopes",
+        "Handling",
+        "Evidence / decision pointer",
     ],
-    "results_visual_caption_accessibility": [
-        "01_MATERIALS_INVENTORY.md#Results / Visual / Caption / Accessibility Materials",
-        "03_WRITING_STRUCTURE.md#Results Narrative / Caption / Accessibility Plan",
+    (DIMENSION_INDEX, "Dependency Recheck"): [
+        "Changed record",
+        "Affected D IDs / scopes",
+        "Disposition",
+        "Resolution or next action",
     ],
-    "downstream_route_matrix": [
-        "00_PROJECT_ROUTE.md#Reporting, Statements, and Downstream Route Seed",
-        f"{FINAL_PACK}#External Skill Handoff",
+    ("00_PROJECT_ROUTE.md", "Decision Records"): [
+        "Decision ID",
+        "Issue",
+        "Decision or live options",
+        "Affected scopes",
+        "Origin",
+        "Resolution",
+        "Grounding",
     ],
-    "templates_validators": [
-        f"{DIMENSION_INDEX}#Dimension Status Index",
-        "00_PROJECT_ROUTE.md#Route Template Expectation / Quantification Trigger",
-        "01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis",
-        f"{FINAL_PACK}#Template and Mechanical Validator Notes",
-        f"{FINAL_PACK}#Quantification Gate Status",
-        f"{FINAL_PACK}#Validation Notes",
+    ("01_MATERIALS_INVENTORY.md", "Material Records"): [
+        "Record ID",
+        "Kind",
+        "Content / role",
+        "Locator",
+        "Scope / conditions",
+        "Status",
+        "Origin",
+        "Resolution",
+        "Grounding",
     ],
-}
-SIX_TRACK_EXPECTED_OUTPUTS = {
-    "front_matter_hook": f"{FINAL_PACK}#Front-Matter / Hook Planning Handoff",
-    "intro_related_citation": f"{FINAL_PACK}#Introduction / Related-Work / Citation Function Handoff",
-    "method_reporting_repro": f"{FINAL_PACK}#Method / Reporting / Reproducibility Handoff",
-    "results_visual_caption_accessibility": f"{FINAL_PACK}#Results / Visual / Captions / Tables / Accessibility Handoff",
-    "downstream_route_matrix": f"{FINAL_PACK}#Downstream Route Matrix",
-    "templates_validators": f"{FINAL_PACK}#Template and Mechanical Validator Notes",
-}
-FINAL_HANDOFF_TABLES = {
-    "Front-Matter / Hook Planning Handoff": [
-        "Front-matter unit",
-        "Constraint / owner-gated input",
-        "Source dimensions",
-        "Downstream handoff note",
+    ("02_CLAIM_EVIDENCE_BOUNDARY.md", "Claim Records"): [
+        "Claim ID",
+        "Claim",
+        "Evidence record IDs",
+        "Warrant / support relation",
+        "Scope / conditions",
+        "Directness",
+        "Uncertainty / counterevidence",
+        "Allowed wording",
+        "Forbidden wording",
+        "Status",
+        "Origin",
+        "Support",
+        "Resolution",
+        "Grounding",
     ],
-    "Introduction / Related-Work / Citation Function Handoff": [
-        "Handoff item",
-        "Source planning location",
-        "Required boundary",
-        "Downstream note",
+    ("03_WRITING_STRUCTURE.md", "Scoped Writing Plan"): [
+        "Scope ID",
+        "Reader / section job",
+        "Input record IDs",
+        "Output responsibility",
+        "Drafting boundary",
+        "Output pointer",
     ],
-    "Method / Reporting / Reproducibility Handoff": [
-        "Handoff item",
-        "Artifact / checklist state",
-        "Required statement or limitation",
-        "Downstream note",
-    ],
-    "Results / Visual / Captions / Tables / Accessibility Handoff": [
-        "Handoff item",
-        "Evidence or visual status",
-        "Caption/table/accessibility constraint",
-        "Downstream note",
-    ],
-    "Template and Mechanical Validator Notes": [
-        "Check surface",
-        "Expected structural evidence",
-        "Boundary / non-goal",
+    (FINAL_PACK, "Scoped Handoff"): [
+        "Scope ID",
+        "Writing surface",
+        "Intended output",
+        "Readiness",
+        "Available inputs",
+        "Required requirement IDs",
+        "Remaining blocker",
+        "Next action",
+        "Output pointer",
     ],
 }
-DOWNSTREAM_ROUTE_COLUMNS = [
-    "Downstream route",
-    "Eligible input sections",
-    "Constraints to pass forward",
-    "Blocker / defer note",
-]
-DOWNSTREAM_ROUTE_CATEGORIES = {
-    "writing",
-    "citation",
-    "figure",
-    "review",
-    "defer",
+ID_RE = re.compile(r"^(?:SCOPE|REQ|DEC|M|C)-[a-z0-9]+(?:-[a-z0-9]+)*$")
+D_RE = re.compile(r"^D(?:0[0-9]|1[0-9])$")
+READINESS = {"writer-ready", "partial", "blocked", "deferred"}
+REQ_STATE = {"satisfied", "blocked", "deferred", "not_applicable"}
+DISPOSITION = {
+    "current",
+    "rechecked",
+    "stale",
+    "candidate",
+    "blocked",
+    "not_applicable",
 }
-QUANTIFICATION_GATE_HEADING = "Quantification Gate Status"
-QUANTIFICATION_HANDOFF_HEADING = "D19 Quantification Handoff"
-ROUTE_TEMPLATE_TRIGGER_HEADING = "Route Template Expectation / Quantification Trigger"
-TEMPLATE_CORPUS_HEADING = "Template Corpus / Quantification Basis"
-QUANTIFICATION_GATE_FIELDS = [
-    "Gate applies",
-    "Trigger basis",
-    "Parseable full-text template count",
-    "Source/similarity rationale present",
-    "Quantitative outputs status",
-    "Blocker propagation",
-    "D19 pack status",
-]
-VALID_GATE_APPLIES = {"yes", "no", "not_applicable"}
-VALID_RATIONALE_PRESENT = {"yes", "no"}
-VALID_QUANT_OUTPUT_STATUS = {"present", "blocked", "not_applicable"}
-VALID_BLOCKER_PROPAGATION = {"clear", "blocked"}
-VALID_D19_PACK_STATUS = {"valid", "blocked"}
-FINAL_HANDOFF_PACK_STATUS_RE = re.compile(
-    r"^\s*(?:[-*]\s*)?(?:\*\*)?Pack status(?:\*\*)?\s*:\s*(?P<status>.+?)\s*$",
-    re.IGNORECASE | re.MULTILINE,
-)
-QUANTIFICATION_INCOMPLETE_RE = re.compile(
-    r"\b(?:quantification|quantitative|template\s+corpus|template\s+quantification)\b"
-    r"[^.\n|;:]{0,120}\b(?:incomplete|blocked|missing|insufficient|unparseable|citation[-\s]?only|"
-    r"fewer\s+than\s+3|less\s+than\s+3|not\s+available|absent|deferred)\b|"
-    r"\bblocked-not-valid-handoff\b",
-    re.IGNORECASE,
-)
-TEMPLATE_PARSEABILITY_COLUMNS = [
-    "Full text parseable?",
-    "Full text parseable",
-    "Parseable full-text?",
-    "Parseable full-text",
-    "Parseability",
-    "Full-text status",
-    "Full text status",
-    "Template parseability status",
-    "Template status",
-]
-TEMPLATE_PARSEABLE_YES_RE = re.compile(r"\b(?:yes|parseable|parsed|full[-\s]?text)\b", re.IGNORECASE)
-TEMPLATE_PARSEABLE_NO_RE = re.compile(
-    r"\b(?:no|not\b[^|;\n]{0,60}\bparseable|not\b[^|;\n]{0,60}\bparsed|"
-    r"not\b[^|;\n]{0,60}\bfull[-\s]?text|"
-    r"no\b[^|;\n]{0,60}\bfull[-\s]?text|full[-\s]?text\b[^|;\n]{0,60}\b(?:missing|absent|unavailable)|"
-    r"unparseable|citation[-\s]?only|metadata[-\s]?only|abstract[-\s]?only|"
-    r"missing|absent|deferred|needed|unavailable)\b",
-    re.IGNORECASE,
-)
-NO_TEMPLATE_RATIONALE_RE = re.compile(
-    r"\b(?:owner[-\s]?confirmed|explicit|recorded|route)\b[^.\n|;:]{0,120}"
-    r"\b(?:no|without|not[_\s-]?applicable|absent)\b[^.\n|;:]{0,120}\b(?:template|target\s+route|route|expectation)\b|"
-    r"\b(?:no|without|not[_\s-]?applicable|absent)\b[^.\n|;:]{0,120}"
-    r"\b(?:template|target\s+route|route|expectation)\b[^.\n|;:]{0,120}\b(?:owner[-\s]?confirmed|explicit|recorded|route)\b",
-    re.IGNORECASE,
-)
-TARGET_ROUTE_ABSENCE_RE = re.compile(
-    r"\b(?:no|none|absent|deferred|not[_\s-]?applicable|not\s+selected|no\s+target|no\s+route)\b",
-    re.IGNORECASE,
-)
-ROUTE_STYLE_ADEQUACY_RE = re.compile(
-    r"\b(?:route[-\s]?style|venue[-\s]?style|template[-\s]?(?:style|basis|corpus|profile|benchmark))\b"
-    r"[^.\n|;:]{0,100}\b(?:adequate|adequacy|sufficient|matched|matches|similar|fit)\b|"
-    r"\b(?:adequate|adequacy|sufficient|matched|matches|similar|fit)\b[^.\n|;:]{0,100}"
-    r"\b(?:route[-\s]?style|venue[-\s]?style|template[-\s]?(?:style|basis|corpus|profile|benchmark))\b",
-    re.IGNORECASE,
-)
-NEGATED_ROUTE_STYLE_ADEQUACY_RE = re.compile(
-    r"\b(?:no|not|never|without|cannot|can't|does\s+not|do\s+not|must\s+not|not[_\s-]?applicable)\b",
-    re.IGNORECASE,
-)
-FINAL_HANDOFF_REQUIRED_PATTERNS = [
-    (re.compile(r"\bfinal\s+yxj[-\s]+paper[-\s]+os\s+handoff\b", re.IGNORECASE), "Final yxj-paper-os handoff"),
-    (re.compile(r"\bpack\s+status\s*:", re.IGNORECASE), "Pack status"),
-    (
-        re.compile(
-            rf"\bready\s+for\s*:\s*downstream\s+writing\s+planning\b[^.\n]*\b{re.escape(FINAL_PACK)}\b",
-            re.IGNORECASE,
-        ),
-        "Ready for downstream writing planning from 04_WRITING_DESIGN_PACK.md",
-    ),
-    (
-        re.compile(
-            r"\bnot\s+ready\s+for\s*:[^\n]*final\s+citations[^\n]*manuscript[-\s]+ready\s+prose"
-            r"[^\n]*submission[^\n]*publication[^\n]*acceptance[^\n]*semantic\s+adequacy",
-            re.IGNORECASE,
-        ),
-        "bounded Not ready for final citations/manuscript/submission/publication/acceptance/semantic adequacy",
-    ),
-    (re.compile(r"\bvalidation\s*:", re.IGNORECASE), "Validation"),
-    (
-        re.compile(r"\bremaining\s+deferred\s*/\s*absent\s*/\s*rejected\s+items\s*:", re.IGNORECASE),
-        "Remaining deferred/absent/rejected items",
-    ),
-    (re.compile(r"\brecommended\s+downstream\s+route", re.IGNORECASE), "Recommended downstream route(s)"),
-    (
-        re.compile(
-            r"\bno\s+external\s+(?:route|skill|handoff|module)\s+(?:executed|run|invoked)\b|"
-            r"\bexternal\s+(?:route|skill|handoff|module)\s+(?:was\s+)?not\s+(?:executed|run|invoked)\b",
-            re.IGNORECASE,
-        ),
-        "no external route executed boundary",
-    ),
-]
-CLAUSE_SPLIT_RE = re.compile(r"[|;:：.。\n]+|\bbut\b", re.IGNORECASE)
-NEGATED_EXTERNAL_EXECUTION_RE = re.compile(
-    r"\b(?:not|never)\s+(?:executed|run|ran|invoked|called|launched|completed)\b|"
-    r"\b(?:do|does|did|must|should|will)\s+not\s+(?:execute|run|invoke|call|launch|complete)\b|"
-    r"\bwithout\s+(?:executing|running|invoking|calling|launching|completing)\b|"
-    r"\bno\b[^|;:.\n]{0,80}?\b(?:executed|run|ran|invoked|called|launched|completed|execution)\b",
-    re.IGNORECASE,
-)
-NEGATED_FORBIDDEN_PROMISE_RE = re.compile(
-    r"\b(?:(?:do|does|did|must|should|will|can)\s+not|cannot|can't|never|without|forbid(?:s|den)?|forbidden)\b"
-    r"[^|;:.\n]{0,80}?\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|"
-    r"manuscript[-\s]+(?:quality|readiness)|actual\s+venue\s+fit|venue\s+fit|novelty|"
-    r"source\s+authority|citation\s+truth|bibliography\s+correctness|argument\s+persuasiveness|"
-    r"prose\s+quality|style\s+similarity|visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
-    r"\b(?:not|never)\s+(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^|;:.\n]{0,80}?"
-    r"\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|manuscript[-\s]+(?:quality|readiness)|"
-    r"actual\s+venue\s+fit|venue\s+fit|novelty|source\s+authority|citation\s+truth|"
-    r"bibliography\s+correctness|argument\s+persuasiveness|prose\s+quality|style\s+similarity|"
-    r"visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
-    r"\b(?:do|does|did|must|should|will|can)\s+not\s+"
-    r"(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^|;:.\n]{0,80}?"
-    r"\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|manuscript[-\s]+(?:quality|readiness)|"
-    r"actual\s+venue\s+fit|venue\s+fit|novelty|source\s+authority|citation\s+truth|"
-    r"bibliography\s+correctness|argument\s+persuasiveness|prose\s+quality|style\s+similarity|"
-    r"visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
-    r"\b(?:cannot|can't|without|avoid|forbid|forbids|forbidden|remove|reject|rejected)\b[^|;:.\n]{0,80}?"
-    r"\b(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^|;:.\n]{0,80}?"
-    r"\b(?:semantic[-\s]+(?:adequacy|readiness)|paper\s+quality|manuscript[-\s]+(?:quality|readiness)|"
-    r"actual\s+venue\s+fit|venue\s+fit|novelty|source\s+authority|citation\s+truth|"
-    r"bibliography\s+correctness|argument\s+persuasiveness|prose\s+quality|style\s+similarity|"
-    r"visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
-    r"\b(?:no|without)\b[^|;:.\n]{0,80}?\b(?:semantic\s+scor(?:e|er|ing)|readiness\s+certification|"
-    r"publication\s+readiness|submission\s+readiness|acceptance\s+prediction)\b",
-    re.IGNORECASE,
-)
-EXTERNAL_SKILL_EXECUTION_RE = re.compile(
-    r"\b(?:executed|execute|ran|run|invoked|invoke|called|call|launched|launch|completed|complete)\b"
-    r"[^.\n|;:]{0,80}\b(?:external|downstream|writing|citation|figure|review|polish(?:ing)?|data|pdf|backend|library)\b"
-    r"[^.\n|;:]{0,40}\b(?:skill|tool|route|module)\b|"
-    r"\b(?:external|downstream|writing|citation|figure|review|polish(?:ing)?|data|pdf|backend|library)\b"
-    r"[^.\n|;:]{0,60}\b(?:skill|tool|route|module)\b"
-    r"[^.\n|;:]{0,80}\b(?:executed|ran|run|invoked|called|launched|completed)\b",
-    re.IGNORECASE,
-)
-FORBIDDEN_SEMANTIC_PROMISE_PATTERNS = [
-    (
-        re.compile(
-            r"\bclaim(?:s|ed|ing)?\s+(?:semantic[-\s]+adequacy|semantic[-\s]+readiness|paper\s+quality|"
-            r"manuscript[-\s]+quality|manuscript[-\s]+readiness|actual\s+venue\s+fit|venue\s+fit|novelty|"
-            r"source\s+authority|citation\s+truth|bibliography\s+correctness|argument\s+persuasiveness|"
-            r"prose\s+quality|style\s+similarity|visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b|"
-            r"\b(?:validat(?:e|es|ed|ing)|verif(?:y|ies|ied|ying)|judg(?:e|es|ed|ing)|scor(?:e|es|ed|ing)|certif(?:y|ies|ied|ying)|prov(?:e|es|ed|ing)|assess(?:es|ed|ing)?|impl(?:y|ies|ied|ying)|infer(?:s|red|ring)?|treat(?:s|ed|ing)?)\b[^.\n|;:]{0,60}"
-            r"\b(?:semantic[-\s]+adequacy|paper\s+quality|manuscript[-\s]+quality|actual\s+venue\s+fit|venue\s+fit|"
-            r"semantic[-\s]+readiness|manuscript[-\s]+readiness|novelty|source\s+authority|citation\s+truth|"
-            r"bibliography\s+correctness|argument\s+persuasiveness|"
-            r"prose\s+quality|style\s+similarity|visual\s+(?:correctness|quality)|acceptance\s+likelihood)\b",
-            re.IGNORECASE,
-        ),
-        "semantic scoring promise",
-    ),
-    (
-        re.compile(
-            r"\b(?:manuscript|submission|publication|acceptance|semantic)[-\s]+readiness\b"
-            r"[^.\n|;:]{0,60}\b(?:passed|validated|verified|certified|approved|ready)\b|"
-            r"\bsemantic[-\s]+adequacy\b[^.\n|;:]{0,60}\b(?:passed|validated|verified|certified|approved|ready)\b|"
-            r"\b(?:ready\s+for\s+submission|publication\s+ready|acceptance\s+likely)\b",
-            re.IGNORECASE,
-        ),
-        "readiness promise",
-    ),
-]
+MATERIAL_STATUS = {"available", "partial", "planned", "unavailable", "rejected"}
+CLAIM_STATUS = {"active", "downgraded", "deferred", "rejected"}
+ORIGIN = {"artifact-observed", "owner-stated", "model-derived", "model-proposed"}
+SUPPORT = {
+    "evidence-supported",
+    "evidence-partial",
+    "evidence-unsupported",
+    "not_applicable",
+}
+RESOLUTION = {"confirmed", "candidate", "unresolved", "conflicted", "rejected"}
+LENS_IDS = {
+    "method-algorithm",
+    "system-software",
+    "benchmark-dataset-resource",
+    "empirical-application",
+    "survey-review",
+    "theory-formal",
+    "human-study-mixed-methods",
+    "research-design-validity",
+    "evidence-results-statistics",
+    "literature-differentiation",
+    "reproducibility-governance",
+    "argument-language-visual",
+    "venue-template",
+}
+NONE_ALLOWED = {
+    (DIMENSION_INDEX, "Writing Scopes"): {
+        "Available inputs",
+        "Required requirement IDs",
+        "Remaining blocker",
+        "Next action",
+        "Output pointer",
+    },
+    (DIMENSION_INDEX, "Active Calibration Lenses"): {"Affected scopes"},
+    (DIMENSION_INDEX, "Conditional Requirements"): {
+        "Affected scopes",
+        "Evidence / decision pointer",
+    },
+    (DIMENSION_INDEX, "Dependency Recheck"): {
+        "Affected D IDs / scopes",
+        "Resolution or next action",
+    },
+    ("00_PROJECT_ROUTE.md", "Decision Records"): {
+        "Decision or live options",
+        "Affected scopes",
+        "Grounding",
+    },
+    ("01_MATERIALS_INVENTORY.md", "Material Records"): {
+        "Locator",
+        "Scope / conditions",
+        "Grounding",
+    },
+    ("02_CLAIM_EVIDENCE_BOUNDARY.md", "Claim Records"): {
+        "Evidence record IDs",
+        "Warrant / support relation",
+        "Scope / conditions",
+        "Directness",
+        "Uncertainty / counterevidence",
+        "Allowed wording",
+        "Forbidden wording",
+        "Grounding",
+    },
+    ("03_WRITING_STRUCTURE.md", "Scoped Writing Plan"): {
+        "Input record IDs",
+        "Output pointer",
+    },
+    (FINAL_PACK, "Scoped Handoff"): {
+        "Available inputs",
+        "Required requirement IDs",
+        "Remaining blocker",
+        "Next action",
+        "Output pointer",
+    },
+}
 
 
-def normalize_heading(text: str) -> str:
-    return re.sub(r"\s+", " ", text.strip().lower())
-
-
-def slugify(text: str) -> str:
-    slug = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
-    return slug
-
-
-def heading_pattern(level: str, heading: str) -> re.Pattern[str]:
-    return re.compile(rf"^{re.escape(level)}\s+{re.escape(heading)}\s*$", re.MULTILINE)
-
-
-def section_content(text: str, heading: str) -> str | None:
-    pattern = heading_pattern("##", heading)
-    match = pattern.search(text)
-    if not match:
-        return None
-    start = match.end()
-    next_heading = re.search(r"^##\s+", text[start:], re.MULTILINE)
-    end = start + next_heading.start() if next_heading else len(text)
-    content = text[start:end].strip()
-    lines = []
-    for line in content.splitlines():
-        stripped = line.strip()
-        if stripped.startswith(">"):
-            continue
-        lines.append(line)
-    return "\n".join(lines).strip()
-
-
-def level_two_heading_slugs(text: str) -> dict[str, str]:
-    result: dict[str, str] = {}
-    for match in re.finditer(r"^##\s+(.+?)\s*$", text, re.MULTILINE):
-        heading = match.group(1).strip()
-        result[slugify(heading)] = heading
-    return result
+def slugify(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
 
 
 def has_placeholder(text: str) -> bool:
-    return bool(PLACEHOLDER_RE.search(text))
+    return bool(re.search(r"(?m)^\s*(?:TODO|TBD)\s*$", text))
 
 
-def parse_markdown_table(section: str) -> tuple[list[str], list[dict[str, str]]]:
-    table_lines = [line.strip() for line in section.splitlines() if line.strip().startswith("|")]
-    if len(table_lines) < 2:
-        return [], []
-    header = [cell.strip() for cell in table_lines[0].strip("|").split("|")]
-    rows: list[dict[str, str]] = []
-    for line in table_lines[2:]:
-        cells = [cell.strip() for cell in line.strip("|").split("|")]
-        if len(cells) != len(header):
+def level_two_heading_slugs(text: str) -> dict[str, str]:
+    return {
+        slugify(m.group(1)): m.group(1).strip()
+        for m in re.finditer(r"^##\s+(.+?)\s*$", text, re.M)
+    }
+
+
+def section_content(text: str, heading: str) -> str | None:
+    match = re.search(rf"^##\s+{re.escape(heading)}\s*$", text, re.M)
+    if not match:
+        return None
+    tail = text[match.end() :]
+    next_heading = re.search(r"^##\s+", tail, re.M)
+    return tail[: next_heading.start()] if next_heading else tail
+
+
+def parse_anchor(
+    value: str, contents: dict[str, str] | None = None
+) -> tuple[str, str, str | None]:
+    if "#" not in value:
+        return "", "", "pointer must use file#heading syntax"
+    name, anchor = value.split("#", 1)
+    if not name:
+        return (name, slugify(anchor), "pointer file name is missing")
+    return name, slugify(anchor), None
+
+
+def first_present(*values):
+    if (
+        len(values) == 2
+        and isinstance(values[1], (list, tuple))
+        and isinstance(values[0], dict)
+    ):
+        return (
+            next(
+                (
+                    values[0].get(key)
+                    for key in values[1]
+                    if values[0].get(key) not in (None, "")
+                ),
+                "",
+            )
+            or ""
+        )
+    return next((v for v in values if v not in (None, "")), "")
+
+
+def _table(text: str, heading: str) -> tuple[list[str] | None, list[list[str]]]:
+    section = section_content(text, heading)
+    if section is None:
+        return None, []
+    lines = [x.strip() for x in section.splitlines() if x.strip().startswith("|")]
+    if len(lines) < 2:
+        return None, []
+
+    def cells(x: str) -> list[str]:
+        return [c.strip() for c in x.strip().strip("|").split("|")]
+
+    header = cells(lines[0])
+    rows = []
+    for line in lines[1:]:
+        if re.fullmatch(r"\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)+\|?", line):
             continue
-        rows.append(dict(zip(header, cells)))
+        rows.append(cells(line))
     return header, rows
 
 
-def parse_optional_table(text: str, heading: str) -> tuple[list[str], list[dict[str, str]]]:
-    section = section_content(text, heading)
-    if section is None:
-        return [], []
-    return parse_markdown_table(section)
+def parse_first_table(text: str, heading: str):
+    header, rows = _table(text, heading)
+    return header or [], [
+        dict(zip(header or [], row)) for row in rows if len(row) == len(header or [])
+    ]
 
 
-def parse_field_status_table(text: str, heading: str) -> tuple[list[str], dict[str, str], list[dict[str, str]]]:
-    header, rows = parse_optional_table(text, heading)
-    if not header or not rows:
-        return header, {}, rows
-
-    field_column = next((name for name in header if "field" in normalize_heading(name)), header[0])
-    value_column = next(
-        (
-            name
-            for name in header
-            if any(token in normalize_heading(name) for token in ["value", "status", "mechanical value"])
-        ),
-        header[1] if len(header) > 1 else header[0],
-    )
-    fields: dict[str, str] = {}
+def _records(
+    file_name: str, heading: str, text: str, workspace: Path, errors: list[str]
+) -> list[dict[str, str]]:
+    expected = SPARSE_TABLES[(file_name, heading)]
+    header, rows = _table(text, heading)
+    if header is None:
+        return []
+    if header != expected:
+        errors.append(
+            f"{file_name}#{heading}: columns must be exactly: " + " | ".join(expected)
+        )
+        return []
+    out = []
     for row in rows:
-        field_name = first_present(row, [field_column, "Field", "Gate field"])
-        value = first_present(row, [value_column, "Value", "Status", "Mechanical value"])
-        if field_name:
-            fields[normalize_heading(field_name)] = value.strip()
-    return header, fields, rows
-
-
-def parse_int_field(value: str) -> int | None:
-    match = re.search(r"-?\d+", value)
-    if not match:
-        return None
-    return int(match.group(0))
-
-
-def normalized_enum_value(value: str) -> str:
-    return normalize_heading(value).replace(" ", "_").replace("-", "_")
-
-
-def template_parseability_column(header: list[str]) -> str:
-    allowed = {normalize_heading(name) for name in TEMPLATE_PARSEABILITY_COLUMNS}
-    return next((name for name in header if normalize_heading(name) in allowed), "")
-
-
-def template_status_is_parseable(value: str) -> bool:
-    if not value or has_placeholder(value):
-        return False
-    if TEMPLATE_PARSEABLE_NO_RE.search(value):
-        return False
-    return bool(TEMPLATE_PARSEABLE_YES_RE.search(value))
-
-
-def final_handoff_pack_status(text: str) -> tuple[str, str]:
-    validation_notes = section_content(text, "Validation Notes") or ""
-    external_handoff = section_content(text, "External Skill Handoff") or ""
-    search_text = "\n".join([validation_notes, external_handoff])
-    match = FINAL_HANDOFF_PACK_STATUS_RE.search(search_text)
-    if not match:
-        return "", ""
-    raw_status = match.group("status").strip().strip("`").strip()
-    normalized = normalized_enum_value(raw_status)
-    if normalized not in VALID_D19_PACK_STATUS:
-        prefix_match = re.match(r"^(valid|blocked)\b(?!\s*/)", raw_status, re.IGNORECASE)
-        if prefix_match:
-            normalized = normalized_enum_value(prefix_match.group(1))
-    return raw_status, normalized
-
-
-def normalize_table_value(value: str) -> str:
-    return re.sub(r"\s+", " ", value.strip())
-
-
-def normalize_anchor(value: str) -> str:
-    value = value.strip().strip("`").strip()
-    value = re.sub(r"^#+", "", value).strip()
-    match = re.fullmatch(r"\[([^\]]+)\]\([^)]*\)", value)
-    if match:
-        value = match.group(1).strip()
-    return value.strip().strip("`").strip()
-
-
-def split_anchor_list(value: str) -> list[str]:
-    cleaned = re.sub(r"<br\s*/?>", ",", value, flags=re.IGNORECASE)
-    parts = re.split(r"[,;；，、\n]+", cleaned)
-    return [anchor for part in parts if (anchor := normalize_anchor(part))]
-
-
-def first_present(row: dict[str, str], names: list[str]) -> str:
-    lowered = {normalize_heading(k): v for k, v in row.items()}
-    for name in names:
-        value = lowered.get(normalize_heading(name), "")
-        if value:
-            return value.strip()
-    return ""
-
-
-def status_is_unavailable(value: str) -> bool:
-    normalized = normalize_table_value(value)
-    if not normalized or RECOMPILE_NOT_REQUIRED_RE.search(normalized):
-        return False
-    return bool(UNAVAILABLE_VISUAL_STATUS_RE.search(normalized))
-
-
-def requires_recompile(value: str) -> bool:
-    normalized = normalize_table_value(value)
-    if not normalized or RECOMPILE_NOT_REQUIRED_RE.search(normalized):
-        return False
-    return bool(RECOMPILE_REQUIRED_RE.search(normalized))
-
-
-def row_has_real_values(row: dict[str, str]) -> bool:
-    values = [normalize_table_value(value) for value in row.values()]
-    return any(value and not has_placeholder(value) and not RECOMPILE_NOT_REQUIRED_RE.fullmatch(value) for value in values)
-
-
-def validate_retired_terms(file_name: str, text: str, errors: list[str]) -> None:
-    for line_number, line in enumerate(text.splitlines(), start=1):
-        stage_match = RETIRED_STAGE_RE.search(line)
-        if stage_match:
-            errors.append(
-                f"{file_name}: line {line_number} contains retired stage/governance token "
-                f"{stage_match.group(0)!r}; use D00-D19 plus the five public phases instead"
-            )
-        label_match = RETIRED_DIMENSION_LABEL_RE.search(line)
-        if label_match:
-            errors.append(
-                f"{file_name}: line {line_number} contains retired dimension filename label "
-                f"{label_match.group(0)!r}; use the current semantic Dimension name instead"
-            )
-
-
-def validate_template_surface(errors: list[str]) -> None:
-    template_dir = Path(__file__).resolve().parent.parent / "assets" / "templates"
-    if not template_dir.is_dir():
-        errors.append(f"template surface missing: {template_dir}")
-        return
-    actual = {path.name for path in template_dir.glob("*.md")}
-    expected = set(REQUIRED_FILES)
-    missing = sorted(expected - actual)
-    extra = sorted(actual - expected)
-    if missing:
-        errors.append(f"template surface missing required templates: {', '.join(missing)}")
-    if extra:
-        errors.append(f"template surface has unexpected public templates: {', '.join(extra)}")
-
-
-def parse_anchor(pointer: str, contents: dict[str, str]) -> tuple[str | None, str | None, str | None]:
-    for file_name in REQUIRED_FILES:
-        if file_name not in pointer:
+        if len(row) != len(expected):
+            errors.append(f"{file_name}#{heading}: wrong cell count")
             continue
-        after = pointer.split(file_name, 1)[1].strip()
-        if not after.startswith("#"):
-            return file_name, None, "missing #section anchor"
-        raw_anchor = after[1:].strip().strip("#").strip("`")
-        if not raw_anchor:
-            return file_name, None, "empty section anchor"
-        return file_name, slugify(raw_anchor), None
-    return None, None, "missing workspace file reference"
+        if any(not c or c == "TODO" for c in row):
+            errors.append(f"{file_name}#{heading}: populated row contains blank/TODO")
+            continue
+        for column, value in zip(expected, row):
+            if value == "none" and column not in NONE_ALLOWED[(file_name, heading)]:
+                errors.append(f"{file_name}#{heading}: none is not allowed in {column}")
+        out.append(dict(zip(expected, row)))
+    return out
 
 
-def validate_filled_pointer(row_label: str, pointer: str, contents: dict[str, str], errors: list[str]) -> None:
-    file_name, anchor_slug, error = parse_anchor(pointer, contents)
-    if error:
-        errors.append(f"{row_label}: filled pointer must name an existing workspace file plus #section anchor ({error})")
-        return
-    if file_name is None or file_name not in contents:
-        errors.append(f"{row_label}: filled pointer references missing workspace file")
-        return
-    assert anchor_slug is not None
-    slugs = level_two_heading_slugs(contents[file_name])
-    heading = slugs.get(anchor_slug)
-    if heading is None:
-        errors.append(f"{row_label}: filled pointer section anchor must target an existing ## section in {file_name}: #{anchor_slug}")
-        return
-    content = section_content(contents[file_name], heading)
-    if content is not None and (not content.strip() or has_placeholder(content)):
-        errors.append(f"{row_label}: filled pointer target section is empty or placeholder: {file_name}#{anchor_slug}")
+def _valid_ref(value: str, workspace: Path, allow_none: bool = True) -> bool:
+    if value == "none":
+        return allow_none
+    if ID_RE.match(value) or D_RE.match(value):
+        return True
+    if value.startswith("path:"):
+        return (workspace / value[5:].split("#", 1)[0]).is_file()
+    if "#" in value:
+        name, heading = value.split("#", 1)
+        path = workspace / name
+        return (
+            path.is_file()
+            and section_content(path.read_text(encoding="utf-8"), heading) is not None
+        )
+    return False
 
 
-def validate_dimension_index(text: str, contents: dict[str, str], errors: list[str]) -> dict[str, dict[str, str]]:
-    rows_by_id: dict[str, dict[str, str]] = {}
-    section = section_content(text, "Dimension Status Index")
-    if section is None:
-        errors.append(f"{DIMENSION_INDEX}: missing ## Dimension Status Index")
-        return rows_by_id
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(f"{DIMENSION_INDEX}: Dimension Status Index must contain a Markdown table with D00-D19 rows")
-        return rows_by_id
+def _validate_dimension_index(text: str, errors: list[str]) -> None:
+    header, rows = _table(text, "Dimension Status Index")
     if header != DIMENSION_COLUMNS:
-        errors.append(
-            f"{DIMENSION_INDEX}: Dimension Status Index columns must be exactly: "
-            + " | ".join(DIMENSION_COLUMNS)
-        )
-
-    seen: set[str] = set()
-    for idx, row in enumerate(rows, start=1):
-        label = f"{DIMENSION_INDEX}: Dimension Status Index row {idx}"
-        dim_id = first_present(row, ["ID"])
-        dimension = first_present(row, ["Dimension"])
-        current_home = first_present(row, ["Current home"])
-        status = first_present(row, ["Status"]).lower()
-        reason = first_present(row, ["Reason / owner note"])
-        pointer = first_present(row, ["Pointer or handoff"])
-        blocks = first_present(row, ["Blocks design pack?"]).lower()
-
-        if not dim_id:
-            errors.append(f"{label}: ID is missing")
+        errors.append("00_DIMENSION_INDEX.md: public index columns changed")
+    seen = []
+    for row in rows:
+        if len(row) < 7:
             continue
-        if dim_id in seen:
-            errors.append(f"{label}: duplicate dimension ID {dim_id}")
-        seen.add(dim_id)
-        rows_by_id[dim_id] = row
-        if dim_id not in REQUIRED_DIMENSION_IDS:
-            errors.append(f"{label}: unexpected dimension ID {dim_id}")
-        if not dimension or has_placeholder(dimension):
-            errors.append(f"{label}: Dimension is missing or placeholder")
-        elif dim_id in CURRENT_DIMENSION_NAMES and dimension != CURRENT_DIMENSION_NAMES[dim_id]:
-            errors.append(
-                f"{label}: Dimension must be current semantic name "
-                f"{CURRENT_DIMENSION_NAMES[dim_id]!r}; found {dimension!r}"
-            )
-        if not current_home or has_placeholder(current_home):
-            errors.append(f"{label}: Current home is missing or placeholder")
-        if status not in VALID_DIMENSION_STATUSES:
-            errors.append(f"{label}: invalid Status {status!r}; expected one of {', '.join(sorted(VALID_DIMENSION_STATUSES))}")
-        if not reason or has_placeholder(reason):
-            errors.append(f"{label}: Reason / owner note is missing or placeholder")
-        if not pointer or has_placeholder(pointer):
-            errors.append(f"{label}: Pointer or handoff is missing or placeholder")
-        if blocks not in VALID_BLOCKS_VALUES:
-            errors.append(f"{label}: Blocks design pack? must be yes or no")
-        if status == "filled" and pointer and not has_placeholder(pointer):
-            validate_filled_pointer(label, pointer, contents, errors)
-
-    missing = sorted(REQUIRED_DIMENSION_IDS - seen)
-    if missing:
-        errors.append(f"{DIMENSION_INDEX}: missing required dimension IDs: {', '.join(missing)}")
-    return rows_by_id
-
-
-def validate_evidence_inventory(text: str, errors: list[str]) -> tuple[set[str], set[str]]:
-    file_name = "01_MATERIALS_INVENTORY.md"
-    section = section_content(text, "Evidence Inventory")
-    if section is None:
-        errors.append(f"{file_name}: missing ## Evidence Inventory")
-        return set(), set()
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(f"{file_name}: Evidence Inventory must contain a Markdown table with evidence anchors")
-        return set(), set()
-
-    anchors: set[str] = set()
-    unavailable_anchors: set[str] = set()
-    for idx, row in enumerate(rows, start=1):
-        label = f"{file_name}: Evidence Inventory row {idx}"
-        anchor = first_present(row, ["Evidence anchor", "Evidence anchors", "Anchor", "ID"])
-        status = first_present(row, ["Status"])
-        if not anchor or has_placeholder(anchor):
-            errors.append(f"{label}: evidence anchor is missing or placeholder")
-            continue
-        normalized = normalize_anchor(anchor)
-        if not normalized:
-            errors.append(f"{label}: evidence anchor is empty after normalization")
-            continue
-        if normalized in anchors:
-            errors.append(f"{label}: duplicate evidence anchor {normalized}")
-        anchors.add(normalized)
-        if not status or has_placeholder(status):
-            errors.append(f"{label}: status is required and must not be placeholder")
-        elif status_is_unavailable(status):
-            unavailable_anchors.add(normalized)
-    return anchors, unavailable_anchors
-
-
-def validate_claim_table(
-    file_name: str,
-    text: str,
-    evidence_anchors: set[str],
-    unavailable_evidence_anchors: set[str],
-    unavailable_visual_anchors: set[str],
-    errors: list[str],
-) -> None:
-    section = section_content(text, "Claim-Evidence Map")
-    if section is None:
-        errors.append(f"{file_name}: missing ## Claim-Evidence Map")
-        return
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(f"{file_name}: Claim-Evidence Map must contain a Markdown table with at least one claim row")
-        return
-
-    for idx, row in enumerate(rows, start=1):
-        claim = first_present(row, ["Claim"])
-        evidence = first_present(row, ["Evidence anchors", "Evidence", "Evidence anchor"])
-        support = first_present(row, ["Support strength", "Support"])
-        forbidden = first_present(row, ["Forbidden wording", "Forbidden"])
-        status = first_present(row, ["Status"])
-        status_key = re.sub(r"\s+", " ", status.lower().strip())
-        deferred = status_key in DEFER_STATUSES
-
-        label = f"{file_name}: Claim-Evidence Map row {idx}"
-        if not claim or has_placeholder(claim):
-            errors.append(f"{label}: claim is missing or placeholder")
-        if not deferred and (not evidence or has_placeholder(evidence)):
-            errors.append(f"{label}: evidence anchor is required unless status is deferred/rejected")
-        elif not deferred:
-            if ACTIVE_VISUAL_EVIDENCE_RE.search(evidence):
-                errors.append(
-                    f"{label}: active claim evidence explicitly cites a needed/deferred/absent visual; "
-                    "D18 visual plans are structural only until backed by an available D06 evidence anchor"
-                )
-            anchors = split_anchor_list(evidence)
-            if not anchors:
-                errors.append(f"{label}: evidence anchor is required unless status is deferred/rejected")
-            for anchor in anchors:
-                if anchor.lower() in {"n/a", "na", "none", "absent"}:
-                    errors.append(f"{label}: evidence anchor {anchor!r} requires deferred/rejected status")
-                elif anchor not in evidence_anchors:
-                    errors.append(f"{label}: evidence anchor {anchor!r} is not listed in 01_MATERIALS_INVENTORY.md#Evidence Inventory")
-                elif anchor in unavailable_evidence_anchors:
-                    errors.append(
-                        f"{label}: evidence anchor {anchor!r} is marked needed/deferred/absent/planned in "
-                        "01_MATERIALS_INVENTORY.md#Evidence Inventory and cannot support an active claim"
-                    )
-                elif anchor in unavailable_visual_anchors:
-                    errors.append(
-                        f"{label}: evidence anchor {anchor!r} is a needed/deferred/absent visual in D18 and "
-                        "cannot support an active claim without available D06 evidence"
-                    )
-        if not support or has_placeholder(support):
-            errors.append(f"{label}: support strength is required and must not be placeholder")
-        if not forbidden or has_placeholder(forbidden):
-            errors.append(f"{label}: forbidden wording is required and must not be placeholder")
-        if FINAL_PACK == file_name and (not status or has_placeholder(status)):
-            errors.append(f"{label}: final design pack requires explicit status")
-
-
-def validate_dimension_coverage_summary(text: str, index_rows: dict[str, dict[str, str]], errors: list[str]) -> None:
-    section = section_content(text, "Dimension Coverage Summary")
-    if section is None:
-        errors.append(f"{FINAL_PACK}: missing ## Dimension Coverage Summary")
-        return
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(f"{FINAL_PACK}: Dimension Coverage Summary must contain a Markdown table with D00-D19 rows")
-        return
-    if header != FINAL_COVERAGE_COLUMNS:
-        errors.append(
-            f"{FINAL_PACK}: Dimension Coverage Summary columns must be exactly: "
-            + " | ".join(FINAL_COVERAGE_COLUMNS)
-        )
-
-    seen: set[str] = set()
-    for idx, row in enumerate(rows, start=1):
-        label = f"{FINAL_PACK}: Dimension Coverage Summary row {idx}"
-        dim_id = first_present(row, ["ID"])
-        status = first_present(row, ["Status"]).lower()
-        pointer = first_present(row, ["Pointer or handoff"])
-        blocks = first_present(row, ["Blocks design pack?"]).lower()
-
-        if not dim_id:
-            errors.append(f"{label}: ID is missing")
-            continue
-        if dim_id in seen:
-            errors.append(f"{label}: duplicate dimension ID {dim_id}")
-        seen.add(dim_id)
-        if dim_id not in REQUIRED_DIMENSION_IDS:
-            errors.append(f"{label}: unexpected dimension ID {dim_id}")
-        if status not in VALID_DIMENSION_STATUSES:
-            errors.append(f"{label}: invalid Status {status!r}; expected one of {', '.join(sorted(VALID_DIMENSION_STATUSES))}")
-        if not pointer or has_placeholder(pointer):
-            errors.append(f"{label}: Pointer or handoff is missing or placeholder")
-        if blocks not in VALID_BLOCKS_VALUES:
-            errors.append(f"{label}: Blocks design pack? must be yes or no")
-
-        index_row = index_rows.get(dim_id)
-        if index_row:
-            index_status = first_present(index_row, ["Status"]).lower()
-            index_pointer = first_present(index_row, ["Pointer or handoff"])
-            index_blocks = first_present(index_row, ["Blocks design pack?"]).lower()
-            if status and index_status and status != index_status:
-                errors.append(f"{label}: Status does not match {DIMENSION_INDEX} ({status!r} != {index_status!r})")
-            if pointer and index_pointer and normalize_table_value(pointer) != normalize_table_value(index_pointer):
-                errors.append(f"{label}: Pointer or handoff does not match {DIMENSION_INDEX}")
-            if blocks and index_blocks and blocks != index_blocks:
-                errors.append(f"{label}: Blocks design pack? does not match {DIMENSION_INDEX} ({blocks!r} != {index_blocks!r})")
-
-    missing = sorted(REQUIRED_DIMENSION_IDS - seen)
-    if missing:
-        errors.append(f"{FINAL_PACK}: Dimension Coverage Summary missing required dimension IDs: {', '.join(missing)}")
-
-
-def collect_unavailable_visual_anchors(contents: dict[str, str]) -> set[str]:
-    unavailable: set[str] = set()
-    visual_sources = [
-        ("03_WRITING_STRUCTURE.md", "Visual Plan"),
-        ("03_WRITING_STRUCTURE.md", "Figure / Table Storyline"),
-        (FINAL_PACK, "Visual and Figure Storyline"),
-    ]
-    for file_name, heading in visual_sources:
-        text = contents.get(file_name)
-        if not text:
-            continue
-        _, rows = parse_optional_table(text, heading)
-        for row in rows:
-            visual_id = first_present(
-                row,
-                [
-                    "Visual id",
-                    "Visual/table id",
-                    "Visual",
-                    "Figure",
-                    "Table",
-                    "ID",
-                    "Story step",
-                ],
-            )
-            status_text = " ".join(
-                first_present(row, names)
-                for names in [
-                    ["Type and status", "Status"],
-                    ["Evidence boundary"],
-                    ["Data/evidence needed"],
-                    ["Handoff"],
-                ]
-            )
-            if visual_id and not has_placeholder(visual_id) and status_is_unavailable(status_text):
-                unavailable.add(normalize_anchor(visual_id))
-    return unavailable
-
-
-def is_supplied_source_detail(value: str) -> bool:
-    normalized = normalize_table_value(value)
-    if not normalized or has_placeholder(normalized):
-        return False
-    if RECOMPILE_NOT_REQUIRED_RE.fullmatch(normalized):
-        return False
-    return not bool(SOURCE_ABSENCE_RE.search(normalized))
-
-
-def validate_d07_source_boundary(
-    contents: dict[str, str],
-    index_rows: dict[str, dict[str, str]],
-    errors: list[str],
-) -> None:
-    d07_row = index_rows.get("D07")
-    if not d07_row:
-        return
-    status = first_present(d07_row, ["Status"]).lower()
-    if status != "filled":
-        return
-
-    inventory_text = contents.get("01_MATERIALS_INVENTORY.md", "")
-    section = section_content(inventory_text, "Source and Citation Bank")
-    if section is None:
-        return
-
-    header, rows = parse_markdown_table(section)
-    detail_values: list[str] = []
-    if header and rows:
-        for row in rows:
-            prompt = first_present(row, ["Source/citation prompt", "Prompt", "Source prompt", "Field"])
-            detail = first_present(
-                row,
-                [
-                    "Supplied detail or explicit absence/defer note",
-                    "Source identity and locator/version",
-                    "Source identity",
-                    "Source",
-                    "Citation",
-                    "Reference",
-                    "Locator",
-                    "DOI",
-                    "URL",
-                ],
-            )
-            if prompt and not re.search(
-                r"\b(?:source\s+identity|locator|candidate|reference|citation\s+candidate|known\s+source|supplied\s+source)\b",
-                prompt,
-                re.IGNORECASE,
-            ):
-                continue
-            if detail:
-                detail_values.append(detail)
-    else:
-        detail_values.append(section)
-
-    if detail_values and any(is_supplied_source_detail(value) for value in detail_values):
-        return
-
-    errors.append(
-        f"{DIMENSION_INDEX}: D07 is marked filled but "
-        "01_MATERIALS_INVENTORY.md#Source and Citation Bank does not contain supplied source/citation detail; "
-        "mark D07 absent or deferred with a no-invention handoff when no sources are supplied"
-    )
-
-
-def template_corpus_stats(contents: dict[str, str], errors: list[str]) -> tuple[int, bool]:
-    inventory_text = contents.get("01_MATERIALS_INVENTORY.md", "")
-    section = section_content(inventory_text, TEMPLATE_CORPUS_HEADING)
-    if section is None:
-        errors.append(f"01_MATERIALS_INVENTORY.md: missing ## {TEMPLATE_CORPUS_HEADING}")
-        return 0, False
-
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(
-            f"01_MATERIALS_INVENTORY.md: {TEMPLATE_CORPUS_HEADING} must contain a Markdown table "
-            "with template corpus records"
-        )
-        return 0, False
-
-    parseability_column = template_parseability_column(header)
-    if not parseability_column:
-        errors.append(
-            f"01_MATERIALS_INVENTORY.md: {TEMPLATE_CORPUS_HEADING} must include a recognized "
-            "parseability/status column: "
-            + ", ".join(TEMPLATE_PARSEABILITY_COLUMNS)
-        )
-        return 0, False
-
-    parseable_count = 0
-    rationale_ok_count = 0
-    for idx, row in enumerate(rows, start=1):
-        label = f"01_MATERIALS_INVENTORY.md: {TEMPLATE_CORPUS_HEADING} row {idx}"
-        parseability = first_present(row, [parseability_column])
-        source = first_present(
-            row,
-            [
-                "Source / locator",
-                "Source/locator",
-                "Template source / locator",
-                "Source",
-                "Locator",
-            ],
-        )
-        rationale = first_present(
-            row,
-            [
-                "Route/type similarity rationale",
-                "Source/similarity rationale",
-                "Similarity rationale",
-                "Rationale",
-            ],
-        )
-        if not parseability or has_placeholder(parseability):
-            errors.append(f"{label}: parseability/status value is missing or placeholder")
-            continue
-        if not template_status_is_parseable(parseability):
-            continue
-        parseable_count += 1
-        if not source or has_placeholder(source):
-            errors.append(f"{label}: parseable full-text template is missing source/locator")
-        if not rationale or has_placeholder(rationale):
-            errors.append(f"{label}: parseable full-text template is missing source/similarity rationale")
-        else:
-            rationale_ok_count += 1
-
-    return parseable_count, rationale_ok_count >= 3
-
-
-def route_trigger_fields(contents: dict[str, str]) -> dict[str, str]:
-    route_text = contents.get("00_PROJECT_ROUTE.md", "")
-    _header, fields, _rows = parse_field_status_table(route_text, ROUTE_TEMPLATE_TRIGGER_HEADING)
-    return fields
-
-
-def has_target_route_expectation(contents: dict[str, str]) -> bool:
-    route_text = contents.get("00_PROJECT_ROUTE.md", "")
-    target_section = section_content(route_text, "Target Route") or ""
-    header, rows = parse_markdown_table(target_section)
-    values: list[str] = []
-    if header and rows:
-        for row in rows:
-            prompt = first_present(row, ["Route/profile prompt", "Field", "Planning surface"])
-            if re.search(r"\b(?:venue|target\s+route|article|paper\s+type)\b", prompt, re.IGNORECASE):
-                values.append(first_present(row, ["Planning note or explicit defer/absence", "Planning note", "Value"]))
-    if not values:
-        values = [
-            line.split(":", 1)[1].strip()
-            for line in target_section.splitlines()
-            if ":" in line and re.search(r"\b(?:venue|target|paper\s+type|article)\b", line, re.IGNORECASE)
-        ]
-    for value in values:
-        if value and not has_placeholder(value) and not TARGET_ROUTE_ABSENCE_RE.search(value):
-            return True
-    return False
-
-
-def explicit_no_template_rationale(*values: str) -> bool:
-    return any(value and not has_placeholder(value) and NO_TEMPLATE_RATIONALE_RE.search(value) for value in values)
-
-
-def contains_route_style_adequacy_claim(text: str) -> bool:
-    for clause in claim_clauses(text):
-        if ROUTE_STYLE_ADEQUACY_RE.search(clause) and not NEGATED_ROUTE_STYLE_ADEQUACY_RE.search(clause):
-            return True
-    return False
-
-
-def quantification_incomplete_dimensions(
-    contents: dict[str, str],
-    index_rows: dict[str, dict[str, str]],
-) -> list[str]:
-    dim_sections = {
-        "D02": [(FINAL_PACK, "D02 Stale Gate")],
-        "D09": [
-            ("03_WRITING_STRUCTURE.md", "Exemplar Language Profile"),
-            ("03_WRITING_STRUCTURE.md", "Template Language / Rhythm / Surface-Reference Benchmark"),
-        ],
-        "D15": [
-            ("03_WRITING_STRUCTURE.md", "Manuscript Outline"),
-            ("03_WRITING_STRUCTURE.md", "Section Jobs"),
-            ("03_WRITING_STRUCTURE.md", "Template Structure Benchmark"),
-        ],
-        "D17": [
-            ("03_WRITING_STRUCTURE.md", "Surface Control"),
-            ("03_WRITING_STRUCTURE.md", "Template Language / Rhythm / Surface-Reference Benchmark"),
-        ],
-        "D18": [
-            ("03_WRITING_STRUCTURE.md", "Visual Plan"),
-            ("03_WRITING_STRUCTURE.md", "Template Visual-Density Benchmark"),
-        ],
-    }
-    incomplete: list[str] = []
-    for dim_id, section_refs in dim_sections.items():
-        row = index_rows.get(dim_id, {})
-        texts = [
-            first_present(row, ["Reason / owner note"]),
-            first_present(row, ["Pointer or handoff"]),
-        ]
-        for file_name, heading in section_refs:
-            texts.append(section_content(contents.get(file_name, ""), heading) or "")
-        if QUANTIFICATION_INCOMPLETE_RE.search("\n".join(texts)):
-            incomplete.append(dim_id)
-    return incomplete
-
-
-def validate_quantification_gate(
-    contents: dict[str, str],
-    index_rows: dict[str, dict[str, str]],
-    errors: list[str],
-) -> None:
-    final_text = contents.get(FINAL_PACK, "")
-    if not final_text:
-        return
-
-    header, fields, _rows = parse_field_status_table(final_text, QUANTIFICATION_GATE_HEADING)
-    if not header or not fields:
-        errors.append(
-            f"{FINAL_PACK}: {QUANTIFICATION_GATE_HEADING} must contain a canonical Field/Value table"
-        )
-        return
-
-    missing_fields = [field for field in QUANTIFICATION_GATE_FIELDS if normalize_heading(field) not in fields]
-    if missing_fields:
-        errors.append(
-            f"{FINAL_PACK}: {QUANTIFICATION_GATE_HEADING} missing canonical field(s): "
-            + ", ".join(missing_fields)
-        )
-
-    gate_applies_raw = fields.get("gate applies", "")
-    gate_applies = normalized_enum_value(gate_applies_raw)
-    trigger_basis = fields.get("trigger basis", "")
-    count_raw = fields.get("parseable full-text template count", "")
-    rationale_raw = fields.get("source/similarity rationale present", "")
-    rationale_present = normalized_enum_value(rationale_raw)
-    outputs_status = normalized_enum_value(fields.get("quantitative outputs status", ""))
-    blocker_propagation = normalized_enum_value(fields.get("blocker propagation", ""))
-    d19_status = normalized_enum_value(fields.get("d19 pack status", ""))
-    d19_index_status = first_present(index_rows.get("D19", {}), ["Status"]).lower()
-
-    if gate_applies not in VALID_GATE_APPLIES:
-        errors.append(
-            f"{FINAL_PACK}: Gate applies must be one of yes, no, not_applicable; found {gate_applies_raw!r}"
-        )
-    if not trigger_basis or has_placeholder(trigger_basis):
-        errors.append(f"{FINAL_PACK}: Trigger basis is required for the Template Quantification Gate")
-    if rationale_present not in VALID_RATIONALE_PRESENT:
-        errors.append(
-            f"{FINAL_PACK}: Source/similarity rationale present must be yes or no; found {rationale_raw!r}"
-        )
-    if outputs_status not in VALID_QUANT_OUTPUT_STATUS:
-        errors.append(
-            f"{FINAL_PACK}: Quantitative outputs status must be present, blocked, or not_applicable; "
-            f"found {fields.get('quantitative outputs status', '')!r}"
-        )
-    if blocker_propagation not in VALID_BLOCKER_PROPAGATION:
-        errors.append(
-            f"{FINAL_PACK}: Blocker propagation must be clear or blocked; "
-            f"found {fields.get('blocker propagation', '')!r}"
-        )
-    if d19_status not in VALID_D19_PACK_STATUS:
-        errors.append(
-            f"{FINAL_PACK}: D19 pack status must be valid or blocked; "
-            f"found {fields.get('d19 pack status', '')!r}"
-        )
-
-    final_status_raw, final_status = final_handoff_pack_status(final_text)
-    if final_status_raw and final_status not in VALID_D19_PACK_STATUS:
-        errors.append(
-            f"{FINAL_PACK}: final handoff Pack status must be valid or blocked; "
-            f"found {final_status_raw!r}"
-        )
-    elif final_status and d19_status in VALID_D19_PACK_STATUS and final_status != d19_status:
-        errors.append(
-            f"{FINAL_PACK}: blocked-not-valid-handoff — final handoff Pack status "
-            f"{final_status_raw!r} conflicts with Quantification Gate Status D19 pack status {d19_status!r}"
-        )
-
-    route_fields = route_trigger_fields(contents)
-    route_gate = normalized_enum_value(
-        first_present(
-            route_fields,
-            [
-                "Template expectation status",
-                "Quantification gate applies",
-                "Gate applies",
-            ],
-        )
-    )
-    route_trigger_basis = first_present(
-        route_fields,
-        [
-            "Trigger basis",
-            "Route/type trigger basis",
-            "Owner rationale",
-        ],
-    )
-    target_route_expected = has_target_route_expectation(contents)
-    if route_gate == "yes" and gate_applies in {"no", "not_applicable"}:
-        errors.append(
-            f"{FINAL_PACK}: D04 route trigger says Template Quantification Gate applies, "
-            "but D19 gate is not yes"
-        )
-    if route_gate in {"no", "not_applicable"} and gate_applies == "yes":
-        errors.append(
-            f"{FINAL_PACK}: D19 gate applies=yes conflicts with D04 no/not_applicable template trigger"
-        )
-
-    count = parse_int_field(count_raw)
-    template_count_errors: list[str] = []
-    parseable_count, corpus_rationale_ok = template_corpus_stats(contents, template_count_errors)
-
-    hidden_incomplete = quantification_incomplete_dimensions(contents, index_rows)
-    if hidden_incomplete and d19_status == "valid":
-        errors.append(
-            f"{FINAL_PACK}: D02/D09/D15/D17/D18 quantification incomplete marker(s) "
-            f"{', '.join(hidden_incomplete)} conflict with D19 pack status valid "
-            "(blocked-not-valid-handoff)"
-        )
-    if hidden_incomplete and blocker_propagation == "clear":
-        errors.append(
-            f"{FINAL_PACK}: Blocker propagation is clear while quantification incomplete marker(s) "
-            f"exist in {', '.join(hidden_incomplete)}"
-        )
-
-    if gate_applies == "yes":
-        gate_failures: list[str] = []
-        errors.extend(template_count_errors)
-        if count is None:
-            gate_failures.append("Parseable full-text template count is missing or not an integer")
-        elif count < 3:
-            gate_failures.append("Parseable full-text template count is less than the minimum 3")
-        if parseable_count < 3:
-            gate_failures.append(
-                "01_MATERIALS_INVENTORY.md#Template Corpus / Quantification Basis has fewer than 3 parseable full-text templates"
-            )
-        if rationale_present != "yes":
-            gate_failures.append("Source/similarity rationale present is not yes")
-        if not corpus_rationale_ok:
-            gate_failures.append("Template corpus lacks source/similarity rationale for at least 3 parseable records")
-        if outputs_status != "present":
-            gate_failures.append("Quantitative outputs status is not present")
-        if blocker_propagation != "clear":
-            gate_failures.append("Blocker propagation is not clear")
-        if hidden_incomplete:
-            gate_failures.append(f"Quantification incomplete markers remain in {', '.join(hidden_incomplete)}")
-
-        if gate_failures:
-            if d19_status != "blocked":
-                errors.append(
-                    f"{FINAL_PACK}: Template Quantification Gate applies=yes but D19 pack status is not blocked "
-                    "after incomplete quantification fields"
-                )
-            errors.append(
-                f"{FINAL_PACK}: blocked-not-valid-handoff — Template Quantification Gate incomplete: "
-                + "; ".join(gate_failures)
-            )
-        elif d19_status != "valid":
-            errors.append(
-                f"{FINAL_PACK}: Template Quantification Gate passes mechanically, but D19 pack status is not valid "
-                "(blocked-not-valid-handoff)"
-            )
-        if d19_index_status == "filled" and d19_status == "blocked":
-            errors.append(
-                f"{DIMENSION_INDEX}: D19 is filled while Quantification Gate Status says blocked "
-                "(blocked-not-valid-handoff)"
-            )
-
-    elif gate_applies in {"no", "not_applicable"}:
-        if target_route_expected and not explicit_no_template_rationale(trigger_basis, route_trigger_basis):
-            errors.append(
-                f"{FINAL_PACK}: gate {gate_applies_raw!r} requires an explicit owner-confirmed no-template "
-                "or no-route rationale when a target route/article type is present"
-            )
-        gate_no_text = "\n".join(
-            section_content(contents.get(file_name, ""), heading) or ""
-            for file_name, heading in [
-                ("00_PROJECT_ROUTE.md", ROUTE_TEMPLATE_TRIGGER_HEADING),
-                (FINAL_PACK, QUANTIFICATION_GATE_HEADING),
-                (FINAL_PACK, "Current Design vs Template Comparison"),
-                (FINAL_PACK, QUANTIFICATION_HANDOFF_HEADING),
-            ]
-        )
-        if contains_route_style_adequacy_claim(gate_no_text):
-            errors.append(
-                f"{FINAL_PACK}: gate {gate_applies_raw!r} must not claim route-style adequacy "
-                "from unavailable template quantification"
-            )
-        if d19_status == "blocked":
-            errors.append(f"{FINAL_PACK}: blocked-not-valid-handoff — D19 pack status is blocked")
-        elif d19_status == "valid" and blocker_propagation != "clear":
-            errors.append(f"{FINAL_PACK}: non-applicable quantification gate requires clear blocker propagation")
-
-    if d19_status == "blocked":
-        handoff = section_content(final_text, QUANTIFICATION_HANDOFF_HEADING) or ""
-        validation = section_content(final_text, "Validation Notes") or ""
-        if "blocked-not-valid-handoff" not in f"{handoff}\n{validation}":
-            errors.append(
-                f"{FINAL_PACK}: D19 pack status blocked must carry blocked-not-valid-handoff in "
-                f"## {QUANTIFICATION_HANDOFF_HEADING} or ## Validation Notes"
-            )
-
-
-def validate_final_handoff_card(text: str, errors: list[str]) -> None:
-    validation_notes = section_content(text, "Validation Notes") or ""
-    external_handoff = section_content(text, "External Skill Handoff") or ""
-    search_text = "\n".join([validation_notes, external_handoff])
-    for pattern, label in FINAL_HANDOFF_REQUIRED_PATTERNS:
-        if not pattern.search(search_text):
-            errors.append(f"{FINAL_PACK}: final handoff card missing required boundary field: {label}")
-
-
-def validate_d19_handoff_structure(text: str, errors: list[str]) -> None:
-    lower_text = text.lower()
-    required_structural_phrases = [
-        ("submission blueprint", "submission blueprint"),
-        ("semantic-risk", "semantic-risk note"),
-        ("External Skill Handoff", "external handoff route"),
-        ("Validation Notes", "validation notes"),
-    ]
-    for phrase, label in required_structural_phrases:
-        if phrase.lower() not in lower_text:
-            errors.append(f"{FINAL_PACK}: missing D19 structural {label}; validation is structural, not semantic adequacy")
-
-    blueprint_header, blueprint_rows = parse_optional_table(text, "Submission Blueprint")
-    if blueprint_header and blueprint_header != ["Blueprint prompt", "Planned note or handoff", "Risk or constraint"]:
-        errors.append(f"{FINAL_PACK}: Submission Blueprint columns changed; found {blueprint_header}")
-    if blueprint_header and not blueprint_rows:
-        errors.append(f"{FINAL_PACK}: Submission Blueprint must contain at least one structural handoff row")
-
-    risk_header, risk_rows = parse_optional_table(text, "Semantic-Risk and Unresolved-Risk Notes")
-    if risk_header and risk_header != ["Risk area", "Unresolved dimension/source", "Consequence or handoff"]:
-        errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes columns changed; found {risk_header}")
-    if risk_header and not risk_rows:
-        errors.append(f"{FINAL_PACK}: Semantic-Risk and Unresolved-Risk Notes must contain at least one structural risk row")
-
-    validate_final_handoff_card(text, errors)
-
-
-def claim_clauses(line: str) -> list[str]:
-    return [clause.strip() for clause in CLAUSE_SPLIT_RE.split(line) if clause.strip()]
-
-
-def has_unnegated_match(text: str, positive_pattern: re.Pattern[str], negated_pattern: re.Pattern[str]) -> bool:
-    masked = list(text)
-    for match in negated_pattern.finditer(text):
-        start, end = match.span()
-        masked[start:end] = " " * (end - start)
-    return bool(positive_pattern.search("".join(masked)))
-
-
-def contains_positive_external_execution(text: str) -> bool:
-    for clause in claim_clauses(text):
-        if has_unnegated_match(clause, EXTERNAL_SKILL_EXECUTION_RE, NEGATED_EXTERNAL_EXECUTION_RE):
-            return True
-    return False
-
-
-def contains_positive_forbidden_promise(text: str, pattern: re.Pattern[str]) -> bool:
-    for clause in claim_clauses(text):
-        if has_unnegated_match(clause, pattern, NEGATED_FORBIDDEN_PROMISE_RE):
-            return True
-    return False
-
-
-def validate_forbidden_claims(label: str, text: str, errors: list[str]) -> None:
-    for line_number, line in enumerate(text.splitlines(), start=1):
-        stripped = line.strip()
-        if not stripped:
-            continue
-        if contains_positive_external_execution(stripped):
-            errors.append(
-                f"{label}: line {line_number} appears to claim external/downstream skill execution; "
-                "yxj-paper-os may recommend handoff routes only"
-            )
-        for pattern, promise_label in FORBIDDEN_SEMANTIC_PROMISE_PATTERNS:
-            if contains_positive_forbidden_promise(stripped, pattern):
-                errors.append(
-                    f"{label}: line {line_number} appears to make a forbidden {promise_label}; "
-                    "validation is mechanical only"
-                )
-
-
-def six_track_key(value: str) -> str | None:
-    normalized = normalize_heading(value).replace("&", "and")
-    if "front" in normalized and ("matter" in normalized or "hook" in normalized):
-        return "front_matter_hook"
-    if ("intro" in normalized or "introduction" in normalized) and (
-        "related" in normalized or "citation" in normalized
-    ):
-        return "intro_related_citation"
-    if "method" in normalized and ("report" in normalized or "repro" in normalized):
-        return "method_reporting_repro"
-    if "result" in normalized and (
-        "visual" in normalized or "caption" in normalized or "table" in normalized or "accessibility" in normalized
-    ):
-        return "results_visual_caption_accessibility"
-    if "downstream" in normalized and "route" in normalized:
-        return "downstream_route_matrix"
-    if "template" in normalized and "validator" in normalized:
-        return "templates_validators"
-    return None
-
-
-def extract_dimension_ids(value: str) -> set[str]:
-    return set(re.findall(r"\bD\d{2}\b", value))
-
-
-def validate_expected_pointer(
-    label: str,
-    pointer: str,
-    expected: str,
-    contents: dict[str, str],
-    errors: list[str],
-    *,
-    role: str,
-) -> None:
-    if expected not in pointer:
-        errors.append(f"{label}: {role} must include canonical pointer {expected}")
-        return
-    validate_filled_pointer(label, expected, contents, errors)
-
-
-def validate_final_handoff_tables(text: str, errors: list[str]) -> None:
-    for heading, expected_header in FINAL_HANDOFF_TABLES.items():
-        section = section_content(text, heading)
-        if section is None:
-            errors.append(f"{FINAL_PACK}: missing ## {heading}")
-            continue
-        header, rows = parse_markdown_table(section)
-        if not header or not rows:
-            errors.append(f"{FINAL_PACK}: {heading} must contain a Markdown table with structural handoff rows")
-            continue
-        if header != expected_header:
-            errors.append(f"{FINAL_PACK}: {heading} columns must be exactly: " + " | ".join(expected_header))
-        for idx, row in enumerate(rows, start=1):
-            row_text = " ".join(row.values())
-            if has_placeholder(row_text):
-                errors.append(f"{FINAL_PACK}: {heading} row {idx} contains unresolved placeholder")
-            if not row_has_real_values(row):
-                errors.append(f"{FINAL_PACK}: {heading} row {idx} must contain at least one structural value")
-
-
-def validate_six_track_coverage(text: str, contents: dict[str, str], errors: list[str]) -> None:
-    section = section_content(text, "Six-Track Coverage")
-    if section is None:
-        errors.append(f"{FINAL_PACK}: missing ## Six-Track Coverage")
-        return
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(f"{FINAL_PACK}: Six-Track Coverage must contain a Markdown table with all six writing tracks")
-        return
-    if header != SIX_TRACK_COLUMNS:
-        errors.append(f"{FINAL_PACK}: Six-Track Coverage columns must be exactly: " + " | ".join(SIX_TRACK_COLUMNS))
-
-    seen: dict[str, int] = {}
-    for idx, row in enumerate(rows, start=1):
-        label = f"{FINAL_PACK}: Six-Track Coverage row {idx}"
-        track = first_present(row, ["Track"])
-        dims = first_present(row, ["Dimension IDs"])
-        input_locations = first_present(row, ["Input planning field locations"])
-        pointer = first_present(row, ["Design-pack output location", "Workspace/design-pack pointer", "Pointer or handoff"])
-        boundary = first_present(row, ["Boundary note", "Boundary / non-goal", "Boundary"])
-
-        if not track or has_placeholder(track):
-            errors.append(f"{label}: Track is missing or placeholder")
-            continue
-        key = six_track_key(track)
-        if key is None:
-            errors.append(f"{label}: unknown six-track label {track!r}")
-        elif key in seen:
-            errors.append(f"{label}: duplicate six-track coverage row for {SIX_TRACK_KEYS[key]}")
-        else:
-            seen[key] = idx
-            for expected in SIX_TRACK_EXPECTED_INPUTS[key]:
-                validate_expected_pointer(
-                    label,
-                    input_locations,
-                    expected,
-                    contents,
-                    errors,
-                    role="Input planning field locations",
-                )
-            validate_expected_pointer(
-                label,
-                pointer,
-                SIX_TRACK_EXPECTED_OUTPUTS[key],
-                contents,
-                errors,
-                role="Design-pack output location",
-            )
-
-        if dims:
-            dim_ids = extract_dimension_ids(dims)
-            if not dim_ids:
-                errors.append(f"{label}: Dimension IDs must name one or more D00-D19 IDs")
-            unexpected = sorted(dim_ids - REQUIRED_DIMENSION_IDS)
-            if unexpected:
-                errors.append(f"{label}: Dimension IDs include unexpected IDs: {', '.join(unexpected)}")
-        elif not input_locations or has_placeholder(input_locations):
-            errors.append(f"{label}: Input planning field locations are missing or placeholder")
-        if not pointer or has_placeholder(pointer):
-            errors.append(f"{label}: Design-pack output location is missing or placeholder")
-        else:
-            validate_filled_pointer(label, pointer, contents, errors)
-        if not boundary or has_placeholder(boundary):
-            errors.append(f"{label}: Boundary / non-goal is missing or placeholder")
-
-    missing = [name for key, name in SIX_TRACK_KEYS.items() if key not in seen]
-    if missing:
-        errors.append(f"{FINAL_PACK}: Six-Track Coverage missing required tracks: {', '.join(missing)}")
-
-
-def validate_downstream_route_matrix(text: str, errors: list[str]) -> None:
-    section = section_content(text, "Downstream Route Matrix")
-    if section is None:
-        errors.append(f"{FINAL_PACK}: missing ## Downstream Route Matrix")
-        return
-    header, rows = parse_markdown_table(section)
-    if not header or not rows:
-        errors.append(f"{FINAL_PACK}: Downstream Route Matrix must contain a Markdown table with handoff routes")
-        return
-    if header != DOWNSTREAM_ROUTE_COLUMNS:
-        errors.append(f"{FINAL_PACK}: Downstream Route Matrix columns must be exactly: " + " | ".join(DOWNSTREAM_ROUTE_COLUMNS))
-
-    seen_categories: set[str] = set()
-    for idx, row in enumerate(rows, start=1):
-        label = f"{FINAL_PACK}: Downstream Route Matrix row {idx}"
-        category = first_present(row, ["Downstream route", "External route category"])
-        artifact = first_present(row, ["Eligible input sections", "Recommended handoff artifact"])
-        execution = first_present(row, ["Constraints to pass forward", "Execution state"])
-        boundary = first_present(row, ["Blocker / defer note", "Boundary / reason"])
-
-        row_text = " ".join([category, artifact, execution, boundary])
-        if has_placeholder(row_text):
-            errors.append(f"{label}: downstream route matrix row contains unresolved placeholder")
-        if not category:
-            errors.append(f"{label}: Downstream route is required")
-        if not artifact:
-            errors.append(f"{label}: Eligible input sections are required")
-        if not execution:
-            errors.append(f"{label}: Constraints to pass forward are required")
-        if not boundary:
-            errors.append(f"{label}: Blocker / defer note is required")
-        if contains_positive_external_execution(row_text):
-            errors.append(f"{label}: Execution state appears to claim an external skill was executed")
-
-        normalized = normalize_heading(category).replace("-", "/")
-        if "writing" in normalized or "manuscript" in normalized or "polishing" in normalized:
-            seen_categories.add("writing")
-        if "citation" in normalized or "reference" in normalized:
-            seen_categories.add("citation")
-        if "figure" in normalized or "visual" in normalized:
-            seen_categories.add("figure")
-        if "review" in normalized or "qa" in normalized:
-            seen_categories.add("review")
-        if "defer" in normalized or "no external" in normalized or "no route" in normalized:
-            seen_categories.add("defer")
-
-    missing = sorted(DOWNSTREAM_ROUTE_CATEGORIES - seen_categories)
-    if missing:
-        errors.append(f"{FINAL_PACK}: Downstream Route Matrix missing route categories: {', '.join(missing)}")
-
-
-def validate_stale_d19_consistency(
-    final_text: str,
-    index_rows: dict[str, dict[str, str]],
-    errors: list[str],
-) -> None:
-    d02_row = index_rows.get("D02", {})
-    d19_row = index_rows.get("D19", {})
-    d02_status = first_present(d02_row, ["Status"]).lower()
-    d02_reason_pointer = " ".join(
-        [
-            first_present(d02_row, ["Reason / owner note"]),
-            first_present(d02_row, ["Pointer or handoff"]),
-        ]
-    )
-    d19_status = first_present(d19_row, ["Status"]).lower()
-    risk_validation_text = " ".join(
-        section_content(final_text, heading) or ""
-        for heading in ["Semantic-Risk and Unresolved-Risk Notes", "Validation Notes"]
-    )
-
-    stale_header, stale_rows = parse_optional_table(final_text, "D02 Stale Gate")
-    if stale_header and stale_header != [
-        "Changed dimension",
-        "Affected pack section",
-        "Stale since",
-        "Recompile required?",
-        "Owner decision / required action",
-        "Semantic-risk note",
-    ]:
-        errors.append(f"{FINAL_PACK}: D02 Stale Gate columns changed; found {stale_header}")
-
-    explicit_stale_from_index = d02_status in {"deferred", "rejected"} or bool(STALE_SIGNAL_RE.search(d02_reason_pointer))
-    explicit_stale_from_table = False
-    unresolved_recompile = False
-    stale_row_texts: list[str] = []
-    for idx, row in enumerate(stale_rows, start=1):
-        if not row_has_real_values(row):
-            continue
-        label = f"{FINAL_PACK}: D02 Stale Gate row {idx}"
-        changed_dimension = first_present(row, ["Changed dimension"])
-        affected_section = first_present(row, ["Affected pack section"])
-        stale_since = first_present(row, ["Stale since"])
-        recompile = first_present(row, ["Recompile required?"])
-        action = first_present(row, ["Owner decision / required action"])
-        risk_note = first_present(row, ["Semantic-risk note"])
-        row_text = " ".join([changed_dimension, affected_section, stale_since, recompile, action, risk_note])
-
-        if has_placeholder(row_text):
-            continue
-        stale_row_texts.append(row_text)
-        if STALE_SIGNAL_RE.search(row_text) or requires_recompile(recompile):
-            explicit_stale_from_table = True
-        if requires_recompile(recompile) and not STALE_ACTION_RE.search(" ".join([action, risk_note])):
-            unresolved_recompile = True
-            errors.append(
-                f"{label}: structured stale data says recompile is required but lacks an owner action or semantic-risk handoff"
-            )
-
-    carried_stale_text = " ".join(stale_row_texts + [risk_validation_text])
-    if stale_rows and explicit_stale_from_table and not STALE_SIGNAL_RE.search(carried_stale_text):
-        errors.append(
-            f"{FINAL_PACK}: structured D02 stale data exists but D19 risk/validation sections do not carry a stale or recompile note"
-        )
-
-    if explicit_stale_from_index and d19_status == "filled" and not STALE_SIGNAL_RE.search(carried_stale_text):
-        errors.append(
-            f"{DIMENSION_INDEX}: D02 carries stale/recompile risk while D19 is filled; "
-            f"{FINAL_PACK} must carry an explicit structural stale-risk or recompile handoff"
-        )
-
-    if unresolved_recompile and d19_status == "filled":
-        errors.append(
-            f"{DIMENSION_INDEX}: D19 is filled while D02 structured stale data has unresolved recompile-required state"
-        )
-
-
-def validate_workspace(workspace: Path) -> list[str]:
-    errors: list[str] = []
-    validate_template_surface(errors)
-
-    if not workspace.exists():
-        return [f"workspace does not exist: {workspace}"]
+        seen.append(row[0])
+        if row[0] in REQUIRED_DIMENSION_IDS and row[3] not in VALID_DIMENSION_STATUSES:
+            errors.append(f"invalid dimension status {row[3]!r}")
+        if row[0] in REQUIRED_DIMENSION_IDS and row[6] not in VALID_BLOCKS_VALUES:
+            errors.append(f"invalid Blocks design pack? value {row[6]!r}")
+    if seen != REQUIRED_DIMENSION_IDS:
+        errors.append("D00-D19 must appear exactly once and in order")
+
+
+def validate_workspace(workspace: Path, require_handoff: bool = False) -> list[str]:
+    errors = []
     if not workspace.is_dir():
-        return [f"workspace is not a directory: {workspace}"]
-
-    root_markdown = {path.name for path in workspace.glob("*.md")}
-    unexpected_markdown = sorted(root_markdown - set(REQUIRED_FILES))
-    if unexpected_markdown:
-        errors.append(f"workspace has unexpected public Markdown files: {', '.join(unexpected_markdown)}")
-
-    contents: dict[str, str] = {}
-    for file_name in REQUIRED_FILES:
-        path = workspace / file_name
-        if not path.is_file():
-            errors.append(f"missing required file: {file_name}")
+        return [f"workspace not found: {workspace}"]
+    required = set(REQUIRED_FILES)
+    present = {p.name for p in workspace.glob("*.md")}
+    errors += [
+        f"unexpected public Markdown file: {x}" for x in sorted(present - required)
+    ]
+    errors += [f"missing required file: {x}" for x in sorted(required - present)]
+    contents = {
+        n: (workspace / n).read_text(encoding="utf-8") for n in required & present
+    }
+    idx = contents.get(DIMENSION_INDEX, "")
+    if idx and "Workspace schema version: 0.2" not in idx:
+        return errors + [
+            "legacy workspace: expected Workspace schema version: 0.2; normalize metadata first"
+        ]
+    if idx:
+        _validate_dimension_index(idx, errors)
+    scopes = []
+    table_rows = {}
+    for (file_name, heading), _ in SPARSE_TABLES.items():
+        if file_name not in contents:
             continue
-        text = path.read_text(encoding="utf-8")
-        contents[file_name] = text
-        validate_retired_terms(file_name, text, errors)
-        for heading in REQUIRED_HEADINGS[file_name]:
-            content = section_content(text, heading)
-            if content is None:
-                errors.append(f"{file_name}: missing required heading ## {heading}")
-            elif not content.strip():
-                errors.append(f"{file_name}: section ## {heading} is empty")
-            elif has_placeholder(content):
-                errors.append(f"{file_name}: section ## {heading} contains unresolved placeholder")
-
-    index_rows: dict[str, dict[str, str]] = {}
-    if DIMENSION_INDEX in contents:
-        index_rows = validate_dimension_index(contents[DIMENSION_INDEX], contents, errors)
-
-    evidence_anchors: set[str] = set()
-    unavailable_evidence_anchors: set[str] = set()
-    if "01_MATERIALS_INVENTORY.md" in contents:
-        evidence_anchors, unavailable_evidence_anchors = validate_evidence_inventory(
-            contents["01_MATERIALS_INVENTORY.md"], errors
+        rows = _records(file_name, heading, contents[file_name], workspace, errors)
+        table_rows[(file_name, heading)] = rows
+        if heading == "Writing Scopes":
+            scopes = rows
+            for r in rows:
+                if r["Readiness"] not in READINESS:
+                    errors.append(f"invalid scope readiness {r['Readiness']!r}")
+                if r["Readiness"] == "writer-ready":
+                    if (
+                        r["Remaining blocker"] != "none"
+                        or r["Next action"] != "none"
+                        or r["Output pointer"] == "none"
+                    ):
+                        errors.append(
+                            "writer-ready scope requires blocker/next none and output pointer"
+                        )
+                elif r["Remaining blocker"] == "none" or r["Next action"] == "none":
+                    errors.append("non-ready scope requires blocker and next action")
+        elif heading == "Conditional Requirements":
+            for r in rows:
+                if r["Handling"] not in REQ_STATE:
+                    errors.append(f"invalid requirement handling {r['Handling']!r}")
+                if (
+                    r["Handling"] in {"satisfied", "blocked"}
+                    and r["Evidence / decision pointer"] == "none"
+                ):
+                    errors.append(
+                        "satisfied/blocked requirement needs evidence or decision pointer"
+                    )
+        elif heading == "Dependency Recheck":
+            for r in rows:
+                if r["Disposition"] not in DISPOSITION:
+                    errors.append(
+                        f"invalid dependency disposition {r['Disposition']!r}"
+                    )
+                if (
+                    r["Disposition"] in {"stale", "candidate", "blocked"}
+                    and r["Resolution or next action"] == "none"
+                ):
+                    errors.append(
+                        "stale/candidate/blocked dependency needs next action"
+                    )
+        elif heading == "Material Records":
+            for r in rows:
+                if (
+                    not r["Record ID"].startswith("M-")
+                    or r["Status"] not in MATERIAL_STATUS
+                    or r["Origin"] not in ORIGIN
+                    or r["Resolution"] not in RESOLUTION
+                ):
+                    errors.append("invalid material record enum or ID")
+                if (
+                    r["Status"] in {"available", "partial"}
+                    and r["Kind"] in {"artifact", "result", "evidence"}
+                    and r["Locator"] == "none"
+                ):
+                    errors.append(
+                        "available/partial artifact, result, or evidence needs locator"
+                    )
+                if (
+                    r["Origin"] in {"model-derived", "model-proposed"}
+                    and r["Grounding"] == "none"
+                ):
+                    errors.append(
+                        "model-derived/model-proposed material needs grounding"
+                    )
+                if r["Locator"] != "none" and not _valid_ref(
+                    r["Locator"], workspace, allow_none=False
+                ):
+                    errors.append("material has invalid locator")
+                if r["Grounding"] != "none" and any(
+                    not _valid_ref(token, workspace, allow_none=False)
+                    for token in r["Grounding"].split("; ")
+                ):
+                    errors.append("material has invalid grounding reference")
+        elif heading == "Claim Records":
+            for r in rows:
+                if (
+                    not r["Claim ID"].startswith("C-")
+                    or r["Status"] not in CLAIM_STATUS
+                    or r["Origin"] not in ORIGIN
+                    or r["Support"] not in SUPPORT
+                    or r["Resolution"] not in RESOLUTION
+                ):
+                    errors.append("invalid claim record enum or ID")
+                if r["Status"] in {"active", "downgraded"} and any(
+                    r[k] == "none"
+                    for k in (
+                        "Evidence record IDs",
+                        "Warrant / support relation",
+                        "Scope / conditions",
+                        "Directness",
+                        "Uncertainty / counterevidence",
+                        "Allowed wording",
+                        "Forbidden wording",
+                    )
+                ):
+                    errors.append("active/downgraded claim lacks evidence boundary")
+                if r["Status"] in {"active", "downgraded"} and r["Support"] not in {
+                    "evidence-supported",
+                    "evidence-partial",
+                }:
+                    errors.append("active/downgraded claim needs evidence support")
+                if r["Status"] in {"active", "downgraded"} and r["Resolution"] in {
+                    "unresolved",
+                    "conflicted",
+                }:
+                    errors.append("unresolved/conflicted claim cannot be active")
+                if r["Origin"] == "model-proposed" and r["Status"] in {
+                    "active",
+                    "downgraded",
+                }:
+                    errors.append(
+                        "model-proposed claim must be superseded by a new record"
+                    )
+                if (
+                    r["Origin"] in {"model-derived", "model-proposed"}
+                    and r["Grounding"] == "none"
+                ):
+                    errors.append("model-derived/model-proposed claim needs grounding")
+    scope_ids = {r["Scope ID"] for r in scopes}
+    for row in table_rows.get((DIMENSION_INDEX, "Active Calibration Lenses"), []):
+        if row["Lens ID"] not in LENS_IDS:
+            errors.append(f"unknown lens ID {row['Lens ID']}")
+        if row["Affected scopes"] != "none":
+            for token in row["Affected scopes"].split("; "):
+                if token not in scope_ids:
+                    errors.append(f"lens references unknown scope {token}")
+    req_rows = table_rows.get((DIMENSION_INDEX, "Conditional Requirements"), [])
+    req_ids = {r["Requirement ID"] for r in req_rows}
+    req_by_id = {r["Requirement ID"]: r for r in req_rows}
+    active_lens_ids = {
+        r["Lens ID"]
+        for r in table_rows.get((DIMENSION_INDEX, "Active Calibration Lenses"), [])
+    }
+    for row in req_rows:
+        if row["Lens ID"] not in active_lens_ids:
+            errors.append(f"requirement references inactive lens {row['Lens ID']}")
+    for row in scopes:
+        if (
+            row["Readiness"] == "writer-ready"
+            and row["Required requirement IDs"] != "none"
+        ):
+            for token in row["Required requirement IDs"].split("; "):
+                if token in req_by_id and req_by_id[token]["Handling"] not in {
+                    "satisfied",
+                    "not_applicable",
+                }:
+                    errors.append(
+                        f"writer-ready scope references unsatisfied requirement {token}"
+                    )
+    material_rows = table_rows.get(
+        ("01_MATERIALS_INVENTORY.md", "Material Records"), []
+    )
+    material_ids = {r["Record ID"] for r in material_rows}
+    material_by_id = {r["Record ID"]: r for r in material_rows}
+    claim_rows = table_rows.get(("02_CLAIM_EVIDENCE_BOUNDARY.md", "Claim Records"), [])
+    for row in scopes:
+        refs = (
+            []
+            if row["Required requirement IDs"] == "none"
+            else row["Required requirement IDs"].split("; ")
         )
-
-    validate_d07_source_boundary(contents, index_rows, errors)
-
-    unavailable_visual_anchors = collect_unavailable_visual_anchors(contents)
-
-    if FINAL_PACK in contents:
-        validate_dimension_coverage_summary(contents[FINAL_PACK], index_rows, errors)
-        validate_d19_handoff_structure(contents[FINAL_PACK], errors)
-        validate_six_track_coverage(contents[FINAL_PACK], contents, errors)
-        validate_final_handoff_tables(contents[FINAL_PACK], errors)
-        validate_stale_d19_consistency(contents[FINAL_PACK], index_rows, errors)
-        validate_quantification_gate(contents, index_rows, errors)
-        validate_downstream_route_matrix(contents[FINAL_PACK], errors)
-        if has_placeholder(contents[FINAL_PACK]):
-            errors.append(f"{FINAL_PACK}: final handoff contains unresolved placeholder")
-
-    for file_name in CLAIM_FILES:
-        if file_name in contents:
-            validate_claim_table(
-                file_name,
-                contents[file_name],
-                evidence_anchors,
-                unavailable_evidence_anchors,
-                unavailable_visual_anchors,
-                errors,
+        for token in refs:
+            if token not in req_ids:
+                errors.append(f"scope references unknown requirement {token}")
+    for row in req_rows:
+        refs = (
+            []
+            if row["Affected scopes"] == "none"
+            else row["Affected scopes"].split("; ")
+        )
+        for token in refs:
+            if token not in scope_ids:
+                errors.append(f"requirement references unknown scope {token}")
+        if not _valid_ref(
+            row["Evidence / decision pointer"],
+            workspace,
+            allow_none=row["Handling"] in {"deferred", "not_applicable"},
+        ):
+            errors.append("requirement has invalid evidence/decision pointer")
+    for row in claim_rows:
+        refs = (
+            []
+            if row["Evidence record IDs"] == "none"
+            else row["Evidence record IDs"].split("; ")
+        )
+        for token in refs:
+            if token not in material_ids:
+                errors.append(f"claim references unknown material record {token}")
+            elif row["Status"] in {"active", "downgraded"} and material_by_id[token][
+                "Status"
+            ] not in {"available", "partial"}:
+                errors.append(
+                    f"active claim references unavailable material record {token}"
+                )
+        if row["Grounding"] != "none" and any(
+            not _valid_ref(token, workspace, allow_none=False)
+            for token in row["Grounding"].split("; ")
+        ):
+            errors.append("claim has invalid grounding reference")
+    dep_rows = table_rows.get((DIMENSION_INDEX, "Dependency Recheck"), [])
+    decision_rows = table_rows.get(("00_PROJECT_ROUTE.md", "Decision Records"), [])
+    for row in decision_rows:
+        if (
+            not row["Decision ID"].startswith("DEC-")
+            or row["Origin"] not in ORIGIN
+            or row["Resolution"] not in RESOLUTION
+        ):
+            errors.append("invalid decision record enum or ID")
+    valid_changed = (
+        material_ids
+        | {r["Claim ID"] for r in claim_rows}
+        | {r["Decision ID"] for r in decision_rows}
+        | set(REQUIRED_DIMENSION_IDS)
+    )
+    for row in dep_rows:
+        if row["Changed record"] not in valid_changed:
+            errors.append(
+                f"dependency references unknown changed record {row['Changed record']}"
             )
-
-    for file_name, text in contents.items():
-        validate_forbidden_claims(file_name, text, errors)
-
+        if row["Affected D IDs / scopes"] != "none":
+            for token in row["Affected D IDs / scopes"].split("; "):
+                if token not in scope_ids and token not in REQUIRED_DIMENSION_IDS:
+                    errors.append(
+                        f"dependency references unknown affected scope {token}"
+                    )
+    blocked_scopes = {
+        token
+        for row in dep_rows
+        if row["Disposition"] in {"stale", "candidate", "blocked"}
+        and row["Affected D IDs / scopes"] != "none"
+        for token in row["Affected D IDs / scopes"].split("; ")
+        if token.startswith("SCOPE-")
+    }
+    for row in scopes:
+        if row["Readiness"] == "writer-ready" and row["Scope ID"] in blocked_scopes:
+            errors.append(
+                f"writer-ready scope {row['Scope ID']} is affected by stale/candidate/blocked dependency"
+            )
+    for row in table_rows.get(("03_WRITING_STRUCTURE.md", "Scoped Writing Plan"), []):
+        if row["Scope ID"] not in scope_ids:
+            errors.append(f"writing plan references unknown scope {row['Scope ID']}")
+        if row["Output pointer"] != "none" and not _valid_ref(
+            row["Output pointer"], workspace, allow_none=False
+        ):
+            errors.append("writing plan has invalid output pointer")
+    for row in decision_rows:
+        if row["Affected scopes"] != "none":
+            for token in row["Affected scopes"].split("; "):
+                if token not in scope_ids:
+                    errors.append(f"decision references unknown scope {token}")
+        if row["Grounding"] != "none" and any(
+            not _valid_ref(token, workspace, allow_none=False)
+            for token in row["Grounding"].split("; ")
+        ):
+            errors.append("decision has invalid grounding reference")
+    handoff_rows = table_rows.get((FINAL_PACK, "Scoped Handoff"), [])
+    if handoff_rows:
+        authoritative = {r["Scope ID"]: r for r in scopes}
+        if {r["Scope ID"] for r in handoff_rows} != set(authoritative):
+            errors.append("Scoped Handoff scope IDs must exactly mirror Writing Scopes")
+        for row in handoff_rows:
+            source = authoritative.get(row["Scope ID"])
+            if source is None:
+                errors.append(f"handoff references unknown scope {row['Scope ID']}")
+            elif any(
+                row[key] != source[key]
+                for key in ("Readiness", "Remaining blocker", "Next action")
+            ):
+                errors.append(
+                    f"handoff readiness disagrees with authoritative scope {row['Scope ID']}"
+                )
+    if require_handoff and (
+        not scopes or not _table(contents.get(FINAL_PACK, ""), "Scoped Handoff")[1]
+    ):
+        errors.append(
+            "--require-handoff requires Writing Scopes and Scoped Handoff rows"
+        )
+    for name, text in contents.items():
+        if re.search(
+            r"(?i)\b(?:claims?|promises?|provides?|ensures?|achieves?|guarantees?)\s+(?:research|manuscript|submission|publication|semantic)\s+readiness\b",
+            text,
+        ):
+            errors.append(f"{name}: forbidden readiness promise")
+        if re.search(r"(?i)external skill.{0,40}(?:executed|run|completed)", text):
+            errors.append(f"{name}: external execution claim")
     return errors
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate a yxj-paper-os six-file design-pack workspace.")
-    parser.add_argument("workspace", type=Path, help="Directory containing the six yxj paper-planning Markdown files")
-    args = parser.parse_args()
-
-    errors = validate_workspace(args.workspace)
+    ap = argparse.ArgumentParser(
+        description="Validate sparse yxj-paper-os workspace contract"
+    )
+    ap.add_argument("workspace", nargs="?", type=Path, default=Path.cwd())
+    ap.add_argument("--require-handoff", action="store_true")
+    args = ap.parse_args()
+    errors = validate_workspace(args.workspace, args.require_handoff)
     if errors:
         print("Design pack validation failed:", file=sys.stderr)
-        for error in errors:
-            print(f"- {error}", file=sys.stderr)
+        print("\n".join("- " + e for e in errors), file=sys.stderr)
         return 1
-
     print(f"Structural design-pack validation passed: {args.workspace}")
     return 0
 

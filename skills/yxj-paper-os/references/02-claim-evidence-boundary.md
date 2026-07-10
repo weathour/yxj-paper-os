@@ -31,7 +31,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 | D13 | `focused-question` | a hidden limitation or material risk would change contribution, route, reader expectation, or downstream wording | risk notes contradict D11 claims, D12 wording, D14 reader path, or D19 handoff notes | `02_CLAIM_EVIDENCE_BOUNDARY.md#Limitations and Risks`, then D13 row |
 | D16/D17 claim-side | `reconciliation` when paired with structure-side text; otherwise `focused-question` | object scope, term choice, tone, or allowed wording changes claim scope or overclaim control | claim-side object/surface notes conflict with primary D16/D17 in `03_WRITING_STRUCTURE.md` or with D10-D12 | `#Object Granularity`, `#Allowed Wording`, and `#Forbidden Wording`, then D16/D17 rows or handoff to structure |
 
-## First-batch cross-boundary reminder
+## Adaptive cross-boundary reminder
 
 The central rubric owns the full D07/D08/D09/D18/D19 rules. In this claim/evidence playbook, enforce the shared boundary before allowing any claim to become active:
 
@@ -42,7 +42,7 @@ The central rubric owns the full D07/D08/D09/D18/D19 rules. In this claim/eviden
 - D18 can plan visuals; needed/deferred/absent visuals cannot support active claims.
 - D19 can summarize the boundary as a structural handoff; it cannot convert unresolved sources, visuals, or dossier notes into readiness.
 
-## Second-batch claim-boundary additions
+## Additional claim-boundary additions
 
 Use these additions to prevent writing-surface planning from becoming unsupported manuscript content.
 
@@ -52,7 +52,7 @@ Use these additions to prevent writing-surface planning from becoming unsupporte
 - **Results / visual / caption / table boundaries:** result claims must bind to evidence anchors; captions, tables, panels, legends, and accessibility notes may hand off what to explain but cannot create evidence or stronger claims.
 - **Forbidden overclaim patterns:** record front-matter hype, introduction gap overreach, method/repro claims without artifacts, result/caption causal language, benchmark superiority claims, and visual-certainty language as D12 forbidden wording when evidence does not support them.
 
-## Template Quantification Gate claim-design boundary
+## Optional Exemplar Analysis claim-design boundary
 
 Use `Template Claim-Design Benchmark` to compare template-derived design patterns with the current claim plan. The comparison may alter placement, emphasis, surface wording, or figure/table handoff, but it cannot strengthen claims, create evidence anchors, verify source truth, or score semantic adequacy. Template statistics guide writing design, not claim evidence; source/similarity rationale remains a material/design-gate record, not claim support.
 
@@ -72,16 +72,16 @@ Use `Template Claim-Design Benchmark` to compare template-derived design pattern
 
 ## Ask when missing
 
-Ask one focused question at a time. Prefer this order:
+Ask one focused question at a time. Choose the next question adaptively from the unresolved owner decision or highest-leverage dependency; the following prompts are unordered examples:
 
-1. “What is the one-sentence contribution without hype?”
-2. “What problem does this contribution solve?”
-3. “What is the exact research object: method, system, model, dataset, benchmark, application, or analysis object?”
-4. “Which contribution option is selected, and which tempting options should be rejected?”
-5. “List the core claims you want the paper to make.”
-6. “For this claim, what result, figure, table, or artifact supports it?”
-7. “Which stronger wording must be forbidden because evidence does not support it?”
-8. “What limitation or risk should downstream writing keep visible?”
+- “What is the one-sentence contribution without hype?”
+- “What problem does this contribution solve?”
+- “What is the exact research object: method, system, model, dataset, benchmark, application, or analysis object?”
+- “Which contribution option is selected, and which tempting options should be rejected?”
+- “List the core claims you want the paper to make.”
+- “For this claim, what result, figure, table, or artifact supports it?”
+- “Which stronger wording must be forbidden because evidence does not support it?”
+- “What limitation or risk should downstream writing keep visible?”
 
 ## Question card pattern
 
@@ -102,7 +102,7 @@ E. rejected overclaim — write it to #Deferred or Rejected Claims and forbid do
 Agent action after answer: update 02_CLAIM_EVIDENCE_BOUNDARY.md, mirror any evidence-anchor dependency to D06 if needed, and update D10/D11/D12/D13 in 00_DIMENSION_INDEX.md.
 ```
 
-## Second-batch question-card seeds
+## Additional question-card seeds
 
 Use these cards when a writing-surface claim boundary is the current blocker. Keep all active claims owner-confirmed, evidence-anchored, and explicitly bounded.
 

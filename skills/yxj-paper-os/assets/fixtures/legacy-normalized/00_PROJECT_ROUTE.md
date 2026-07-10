@@ -4,8 +4,8 @@
 
 ## Project Brief
 
-- Project / paper slug: TODO
-- Research topic: TODO
+- Project / paper slug: PRESERVE: legacy-slug
+- Research topic: PRESERVE: legacy-topic
 - Traffic / computer-science / AI positioning: TODO
 - Working thesis: TODO
 
@@ -49,7 +49,7 @@ Activate `references/lenses/venue-template.md` only when an owner supplies a tar
 
 ## Topic and Positioning
 
-- Research topic: TODO
+- Research topic: PRESERVE: legacy-topic
 - Traffic / computer-science / AI positioning: TODO
 
 ## Audience and Reviewer Expectation

@@ -52,7 +52,7 @@ TODO
 
 ## Workspace Schema Version
 
-- Workspace schema version: 0.2
+- Legacy schema marker: 1
 - Public template contract: six files; no new status/tier columns.
 
 ## Writing Scopes

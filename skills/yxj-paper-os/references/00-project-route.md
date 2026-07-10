@@ -26,7 +26,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 | D03 | `candidate-confirmation` from supplied wording; otherwise `focused-question` | topic, domain, object, or working thesis is broad enough to let downstream claims drift | the brief conflicts with D04 route, D10 contribution, or D16 object granularity | `00_PROJECT_ROUTE.md#Project Brief`, then D03 row |
 | D04 | `focused-question` | a route tradeoff changes article type, audience, reporting, visual/storyline, or handoff expectations | route/profile conflicts with D01 gates, D03 brief, D14 spine, D15 jobs, D18 visuals, or D19 handoff | `00_PROJECT_ROUTE.md#Target Route`, `#Audience and Reviewer Expectation`, `#Route Readiness`, then D04 row |
 
-## First-batch D04 route/profile pointer
+## Adaptive D04 route/profile pointer
 
 `00-dimension-rubric.md` remains the source of truth for D04 sufficiency. In this playbook, treat D04 as a focused venue/profile card, not as a full rubric copy:
 
@@ -36,7 +36,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 - Use hard constraints to constrain D14 reader path, D15 section jobs, D18 visual format/storyline, and D19 submission blueprint.
 - Mechanical checks may confirm that route/profile content and pointers exist; they must not judge actual venue fit, novelty, or acceptance likelihood.
 
-## Second-batch route planning additions
+## Additional route planning additions
 
 Use these additions as planning-only route prompts. They seed downstream sections and question cards; they do not draft title, abstract, keywords, graphical-hook copy, captions, reporting statements, or manuscript prose.
 
@@ -46,11 +46,11 @@ Use these additions as planning-only route prompts. They seed downstream section
 - **Downstream route matrix seed:** record candidate downstream writing/figure/citation/review routes as recommendations and constraints for D19. Do not execute those routes or imply the route is final before owner confirmation.
 - **Boundary invariant:** owner-gated route decisions, forbidden routes, and front-matter promises require owner confirmation before `filled` handling; agent-inferred audience or format implications remain candidates until confirmed or explicitly deferred.
 
-## Template Quantification Gate route trigger
+## Optional Exemplar Analysis route trigger
 
-Record `Route Template Expectation / Quantification Trigger` in `00_PROJECT_ROUTE.md` whenever D04 has a target route, article type, owner template material, or explicit no-template decision. Ask proactively for parseable full-text templates when the trigger is yes: minimum 3 parseable full-text templates plus source/similarity rationale are required before D19 can be valid. If the owner confirms no route/template expectation, write the no-template rationale and do not claim route-style adequacy.
+Record optional venue/template context only when supplied; treat it as a conditional lens for style and format notes, never as a numeric prerequisite.
 
-Template quantification is mechanical writing-design guidance only; it is not venue-fit, prose-quality, style-similarity, or claim-evidence scoring.
+Template observations is mechanical writing-design guidance only; it is not venue-fit, prose-quality, style-similarity, or claim-evidence scoring.
 
 ## Required fields
 
@@ -64,13 +64,13 @@ Template quantification is mechanical writing-design guidance only; it is not ve
 
 ## Ask when missing
 
-Ask one focused question at a time. Prefer this order:
+Ask one focused question at a time. Choose the next question adaptively from the unresolved owner decision or highest-leverage dependency; the following prompts are unordered examples:
 
-1. “What venue or venue family should this paper target?”
-2. “What paper type is this: method, system, experiment/benchmark, application, survey, or something else?”
-3. “In one sentence, what is the topic and domain positioning?”
-4. “Which route or claim boundary is owner-gated and should not be inferred automatically?”
-5. “What route should be avoided even if it sounds attractive?”
+- “What venue or venue family should this paper target?”
+- “What paper type is this: method, system, experiment/benchmark, application, survey, or something else?”
+- “In one sentence, what is the topic and domain positioning?”
+- “Which route or claim boundary is owner-gated and should not be inferred automatically?”
+- “What route should be avoided even if it sounds attractive?”
 
 ## Question card pattern
 
@@ -91,7 +91,7 @@ E. rejected route — record the forbidden route in 00_PROJECT_ROUTE.md#Forbidde
 Agent action after answer: update 00_PROJECT_ROUTE.md#Target Route, including the paper-type line, or #Audience and Reviewer Expectation as applicable, then update D04 in 00_DIMENSION_INDEX.md.
 ```
 
-## Second-batch question-card seeds
+## Additional question-card seeds
 
 Use these cards only when their specific track is the current blocker. Keep one card active at a time.
 

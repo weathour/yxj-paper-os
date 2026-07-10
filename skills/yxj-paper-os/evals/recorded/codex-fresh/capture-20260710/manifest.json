@@ -1,0 +1,26 @@
+{
+  "model": "codex-fresh",
+  "runtime": "local",
+  "captured_at": "2026-07-10T04:08:12.507379+00:00",
+  "skill_sha256": "17b8db188a02b07dfdcc46132f23346d62b3d53ba26cb331c75a4dad885c01cf",
+  "scenarios_sha256": "23af658828f859e03fff5e5b53fc12176095a7041e2b841b2e620b778f0c341c",
+  "prompt_sha256": "127faf68a9045013b2fe2b414891e0d5db8abc0bddf4d23d9228b342a72e1e06",
+  "raw_output_sha256": "6564bededc43a30b9f08f7ecb0167f9beeb6b25d3f266addb9c8e278be0b39c9",
+  "actions_sha256": "6564bededc43a30b9f08f7ecb0167f9beeb6b25d3f266addb9c8e278be0b39c9",
+  "scenario_ids": [
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B05",
+    "B06",
+    "B07",
+    "B08",
+    "B09",
+    "B10",
+    "B11",
+    "B12",
+    "B13",
+    "B14"
+  ]
+}

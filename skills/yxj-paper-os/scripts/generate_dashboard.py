@@ -56,7 +56,9 @@ class TableParseResult:
     warnings: list[str]
 
 
-def warning(scope: str, message: str, dimension_id: str | None = None) -> dict[str, str]:
+def warning(
+    scope: str, message: str, dimension_id: str | None = None
+) -> dict[str, str]:
     item = {"scope": scope, "message": message}
     if dimension_id:
         item["dimension_id"] = dimension_id
@@ -66,7 +68,9 @@ def warning(scope: str, message: str, dimension_id: str | None = None) -> dict[s
 def truncate_fragment(text: str, warnings: list[dict[str, str]], scope: str) -> str:
     if len(text) <= MAX_FRAGMENT_CHARS:
         return text
-    warnings.append(warning(scope, f"source fragment truncated at {MAX_FRAGMENT_CHARS} characters"))
+    warnings.append(
+        warning(scope, f"source fragment truncated at {MAX_FRAGMENT_CHARS} characters")
+    )
     return text[:MAX_FRAGMENT_CHARS] + "\n\n[... truncated by dashboard generator ...]"
 
 
@@ -81,7 +85,9 @@ def load_workspace(workspace: Path) -> tuple[dict[str, str], list[dict[str, str]
     for file_name in REQUIRED_FILES:
         path = workspace / file_name
         if not path.is_file():
-            warnings.append(warning(file_name, f"missing required workspace file: {file_name}"))
+            warnings.append(
+                warning(file_name, f"missing required workspace file: {file_name}")
+            )
             continue
         try:
             contents[file_name] = path.read_text(encoding="utf-8")
@@ -99,7 +105,9 @@ def split_table_cells(line: str) -> list[str]:
 def is_separator_row(cells: list[str]) -> bool:
     if not cells:
         return False
-    return all(bool(re.fullmatch(r":?-{3,}:?", cell.replace(" ", ""))) for cell in cells)
+    return all(
+        bool(re.fullmatch(r":?-{3,}:?", cell.replace(" ", ""))) for cell in cells
+    )
 
 
 def table_blocks(section: str) -> list[list[str]]:
@@ -123,7 +131,11 @@ def parse_dashboard_table_lines(table_lines: list[str], scope: str) -> TablePars
     if not table_lines:
         return TableParseResult([], [], warnings)
     if len(table_lines) == 1:
-        return TableParseResult(split_table_cells(table_lines[0]), [], [f"{scope}: table header has no separator row"])
+        return TableParseResult(
+            split_table_cells(table_lines[0]),
+            [],
+            [f"{scope}: table header has no separator row"],
+        )
 
     header = split_table_cells(table_lines[0])
     separator = split_table_cells(table_lines[1])
@@ -146,7 +158,9 @@ def parse_dashboard_table_lines(table_lines: list[str], scope: str) -> TablePars
             if len(cells) < len(header):
                 cells = cells + [""] * (len(header) - len(cells))
             else:
-                cells = cells[: len(header) - 1] + [" | ".join(cells[len(header) - 1 :])]
+                cells = cells[: len(header) - 1] + [
+                    " | ".join(cells[len(header) - 1 :])
+                ]
         values = dict(zip(header, cells))
         rows.append({"values": values, "raw": line, "warnings": row_warnings})
     return TableParseResult(header, rows, warnings)
@@ -159,7 +173,9 @@ def parse_dashboard_table(section: str, scope: str) -> TableParseResult:
     return parse_dashboard_table_lines(blocks[0], scope)
 
 
-def parse_dashboard_tables(section: str, scope: str) -> tuple[list[dict[str, Any]], list[str]]:
+def parse_dashboard_tables(
+    section: str, scope: str
+) -> tuple[list[dict[str, Any]], list[str]]:
     blocks = table_blocks(section)
     tables: list[dict[str, Any]] = []
     warnings: list[str] = []
@@ -189,7 +205,9 @@ def parse_sections(contents: dict[str, str]) -> dict[str, list[dict[str, Any]]]:
             start = match.end()
             end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
             body = text[start:end].strip()
-            tables, table_warnings = parse_dashboard_tables(body, f"{file_name}#{heading}")
+            tables, table_warnings = parse_dashboard_tables(
+                body, f"{file_name}#{heading}"
+            )
             sections.append(
                 {
                     "heading": heading,
@@ -203,24 +221,40 @@ def parse_sections(contents: dict[str, str]) -> dict[str, list[dict[str, Any]]]:
     return parsed
 
 
-def resolve_pointer(pointer: str, contents: dict[str, str]) -> tuple[dict[str, Any], list[str]]:
+def resolve_pointer(
+    pointer: str, contents: dict[str, str]
+) -> tuple[dict[str, Any], list[str]]:
     file_name, anchor_slug, parse_error = parse_anchor(pointer, contents)
     if parse_error:
-        return {"file": file_name, "section": None, "slug": anchor_slug, "fragment": None}, [parse_error]
+        return {
+            "file": file_name,
+            "section": None,
+            "slug": anchor_slug,
+            "fragment": None,
+        }, [parse_error]
     if not file_name or file_name not in contents:
-        return {"file": file_name, "section": None, "slug": anchor_slug, "fragment": None}, [
-            "referenced workspace file is missing"
-        ]
+        return {
+            "file": file_name,
+            "section": None,
+            "slug": anchor_slug,
+            "fragment": None,
+        }, ["referenced workspace file is missing"]
     if not anchor_slug:
-        return {"file": file_name, "section": None, "slug": anchor_slug, "fragment": None}, [
-            "section anchor is missing"
-        ]
+        return {
+            "file": file_name,
+            "section": None,
+            "slug": anchor_slug,
+            "fragment": None,
+        }, ["section anchor is missing"]
     slugs = level_two_heading_slugs(contents[file_name])
     heading = slugs.get(anchor_slug)
     if not heading:
-        return {"file": file_name, "section": None, "slug": anchor_slug, "fragment": None}, [
-            f"section anchor not found in {file_name}: #{anchor_slug}"
-        ]
+        return {
+            "file": file_name,
+            "section": None,
+            "slug": anchor_slug,
+            "fragment": None,
+        }, [f"section anchor not found in {file_name}: #{anchor_slug}"]
     return {
         "file": file_name,
         "section": heading,
@@ -253,11 +287,15 @@ def build_dimensions(
 ) -> list[dict[str, Any]]:
     rows_by_id: dict[str, dict[str, Any]] = {}
     index_text = contents.get(DIMENSION_INDEX, "")
-    index_section = section_content(index_text, "Dimension Status Index") if index_text else None
+    index_section = (
+        section_content(index_text, "Dimension Status Index") if index_text else None
+    )
     if index_section is None:
         warnings.append(warning(DIMENSION_INDEX, "missing ## Dimension Status Index"))
     else:
-        table = parse_dashboard_table(index_section, f"{DIMENSION_INDEX}#Dimension Status Index")
+        table = parse_dashboard_table(
+            index_section, f"{DIMENSION_INDEX}#Dimension Status Index"
+        )
         for item in table.warnings:
             warnings.append(warning(DIMENSION_INDEX, item))
         if table.header != DIMENSION_COLUMNS:
@@ -305,7 +343,13 @@ def build_dimensions(
                 row_warnings.extend([f"pointer: {item}" for item in pointer_warnings])
 
             for item in row_warnings:
-                warnings.append(warning(DIMENSION_INDEX, item, dim_id if dim_id.startswith("D") else None))
+                warnings.append(
+                    warning(
+                        DIMENSION_INDEX,
+                        item,
+                        dim_id if dim_id.startswith("D") else None,
+                    )
+                )
 
             rows_by_id[dim_id] = {
                 "id": dim_id,
@@ -334,7 +378,9 @@ def build_dimensions(
     return dimensions
 
 
-def collect_external_handoffs(contents: dict[str, str], warnings: list[dict[str, str]]) -> list[dict[str, str]]:
+def collect_external_handoffs(
+    contents: dict[str, str], warnings: list[dict[str, str]]
+) -> list[dict[str, str]]:
     handoffs: list[dict[str, str]] = []
     targets = [
         (FINAL_PACK, "External Skill Handoff"),
@@ -354,7 +400,9 @@ def collect_external_handoffs(contents: dict[str, str], warnings: list[dict[str,
             {
                 "file": file_name,
                 "section": heading,
-                "fragment": truncate_fragment(fragment, warnings, f"{file_name}#{heading}"),
+                "fragment": truncate_fragment(
+                    fragment, warnings, f"{file_name}#{heading}"
+                ),
             }
         )
     return handoffs
@@ -373,9 +421,15 @@ def attach_source_tables(
         source = item.get("source")
         if not source:
             continue
-        parsed_section = sections_by_file_and_heading.get((source.get("file"), source.get("section")))
-        source["tables"] = list(parsed_section.get("tables", [])) if parsed_section else []
-        source["section_warnings"] = list(parsed_section.get("warnings", [])) if parsed_section else []
+        parsed_section = sections_by_file_and_heading.get(
+            (source.get("file"), source.get("section"))
+        )
+        source["tables"] = (
+            list(parsed_section.get("tables", [])) if parsed_section else []
+        )
+        source["section_warnings"] = (
+            list(parsed_section.get("warnings", [])) if parsed_section else []
+        )
 
 
 def add_validator_warnings(workspace: Path, warnings: list[dict[str, str]]) -> None:
@@ -388,19 +442,30 @@ def add_validator_warnings(workspace: Path, warnings: list[dict[str, str]]) -> N
         warnings.append(warning("validator", f"validator: {error}"))
 
 
-def design_readiness(contents: dict[str, str], dimensions: list[dict[str, Any]], warnings: list[dict[str, str]]) -> dict[str, Any]:
+def design_readiness(
+    contents: dict[str, str],
+    dimensions: list[dict[str, Any]],
+    warnings: list[dict[str, str]],
+) -> dict[str, Any]:
     blocking = [
         item["id"]
         for item in dimensions
-        if item.get("blocks") == "yes" and item.get("status") not in {"filled", "not_applicable"}
+        if item.get("blocks") == "yes"
+        and item.get("status") not in {"filled", "not_applicable"}
     ]
     final_text = contents.get(FINAL_PACK, "")
-    final_sections = set(level_two_heading_slugs(final_text).values()) if final_text else set()
+    final_sections = (
+        set(level_two_heading_slugs(final_text).values()) if final_text else set()
+    )
     required_final = set(REQUIRED_HEADINGS.get(FINAL_PACK, []))
     missing_final = sorted(required_final - final_sections)
     if missing_final:
         warnings.append(
-            warning(FINAL_PACK, "final design-pack missing structural sections: " + ", ".join(missing_final))
+            warning(
+                FINAL_PACK,
+                "final design-pack missing structural sections: "
+                + ", ".join(missing_final),
+            )
         )
     has_structural_warnings = bool(warnings)
     if blocking or missing_final:
@@ -511,9 +576,9 @@ def render_html(model: dict[str, Any]) -> str:
         (
             f'<button class="dim-row" data-dimension="{html.escape(item["id"])}">'
             f'<span class="dim-id">{html.escape(item["id"])}</span>'
-            f'<span>{html.escape(item["dimension"] or "未填写")}</span>'
+            f"<span>{html.escape(item['dimension'] or '未填写')}</span>"
             f'<span class="pill status-{html.escape(item["status"])}">{html.escape(item["status_label"])}</span>'
-            f'<span>{html.escape(item["current_home"] or "无")}</span>'
+            f"<span>{html.escape(item['current_home'] or '无')}</span>"
             f'<span class="warn-count">{len(item["warnings"])} 警告</span>'
             "</button>"
         )
@@ -522,15 +587,15 @@ def render_html(model: dict[str, Any]) -> str:
     file_html = "\n".join(
         (
             '<li class="' + ("ok" if item["present"] else "missing") + '">'
-            f'<strong>{html.escape(item["file"])}</strong>'
-            f'<span>{html.escape("存在" if item["present"] else "缺失")} / {item["section_count"]} 个二级章节</span>'
+            f"<strong>{html.escape(item['file'])}</strong>"
+            f"<span>{html.escape('存在' if item['present'] else '缺失')} / {item['section_count']} 个二级章节</span>"
             "</li>"
         )
         for item in model["files"]
     )
     warning_html = "\n".join(
-        f'<li><strong>{html.escape(item.get("dimension_id", item["scope"]))}</strong> '
-        f'{html.escape(item["message"])}</li>'
+        f"<li><strong>{html.escape(item.get('dimension_id', item['scope']))}</strong> "
+        f"{html.escape(item['message'])}</li>"
         for item in model["warnings"][:80]
     )
     if not warning_html:
@@ -796,28 +861,40 @@ def write_dashboard(workspace: Path, html_text: str) -> Path:
     resolved_workspace = workspace.resolve(strict=True)
     target_dir = resolved_workspace / CACHE_DIR
     if target_dir.is_symlink():
-        raise RuntimeError(f"refusing to write dashboard through symlink cache directory: {target_dir}")
+        raise RuntimeError(
+            f"refusing to write dashboard through symlink cache directory: {target_dir}"
+        )
     if target_dir.exists() and not target_dir.is_dir():
         raise RuntimeError(f"dashboard cache path is not a directory: {target_dir}")
     target_dir.mkdir(exist_ok=True)
     if target_dir.is_symlink():
-        raise RuntimeError(f"refusing to write dashboard through symlink cache directory: {target_dir}")
+        raise RuntimeError(
+            f"refusing to write dashboard through symlink cache directory: {target_dir}"
+        )
     resolved_target_dir = target_dir.resolve(strict=True)
     try:
         resolved_target_dir.relative_to(resolved_workspace)
     except ValueError as exc:
-        raise RuntimeError(f"dashboard cache directory resolves outside workspace: {target_dir}") from exc
+        raise RuntimeError(
+            f"dashboard cache directory resolves outside workspace: {target_dir}"
+        ) from exc
 
     target = target_dir / OUTPUT_NAME
     if target.is_symlink():
-        raise RuntimeError(f"refusing to write dashboard through symlink output file: {target}")
+        raise RuntimeError(
+            f"refusing to write dashboard through symlink output file: {target}"
+        )
     resolved_target = target.resolve(strict=False)
     if resolved_target.parent != resolved_target_dir:
-        raise RuntimeError(f"dashboard target resolves outside cache directory: {target}")
+        raise RuntimeError(
+            f"dashboard target resolves outside cache directory: {target}"
+        )
     try:
         resolved_target.relative_to(resolved_target_dir)
     except ValueError as exc:
-        raise RuntimeError(f"dashboard target resolves outside cache directory: {target}") from exc
+        raise RuntimeError(
+            f"dashboard target resolves outside cache directory: {target}"
+        ) from exc
 
     temp_path: Path | None = None
     fd: int | None = None
@@ -831,11 +908,15 @@ def write_dashboard(workspace: Path, html_text: str) -> Path:
         except FileExistsError:
             continue
         except OSError as exc:
-            raise RuntimeError(f"cannot create dashboard temp file safely: {candidate}: {exc}") from exc
+            raise RuntimeError(
+                f"cannot create dashboard temp file safely: {candidate}: {exc}"
+            ) from exc
         temp_path = candidate
         break
     if temp_path is None:
-        raise RuntimeError(f"cannot allocate dashboard temp file in cache directory: {target_dir}")
+        raise RuntimeError(
+            f"cannot allocate dashboard temp file in cache directory: {target_dir}"
+        )
     assert fd is not None
 
     try:
@@ -846,7 +927,9 @@ def write_dashboard(workspace: Path, html_text: str) -> Path:
         os.replace(temp_path, target)
         temp_path = None
     except OSError as exc:
-        raise RuntimeError(f"cannot replace dashboard output safely: {target}: {exc}") from exc
+        raise RuntimeError(
+            f"cannot replace dashboard output safely: {target}: {exc}"
+        ) from exc
     finally:
         if temp_path is not None:
             try:
@@ -860,7 +943,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Generate a read-only static yxj-paper-os dashboard from a six-file workspace."
     )
-    parser.add_argument("paper_project", type=Path, help="Directory containing the six yxj-paper-os Markdown files")
+    parser.add_argument(
+        "paper_project",
+        type=Path,
+        help="Directory containing the six yxj-paper-os Markdown files",
+    )
     args = parser.parse_args(argv)
 
     workspace = args.paper_project.resolve()

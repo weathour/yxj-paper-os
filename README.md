@@ -1,118 +1,31 @@
 # yxj-paper-os
 
-`yxj-paper-os` is a minimal Codex plugin for preparing traffic / computer-science / AI paper projects before manuscript drafting.
+`yxj-paper-os` is a lightweight Codex plugin for preparing traffic, computer-science, and AI paper projects before manuscript drafting. It uses a model-led cognitive kernel, optional academic lenses, sparse traceable records, and scoped writing handoffs. It never drafts the manuscript or executes downstream skills.
 
-It does **not** write the manuscript. It guides Codex to collect missing upstream information, blocks when required information is unhandled, and produces a writing-design handoff for downstream writing modules.
+## Public contract
 
-## MVP architecture
+- one public skill: `skills/yxj-paper-os/SKILL.md`;
+- exactly six workspace Markdown files;
+- D00-D19 remains the stable diagnostic vocabulary;
+- `00_DIMENSION_INDEX.md` keeps its public columns/status values and adds schema `0.2` plus a sparse Writing Scopes registry;
+- optional lens, decision, material, claim, dependency, structure, and handoff tables appear only when they carry real information;
+- dashboard output is only `<workspace>/.yxj-paper-os/dashboard.html` and never rewrites source Markdown.
 
-```text
-Single public skill
-  + five internal playbooks
-  + six Markdown workspace templates
-  + one lightweight validator
-```
+## Cognitive model
 
-The public surface is one skill:
+The skill synthesizes the whole situation, inspects and derives before asking, activates 0..N conditional lenses, records epistemic origin/support/resolution separately, rechecks declared dependents, and judges readiness per requested writing scope. It has no fixed scan order, global template gate, universal critical set, mandatory subagent stages, runtime graph, or semantic scorer.
 
-```text
-skills/yxj-paper-os/SKILL.md
-```
-
-The public paper workspace has exactly six files:
-
-```text
-paper_project/
-  00_DIMENSION_INDEX.md
-  00_PROJECT_ROUTE.md
-  01_MATERIALS_INVENTORY.md
-  02_CLAIM_EVIDENCE_BOUNDARY.md
-  03_WRITING_STRUCTURE.md
-  04_WRITING_DESIGN_PACK.md
-```
-
-`00_DIMENSION_INDEX.md` is the required public checklist for the 20 information dimensions. It records whether each dimension is filled, not applicable, absent, deferred, or rejected, with a reason and a pointer/handoff note.
-
-`04_WRITING_DESIGN_PACK.md` is the handoff artifact for writing, figure, citation, polishing, or review tools.
-
-## Guided intake model
-
-The skill should feel like a lightweight guided form, not a runtime system. The agent first explains that it prepares six planning files and one writing design pack, then works through five user-facing phases:
-
-```text
-Route → Materials → Claim/Evidence → Writing Structure → Handoff
-```
-
-Internally, those phases are backed by the D00-D19 rubric and `00_DIMENSION_INDEX.md`. When information is missing, the agent should ask a short question card with options, consequences, and the file/D-row it will update. If an OMX question UI is available it may render the same card through `omx question`, but Markdown cards remain the standalone fallback.
-
-## Native subagent acceleration
-
-The skill may use native subagents as bounded accelerators, while the leader remains the single user-facing owner and final file writer. Recommended defaults are:
-
-- `verifier` after inspect/init and after design-pack compilation;
-- `explore` for local Materials scans when artifacts are numerous or unclear;
-- `critic` before compiling D19 to challenge claim/evidence/wording boundaries;
-- `architect` or `writer` to propose Writing Structure from confirmed upstream material;
-- `writer` only for a leader-reviewed design-pack candidate when the compile gate passes.
-
-Subagents must not ask the user directly, invent facts, finalize owner-gated route/claim/evidence/source/wording decisions, search citations by default, execute downstream writing skills, or create extra public workspace files.
-
-## What the plugin owns
-
-- project route and venue/type positioning;
-- material and evidence location;
-- source/citation candidate notes supplied by the user;
-- contribution and claim-evidence boundary;
-- allowed / forbidden wording;
-- reader spine and writing structure;
-- 20-dimension readiness status;
-- external handoff constraints.
-
-## What the plugin does not own
-
-- manuscript drafting;
-- external skill execution;
-- citation search or BibTeX completion;
-- runtime graph / stage registry;
-- large validator matrix;
-- reviewer simulation;
-- LaTeX writeback or submission/export;
-- upload, publication, acceptance, or final-paper claims.
-
-## Repository structure
-
-```text
-yxj-paper-os/
-  .codex-plugin/plugin.json
-  skills/yxj-paper-os/
-    SKILL.md
-    references/          # internal playbooks
-    assets/templates/    # six Markdown workspace templates
-    scripts/             # lightweight validation
-  docs/BRANCH_PHILOSOPHY.md
-  references/            # external reference repos, not runtime dependencies
-```
-
-## External references
-
-`references/external/` contains pinned external repositories used only as reference material. They are not vendored runtime dependencies and must not be executed automatically by this plugin.
+Lens theory lives in `skills/yxj-paper-os/references/lenses/`; the canonical registry separates module files from activatable IDs. A `venue-template` lens affects only explicitly linked route/style surfaces.
 
 ## Validation
 
-Portable structural workspace validation is repo-local:
-
 ```bash
+python3 skills/yxj-paper-os/scripts/verify_dimension_rubric.py
 python3 skills/yxj-paper-os/scripts/verify_design_pack.py <paper_project>
-```
-
-For offline structural dashboard visibility, use the existing `yxj-paper-os` skill submode triggered by `yxj-paper-os dashboard`, `dashboard`, or `维度 dashboard`, or run the generator directly:
-
-```bash
+python3 skills/yxj-paper-os/scripts/verify_behavior_scenarios.py
 python3 skills/yxj-paper-os/scripts/generate_dashboard.py <paper_project>
 ```
 
-The dashboard writes only `<paper_project>/.yxj-paper-os/dashboard.html`. It does not initialize workspaces, copy templates, create or repair Markdown, write manuscript prose, run external skills, perform semantic scoring, prove paper readiness, start a runtime/server/watcher/graph, or add public workspace files. The six Markdown files remain the source of truth; the dashboard is structural visibility only, and `verify_design_pack.py` remains the validator of record.
+Validators check structure, typed references, declared provenance/readiness boundaries, policy-record conformance, and safe dashboard behavior. They do not prove academic truth, novelty, venue fit, prose quality, or research/manuscript/submission readiness.
 
-During plugin development, also run the Codex plugin and skill validators provided by the local Codex installation. Those tools are environment-provided and are not required runtime dependencies of this repository.
-
-Structural validation checks the six-file contract, dimension-index completeness, and claim/evidence anchors. It does not prove semantic adequacy of the paper plan.
+`references/external/` contains pinned reference repositories only; they are not runtime dependencies and are never executed automatically.

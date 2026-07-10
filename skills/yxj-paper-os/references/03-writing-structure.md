@@ -31,7 +31,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 | D16/D17 primary | `reconciliation` when claim-side wording exists; otherwise `focused-question` | object level, term choice, tone, or wording surface controls claim scope, audience framing, or domain precision | primary structure notes conflict with claim-side D16/D17, D10-D12 boundaries, D09 style, or D04 route | `03_WRITING_STRUCTURE.md#Object Granularity` and `#Surface Control`, then D16/D17 rows or claim-side handoff |
 | D18 | `candidate-confirmation` from confirmed materials; `focused-question` for one blocking visual/table | a visual, caption, table, statistic display, or accessibility constraint changes the evidence story or handoff | visual plan conflicts with D05 materials, D06 evidence, D11 claims, D14 spine, or D15 section jobs | `03_WRITING_STRUCTURE.md#Visual Plan` and `#Figure / Table Storyline`, then D18 row and D19 handoff if needed |
 
-## First-batch structure cards
+## Adaptive structure cards
 
 `00-dimension-rubric.md` remains the source of truth. Use these as focused structure cards/pointers:
 
@@ -41,7 +41,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 - **D18 visual storyline/brief:** record visual id/type/status, story role, linked claim/evidence/reader step, data needed, panel order, legend job, accessibility check, and handoff. Existing visuals may point to evidence only through D06/D11; needed/deferred visuals remain plan items.
 - Mechanical checks may require status/rationale, question-path shape, section/job pairing, visual status, and explicit no-visual/deferred rationale; they must not judge prose quality, rhetoric, visual quality, or figure correctness.
 
-## Second-batch structure planning additions
+## Additional structure planning additions
 
 Use these additions as structure and handoff prompts only. They may define jobs, constraints, move order, and checklist state; they must not draft title, abstract, keywords, introduction prose, methods prose, result prose, captions, table text, or graphical-hook copy.
 
@@ -51,11 +51,9 @@ Use these additions as structure and handoff prompts only. They may define jobs,
 - **Results / visual / caption / table / accessibility storyline:** plan result order, figure/table sequence, caption/legend jobs, statistic-display handoff, alt-text/accessibility constraints, and non-visual fallback notes.
 - **Templates / validator handoff:** record where structure decisions should appear in `04_WRITING_DESIGN_PACK.md` and which checks are structural only; never imply semantic scoring, external execution, or finished manuscript readiness.
 
-## Template Quantification Gate writing-structure outputs
+## Optional exemplar signals
 
-When the gate applies, D09/D15/D17/D18 need the minimum 3 parseable full-text templates plus quantitative writing-design outputs from the accepted template corpus: language rhythm/distribution, surface-reference patterns, section/function distribution, and figure/table density. If any of these outputs are missing or the corpus has fewer than 3 parseable full-text templates, write quantification incomplete in the affected D09/D15/D17/D18 landing and keep D19 blocked-not-valid-handoff.
-
-Do not hardcode journal thresholds, judge prose quality/style similarity, validate figure correctness, or draft manuscript prose from these statistics; source/similarity rationale stays a corpus-selection record, not a semantic score.
+If venue or template material is supplied, summarize useful style and layout signals with provenance. These signals are optional, non-numeric unless useful, and never block D19 or strengthen evidence.
 
 ## Required fields
 
@@ -70,15 +68,15 @@ Do not hardcode journal thresholds, judge prose quality/style similarity, valida
 
 ## Ask when missing
 
-Ask one focused question at a time. Prefer this order:
+Ask one focused question at a time. Choose the next question adaptively from the unresolved owner decision or highest-leverage dependency; the following prompts are unordered examples:
 
-1. “What question should the reader ask first, and what answer should the paper give?”
-2. “What job should each major section perform?”
-3. “Which figures/tables carry the main story, and in what order?”
-4. “What object/variable/mechanism granularity should the writing preserve?”
-5. “Which terms, tone, or wording style should downstream writing control?”
-6. “Are there supplied exemplar papers or language profiles, or should that dimension be marked absent/deferred?”
-7. “Where should the paper be conservative because evidence is limited?”
+- “What question should the reader ask first, and what answer should the paper give?”
+- “What job should each major section perform?”
+- “Which figures/tables carry the main story, and in what order?”
+- “What object/variable/mechanism granularity should the writing preserve?”
+- “Which terms, tone, or wording style should downstream writing control?”
+- “Are there supplied exemplar papers or language profiles, or should that dimension be marked absent/deferred?”
+- “Where should the paper be conservative because evidence is limited?”
 
 ## Question card pattern
 
@@ -100,7 +98,7 @@ F. no visuals / deferred visuals — record rationale and downstream limitation;
 Agent action after answer: update 03_WRITING_STRUCTURE.md and D14/D15/D16/D17/D18 rows in 00_DIMENSION_INDEX.md; if claim wording changes, update 02_CLAIM_EVIDENCE_BOUNDARY.md too.
 ```
 
-## Second-batch question-card seeds
+## Additional question-card seeds
 
 Use these cards when the writing surface, not the underlying evidence or route, is the current blocker. If a card exposes missing owner-gated route, claim, evidence, or source facts, stop and route back to the owning playbook.
 

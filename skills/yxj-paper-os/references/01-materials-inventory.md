@@ -28,7 +28,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 | D07 | `focused-question` for source facts; `quick-form` for supplied source role labels | source role, citation status, locator/version, permission, limitation, or handoff need affects downstream writing | source role conflicts with D08 dossier notes, D06 evidence anchors, or D11 claim support | `01_MATERIALS_INVENTORY.md#Source and Citation Bank`, then D07 row |
 | D08 | `candidate-confirmation` from supplied notes; otherwise `focused-question` | gap, conflict, counterevidence, or unresolved source need constrains contribution, risk, or reader path | dossier notes conflict with D07 sources, D10 contribution, D13 risks, or D14 spine | `01_MATERIALS_INVENTORY.md#Research Dossier` and any D19 dossier handoff, then D08 row |
 
-## First-batch D07/D08 source and dossier pointers
+## Adaptive D07/D08 source and dossier pointers
 
 `00-dimension-rubric.md` remains the source of truth for D07/D08 sufficiency. Use this playbook only for focused intake and boundary cards:
 
@@ -38,7 +38,7 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 - If no sources or dossier notes are supplied, record absence/defer status and risk; do not search, invent BibTeX, infer novelty, or imply related-work adequacy.
 - Mechanical checks may require a table shape or explicit absent/deferred reason; they must not verify citation truth, source authority, novelty, or claim support.
 
-## Second-batch material planning additions
+## Additional material planning additions
 
 Use these additions to inventory planning inputs for downstream writing surfaces. They do not create claims, citations, results, figures, tables, captions, or reproducibility proof.
 
@@ -48,9 +48,9 @@ Use these additions to inventory planning inputs for downstream writing surfaces
 - **Front-matter material hooks:** record owner-supplied graphical hook assets, key result anchors, or visual-hook constraints only as inputs to D18/D19; do not draft title, abstract, keywords, hook copy, or captions.
 - **Absent/deferred consequence language:** every missing source, method artifact, result, visual, caption, table, or accessibility input must state whether downstream writing can continue conservatively, must defer a claim, or must reject the route.
 
-## Template Quantification Gate material intake
+## Optional Exemplar Analysis material intake
 
-Use `Template Corpus / Quantification Basis` to ask for and record the required corpus: at least 3 parseable full-text templates with source/locator and source/similarity rationale when the gate applies. Citation-only, abstract-only, metadata-only, missing, or unparseable records are useful provenance but do not count toward the minimum. If fewer than 3 parseable full texts are available, ask the owner for the missing materials and carry blocked-not-valid-handoff.
+Use `Optional Venue-Template Observations` to ask for and record the required corpus: at least 3 parseable full-text templates with source/locator and source/similarity rationale when the gate applies. Citation-only, abstract-only, metadata-only, missing, or unparseable records are useful provenance but do not count toward the minimum. If fewer than 3 parseable full texts are available, ask the owner for the missing materials and carry linked-scope blocked.
 
 Template statistics guide D09/D15/D17/D18 writing design only; they are not D06 evidence anchors and do not verify citation truth, source authority, novelty, or claim support.
 
@@ -70,15 +70,15 @@ Template statistics guide D09/D15/D17/D18 writing design only; they are not D06 
 
 ## Ask when missing
 
-Ask one focused question at a time. Prefer this order:
+Ask one focused question at a time. Choose the next question adaptively from the unresolved owner decision or highest-leverage dependency; the following prompts are unordered examples:
 
-1. “Where are the main results, tables, or experiment logs?”
-2. “Which figures/tables already exist, and where are they?”
-3. “What baselines and metrics support the core comparison?”
-4. “Which evidence anchor supports the strongest planned claim?”
-5. “Which sources or citation candidates are already known or supplied by you?”
-6. “Which related-work notes are absent and should be marked absent/deferred rather than invented?”
-7. “Which expected materials are absent and should be marked absent rather than invented?”
+- “Where are the main results, tables, or experiment logs?”
+- “Which figures/tables already exist, and where are they?”
+- “What baselines and metrics support the core comparison?”
+- “Which evidence anchor supports the strongest planned claim?”
+- “Which sources or citation candidates are already known or supplied by you?”
+- “Which related-work notes are absent and should be marked absent/deferred rather than invented?”
+- “Which expected materials are absent and should be marked absent rather than invented?”
 
 ## Question card pattern
 
@@ -99,7 +99,7 @@ E. deferred material — record the missing artifact and consequence as a handof
 Agent action after answer: update 01_MATERIALS_INVENTORY.md and the D05/D06 rows in 00_DIMENSION_INDEX.md; if a claim is affected, keep D11 deferred until anchored.
 ```
 
-## Second-batch question-card seeds
+## Additional question-card seeds
 
 Use these cards only when the matching material surface is the next blocker. Keep source/citation facts owner-supplied and separate from evidence anchors.
 

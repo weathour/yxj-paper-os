@@ -1,0 +1,344 @@
+{
+  "scenarios": [
+    {
+      "id": "B01",
+      "situation": "observable artifact",
+      "required_all_actions": [
+        "INSPECT",
+        "RECORD_OBSERVATION"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B02",
+      "situation": "explicit route",
+      "required_all_actions": [
+        "RECORD_OBSERVATION"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B03",
+      "situation": "owner-only tradeoff",
+      "required_all_actions": [],
+      "required_any_actions": [
+        "ASK_OWNER"
+      ],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 1,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B04",
+      "situation": "reconcile structure",
+      "required_all_actions": [],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B05",
+      "situation": "owner conflict",
+      "required_all_actions": [],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B06",
+      "situation": "method survey",
+      "required_all_actions": [
+        "INSPECT"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B07",
+      "situation": "hybrid lenses",
+      "required_all_actions": [],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B08",
+      "situation": "missing templates",
+      "required_all_actions": [
+        "INSPECT"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B09",
+      "situation": "venue template",
+      "required_all_actions": [
+        "INSPECT"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B10",
+      "situation": "weak support",
+      "required_all_actions": [],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B11",
+      "situation": "changed evidence",
+      "required_all_actions": [
+        "INSPECT"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B12",
+      "situation": "scoped readiness",
+      "required_all_actions": [
+        "INSPECT"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B13",
+      "situation": "rich answer",
+      "required_all_actions": [],
+      "required_any_actions": [],
+      "optional_actions": [
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE"
+      ],
+      "prohibited_actions": [],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [],
+      "update_rules": [],
+      "readiness_rules": []
+    },
+    {
+      "id": "B14",
+      "situation": "metadata-only",
+      "required_all_actions": [
+        "RECORD_OBSERVATION"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER",
+        "DERIVE",
+        "PROPOSE",
+        "RECONCILE",
+        "DEPENDENCY_RECHECK",
+        "COMPILE_SCOPED_HANDOFF",
+        "INITIALIZE_WORKSPACE"
+      ],
+      "required_dimensions": [],
+      "prohibited_dimensions": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 10,
+        "allowed_targets": []
+      },
+      "prohibited_side_effects": [
+        "subagents",
+        "full_scan",
+        "template_intake",
+        "external_execution"
+      ],
+      "update_rules": [],
+      "readiness_rules": []
+    }
+  ]
+}

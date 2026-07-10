@@ -1,7 +1,7 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.1.0",
-  "description": "Minimal paper-planning Codex plugin that guides information completion and compiles writing design packs.",
+  "version": "0.2.0+codex.yxj20260710",
+  "description": "Model-led sparse paper-planning Codex plugin with composable academic lenses and scoped writing handoffs.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
@@ -9,13 +9,14 @@
   "interface": {
     "displayName": "YXJ Paper OS",
     "shortDescription": "Prepare paper projects for downstream writing with a design pack.",
-    "longDescription": "YXJ Paper OS is a minimal Codex plugin for traffic, computer-science, and AI paper planning. It guides information completion, enforces claim/evidence boundaries, and compiles a writing design pack for downstream writing modules without drafting the manuscript itself.",
+    "longDescription": "YXJ Paper OS prepares paper-planning workspaces with a cognitive kernel, conditional academic lenses, sparse traceable records, and scoped writing handoffs without drafting manuscripts or executing downstream skills.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Paper planning",
-      "Guided information intake",
-      "Writing design pack validation"
+      "Composable academic lenses",
+      "Epistemic claim/evidence boundaries",
+      "Scoped writing handoffs"
     ],
     "defaultPrompt": "Use yxj-paper-os to prepare my paper project information and compile a writing design pack."
   }
