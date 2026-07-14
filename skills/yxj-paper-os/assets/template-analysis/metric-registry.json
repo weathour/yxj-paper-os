@@ -975,7 +975,8 @@
       "supported_formats": [
         "markdown",
         "html",
-        "jats"
+        "jats",
+        "txt"
       ],
       "unit": "citation_event",
       "value_type": "integer",
@@ -1082,7 +1083,8 @@
       "supported_formats": [
         "markdown",
         "html",
-        "jats"
+        "jats",
+        "txt"
       ],
       "unit": "reference_target",
       "value_type": "integer",
@@ -2819,7 +2821,8 @@
       "supported_formats": [
         "markdown",
         "html",
-        "jats"
+        "jats",
+        "txt"
       ],
       "unit": "reference_entry",
       "value_type": "integer",

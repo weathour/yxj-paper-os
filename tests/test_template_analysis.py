@@ -579,6 +579,175 @@ class TemplateAnalysisTests(unittest.TestCase):
         self.assertTrue(missingness_values)
         self.assertTrue(any(value > 0 for value in missingness_values))
 
+    def test_txt_exact_bibliography_inventory_and_layout_are_independent(self) -> None:
+        source = self.workspace.corpus_dir / "exact-bibliography.txt"
+        overlong_target = "9" * 5000
+        source.write_text(
+            f"""1 Introduction
+Evidence [1,2-3] is explicit; mixed targets [1,99] are rejected.
+The overlong target [{overlong_target}] is also rejected atomically.
+
+2 Method
+The method follows [2].
+
+3 Results
+Results contain no citation group.
+
+References
+[1] First reference entry.
+[2] Second reference entry.
+[3] Third reference entry.
+""",
+            encoding="utf-8",
+        )
+        self.workspace.write_manifest(
+            [self.workspace.document("exact-bibliography", source.name, "txt")],
+            design_metric_ids=["reference.entry_count"],
+        )
+        self.run_engine()
+        first = {
+            name: (self.workspace.output / name).read_bytes() for name in OUTPUT_NAMES
+        }
+        self.run_engine(output_flag="--output-dir", output_path=self.workspace.output)
+        self.assertEqual(
+            first,
+            {name: (self.workspace.output / name).read_bytes() for name in OUTPUT_NAMES},
+        )
+        self.assertEqual(
+            {path.name for path in self.workspace.output.iterdir() if path.is_file()},
+            OUTPUT_NAMES,
+        )
+
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        bibliography = row["entities"]["bibliography"]
+        self.assertEqual(row["status"], "ok")
+        self.assertEqual(bibliography["inventory"]["status"], "ok")
+        self.assertEqual(bibliography["layout"]["status"], "ok")
+        self.assertEqual(
+            bibliography["inventory"]["entries"],
+            [
+                {"number": 1, "raw_text": "First reference entry."},
+                {"number": 2, "raw_text": "Second reference entry."},
+                {"number": 3, "raw_text": "Third reference entry."},
+            ],
+        )
+        observations = {
+            item["canonical_section"]: item
+            for item in bibliography["layout"]["observations"]
+        }
+        self.assertEqual(observations["introduction"]["citation_event_count"], 3)
+        self.assertEqual(observations["introduction"]["unique_targets"], [1, 2, 3])
+        self.assertEqual(observations["methods"]["citation_event_count"], 1)
+        self.assertEqual(observations["results"]["citation_event_count"], 0)
+        self.assertEqual(len(bibliography["layout"]["invalid_groups"]), 2)
+        self.assertEqual(metric_value(row, "reference.entry_count"), 3)
+        self.assertEqual(metric_value(row, "citation.explicit_event_count"), 4)
+        self.assertEqual(metric_value(row, "citation.unique_target_count"), 3)
+        entity_keys = set(nested_values(bibliography, "year"))
+        self.assertFalse(entity_keys)
+        serialized = json.dumps(bibliography, sort_keys=True)
+        for excluded in ("source_form", "citation_function", "doi", "shared_work"):
+            self.assertNotIn(excluded, serialized.lower())
+        profile = read_json(self.workspace.output / "design-profile.json")
+        self.assertTrue(
+            any(item.get("metric_ids") == ["reference.entry_count"] for item in profile["entries"])
+        )
+
+        unsupported = self.workspace.corpus_dir / "unsupported-layout.txt"
+        unsupported.write_text(
+            "Body prose without an explicit numbered section.\n\nReferences\n[1] Only entry.\n",
+            encoding="utf-8",
+        )
+        self.workspace.write_manifest(
+            [self.workspace.document("unsupported-layout", unsupported.name, "txt")],
+            design_metric_ids=["text.body_words"],
+        )
+        self.run_engine()
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        bibliography = row["entities"]["bibliography"]
+        self.assertEqual(bibliography["inventory"]["status"], "ok")
+        self.assertEqual(bibliography["layout"]["status"], "unsupported_format")
+        self.assertEqual(metric_value(row, "reference.entry_count"), 1)
+        self.assertIsNone(metric_value(row, "citation.explicit_event_count"))
+        self.assertEqual(
+            metric_entry(row, "citation.explicit_event_count")["status"],
+            "unsupported_format",
+        )
+        profile = read_json(self.workspace.output / "design-profile.json")
+        self.assertFalse(
+            any(
+                metric_id.startswith(("reference.", "citation."))
+                for item in profile["entries"]
+                for metric_id in item.get("metric_ids", [])
+            )
+        )
+
+        conflicting = self.workspace.corpus_dir / "conflicting-layout.txt"
+        conflicting.write_text(
+            "1 Introduction\nFirst body [1].\n\n2 Introduction\nSecond body [1].\n\nReferences\n[1] Entry.\n",
+            encoding="utf-8",
+        )
+        self.workspace.write_manifest(
+            [self.workspace.document("conflicting-layout", conflicting.name, "txt")]
+        )
+        self.run_engine()
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        self.assertEqual(row["entities"]["bibliography"]["inventory"]["status"], "ok")
+        self.assertEqual(row["entities"]["bibliography"]["layout"]["status"], "ambiguous")
+
+        ambiguous = self.workspace.corpus_dir / "ambiguous-references.txt"
+        ambiguous.write_text(
+            "1 Introduction\nBody [1].\n\nReferences\n[1] First.\n[3] Third.\n",
+            encoding="utf-8",
+        )
+        self.workspace.write_manifest(
+            [self.workspace.document("ambiguous-references", ambiguous.name, "txt")]
+        )
+        self.run_engine()
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        self.assertEqual(row["entities"]["bibliography"]["inventory"]["status"], "ambiguous")
+        self.assertEqual(metric_entry(row, "reference.entry_count")["status"], "ambiguous")
+        self.assertIsNone(metric_value(row, "reference.entry_count"))
+        self.assertNotEqual(row["entities"]["bibliography"]["layout"]["status"], "ok")
+
+        two_column = self.workspace.corpus_dir / "two-column-references.txt"
+        two_column.write_text(
+            "1 Introduction\nBody [1].\n\n[3] Third entry.\n[4] Fourth entry.\n[5] Fifth entry.\nReferences\n[1] First entry.\n[2] Second entry.\n",
+            encoding="utf-8",
+        )
+        self.workspace.write_manifest(
+            [self.workspace.document("two-column-references", two_column.name, "txt")]
+        )
+        self.run_engine()
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        inventory = row["entities"]["bibliography"]["inventory"]
+        self.assertEqual([entry["number"] for entry in inventory["entries"]], [1, 2, 3, 4, 5])
+        self.assertEqual(metric_value(row, "reference.entry_count"), 5)
+        self.assertEqual(metric_value(row, "citation.explicit_event_count"), 1)
+
+        self.workspace.write_manifest(
+            [self.workspace.document("invalid-source", "invalid-utf8.md", "markdown")]
+        )
+        self.run_engine(expect_success=False)
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        bibliography = row["entities"]["bibliography"]
+        for entity_name, array_names in (
+            ("inventory", ("entries", "diagnostics")),
+            ("layout", ("observations", "invalid_groups")),
+        ):
+            self.assertEqual(bibliography[entity_name]["status"], "parse_failed")
+            self.assertEqual(bibliography[entity_name]["method"], "not_computed")
+            for array_name in array_names:
+                self.assertEqual(bibliography[entity_name][array_name], [])
+
+        self.workspace.write_manifest(
+            [self.workspace.document("markdown-regression", "article.md", "markdown")]
+        )
+        self.run_engine()
+        row = read_jsonl(self.workspace.output / "paper-metrics.jsonl")[0]
+        self.assertEqual(row["entities"]["bibliography"]["inventory"]["status"], "unsupported_format")
+        self.assertEqual(row["entities"]["bibliography"]["layout"]["status"], "unsupported_format")
+
     def test_accepted_candidate_and_stale_annotations_remain_distinct(self) -> None:
         annotation_fixture = read_json(self.workspace.corpus_dir / "annotations.json")
         accepted_figure = annotation_fixture["annotations"][0]

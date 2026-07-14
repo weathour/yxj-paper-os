@@ -35,7 +35,7 @@ OBJECT_SCHEMA = "template-object/1.0"
 SUMMARY_SCHEMA = "template-corpus-summary/1.0"
 PROFILE_SCHEMA = "template-design-profile/1.0"
 WARNINGS_SCHEMA = "template-extraction-warnings/1.0"
-ANALYZER_VERSION = "1.0.0"
+ANALYZER_VERSION = "1.1.0"
 MAX_SOURCE_BYTES = 50 * 1024 * 1024
 FORMATS = {"markdown", "html", "jats", "txt"}
 PARTITIONS = {"primary_match", "venue_control", "topic_control", "exemplar"}
@@ -118,6 +118,13 @@ CITATION_RE = re.compile(
 REFERENCE_HEADING_RE = re.compile(
     r"^(references|bibliography|literature cited|参考文献)$", re.IGNORECASE
 )
+TXT_REFERENCE_LABEL_RE = re.compile(r"(?m)^\s*\[(\d{1,4})\]\s*")
+TXT_SECTION_HEADING_RE = re.compile(
+    r"(?m)^\s*(\d{1,2}(?:\.\d{1,2})*)\.?\s+([^\n]{1,100})$"
+)
+TXT_CITATION_GROUP_RE = re.compile(r"\[([0-9][0-9,;\-–—\s]*)\]")
+TXT_INVENTORY_METHOD = "txt_explicit_numbered_references_v1"
+TXT_LAYOUT_METHOD = "txt_numbered_section_bracket_citations_v1"
 
 LEXICAL_PATTERNS: dict[str, tuple[str, ...]] = {
     "lexical.hedge_rate_per_kword": (
@@ -218,6 +225,22 @@ class ParsedDocument:
     keywords: list[str] = field(default_factory=list)
     blocks: list[Block] = field(default_factory=list)
     reference_entries: int = 0
+    bibliography: dict[str, Any] = field(
+        default_factory=lambda: {
+            "inventory": {
+                "status": "unsupported_format",
+                "method": "not_computed",
+                "entries": [],
+                "diagnostics": [],
+            },
+            "layout": {
+                "status": "unsupported_format",
+                "method": "not_computed",
+                "observations": [],
+                "invalid_groups": [],
+            },
+        }
+    )
     warnings: list[str] = field(default_factory=list)
     capability: dict[str, bool] = field(default_factory=dict)
 
@@ -1985,6 +2008,193 @@ def parse_jats(text: str) -> ParsedDocument:
     return document
 
 
+def txt_reference_entries(
+    text: str,
+    matches: list[re.Match[str]],
+    boundary: int,
+) -> list[dict[str, Any]] | None:
+    entries: list[dict[str, Any]] = []
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else boundary
+        raw_text = clean_text(text[match.end() : end])
+        if not raw_text:
+            return None
+        entries.append({"number": int(match.group(1)), "raw_text": raw_text})
+    return entries
+
+
+def txt_exact_sequence(entries: list[dict[str, Any]]) -> bool:
+    numbers = [entry["number"] for entry in entries]
+    return bool(numbers) and len(numbers) == len(set(numbers)) and sorted(numbers) == list(
+        range(1, max(numbers) + 1)
+    )
+
+
+def expand_txt_citation_group(value: str) -> list[int] | None:
+    targets: list[int] = []
+    for member in re.split(r"[,;]", value):
+        member = member.strip()
+        if re.fullmatch(r"\d{1,4}", member):
+            targets.append(int(member))
+            continue
+        range_match = re.fullmatch(r"(\d{1,4})\s*[\-–—]\s*(\d{1,4})", member)
+        if range_match is None:
+            return None
+        start, end = map(int, range_match.groups())
+        if end < start or end - start + 1 > 50:
+            return None
+        targets.extend(range(start, end + 1))
+    return targets or None
+
+
+def txt_bibliography(text: str) -> tuple[dict[str, Any], int]:
+    headings: list[tuple[int, int]] = []
+    cursor = 0
+    for line in text.splitlines(keepends=True):
+        line_end = cursor + len(line)
+        if REFERENCE_HEADING_RE.fullmatch(clean_text(line)):
+            headings.append((cursor, line_end))
+        cursor = line_end
+    if not headings:
+        return {
+            "inventory": {
+                "status": "not_present",
+                "method": TXT_INVENTORY_METHOD,
+                "entries": [],
+                "diagnostics": ["explicit_reference_heading_not_present"],
+            },
+            "layout": {
+                "status": "not_present",
+                "method": "not_computed",
+                "observations": [],
+                "invalid_groups": [],
+            },
+        }, len(text)
+
+    heading_start, heading_end = headings[-1]
+    label_matches = list(TXT_REFERENCE_LABEL_RE.finditer(text))
+    pre_matches = [match for match in label_matches if match.start() < heading_start]
+    post_matches = [match for match in label_matches if match.start() >= heading_end]
+    post_entries = txt_reference_entries(text, post_matches, len(text))
+    arrangement_a = bool(post_entries and txt_exact_sequence(post_entries))
+
+    pre_run: list[re.Match[str]] = []
+    if pre_matches:
+        pre_run = [pre_matches[-1]]
+        for match in reversed(pre_matches[:-1]):
+            if int(match.group(1)) + 1 != int(pre_run[0].group(1)):
+                break
+            pre_run.insert(0, match)
+    pre_entries = txt_reference_entries(text, pre_run, heading_start) if pre_run else []
+    combined_entries = (pre_entries or []) + (post_entries or [])
+    arrangement_b = bool(
+        pre_entries
+        and post_entries
+        and not ({entry["number"] for entry in pre_entries} & {entry["number"] for entry in post_entries})
+        and txt_exact_sequence(combined_entries)
+    )
+
+    if arrangement_b:
+        entries = sorted(combined_entries, key=lambda entry: entry["number"])
+        cutoff = pre_run[0].start()
+    elif arrangement_a:
+        entries = sorted(post_entries or [], key=lambda entry: entry["number"])
+        cutoff = heading_start
+    else:
+        return {
+            "inventory": {
+                "status": "ambiguous",
+                "method": TXT_INVENTORY_METHOD,
+                "entries": [],
+                "diagnostics": ["numbered_reference_sequence_not_unique_and_complete"],
+            },
+            "layout": {
+                "status": "ambiguous",
+                "method": "not_computed",
+                "observations": [],
+                "invalid_groups": [],
+            },
+        }, heading_start
+
+    body = text[:cutoff]
+    section_matches = list(TXT_SECTION_HEADING_RE.finditer(body))
+    canonical_sections = [
+        (match, canonical_section_label(match.group(2))) for match in section_matches
+    ]
+    recognized = [(match, label) for match, label in canonical_sections if label]
+    labels = [label for _, label in recognized]
+    inventory = {
+        "status": "ok",
+        "method": TXT_INVENTORY_METHOD,
+        "entries": entries,
+        "diagnostics": [],
+    }
+    if len(labels) != len(set(labels)):
+        return {
+            "inventory": inventory,
+            "layout": {
+                "status": "ambiguous",
+                "method": TXT_LAYOUT_METHOD,
+                "observations": [],
+                "invalid_groups": [],
+            },
+        }, cutoff
+    if not recognized:
+        return {
+            "inventory": inventory,
+            "layout": {
+                "status": "unsupported_format",
+                "method": TXT_LAYOUT_METHOD,
+                "observations": [],
+                "invalid_groups": [],
+            },
+        }, cutoff
+
+    observations: list[dict[str, Any]] = []
+    invalid_groups: list[dict[str, Any]] = []
+    max_target = len(entries)
+    for index, (match, label) in enumerate(canonical_sections):
+        if label is None:
+            continue
+        region_end = (
+            section_matches[index + 1].start()
+            if index + 1 < len(section_matches)
+            else len(body)
+        )
+        event_count = 0
+        unique_targets: set[int] = set()
+        for group in TXT_CITATION_GROUP_RE.finditer(body, match.end(), region_end):
+            expanded = expand_txt_citation_group(group.group(1))
+            if expanded is None or any(target < 1 or target > max_target for target in expanded):
+                invalid_groups.append(
+                    {
+                        "canonical_section": label,
+                        "raw_text": group.group(0),
+                        "reason": "invalid_or_unresolved_target_group",
+                    }
+                )
+                continue
+            event_count += len(expanded)
+            unique_targets.update(expanded)
+        observations.append(
+            {
+                "canonical_section": label,
+                "heading": clean_text(match.group(2)),
+                "citation_event_count": event_count,
+                "unique_targets": sorted(unique_targets),
+            }
+        )
+    return {
+        "inventory": inventory,
+        "layout": {
+            "status": "ok",
+            "method": TXT_LAYOUT_METHOD,
+            "observations": observations,
+            "invalid_groups": invalid_groups,
+        },
+    }, cutoff
+
+
 def parse_txt(text: str) -> ParsedDocument:
     document = ParsedDocument(
         capability={
@@ -1994,8 +2204,12 @@ def parse_txt(text: str) -> ParsedDocument:
             "callouts": False,
         }
     )
+    document.bibliography, cutoff = txt_bibliography(text)
+    inventory = document.bibliography["inventory"]
+    document.reference_entries = len(inventory["entries"])
+    body = text[:cutoff]
     paragraphs = [
-        clean_text(part) for part in re.split(r"\n\s*\n", text) if clean_text(part)
+        clean_text(part) for part in re.split(r"\n\s*\n", body) if clean_text(part)
     ]
     for index, paragraph in enumerate(paragraphs):
         document.blocks.append(
@@ -2583,6 +2797,7 @@ def compute_metrics(
     tokens = tokenize(body_text)
     lower_tokens = [token.lower() for token in tokens]
     entities = document_entities(document, body_words)
+    entities["bibliography"] = document.bibliography
     canonical_heading_sequence = [
         label
         for block in explicit_sections
@@ -3136,6 +3351,42 @@ def compute_metrics(
             raise ContractError(
                 f"registry/analyzer incompatibility: implemented metric missing: {metric_id}"
             )
+    if loaded.spec["format"] == "txt":
+        inventory = document.bibliography["inventory"]
+        layout = document.bibliography["layout"]
+        metrics["reference.entry_count"] = metric(
+            len(inventory["entries"]) if inventory["status"] == "ok" else None,
+            status=inventory["status"],
+            unit=str(registry_by_id["reference.entry_count"].get("unit", "unknown")),
+            method=inventory["method"],
+        )
+        unique_target_count = len(
+            {
+                target
+                for observation in layout["observations"]
+                for target in observation["unique_targets"]
+            }
+        )
+        event_count = sum(
+            observation["citation_event_count"]
+            for observation in layout["observations"]
+        )
+        metrics["citation.explicit_event_count"] = metric(
+            event_count if layout["status"] == "ok" else None,
+            status=layout["status"],
+            unit=str(
+                registry_by_id["citation.explicit_event_count"].get("unit", "unknown")
+            ),
+            method=layout["method"],
+        )
+        metrics["citation.unique_target_count"] = metric(
+            unique_target_count if layout["status"] == "ok" else None,
+            status=layout["status"],
+            unit=str(
+                registry_by_id["citation.unique_target_count"].get("unit", "unknown")
+            ),
+            method=layout["method"],
+        )
     return dict(sorted(metrics.items())), entities
 
 
@@ -4340,7 +4591,24 @@ def failed_paper_row(
             )
             for item in registry["metrics"]
         },
-        "entities": {"sections": [], "paragraphs": []},
+        "entities": {
+            "sections": [],
+            "paragraphs": [],
+            "bibliography": {
+                "inventory": {
+                    "status": "parse_failed",
+                    "method": "not_computed",
+                    "entries": [],
+                    "diagnostics": [],
+                },
+                "layout": {
+                    "status": "parse_failed",
+                    "method": "not_computed",
+                    "observations": [],
+                    "invalid_groups": [],
+                },
+            },
+        },
     }
 
 
