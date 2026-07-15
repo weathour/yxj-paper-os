@@ -2,9 +2,19 @@
 
 Use this playbook when `00_PROJECT_ROUTE.md` is missing or incomplete, or when D01/D03/D04 in `00_DIMENSION_INDEX.md` are unhandled.
 
+## Schema 0.3 route and gate contract
+
+Decision Records uses exactly: Decision ID | Gate category | Issue / options / decision | Affected scopes | Origin | Resolution | Grounding / owner-answer pointer | Recheck trigger.
+
+Only scientific_commitment, argument_spine, material_local_tradeoff, and deliberate_divergence require owner confirmation. not_applicable marks an ordinary grounded decision. Routine route projection, template discovery, document-role classification, and reversible design adaptation do not require confirmation unless they trigger one of the four categories.
+
+Record template discovery authority, one design question, affected scopes, and eligible roles official_venue&#124;target_topic&#124;article_form&#124;time_cohort&#124;control&#124;exemplar. Model semantic reading is primary; deterministic analysis is optional for a declared measurable question. External template material stays design_only and cannot become scientific evidence without a separate promotion record.
+
+At entry, an exact schema-0.2 workspace is legacy input: do not preserve or report its writer-ready state as current. Route it to the agent-led, non-destructive 0.2-to-0.3 recompilation in `04-design-pack-compiler.md`; do not auto-migrate, overwrite, or invent missing design records.
+
 ## Dimension rubric reference
 
-For minimum/standard/ideal sufficiency, question-depth, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. The central rubric decides sufficiency and question-depth; this file is not a sixth task playbook and not a public workspace file. This playbook translates the current rubric gaps into compact question cards and write landings; it must not duplicate or override the central D00-D19 ladder.
+For schema-0.3 sufficiency, question depth, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. This file is one of five task playbooks, not a public workspace file; it translates rubric gaps into compact question cards and write landings without overriding the D00-D19 ladder.
 
 ## Dimension IDs covered
 
@@ -18,11 +28,11 @@ After updating route content, update the matching D01/D03/D04 rows in `00_DIMENS
 
 ## Question-depth translator guide
 
-Use the central rubric to judge whether the current Dxx answer is missing, minimum-only, standard-ready, deferred, or rejected. Use this table only to translate that gap into the next compact card; do not add public files, D IDs, index columns/statuses, manuscript prose, invented facts, external skill execution, semantic scoring, or runtime orchestration.
+Use the central rubric to inspect the current Dxx record and scope readiness, then translate only the unresolved gap into the next compact card. Do not introduce another status vocabulary, public file, D ID, index column, manuscript prose, invented fact, external skill execution, semantic score, or runtime orchestration.
 
 | D ID(s) | Default card mode | Ask a depth follow-up when... | Reconcile or conflict-check when... | Write landing |
 |---|---|---|---|---|
-| D01 | `focused-question` | an owner gate affects route, claim, evidence, source, or handoff authority, or a tempting route needs an explicit rejection rationale | D04, D10, D11, or D19 assumes a decision the owner has not confirmed | `00_PROJECT_ROUTE.md#Owner Decisions` or `#Forbidden Routes`, then D01 row |
+| D01 | `focused-question` | one of the four owner-gate categories is triggered, or a tempting route needs an explicit rejection rationale | D04, D10, D11, or D19 assumes a decision the owner has not confirmed | `00_PROJECT_ROUTE.md#Owner Decisions` or `#Forbidden Routes`, then D01 row |
 | D03 | `candidate-confirmation` from supplied wording; otherwise `focused-question` | topic, domain, object, or working thesis is broad enough to let downstream claims drift | the brief conflicts with D04 route, D10 contribution, or D16 object granularity | `00_PROJECT_ROUTE.md#Project Brief`, then D03 row |
 | D04 | `focused-question` | a route tradeoff changes article type, audience, reporting, visual/storyline, or handoff expectations | route/profile conflicts with D01 gates, D03 brief, D14 spine, D15 jobs, D18 visuals, or D19 handoff | `00_PROJECT_ROUTE.md#Target Route`, `#Audience and Reviewer Expectation`, `#Route Readiness`, then D04 row |
 
@@ -40,17 +50,17 @@ Use the central rubric to judge whether the current Dxx answer is missing, minim
 
 Use these additions as planning-only route prompts. They seed downstream sections and question cards; they do not draft title, abstract, keywords, graphical-hook copy, captions, reporting statements, or manuscript prose.
 
-- **Front matter / hook constraints:** capture route implications for title style, abstract type, keyword scope, visual/graphical hook feasibility, length/format limits, and forbidden front-matter promises. Treat final title/abstract/keyword/hook wording as downstream and owner-gated.
+- **Front matter / hook constraints:** capture route implications for title style, abstract type, keyword scope, visual/graphical hook feasibility, length/format limits, and forbidden front-matter promises. Treat final wording as downstream; ask the owner only if a four-category gate is triggered.
 - **Article type → reporting implications:** record whether the route implies a method, system, benchmark, application, survey, data, reproducibility, ethics, availability, or supplement statement. This is an inventory seed only; do not certify reporting compliance.
 - **Method/reporting/repro seed:** route constraints may point D05/D06 materials and D15 section jobs to required artifacts such as code/data availability, protocol details, parameter settings, ablation expectations, or baseline disclosure.
-- **Downstream route matrix seed:** record candidate downstream writing/figure/citation/review routes as recommendations and constraints for D19. Do not execute those routes or imply the route is final before owner confirmation.
-- **Boundary invariant:** owner-gated route decisions, forbidden routes, and front-matter promises require owner confirmation before `filled` handling; agent-inferred audience or format implications remain candidates until confirmed or explicitly deferred.
+- **Downstream route matrix seed:** record candidate downstream writing/figure/citation/review routes as recommendations and constraints for D19. Do not execute those routes; ask the owner only when the route choice triggers one of the four gate categories.
+- **Boundary invariant:** owner confirmation is mandatory only for a triggered four-category gate. Routine grounded route implications may be recorded without ceremony; unresolved consequential choices remain candidate or deferred.
 
-## Optional Exemplar Analysis route trigger
+## Conditional template-analysis route trigger
 
-Record optional venue/template context only when it can answer a concrete writing-design question. Treat it as the conditional `venue-template` lens, never as a numeric prerequisite. Separate official venue constraints from target-venue, target-topic, article-form/time-cohort, control, and exemplar `partition` labels; one axis cannot stand in for another.
+Activate template analysis only when a concrete writing-design question can change a requested surface. Record discovery authority, eligible document roles, affected scopes, and design_only firewall. Model-semantic reading is primary. Use the deterministic analyzer only for a declared measurable question; it is never a document-count or readiness prerequisite.
 
-Bind the concrete design question to non-empty registry-backed `design_metric_ids`, then choose `case_set`, `exploratory`, or `distributional` according to the conclusion those selected metrics actually support; unrelated metrics and raw paper counts cannot upgrade it. Do not ask for documents merely to reach a fixed count. Preserve current hidden pointers to `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json` when generated. Template observations are writing-design guidance only; they are not venue-fit, prose-quality, style-similarity, acceptance, or claim-evidence scoring.
+Official presentation constraints may be hard. Exemplar patterns remain descriptive and adaptable. Missing inputs affect only linked scopes, and grounded not_applicable needs neither dossier nor analyzer.
 
 ## Required fields
 
@@ -69,7 +79,7 @@ Ask one focused question at a time. Choose the next question adaptively from the
 - “What venue or venue family should this paper target?”
 - “What paper type is this: method, system, experiment/benchmark, application, survey, or something else?”
 - “In one sentence, what is the topic and domain positioning?”
-- “Which route or claim boundary is owner-gated and should not be inferred automatically?”
+- “Which route or claim boundary triggers scientific_commitment, argument_spine, material_local_tradeoff, or deliberate_divergence?”
 - “What route should be avoided even if it sounds attractive?”
 
 ## Question card pattern
@@ -80,7 +90,7 @@ Use this card when D04 or the `project-route` blocker is first unresolved.
 Current stage: Route
 Dimension / blocker: D04 / project-route
 Why this matters: target route controls paper type, audience expectation, claim strength, and downstream writing route.
-Mode chosen: focused-question, because venue family and paper type are owner-gated branch decisions.
+Mode chosen: focused-question, because this branch changes the argument spine or creates a material local tradeoff.
 Question: Which target route should this paper use for planning?
 Options:
 A. intelligent-transportation journal/conference — write venue family, paper type, and reviewer expectation to 00_PROJECT_ROUTE.md#Target Route.
@@ -101,7 +111,7 @@ Use these cards only when their specific track is the current blocker. Keep one 
 Current stage: Route
 Dimension / blocker: D04 with D09/D14/D15/D18/D19 / front-matter-hook constraints
 Why this matters: front matter and visual-hook planning must respect route, paper type, evidence strength, and forbidden promises before downstream writing sees the pack.
-Mode chosen: focused-question, because route-facing front-matter constraints and forbidden promises are owner-gated.
+Mode chosen: focused-question, because the proposed promise triggers scientific_commitment or argument_spine.
 Question: Which planning constraint should govern title/abstract/keyword/hook handoff?
 Options:
 A. title/abstract constraint — record route-facing length, abstract type, tone, and forbidden promise notes in 00_PROJECT_ROUTE.md#Target Route and hand off wording to D19.
@@ -154,7 +164,7 @@ Block design-pack compilation if any of these are absent and not explicitly mark
 - paper type;
 - topic;
 - traffic/computer positioning;
-- owner-gated decisions that affect claims or route.
+- unresolved decisions in one of the four owner-gate categories.
 
 ## Output sections
 

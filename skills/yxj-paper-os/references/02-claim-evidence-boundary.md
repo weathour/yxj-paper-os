@@ -2,9 +2,13 @@
 
 Use this playbook when `02_CLAIM_EVIDENCE_BOUNDARY.md` is missing, when claims lack evidence anchors, or when D10/D11/D12/D13 or claim-side D16/D17 in `00_DIMENSION_INDEX.md` are unhandled.
 
+## Schema 0.3 scientific-authority contract
+
+02 is the sole scientific claim, evidence-support, uncertainty, and wording-ceiling authority. Claims remain C-* and scientific material/source/evidence remains M-*; do not add CLM-* or EVID-* namespaces. 03 paragraphs and frames point to C-*/M-* records but cannot copy or override their ceiling. TPL-*, TOBS-*, TRULE-*, optional analyzer artifacts, generic fallback, and VIS-* records cannot increase support, novelty, comparator authority, or allowed wording.
+
 ## Dimension rubric reference
 
-For minimum/standard/ideal sufficiency, question-depth, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. The central rubric decides sufficiency and question-depth; this file is not a sixth task playbook and not a public workspace file. This playbook translates the current rubric gaps into compact question cards and write landings; it must not duplicate or override the central D00-D19 ladder.
+For schema-0.3 sufficiency, question depth, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. This file is one of five task playbooks, not a public workspace file; it translates rubric gaps into compact question cards and write landings without overriding the D00-D19 ladder.
 
 ## Dimension IDs covered
 
@@ -14,14 +18,14 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 | D11 | `Claim-evidence map` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` |
 | D12 | `Wording boundary` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording` |
 | D13 | `Limitation and risk matrix` | `02_CLAIM_EVIDENCE_BOUNDARY.md#Limitations and Risks` |
-| D16 | `Object granularity` | Secondary: `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Object Granularity` |
-| D17 | `Surface control` | Secondary: claim wording in `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Surface Control` |
+| D16 | `Object granularity` | Secondary: `02_CLAIM_EVIDENCE_BOUNDARY.md#Object Granularity`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Paragraph Payload and Boundary Map` |
+| D17 | `Surface control` | Secondary: claim wording in `02_CLAIM_EVIDENCE_BOUNDARY.md#Allowed Wording` + `#Forbidden Wording`; primary pointer normally lives in `03_WRITING_STRUCTURE.md#Surface Language Contract` |
 
 After updating claim content, update the matching dimension rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
 ## Question-depth translator guide
 
-Use the central rubric to judge whether the current Dxx answer is missing, minimum-only, standard-ready, deferred, or rejected. Use this table only to translate that gap into the next compact card; do not add public files, D IDs, index columns/statuses, manuscript prose, citations, source truth, results, evidence anchors, external skill execution, semantic scoring, or runtime orchestration.
+Use the central rubric to inspect the current Dxx record and scope readiness, then translate only the unresolved gap into the next compact card. Do not introduce another status vocabulary, public file, D ID, index column, manuscript prose, citation, source truth, result, evidence anchor, external skill execution, semantic score, or runtime orchestration.
 
 | D ID(s) | Default card mode | Ask a depth follow-up when... | Reconcile or conflict-check when... | Write landing |
 |---|---|---|---|---|
@@ -52,11 +56,11 @@ Use these additions to prevent writing-surface planning from becoming unsupporte
 - **Results / visual / caption / table boundaries:** result claims must bind to evidence anchors; captions, tables, panels, legends, and accessibility notes may hand off what to explain but cannot create evidence or stronger claims.
 - **Forbidden overclaim patterns:** record front-matter hype, introduction gap overreach, method/repro claims without artifacts, result/caption causal language, benchmark superiority claims, and visual-certainty language as D12 forbidden wording when evidence does not support them.
 
-## Optional Exemplar Analysis claim-design boundary
+## Conditional template-design claim boundary
 
-Use `Template Claim-Design Benchmark` only to compare a current `.yxj-paper-os/template-analysis/corpus-summary.json` / `design-profile.json` observation with claim **presentation**. The comparison may alter placement, emphasis, surface wording, or figure/table handoff, but it cannot strengthen claims, create D06 evidence anchors, change D11 support, verify source truth, or score semantic adequacy.
+A located semantic rule or optional quantitative template rule may shape paragraph placement, emphasis, language constraints, or visual handoff. It cannot create a D06 anchor, change D11 support, verify source truth, increase allowed wording, or score semantic adequacy. Generic fallback has the same scientific firewall.
 
-Template-corpus statistics and project-result statistics are different ontological domains. The former describe how supplied papers present text/figures/tables and belong to the `venue-template` lens; the latter describe this project's research results and remain governed by `evidence-results-statistics`, D06, and D11. Never substitute, pool, or cross-promote them. Source/similarity/partition rationale is a material/design record, not scientific claim support.
+Template-design observations and project-result evidence are different authority domains. Never substitute, pool, or cross-promote them.
 
 ## Required fields
 
@@ -114,7 +118,7 @@ Use these cards when a writing-surface claim boundary is the current blocker. Ke
 Current stage: Claim/Evidence
 Dimension / blocker: D10-D13 with D04/D18/D19 / front-matter-hook claim boundary
 Why this matters: titles, abstracts, keywords, and visual hooks can amplify overclaims unless their planning constraints mirror evidence strength and forbidden wording.
-Mode chosen: focused-question, because front-matter promises and selected contribution wording are owner-gated.
+Mode chosen: focused-question, because the promise triggers scientific_commitment or argument_spine.
 Question: Which front-matter or hook claim boundary should I record?
 Options:
 A. conservative contribution promise — record allowed wording tied to evidence strength for downstream front-matter planning.

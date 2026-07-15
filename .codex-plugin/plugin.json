@@ -1,25 +1,26 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.2.0+codex.20260710081136",
-  "description": "Model-led paper planning with reproducible template-corpus statistics, composable academic lenses, and scoped writing handoffs.",
+  "version": "0.3.0+codex.20260715",
+  "description": "Schema-0.3 prewriting design compiler with semantic template reading, controlled writing surfaces, and scoped handoffs.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Design papers from evidence and target-corpus patterns.",
-    "longDescription": "YXJ Paper OS prepares paper-planning workspaces with a cognitive kernel, reproducible target-journal and target-topic corpus statistics, conditional academic lenses, sparse traceable records, and scoped writing handoffs without drafting manuscripts or executing downstream skills.",
+    "shortDescription": "Compile evidence-grounded, controlled prewriting design.",
+    "longDescription": "YXJ Paper OS compiles repository evidence, model-semantic template reading, conditional academic lenses, and four bounded owner gates into a schema-0.3 six-file writing-design handoff without drafting manuscript prose or executing downstream skills.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
-      "Paper planning",
-      "Reproducible template-corpus statistics",
-      "Text, structure, citation, figure, table, equation, and algorithm analysis",
-      "Composable academic lenses",
-      "Epistemic claim/evidence boundaries",
-      "Scoped writing handoffs"
+      "Schema-0.3 six-file prewriting compilation",
+      "Model-semantic template reading with design-only provenance",
+      "Paragraph functions and controlled sentence frames",
+      "Language, visual/caption, traceability, rule, and soft-budget design",
+      "Four-category human-in-the-loop safety gates",
+      "Optional reproducible template analyzer",
+      "Scoped pointer-only writing handoffs"
     ],
-    "defaultPrompt": "Use yxj-paper-os to analyze my target-journal and target-topic article corpus, prepare the paper project, and compile a scoped writing design pack."
+    "defaultPrompt": "Use yxj-paper-os to inspect my repository and eligible template literature, resolve only consequential owner gates, and compile a validated schema-0.3 six-file prewriting design handoff without drafting manuscript prose."
   }
 }

@@ -2,9 +2,22 @@
 
 Use this playbook when `01_MATERIALS_INVENTORY.md` is missing or incomplete, or when D05/D06/D07/D08 in `00_DIMENSION_INDEX.md` are unhandled.
 
+## Schema 0.3 material and template-source contract
+
+Scientific materials, sources, and evidence continue to use M-* Material Records; do not add EVID-* or a parallel scientific-source registry. Template-design documents use separate TPL-* identities in Template Design Sources with exactly: Template source ID | Design role | Design question | Source/provenance pointer | Access state | Local derivative pointer | Source SHA-256 | Hidden dossier pointer | Design-only state | Scientific-source promotion pointer.
+
+Access state is full_text&#124;owner_derivative&#124;metadata_only&#124;snippet_only&#124;inaccessible. TPL-* defaults to design_only. A dual-role publication uses distinct TPL-* and M-* records, and promotion is never inferred. A ready scope may ground template handling not_applicable and require neither dossier nor analyzer.
+
+The hidden dossier owns detailed acquisition/provenance, copyright/access limits,
+locator set, fingerprint/freshness, semantic eligibility, and optional analyzer
+correlation. 01 mirrors only the exact public columns above; normalize surrounding
+cell whitespace, POSIX relative paths, lowercase enums/SHA-256, and otherwise preserve
+UTF-8 text. Correlation to analyzer state is valid only with explicit
+`analysis_id` + `doc_id` + `source_sha256`; title/filename/order matching is forbidden.
+
 ## Dimension rubric reference
 
-For minimum/standard/ideal sufficiency, question-depth, proposal permission, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. The central rubric decides sufficiency and question-depth; this file is not a sixth task playbook and not a public workspace file. This playbook translates the current rubric gaps into compact question cards and write landings; it must not duplicate or override the central D00-D19 ladder.
+For schema-0.3 sufficiency, question depth, owner-confirmation rules, status examples, and stop/defer/reject behavior for the D IDs covered here, consult `00-dimension-rubric.md`. That file is the central internal rubric/reference. This file is one of five task playbooks, not a public workspace file; it translates rubric gaps into compact question cards and write landings without overriding the D00-D19 ladder.
 
 ## Dimension IDs covered
 
@@ -13,13 +26,13 @@ For minimum/standard/ideal sufficiency, question-depth, proposal permission, own
 | D05 | `Material inventory` | `01_MATERIALS_INVENTORY.md` |
 | D06 | `Evidence inventory` | `01_MATERIALS_INVENTORY.md#Evidence Inventory` + `02_CLAIM_EVIDENCE_BOUNDARY.md#Claim-Evidence Map` |
 | D07 | `Source and citation bank` | `01_MATERIALS_INVENTORY.md#Source and Citation Bank` |
-| D08 | `Research dossier` | `01_MATERIALS_INVENTORY.md#Research Dossier` + `04_WRITING_DESIGN_PACK.md#Research Dossier Notes` |
+| D08 | `Research dossier` | `01_MATERIALS_INVENTORY.md#Research Dossier`; 04 carries only a compact authority pointer |
 
 After updating material content, update the matching D05-D08 rows in `00_DIMENSION_INDEX.md` with status, reason, pointer/handoff, and `Blocks design pack?`.
 
 ## Question-depth translator guide
 
-Use the central rubric to judge whether the current Dxx answer is missing, minimum-only, standard-ready, deferred, absent, or rejected. Use this table only to translate that gap into the next compact card; do not add public files, D IDs, index columns/statuses, manuscript prose, citations, source truth, results, evidence anchors, external skill execution, semantic scoring, or runtime orchestration.
+Use the central rubric to inspect the current Dxx record and scope readiness, then translate only the unresolved gap into the next compact card. Do not introduce another status vocabulary, public file, D ID, index column, manuscript prose, citation, source truth, result, evidence anchor, external skill execution, semantic score, or runtime orchestration.
 
 | D ID(s) | Default card mode | Ask a depth follow-up when... | Reconcile or conflict-check when... | Write landing |
 |---|---|---|---|---|
@@ -48,17 +61,13 @@ Use these additions to inventory planning inputs for downstream writing surfaces
 - **Front-matter material hooks:** record owner-supplied graphical hook assets, key result anchors, or visual-hook constraints only as inputs to D18/D19; do not draft title, abstract, keywords, hook copy, or captions.
 - **Absent/deferred consequence language:** every missing source, method artifact, result, visual, caption, table, or accessibility input must state whether downstream writing can continue conservatively, must defer a claim, or must reject the route.
 
-## Optional Exemplar Analysis material intake
+## Conditional template-design material intake
 
-When `venue-template` is active, record only the material needed for its concrete writing-design question. Canonical analyzer inputs are `documents` with stable `doc_id`, source locator/hash/capability, and explicit `partition` labels for venue, topic, article form/time cohort, control, or exemplar roles. There is no universal minimum document count:
+Activate intake only for a concrete writing-design question. Record TPL-* identity, eligible role, provenance/access state, local derivative/hash when available, design_only state, and affected scope. Grounded model-semantic reading is the primary interpretation path and projects through the hidden semantic dossier; metadata/snippets/inaccessible sources cannot support paragraph/object observations.
 
-- `case_set` records one or more document profiles without corpus-wide language;
-- `exploratory` records available-set descriptions with paper values, denominators, missingness, and selection limitations;
-- `distributional` requires comparable declared partitions and paper-level aggregation, but no fixed numeric gate or population/causal claim.
+The deterministic analyzer is optional for a declared measurable question. If used, retain documents/doc_id/partition, selected metric, requested/effective mode, denominator, missingness, and current fixed-output pointers. There is no universal document-count gate. Missing analyzer output is neutral when scope handling is semantic-only, generic fallback, or grounded not_applicable.
 
-PDF, scan, abstract-only, metadata-only, missing, malformed, or unsupported records remain useful provenance but cannot be pseudo-parsed or silently counted as full text. An externally extracted derivative requires source/extractor provenance. A blocked template-analysis input affects only the linked scope.
-
-Record current generated pointers compactly: `.yxj-paper-os/template-analysis/corpus-summary.json` and `.yxj-paper-os/template-analysis/design-profile.json`. Do not duplicate every hidden metric in public Markdown. Template statistics guide D09/D15/D17/D18 writing design only; they are not D06 evidence anchors and do not verify citation truth, source authority, novelty, research results, or claim support.
+PDF, scan, metadata-only, malformed, or unsupported records remain provenance but cannot be pseudo-parsed or represented as full-text reading. No template record is D06 evidence or citation truth.
 
 ## Required fields
 
@@ -99,7 +108,7 @@ Question: Which material/evidence state should I record now?
 Options:
 A. results/figures/tables exist — record paths or labels in 01_MATERIALS_INVENTORY.md#Results and Experiments and #Figures and Tables.
 B. data/code/baselines/metrics exist — record locations and categories in the matching material sections.
-C. evidence anchor for a claim exists — assign an anchor such as E1 in #Evidence Inventory and link it later to D11.
+C. evidence anchor for a claim exists — assign an M-* Material Record and link it later to D11.
 D. absent material — record explicit absence in #Explicit Absences and prevent supported claims that depend on it.
 E. deferred material — record the missing artifact and consequence as a handoff; do not invent results or anchors.
 Agent action after answer: update 01_MATERIALS_INVENTORY.md and the D05/D06 rows in 00_DIMENSION_INDEX.md; if a claim is affected, keep D11 deferred until anchored.
@@ -115,7 +124,7 @@ Use these cards only when the matching material surface is the next blocker. Kee
 Current stage: Materials
 Dimension / blocker: D07-D08 with D10/D13/D14 / intro-related citation-function roles
 Why this matters: downstream introduction and related-work structure need source functions and conflict/gap notes without pretending they prove novelty or claims.
-Mode chosen: focused-question if source facts are owner-gated; quick-form if several supplied sources need low-risk role labels.
+Mode chosen: focused-question only if source use triggers scientific_commitment; quick-form if supplied sources need low-risk role labels.
 Question: Which citation-function or related-work role should I record for supplied material?
 Options:
 A. background or method lineage — record the supplied source/note role in 01_MATERIALS_INVENTORY.md#Source and Citation Bank or #Research Dossier.

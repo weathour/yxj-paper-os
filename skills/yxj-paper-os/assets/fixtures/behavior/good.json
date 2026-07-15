@@ -4,12 +4,94 @@
       "scenario_id": "B01",
       "selected_actions": [
         "INSPECT",
-        "RECORD_OBSERVATION"
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D05",
+        "D06",
+        "D09",
+        "D15"
+      ],
+      "target_scopes": [
+        "SCOPE-RESULTS"
+      ],
+      "updates": [
+        {
+          "record_kind": "paragraph",
+          "record_id": "P-RESULT-01",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "paragraph_function",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Function, reader-state, payload boundary, qualification and output promise",
+          "grounding": [
+            "M-EXP-01",
+            "C-RES-01"
+          ],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "paragraph",
+          "record_id": "P-RESULT-02",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "paragraph_function",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Adverse-case function and forbidden overclaim",
+          "grounding": [
+            "LIM-01",
+            "FIG-01"
+          ],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-RESULTS",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-RESULTS"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -19,12 +101,64 @@
     {
       "scenario_id": "B02",
       "selected_actions": [
-        "RECORD_OBSERVATION"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D05",
+        "D09",
+        "D15",
+        "D17"
+      ],
+      "target_scopes": [
+        "SCOPE-DISCUSSION"
+      ],
+      "updates": [
+        {
+          "record_kind": "frame",
+          "record_id": "FRM-DISC-03-01",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "controlled_sentence_frame",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Clause-order and hedge contract; no prose realization",
+          "grounding": [
+            "P-DISC-03",
+            "M-ROBUST-03",
+            "C-BOUND-02"
+          ],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": "[bounded context] -> [observed limitation + M-ROBUST-03] -> [qualified bridge to C-BOUND-02]",
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-DISCUSSION",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-DISCUSSION"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -34,14 +168,63 @@
     {
       "scenario_id": "B03",
       "selected_actions": [
-        "ASK_OWNER"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D05",
+        "D09",
+        "D15"
+      ],
+      "target_scopes": [
+        "SCOPE-INTRO"
+      ],
+      "updates": [
+        {
+          "record_kind": "template_rule",
+          "record_id": "TRULE-INTRO-ORDER",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": "adapt",
+          "origin": "model-derived",
+          "resolution": "accepted",
+          "status": "active",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Routine reversible adaptation of local paragraph order",
+          "grounding": [
+            "TPL-EXEMPLAR-01#Introduction paragraphs 2-4"
+          ],
+          "epistemic_label": "model-derived",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-INTRO",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-INTRO"
+        }
+      ],
       "question": {
-        "count": 1,
+        "count": 0,
         "target": null
       },
       "side_effects": []
@@ -49,60 +232,251 @@
     {
       "scenario_id": "B04",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D06",
+        "D11"
+      ],
+      "target_scopes": [
+        "SCOPE-CLAIM"
+      ],
+      "updates": [
+        {
+          "record_kind": "decision",
+          "record_id": "DEC-B04",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-proposed",
+          "resolution": "unresolved",
+          "status": "candidate",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Focused scientific_commitment choice affects only SCOPE-CLAIM",
+          "grounding": [
+            "Whether C-SAFETY-02 remains a bounded association or becomes a causal claim"
+          ],
+          "epistemic_label": "model-proposed",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": "scientific_commitment",
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-CLAIM",
+          "readiness": "blocked",
+          "blocker": "GATE-scientific_commitment",
+          "next_action": "owner decision",
+          "output_pointer": null
+        }
+      ],
       "question": {
-        "count": 0,
-        "target": null
+        "count": 1,
+        "target": "scientific_commitment"
       },
       "side_effects": []
     },
     {
       "scenario_id": "B05",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D05",
+        "D07",
+        "D09"
+      ],
+      "target_scopes": [
+        "SCOPE-PAPER"
+      ],
+      "updates": [
+        {
+          "record_kind": "decision",
+          "record_id": "DEC-B05",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-proposed",
+          "resolution": "unresolved",
+          "status": "candidate",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Focused argument_spine choice affects only SCOPE-PAPER",
+          "grounding": [
+            "Whether mechanism or security-state evidence leads the contribution sequence"
+          ],
+          "epistemic_label": "model-proposed",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": "argument_spine",
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-PAPER",
+          "readiness": "blocked",
+          "blocker": "GATE-argument_spine",
+          "next_action": "owner decision",
+          "output_pointer": null
+        }
+      ],
       "question": {
-        "count": 0,
-        "target": null
+        "count": 1,
+        "target": "argument_spine"
       },
       "side_effects": []
     },
     {
       "scenario_id": "B06",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D05",
+        "D09",
+        "D15"
+      ],
+      "target_scopes": [
+        "SCOPE-DISCUSSION"
+      ],
+      "updates": [
+        {
+          "record_kind": "decision",
+          "record_id": "DEC-B06",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-proposed",
+          "resolution": "unresolved",
+          "status": "candidate",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Focused material_local_tradeoff choice affects only SCOPE-DISCUSSION",
+          "grounding": [
+            "Whether the adverse finding is framed before or after the aggregate benefit"
+          ],
+          "epistemic_label": "model-proposed",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": "material_local_tradeoff",
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-DISCUSSION",
+          "readiness": "blocked",
+          "blocker": "GATE-material_local_tradeoff",
+          "next_action": "owner decision",
+          "output_pointer": null
+        }
+      ],
       "question": {
-        "count": 0,
-        "target": null
+        "count": 1,
+        "target": "material_local_tradeoff"
       },
       "side_effects": []
     },
     {
       "scenario_id": "B07",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D09",
+        "D15",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-INTRO"
+      ],
+      "updates": [
+        {
+          "record_kind": "decision",
+          "record_id": "DEC-B07",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-proposed",
+          "resolution": "unresolved",
+          "status": "candidate",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Focused deliberate_divergence choice affects only SCOPE-INTRO",
+          "grounding": [
+            "Whether to retain the deliberate two-paragraph divergence from TRULE-INTRO-ORDER"
+          ],
+          "epistemic_label": "model-proposed",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": "deliberate_divergence",
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-INTRO",
+          "readiness": "blocked",
+          "blocker": "GATE-deliberate_divergence",
+          "next_action": "owner decision",
+          "output_pointer": null
+        }
+      ],
       "question": {
-        "count": 0,
-        "target": null
+        "count": 1,
+        "target": "deliberate_divergence"
       },
       "side_effects": []
     },
@@ -110,12 +484,88 @@
       "scenario_id": "B08",
       "selected_actions": [
         "INSPECT",
-        "INITIALIZE_WORKSPACE"
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D01",
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "target_scopes": [
+        "SCOPE-TEMPLATE-CLAIM"
+      ],
+      "updates": [
+        {
+          "record_kind": "template_source",
+          "record_id": "TPL-EXT-08",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "artifact-observed",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "locator": "https://example.org/target-paper",
+          "decision_pointer": null,
+          "reason": "External exemplar restricted to writing design",
+          "grounding": [],
+          "epistemic_label": "artifact-observed",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": "target_topic",
+          "access_state": "full_text",
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "claim",
+          "record_id": "C-NOVELTY-01",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "inactive",
+          "support": "evidence-unsupported",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Template material cannot support scientific novelty",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-TEMPLATE-CLAIM",
+          "readiness": "partial",
+          "blocker": "CLAIM-EVIDENCE-MISSING",
+          "next_action": "retain inactive claim",
+          "output_pointer": null
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -125,12 +575,94 @@
     {
       "scenario_id": "B09",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D01",
+        "D05",
+        "D09",
+        "D15",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-INTRO-SEMANTIC"
+      ],
+      "updates": [
+        {
+          "record_kind": "semantic_dossier",
+          "record_id": "DOSSIER-SEM-09",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "artifact-observed",
+          "resolution": "confirmed",
+          "status": "confirmed",
+          "support": "not_applicable",
+          "locator": ".yxj-paper-os/template-analysis/semantic-dossier.json",
+          "decision_pointer": null,
+          "reason": "Fresh full-text semantic observations with locators",
+          "grounding": [
+            "TPL-SEM-01"
+          ],
+          "epistemic_label": "artifact-observed",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": "full_text",
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "template_rule",
+          "record_id": "TRULE-SEM-01",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": "DOSSIER-SEM-09",
+          "reason": "Semantic-primary design projection",
+          "grounding": [
+            "TPL-SEM-01#Introduction paragraphs 1-3"
+          ],
+          "epistemic_label": "model-derived",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-INTRO-SEMANTIC",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-INTRO-SEMANTIC"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -140,27 +672,232 @@
     {
       "scenario_id": "B10",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-RESULTS-QUANT"
+      ],
+      "updates": [
+        {
+          "record_kind": "template_analysis",
+          "record_id": "ANALYSIS-10",
+          "operation": "create",
+          "analysis_mode": "distributional",
+          "target_kind": "figure_position_design",
+          "candidate_action": null,
+          "origin": "artifact-observed",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
+          "decision_pointer": null,
+          "reason": "Optional metric-backed answer with partition and missingness boundaries",
+          "grounding": [
+            "object.figure_position_norm"
+          ],
+          "epistemic_label": "artifact-observed",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": "target_topic versus control",
+          "missingness": "2 missing supported object locator",
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": "15 eligible;13 valid;2 missing supported object locator",
+          "effective_conclusion": "descriptive design distribution only; no semantic, causal, venue-fit, or acceptance conclusion",
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-RESULTS-QUANT",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-RESULTS-QUANT"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
       },
-      "side_effects": []
+      "side_effects": [
+        "template_analysis"
+      ]
     },
     {
       "scenario_id": "B11",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D03",
+        "D05",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-RESULT-A",
+        "SCOPE-RESULT-B"
+      ],
+      "updates": [
+        {
+          "record_kind": "paragraph",
+          "record_id": "P-RESULT-A2",
+          "operation": "revise",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "stale",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Direct M-RESULT-A dependency changed",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [
+            "M-RESULT-A"
+          ],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "frame",
+          "record_id": "FRM-RESULT-A2-01",
+          "operation": "revise",
+          "analysis_mode": null,
+          "target_kind": "controlled_sentence_frame",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "stale",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Direct M-RESULT-A payload changed",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": "[updated result + M-RESULT-A] -> [bounded interpretation]",
+          "linked_records": [
+            "M-RESULT-A"
+          ],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "visual",
+          "record_id": "VIS-RESULT-A",
+          "operation": "revise",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "stale",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Direct M-RESULT-A visual payload changed",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [
+            "M-RESULT-A"
+          ],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "template_rule",
+          "record_id": "TRULE-RESULT-A",
+          "operation": "revise",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "stale",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Application snapshot links to changed paragraph",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [
+            "M-RESULT-A"
+          ],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-RESULT-A",
+          "readiness": "partial",
+          "blocker": "STALE-M-RESULT-A",
+          "next_action": "recompile linked records",
+          "output_pointer": null
+        },
+        {
+          "scope_id": "SCOPE-RESULT-B",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-RESULT-B"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -170,12 +907,56 @@
     {
       "scenario_id": "B12",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D00",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-LEGACY"
+      ],
+      "updates": [
+        {
+          "record_kind": "diagnostic",
+          "record_id": "SCHEMA_LEGACY_02",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "partial",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Legacy detailed-readiness migration required; preserve and recompile non-destructively",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.2",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-LEGACY",
+          "readiness": "partial",
+          "blocker": "SCHEMA_LEGACY_02",
+          "next_action": "agent-led 0.2-to-0.3 recompilation",
+          "output_pointer": null
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -185,12 +966,236 @@
     {
       "scenario_id": "B13",
       "selected_actions": [
-        "INSPECT"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
-      "updates": [],
-      "readiness_updates": [],
+      "target_dimensions": [
+        "D00",
+        "D05",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "target_scopes": [
+        "SCOPE-FULL-03"
+      ],
+      "updates": [
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-01",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "paragraph_function",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared paragraph_function coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-02",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "controlled_frame",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared controlled_frame coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-03",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "language_contract",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared language_contract coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-04",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "visual_caption",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared visual_caption coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-05",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "cross_surface_traceability",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared cross_surface_traceability coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-06",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "template_rule_provenance",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared template_rule_provenance coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        },
+        {
+          "record_kind": "surface",
+          "record_id": "SURFACE-07",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": "soft_budget",
+          "candidate_action": null,
+          "origin": "model-derived",
+          "resolution": "confirmed",
+          "status": "ready",
+          "support": "not_applicable",
+          "locator": null,
+          "decision_pointer": null,
+          "reason": "Declared soft_budget coverage resolves to 03 authority",
+          "grounding": [],
+          "epistemic_label": "model-derived",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
+        }
+      ],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-FULL-03",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-FULL-03"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -201,22 +1206,88 @@
       "scenario_id": "B14",
       "selected_actions": [
         "INSPECT",
-        "RECORD_OBSERVATION"
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
-      "target_dimensions": [],
-      "target_scopes": [],
+      "target_dimensions": [
+        "D01",
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "target_scopes": [
+        "SCOPE-DUAL-ROLE"
+      ],
       "updates": [
         {
-          "record_kind": "metadata",
-          "record_id": "D00",
-          "operation": "revise",
+          "record_kind": "template_source",
+          "record_id": "TPL-PUB-14",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "artifact-observed",
           "resolution": "confirmed",
-          "grounding": [
-            "00_DIMENSION_INDEX.md#Workspace Metadata"
-          ]
+          "status": "active",
+          "support": "not_applicable",
+          "locator": "doi:10.0000/example.14",
+          "decision_pointer": null,
+          "reason": "Separate design-only publication role",
+          "grounding": [],
+          "epistemic_label": "artifact-observed",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": "template_exemplar",
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": "M-PUB-14"
+        },
+        {
+          "record_kind": "material",
+          "record_id": "M-PUB-14",
+          "operation": "create",
+          "analysis_mode": null,
+          "target_kind": null,
+          "candidate_action": null,
+          "origin": "artifact-observed",
+          "resolution": "confirmed",
+          "status": "active",
+          "support": "not_applicable",
+          "locator": "doi:10.0000/example.14",
+          "decision_pointer": "02_CLAIM_EVIDENCE_BOUNDARY.md#M-PUB-14",
+          "reason": "Separate scientific-source evaluation role",
+          "grounding": [],
+          "epistemic_label": "artifact-observed",
+          "design_only_state": "not_applicable",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": "scientific_source",
+          "access_state": null,
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
         }
       ],
-      "readiness_updates": [],
+      "readiness_updates": [
+        {
+          "scope_id": "SCOPE-DUAL-ROLE",
+          "readiness": "writer-ready",
+          "blocker": null,
+          "next_action": null,
+          "output_pointer": "04_WRITING_DESIGN_PACK.md#SCOPE-DUAL-ROLE"
+        }
+      ],
       "question": {
         "count": 0,
         "target": null
@@ -227,356 +1298,54 @@
       "scenario_id": "B15",
       "selected_actions": [
         "INSPECT",
-        "RECORD_OBSERVATION",
-        "DERIVE",
-        "PROPOSE"
-      ],
-      "target_dimensions": [
-        "D05",
-        "D09"
-      ],
-      "target_scopes": [
-        "SCOPE-TEMPLATE"
-      ],
-      "updates": [
-        {
-          "record_kind": "template_metric_observation",
-          "record_id": "TM-B15",
-          "operation": "create",
-          "analysis_mode": "case_set",
-          "target_kind": "paper_level_measurement",
-          "candidate_action": null,
-          "origin": "artifact-observed",
-          "resolution": "confirmed",
-          "status": "active",
-          "support": "not_applicable",
-          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
-          "decision_pointer": null,
-          "reason": "Reproducible paper-level observation.",
-          "grounding": [
-            "declared design metric"
-          ]
-        },
-        {
-          "record_kind": "design_rule",
-          "record_id": "DR-B15",
-          "operation": "create_candidate",
-          "analysis_mode": "case_set",
-          "target_kind": "watch_only",
-          "candidate_action": "not_applicable",
-          "origin": "model-proposed",
-          "resolution": "candidate",
-          "status": "candidate",
-          "support": "not_applicable",
-          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
-          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
-          "reason": "Corpus-derived writing-design entries remain candidate until owner disposition.",
-          "grounding": [
-            "current design profile"
-          ]
-        }
-      ],
-      "readiness_updates": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "readiness": "partial",
-          "blocker": "Unresolved candidate writing-design rule.",
-          "next_action": "Owner accepts, adapts, rejects, or defers the candidate.",
-          "output_pointer": null
-        }
-      ],
-      "question": {
-        "count": 0,
-        "target": null
-      },
-      "side_effects": [
-        "template_analysis"
-      ]
-    },
-    {
-      "scenario_id": "B16",
-      "selected_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION",
-        "DERIVE",
-        "PROPOSE"
-      ],
-      "target_dimensions": [
-        "D05",
-        "D09"
-      ],
-      "target_scopes": [
-        "SCOPE-TEMPLATE"
-      ],
-      "updates": [
-        {
-          "record_kind": "template_metric_observation",
-          "record_id": "TM-B16",
-          "operation": "create",
-          "analysis_mode": "exploratory",
-          "target_kind": "paper_level_measurement",
-          "candidate_action": null,
-          "origin": "artifact-observed",
-          "resolution": "confirmed",
-          "status": "active",
-          "support": "not_applicable",
-          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
-          "decision_pointer": null,
-          "reason": "Reproducible paper-level observation.",
-          "grounding": [
-            "declared design metric"
-          ]
-        },
-        {
-          "record_kind": "design_rule",
-          "record_id": "DR-B16",
-          "operation": "create_candidate",
-          "analysis_mode": "exploratory",
-          "target_kind": "watch_only",
-          "candidate_action": "not_applicable",
-          "origin": "model-proposed",
-          "resolution": "candidate",
-          "status": "candidate",
-          "support": "not_applicable",
-          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
-          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
-          "reason": "Corpus-derived writing-design entries remain candidate until owner disposition.",
-          "grounding": [
-            "current design profile"
-          ]
-        }
-      ],
-      "readiness_updates": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "readiness": "partial",
-          "blocker": "Unresolved candidate writing-design rule.",
-          "next_action": "Owner accepts, adapts, rejects, or defers the candidate.",
-          "output_pointer": null
-        }
-      ],
-      "question": {
-        "count": 0,
-        "target": null
-      },
-      "side_effects": [
-        "template_analysis"
-      ]
-    },
-    {
-      "scenario_id": "B17",
-      "selected_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION",
-        "DERIVE",
-        "PROPOSE"
-      ],
-      "target_dimensions": [
-        "D09",
-        "D15",
-        "D18"
-      ],
-      "target_scopes": [
-        "SCOPE-TEMPLATE"
-      ],
-      "updates": [
-        {
-          "record_kind": "template_metric_observation",
-          "record_id": "TM-B17",
-          "operation": "create",
-          "analysis_mode": "distributional",
-          "target_kind": "paper_level_measurement",
-          "candidate_action": null,
-          "origin": "artifact-observed",
-          "resolution": "confirmed",
-          "status": "active",
-          "support": "not_applicable",
-          "locator": ".yxj-paper-os/template-analysis/corpus-summary.json",
-          "decision_pointer": null,
-          "reason": "Reproducible paper-level observation.",
-          "grounding": [
-            "declared design metric"
-          ]
-        },
-        {
-          "record_kind": "design_rule",
-          "record_id": "DR-B17",
-          "operation": "create_candidate",
-          "analysis_mode": "distributional",
-          "target_kind": "soft_band",
-          "candidate_action": "adapt",
-          "origin": "model-proposed",
-          "resolution": "candidate",
-          "status": "candidate",
-          "support": "not_applicable",
-          "locator": ".yxj-paper-os/template-analysis/design-profile.json",
-          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
-          "reason": "Corpus-derived writing-design entries remain candidate until owner disposition.",
-          "grounding": [
-            "current design profile"
-          ]
-        }
-      ],
-      "readiness_updates": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "readiness": "partial",
-          "blocker": "Unresolved candidate writing-design rule.",
-          "next_action": "Owner accepts, adapts, rejects, or defers the candidate.",
-          "output_pointer": null
-        }
-      ],
-      "question": {
-        "count": 0,
-        "target": null
-      },
-      "side_effects": [
-        "template_analysis"
-      ]
-    },
-    {
-      "scenario_id": "B18",
-      "selected_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION"
-      ],
-      "target_dimensions": [
-        "D05",
-        "D09"
-      ],
-      "target_scopes": [
-        "SCOPE-TEMPLATE",
-        "SCOPE-METHODS"
-      ],
-      "updates": [
-        {
-          "record_kind": "material",
-          "record_id": "M-TA-PDF",
-          "operation": "create",
-          "analysis_mode": null,
-          "target_kind": "metadata_only_pdf",
-          "candidate_action": null,
-          "origin": "artifact-observed",
-          "resolution": "confirmed",
-          "status": "unsupported",
-          "support": "not_applicable",
-          "locator": "source.pdf",
-          "decision_pointer": null,
-          "reason": "PDF is metadata-only without a traceable supported derivative.",
-          "grounding": [
-            "source.pdf"
-          ]
-        }
-      ],
-      "readiness_updates": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "readiness": "blocked",
-          "blocker": "Unsupported PDF-only input.",
-          "next_action": "Supply a traceable supported derivative or defer.",
-          "output_pointer": null
-        },
-        {
-          "scope_id": "SCOPE-METHODS",
-          "readiness": "writer-ready",
-          "blocker": "none",
-          "next_action": "none",
-          "output_pointer": "04_WRITING_DESIGN_PACK.md#Scoped Handoff: SCOPE-METHODS"
-        }
-      ],
-      "question": {
-        "count": 0,
-        "target": null
-      },
-      "side_effects": []
-    },
-    {
-      "scenario_id": "B19",
-      "selected_actions": [
-        "RECORD_OBSERVATION",
-        "KEEP_CLAIM_INACTIVE"
-      ],
-      "target_dimensions": [
-        "D06",
-        "D09",
-        "D11"
-      ],
-      "target_scopes": [
-        "SCOPE-CLAIM"
-      ],
-      "updates": [
-        {
-          "record_kind": "claim",
-          "record_id": "C-TEMPLATE-MISUSE",
-          "operation": "revise",
-          "analysis_mode": null,
-          "target_kind": "scientific_claim",
-          "candidate_action": null,
-          "origin": "owner-stated",
-          "resolution": "rejected",
-          "status": "inactive",
-          "support": "evidence-unsupported",
-          "locator": "02_CLAIM_EVIDENCE_BOUNDARY.md#Claim Records",
-          "decision_pointer": null,
-          "reason": "Template statistics describe writing and presentation only.",
-          "grounding": [
-            "scientific-evidence firewall"
-          ]
-        }
-      ],
-      "readiness_updates": [],
-      "question": {
-        "count": 0,
-        "target": null
-      },
-      "side_effects": []
-    },
-    {
-      "scenario_id": "B20",
-      "selected_actions": [
-        "RECORD_OBSERVATION",
-        "RECONCILE",
-        "DEPENDENCY_RECHECK",
-        "COMPILE_SCOPED_HANDOFF"
+        "PROJECT",
+        "VALIDATE"
       ],
       "target_dimensions": [
         "D01",
-        "D09",
-        "D15",
-        "D18",
-        "D19"
+        "D09"
       ],
       "target_scopes": [
-        "SCOPE-TEMPLATE"
+        "SCOPE-EXTERNAL-META"
       ],
       "updates": [
         {
-          "record_kind": "decision",
-          "record_id": "DEC-TA-DIVERGE",
+          "record_kind": "template_source",
+          "record_id": "TPL-META-15",
           "operation": "create",
           "analysis_mode": null,
-          "target_kind": "deliberate_divergence",
-          "candidate_action": "deliberate_divergence",
-          "origin": "owner-stated",
+          "target_kind": "metadata_only",
+          "candidate_action": null,
+          "origin": "artifact-observed",
           "resolution": "confirmed",
           "status": "active",
           "support": "not_applicable",
-          "locator": "00_PROJECT_ROUTE.md#Decision Records",
-          "decision_pointer": "00_PROJECT_ROUTE.md#Decision Records",
-          "reason": "Owner confirmed an intentional departure from a grounded candidate soft band.",
-          "grounding": [
-            ".yxj-paper-os/template-analysis/design-profile.json",
-            "owner rationale"
-          ]
+          "locator": "https://example.org/inaccessible-paper",
+          "decision_pointer": null,
+          "reason": "Metadata inventory only; no semantic observation",
+          "grounding": [],
+          "epistemic_label": "artifact-observed",
+          "design_only_state": "design_only",
+          "schema_version": "0.3",
+          "gate_category": null,
+          "role": null,
+          "access_state": "metadata_only",
+          "partition": null,
+          "missingness": null,
+          "design_payload": null,
+          "linked_records": [],
+          "denominator": null,
+          "effective_conclusion": null,
+          "promotion_pointer": null
         }
       ],
       "readiness_updates": [
         {
-          "scope_id": "SCOPE-TEMPLATE",
+          "scope_id": "SCOPE-EXTERNAL-META",
           "readiness": "partial",
-          "blocker": "Other declared scope requirements must still be rechecked.",
-          "next_action": "Recheck remaining declared inputs and dependencies.",
-          "output_pointer": "04_WRITING_DESIGN_PACK.md#Scoped Handoff: SCOPE-TEMPLATE"
+          "blocker": "FULL_TEXT_UNAVAILABLE",
+          "next_action": "retain metadata-only status",
+          "output_pointer": null
         }
       ],
       "question": {

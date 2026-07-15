@@ -25,6 +25,18 @@
 | Reviewer expectation | TODO | Inferred/candidate unless owner confirms |
 | Hard constraints and forbidden routes | TODO | Constrains D14/D15/D18/D19 |
 
+## Template Discovery Authority
+
+- Discovery authority: owner-supplied local material&#124;agent external search&#124;not_applicable.
+- Eligible design roles: official_venue&#124;target_topic&#124;article_form&#124;time_cohort&#124;control&#124;exemplar.
+- State one design question and affected scopes before discovery or analysis.
+- Every external template source remains design_only unless a separate scientific-source workflow promotes it.
+- Template discovery, routine grounded adaptation, dossier organization, and optional analyzer use do not require owner confirmation unless one of the four gate categories is triggered.
+
+## Owner Gate Categories
+
+Only scientific_commitment, argument_spine, material_local_tradeoff, and deliberate_divergence require owner confirmation. Use not_applicable for an ordinary grounded decision. Ask one focused question only when a gate is triggered.
+
 ## Conditional Venue-Template Lens
 
 Activate `references/lenses/venue-template.md` only when supplied target-journal/target-topic documents can change a requested writing surface. A known venue alone is not a corpus gate. Missing or unsupported inputs affect only linked scopes.
@@ -37,11 +49,11 @@ Activate `references/lenses/venue-template.md` only when supplied target-journal
 | `documents` / `doc_id` / `partition` boundary | TODO | Keep venue, topic, article form/time cohort, control, and exemplar roles distinct |
 | Official constraints | TODO | Only official source may create `hard_constraint` |
 | Current summary / design-profile pointers | TODO | `.yxj-paper-os/template-analysis/corpus-summary.json`; `.yxj-paper-os/template-analysis/design-profile.json` |
-| Design disposition / owner state | TODO | `follow` / `adapt` / `deliberate_divergence` / `not_applicable` |
+| Design handling / gate state | TODO | Routine grounded decisions need no gate; consequential divergence uses deliberate_divergence |
 
 ## Front Matter / Hook Route Constraints
 
-> Planning only: record constraints, route implications, owner-gated inputs, and handoff notes for title/abstract/keywords/hooks. Do not draft title, abstract, keyword, or graphical-hook prose here.
+> Planning only: record constraints, route implications, four-category gate inputs, and handoff notes for title/abstract/keywords/hooks. Do not draft title, abstract, keyword, or graphical-hook prose here.
 
 | Front-matter planning field | Constraint or handoff note | Owner state / linked dimensions |
 |---|---|---|
@@ -71,13 +83,19 @@ TODO
 
 > Use this table to seed later structure and design-pack handoff. Recommendations do not execute downstream writing, citation, figure, or review skills.
 
-| Planning surface | Route-derived need or explicit defer/absence | Downstream design-pack location |
+| Planning surface | Route-derived need or explicit defer/absence | Downstream authority or handoff pointer |
 |---|---|---|
-| Reporting guideline or checklist need | TODO | 04_WRITING_DESIGN_PACK.md#Method / Reporting / Reproducibility Handoff |
-| Required statement inventory seed | TODO | 04_WRITING_DESIGN_PACK.md#Statement Inventory |
-| Data/code/material availability route constraint | TODO | 04_WRITING_DESIGN_PACK.md#Method / Reporting / Reproducibility Handoff |
-| Downstream route matrix seed | TODO | 04_WRITING_DESIGN_PACK.md#Downstream Route Matrix |
-| Template/mechanical validation boundary | TODO | 04_WRITING_DESIGN_PACK.md#Template and Mechanical Validator Notes |
+| Reporting guideline or checklist need | TODO | 01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials |
+| Required statement inventory seed | TODO | 01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials |
+| Data/code/material availability route constraint | TODO | 01_MATERIALS_INVENTORY.md#Method / Reporting / Reproducibility Materials |
+| Downstream route matrix seed | TODO | 04_WRITING_DESIGN_PACK.md#Unresolved and Downstream Prohibitions |
+| Template/mechanical validation boundary | TODO | 04_WRITING_DESIGN_PACK.md#Template Analysis Handling |
+
+## Deliberate Template Divergences
+
+| Decision ID | Template rule IDs | Affected scopes | Intended divergence | Owner-grounded rationale | Recheck trigger |
+|---|---|---|---|---|---|
+| TODO | TODO | TODO | TODO | TODO | TODO |
 
 ## Forbidden Routes
 
@@ -98,6 +116,6 @@ Record only triggered lenses; leave untriggered lenses `not_applicable`. See `re
 
 ## Decision Records
 
-| Decision ID | Issue | Decision or live options | Affected scopes | Origin | Resolution | Grounding |
-|---|---|---|---|---|---|---|
-| DEC-01 | TODO | TODO | none | owner-stated | unresolved | none |
+| Decision ID | Gate category | Issue / options / decision | Affected scopes | Origin | Resolution | Grounding / owner-answer pointer | Recheck trigger |
+|---|---|---|---|---|---|---|---|
+| DEC-01 | TODO | TODO | none | model-proposed | unresolved | none | TODO |

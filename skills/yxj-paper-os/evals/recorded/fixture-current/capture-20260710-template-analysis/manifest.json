@@ -1,16 +1,18 @@
 {
-  "prompt_contract_version": "behavior-prompt/1.3",
+  "prompt_contract_version": "behavior-prompt/2.1",
+  "capture_kind": "offline_policy_fixture",
   "model": "policy-fixture",
-  "runtime": "offline-current-policy",
-  "captured_at": "2026-07-10T08:11:02.784918+00:00",
-  "skill_sha256": "1433160eb9d168219beff650689d3699e7d4b473e948cf305e4f2eac6ebce236",
-  "venue_template_sha256": "5db40d223a2e27e64040308a34fd4f94c94fb3dff9ef190ec3396d7f3cf6389d",
-  "scenarios_sha256": "c05392e2bb26f42df5ce2023651fecec81d91e2a7b0418108a24acfb3bcf966c",
-  "model_visible_scenarios_sha256": "fd3a5ea88518d0d15d910bdd39c6d0effb251fed1058f11f7e96f8bc5de2010f",
-  "prompt_sha256": "f4d2fbf47360488a6f13ef2fa87f2957ed06979b37469f9cd674d6935fab84b0",
-  "output_schema_sha256": "3a75ff5ab795d130b5a0652581ae8b760c085890bac0e87cf46a4192067bf021",
-  "raw_output_sha256": "1c473dc9572fd452ecc53f0f17ebcf4b77fb09ba0500bc835011a82592413980",
-  "actions_sha256": "0c601187be97854712c3b782c898062d99d798ab20c8e3cf1e3e4c8f2bb6f1fb",
+  "runtime": "offline-reproducible-fixture",
+  "captured_at": "2026-07-15T01:31:58.846451+00:00",
+  "skill_sha256": "208cff025efb4c9c2c39f3cc0bcc4d44ee30c0bb3dc4df75b39c3148af339198",
+  "venue_template_sha256": "a8d5d9c51d7e8d2b1262c4314809613800516d5aa6cc0722fd54aab9de58a832",
+  "scenarios_sha256": "6c8db341819818764ff306558da0f68da12ebf066f0772efcb4453d6481b8c57",
+  "model_visible_scenarios_sha256": "e60ed14293bad9f43de27f5cb0d8121ed413265893a445199e54626a488500fb",
+  "prompt_sha256": "d27c547ec8330a9978dd4187c843ddca6656ea4606406c024d8242ade8e43ea7",
+  "output_schema_sha256": "2b539bda415092596a2199abaafa67c69597cb58265422904679be61626ead8b",
+  "response_contract_sha256": "d49c37a625614c03dac06ffe98e79fdd41e78956fa1f1dbf486a1319b9b5625f",
+  "raw_output_sha256": "735ca1412386cc6ebfcf5968c332c95a3800d73c3423a2e01e57780593172d81",
+  "actions_sha256": "735ca1412386cc6ebfcf5968c332c95a3800d73c3423a2e01e57780593172d81",
   "scenario_ids": [
     "B01",
     "B02",
@@ -26,12 +28,7 @@
     "B12",
     "B13",
     "B14",
-    "B15",
-    "B16",
-    "B17",
-    "B18",
-    "B19",
-    "B20"
+    "B15"
   ],
-  "scenario_count": 20
+  "scenario_count": 15
 }

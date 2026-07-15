@@ -119,6 +119,16 @@ TODO
 | Reproducibility governance | TODO | not_applicable | TODO |
 | Venue-template corpus analysis | TODO | not_applicable | TODO |
 
+## Template Design Sources
+
+> TPL-* records are design-only template sources. Scientific material/source/evidence remains in Material Records as M-*. A publication used in both roles has separate TPL-* and M-* records; promotion is explicit and never inferred.
+
+| Template source ID | Design role | Design question | Source/provenance pointer | Access state | Local derivative pointer | Source SHA-256 | Hidden dossier pointer | Design-only state | Scientific-source promotion pointer |
+|---|---|---|---|---|---|---|---|---|---|
+| TPL-01 | TODO | TODO | TODO | TODO | none | none | none | design_only | none |
+
+Access state is full_text&#124;owner_derivative&#124;metadata_only&#124;snippet_only&#124;inaccessible. full_text and owner_derivative semantic reading require a lowercase SHA-256; owner_derivative also requires a contained local derivative. Metadata, snippets, and inaccessible sources cannot ground paragraph/object observations. External sources remain design_only unless the separate scientific-source promotion pointer resolves.
+
 ## Material Records
 
 | Record ID | Kind | Content / role | Locator | Scope / conditions | Status | Origin | Resolution | Grounding |

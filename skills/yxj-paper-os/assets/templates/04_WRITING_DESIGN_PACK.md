@@ -1,223 +1,100 @@
 # 04 Writing Design Pack
 
-> Final handoff artifact. Do not leave template placeholders in the final version.
+> Pointer-only schema-0.3 compiled manifest. 00 owns scope readiness; 01 owns
+> materials; 02 owns scientific claim/support/wording ceilings; 03 owns detailed
+> section, paragraph, frame, language, visual, edge, rule, and budget records.
 
-## Dimension Coverage Summary
+## Authority Pointers
 
-| ID | Status | Pointer or handoff | Blocks design pack? |
-|---|---|---|---|
-| TODO | TODO | TODO | TODO |
-
-## Project Route
-
-TODO
-
-## Front-Matter / Hook Planning Handoff
-
-> Planning-only constraints for downstream front-matter drafting. Do not include manuscript-ready title, abstract, keyword, graphical-abstract, or hook prose.
-
-| Front-matter unit | Constraint / owner-gated input | Source dimensions | Downstream handoff note |
-|---|---|---|---|
-| Title scope | TODO | D04/D10/D12 | TODO |
-| Abstract structure boundary | TODO | D10/D11/D13/D15 | TODO |
-| Keyword / controlled-term boundary | TODO | D04/D07/D09 | TODO |
-| Visual or graphical hook boundary | TODO | D18/D19 | TODO |
-| Forbidden front-matter wording | TODO | D12/D17 | TODO |
-
-## Introduction / Related-Work / Citation Function Handoff
-
-| Handoff item | Source planning location | Required boundary | Downstream note |
-|---|---|---|---|
-| Introduction move sequence | TODO | D10-D13 claim/evidence limits | TODO |
-| Related-work grouping or citation role | TODO | D07/D08 supplied/candidate sources only | TODO |
-| Gap / contrast / counterevidence note | TODO | Not novelty proof unless separately supported | TODO |
-| Citation-function unresolved need | TODO | Do not invent sources or BibTeX entries | TODO |
-
-## Method / Reporting / Reproducibility Handoff
-
-| Handoff item | Artifact / checklist state | Required statement or limitation | Downstream note |
-|---|---|---|---|
-| Method/system/model reporting | TODO | TODO | TODO |
-| Protocol / parameter / environment reporting | TODO | TODO | TODO |
-| Data/code/material availability | TODO | TODO | TODO |
-| Reproducibility package status | Existing / needed / deferred / absent | TODO | TODO |
-| Reporting guideline / statement inventory | TODO | TODO | TODO |
-
-## Results / Visual / Captions / Tables / Accessibility Handoff
-
-| Handoff item | Evidence or visual status | Caption/table/accessibility constraint | Downstream note |
-|---|---|---|---|
-| Results narrative path | TODO | Tied to D06/D11 anchors | TODO |
-| Figure / visual caption or legend | Existing / needed / deferred / absent | Handoff only; no caption drafting | TODO |
-| Table / supplement display | TODO | Link to D05/D06/D18 | TODO |
-| Statistic or metric display | TODO | Do not exceed support strength | TODO |
-| Accessibility / alt-text / readability need | TODO | Structural handoff only | TODO |
-
-## Submission Blueprint
-
-> D19 is a structural handoff/submission blueprint only. It must not claim manuscript, submission, publication, acceptance, or semantic readiness.
-
-| Blueprint prompt | Planned note or handoff | Risk or constraint |
+| Authority | Required pointer | Compiler note |
 |---|---|---|
-| Route/profile and paper type from D04 | TODO | TODO |
-| Required statements or reporting constraints | TODO | TODO |
-| Supplement / appendix boundary | TODO | TODO |
-| External downstream route | TODO | Recommend only; do not execute external skills |
-| Front-matter / hook handoff | TODO | Constraints only; no front-matter prose |
-| Method/reporting/reproducibility handoff | TODO | Checklist state is not proof |
-| Results/visual/caption/accessibility handoff | TODO | Needed/deferred visuals are not evidence |
+| Scope and readiness | 00_DIMENSION_INDEX.md#Writing Scopes | Select the unique SCOPE-* row; do not copy the status here |
+| Route and gates | 00_PROJECT_ROUTE.md#Decision Records | Carry only compact resolved pointers and blockers |
+| Scientific materials | 01_MATERIALS_INVENTORY.md#Material Records | M-* scientific material/source/evidence authority |
+| Template design sources | 01_MATERIALS_INVENTORY.md#Template Design Sources | Separate TPL-* design-only source/provenance authority |
+| Scientific claim ceiling | 02_CLAIM_EVIDENCE_BOUNDARY.md#Claim Records | Template rules cannot raise support or wording |
+| Detailed design | 03_WRITING_STRUCTURE.md#Section Map | Point to authoritative A-K records; do not duplicate them |
 
-## Material Boundary
+## Detailed Surface Coverage
 
-TODO
-
-## Source / Citation Boundary
-
-TODO
-
-## Research Dossier Notes
-
-TODO
-
-## Semantic-Risk and Unresolved-Risk Notes
-
-| Risk area | Unresolved dimension/source | Consequence or handoff |
-|---|---|---|
-| Source/citation boundary | TODO | TODO |
-| Claim/evidence boundary | TODO | TODO |
-| Visual/storyline boundary | TODO | TODO |
-| Stale or deferred upstream content | TODO | TODO |
-
-## Core Contribution
-
-TODO
-
-## Statement Inventory
-
-| Statement / constraint type | Source dimension | Handoff note |
-|---|---|---|
-| Route or formatting statement | D04 | TODO |
-| Claim wording statement | D11/D12 | TODO |
-| Limitation or risk statement | D13 | TODO |
-| Visual or supplement statement | D18/D19 | TODO |
-| Front-matter / hook constraint | D04/D12/D18/D19 | TODO |
-| Method/reporting/reproducibility statement | D04/D05/D06/D13/D19 | TODO |
-| Citation-function or related-work handoff | D07/D08/D10/D11 | TODO |
-
-## Claim-Evidence Map
-
-| Claim | Evidence anchors | Support strength | Allowed wording | Forbidden wording | Status |
+| Surface | Scope ID | Handling (`satisfied&#124;not_applicable`) | Record count | Authoritative pointer | Rationale/blocker |
 |---|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO | TODO |
+| section_paragraph_map | SCOPE-01 | TODO | TODO | TODO | TODO |
+| surface_language_contract | SCOPE-01 | TODO | TODO | TODO | TODO |
+| visual_caption_blueprint | SCOPE-01 | TODO | TODO | TODO | TODO |
+| cross_surface_traceability | SCOPE-01 | TODO | TODO | TODO | TODO |
+| template_rule_provenance | SCOPE-01 | TODO | TODO | TODO | TODO |
+| soft_budgets | SCOPE-01 | TODO | TODO | TODO | TODO |
+| important_paragraph_frames | SCOPE-01 | TODO | TODO | TODO | TODO |
 
-## Allowed Wording
+Each unique scope in 00 has exactly one row for each of the seven surfaces. satisfied
+requires a resolvable 03 pointer and applicable records. not_applicable requires a
+substantive rationale, Authoritative pointer none, and no contradictory scoped record.
+04 stores declared counts and pointers only.
 
-TODO
+## Detailed Coverage Summary
 
-## Forbidden Wording
+| Scope ID | Section count | Paragraph count | Important paragraph count | Frame count | Language count | Visual count | Edge count | Rule count | Budget count |
+|---|---|---|---|---|---|---|---|---|---|
+| SCOPE-01 | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 
-TODO
+Counts must equal the authoritative 03 records; they are structural coverage, not a
+semantic or writing-quality score.
 
-## Limitations and Risks
+## Owner Gate Resolution Summary
 
-TODO
+| Scope ID | Gate category | Decision ID | Resolution | Grounding / owner-answer pointer | Active blocker IDs |
+|---|---|---|---|---|---|
+| SCOPE-01 | TODO | TODO | TODO | TODO | none |
 
-## Reader Spine
+Only scientific_commitment, argument_spine, material_local_tradeoff, and
+deliberate_divergence are owner gates. Routine grounded decisions do not create
+ceremonial questions.
 
-TODO
+## Template Analysis Mode Contract
 
-## Writing Structure
-
-TODO
-
-## Visual and Figure Storyline
-
-TODO
-
-## Downstream Route Matrix
-
-> Route downstream skills as recommendations/handoff constraints only. This pack does not execute writing, citation, figure, review, or submission workflows.
-
-| Downstream route | Eligible input sections | Constraints to pass forward | Blocker / defer note |
+| Mode | Semantic dossier pointer | Quantitative analysis pointer(s) | Generic fallback pointer(s) |
 |---|---|---|---|
-| Manuscript-writing route | TODO | D10-D17 boundaries; no unsupported claims | TODO |
-| Citation / reference route | TODO | Supplied or candidate source notes only; no invented citations | TODO |
-| Figure / visual route | TODO | D18 evidence/status/accessibility constraints | TODO |
-| Review / QA route | TODO | Structural risk notes; no acceptance prediction | TODO |
-| No external route / defer | TODO | Owner decision or unresolved blocker | TODO |
+| semantic_primary | required | none | none, unless coupled to a same-scope generic-fallback TRULE-* for a named uncovered surface |
+| semantic_plus_quantitative | required | required | none, unless coupled to the same named uncovered-surface rule |
+| quantitative_only | none | required | none |
+| generic_fallback | none | none | required |
+| not_applicable | none | none | none |
 
-## External Skill Handoff
+semantic_plus_quantitative uses separately typed semantic and quantitative rules; it
+never creates a mixed-grounding TRULE-* row. In semantic modes, an optional generic
+pointer requires a same-scope generic-fallback rule and a rationale naming the
+uncovered surface.
 
-> Recommend downstream writing, figure, citation, or review routes only. Do not execute external skills from this pack.
+## Template Analysis Handling
 
-TODO
+| Scope ID | Mode | Semantic dossier pointer | Quantitative analysis pointer(s) | Generic fallback pointer(s) | Firewall state | Rationale | Active blocker IDs |
+|---|---|---|---|---|---|---|---|
+| SCOPE-01 | TODO | none | none | none | design_only | TODO | none |
 
-## Template Statistical Design Handoff
+This table has exactly one row per unique scope in 00, including partial, blocked, and
+deferred scopes. Mode controls the three pointer columns exactly. Firewall state is
+always design_only. A grounded not_applicable row requires no dossier or analyzer.
 
-> Carry only current, grounded, scope-relevant projections from `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json`. Preserve mode/partition/denominator/missingness. This guides D09/D15/D17/D18 writing design only; it is not project-result evidence, citation truth, or venue-fit scoring.
+## Template Source Firewall
 
-| Design surface | Summary/profile pointer + observed rule | Rule kind / disposition | Current design decision or `deliberate_divergence` rationale | Boundary / blocker |
-|---|---|---|---|---|
-| Language rhythm / distribution | TODO | TODO | TODO | D09/D17 design only |
-| Section/function distribution | TODO | TODO | TODO | D15 design only |
-| Claim-presentation emphasis | TODO | TODO | TODO | D06/D11 still control scientific support |
-| Figure/table/equation/algorithm organization | TODO | TODO | TODO | D18 plan only; accepted/candidate/stale annotation coverage remains explicit |
+Template literature, semantic observations, analyzer outputs, and generic fallback
+rules are writing-design inputs only. They cannot create M-* evidence, increase C-*
+support, prove novelty or source truth, or silently promote a TPL-* source.
 
-## Conditional Venue-Template Handoff
+## Unresolved and Downstream Prohibitions
 
-When the `venue-template` lens is active, carry route constraints and current analysis state here; otherwise record `not_applicable`. Missing, malformed, stale, unsupported, or PDF-only inputs do not block unrelated scope.
-
-| Handoff item | Status or pointer | Downstream consequence |
-|---|---|---|
-| Route/template activation | TODO | active or not_applicable |
-| Design question / `design_metric_ids` | TODO | Registry-backed selection; unrelated ready metrics cannot upgrade the answer |
-| Analysis mode / `documents` / `doc_id` / `partition` | TODO | `case_set` / `exploratory` / `distributional`; no fixed corpus count |
-| Corpus summary | `.yxj-paper-os/template-analysis/corpus-summary.json` | current/partial/blocked/stale/malformed; compact pointer only |
-| Statistical design profile | `.yxj-paper-os/template-analysis/design-profile.json` | canonical rule kind and disposition only |
-| Official constraints | TODO | only official source creates `hard_constraint` |
-| Deliberate divergence | TODO | owner decision/rationale and affected scope, or `not_applicable` |
-| Scientific-evidence firewall | TODO | template statistics never create D06 anchors or increase D11 support |
-
-## Template and Mechanical Validator Notes
-
-> Mechanical validation checks file presence, table/heading structure, pointers, allowed statuses, placeholder absence, stale-gate consistency, visual/evidence boundaries, and handoff claims only. It does not assess novelty, venue fit, source/citation truth, argument quality, prose quality, visual quality, or reproducibility.
-
-| Check surface | Expected structural evidence | Boundary / non-goal |
-|---|---|---|
-| Six-template surface | Exactly the six public Markdown templates/files | No public file expansion |
-| Dimension-index schema | Existing columns and valid status values only | No new public status/tier columns |
-| Lens/handoff coverage matrix | Rows for applicable handoff surfaces in this pack | Internal routing map, not schema |
-| Placeholder / stale gate | No final placeholders; D02/D19 stale notes reconciled | Freshness is not semantic adequacy |
-| Claim/evidence/visual boundary | D06/D11 anchors and D18 status respected | Needed/deferred visuals are not evidence |
-
-## Validation Notes
-
-> Validation is structural against the six-file/20-dimension contract and placeholder absence; it is not a semantic scorer or readiness claim.
-
-Final yxj-paper-os handoff
-
-- Pack status: TODO
-- Ready for: downstream writing planning from 04_WRITING_DESIGN_PACK.md
-- Not ready for: final citations, manuscript-ready prose, submission, publication, acceptance, or semantic adequacy claims
-- Validation: TODO
-- Remaining deferred/absent/rejected items: TODO
-- Recommended downstream route(s): TODO; recommendation only; no external route executed
-- Next owner action if blocked: TODO
-
-## Conditional Lens Registry Handoff
-
-| Lens | State | Source section | Downstream owner / blocker |
+| Scope ID | Unresolved/stale/deferred record IDs | Consequence | Downstream prohibition |
 |---|---|---|---|
-| Contribution evidence forms | not_applicable | TODO | TODO |
-| Research-design validity | not_applicable | TODO | TODO |
-| Evidence, results, and statistics | not_applicable | TODO | TODO |
-| Literature differentiation | not_applicable | TODO | TODO |
-| Reproducibility governance | not_applicable | TODO | TODO |
-| Argument, language, and visual | not_applicable | TODO | TODO |
-| Venue-template corpus analysis | not_applicable | TODO | TODO |
+| SCOPE-01 | TODO | TODO | Do not draft beyond the pointed claim, payload, and language boundaries |
 
 ## Scoped Handoff
 
-| Scope ID | Writing surface | Intended output | Readiness | Available inputs | Required requirement IDs | Remaining blocker | Next action | Output pointer |
-|---|---|---|---|---|---|---|---|---|
-| SCOPE-01 | TODO | TODO | deferred | none | none | TODO | TODO | none |
+| Scope ID | 00 scope-row pointer | Detailed coverage pointer | Output pointer | Active blocker IDs | Downstream prohibitions | Handoff note |
+|---|---|---|---|---|---|---|
+| SCOPE-01 | 00_DIMENSION_INDEX.md#Writing Scopes | 04_WRITING_DESIGN_PACK.md#Detailed Surface Coverage | TODO | TODO | TODO | TODO |
+
+This table has exactly one row per unique scope in 00. The 00 scope row is the only
+readiness authority. For writer-ready, Output pointer equals the 00 row output and
+Active blocker IDs is none. Non-ready scopes may use Output pointer none only with a
+concrete handoff note. This table never copies or infers a status.

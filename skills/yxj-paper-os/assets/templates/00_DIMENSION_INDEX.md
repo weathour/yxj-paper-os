@@ -52,9 +52,12 @@ TODO
 
 ## Workspace Schema Version
 
-- Workspace schema version: 0.2
-- Public template contract: six files; no new status/tier columns.
-- Hidden generated analysis: optional `.yxj-paper-os/template-analysis/`; not a public file or D06/D11 evidence source.
+- Workspace schema version: 0.3
+- Public template contract: exactly six Markdown files; no new index columns or status tiers.
+- Dimension status tokens: filled&#124;not_applicable&#124;absent&#124;deferred&#124;rejected.
+- Scope readiness tokens: writer-ready&#124;partial&#124;blocked&#124;deferred.
+- Hidden template analysis is conditional design-only state; it is not a public file or D06/D11 evidence source.
+- A writer-ready Output pointer resolves to the scope rows in 04_WRITING_DESIGN_PACK.md#Detailed Surface Coverage.
 
 ## Writing Scopes
 

@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yxj-paper-os.local/schema/template-semantic-dossier-1.0.json",
+  "title": "YXJ model-semantic template-design dossier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "dossier_id",
+    "workspace_schema",
+    "design_question",
+    "scope_ids",
+    "analysis_context",
+    "documents",
+    "observations",
+    "transfer_rules",
+    "updated_at"
+  ],
+  "properties": {
+    "schema": {"const": "yxj-template-semantic-dossier/1.0"},
+    "dossier_id": {"$ref": "#/$defs/tsd_id"},
+    "workspace_schema": {"const": "0.3"},
+    "design_question": {"type": "string", "minLength": 1},
+    "scope_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/scope_id"}
+    },
+    "analysis_context": {"$ref": "#/$defs/analysis_context"},
+    "documents": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/document"}
+    },
+    "observations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/observation"}
+    },
+    "transfer_rules": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/transfer_rule"}
+    },
+    "updated_at": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "tsd_id": {"type": "string", "pattern": "^TSD-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "tpl_id": {"type": "string", "pattern": "^TPL-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "tobs_id": {"type": "string", "pattern": "^TOBS-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "trule_id": {"type": "string", "pattern": "^TRULE-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "scope_id": {"type": "string", "pattern": "^SCOPE-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "decision_or_none": {
+      "type": "string",
+      "pattern": "^(?:none|DEC-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+    },
+    "sha_or_none": {"type": "string", "pattern": "^(?:none|[0-9a-f]{64})$"},
+    "freshness": {
+      "enum": ["verified_local_current", "recorded_at_access", "stale", "unavailable"]
+    },
+    "analysis_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "agent_identity",
+        "model_identity",
+        "prompt_identity",
+        "access_limitations",
+        "generic_knowledge_fallback",
+        "uncertainty_note"
+      ],
+      "properties": {
+        "method": {"const": "model_semantic_deep_reading"},
+        "agent_identity": {"type": "string", "minLength": 1},
+        "model_identity": {"type": "string", "minLength": 1},
+        "prompt_identity": {"type": "string", "minLength": 1},
+        "access_limitations": {"type": "string", "minLength": 1},
+        "generic_knowledge_fallback": {"enum": ["used", "not_used"]},
+        "uncertainty_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "analyzer_correlation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["analysis_id", "doc_id", "source_sha256"],
+      "properties": {
+        "analysis_id": {"type": "string", "minLength": 1},
+        "doc_id": {"type": "string", "minLength": 1},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "template_source_id",
+        "title",
+        "source_pointer",
+        "acquisition_provenance",
+        "role",
+        "design_question",
+        "design_relevance",
+        "access_state",
+        "local_derivative_pointer",
+        "source_sha256",
+        "accessed_at",
+        "access_copyright_limitation",
+        "freshness",
+        "semantic_reading_eligible",
+        "design_only_state"
+      ],
+      "properties": {
+        "template_source_id": {"$ref": "#/$defs/tpl_id"},
+        "title": {"type": "string", "minLength": 1},
+        "source_pointer": {"type": "string", "minLength": 1},
+        "acquisition_provenance": {"type": "string", "minLength": 1},
+        "role": {
+          "enum": ["official_venue", "target_topic", "article_form", "time_cohort", "control", "exemplar"]
+        },
+        "design_question": {"type": "string", "minLength": 1},
+        "design_relevance": {"type": "string", "minLength": 1},
+        "access_state": {
+          "enum": ["full_text", "owner_derivative", "metadata_only", "snippet_only", "inaccessible"]
+        },
+        "local_derivative_pointer": {"type": "string", "minLength": 1},
+        "source_sha256": {"$ref": "#/$defs/sha_or_none"},
+        "accessed_at": {"type": "string", "minLength": 1},
+        "access_copyright_limitation": {"type": "string", "minLength": 1},
+        "freshness": {"$ref": "#/$defs/freshness"},
+        "semantic_reading_eligible": {"type": "boolean"},
+        "design_only_state": {"const": "design_only"},
+        "analyzer_correlation": {"$ref": "#/$defs/analyzer_correlation"}
+      }
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {"enum": ["section", "paragraph", "figure", "table", "caption", "document", "metadata"]},
+        "value": {"type": "string", "minLength": 1}
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "template_source_id",
+        "locator",
+        "observed_pattern",
+        "semantic_interpretation",
+        "uncertainty",
+        "non_transfer_note",
+        "status"
+      ],
+      "properties": {
+        "observation_id": {"$ref": "#/$defs/tobs_id"},
+        "template_source_id": {"$ref": "#/$defs/tpl_id"},
+        "locator": {"$ref": "#/$defs/locator"},
+        "observed_pattern": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "semantic_interpretation": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "uncertainty": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "non_transfer_note": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "status": {"const": "model-derived"},
+        "minimal_excerpt": {"type": "string", "minLength": 1, "maxLength": 500}
+      }
+    },
+    "application_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "affected_scope_ids",
+        "surface",
+        "resolution",
+        "disposition",
+        "gate_category",
+        "decision_id",
+        "decision_pointer",
+        "public_projection_pointer"
+      ],
+      "properties": {
+        "affected_scope_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/scope_id"}
+        },
+        "surface": {"type": "string", "minLength": 1},
+        "resolution": {"enum": ["confirmed", "candidate", "unresolved", "conflicted", "rejected"]},
+        "disposition": {"enum": ["candidate", "adopted", "adapted", "rejected", "deliberate_divergence", "not_applicable"]},
+        "gate_category": {"enum": ["scientific_commitment", "argument_spine", "material_local_tradeoff", "deliberate_divergence", "not_applicable"]},
+        "decision_id": {"$ref": "#/$defs/decision_or_none"},
+        "decision_pointer": {"type": "string", "minLength": 1},
+        "public_projection_pointer": {"const": "03_WRITING_STRUCTURE.md#Template Rule Projection"}
+      }
+    },
+    "transfer_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "observation_ids",
+        "grounding_kind",
+        "rule_kind",
+        "candidate_transfer",
+        "suggested_disposition",
+        "origin",
+        "limitation",
+        "dependency_fingerprint",
+        "source_freshness",
+        "application_snapshot"
+      ],
+      "properties": {
+        "rule_id": {"$ref": "#/$defs/trule_id"},
+        "observation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/tobs_id"}
+        },
+        "grounding_kind": {"const": "semantic_dossier"},
+        "rule_kind": {"enum": ["candidate_pattern", "soft_band", "sequence", "presence", "watch_only"]},
+        "candidate_transfer": {"type": "string", "minLength": 1},
+        "suggested_disposition": {"enum": ["none", "candidate", "adopted", "adapted", "rejected", "deliberate_divergence", "not_applicable"]},
+        "origin": {"const": "model-proposed"},
+        "limitation": {"type": "string", "minLength": 1},
+        "dependency_fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_freshness": {"$ref": "#/$defs/freshness"},
+        "application_snapshot": {"$ref": "#/$defs/application_snapshot"}
+      }
+    }
+  }
+}

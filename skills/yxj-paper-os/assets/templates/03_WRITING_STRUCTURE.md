@@ -1,162 +1,97 @@
 # 03 Writing Structure
 
-> Fill through yxj-paper-os guided intake. Template placeholders are not final content.
+> Authoritative schema-0.3 detailed design surface. Fill functional records and
+> constraints only; do not write manuscript-ready sentences, captions, titles,
+> abstracts, or paragraphs.
 
-## Exemplar Language Profile
+## Section Map
 
-> Optional user-supplied style/venue exemplars. Mark absent/deferred rather than inventing exemplars.
-> D09 style constraints guide surface control only; if an exemplar is cited as a source, record it under D07.
+| Section ID | Scope ID | Sequence | Job | Reader state in | Reader state out | Input IDs | Output promise | Evidence/visual obligations | Forbidden content |
+|---|---|---|---|---|---|---|---|---|---|
+| SEC-01 | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 
-| Style fingerprint prompt | Status/rationale or supplied detail | Boundary / link |
-|---|---|---|
-| Exemplar status and role | TODO | Supplied / absent / deferred; do not invent exemplars |
-| Positive style rules | TODO | TODO |
-| Forbidden imitation or banned patterns | TODO | Do not copy source prose |
-| Voice / tense / hedge strength / terminology density | TODO | Link to D12/D17 wording controls |
+A writer-ready scope owns at least one section. Each section belongs to exactly one
+scope, has a unique sequence, and owns at least one paragraph.
 
-## Template Statistical Design Profile
+## Paragraph Map
 
-> Conditional compact projection from current `.yxj-paper-os/template-analysis/corpus-summary.json` and `design-profile.json`. Preserve the design question, selected `design_metric_ids`, requested/effective mode, partition, denominator, and missingness; project only rules that affect the requested surface. Template statistics never support D06/D11 claims or score venue fit.
+| Paragraph ID | Scope ID | Section ID | Sequence | Function/job | Reader state in | Reader state out | Previous paragraph | Next paragraph |
+|---|---|---|---|---|---|---|---|---|
+| PAR-01 | TODO | TODO | TODO | TODO | TODO | TODO | none | none |
 
-| Design surface | Summary/profile pointer + mode/partition boundary | Observed constraint/distribution + missingness | Rule kind / disposition | Current design consequence |
-|---|---|---|---|---|
-| Language / rhythm / surface reference | TODO | TODO | `hard_constraint` / `soft_band` / `sequence` / `presence` / `watch_only`; `follow` / `adapt` / `deliberate_divergence` / `not_applicable` | TODO |
-| Section / rhetorical organization | TODO | TODO | TODO | TODO |
-| Figure / table / equation / algorithm organization | TODO | TODO | TODO | TODO |
+Each paragraph belongs to exactly one section and scope. Previous/next pointers
+express exact same-section adjacency; cross-scope handoff uses an EDGE-* relation.
 
-## Deliberate Template Divergences
+## Paragraph Payload and Boundary Map
 
-> Record only owner-confirmed `deliberate_divergence` decisions. A corpus band is descriptive, not an optimality score; deviation is not failure.
+| Paragraph ID | Claim IDs | Material/source/evidence IDs | Claim/citation boundary rationale | Citation function | Equation/algorithm/visual/table record IDs | Object relation/job | Required qualification/limitation | Output promise | Forbidden content/overclaim | Template rule IDs |
+|---|---|---|---|---|---|---|---|---|---|---|
+| PAR-01 | none | none | TODO | TODO | none | TODO | TODO | TODO | TODO | none |
 
-| Surface | Profile rule / source pointer | Intended divergence | Rationale and owner decision ID | Affected scope / recheck |
-|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO |
+Every planned paragraph has exactly one payload/boundary row. Scientific claims and
+evidence use C-* and M-* only; template rules cannot raise the 02 claim ceiling.
 
-## Front-Matter / Hook Planning Brief
+## Important Paragraph Register
 
-> Planning only: capture constraints, route implications, and downstream handoff notes for title/abstract/keywords/visual hooks. Do not write manuscript-ready front matter here.
+| Paragraph ID | Qualitative selection rationale | Consequence/risk/dependency | Frame IDs | Gate category | Decision ID | Gate resolution | Owner-answer/grounding pointer |
+|---|---|---|---|---|---|---|---|
+| PAR-01 | TODO | TODO | FRM-01 | not_applicable | none | TODO | none |
 
-| Front-matter unit | Planning function | Inputs / linked dimensions | Constraint or handoff note |
-|---|---|---|---|
-| Title scope | TODO | D04/D10/D12 | TODO |
-| Abstract structure constraints | TODO | D10/D11/D13/D15 | TODO |
-| Keyword / controlled-term surface | TODO | D04/D07/D09 | TODO |
-| Graphical or visual hook | TODO | D18/D19 | TODO |
-| Front-matter forbidden wording | TODO | D12/D17 | TODO |
+Important-paragraph selection is qualitative and adaptive. Consider commitment,
+uncertainty, argument load, misreading risk, template sensitivity, formula/citation/
+visual interfaces, and cross-surface dependency; do not add an importance score or
+a universal paragraph list. A selected paragraph owns one or more ordered frames.
 
-## Reader Spine
+## Controlled Sentence Frames
 
-| Reader step | Reader persona / question | Expected answer | Linked claim / evidence / limitation | Transition rationale or forbidden question |
-|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO |
+| Frame ID | Paragraph ID | Order | Sentence function | Proposition/content target | Clause/relation order | Required payload IDs | Payload/boundary rationale | Language contract IDs | Local language constraint | Previous frame | Next frame | Forbidden realization |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| FRM-01 | PAR-01 | TODO | TODO | TODO | [bounded context] -> [grounded payload slot] -> [qualification slot] | none | TODO | LANG-01 | TODO | none | none | No polished sentence or cosmetic-fill template |
 
-## Introduction / Related-Work Move Sequence
+Frames specify functional slots, proposition targets, clause relations, payload,
+language, and forbidden realization. They stop before paste-ready prose.
 
-> This is a move plan and citation-function handoff, not drafted introduction or related-work prose.
+## Surface Language Contract
 
-| Move step | Reader question or citation function | Required source/material boundary | Claim/evidence or wording constraint |
-|---|---|---|---|
-| Problem / motivation setup | TODO | D07/D08 context only unless anchored | D12 boundary |
-| Gap / contrast / counterevidence move | TODO | Supplied dossier or explicit absence | Candidate unless owner confirms |
-| Contribution positioning move | TODO | D10/D11 support relation | No novelty proof without evidence |
-| Related-work grouping or citation role | TODO | D07 source role / D08 synthesis note | Do not invent sources |
+| Contract ID | Scope ID | Surface | Terminology | Claim/verb strength | Hedge/modality | Tense/voice | Syntax/rhythm tendency | Forbidden patterns | Grounding IDs |
+|---|---|---|---|---|---|---|---|---|---|
+| LANG-01 | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 
-## Manuscript Outline
+## Visual Blueprint
 
-> D15 outline is a section sequence, not manuscript prose. Pair detailed responsibilities in #Section Jobs.
+| Visual ID | Scope ID | Paragraph IDs | Status | Evidence/data IDs | Story role | Panel/order/encoding | Caption/legend job | Body callout relation | Accessibility responsibility | Handoff/blocker |
+|---|---|---|---|---|---|---|---|---|---|---|
+| VIS-01 | TODO | TODO | TODO | none | TODO | TODO | TODO | TODO | TODO | TODO |
 
-| Sequence | Section or unit | Planning purpose | Route/type constraint |
-|---|---|---|---|
-| TODO | TODO | TODO | TODO |
+Visual status is existing&#124;needed&#124;deferred&#124;absent. A planned or absent
+visual is not evidence. Caption/legend cells store jobs and constraints, not text.
 
-## Template Structure Benchmark
+## Cross-Surface Traceability
 
-> Section/paragraph/function distribution from the current summary/profile pointer. Use it to tune D15 section jobs; preserve mode/partition/denominators and do not hardcode journal thresholds or claim rhetorical optimality.
+| Edge ID | From record | Relation | To record | Closure surface | State/freshness | Consequence if stale |
+|---|---|---|---|---|---|---|
+| EDGE-01 | TODO | TODO | TODO | TODO | TODO | TODO |
 
-| Structure unit | Template corpus distribution or range | Current outline consequence | Blocker if incomplete |
-|---|---|---|---|
-| TODO | TODO | TODO | block only a declared linked responsibility; otherwise use `watch_only` / `not_applicable` |
+Relation is fulfills&#124;qualifies&#124;limits&#124;introduces&#124;calls_out&#124;visualizes&#124;depends_on&#124;contrasts_with&#124;hands_off_to. This is a sparse direct-edge table, not a runtime graph.
 
-## Section Jobs
+## Template Rule Projection
 
-| Section | Job | Input dimensions | Output promise | Required evidence / visual | Forbidden content or downstream constraint |
-|---|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO | TODO |
+| Rule ID | Grounding kind | Grounding pointer(s) | Rule kind | Affected scope IDs | Surface | Candidate transfer | Suggested disposition | Origin | Resolution | Disposition | Decision ID | Limitation | Freshness |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| TRULE-01 | TODO | TODO | TODO | TODO | TODO | TODO | none | model-proposed | candidate | candidate | none | TODO | TODO |
 
-## Method / Reporting / Reproducibility Job Plan
+Grounding kind is official_constraint&#124;semantic_dossier&#124;quantitative_analysis&#124;generic_fallback. Each rule uses exactly one kind and its matching pointer, rule-kind, disposition, gate, and freshness contract. Analyzer candidate_action maps only to Suggested disposition; actual Disposition remains candidate until an explicit grounded design decision. Only a triggered four-category choice requires DEC-*.
 
-> Store section jobs, artifact locations, and statement needs. A checklist entry is not proof of reproducibility.
+## Grounded Soft Budgets
 
-| Method/reporting unit | Planning job | Required material or artifact | Statement / limitation / handoff |
-|---|---|---|---|
-| Method/system/model description | TODO | D05/D06 | TODO |
-| Protocol / parameter / environment reporting | TODO | D05 artifact or explicit absence | TODO |
-| Data/code/material availability | TODO | D05/D07 status | D19 statement inventory |
-| Reproducibility package status | TODO | Existing / needed / deferred / absent | D13/D19 risk note |
+| Budget ID | Scope ID | Surface | Property | Basis kind | Grounding pointer | Soft band or ordering | Disposition | Adaptation rationale | Hard-constraint disclaimer |
+|---|---|---|---|---|---|---|---|---|---|
+| BUD-01 | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | Descriptive planning aid; not a quality threshold |
 
-## Object Granularity
-
-TODO
-
-## Surface Control
-
-TODO
-
-## Figure / Table Storyline
-
-> D18 visual storyline must stay inside evidence boundaries; needed/deferred visuals are plans, not evidence.
-
-| Story step | Visual/table id | Story role | Linked reader step / claim | Evidence boundary |
-|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO |
-
-## Template Visual-Density Benchmark
-
-> Figure/table/equation/algorithm density, object sequence/transition, caption missingness, callout/orphan, and lead-lag observations from the current summary/profile. Use them to guide D18 visual planning; planned/needed/deferred visuals still cannot support active claims.
-
-| Visual-density surface | Template corpus observation | Current visual/table design consequence | Evidence boundary |
-|---|---|---|---|
-| Figure/table/equation/algorithm count, density, or zero pattern | TODO | TODO | D18 plan only; not visual correctness validation |
-| Caption missingness / callout / orphan / reference lead-lag | TODO | TODO | Caption text drafted downstream only |
-| Object sequence / adjacent transition / annotation coverage | TODO | TODO | Accepted annotation may summarize; candidate/stale remains visible but excluded from main statistic |
-| Accessibility or readability cue | TODO | TODO | Structural handoff only |
-
-## Visual Plan
-
-| Visual id | Type and status | Data/evidence needed | Panel / legend / accessibility prompt | Handoff |
-|---|---|---|---|---|
-| TODO | Existing / needed / deferred / absent | TODO | TODO | TODO |
-
-## Results Narrative / Caption / Accessibility Plan
-
-> Results narrative, caption, table, and accessibility planning must remain tied to available evidence and visual status.
-
-| Results surface | Narrative or display role | Evidence / visual status | Caption/table/accessibility handoff |
-|---|---|---|---|
-| Results sequence step | TODO | D06/D11 | TODO |
-| Figure caption or legend job | TODO | D18 existing/needed/deferred/absent | Handoff only; no caption drafting |
-| Table or supplement display | TODO | D05/D06/D18 | TODO |
-| Accessibility or alt-text need | TODO | D18/D19 | Structural handoff; not visual-quality validation |
-
-## Paragraph / Function Map
-
-TODO
-
-## Drafting Constraints
-
-TODO
-
-## Conditional Lens Activation
-
-| Lens | Structure trigger | State | Section-job pointer |
-|---|---|---|---|
-| Literature differentiation | TODO | not_applicable | TODO |
-| Research-design validity | TODO | not_applicable | TODO |
-| Argument, language, and visual | TODO | not_applicable | TODO |
-| Venue-template corpus analysis | TODO | not_applicable | TODO |
+Basis kind is official_constraint&#124;semantic_dossier&#124;quantitative_analysis&#124;repository_grounding&#124;generic_fallback. A soft band never becomes a quality or venue-fit score.
 
 ## Scoped Writing Plan
 
 | Scope ID | Reader / section job | Input record IDs | Output responsibility | Drafting boundary | Output pointer |
 |---|---|---|---|---|---|
-| SCOPE-01 | TODO | none | TODO | TODO | none |
+| SCOPE-01 | TODO | TODO | TODO | TODO | 04_WRITING_DESIGN_PACK.md#Scoped Handoff |

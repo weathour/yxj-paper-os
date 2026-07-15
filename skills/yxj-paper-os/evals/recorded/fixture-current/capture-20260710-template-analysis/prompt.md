@@ -1,135 +1,275 @@
-Behavior capture contract: behavior-prompt/1.3
-Evaluate each model-visible scenario using the complete skill below. Return only one JSON object with exactly 20 response objects: {"responses":[...]}.
+Behavior capture contract: behavior-prompt/2.1
+Evaluate each model-visible scenario using the complete skill below. Return only one JSON object with exactly 15 response objects: {"responses":[...]}.
 Each response must use this structural shape; empty arrays are permitted:
 {"question": {"count": 0, "target": null}, "readiness_updates": [], "scenario_id": "B00", "selected_actions": [], "side_effects": [], "target_dimensions": [], "target_scopes": [], "updates": []}
-Use exact case-sensitive selected_actions tokens from: ["ASK_OWNER", "COMPILE_SCOPED_HANDOFF", "DEPENDENCY_RECHECK", "DERIVE", "INITIALIZE_WORKSPACE", "INSPECT", "KEEP_CLAIM_INACTIVE", "PROPOSE", "RECONCILE", "RECORD_OBSERVATION"].
-Use exact side_effects tokens from: ["external_execution", "full_scan", "pdf_pseudo_parse", "subagents", "template_analysis", "template_intake"]. target_dimensions may contain only D00-D19 IDs; target_scopes may contain only explicit SCOPE-* IDs from the scenario context. updates and readiness_updates must contain JSON objects, never prose strings. Each update object should name record_kind and operation plus the relevant changed field; each readiness object should name scope_id and readiness when applicable.
+Use exact case-sensitive selected_actions tokens from: ["ASK_OWNER", "DERIVE", "INSPECT", "PROJECT", "VALIDATE"].
+Use exact side_effects tokens from: ["external_execution", "full_scan", "pdf_pseudo_parse", "subagents", "template_analysis", "template_intake"]. target_dimensions may contain only D00-D19 IDs; target_scopes may contain only explicit SCOPE-* IDs from the scenario context. updates and readiness_updates must contain JSON objects, never prose strings. Each update object should name record_kind and operation plus the relevant changed field; each readiness object should name scope_id and readiness when applicable. Controlled frames and captions must remain functional placeholder skeletons, never paste-ready manuscript prose.
 The output schema requires every update/readiness object key; use null or an empty grounding array for non-applicable values rather than omitting keys.
-SKILL SHA-256: 1433160eb9d168219beff650689d3699e7d4b473e948cf305e4f2eac6ebce236
+SKILL SHA-256: 208cff025efb4c9c2c39f3cc0bcc4d44ee30c0bb3dc4df75b39c3148af339198
 <!-- BEHAVIOR_CAPTURE_SKILL_START -->
 ---
 name: yxj-paper-os
-description: Prepare and inspect a paper-planning workspace with a sparse cognitive kernel, composable academic lenses, scoped writing handoffs, and optional target-journal/target-topic corpus statistics or template analysis.
+description: Prepare a controlled schema-0.3 prewriting design workspace through repository evidence, model-semantic template reading, composable academic lenses, and scoped handoffs without drafting manuscript prose.
 ---
 
-# yxj-paper-os: thin cognitive kernel
+# yxj-paper-os: evidence-grounded prewriting design
 
-This skill is model-led reasoning over one public skill and six Markdown workspace files. It is not a fixed workflow, state machine, form-completion score, or semantic judge. Read the whole situation, inspect/derive before asking, and use only the sparse records needed for the requested scope.
+This skill is an adaptive reasoning contract over one public skill and six Markdown
+workspace files. It is not a fixed pipeline, questionnaire, state machine, readiness
+score, or manuscript writer. Inspect and derive before asking; stop when the requested
+scope has a validated design handoff or an explicit blocker.
 
-## Public contract
+## Public and hidden contract
 
-- Preserve the six filenames, D00-D19 index, public index columns/status values, and schema version `0.2`.
-- Initialize only from `assets/templates/`; never create a seventh public workspace file.
-- `04_WRITING_DESIGN_PACK.md` is a structural, scoped handoff. It never claims research, manuscript, submission, publication, or semantic readiness.
-- Generated state may exist only below `<workspace>/.yxj-paper-os/`: the read-only dashboard at `dashboard.html` and, when `venue-template` analysis is genuinely requested, reproducible artifacts below `template-analysis/`. These hidden artifacts are not public workspace files or evidence anchors.
+- Preserve exactly the six filenames, D00-D19 identities, index columns/statuses, and
+  schema marker `0.3`; never create a seventh public workspace file.
+- `00_DIMENSION_INDEX.md` is the sole scope-readiness authority. `03` owns detailed
+  section/paragraph/frame/language/visual/edge/rule/budget design. `04` is a compact
+  pointer/count/blocker/handoff manifest and never copies readiness.
+- `02_CLAIM_EVIDENCE_BOUNDARY.md` is the sole scientific claim/support/uncertainty/
+  wording ceiling. Template rules cannot increase it.
+- Hidden state may exist only below `<workspace>/.yxj-paper-os/`: the read-only
+  dashboard, the agent-authored `template-analysis/semantic-dossier.json`, accepted
+  analyzer annotations, and optional fixed analyzer outputs. Hidden state is neither a
+  seventh public file nor D06/D11 evidence.
+- Schema-0.2 workspaces are legacy inputs. Preserve their scientific records and use
+  the agent-led, non-destructive recompilation in `references/04-design-pack-compiler.md`;
+  do not carry old `writer-ready` forward or auto-migrate placeholders.
 
-## Five kernel invariants
+## Wake contract: establish the target before process
 
-1. **Epistemic distinction:** substantive decision/material/claim records distinguish origin (`artifact-observed`, `owner-stated`, `model-derived`, `model-proposed`), claim support (`evidence-supported`, `evidence-partial`, `evidence-unsupported`, `not_applicable`), resolution, and grounding.
-2. **Whole-situation synthesis:** consider all six files, available local artifacts, owner statements, active conflicts, changed records, and requested writing surface before choosing what to do.
-3. **Qualitative highest-value action:** choose the action that most reduces consequential uncertainty or unlocks the requested surface. Do not use a numeric score, fixed scan order, or one-question script.
-4. **Dependency recheck:** when a DEC/M/C record changes, update a parseable Dependency Recheck declaration for affected D IDs/scopes; recheck or mark only those dependents stale/candidate/blocked.
-5. **Scoped writer-ready:** judge each requested `SCOPE-*` independently. A ready scope has declared inputs, satisfied/not-applicable requirements, no stale/candidate/blocked dependency, blocker=`none`, next action=`none`, and a resolvable output pointer. Other scopes remain partial, blocked, or deferred.
+From the request and repository, infer or state:
 
-## Canonical action families
+1. target outcome and requested writing `SCOPE-*`;
+2. success criteria for the controlled handoff;
+3. current scientific and design evidence;
+4. boundaries, dependencies, and prohibited claims/actions;
+5. expected six-file/hidden outputs; and
+6. stop condition: validated handoff, grounded defer, or explicit blocker.
 
-Use any zero or more of these unordered families in a turn:
+Inspect the six files, concrete repository artifacts, existing hidden state, and
+changed dependencies before asking. Record direct observations and safe reversible
+derivations first. Ask one focused question only when missing authority changes the
+result through a four-category gate.
 
-`inspect`, `record-observation`, `derive`, `propose`, `reconcile`, `ask-owner`, `dependency-recheck`, `compile-scoped-handoff`, `keep-claim-inactive`, `initialize-workspace`.
+## Kernel invariants
 
-Actions describe judgment, not runtime states. Simple metadata edits remain lightweight. Optional native subagents are allowed only when volume, ambiguity, or claim risk materially benefits; they never become mandatory stages and never ask the owner or execute downstream skills directly.
+1. **Epistemic identity:** preserve `artifact-observed`, `owner-stated`,
+   `model-derived`, and `model-proposed`; resolution never rewrites origin.
+2. **Scientific/design separation:** `M-*`/`C-*` own scientific material and claims;
+   `TPL-*`/`TOBS-*`/semantic `TRULE-*` are design-only. Dual role requires separate IDs
+   and an explicit scientific-source promotion decision.
+3. **Whole-situation synthesis:** consider all relevant route, material, claim,
+   limitation, template, and dependency evidence before choosing the next action.
+4. **Selective invalidation:** recheck only linked scopes/records; never globally stale
+   unrelated work or infer a runtime dependency graph.
+5. **Detailed scoped readiness:** every paragraph is functionally designed; selected
+   important paragraphs receive controlled frames; applicable companion surfaces are
+   satisfied or grounded `not_applicable`; 04 resolves to current authorities.
+6. **Design-only firewall:** official presentation constraints, exemplar patterns,
+   semantic observations, analyzer outputs, and generic fallback never establish
+   scientific truth, novelty, venue fit, acceptance likelihood, or claim support.
+
+## Four owner gates
+
+Only these categories require an owner question when triggered:
+
+- `scientific_commitment`: evidence ceiling, scientific referent, or claim commitment;
+- `argument_spine`: overall argument, contribution order, or primary-result narrative;
+- `material_local_tradeoff`: a local choice with materially different reader meaning;
+- `deliberate_divergence`: departure from a grounded template pattern.
+
+Routine grounded template discovery, dossier organization, paragraph-function design,
+important-paragraph selection, terminology repair, accessibility completion,
+optional-analyzer use, and reversible rule adoption/adaptation/rejection do not require
+confirmation. Preserve model origin when the agent resolves them.
+
+## Adaptive reasoning obligations
+
+Interleave or revisit these obligations as evidence changes; do not expose them as a
+stage registry:
+
+- inspect requested scope, repository, six-file state, and dependencies;
+- derive safe decisions and activate only triggered lenses;
+- separate scientific sources from template-design sources;
+- state a concrete template design question before discovery/reading/analysis;
+- semantically deep-read eligible documents and ground observations to locators;
+- use the optional deterministic analyzer only for a declared measurable question;
+- synthesize section/paragraph, payload, frame, language, visual, traceability,
+  provenance, and soft-budget design;
+- resolve only triggered four-gate questions;
+- project compact decisions, recheck dependencies, compile 04, and validate.
+
+Canonical action families remain unordered: `inspect`, `derive`, `project`, `ask`,
+and `validate`. They describe the chosen action, not an exposed stage trace.
 
 ## Composable lenses
 
-Load `references/lenses/README.md` and then only relevant modules. Lenses may compose from 0..N IDs; they are not exclusive paper types. The canonical registry maps module files to IDs, including method/system/benchmark forms in `contribution-evidence-forms.md` and the conditional `venue-template` lens. An inactive lens creates no empty requirement table and does not block unrelated scopes.
+Read `references/lenses/README.md`, resolve the unique `Lens ID` to `Module path`, and
+load only relevant modules. Lenses are conditional reasoning theories, not exclusive
+paper types. Generic fallback is valid only as
+`lens:<registered-id>#<real-h2-or-h3-slug>` with its installed lens fingerprint.
 
-Every lens provides activation signals, theory/distinctions, sufficiency predicates, safe derivations, owner-only decisions, dependency invalidation, failure modes, workspace projection, and writer-ready consequences. Theory informs judgment; it never prescribes question order.
+Each active lens provides activation/scope, substantive theory, repository inputs and
+safe derivations, sufficiency predicates, four-gate mapping, invalidation, failures/
+non-goals, six-file plus hidden projection, and detailed writer-ready consequences.
 
-### Venue-template corpus analysis
+## Model-semantic template design: primary path
 
-Load `references/lenses/venue-template.md` as the authority when the requested writing surface materially benefits from analysis of supplied target-venue, target-topic, article-form, or exemplar documents. Keep the corpus vocabulary canonical: `documents` contain stable `doc_id` values and belong to an explicit `partition`; venue, topic, article form, time cohort, and exemplar role are separate axes.
+When template literature can materially change a requested surface:
 
-Every manifest declares a non-empty `design_question` plus non-empty, unique
-`design_metric_ids` from the versioned registry that operationalize that question. Its optional
-`analysis_mode` (default `case_set`) records the weakest honest requested mode
-that could answer it:
+1. state the design question and eligible roles
+   (`official_venue|target_topic|article_form|time_cohort|control|exemplar`);
+2. inspect local eligible sources first; when useful, use available agent
+   search/research tools for external discovery and record query/date/URL/role/access
+   provenance—this adds no runtime network dependency;
+3. distinguish current official presentation constraints from descriptive exemplar or
+   corpus patterns;
+4. semantically deep-read full text or traceable derivatives, record precise locators,
+   paraphrased observations, uncertainty/non-transfer notes, copyright/access limits,
+   hashes, and freshness;
+5. persist one hidden dossier at
+   `.yxj-paper-os/template-analysis/semantic-dossier.json` using the documented
+   `assets/template-analysis/semantic-dossier.schema.json` contract with
+   `method=model_semantic_deep_reading`;
+6. preserve one shared `TPL-*` identity between hidden document and 01, and one shared
+   semantic `TRULE-*` identity between hidden definition/application snapshot and 03;
+7. treat any disagreement as `TEMPLATE_PROJECTION_MISMATCH` for linked scopes—never
+   choose a last writer; and
+8. project only compact scope-relevant source/rule/handling pointers into 01/03/04.
 
-- `case_set`: one or more document profiles; no corpus norm or distribution claim;
-- `exploratory`: descriptive patterns for the available, potentially heterogeneous documents, with values, denominators, missingness, and limitations visible;
-- `distributional`: paper-level distributions within comparable declared partitions, without implying random sampling, causality, venue fit, or an optimal target.
+The dossier stores no full copyrighted paper or long copied passage. Metadata-only,
+snippet-only, inaccessible, stale, or untraceable sources cannot ground paragraph/
+object semantic observations. A URL-only reading is at most `recorded_at_access`; the
+validator never fetches remote content. `TPL-*` and analyzer `doc_id` correlate only
+through explicit `analysis_id` + `doc_id` + `source_sha256`.
 
-The requested mode is an upper bound, not a guaranteed effective conclusion.
-Read effective strength from each metric/profile entry's valid observations,
-missingness, uncertainty, partition comparability, and `target_kind`; downgrade
-to `watch_only`, `not_applicable`, exploratory language, or case comparison when
-the measured output cannot support the requested mode. `sample_size_label` is
-paper-count context only. It never decides quality, venue fit,
-representativeness, corpus sufficiency, or design-rule adoption.
-Compute effective strength only from the declared `design_metric_ids`; unrelated
-ready metrics cannot upgrade a question whose selected metric is unavailable.
-
-There is no universal corpus-size threshold. A missing or small corpus limits only the linked template-analysis/design scope. Supported local text/structure inputs may be analyzed mechanically; a PDF is metadata-only unless the owner supplies a traceable externally extracted derivative. Never decode, grep, OCR, or otherwise pretend to parse PDF bytes.
-
-The analyzer may write only reproducible artifacts under `.yxj-paper-os/template-analysis/`, including `corpus-summary.json` and `design-profile.json`. Treat raw measurements as artifact observations and aggregations/comparisons as grounded derivations. Every corpus-derived design-profile entry remains `model-proposed/candidate`—including case-set `watch_only` outcomes, exploratory patterns, distributional `soft_band` rules, sequences, and presence rules. Running the analyzer, observing a stable distribution, or compiling a hidden profile never confirms or adopts such a rule. Only a new owner-grounded decision may accept, adapt, reject, or deliberately diverge from it. A writing scope whose necessary design choice is still an unresolved candidate is `partial`, not ready; an unrelated scope keeps its prior readiness. A template statistic can shape D09/D15/D17/D18 writing design, but it can never become D06 evidence, increase D11 support, prove source truth or novelty, or predict acceptance.
-
-Use a workspace-root `template-corpus/1.0` JSON manifest when analysis is requested. It requires the concrete `design_question` and registry-backed `design_metric_ids`; optional `analysis_mode` records the requested ceiling and defaults to `case_set`. Its `documents` need `doc_id`, a manifest-relative `path`, `format` (`markdown|html|jats|txt`), and `partition` (`primary_match|venue_control|topic_control|exemplar`); retain venue, topic tags, article type, year, language, derivative provenance, and optional annotation path when known. A document that violates an inclusion rule may carry `inclusion_exception` only as an owner-grounded object with non-empty `reason`, `origin=owner-stated`, `resolution=confirmed`, and a resolvable `decision_pointer`. Free-text exceptions are invalid, and an exception authorizes inclusion without erasing non-comparability. Resolve the analyzer relative to this `SKILL.md`, then run:
+Validate a dossier read-only with:
 
 ```bash
-python3 <this-skill-directory>/scripts/analyze_template_corpus.py --manifest <workspace>/template-corpus.json
+python3 <this-skill-directory>/scripts/verify_semantic_dossier.py \
+  <workspace>/.yxj-paper-os/template-analysis/semantic-dossier.json \
+  --workspace <workspace>
 ```
 
-The fixed output contract is `manifest.json`, `metric-registry.json`, `paper-metrics.jsonl`, `objects.jsonl`, `corpus-summary.json`, `design-profile.json`, `extraction-warnings.json`, and `analysis-report.html` directly below `.yxj-paper-os/template-analysis/`. Never hand-edit those generated files; change inputs/annotations and rerun.
+## Optional deterministic analyzer
 
-## Sparse recording rules
+The analyzer is non-default, never a readiness prerequisite, and answers only a
+concrete metric-backed design question. Semantic-only, generic-fallback, and grounded
+template-`not_applicable` scopes require no analyzer artifact.
 
-Only record a conditional table when it carries real information:
+If used, a `template-corpus/1.0` manifest declares `design_question`, registry-backed
+`design_metric_ids`, stable `doc_id`, supported local format, and explicit partition.
+Requested `analysis_mode` (`case_set|exploratory|distributional`) is only a ceiling;
+effective conclusions weaken with missingness, capability, uncertainty, or
+non-comparability. No universal document-count threshold exists and
+`sample_size_label` is never a quality/readiness/fit gate. PDF/scans remain
+metadata-only unless a traceable supported derivative is supplied; never pseudo-parse
+PDF bytes.
 
-- `00_DIMENSION_INDEX.md`: `Writing Scopes` is the universal readiness registry; Active Lenses, Conditional Requirements, and Dependency Recheck are conditional.
-- `00_PROJECT_ROUTE.md`: add Decision Records only for consequential choices/conflicts.
-- `01_MATERIALS_INVENTORY.md`: add Material Records only for real artifacts/facts/results/evidence/source/governance/absence records.
-- `02_CLAIM_EVIDENCE_BOUNDARY.md`: add Claim Records only for proposed, active, downgraded, deferred, or rejected claims.
-- `03_WRITING_STRUCTURE.md`: add Scoped Writing Plan when designing a requested surface.
-- `04_WRITING_DESIGN_PACK.md`: add Scoped Handoff when compiling D19.
+When the question concerns bibliography/citation layout, preserve per-paper reference
+inventory, years/source forms, citation regions, candidate citation functions, shared-
+work match method/confidence, denominators, missingness, and uncertainty. Exact counts
+require explicit boundaries; citation function remains model-derived. These data may
+shape D14/D15/D17 design but never establish source truth, relevance, importance,
+novelty, or bibliography eligibility.
 
-Blank cells are invalid. Use literal `none` only where the table contract permits it. Free prose is not a foreign key. Preserve local artifact locators, hidden template-analysis pointers, and six-file `file#heading` pointers. `model-proposed` records remain candidate/unresolved/rejected; acceptance creates a new grounded record rather than mutating origin.
+Run only when justified:
 
-## Adaptive operating guidance
+```bash
+python3 <this-skill-directory>/scripts/analyze_template_corpus.py \
+  --manifest <workspace>/template-corpus.json
+```
 
-1. Inspect existing files, local materials, and the requested output surface; initialize missing files only when asked.
-2. Synthesize all relevant dimensions and active lenses. Record direct observations and safe derivations before asking.
-3. Ask one concise owner question only for an unresolved consequential commitment, authority conflict, evidence permission, or wording choice. State consequence and landing pointer; offer defer/absent when valid.
-4. Write the answer/observation to its canonical sparse record, update the relevant D row, and declare dependent rechecks when a DEC/M/C record changes.
-5. Compile or refresh only the affected scoped handoff. Keep unrelated scope blockers explicit.
-6. If `venue-template` is active and supported documents are supplied, run the local template analyzer once, then inspect `corpus-summary.json` and `design-profile.json` and project only metric families relevant to the requested surface; do not project malformed, stale, unsupported, or ungrounded output.
-7. Run `python3 skills/yxj-paper-os/scripts/verify_design_pack.py <workspace>` for structural lint, and add `--require-handoff` only when a scoped D19 handoff is requested.
+Fixed outputs are `manifest.json`, `metric-registry.json`, `paper-metrics.jsonl`,
+`objects.jsonl`, `corpus-summary.json`, `design-profile.json`,
+`extraction-warnings.json`, and `analysis-report.html` below
+`.yxj-paper-os/template-analysis/`. Never hand-edit them. `template-annotations/1.0`
+remains a separate optional analyzer input. Analyzer writes preserve the semantic
+dossier byte-for-byte; dossier writes preserve fixed outputs and accepted annotations.
 
-## Question card (optional rendering)
+Analyzer `candidate_action=follow|adapt|deliberate_divergence|not_applicable` maps only
+to **suggested** disposition. Actual `Disposition` remains `candidate`,
+`Origin=model-proposed`, and `Resolution=candidate` until a separate grounded design
+decision. Compatibility across `official_constraint|semantic_dossier|quantitative_analysis|generic_fallback`
+is defined once in `scripts/template_design_contract.py`; mixed grounding or borrowed
+hard-constraint authority is invalid.
+
+## Universal detailed design
+
+Every planned paragraph receives functional design. For every requested paragraph,
+define ownership, order/adjacency, function, reader
+state in/out, claim/material/object payload boundary, qualification, output promise,
+and forbidden overclaim. Select important paragraphs adaptively and qualitatively by
+commitment, uncertainty/counterevidence, argument load, misreading cost, template
+sensitivity, or formula/citation/visual dependency. Only selected paragraphs need one
+or more ordered `FRM-*` controlled frames.
+
+Frames define sentence function, proposition target, clause/relation order, required
+payload IDs, language contract, and forbidden realization. They must not become
+polished sentences requiring cosmetic edits. Complete applicable language, visual/
+caption/accessibility, direct-edge traceability, template-rule provenance, and grounded
+soft-budget surfaces without numeric readiness or importance scoring.
+
+## Sparse projection and validation
+
+- 00: sole scope readiness, active lenses/requirements, selective dependency recheck;
+- 00 route: discovery authority and resolved four-gate decisions;
+- 01: separate scientific `M-*` and design-only `TPL-*` authorities;
+- 02: sole scientific claim/support/wording ceiling;
+- 03: authoritative A-K detailed design and applied `TRULE-*` state;
+- 04: exactly seven coverage rows per scope, template mode, blockers/prohibitions, and
+  pointer-only handoff.
+
+Use `none` only where the table contract permits it. Keep typed references parseable,
+origins stable, and hidden/public mirrors synchronized. Run the bounded structural
+checks relevant to changed surfaces; mechanical validation never judges insight,
+novelty, prose/visual quality, or acceptance.
+
+## Focused question card
 
 ```text
-Decision / observation: <one answerable item>
-Why it matters: <affected scope or dependency>
-What is already observed/derived: <short grounded summary>
-Owner choice if needed: A ...  B ...  C defer/absent
-Write landing: <file#heading and D row>
+Gate: <one of four categories>
+Decision: <one answerable choice>
+Why it matters: <scope and consequence>
+Observed/derived: <grounded summary>
+Options: A ...  B ...  C defer when valid
+Write landing: <record and file#heading>
 ```
 
-## Boundaries
+## Stop and safety boundary
 
-Do not draft manuscript prose, invent claims/evidence/sources/results, search citations by default, execute external skills, write outside the six workspace files except an owner-requested corpus input manifest and the bounded `.yxj-paper-os/dashboard.html` / `.yxj-paper-os/template-analysis/` generated surfaces, add runtime services, or claim scholarly quality. The manifest is analysis configuration, not a seventh public planning file. Do not copy hidden raw statistics wholesale into public Markdown. Mechanical validators check structure, declared relations, hashes, arithmetic, and supported input capabilities only; they do not prove academic truth, novelty, venue fit, statistical generalizability, prose/visual quality, or future model behavior.
+Stop when the requested scope has current inputs, complete detailed functional design,
+resolved triggered gates, synchronized hidden/public projections, no active linked
+blocker, and a validated 04 handoff—or when a grounded defer/blocker is explicit.
+
+Never draft manuscript/title/abstract/caption/table prose, invent claims/evidence/
+sources/results/visuals, execute downstream writing/review/submission skills, perform
+credentialed release actions, add a dependency/service/daemon/watcher/runtime graph,
+auto-migrate 0.2, or claim scholarly/semantic quality. External discovery uses only
+available agent tools with provenance and does not become plugin runtime behavior.
 <!-- BEHAVIOR_CAPTURE_SKILL_END -->
-VENUE-TEMPLATE REFERENCE SHA-256: 5db40d223a2e27e64040308a34fd4f94c94fb3dff9ef190ec3396d7f3cf6389d
+VENUE-TEMPLATE REFERENCE SHA-256: a8d5d9c51d7e8d2b1262c4314809613800516d5aa6cc0722fd54aab9de58a832
 <!-- BEHAVIOR_CAPTURE_VENUE_TEMPLATE_START -->
-# Venue-Template Corpus Analysis Lens
+# Venue-Template Semantic Design Lens
 
 ## Purpose and activation signals
 
-This is the authority for statistical analysis of owner-supplied target-venue, target-topic, article-form, or exemplar documents when the result can change a requested writing surface. It remains inactive when generic writing guidance is sufficient. A known venue alone does not activate corpus intake, and absent templates never block unrelated scopes.
+This is the authority for semantic-reading-first design from eligible target-venue, target-topic, article-form, control, or exemplar documents when the result can change a requested writing surface. It remains inactive when grounded repository design or labeled generic fallback is sufficient. A known venue alone does not activate template intake, and absent templates never block unrelated scopes.
 
-Activation is justified by at least one concrete design question, such as section allocation, rhetorical-move placement, citation density, sentence/paragraph rhythm, figure/table organization, caption/reference placement, or a deliberate departure from an observed convention.
+Activation requires a concrete design question and affected `SCOPE-*`, such as section/paragraph responsibility, rhetorical-move placement, terminology/claim-verb control, citation layout, figure/table/caption organization, or a deliberate departure from an observed pattern. Inspect local materials first. When useful, the agent may use available external search/research tools to discover eligible documents, but it records query/date/URL/role/access provenance and never adds a runtime network dependency or upgrades metadata/snippets to semantic reading.
 
 ## Theory and distinctions
 
-### Corpus axes are not interchangeable
+### Model-semantic deep reading is primary
+
+State the design question before discovery or reading. For each eligible full-text or traceable derivative, assign one shared `TPL-*` identity, record provenance/access/copyright limits and fingerprint/freshness, locate observations as `TOBS-*`, and persist them in `.yxj-paper-os/template-analysis/semantic-dossier.json`. Project only scope-relevant `TRULE-*` rows into 03 and compact source/handling pointers into 01/04. The dossier is design-only hidden state, not an analyzer input, seventh public file, citation authority, or D06/D11 evidence.
+
+Distinguish official presentation constraints from published-paper patterns. A current official artifact-observed rule may constrain presentation; an exemplar or corpus pattern is descriptive and adaptable. Routine grounded adoption/adaptation/rejection is agent-led. Ask only when `scientific_commitment`, `argument_spine`, `material_local_tradeoff`, or `deliberate_divergence` is triggered.
+
+The deterministic analyzer is optional and non-default. Use it only when a declared measurable question benefits from reproducible counts, distributions, sequences, or presence checks. Semantic and quantitative rules remain separately typed; no mixed-grounding rule is permitted.
+
+### Optional analyzer corpus axes are not interchangeable
 
 Use `documents` as the canonical collection, a stable `doc_id` for each source, and an explicit `partition` for every comparison. Keep these axes separate:
 
@@ -142,7 +282,7 @@ Use `documents` as the canonical collection, a stable `doc_id` for each source, 
 
 Published-document patterns are descriptive associations. They do not prove that a venue caused a pattern, that the pattern is optimal, or that following it predicts acceptance.
 
-### Analysis modes
+### Optional analyzer modes
 
 The manifest must state a concrete non-empty `design_question` and non-empty,
 unique registry-backed `design_metric_ids` that operationalize it. Optional
@@ -183,7 +323,7 @@ Metric definitions and format capabilities are versioned by the analyzer. Use on
 - **Mechanical:** hashes, explicitly tagged structure/objects/references, deterministic counts, positions, arithmetic, and schema relations.
 - **Heuristic:** sentence splitting, free-text section normalization, citation-pattern inference, and other declared fallible rules. Keep method/version and warnings visible.
 - **Model-derived:** topic/article-form classification, rhetorical moves, citation function, claim/visual role, and writing-design interpretation. Require object-level grounding and candidate/confirmed resolution.
-- **Owner-only:** target route, corpus inclusion exceptions, adoption of a design rule, and an intentional deviation.
+- **Owner-gated:** target route/inclusion authority and only the four consequence-bearing categories; routine grounded rule adoption/adaptation/rejection remains agent-led.
 
 Treat the paper as the default independent unit. Reduce nested sentences/paragraphs/objects within each paper before aggregating papers. Report `n`, eligible/measured/missing/unsupported denominators, paper-level values, median/IQR/range or categorical counts as appropriate. Zero-inflated, compositional, and sequence data require their registered summaries; one pooled mean is not an adequate substitute.
 
@@ -200,7 +340,40 @@ The analyzer may write only below `<workspace>/.yxj-paper-os/template-analysis/`
 - `.yxj-paper-os/template-analysis/corpus-summary.json` for measured/aggregated observations;
 - `.yxj-paper-os/template-analysis/design-profile.json` for grounded candidate constraints and design rules.
 
-The directory may also contain manifest, registry snapshot, document/object records, warnings, or reports required for reproducibility. It is generated hidden state, not a seventh public workspace file. Source hashes, method/registry versions, `documents`/`doc_id`/`partition` relations, and dependency hashes determine freshness.
+The same directory may also contain the agent-authored `semantic-dossier.json` and accepted `template-annotations/1.0` inputs. These remain separately typed: analyzer fixed-bundle writes preserve the dossier byte-for-byte, dossier writes preserve fixed outputs/annotations byte-for-byte, and `TPL-*` correlates to analyzer `doc_id` only through explicit `analysis_id` + `doc_id` + `source_sha256`. The directory is hidden state, not a seventh public workspace file. Source hashes, method/registry versions, `documents`/`doc_id`/`partition` relations, and dependency hashes determine freshness.
+
+### Bibliography and citation-layout analysis
+
+Treat bibliography structure as a conditional template-design surface, not as
+automatic literature review or source validation. When activated by the design
+question, keep five layers distinct:
+
+1. **Reference-list inventory:** per-paper explicit entry count, publication-year
+   distribution, missing/ambiguous years, and source-form composition. Call a
+   count exact only when the reference region and entry boundaries are explicit.
+2. **Citation layout:** paper-level citation events and unique targets reduced by
+   normalized writing region (introduction, related work, method, results,
+   discussion, limitations, conclusion, or unresolved). Extraction order and
+   unsupported section structure remain visible.
+3. **Citation function:** theory, method, dataset, software, comparator,
+   application context, survey, or other roles are multi-label model-derived
+   candidates grounded to an entry and/or in-text context. Keyword matches alone
+   do not become semantic truth.
+4. **Shared works:** match across papers by stable identifier first, then by a
+   declared normalized-title/fuzzy method. Report participating `doc_id` values,
+   match method, confidence, and unresolved collisions; author/year similarity
+   alone is insufficient.
+5. **Design transfer:** derive only candidate/watch-only consequences for
+   bibliography balance, recency coverage, first-use citation, section placement,
+   and explicit data/software provenance. Routine grounded adoption/adaptation/
+   rejection is agent-led; only one of the four gates requires an owner question.
+
+Reference-list statistics describe how supplied papers present prior work. They
+do not prove that a cited work is correct, authoritative, relevant to the target
+claim, independently verified, or suitable for the manuscript. Shared citation
+frequency is not importance, source-form proportions are not venue requirements,
+and recentness is not quality. Keep template bibliography analysis outside D06
+and D11; manuscript citation promotion still requires the source/truth workflow.
 
 ### Scientific-evidence firewall
 
@@ -230,15 +403,16 @@ The model may safely:
 - preserve owner-grounded inclusion exceptions and keep the exceptional document separate or explicitly bounded in affected summaries;
 - aggregate only compatible paper-level observations using the registered summary method;
 - distinguish official constraints, venue-linked patterns, topic-linked patterns, article-form patterns, and exemplar cases;
-- translate official constraints/profile observations into the canonical rule kinds `hard_constraint`, `soft_band`, `sequence`, `presence`, or `watch_only`, then select a design disposition `follow`, `adapt`, `deliberate_divergence`, or `not_applicable`;
-- propose a scope-specific design rule with source summary/profile pointers and forbidden interpretations;
-- preserve a current design that intentionally differs when the owner has confirmed the rationale.
+- project official constraints, semantic observations, optional analyzer outputs, and generic fallback through their exclusive grounding kinds and allowed rule types;
+- map analyzer `follow|adapt|deliberate_divergence|not_applicable` only to **suggested** public dispositions while actual disposition remains `candidate` until an explicit agent design decision;
+- propose a scope-specific design rule with source/dossier/profile pointers and forbidden interpretations;
+- preserve a deliberate difference only through a resolved `deliberate_divergence` gate.
 
-A corpus tendency initially yields `model-proposed/candidate`, not an owner decision. `hard_constraint` requires an official source locator; corpus-derived ranges use `soft_band`. An accepted proposal creates a new owner-grounded decision record rather than changing the proposal's origin.
+A template observation or analyzer tendency initially yields `model-derived` observation plus `model-proposed/candidate` rule, not an owner fact. `hard_constraint` requires a current official artifact locator; semantic/analyzer/generic rules cannot borrow that status. Routine reversible adoption, adaptation, rejection, and `not_applicable` resolution preserve model origin and need no owner confirmation.
 
-## Owner-only decisions
+## Four-gate mapping
 
-The owner controls target venue/topic, article form, corpus inclusion or exception, acceptable comparators, adoption/adaptation of `soft_band` rules, and `deliberate_divergence`. An inclusion exception must resolve to a confirmed owner decision through its `decision_pointer`; do not accept a bare string as authority. Ask only when one of these choices materially changes the requested surface and cannot be derived from an existing confirmed record. Do not ask for more documents merely to reach a fixed count.
+Ask the owner only for: `scientific_commitment` when template transfer would alter a scientific referent/claim ceiling; `argument_spine` when it changes the overall contribution or primary-result order; `material_local_tradeoff` when two local realizations materially change reader interpretation; or `deliberate_divergence` when departing from a grounded pattern. Target route and true corpus-inclusion exceptions remain owner decisions when they carry those consequences. Routine discovery, role classification, dossier organization, observation recording, optional analyzer use, and grounded adoption/adaptation/rejection do not require confirmation. An inclusion exception still needs a confirmed owner decision pointer; do not ask for more documents merely to reach a count.
 
 ## Dependencies and invalidation
 
@@ -246,7 +420,7 @@ The owner controls target venue/topic, article form, corpus inclusion or excepti
 - `doc_id`, partition, article form, topic/venue relation, or time cohort change: recheck affected summaries and comparisons;
 - metric semantic/codebook version change: do not silently mix versions; rederive only affected metrics;
 - target route or requested scope change: re-evaluate the design profile and public projection, not unrelated raw measurements;
-- owner adoption/rejection/deviation change: create or revise the corresponding decision and recheck D09/D15/D17/D18/D19.
+- a resolved four-gate decision changes: revise the corresponding decision and recheck only linked D09/D15/D17/D18/D19 records.
 
 Declare only affected D IDs/scopes in `Dependency Recheck`; do not build a public runtime graph.
 
@@ -259,6 +433,10 @@ Declare only affected D IDs/scopes in `Dependency Recheck`; do not build a publi
 - calling a single case or heterogeneous convenience set a venue distribution;
 - pooling article forms, time cohorts, metric versions, or nested sentence/paragraph rows without a declared compatible reduction;
 - reporting an average without `n`, denominator, missingness, and paper-level grounding;
+- calling inferred bibliography entries, years, source forms, citation functions,
+  or fuzzy cross-paper matches exact without exposing capability and uncertainty;
+- treating a shared or frequent template citation as automatically authoritative,
+  relevant, or eligible for the manuscript bibliography;
 - treating an exemplar outlier as a norm or a corpus tendency as a hard venue rule;
 - interpreting bootstrap/resampling as removal of selection bias;
 - pseudo-parsing PDF or untraceable extracted text;
@@ -272,18 +450,19 @@ Project sparsely and only when the lens carries real information:
 
 | Home | Projection |
 |---|---|
-| `00_DIMENSION_INDEX.md` | active lens, affected scopes, conditional requirement only when analysis is readiness-relevant, and dependency recheck |
-| `00_PROJECT_ROUTE.md` | target/partition owner decisions, official constraints, accepted corpus exceptions, `deliberate_divergence` decisions |
-| `01_MATERIALS_INVENTORY.md` | compact manifest/summary/profile Material Records or explicit unsupported/absence state |
-| `02_CLAIM_EVIDENCE_BOUNDARY.md` | explicit firewall: design influence only; no D06/D11 support |
-| `03_WRITING_STRUCTURE.md` | scope-specific statistical design profile, rule type/resolution, and `deliberate_divergence` decisions |
-| `04_WRITING_DESIGN_PACK.md` | compact current summary/profile pointers, adopted/candidate design consequences, blockers, and boundary |
+| `00_DIMENSION_INDEX.md` | active lens, affected scopes, conditional requirement only when template design is readiness-relevant, and selective dependency recheck |
+| `00_PROJECT_ROUTE.md` | discovery authority, target/role decisions, official constraints, exceptions, and triggered four-gate decisions |
+| `01_MATERIALS_INVENTORY.md` | shared `TPL-*` source/provenance mirror, separate `M-*` role when dual-use, and explicit promotion boundary |
+| `02_CLAIM_EVIDENCE_BOUNDARY.md` | explicit firewall: design influence only; no D06/D11 support inflation |
+| `03_WRITING_STRUCTURE.md` | semantic/official/quantitative/fallback `TRULE-*` projections, affected surface, resolution, disposition, decision, and freshness |
+| `04_WRITING_DESIGN_PACK.md` | compact semantic/analyzer/fallback mode pointers, source authority, blockers, and prohibitions |
+| hidden dossier | detailed `TPL-*` provenance, located `TOBS-*`, semantic `TRULE-*` definitions, and synchronized application snapshots |
 
 Do not create one public row for every metric. Preserve the hidden pointers and summarize only decisions that change the requested writing design.
 
 ## Writer-ready consequences
 
-A template-linked writing scope may be writer-ready when its declared profile/constraint inputs are current, every active requirement is satisfied or not applicable, every candidate requiring authority is resolved or explicitly bounded, and each relevant design surface has a rule or explicit `watch_only`/`not_applicable` outcome. Other writing scopes can remain ready even when template analysis is absent, unsupported, malformed, or blocked.
+A template-linked writing scope may be writer-ready when its declared semantic/official/fallback inputs are current, hidden/public projections agree, every triggered gate is resolved, and each relevant design surface has a rule or grounded `not_applicable` outcome. The analyzer is never a default or readiness prerequisite: semantic-only, generic-fallback, and grounded template-not-applicable scopes can be ready without analyzer artifacts. Other scopes remain unaffected by a linked template failure.
 
 Writer-ready here means only that downstream prose/visual planning can follow the declared structural constraints without inventing a convention. It does not mean the corpus is representative, the prose matches a venue, the research is valid, or the manuscript is submission-ready.
 <!-- BEHAVIOR_CAPTURE_VENUE_TEMPLATE_END -->
@@ -292,216 +471,209 @@ The following projection is the entire model-visible scenario payload. Policy re
 {
   "scenarios": [
     {
-      "context": null,
+      "context": {
+        "design_need": "function, reader-state, payload boundary, qualification and output promise for every planned paragraph",
+        "repository_evidence": "M-EXP-01, C-RES-01, LIM-01 and FIG-01 are locally traceable",
+        "scope_ids": [
+          "SCOPE-RESULTS"
+        ]
+      },
       "id": "B01",
-      "situation": "observable artifact"
+      "situation": "evidence-rich repository input needs detailed paragraph/function design"
     },
     {
-      "context": null,
+      "context": {
+        "importance_basis": "counterevidence and high misreading cost",
+        "paragraph_id": "P-DISC-03",
+        "payload_ids": [
+          "M-ROBUST-03",
+          "C-BOUND-02"
+        ],
+        "scope_ids": [
+          "SCOPE-DISCUSSION"
+        ]
+      },
       "id": "B02",
-      "situation": "explicit route"
+      "situation": "an important paragraph needs controlled sentence frames without manuscript prose"
     },
     {
-      "context": null,
+      "context": {
+        "adaptation": "retain rhetorical function but shorten the context span",
+        "consequence": "Choosing the shorter pattern changes only local paragraph ordering",
+        "grounding": "TPL-EXEMPLAR-01#Introduction paragraphs 2-4",
+        "scope_ids": [
+          "SCOPE-INTRO"
+        ],
+        "template_rule_id": "TRULE-INTRO-ORDER"
+      },
       "id": "B03",
-      "situation": "owner-only tradeoff"
-    },
-    {
-      "context": null,
-      "id": "B04",
-      "situation": "reconcile structure"
-    },
-    {
-      "context": null,
-      "id": "B05",
-      "situation": "owner conflict"
-    },
-    {
-      "context": null,
-      "id": "B06",
-      "situation": "method survey"
-    },
-    {
-      "context": null,
-      "id": "B07",
-      "situation": "hybrid lenses"
+      "situation": "a grounded template adaptation affects only local paragraph ordering"
     },
     {
       "context": {
-        "owner_request": "Initialize the paper-planning workspace from canonical templates",
-        "public_contract": "exactly the six canonical Markdown files; no seventh public file",
-        "template_source": "assets/templates/",
-        "workspace_state": "The six public files appear absent and must be checked before copying"
-      },
-      "id": "B08",
-      "situation": "owner requests initialization of a missing paper-planning workspace"
-    },
-    {
-      "context": null,
-      "id": "B09",
-      "situation": "venue template"
-    },
-    {
-      "context": null,
-      "id": "B10",
-      "situation": "weak support"
-    },
-    {
-      "context": null,
-      "id": "B11",
-      "situation": "changed evidence"
-    },
-    {
-      "context": null,
-      "id": "B12",
-      "situation": "scoped readiness"
-    },
-    {
-      "context": null,
-      "id": "B13",
-      "situation": "rich answer"
-    },
-    {
-      "context": {
-        "artifact_format": "PDF",
-        "linked_writing_scope": null,
-        "owner_request": "Record the existing PDF in the materials inventory only",
-        "template_analysis_requested": false
-      },
-      "id": "B14",
-      "situation": "inventory a PDF artifact as metadata only without activating template analysis"
-    },
-    {
-      "context": {
-        "analysis_action": "template_analysis",
-        "corpus": "one supported primary-match Markdown derivative",
-        "design_metric_ids": [
-          "structure.section_word_share"
-        ],
-        "design_question": "How should section allocation be treated as a one-document case rather than a norm?",
-        "linked_dimensions": [
-          "D05",
-          "D09"
-        ],
-        "owner_choice_id": "template-design-adoption",
-        "readiness_condition": "The writing scope depends on the unresolved candidate design choice",
-        "requested_analysis_mode": "case_set",
-        "requested_output": "Reproducible analysis plus a candidate writing-design profile for owner review; no design rule has been owner-adopted",
-        "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ]
-      },
-      "id": "B15",
-      "situation": "supported single-document template case set"
-    },
-    {
-      "context": {
-        "analysis_action": "template_analysis",
-        "corpus": "heterogeneous owner-supplied papers with mixed venues or article forms",
-        "design_metric_ids": [
-          "structure.median_paragraph_words",
-          "object.total_count"
-        ],
-        "design_question": "Which paragraph and object-density patterns are visible without claiming a norm?",
-        "linked_dimensions": [
-          "D05",
-          "D09"
-        ],
-        "owner_choice_id": "template-design-adoption",
-        "readiness_condition": "The writing scope depends on the unresolved candidate design choice",
-        "requested_analysis_mode": "exploratory",
-        "requested_output": "Reproducible analysis plus a candidate writing-design profile for owner review; no design rule has been owner-adopted",
-        "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ]
-      },
-      "id": "B16",
-      "situation": "heterogeneous supplied corpus supports exploratory description only"
-    },
-    {
-      "context": {
-        "analysis_action": "template_analysis",
-        "corpus": "at least five comparable primary-match papers with adequate coverage and uncertainty",
-        "design_metric_ids": [
-          "structure.section_word_share",
-          "object.figure_position_norm"
-        ],
-        "design_question": "What section-allocation and figure-position bands describe comparable target papers?",
-        "linked_dimensions": [
-          "D09",
-          "D15",
-          "D18"
-        ],
-        "owner_choice_id": "template-design-adoption",
-        "readiness_condition": "The writing scope depends on the unresolved candidate design choice",
-        "requested_analysis_mode": "distributional",
-        "requested_output": "Reproducible analysis plus a candidate writing-design profile for owner review; no design rule has been owner-adopted",
-        "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ]
-      },
-      "id": "B17",
-      "situation": "comparable declared partitions support distributional template design"
-    },
-    {
-      "context": {
-        "corpus": "PDF bytes only; no traceable supported derivative",
-        "design_metric_ids": [
-          "structure.section_count",
-          "sequence.object_type_order"
-        ],
-        "design_question": "What template organization should guide the manuscript?",
-        "linked_dimensions": [
-          "D05",
-          "D09"
-        ],
-        "owner_choice_id": "supported-template-derivative",
-        "scope_ids": [
-          "SCOPE-TEMPLATE",
-          "SCOPE-METHODS"
-        ],
-        "scope_state": {
-          "SCOPE-METHODS": "already ready and has no declared dependency on the template corpus",
-          "SCOPE-TEMPLATE": "depends on the unavailable template analysis"
-        }
-      },
-      "id": "B18",
-      "situation": "PDF-only template corpus is unsupported and unrelated Methods remains ready"
-    },
-    {
-      "context": {
-        "boundary": "template measurements describe writing/presentation only",
-        "linked_dimensions": [
-          "D06",
-          "D09",
-          "D11"
-        ],
-        "owner_choice_id": "independent-scientific-evidence-or-deferral",
-        "owner_request": "Use a template frequency as support for a scientific claim",
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation",
+        "decision": "Whether C-SAFETY-02 remains a bounded association or becomes a causal claim",
         "scope_ids": [
           "SCOPE-CLAIM"
         ]
       },
-      "id": "B19",
-      "situation": "owner asks template corpus statistic to support a scientific claim"
+      "id": "B04",
+      "situation": "the owner proposes causal wording beyond the recorded evidence ceiling"
     },
     {
       "context": {
-        "decision": "Owner explicitly chooses a manuscript design outside a grounded soft band",
-        "grounding": "existing candidate design-profile entry",
-        "linked_dimensions": [
-          "D01",
-          "D09",
-          "D15",
-          "D18",
-          "D19"
-        ],
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation",
+        "decision": "Whether mechanism or security-state evidence leads the contribution sequence",
         "scope_ids": [
-          "SCOPE-TEMPLATE"
+          "SCOPE-PAPER"
         ]
       },
-      "id": "B20",
-      "situation": "owner confirms a deliberate divergence from a corpus-derived soft band"
+      "id": "B05",
+      "situation": "two supported contribution orders imply different paper-level arguments"
+    },
+    {
+      "context": {
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation",
+        "decision": "Whether the adverse finding is framed before or after the aggregate benefit",
+        "scope_ids": [
+          "SCOPE-DISCUSSION"
+        ]
+      },
+      "id": "B06",
+      "situation": "a local paragraph choice materially changes reader interpretation"
+    },
+    {
+      "context": {
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation",
+        "decision": "Whether to retain the deliberate two-paragraph divergence from TRULE-INTRO-ORDER",
+        "scope_ids": [
+          "SCOPE-INTRO"
+        ]
+      },
+      "id": "B07",
+      "situation": "the proposed organization departs from a grounded template pattern"
+    },
+    {
+      "context": {
+        "access_state": "full_text",
+        "claim_id": "C-NOVELTY-01",
+        "discovered_source": "https://example.org/target-paper",
+        "owner_request": "Use this publication as a writing exemplar and as support for C-NOVELTY-01",
+        "role": "target_topic exemplar",
+        "scope_ids": [
+          "SCOPE-TEMPLATE-CLAIM"
+        ]
+      },
+      "id": "B08",
+      "situation": "the owner asks an externally discovered template source to support both writing design and a scientific claim"
+    },
+    {
+      "context": {
+        "dossier": "fresh semantic-dossier.json with traceable full-text locators",
+        "projection": "TPL-SEM-01 and TRULE-SEM-01 agree across hidden and public records",
+        "quantitative_question": null,
+        "scope_ids": [
+          "SCOPE-INTRO-SEMANTIC"
+        ],
+        "template_mode": "semantic_primary"
+      },
+      "id": "B09",
+      "situation": "a fresh model-semantic dossier exists and no quantitative design question is declared"
+    },
+    {
+      "context": {
+        "analysis_mode": "distributional",
+        "conclusion_ceiling": "descriptive writing-design distribution; no semantic, causal, venue-fit, or acceptance conclusion",
+        "denominator": "15 eligible;13 valid;2 missing supported object locator",
+        "design_question": "Where do comparable papers first place the primary result figure?",
+        "metric_ids": [
+          "object.figure_position_norm"
+        ],
+        "missingness": "2 missing supported object locator",
+        "partition": "target_topic versus control",
+        "scope_ids": [
+          "SCOPE-RESULTS-QUANT"
+        ],
+        "semantic_dossier_state": "fresh"
+      },
+      "id": "B10",
+      "situation": "a declared quantitative template-design question may invoke the optional analyzer"
+    },
+    {
+      "context": {
+        "affected_scope": "SCOPE-RESULT-A",
+        "changed_record": "M-RESULT-A",
+        "direct_links": [
+          "P-RESULT-A2",
+          "FRM-RESULT-A2-01",
+          "VIS-RESULT-A",
+          "TRULE-RESULT-A"
+        ],
+        "scope_ids": [
+          "SCOPE-RESULT-A",
+          "SCOPE-RESULT-B"
+        ],
+        "unaffected_scope": "SCOPE-RESULT-B",
+        "unrelated_state": "SCOPE-RESULT-B is already writer-ready and has no declared link"
+      },
+      "id": "B11",
+      "situation": "one evidence record changes while another ready scope has no declared link"
+    },
+    {
+      "context": {
+        "legacy_state": "section-level writer-ready",
+        "schema_marker": "0.2",
+        "scope_ids": [
+          "SCOPE-LEGACY"
+        ]
+      },
+      "id": "B12",
+      "situation": "a schema-0.2 section-only writer-ready workspace is inspected"
+    },
+    {
+      "context": {
+        "schema_marker": "0.3",
+        "scope_ids": [
+          "SCOPE-FULL-03"
+        ],
+        "surface_states": {
+          "controlled_frame": "satisfied",
+          "cross_surface_traceability": "satisfied",
+          "language_contract": "satisfied",
+          "paragraph_function": "satisfied",
+          "soft_budget": "satisfied",
+          "template_rule_provenance": "satisfied",
+          "visual_caption": "satisfied"
+        },
+        "template_mode": "semantic_primary"
+      },
+      "id": "B13",
+      "situation": "all applicable schema-0.3 detailed surfaces are complete and current"
+    },
+    {
+      "context": {
+        "promotion_state": "scientific use is separately evaluated under 02",
+        "publication": "doi:10.0000/example.14",
+        "scientific_record": "M-PUB-14",
+        "scope_ids": [
+          "SCOPE-DUAL-ROLE"
+        ],
+        "template_record": "TPL-PUB-14"
+      },
+      "id": "B14",
+      "situation": "one publication has both template-exemplar and scientific-source roles"
+    },
+    {
+      "context": {
+        "access_state": "metadata_only",
+        "available_content": "title, authors, venue and URL only",
+        "scope_ids": [
+          "SCOPE-EXTERNAL-META"
+        ],
+        "source": "https://example.org/inaccessible-paper"
+      },
+      "id": "B15",
+      "situation": "external material is metadata-only or inaccessible"
     }
   ]
 }

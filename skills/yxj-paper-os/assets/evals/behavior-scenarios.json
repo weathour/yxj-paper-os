@@ -2,795 +2,511 @@
   "scenarios": [
     {
       "id": "B01",
-      "situation": "observable artifact",
-      "required_all_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [
-        "ASK_OWNER"
-      ],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B02",
-      "situation": "explicit route",
-      "required_all_actions": [
-        "RECORD_OBSERVATION"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [
-        "ASK_OWNER"
-      ],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B03",
-      "situation": "owner-only tradeoff",
-      "required_all_actions": [],
-      "required_any_actions": [
-        "ASK_OWNER"
-      ],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 1,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B04",
-      "situation": "reconcile structure",
-      "required_all_actions": [],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B05",
-      "situation": "owner conflict",
-      "required_all_actions": [],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B06",
-      "situation": "method survey",
-      "required_all_actions": [
-        "INSPECT"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B07",
-      "situation": "hybrid lenses",
-      "required_all_actions": [],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B08",
-      "situation": "owner requests initialization of a missing paper-planning workspace",
-      "required_all_actions": [
-        "INSPECT",
-        "INITIALIZE_WORKSPACE"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 0,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": [],
+      "situation": "evidence-rich repository input needs detailed paragraph/function design",
       "context": {
-        "owner_request": "Initialize the paper-planning workspace from canonical templates",
-        "workspace_state": "The six public files appear absent and must be checked before copying",
-        "template_source": "assets/templates/",
-        "public_contract": "exactly the six canonical Markdown files; no seventh public file"
-      }
-    },
-    {
-      "id": "B09",
-      "situation": "venue template",
-      "required_all_actions": [
-        "INSPECT"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
+        "repository_evidence": "M-EXP-01, C-RES-01, LIM-01 and FIG-01 are locally traceable",
+        "scope_ids": [
+          "SCOPE-RESULTS"
+        ],
+        "design_need": "function, reader-state, payload boundary, qualification and output promise for every planned paragraph"
       },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B10",
-      "situation": "weak support",
-      "required_all_actions": [],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B11",
-      "situation": "changed evidence",
-      "required_all_actions": [
-        "INSPECT"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B12",
-      "situation": "scoped readiness",
-      "required_all_actions": [
-        "INSPECT"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B13",
-      "situation": "rich answer",
-      "required_all_actions": [],
-      "required_any_actions": [],
-      "optional_actions": [
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE"
-      ],
-      "prohibited_actions": [],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 10,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [],
-      "update_rules": [],
-      "readiness_rules": []
-    },
-    {
-      "id": "B14",
-      "situation": "inventory a PDF artifact as metadata only without activating template analysis",
       "required_all_actions": [
         "INSPECT",
-        "RECORD_OBSERVATION"
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
       "required_any_actions": [],
       "optional_actions": [],
       "prohibited_actions": [
-        "ASK_OWNER",
-        "DERIVE",
-        "PROPOSE",
-        "RECONCILE",
-        "DEPENDENCY_RECHECK",
-        "COMPILE_SCOPED_HANDOFF",
-        "INITIALIZE_WORKSPACE"
-      ],
-      "required_dimensions": [],
-      "prohibited_dimensions": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 0,
-        "allowed_targets": []
-      },
-      "prohibited_side_effects": [
-        "subagents",
-        "full_scan",
-        "template_intake",
-        "external_execution",
-        "template_analysis",
-        "pdf_pseudo_parse"
-      ],
-      "update_rules": [],
-      "readiness_rules": [],
-      "context": {
-        "owner_request": "Record the existing PDF in the materials inventory only",
-        "artifact_format": "PDF",
-        "template_analysis_requested": false,
-        "linked_writing_scope": null
-      }
-    },
-    {
-      "id": "B15",
-      "situation": "supported single-document template case set",
-      "required_all_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION",
-        "DERIVE",
-        "PROPOSE"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "ASK_OWNER",
-        "DEPENDENCY_RECHECK"
-      ],
-      "prohibited_actions": [
-        "COMPILE_SCOPED_HANDOFF"
+        "ASK_OWNER"
       ],
       "required_dimensions": [
         "D05",
-        "D09"
-      ],
-      "prohibited_dimensions": [
         "D06",
-        "D11"
-      ],
-      "required_scopes": [
-        "SCOPE-TEMPLATE"
-      ],
-      "prohibited_scopes": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 1,
-        "allowed_targets": [
-          "template-design-adoption"
-        ]
-      },
-      "required_side_effects": [
-        "template_analysis"
-      ],
-      "prohibited_side_effects": [
-        "pdf_pseudo_parse",
-        "external_execution"
-      ],
-      "update_rules": [
-        {
-          "record_kinds": [
-            "material",
-            "template_metric_observation"
-          ],
-          "field": "analysis_mode",
-          "allowed": [
-            "case_set"
-          ],
-          "min_count": 1
-        },
-        {
-          "record_kinds": [
-            "design_rule",
-            "template_design_profile",
-            "writing_design_proposal"
-          ],
-          "allowed_fields": {
-            "target_kind": [
-              "watch_only"
-            ],
-            "origin": [
-              "model-proposed"
-            ],
-            "resolution": [
-              "candidate"
-            ]
-          },
-          "min_count": 1
-        }
-      ],
-      "readiness_rules": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "field": "readiness",
-          "allowed": [
-            "partial"
-          ],
-          "min_count": 1
-        }
-      ],
-      "context": {
-        "design_question": "How should section allocation be treated as a one-document case rather than a norm?",
-        "design_metric_ids": [
-          "structure.section_word_share"
-        ],
-        "corpus": "one supported primary-match Markdown derivative",
-        "requested_analysis_mode": "case_set",
-        "requested_output": "Reproducible analysis plus a candidate writing-design profile for owner review; no design rule has been owner-adopted",
-        "linked_dimensions": [
-          "D05",
-          "D09"
-        ],
-        "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ],
-        "owner_choice_id": "template-design-adoption",
-        "analysis_action": "template_analysis",
-        "readiness_condition": "The writing scope depends on the unresolved candidate design choice"
-      }
-    },
-    {
-      "id": "B16",
-      "situation": "heterogeneous supplied corpus supports exploratory description only",
-      "required_all_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION",
-        "DERIVE",
-        "PROPOSE"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "ASK_OWNER",
-        "DEPENDENCY_RECHECK"
-      ],
-      "prohibited_actions": [
-        "COMPILE_SCOPED_HANDOFF"
-      ],
-      "required_dimensions": [
-        "D05",
-        "D09"
-      ],
-      "prohibited_dimensions": [
-        "D06",
-        "D11"
-      ],
-      "required_scopes": [
-        "SCOPE-TEMPLATE"
-      ],
-      "prohibited_scopes": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 1,
-        "allowed_targets": [
-          "template-design-adoption"
-        ]
-      },
-      "required_side_effects": [
-        "template_analysis"
-      ],
-      "prohibited_side_effects": [
-        "pdf_pseudo_parse",
-        "external_execution"
-      ],
-      "update_rules": [
-        {
-          "record_kinds": [
-            "material",
-            "template_metric_observation"
-          ],
-          "field": "analysis_mode",
-          "allowed": [
-            "exploratory"
-          ],
-          "min_count": 1
-        },
-        {
-          "record_kinds": [
-            "design_rule",
-            "template_design_profile",
-            "writing_design_proposal"
-          ],
-          "allowed_fields": {
-            "target_kind": [
-              "watch_only"
-            ],
-            "origin": [
-              "model-proposed"
-            ],
-            "resolution": [
-              "candidate"
-            ]
-          },
-          "min_count": 1
-        }
-      ],
-      "readiness_rules": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "field": "readiness",
-          "allowed": [
-            "partial"
-          ],
-          "min_count": 1
-        }
-      ],
-      "context": {
-        "design_question": "Which paragraph and object-density patterns are visible without claiming a norm?",
-        "design_metric_ids": [
-          "structure.median_paragraph_words",
-          "object.total_count"
-        ],
-        "corpus": "heterogeneous owner-supplied papers with mixed venues or article forms",
-        "requested_analysis_mode": "exploratory",
-        "requested_output": "Reproducible analysis plus a candidate writing-design profile for owner review; no design rule has been owner-adopted",
-        "linked_dimensions": [
-          "D05",
-          "D09"
-        ],
-        "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ],
-        "owner_choice_id": "template-design-adoption",
-        "analysis_action": "template_analysis",
-        "readiness_condition": "The writing scope depends on the unresolved candidate design choice"
-      }
-    },
-    {
-      "id": "B17",
-      "situation": "comparable declared partitions support distributional template design",
-      "required_all_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION",
-        "DERIVE",
-        "PROPOSE"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "ASK_OWNER",
-        "DEPENDENCY_RECHECK"
-      ],
-      "prohibited_actions": [
-        "COMPILE_SCOPED_HANDOFF"
-      ],
-      "required_dimensions": [
         "D09",
-        "D15",
-        "D18"
+        "D15"
       ],
-      "prohibited_dimensions": [
-        "D06",
-        "D11"
-      ],
+      "prohibited_dimensions": [],
       "required_scopes": [
-        "SCOPE-TEMPLATE"
+        "SCOPE-RESULTS"
       ],
       "prohibited_scopes": [],
       "question": {
         "min_count": 0,
-        "max_count": 1,
-        "allowed_targets": [
-          "template-design-adoption"
-        ]
-      },
-      "required_side_effects": [
-        "template_analysis"
-      ],
-      "prohibited_side_effects": [
-        "pdf_pseudo_parse",
-        "external_execution"
-      ],
-      "update_rules": [
-        {
-          "record_kinds": [
-            "material",
-            "template_metric_observation"
-          ],
-          "field": "analysis_mode",
-          "allowed": [
-            "distributional"
-          ],
-          "min_count": 1
-        },
-        {
-          "record_kinds": [
-            "design_rule",
-            "template_design_profile",
-            "writing_design_proposal"
-          ],
-          "allowed_fields": {
-            "target_kind": [
-              "soft_band"
-            ],
-            "origin": [
-              "model-proposed"
-            ],
-            "resolution": [
-              "candidate"
-            ]
-          },
-          "min_count": 1
-        }
-      ],
-      "readiness_rules": [
-        {
-          "scope_id": "SCOPE-TEMPLATE",
-          "field": "readiness",
-          "allowed": [
-            "partial"
-          ],
-          "min_count": 1
-        }
-      ],
-      "context": {
-        "design_question": "What section-allocation and figure-position bands describe comparable target papers?",
-        "design_metric_ids": [
-          "structure.section_word_share",
-          "object.figure_position_norm"
-        ],
-        "corpus": "at least five comparable primary-match papers with adequate coverage and uncertainty",
-        "requested_analysis_mode": "distributional",
-        "requested_output": "Reproducible analysis plus a candidate writing-design profile for owner review; no design rule has been owner-adopted",
-        "linked_dimensions": [
-          "D09",
-          "D15",
-          "D18"
-        ],
-        "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ],
-        "owner_choice_id": "template-design-adoption",
-        "analysis_action": "template_analysis",
-        "readiness_condition": "The writing scope depends on the unresolved candidate design choice"
-      }
-    },
-    {
-      "id": "B18",
-      "situation": "PDF-only template corpus is unsupported and unrelated Methods remains ready",
-      "required_all_actions": [
-        "INSPECT",
-        "RECORD_OBSERVATION"
-      ],
-      "required_any_actions": [],
-      "optional_actions": [
-        "ASK_OWNER",
-        "DEPENDENCY_RECHECK",
-        "DERIVE"
-      ],
-      "prohibited_actions": [
-        "PROPOSE",
-        "COMPILE_SCOPED_HANDOFF"
-      ],
-      "required_dimensions": [
-        "D05",
-        "D09"
-      ],
-      "prohibited_dimensions": [
-        "D06",
-        "D11"
-      ],
-      "required_scopes": [
-        "SCOPE-TEMPLATE",
-        "SCOPE-METHODS"
-      ],
-      "prohibited_scopes": [],
-      "question": {
-        "min_count": 0,
-        "max_count": 1,
-        "allowed_targets": [
-          "supported-template-derivative"
-        ]
+        "max_count": 0,
+        "allowed_targets": []
       },
       "required_side_effects": [],
       "prohibited_side_effects": [
-        "pdf_pseudo_parse",
         "external_execution",
-        "full_scan"
+        "pdf_pseudo_parse"
       ],
       "update_rules": [
         {
-          "record_kinds": [
-            "material",
-            "template_metric_observation"
-          ],
-          "allowed_any_field": {
-            "fields": [
-              "status",
-              "target_kind"
+          "record_kind": "paragraph",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
             ],
-            "allowed": [
-              "unsupported",
-              "metadata_only_pdf"
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "grounding": [
+              "M-EXP-01",
+              "C-RES-01"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "P-RESULT-01"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "paragraph_function"
             ]
           },
-          "min_count": 1
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": [
+            "grounding"
+          ]
+        },
+        {
+          "record_kind": "paragraph",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "grounding": [
+              "LIM-01",
+              "FIG-01"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "P-RESULT-02"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "paragraph_function"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": [
+            "grounding"
+          ]
         }
       ],
       "readiness_rules": [
         {
-          "scope_id": "SCOPE-TEMPLATE",
-          "field": "readiness",
-          "allowed": [
-            "blocked"
+          "scope_id": "SCOPE-RESULTS",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-RESULTS"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
           ],
-          "min_count": 1
-        },
-        {
-          "scope_id": "SCOPE-METHODS",
-          "field": "readiness",
-          "allowed": [
-            "writer-ready"
-          ],
-          "min_count": 1
+          "max_count": 1,
+          "exact_fields": []
         }
       ],
+      "response_limits": {
+        "min_updates": 2,
+        "max_updates": 2,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D05",
+        "D06",
+        "D09",
+        "D15"
+      ],
+      "allowed_scopes": [
+        "SCOPE-RESULTS"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B02",
+      "situation": "an important paragraph needs controlled sentence frames without manuscript prose",
       "context": {
-        "design_question": "What template organization should guide the manuscript?",
-        "design_metric_ids": [
-          "structure.section_count",
-          "sequence.object_type_order"
-        ],
-        "corpus": "PDF bytes only; no traceable supported derivative",
-        "linked_dimensions": [
-          "D05",
-          "D09"
-        ],
         "scope_ids": [
-          "SCOPE-TEMPLATE",
-          "SCOPE-METHODS"
+          "SCOPE-DISCUSSION"
         ],
-        "owner_choice_id": "supported-template-derivative",
-        "scope_state": {
-          "SCOPE-TEMPLATE": "depends on the unavailable template analysis",
-          "SCOPE-METHODS": "already ready and has no declared dependency on the template corpus"
+        "paragraph_id": "P-DISC-03",
+        "importance_basis": "counterevidence and high misreading cost",
+        "payload_ids": [
+          "M-ROBUST-03",
+          "C-BOUND-02"
+        ]
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D05",
+        "D09",
+        "D15",
+        "D17"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-DISCUSSION"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "frame",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "grounding": [
+              "P-DISC-03",
+              "M-ROBUST-03",
+              "C-BOUND-02"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "FRM-DISC-03-01"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "controlled_sentence_frame"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "design_payload",
+            "epistemic_label",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
         }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-DISCUSSION",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-DISCUSSION"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "allowed_dimensions": [
+        "D05",
+        "D09",
+        "D15",
+        "D17"
+      ],
+      "allowed_scopes": [
+        "SCOPE-DISCUSSION"
+      ],
+      "optional_side_effects": [],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
       }
     },
     {
-      "id": "B19",
-      "situation": "owner asks template corpus statistic to support a scientific claim",
+      "id": "B03",
+      "situation": "a grounded template adaptation affects only local paragraph ordering",
+      "context": {
+        "scope_ids": [
+          "SCOPE-INTRO"
+        ],
+        "template_rule_id": "TRULE-INTRO-ORDER",
+        "grounding": "TPL-EXEMPLAR-01#Introduction paragraphs 2-4",
+        "adaptation": "retain rhetorical function but shorten the context span",
+        "consequence": "Choosing the shorter pattern changes only local paragraph ordering"
+      },
       "required_all_actions": [
-        "KEEP_CLAIM_INACTIVE"
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
       ],
       "required_any_actions": [],
-      "optional_actions": [
-        "RECORD_OBSERVATION",
-        "RECONCILE",
-        "PROPOSE",
-        "ASK_OWNER",
-        "DEPENDENCY_RECHECK"
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
       ],
+      "required_dimensions": [
+        "D05",
+        "D09",
+        "D15"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-INTRO"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "template_rule",
+          "min_count": 1,
+          "allowed_fields": {
+            "candidate_action": [
+              "adapt"
+            ],
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "grounding": [
+              "TPL-EXEMPLAR-01#Introduction paragraphs 2-4"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "TRULE-INTRO-ORDER"
+            ],
+            "resolution": [
+              "accepted"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "candidate_action",
+            "design_only_state",
+            "epistemic_label",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-INTRO",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-INTRO"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "allowed_dimensions": [
+        "D05",
+        "D09",
+        "D15"
+      ],
+      "allowed_scopes": [
+        "SCOPE-INTRO"
+      ],
+      "optional_side_effects": [],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      }
+    },
+    {
+      "id": "B04",
+      "situation": "the owner proposes causal wording beyond the recorded evidence ceiling",
+      "context": {
+        "scope_ids": [
+          "SCOPE-CLAIM"
+        ],
+        "decision": "Whether C-SAFETY-02 remains a bounded association or becomes a causal claim",
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
       "prohibited_actions": [],
       "required_dimensions": [
         "D06",
-        "D09",
         "D11"
       ],
       "prohibited_dimensions": [],
@@ -799,70 +515,573 @@
       ],
       "prohibited_scopes": [],
       "question": {
-        "min_count": 0,
+        "min_count": 1,
         "max_count": 1,
         "allowed_targets": [
-          "independent-scientific-evidence-or-deferral"
+          "scientific_commitment"
         ]
       },
       "required_side_effects": [],
       "prohibited_side_effects": [
-        "external_execution"
+        "external_execution",
+        "pdf_pseudo_parse"
       ],
       "update_rules": [
         {
-          "record_kind": "claim",
-          "field": "support",
-          "allowed": [
-            "evidence-unsupported"
+          "record_kind": "decision",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-proposed"
+            ],
+            "gate_category": [
+              "scientific_commitment"
+            ],
+            "grounding": [
+              "Whether C-SAFETY-02 remains a bounded association or becomes a causal claim"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-proposed"
+            ],
+            "record_id": [
+              "DEC-B04"
+            ],
+            "resolution": [
+              "unresolved"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "candidate"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "gate_category",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
           ],
-          "min_count": 1
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
         }
       ],
-      "readiness_rules": [],
-      "context": {
-        "owner_request": "Use a template frequency as support for a scientific claim",
-        "boundary": "template measurements describe writing/presentation only",
-        "linked_dimensions": [
-          "D06",
-          "D09",
-          "D11"
-        ],
-        "scope_ids": [
-          "SCOPE-CLAIM"
-        ],
-        "owner_choice_id": "independent-scientific-evidence-or-deferral"
-      }
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-CLAIM",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "GATE-scientific_commitment"
+            ],
+            "next_action": [
+              "owner decision"
+            ],
+            "readiness": [
+              "blocked"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D06",
+        "D11"
+      ],
+      "allowed_scopes": [
+        "SCOPE-CLAIM"
+      ],
+      "optional_side_effects": []
     },
     {
-      "id": "B20",
-      "situation": "owner confirms a deliberate divergence from a corpus-derived soft band",
+      "id": "B05",
+      "situation": "two supported contribution orders imply different paper-level arguments",
+      "context": {
+        "scope_ids": [
+          "SCOPE-PAPER"
+        ],
+        "decision": "Whether mechanism or security-state evidence leads the contribution sequence",
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation"
+      },
       "required_all_actions": [
-        "RECORD_OBSERVATION",
-        "RECONCILE",
-        "DEPENDENCY_RECHECK",
-        "COMPILE_SCOPED_HANDOFF"
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
       ],
       "required_any_actions": [],
-      "optional_actions": [
-        "PROPOSE"
+      "optional_actions": [],
+      "prohibited_actions": [],
+      "required_dimensions": [
+        "D05",
+        "D07",
+        "D09"
       ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-PAPER"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 1,
+        "max_count": 1,
+        "allowed_targets": [
+          "argument_spine"
+        ]
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "decision",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-proposed"
+            ],
+            "gate_category": [
+              "argument_spine"
+            ],
+            "grounding": [
+              "Whether mechanism or security-state evidence leads the contribution sequence"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-proposed"
+            ],
+            "record_id": [
+              "DEC-B05"
+            ],
+            "resolution": [
+              "unresolved"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "candidate"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "gate_category",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-PAPER",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "GATE-argument_spine"
+            ],
+            "next_action": [
+              "owner decision"
+            ],
+            "readiness": [
+              "blocked"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D05",
+        "D07",
+        "D09"
+      ],
+      "allowed_scopes": [
+        "SCOPE-PAPER"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B06",
+      "situation": "a local paragraph choice materially changes reader interpretation",
+      "context": {
+        "scope_ids": [
+          "SCOPE-DISCUSSION"
+        ],
+        "decision": "Whether the adverse finding is framed before or after the aggregate benefit",
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [],
+      "required_dimensions": [
+        "D05",
+        "D09",
+        "D15"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-DISCUSSION"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 1,
+        "max_count": 1,
+        "allowed_targets": [
+          "material_local_tradeoff"
+        ]
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "decision",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-proposed"
+            ],
+            "gate_category": [
+              "material_local_tradeoff"
+            ],
+            "grounding": [
+              "Whether the adverse finding is framed before or after the aggregate benefit"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-proposed"
+            ],
+            "record_id": [
+              "DEC-B06"
+            ],
+            "resolution": [
+              "unresolved"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "candidate"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "gate_category",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-DISCUSSION",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "GATE-material_local_tradeoff"
+            ],
+            "next_action": [
+              "owner decision"
+            ],
+            "readiness": [
+              "blocked"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D05",
+        "D09",
+        "D15"
+      ],
+      "allowed_scopes": [
+        "SCOPE-DISCUSSION"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B07",
+      "situation": "the proposed organization departs from a grounded template pattern",
+      "context": {
+        "scope_ids": [
+          "SCOPE-INTRO"
+        ],
+        "decision": "Whether to retain the deliberate two-paragraph divergence from TRULE-INTRO-ORDER",
+        "consequence": "changes the named scope and cannot be resolved as a routine reversible adaptation"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "ASK_OWNER"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [],
+      "required_dimensions": [
+        "D09",
+        "D15",
+        "D19"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-INTRO"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 1,
+        "max_count": 1,
+        "allowed_targets": [
+          "deliberate_divergence"
+        ]
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "decision",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-proposed"
+            ],
+            "gate_category": [
+              "deliberate_divergence"
+            ],
+            "grounding": [
+              "Whether to retain the deliberate two-paragraph divergence from TRULE-INTRO-ORDER"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-proposed"
+            ],
+            "record_id": [
+              "DEC-B07"
+            ],
+            "resolution": [
+              "unresolved"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "candidate"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "gate_category",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-INTRO",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "GATE-deliberate_divergence"
+            ],
+            "next_action": [
+              "owner decision"
+            ],
+            "readiness": [
+              "blocked"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D09",
+        "D15",
+        "D19"
+      ],
+      "allowed_scopes": [
+        "SCOPE-INTRO"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B08",
+      "situation": "the owner asks an externally discovered template source to support both writing design and a scientific claim",
+      "context": {
+        "scope_ids": [
+          "SCOPE-TEMPLATE-CLAIM"
+        ],
+        "discovered_source": "https://example.org/target-paper",
+        "access_state": "full_text",
+        "role": "target_topic exemplar",
+        "claim_id": "C-NOVELTY-01",
+        "owner_request": "Use this publication as a writing exemplar and as support for C-NOVELTY-01"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
       "prohibited_actions": [
         "ASK_OWNER"
       ],
       "required_dimensions": [
         "D01",
-        "D09",
-        "D15",
-        "D18",
-        "D19"
-      ],
-      "prohibited_dimensions": [
         "D06",
+        "D09",
         "D11"
       ],
+      "prohibited_dimensions": [],
       "required_scopes": [
-        "SCOPE-TEMPLATE"
+        "SCOPE-TEMPLATE-CLAIM"
       ],
       "prohibited_scopes": [],
       "question": {
@@ -872,56 +1091,1841 @@
       },
       "required_side_effects": [],
       "prohibited_side_effects": [
+        "template_analysis",
+        "pdf_pseudo_parse",
         "external_execution"
       ],
       "update_rules": [
         {
-          "record_kind": "decision",
+          "record_kind": "template_source",
+          "min_count": 1,
           "allowed_fields": {
+            "access_state": [
+              "full_text"
+            ],
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "artifact-observed"
+            ],
+            "locator": [
+              "https://example.org/target-paper"
+            ],
+            "operation": [
+              "create"
+            ],
             "origin": [
-              "owner-stated"
+              "artifact-observed"
+            ],
+            "record_id": [
+              "TPL-EXT-08"
             ],
             "resolution": [
               "confirmed"
-            ]
-          },
-          "allowed_any_field": {
-            "fields": [
-              "target_kind",
-              "candidate_action"
             ],
-            "allowed": [
-              "deliberate_divergence"
+            "role": [
+              "target_topic"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
             ]
           },
-          "min_count": 1
+          "non_null_fields": [
+            "access_state",
+            "design_only_state",
+            "epistemic_label",
+            "locator",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "role",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "claim",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "C-NOVELTY-01"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "inactive"
+            ],
+            "support": [
+              "evidence-unsupported"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1,
+          "exact_fields": []
         }
       ],
       "readiness_rules": [
         {
-          "scope_id": "SCOPE-TEMPLATE",
-          "field": "readiness",
-          "allowed": [
-            "partial",
-            "writer-ready"
+          "scope_id": "SCOPE-TEMPLATE-CLAIM",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "CLAIM-EVIDENCE-MISSING"
+            ],
+            "next_action": [
+              "retain inactive claim"
+            ],
+            "readiness": [
+              "partial"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
           ],
-          "min_count": 1
+          "max_count": 1,
+          "exact_fields": []
         }
       ],
+      "response_limits": {
+        "min_updates": 2,
+        "max_updates": 2,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D01",
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "allowed_scopes": [
+        "SCOPE-TEMPLATE-CLAIM"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B09",
+      "situation": "a fresh model-semantic dossier exists and no quantitative design question is declared",
       "context": {
-        "decision": "Owner explicitly chooses a manuscript design outside a grounded soft band",
-        "grounding": "existing candidate design-profile entry",
-        "linked_dimensions": [
-          "D01",
-          "D09",
-          "D15",
-          "D18",
-          "D19"
-        ],
         "scope_ids": [
-          "SCOPE-TEMPLATE"
-        ]
+          "SCOPE-INTRO-SEMANTIC"
+        ],
+        "dossier": "fresh semantic-dossier.json with traceable full-text locators",
+        "template_mode": "semantic_primary",
+        "quantitative_question": null,
+        "projection": "TPL-SEM-01 and TRULE-SEM-01 agree across hidden and public records"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D01",
+        "D05",
+        "D09",
+        "D15",
+        "D19"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-INTRO-SEMANTIC"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "template_analysis",
+        "pdf_pseudo_parse",
+        "external_execution"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "semantic_dossier",
+          "min_count": 1,
+          "allowed_fields": {
+            "access_state": [
+              "full_text"
+            ],
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "artifact-observed"
+            ],
+            "grounding": [
+              "TPL-SEM-01"
+            ],
+            "locator": [
+              ".yxj-paper-os/template-analysis/semantic-dossier.json"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "artifact-observed"
+            ],
+            "record_id": [
+              "DOSSIER-SEM-09"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "confirmed"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "access_state",
+            "design_only_state",
+            "epistemic_label",
+            "grounding",
+            "locator",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        },
+        {
+          "record_kind": "template_rule",
+          "min_count": 1,
+          "allowed_fields": {
+            "decision_pointer": [
+              "DOSSIER-SEM-09"
+            ],
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "grounding": [
+              "TPL-SEM-01#Introduction paragraphs 1-3"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "TRULE-SEM-01"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "decision_pointer",
+            "design_only_state",
+            "epistemic_label",
+            "grounding",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-INTRO-SEMANTIC",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-INTRO-SEMANTIC"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "allowed_dimensions": [
+        "D01",
+        "D05",
+        "D09",
+        "D15",
+        "D19"
+      ],
+      "allowed_scopes": [
+        "SCOPE-INTRO-SEMANTIC"
+      ],
+      "optional_side_effects": [],
+      "response_limits": {
+        "min_updates": 2,
+        "max_updates": 2,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
       }
+    },
+    {
+      "id": "B10",
+      "situation": "a declared quantitative template-design question may invoke the optional analyzer",
+      "context": {
+        "scope_ids": [
+          "SCOPE-RESULTS-QUANT"
+        ],
+        "design_question": "Where do comparable papers first place the primary result figure?",
+        "metric_ids": [
+          "object.figure_position_norm"
+        ],
+        "partition": "target_topic versus control",
+        "missingness": "2 missing supported object locator",
+        "analysis_mode": "distributional",
+        "semantic_dossier_state": "fresh",
+        "denominator": "15 eligible;13 valid;2 missing supported object locator",
+        "conclusion_ceiling": "descriptive writing-design distribution; no semantic, causal, venue-fit, or acceptance conclusion"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-RESULTS-QUANT"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [
+        "template_analysis"
+      ],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "template_analysis",
+          "min_count": 1,
+          "allowed_fields": {
+            "analysis_mode": [
+              "distributional"
+            ],
+            "denominator": [
+              "15 eligible;13 valid;2 missing supported object locator"
+            ],
+            "design_only_state": [
+              "design_only"
+            ],
+            "effective_conclusion": [
+              "descriptive design distribution only; no semantic, causal, venue-fit, or acceptance conclusion"
+            ],
+            "epistemic_label": [
+              "artifact-observed"
+            ],
+            "grounding": [
+              "object.figure_position_norm"
+            ],
+            "locator": [
+              ".yxj-paper-os/template-analysis/design-profile.json"
+            ],
+            "missingness": [
+              "2 missing supported object locator"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "artifact-observed"
+            ],
+            "partition": [
+              "target_topic versus control"
+            ],
+            "record_id": [
+              "ANALYSIS-10"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "figure_position_design"
+            ]
+          },
+          "non_null_fields": [
+            "analysis_mode",
+            "denominator",
+            "design_only_state",
+            "effective_conclusion",
+            "epistemic_label",
+            "grounding",
+            "locator",
+            "missingness",
+            "operation",
+            "origin",
+            "partition",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "exact_fields": [
+            "grounding"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-RESULTS-QUANT",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-RESULTS-QUANT"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "allowed_dimensions": [
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "allowed_scopes": [
+        "SCOPE-RESULTS-QUANT"
+      ],
+      "optional_side_effects": [],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      }
+    },
+    {
+      "id": "B11",
+      "situation": "one evidence record changes while another ready scope has no declared link",
+      "context": {
+        "changed_record": "M-RESULT-A",
+        "affected_scope": "SCOPE-RESULT-A",
+        "unaffected_scope": "SCOPE-RESULT-B",
+        "direct_links": [
+          "P-RESULT-A2",
+          "FRM-RESULT-A2-01",
+          "VIS-RESULT-A",
+          "TRULE-RESULT-A"
+        ],
+        "unrelated_state": "SCOPE-RESULT-B is already writer-ready and has no declared link",
+        "scope_ids": [
+          "SCOPE-RESULT-A",
+          "SCOPE-RESULT-B"
+        ]
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D03",
+        "D05",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-RESULT-A",
+        "SCOPE-RESULT-B"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "paragraph",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "linked_records": [
+              "M-RESULT-A"
+            ],
+            "operation": [
+              "revise"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "P-RESULT-A2"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "stale"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "exact_fields": [
+            "linked_records"
+          ],
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "linked_records",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1
+        },
+        {
+          "record_kind": "frame",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "linked_records": [
+              "M-RESULT-A"
+            ],
+            "operation": [
+              "revise"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "FRM-RESULT-A2-01"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "stale"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "controlled_sentence_frame"
+            ]
+          },
+          "exact_fields": [
+            "linked_records"
+          ],
+          "non_null_fields": [
+            "design_only_state",
+            "design_payload",
+            "epistemic_label",
+            "linked_records",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1
+        },
+        {
+          "record_kind": "visual",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "linked_records": [
+              "M-RESULT-A"
+            ],
+            "operation": [
+              "revise"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "VIS-RESULT-A"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "stale"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "exact_fields": [
+            "linked_records"
+          ],
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "linked_records",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1
+        },
+        {
+          "record_kind": "template_rule",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "linked_records": [
+              "M-RESULT-A"
+            ],
+            "operation": [
+              "revise"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "TRULE-RESULT-A"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "stale"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "exact_fields": [
+            "linked_records"
+          ],
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "linked_records",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-RESULT-A",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "STALE-M-RESULT-A"
+            ],
+            "next_action": [
+              "recompile linked records"
+            ],
+            "readiness": [
+              "partial"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "scope_id": "SCOPE-RESULT-B",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-RESULT-B"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "scope_id": "SCOPE-RESULT-B",
+          "min_count": 0,
+          "max_count": 0,
+          "allowed_fields": {
+            "readiness": [
+              "partial",
+              "blocked"
+            ]
+          }
+        }
+      ],
+      "response_limits": {
+        "min_updates": 4,
+        "max_updates": 4,
+        "min_readiness_updates": 2,
+        "max_readiness_updates": 2
+      },
+      "allowed_dimensions": [
+        "D03",
+        "D05",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "allowed_scopes": [
+        "SCOPE-RESULT-A",
+        "SCOPE-RESULT-B"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B12",
+      "situation": "a schema-0.2 section-only writer-ready workspace is inspected",
+      "context": {
+        "scope_ids": [
+          "SCOPE-LEGACY"
+        ],
+        "schema_marker": "0.2",
+        "legacy_state": "section-level writer-ready"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D00",
+        "D19"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-LEGACY"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "subagents",
+        "full_scan",
+        "template_intake",
+        "template_analysis",
+        "pdf_pseudo_parse",
+        "external_execution"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "diagnostic",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SCHEMA_LEGACY_02"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.2"
+            ],
+            "status": [
+              "partial"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-LEGACY",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "SCHEMA_LEGACY_02"
+            ],
+            "next_action": [
+              "agent-led 0.2-to-0.3 recompilation"
+            ],
+            "readiness": [
+              "partial"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D00",
+        "D19"
+      ],
+      "allowed_scopes": [
+        "SCOPE-LEGACY"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B13",
+      "situation": "all applicable schema-0.3 detailed surfaces are complete and current",
+      "context": {
+        "scope_ids": [
+          "SCOPE-FULL-03"
+        ],
+        "schema_marker": "0.3",
+        "surface_states": {
+          "paragraph_function": "satisfied",
+          "controlled_frame": "satisfied",
+          "language_contract": "satisfied",
+          "visual_caption": "satisfied",
+          "cross_surface_traceability": "satisfied",
+          "template_rule_provenance": "satisfied",
+          "soft_budget": "satisfied"
+        },
+        "template_mode": "semantic_primary"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D00",
+        "D05",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-FULL-03"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-01"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "paragraph_function"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-02"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "controlled_frame"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-03"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "language_contract"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-04"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "visual_caption"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-05"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "cross_surface_traceability"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-06"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "template_rule_provenance"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "surface",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "model-derived"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "model-derived"
+            ],
+            "record_id": [
+              "SURFACE-07"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "ready"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "soft_budget"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-FULL-03",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-FULL-03"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 7,
+        "max_updates": 7,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D00",
+        "D05",
+        "D09",
+        "D15",
+        "D18",
+        "D19"
+      ],
+      "allowed_scopes": [
+        "SCOPE-FULL-03"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B14",
+      "situation": "one publication has both template-exemplar and scientific-source roles",
+      "context": {
+        "scope_ids": [
+          "SCOPE-DUAL-ROLE"
+        ],
+        "publication": "doi:10.0000/example.14",
+        "template_record": "TPL-PUB-14",
+        "scientific_record": "M-PUB-14",
+        "promotion_state": "scientific use is separately evaluated under 02"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "DERIVE",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D01",
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-DUAL-ROLE"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "external_execution",
+        "pdf_pseudo_parse"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "template_source",
+          "min_count": 1,
+          "allowed_fields": {
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "artifact-observed"
+            ],
+            "locator": [
+              "doi:10.0000/example.14"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "artifact-observed"
+            ],
+            "promotion_pointer": [
+              "M-PUB-14"
+            ],
+            "record_id": [
+              "TPL-PUB-14"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "role": [
+              "template_exemplar"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "design_only_state",
+            "epistemic_label",
+            "locator",
+            "operation",
+            "origin",
+            "promotion_pointer",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "role",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "material",
+          "min_count": 1,
+          "allowed_fields": {
+            "decision_pointer": [
+              "02_CLAIM_EVIDENCE_BOUNDARY.md#M-PUB-14"
+            ],
+            "design_only_state": [
+              "not_applicable"
+            ],
+            "epistemic_label": [
+              "artifact-observed"
+            ],
+            "locator": [
+              "doi:10.0000/example.14"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "artifact-observed"
+            ],
+            "record_id": [
+              "M-PUB-14"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "role": [
+              "scientific_source"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
+            ]
+          },
+          "non_null_fields": [
+            "decision_pointer",
+            "design_only_state",
+            "epistemic_label",
+            "locator",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "role",
+            "schema_version",
+            "status",
+            "support"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-DUAL-ROLE",
+          "min_count": 1,
+          "allowed_fields": {
+            "output_pointer": [
+              "04_WRITING_DESIGN_PACK.md#SCOPE-DUAL-ROLE"
+            ],
+            "readiness": [
+              "writer-ready"
+            ]
+          },
+          "non_null_fields": [
+            "output_pointer",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 2,
+        "max_updates": 2,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D01",
+        "D06",
+        "D09",
+        "D11"
+      ],
+      "allowed_scopes": [
+        "SCOPE-DUAL-ROLE"
+      ],
+      "optional_side_effects": []
+    },
+    {
+      "id": "B15",
+      "situation": "external material is metadata-only or inaccessible",
+      "context": {
+        "scope_ids": [
+          "SCOPE-EXTERNAL-META"
+        ],
+        "source": "https://example.org/inaccessible-paper",
+        "access_state": "metadata_only",
+        "available_content": "title, authors, venue and URL only"
+      },
+      "required_all_actions": [
+        "INSPECT",
+        "PROJECT",
+        "VALIDATE"
+      ],
+      "required_any_actions": [],
+      "optional_actions": [],
+      "prohibited_actions": [
+        "ASK_OWNER"
+      ],
+      "required_dimensions": [
+        "D01",
+        "D09"
+      ],
+      "prohibited_dimensions": [],
+      "required_scopes": [
+        "SCOPE-EXTERNAL-META"
+      ],
+      "prohibited_scopes": [],
+      "question": {
+        "min_count": 0,
+        "max_count": 0,
+        "allowed_targets": []
+      },
+      "required_side_effects": [],
+      "prohibited_side_effects": [
+        "subagents",
+        "full_scan",
+        "template_intake",
+        "template_analysis",
+        "pdf_pseudo_parse",
+        "external_execution"
+      ],
+      "update_rules": [
+        {
+          "record_kind": "template_source",
+          "min_count": 1,
+          "allowed_fields": {
+            "access_state": [
+              "metadata_only"
+            ],
+            "design_only_state": [
+              "design_only"
+            ],
+            "epistemic_label": [
+              "artifact-observed"
+            ],
+            "locator": [
+              "https://example.org/inaccessible-paper"
+            ],
+            "operation": [
+              "create"
+            ],
+            "origin": [
+              "artifact-observed"
+            ],
+            "record_id": [
+              "TPL-META-15"
+            ],
+            "resolution": [
+              "confirmed"
+            ],
+            "schema_version": [
+              "0.3"
+            ],
+            "status": [
+              "active"
+            ],
+            "support": [
+              "not_applicable"
+            ],
+            "target_kind": [
+              "metadata_only"
+            ]
+          },
+          "non_null_fields": [
+            "access_state",
+            "design_only_state",
+            "epistemic_label",
+            "locator",
+            "operation",
+            "origin",
+            "reason",
+            "record_id",
+            "record_kind",
+            "resolution",
+            "schema_version",
+            "status",
+            "support",
+            "target_kind"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        },
+        {
+          "record_kind": "semantic_dossier",
+          "min_count": 0,
+          "max_count": 0,
+          "allowed_fields": {}
+        }
+      ],
+      "readiness_rules": [
+        {
+          "scope_id": "SCOPE-EXTERNAL-META",
+          "min_count": 1,
+          "allowed_fields": {
+            "blocker": [
+              "FULL_TEXT_UNAVAILABLE"
+            ],
+            "next_action": [
+              "retain metadata-only status"
+            ],
+            "readiness": [
+              "partial"
+            ]
+          },
+          "non_null_fields": [
+            "blocker",
+            "next_action",
+            "readiness",
+            "scope_id"
+          ],
+          "max_count": 1,
+          "exact_fields": []
+        }
+      ],
+      "response_limits": {
+        "min_updates": 1,
+        "max_updates": 1,
+        "min_readiness_updates": 1,
+        "max_readiness_updates": 1
+      },
+      "allowed_dimensions": [
+        "D01",
+        "D09"
+      ],
+      "allowed_scopes": [
+        "SCOPE-EXTERNAL-META"
+      ],
+      "optional_side_effects": []
     }
   ]
 }

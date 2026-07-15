@@ -4,8 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import ast
+from contextlib import suppress
+import hashlib
 import html
 import json
+import math
 import os
 import re
 import sys
@@ -13,17 +17,24 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+SKILL_DIR = SCRIPT_DIR.parent
+
 # Avoid creating local __pycache__ when importing helper constants.
 sys.dont_write_bytecode = True
 
 # Keep bytecode disabled before importing the colocated validator helpers.
 from verify_design_pack import (  # noqa: E402
+    ANALYZER_ACTION_TO_SUGGESTED_DISPOSITION,
+    CANONICAL_SURFACES,
     DIMENSION_COLUMNS,
     DIMENSION_INDEX,
     FINAL_PACK,
+    FOUR_GATES,
     REQUIRED_DIMENSION_IDS,
     REQUIRED_FILES,
     REQUIRED_HEADINGS,
+    TEMPLATE_MODES,
     VALID_BLOCKS_VALUES,
     VALID_DIMENSION_STATUSES,
     first_present,
@@ -32,38 +43,23 @@ from verify_design_pack import (  # noqa: E402
     parse_anchor,
     section_content,
     slugify,
-    validate_workspace,
+    validate_workspace_report,
 )
+from verify_semantic_dossier import validate_semantic_dossier  # noqa: E402
 
 
 CACHE_DIR = ".yxj-paper-os"
 OUTPUT_NAME = "dashboard.html"
 MAX_FRAGMENT_CHARS = 6000
 TEMPLATE_ANALYSIS_DIR = "template-analysis"
-TEMPLATE_ANALYSIS_FILES = {
-    "summary": "corpus-summary.json",
-    "profile": "design-profile.json",
-}
-TEMPLATE_ANALYSIS_SCHEMAS = {
-    "summary": "template-corpus-summary/1.0",
-    "profile": "template-design-profile/1.0",
-}
-TEMPLATE_ANALYSIS_REQUIRED_KEYS = {
-    "template-corpus-summary/1.0": {
-        "analysis_id",
-        "corpus_id",
-        "analyzer_version",
-        "groups",
-        "sequences",
-        "transitions",
-        "lead_lag",
-    },
-    "template-design-profile/1.0": {
-        "analysis_id",
-        "corpus_id",
-        "analyzer_version",
-        "entries",
-    },
+TRUSTED_METRIC_REGISTRY = (
+    SKILL_DIR / "assets" / "template-analysis" / "metric-registry.json"
+)
+ANALYZER_REQUIRED_FILES = {
+    "manifest": ("manifest.json", "template-corpus-normalized/1.0"),
+    "registry": ("metric-registry.json", "template-metric-registry/1.0"),
+    "summary": ("corpus-summary.json", "template-corpus-summary/1.0"),
+    "profile": ("design-profile.json", "template-design-profile/1.0"),
 }
 TEMPLATE_ANALYSIS_IDENTITY_KEYS = (
     "analysis_id",
@@ -71,23 +67,208 @@ TEMPLATE_ANALYSIS_IDENTITY_KEYS = (
     "analyzer_version",
 )
 MAX_ANALYSIS_BYTES = 8_000_000
-MAX_ANALYSIS_PREVIEW_CHARS = 24_000
 MAX_ANALYSIS_LIST_ITEMS = 80
-MAX_ANALYSIS_DICT_ITEMS = 120
-MAX_ANALYSIS_DEPTH = 7
-MAX_ANALYSIS_METRICS_PER_GROUP = 10
-ANALYSIS_PRIORITY_METRICS = (
-    "text.body_words",
-    "structure.section_count",
-    "structure.paragraph_count",
-    "object.figure_count",
-    "object.table_count",
-    "object.equation_count",
-    "object.algorithm_count",
-    "caption.missing_count",
-    "callout.orphan_object_count",
-    "citation.explicit_rate_per_kword",
+ANALYZER_MODES = {"case_set", "exploratory", "distributional"}
+ANALYZER_TOP_LEVEL_KEYS = {
+    "manifest": {
+        "schema",
+        "analyzer_version",
+        "analysis_id",
+        "corpus_id",
+        "target",
+        "analysis_mode",
+        "requested_analysis_mode",
+        "effective_analysis_mode",
+        "analysis_mode_source",
+        "analysis_mode_downgrade_reason",
+        "design_question",
+        "design_metric_ids",
+        "source_manifest_sha256",
+        "metric_registry_sha256",
+        "documents",
+        "official_constraints",
+    },
+    "registry": {
+        "schema",
+        "analysis_id",
+        "corpus_id",
+        "analyzer_version",
+        "version",
+        "registry_version",
+        "tokenizer",
+        "tokenizer_profile",
+        "normalization",
+        "normalization_profile",
+        "missingness",
+        "limits",
+        "input_formats",
+        "aggregation_contract",
+        "annotation_acceptance",
+        "design_translation_contract",
+        "prohibited_semantic_outputs",
+        "metrics",
+    },
+    "summary": {
+        "schema",
+        "analyzer_version",
+        "analysis_id",
+        "corpus_id",
+        "analysis_unit",
+        "analysis_mode",
+        "requested_analysis_mode",
+        "effective_analysis_mode",
+        "design_question",
+        "design_metric_ids",
+        "analysis_mode_source",
+        "analysis_mode_downgrade_reason",
+        "distribution_ready_metric_count",
+        "all_design_metrics_distribution_ready",
+        "design_metric_readiness",
+        "document_count",
+        "parsed_document_count",
+        "supplement_document_count",
+        "venues",
+        "groups",
+        "comparisons",
+        "sequences",
+        "transitions",
+        "lead_lag",
+        "section_sequences",
+        "annotations",
+        "boundaries",
+    },
+    "profile": {
+        "schema",
+        "analyzer_version",
+        "analysis_id",
+        "corpus_id",
+        "design_question",
+        "design_metric_ids",
+        "entries",
+        "forbidden_uses",
+    },
+}
+ANALYZER_REGISTRY_METRIC_KEYS = {
+    "metric_id",
+    "aggregation",
+    "default_aggregation",
+    "definition",
+    "denominator",
+    "design_surfaces",
+    "eligibility",
+    "entity",
+    "extraction_mode",
+    "introduced_in",
+    "implementation_method",
+    "missing_statuses",
+    "numerator",
+    "priority",
+    "paper_reduction",
+    "supported_formats",
+    "unit",
+    "value_type",
+    "zero_semantics",
+}
+ANALYZER_PROFILE_ENTRY_KEYS = {
+    "profile_id",
+    "source_type",
+    "partition",
+    "metric_ids",
+    "observation",
+    "valid_n",
+    "missingness",
+    "uncertainty",
+    "design_surface",
+    "target_kind",
+    "candidate_action",
+    "affected_dimensions",
+    "affected_scopes",
+    "boundary",
+    "source_pointer",
+    "source_hash",
+    "source_sha256",
+    "origin",
+    "resolution",
+}
+ANALYZER_UNCERTAINTY_KEYS = {
+    "kind",
+    "locator",
+    "analysis_mode",
+    "requested_analysis_mode",
+    "effective_analysis_mode",
+    "metric_effective_analysis_mode",
+    "sample_size_label",
+    "sample_size_label_is_gate",
+    "iqr",
+    "mad",
+    "selection_boundary",
+    "valid_coverage",
+    "comparable_stratum",
+    "distribution_supported",
+}
+ANALYZER_METRIC_SUMMARY_KEYS = {
+    "valid_n",
+    "eligible_n",
+    "missingness",
+    "missingness_by_status",
+    "sample_size_label",
+    "sample_size_label_is_gate",
+    "raw_points",
+    "median",
+    "iqr",
+    "mad",
+    "p10",
+    "p25",
+    "p50",
+    "p75",
+    "p90",
+    "min",
+    "max",
+    "mean",
+    "std",
+    "bootstrap_95_ci",
+    "bootstrap_statistic",
+    "bootstrap_resamples",
+    "zero_prevalence",
+    "median_per_paper_rate",
+    "pooled_rate",
+    "category",
+}
+ANALYZER_VISIBLE_METRIC_FIELDS = (
+    "valid_n",
+    "eligible_n",
+    "missingness",
+    "median",
+    "p25",
+    "p75",
+    "iqr",
+    "mad",
+    "bootstrap_95_ci",
+    "sample_size_label",
 )
+SUSPICIOUS_ANALYZER_KEY_RE = re.compile(
+    r"(?i)(?:prompt|oracle|secret|copied[_-]?body|quality|completeness|"
+    r"(?:^|[_-])score(?:$|[_-])|venue[_-]?fit|novelty|acceptance|semantic[_-]?claim)"
+)
+FORBIDDEN_METRIC_ID_RE = re.compile(
+    r"(?i)(?:score|quality|completeness|novel|acceptance|claim|semantic|"
+    r"(?:^|[._-])fit(?:$|[._-]))"
+)
+FORBIDDEN_OBSERVATION_RE = re.compile(
+    r"(?i)\b(?:novel|scientifically?\s+adequate|quality\s+score|venue\s*fit|"
+    r"acceptance\s+(?:score|prediction)|claim\s+truth)\b"
+)
+SAFE_SUSPICIOUS_ANALYZER_KEYS = {
+    "annotation_acceptance",
+    "prohibited_semantic_outputs",
+    "zero_semantics",
+}
+CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f\ud800-\udfff]")
+SAFE_ANALYZER_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z")
+SAFE_METRIC_ID_RE = re.compile(r"[a-z][a-z0-9_]*(?:\.[a-z0-9_]+)+\Z")
+SAFE_PARTITION_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,63}\Z")
+SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
+ANALYSIS_MODE_SOURCES = {"manifest_declared", "conservative_default"}
 
 STATUS_LABELS = {
     "filled": "已填写",
@@ -112,6 +293,48 @@ def warning(
     if dimension_id:
         item["dimension_id"] = dimension_id
     return item
+
+
+def sanitize_untrusted_text(
+    value: str, *, scope: str, warnings: list[dict[str, str]]
+) -> str:
+    matches = CONTROL_CHAR_RE.findall(value)
+    if not matches:
+        return value
+    warnings.append(
+        warning(
+            scope,
+            f"sanitized {len(matches)} NUL/control/lone-surrogate character(s)",
+        )
+    )
+    return CONTROL_CHAR_RE.sub("�", value)
+
+
+def parse_finite_float(token: str) -> float:
+    value = float(token)
+    if not math.isfinite(value):
+        raise ValueError(f"non-finite JSON number {token}")
+    return value
+
+
+def json_safety_issue(value: Any, *, path: str = "$") -> str | None:
+    if isinstance(value, float) and not math.isfinite(value):
+        return f"{path} contains a non-finite number"
+    if isinstance(value, str) and CONTROL_CHAR_RE.search(value):
+        return f"{path} contains NUL/control/lone-surrogate text"
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            issue = json_safety_issue(item, path=f"{path}[{index}]")
+            if issue:
+                return issue
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            if CONTROL_CHAR_RE.search(str(key)):
+                return f"{path} contains an unsafe object key"
+            issue = json_safety_issue(item, path=f"{path}.{key}")
+            if issue:
+                return issue
+    return None
 
 
 def truncate_fragment(text: str, warnings: list[dict[str, str]], scope: str) -> str:
@@ -139,55 +362,15 @@ def load_workspace(workspace: Path) -> tuple[dict[str, str], list[dict[str, str]
             )
             continue
         try:
-            contents[file_name] = path.read_text(encoding="utf-8")
+            text = path.read_text(encoding="utf-8")
+            contents[file_name] = sanitize_untrusted_text(
+                text, scope=file_name, warnings=warnings
+            )
         except UnicodeDecodeError as exc:
             warnings.append(warning(file_name, f"cannot read as utf-8: {exc}"))
         except OSError as exc:
             warnings.append(warning(file_name, f"cannot read file: {exc}"))
     return contents, warnings
-
-
-def bounded_json_value(value: Any, *, depth: int = 0) -> Any:
-    """Return a JSON-safe bounded copy for embedding in the static dashboard."""
-    if depth >= MAX_ANALYSIS_DEPTH:
-        return "[depth truncated]"
-    if value is None or isinstance(value, (bool, int, float)):
-        return value
-    if isinstance(value, str):
-        if len(value) <= MAX_FRAGMENT_CHARS:
-            return value
-        return value[:MAX_FRAGMENT_CHARS] + " [... truncated ...]"
-    if isinstance(value, list):
-        items = [
-            bounded_json_value(item, depth=depth + 1)
-            for item in value[:MAX_ANALYSIS_LIST_ITEMS]
-        ]
-        if len(value) > MAX_ANALYSIS_LIST_ITEMS:
-            items.append(f"[{len(value) - MAX_ANALYSIS_LIST_ITEMS} items truncated]")
-        return items
-    if isinstance(value, dict):
-        bounded: dict[str, Any] = {}
-        pairs = list(value.items())
-        for key, item in pairs[:MAX_ANALYSIS_DICT_ITEMS]:
-            bounded[str(key)[:256]] = bounded_json_value(item, depth=depth + 1)
-        if len(pairs) > MAX_ANALYSIS_DICT_ITEMS:
-            bounded["__truncated__"] = (
-                f"{len(pairs) - MAX_ANALYSIS_DICT_ITEMS} keys truncated"
-            )
-        return bounded
-    return str(value)[:MAX_FRAGMENT_CHARS]
-
-
-def json_preview(value: Any) -> str:
-    preview = json.dumps(
-        bounded_json_value(value),
-        ensure_ascii=False,
-        sort_keys=True,
-        indent=2,
-    )
-    if len(preview) <= MAX_ANALYSIS_PREVIEW_CHARS:
-        return preview
-    return preview[:MAX_ANALYSIS_PREVIEW_CHARS] + "\n[preview truncated]"
 
 
 def unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -203,66 +386,23 @@ def reject_nonfinite_json(token: str) -> Any:
     raise ValueError(f"non-finite JSON token {token}")
 
 
-def load_analysis_json(
-    path: Path,
-    *,
-    analysis_dir: Path,
-    label: str,
-    expected_schema: str,
-    warnings: list[dict[str, str]],
-) -> dict[str, Any]:
-    result: dict[str, Any] = {
-        "label": label,
-        "path": str(path),
-        "state": "absent",
-        "schema": "unknown",
-        "identity": {},
-        "data": {},
-        "preview": "",
-    }
+def read_analyzer_json(
+    path: Path, analysis_dir: Path
+) -> tuple[dict[str, Any] | None, str | None]:
     if not path.exists():
-        return result
+        return None, "required analyzer artifact is absent"
     if path.is_symlink():
-        message = f"refusing to read symlinked template-analysis artifact: {path.name}"
-        warnings.append(warning("template-analysis", message))
-        result.update(state="unsafe", preview=message)
-        return result
+        return None, "required analyzer artifact is a symlink"
     try:
         resolved = path.resolve(strict=True)
         resolved.relative_to(analysis_dir)
-    except (OSError, ValueError) as exc:
-        message = (
-            f"template-analysis artifact escapes its directory: {path.name}: {exc}"
-        )
-        warnings.append(warning("template-analysis", message))
-        result.update(state="unsafe", preview=message)
-        return result
-    if not resolved.is_file():
-        message = f"template-analysis artifact is not a regular file: {path.name}"
-        warnings.append(warning("template-analysis", message))
-        result.update(state="malformed", preview=message)
-        return result
-    try:
-        size = resolved.stat().st_size
-    except OSError as exc:
-        message = f"cannot stat template-analysis artifact {path.name}: {exc}"
-        warnings.append(warning("template-analysis", message))
-        result.update(state="malformed", preview=message)
-        return result
-    if size > MAX_ANALYSIS_BYTES:
-        message = (
-            f"template-analysis artifact {path.name} exceeds "
-            f"{MAX_ANALYSIS_BYTES} bytes; not embedded"
-        )
-        warnings.append(warning("template-analysis", message))
-        result.update(state="oversize", preview=message)
-        return result
-    try:
-        raw = resolved.read_text(encoding="utf-8")
+        if not resolved.is_file() or resolved.stat().st_size > MAX_ANALYSIS_BYTES:
+            raise ValueError("artifact is not a bounded regular file")
         parsed = json.loads(
-            raw,
+            resolved.read_text(encoding="utf-8"),
             object_pairs_hook=unique_json_object,
             parse_constant=reject_nonfinite_json,
+            parse_float=parse_finite_float,
         )
     except (
         OSError,
@@ -270,100 +410,153 @@ def load_analysis_json(
         json.JSONDecodeError,
         ValueError,
         RecursionError,
-    ) as exc:
-        message = f"cannot read template-analysis artifact {path.name}: {exc}"
-        warnings.append(warning("template-analysis", message))
-        result.update(state="malformed", preview=message)
-        return result
+    ):
+        # Do not echo parser details: duplicate keys and malformed tokens are
+        # attacker-controlled and can otherwise become a hidden-body exfiltration
+        # channel through the dashboard warning center.
+        return None, "required analyzer artifact is unreadable or unsafe"
     if not isinstance(parsed, dict):
-        message = f"template-analysis artifact {path.name} must be a JSON object"
-        warnings.append(warning("template-analysis", message))
-        result.update(state="malformed", preview=message)
-        return result
-    bounded = bounded_json_value(parsed)
-    assert isinstance(bounded, dict)
-    schema = parsed.get("schema", parsed.get("schema_id", "unknown"))
-    if schema != expected_schema:
-        message = (
-            f"template-analysis artifact {path.name} has unsupported schema "
-            f"{schema!r}; expected {expected_schema!r}"
-        )
-        warnings.append(warning("template-analysis", message))
-        result.update(
-            state="malformed",
-            schema=str(schema)[:256],
-            data=bounded,
-            preview=json_preview(parsed),
-        )
-        return result
-    missing_keys = sorted(
-        TEMPLATE_ANALYSIS_REQUIRED_KEYS[expected_schema] - set(parsed)
+        return None, "required analyzer artifact must be one JSON object"
+    issue = json_safety_issue(parsed)
+    if issue:
+        return None, issue
+    return parsed, None
+
+
+def has_suspicious_analyzer_key(value: Any) -> bool:
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if (
+                key not in SAFE_SUSPICIOUS_ANALYZER_KEYS
+                and SUSPICIOUS_ANALYZER_KEY_RE.search(key)
+            ):
+                return True
+            if has_suspicious_analyzer_key(item):
+                return True
+    elif isinstance(value, list):
+        return any(has_suspicious_analyzer_key(item) for item in value)
+    return False
+
+
+def _string_list(value: Any) -> list[str] | None:
+    if (
+        not isinstance(value, list)
+        or not value
+        or not all(isinstance(item, str) and item for item in value)
+        or len(value) != len(set(value))
+    ):
+        return None
+    return list(value)
+
+
+def _safe_analyzer_id(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and bool(SAFE_ANALYZER_ID_RE.fullmatch(value))
+        and not SUSPICIOUS_ANALYZER_KEY_RE.search(value)
     )
-    invalid_identity_keys = [
-        key
-        for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
-        if key in parsed
-        and (not isinstance(parsed[key], str) or not parsed[key].strip())
-    ]
-    entries_invalid = expected_schema == TEMPLATE_ANALYSIS_SCHEMAS[
-        "profile"
-    ] and not isinstance(parsed.get("entries"), list)
-    if missing_keys or invalid_identity_keys or entries_invalid:
-        detail = (
-            "missing keys " + ", ".join(missing_keys)
-            if missing_keys
-            else "invalid identity keys " + ", ".join(invalid_identity_keys)
-            if invalid_identity_keys
-            else "entries must be a list"
+
+
+def _safe_metric_value(field: str, value: Any) -> bool:
+    def finite_number(item: Any) -> bool:
+        return (
+            isinstance(item, int)
+            and not isinstance(item, bool)
+            or isinstance(item, float)
+            and math.isfinite(item)
         )
-        message = f"template-analysis artifact {path.name} is malformed: {detail}"
-        warnings.append(warning("template-analysis", message))
-        result.update(
-            state="malformed",
-            schema=str(schema)[:256],
-            data=bounded,
-            preview=json_preview(parsed),
+
+    if value is None:
+        return True
+    if field in {"valid_n", "eligible_n", "missingness"}:
+        return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+    if field == "sample_size_label":
+        return value in ANALYZER_MODES
+    if field == "bootstrap_95_ci":
+        return (
+            isinstance(value, list)
+            and len(value) == 2
+            and all(finite_number(item) for item in value)
         )
-        return result
-    result.update(
-        state="available",
-        schema=str(schema)[:256],
-        identity={key: parsed[key] for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS},
-        data=bounded,
-        preview=json_preview(parsed),
-    )
-    return result
+    return finite_number(value)
+
+
+def load_trusted_metric_registry() -> tuple[set[str], str, str | None]:
+    """Read the shipped registry as the metric-vocabulary trust anchor."""
+
+    try:
+        trusted_root = SKILL_DIR.resolve(strict=True)
+        if TRUSTED_METRIC_REGISTRY.is_symlink():
+            raise ValueError("trusted registry is a symlink")
+        resolved = TRUSTED_METRIC_REGISTRY.resolve(strict=True)
+        resolved.relative_to(trusted_root)
+        if not resolved.is_file() or resolved.stat().st_size > MAX_ANALYSIS_BYTES:
+            raise ValueError("trusted registry is not a bounded regular file")
+        payload_bytes = resolved.read_bytes()
+        payload = json.loads(
+            payload_bytes.decode("utf-8"),
+            object_pairs_hook=unique_json_object,
+            parse_constant=reject_nonfinite_json,
+            parse_float=parse_finite_float,
+        )
+        if (
+            not isinstance(payload, dict)
+            or payload.get("schema") != "template-metric-registry/1.0"
+            or json_safety_issue(payload)
+        ):
+            raise ValueError("trusted registry contract is invalid")
+        rows = payload.get("metrics")
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("trusted registry metric rows are absent")
+        metric_ids: set[str] = set()
+        for row in rows:
+            if isinstance(row, dict) and isinstance(row.get("metric_id"), str):
+                metric_ids.add(row["metric_id"])
+        if len(metric_ids) != len(rows) or not all(
+            isinstance(metric_id, str)
+            and SAFE_METRIC_ID_RE.fullmatch(metric_id)
+            and not SUSPICIOUS_ANALYZER_KEY_RE.search(metric_id)
+            for metric_id in metric_ids
+        ):
+            raise ValueError("trusted registry metric identity is invalid")
+        return metric_ids, hashlib.sha256(payload_bytes).hexdigest(), None
+    except (
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        ValueError,
+        RecursionError,
+    ):
+        return set(), "unknown", "shipped metric registry is unavailable or invalid"
 
 
 def build_template_analysis(
     workspace: Path, warnings: list[dict[str, str]]
 ) -> dict[str, Any]:
-    """Read optional analyzer outputs without modifying or trusting them semantically."""
+    """Validate a complete analyzer bundle and retain only allowlisted mechanics."""
     root = workspace / CACHE_DIR / TEMPLATE_ANALYSIS_DIR
     model: dict[str, Any] = {
         "state": "absent",
         "directory": str(root),
-        "summary": {
-            "label": "corpus summary",
-            "path": str(root / TEMPLATE_ANALYSIS_FILES["summary"]),
-            "state": "absent",
-            "schema": "unknown",
-            "identity": {},
-            "data": {},
-            "preview": "",
+        "artifacts": {
+            key: {
+                "label": key,
+                "path": str(root / filename),
+                "state": "absent",
+                "schema": schema,
+            }
+            for key, (filename, schema) in ANALYZER_REQUIRED_FILES.items()
         },
-        "profile": {
-            "label": "design profile",
-            "path": str(root / TEMPLATE_ANALYSIS_FILES["profile"]),
-            "state": "absent",
-            "schema": "unknown",
-            "identity": {},
-            "data": {},
-            "preview": "",
-        },
+        "identity": {},
+        "provenance": {},
+        "selected_metric_ids": [],
+        "metric_summaries": [],
+        "candidates": [],
+        "violations": [],
         "note": (
-            "Optional hidden statistics guide writing design only; they are not D06/D11 "
-            "scientific evidence, venue-fit scoring, or acceptance prediction."
+            "Strict allowlist projection of a complete optional analyzer bundle; no "
+            "raw parsed tree, preview, semantic observation, score, prompt, or oracle "
+            "content is retained in dashboard data."
         ),
     }
     if not root.exists():
@@ -388,53 +581,534 @@ def build_template_analysis(
         model.update(state="malformed", note=message)
         return model
 
-    model["summary"] = load_analysis_json(
-        resolved_root / TEMPLATE_ANALYSIS_FILES["summary"],
-        analysis_dir=resolved_root,
-        label="corpus summary",
-        expected_schema=TEMPLATE_ANALYSIS_SCHEMAS["summary"],
-        warnings=warnings,
-    )
-    model["profile"] = load_analysis_json(
-        resolved_root / TEMPLATE_ANALYSIS_FILES["profile"],
-        analysis_dir=resolved_root,
-        label="design profile",
-        expected_schema=TEMPLATE_ANALYSIS_SCHEMAS["profile"],
-        warnings=warnings,
-    )
-    if all(model[name]["state"] == "available" for name in ("summary", "profile")):
-        summary_data = model["summary"].get("identity", {})
-        profile_data = model["profile"].get("identity", {})
-        summary_identity = tuple(
-            summary_data.get(key) for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
-        )
-        profile_identity = tuple(
-            profile_data.get(key) for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
-        )
-        if summary_identity != profile_identity:
-            labels = ", ".join(TEMPLATE_ANALYSIS_IDENTITY_KEYS)
-            message = (
-                "template-analysis summary/profile identity mismatch for "
-                f"{labels}; neither artifact was trusted"
+    parsed: dict[str, dict[str, Any]] = {}
+    violations: list[str] = []
+
+    def reject(code: str, message: str) -> None:
+        if code not in violations:
+            violations.append(code)
+        warnings.append(warning("template-analysis", message))
+
+    for key, (filename, expected_schema) in ANALYZER_REQUIRED_FILES.items():
+        payload, error = read_analyzer_json(resolved_root / filename, resolved_root)
+        artifact = model["artifacts"][key]
+        if error:
+            artifact["state"] = (
+                "absent" if not (resolved_root / filename).exists() else "malformed"
             )
-            warnings.append(warning("template-analysis", message))
-            for name in ("summary", "profile"):
-                model[name].update(
-                    state="inconsistent",
-                    data={},
-                    preview=message,
-                )
-            model.update(state="degraded", note=message)
-            return model
-    states = {model["summary"]["state"], model["profile"]["state"]}
-    if states == {"available"}:
-        model["state"] = "available"
-    elif states <= {"available", "absent"} and "available" in states:
-        model["state"] = "partial"
-    elif states == {"absent"}:
-        model["state"] = "absent"
-    else:
+            reject("ANALYZER_BUNDLE", f"{filename}: {error}")
+            continue
+        assert payload is not None
+        parsed[key] = payload
+        if payload.get("schema") != expected_schema:
+            artifact["state"] = "malformed"
+            reject("ANALYZER_SCHEMA", f"{filename}: unsupported analyzer schema")
+            continue
+        artifact["state"] = "validated"
+        extra_top = set(payload) - ANALYZER_TOP_LEVEL_KEYS[key]
+        if extra_top:
+            reject(
+                "ANALYZER_EXTRA_FIELD",
+                f"{filename}: disallowed extra analyzer fields were omitted",
+            )
+        if has_suspicious_analyzer_key(payload):
+            reject(
+                "ANALYZER_FORBIDDEN_FIELD",
+                f"{filename}: forbidden prompt/oracle/score-like fields were omitted",
+            )
+
+    if set(parsed) != set(ANALYZER_REQUIRED_FILES):
         model["state"] = "degraded"
+        model["violations"] = violations
+        return model
+
+    identities: list[tuple[Any, ...]] = []
+    for key, payload in parsed.items():
+        identity = tuple(payload.get(name) for name in TEMPLATE_ANALYSIS_IDENTITY_KEYS)
+        if not all(_safe_analyzer_id(value) for value in identity):
+            reject("ANALYZER_IDENTITY", f"{key}: analyzer identity is incomplete")
+        identities.append(identity)
+    if len(set(identities)) != 1:
+        reject("ANALYZER_MIXED_IDENTITY", "analyzer bundle identity is mixed")
+    else:
+        model["identity"] = dict(zip(TEMPLATE_ANALYSIS_IDENTITY_KEYS, identities[0]))
+    if {
+        "ANALYZER_IDENTITY",
+        "ANALYZER_MIXED_IDENTITY",
+    }.intersection(violations):
+        # Never combine even mechanically allowlisted values across an incomplete or
+        # mixed identity boundary.  The artifact status is still useful, but the
+        # bundle itself has no trusted projection.
+        model["state"] = (
+            "mixed" if "ANALYZER_MIXED_IDENTITY" in violations else "degraded"
+        )
+        model["violations"] = violations
+        return model
+
+    manifest = parsed["manifest"]
+    registry = parsed["registry"]
+    summary = parsed["summary"]
+    profile = parsed["profile"]
+    trusted_registry_ids, trusted_registry_sha, trusted_registry_error = (
+        load_trusted_metric_registry()
+    )
+    if trusted_registry_error:
+        reject("ANALYZER_TRUST_ANCHOR", trusted_registry_error)
+    if manifest.get("metric_registry_sha256") != trusted_registry_sha:
+        reject(
+            "ANALYZER_REGISTRY_DIGEST",
+            "analyzer registry digest does not match the shipped trust anchor",
+        )
+    selected = _string_list(manifest.get("design_metric_ids"))
+    if selected is None or not all(
+        SAFE_METRIC_ID_RE.fullmatch(metric)
+        and not FORBIDDEN_METRIC_ID_RE.search(metric)
+        and not SUSPICIOUS_ANALYZER_KEY_RE.search(metric)
+        for metric in selected
+    ):
+        reject("ANALYZER_METRICS", "analyzer selected metric identity is invalid")
+        selected = []
+    effective_mode = manifest.get("effective_analysis_mode")
+    if effective_mode not in ANALYZER_MODES:
+        reject("ANALYZER_MODE", "analyzer effective mode is invalid")
+        effective_mode = "unknown"
+    for payload in (summary, profile):
+        if payload.get("design_metric_ids") != selected:
+            reject("ANALYZER_METRICS", "analyzer selected metrics differ across bundle")
+    if summary.get("effective_analysis_mode") != effective_mode:
+        reject("ANALYZER_MODE", "summary effective mode differs from manifest")
+
+    registry_rows = registry.get("metrics")
+    registry_ids: set[str] = set()
+    if not isinstance(registry_rows, list) or not registry_rows:
+        reject("ANALYZER_REGISTRY", "metric registry rows are missing")
+        registry_rows = []
+    for row in registry_rows:
+        if not isinstance(row, dict):
+            reject(
+                "ANALYZER_EXTRA_FIELD", "metric registry contains disallowed row fields"
+            )
+            continue
+        metric_id = row.get("metric_id")
+        if isinstance(metric_id, str) and (
+            FORBIDDEN_METRIC_ID_RE.search(metric_id)
+            or SUSPICIOUS_ANALYZER_KEY_RE.search(metric_id)
+        ):
+            reject(
+                "ANALYZER_FORBIDDEN_METRIC", "forbidden score-like metric was omitted"
+            )
+            continue
+        if set(row) - ANALYZER_REGISTRY_METRIC_KEYS:
+            reject(
+                "ANALYZER_EXTRA_FIELD", "metric registry contains disallowed row fields"
+            )
+            continue
+        if (
+            not isinstance(metric_id, str)
+            or not SAFE_METRIC_ID_RE.fullmatch(metric_id)
+            or SUSPICIOUS_ANALYZER_KEY_RE.search(metric_id)
+            or metric_id in registry_ids
+        ):
+            reject("ANALYZER_REGISTRY", "metric registry IDs are invalid or duplicated")
+            continue
+        if metric_id not in trusted_registry_ids:
+            reject(
+                "ANALYZER_UNSUPPORTED_METRIC",
+                "workspace registry contains a metric outside the shipped registry",
+            )
+            continue
+        registry_ids.add(metric_id)
+    if any(
+        metric not in registry_ids
+        or metric not in trusted_registry_ids
+        or FORBIDDEN_METRIC_ID_RE.search(metric)
+        for metric in selected
+    ):
+        reject("ANALYZER_UNSUPPORTED_METRIC", "selected unsupported metric was omitted")
+    model["selected_metric_ids"] = [
+        metric
+        for metric in selected
+        if metric in registry_ids and metric in trusted_registry_ids
+    ]
+
+    groups = summary.get("groups")
+    overall = groups.get("overall") if isinstance(groups, dict) else None
+    metrics = overall.get("metrics") if isinstance(overall, dict) else None
+    if not isinstance(metrics, dict):
+        reject("ANALYZER_SUMMARY", "summary overall metric map is missing")
+        metrics = {}
+    for metric_id, metric in metrics.items():
+        if (
+            not isinstance(metric_id, str)
+            or metric_id not in registry_ids
+            or metric_id not in trusted_registry_ids
+            or FORBIDDEN_METRIC_ID_RE.search(metric_id)
+        ):
+            reject(
+                "ANALYZER_UNSUPPORTED_METRIC", "summary unsupported metric was omitted"
+            )
+            continue
+        if not isinstance(metric, dict) or set(metric) - ANALYZER_METRIC_SUMMARY_KEYS:
+            reject("ANALYZER_EXTRA_FIELD", "summary metric has disallowed fields")
+            continue
+        if metric_id not in selected:
+            continue
+        projection: dict[str, Any] = {"metric_id": metric_id}
+        metric_is_safe = True
+        for field in ANALYZER_VISIBLE_METRIC_FIELDS:
+            value = metric.get(field)
+            if not _safe_metric_value(field, value):
+                metric_is_safe = False
+                reject(
+                    "ANALYZER_METRIC_VALUE",
+                    "summary metric contains a non-mechanical or invalid value",
+                )
+                break
+            projection[field] = value
+        if metric_is_safe:
+            model["metric_summaries"].append(projection)
+
+    entries = profile.get("entries")
+    if not isinstance(entries, list):
+        reject("ANALYZER_PROFILE", "design profile entries are missing")
+        entries = []
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            reject("ANALYZER_PROFILE", "design profile contains a non-object entry")
+            continue
+        if set(entry) - ANALYZER_PROFILE_ENTRY_KEYS:
+            reject(
+                "ANALYZER_EXTRA_FIELD",
+                "design profile contains disallowed entry fields",
+            )
+        observation = entry.get("observation")
+        if isinstance(observation, str) and FORBIDDEN_OBSERVATION_RE.search(
+            observation
+        ):
+            reject("ANALYZER_SEMANTIC_CLAIM", "semantic-claim observation was omitted")
+        source_type = entry.get("source_type")
+        metric_ids = entry.get("metric_ids")
+        if not isinstance(metric_ids, list) or not all(
+            isinstance(metric, str) for metric in metric_ids
+        ):
+            reject("ANALYZER_PROFILE", "candidate metric identity is invalid")
+            metric_ids = []
+        candidate_metrics_supported = not (
+            source_type == "corpus"
+            and (
+                not metric_ids
+                or any(
+                    metric not in selected
+                    or metric not in registry_ids
+                    or metric not in trusted_registry_ids
+                    for metric in metric_ids
+                )
+            )
+        )
+        if not candidate_metrics_supported:
+            reject("ANALYZER_UNSUPPORTED_METRIC", "candidate uses an unselected metric")
+        elif source_type not in {"corpus", "official_constraints"}:
+            reject("ANALYZER_PROFILE", "candidate source type is invalid")
+        valid_n = entry.get("valid_n")
+        missingness = entry.get("missingness")
+        if (
+            not isinstance(valid_n, int)
+            or isinstance(valid_n, bool)
+            or valid_n < 0
+            or not isinstance(missingness, int)
+            or isinstance(missingness, bool)
+            or missingness < 0
+            or valid_n + missingness <= 0
+        ):
+            reject(
+                "ANALYZER_DENOMINATOR", "candidate denominator/missingness is invalid"
+            )
+        action = entry.get("candidate_action")
+        action_is_known = action in ANALYZER_ACTION_TO_SUGGESTED_DISPOSITION
+        if not action_is_known:
+            reject("ANALYZER_UNKNOWN_ACTION", "candidate action is unknown")
+        uncertainty = entry.get("uncertainty")
+        if not isinstance(uncertainty, dict):
+            reject("ANALYZER_UNCERTAINTY", "candidate uncertainty is missing")
+            uncertainty = {}
+        elif set(uncertainty) - ANALYZER_UNCERTAINTY_KEYS:
+            reject(
+                "ANALYZER_EXTRA_FIELD", "candidate uncertainty has disallowed fields"
+            )
+        item_mode = uncertainty.get("effective_analysis_mode")
+        metric_mode = uncertainty.get("metric_effective_analysis_mode")
+        if source_type == "corpus" and (
+            item_mode != effective_mode or metric_mode not in ANALYZER_MODES
+        ):
+            reject("ANALYZER_MODE", "candidate effective-mode boundary is invalid")
+        comparable = uncertainty.get("comparable_stratum")
+        comparable_state = (
+            "comparable"
+            if comparable is True
+            else "incomparable"
+            if comparable is False
+            else "N/A"
+        )
+        candidate_id = entry.get("profile_id")
+        if not _safe_analyzer_id(candidate_id):
+            reject("ANALYZER_PROFILE", "candidate identity is invalid")
+            candidate_id = f"entry-{index + 1}"
+        partition = entry.get("partition")
+        if (
+            not isinstance(partition, str)
+            or not SAFE_PARTITION_RE.fullmatch(partition)
+            or SUSPICIOUS_ANALYZER_KEY_RE.search(partition)
+        ):
+            reject("ANALYZER_PROFILE", "candidate partition is invalid")
+            partition = "unknown"
+        affected_scopes = entry.get("affected_scopes")
+        if not isinstance(affected_scopes, list) or not all(
+            isinstance(scope, str) and SCOPE_ID_RE.fullmatch(scope)
+            for scope in affected_scopes
+        ):
+            reject("ANALYZER_PROFILE", "candidate affected scopes are invalid")
+            affected_scopes = []
+        if not candidate_metrics_supported:
+            continue
+        model["candidates"].append(
+            {
+                "candidate_id": candidate_id,
+                "source_type": source_type
+                if source_type in {"corpus", "official_constraints"}
+                else "unknown",
+                "partition": partition,
+                "metric_ids": [
+                    metric
+                    for metric in metric_ids
+                    if metric in model["selected_metric_ids"]
+                ],
+                "valid_n": valid_n if isinstance(valid_n, int) else "invalid",
+                "missingness": missingness
+                if isinstance(missingness, int)
+                else "invalid",
+                "effective_analysis_mode": item_mode
+                if item_mode in ANALYZER_MODES
+                else "N/A",
+                "metric_effective_analysis_mode": metric_mode
+                if metric_mode in ANALYZER_MODES
+                else "N/A",
+                "comparability": comparable_state,
+                "candidate_action": str(action) if action_is_known else "unknown",
+                "affected_scopes": affected_scopes,
+            }
+        )
+
+    mode_source = manifest.get("analysis_mode_source")
+    source_manifest_sha = manifest.get("source_manifest_sha256")
+    registry_sha = manifest.get("metric_registry_sha256")
+    if mode_source not in ANALYSIS_MODE_SOURCES:
+        reject("ANALYZER_PROVENANCE", "analysis mode source is invalid")
+        mode_source = "unknown"
+    if not isinstance(source_manifest_sha, str) or not SHA256_RE.fullmatch(
+        source_manifest_sha
+    ):
+        reject("ANALYZER_PROVENANCE", "source manifest digest is invalid")
+        source_manifest_sha = "unknown"
+    if registry_sha != trusted_registry_sha:
+        reject("ANALYZER_PROVENANCE", "metric registry digest is invalid")
+        registry_sha = "unknown"
+    model["provenance"] = {
+        "effective_analysis_mode": effective_mode,
+        "analysis_mode_source": mode_source,
+        "source_manifest_sha256": source_manifest_sha,
+        "metric_registry_sha256": registry_sha,
+    }
+    model["violations"] = violations
+    if "ANALYZER_MIXED_IDENTITY" in violations:
+        model["state"] = "mixed"
+    elif "ANALYZER_UNKNOWN_ACTION" in violations:
+        model["state"] = "unknown_action"
+    elif violations:
+        model["state"] = "degraded"
+    elif any(item["comparability"] == "incomparable" for item in model["candidates"]):
+        model["state"] = "incomparable"
+    else:
+        model["state"] = "current"
+    return model
+
+
+def load_semantic_dossier(
+    workspace: Path, warnings: list[dict[str, str]]
+) -> dict[str, Any]:
+    """Project the hidden semantic dossier without exposing semantic body text."""
+
+    path = workspace / CACHE_DIR / TEMPLATE_ANALYSIS_DIR / "semantic-dossier.json"
+    model: dict[str, Any] = {
+        "state": "absent",
+        "path": str(path),
+        "schema": "unknown",
+        "dossier_id": "none",
+        "updated_at": "none",
+        "counts": {"documents": 0, "observations": 0, "rules": 0},
+        "documents": [],
+        "rules": [],
+        "freshness": [],
+        "limitations": [],
+        "projection_state": "absent",
+        "diagnostics": [],
+        "note": (
+            "Hidden model-semantic design provenance only; no prompt/oracle body, "
+            "scientific authority, or semantic-completeness score is displayed."
+        ),
+    }
+    if not path.exists():
+        return model
+    if path.is_symlink():
+        message = "refusing to read symlinked semantic-dossier.json"
+        warnings.append(warning("semantic-dossier", message))
+        model.update(state="unsafe", projection_state="untrusted")
+        model["diagnostics"] = [message]
+        return model
+    try:
+        root = workspace.resolve(strict=True)
+        resolved = path.resolve(strict=True)
+        resolved.relative_to(root)
+        if not resolved.is_file() or resolved.stat().st_size > MAX_ANALYSIS_BYTES:
+            raise ValueError("dossier is not a bounded regular file")
+        payload = json.loads(
+            resolved.read_text(encoding="utf-8"),
+            object_pairs_hook=unique_json_object,
+            parse_constant=reject_nonfinite_json,
+            parse_float=parse_finite_float,
+        )
+    except (
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        ValueError,
+        RecursionError,
+    ):
+        message = "cannot read semantic-dossier.json: unreadable or unsafe input"
+        warnings.append(warning("semantic-dossier", message))
+        model.update(state="malformed", projection_state="untrusted")
+        model["diagnostics"] = [message]
+        return model
+    if not isinstance(payload, dict):
+        message = "semantic-dossier.json must be one JSON object"
+        warnings.append(warning("semantic-dossier", message))
+        model.update(state="malformed", projection_state="untrusted")
+        model["diagnostics"] = [message]
+        return model
+    safety_issue = json_safety_issue(payload)
+    if safety_issue:
+        message = f"cannot trust semantic-dossier.json: {safety_issue}"
+        warnings.append(warning("semantic-dossier", message))
+        model.update(state="malformed", projection_state="untrusted")
+        model["diagnostics"] = [message]
+        return model
+
+    diagnostics = validate_semantic_dossier(payload, workspace)
+    diagnostic_text = [
+        f"{item.code}: {item.message}"
+        + (f" [{';'.join(item.scopes)}]" if item.scopes else "")
+        for item in diagnostics[:MAX_ANALYSIS_LIST_ITEMS]
+    ]
+    for message in diagnostic_text:
+        warnings.append(warning("semantic-dossier", message))
+
+    raw_documents = payload.get("documents")
+    raw_observations = payload.get("observations")
+    raw_rules = payload.get("transfer_rules")
+    documents = raw_documents if isinstance(raw_documents, list) else []
+    observations = raw_observations if isinstance(raw_observations, list) else []
+    rules = raw_rules if isinstance(raw_rules, list) else []
+    projected_documents: list[dict[str, str]] = []
+    freshness: set[str] = set()
+    limitations: list[str] = []
+    for document in documents[:MAX_ANALYSIS_LIST_ITEMS]:
+        if not isinstance(document, dict):
+            continue
+        item = {
+            "template_source_id": str(document.get("template_source_id", "unknown")),
+            "role": str(document.get("role", "unknown")),
+            "source_pointer": str(document.get("source_pointer", "unknown")),
+            "acquisition_provenance": str(
+                document.get("acquisition_provenance", "unknown")
+            ),
+            "access_state": str(document.get("access_state", "unknown")),
+            "source_sha256": str(document.get("source_sha256", "unknown")),
+            "freshness": str(document.get("freshness", "unknown")),
+            "copyright_limitation": str(
+                document.get("access_copyright_limitation", "unknown")
+            ),
+            "design_only_state": str(document.get("design_only_state", "unknown")),
+        }
+        projected_documents.append(item)
+        freshness.add(item["freshness"])
+        limitations.append(item["copyright_limitation"])
+
+    projected_rules: list[dict[str, str]] = []
+    for rule in rules[:MAX_ANALYSIS_LIST_ITEMS]:
+        if not isinstance(rule, dict):
+            continue
+        snapshot_value = rule.get("application_snapshot")
+        snapshot: dict[str, Any] = (
+            snapshot_value if isinstance(snapshot_value, dict) else {}
+        )
+        item = {
+            "rule_id": str(rule.get("rule_id", "unknown")),
+            "source_freshness": str(rule.get("source_freshness", "unknown")),
+            "surface": str(snapshot.get("surface", "unknown")),
+            "resolution": str(snapshot.get("resolution", "unknown")),
+            "disposition": str(snapshot.get("disposition", "unknown")),
+            "gate_category": str(snapshot.get("gate_category", "unknown")),
+            "public_projection_pointer": str(
+                snapshot.get("public_projection_pointer", "unknown")
+            ),
+            "limitation": str(rule.get("limitation", "unknown")),
+        }
+        projected_rules.append(item)
+        freshness.add(item["source_freshness"])
+        limitations.append(item["limitation"])
+
+    codes = {item.code for item in diagnostics}
+    stale_values = {"stale", "unavailable"}.intersection(freshness)
+    if "TEMPLATE_PROJECTION_MISMATCH" in codes:
+        state = "projection_mismatch"
+        projection_state = "mismatch"
+    elif "DOSSIER_SCHEMA" in codes:
+        state = "malformed"
+        projection_state = "untrusted"
+    elif stale_values or {"DOSSIER_FRESHNESS", "DOSSIER_FINGERPRINT"}.intersection(
+        codes
+    ):
+        state = "stale"
+        projection_state = "degraded"
+    elif diagnostics:
+        state = "degraded"
+        projection_state = "degraded"
+    else:
+        state = "current"
+        projection_state = "current"
+
+    context = payload.get("analysis_context")
+    if isinstance(context, dict):
+        for key in ("access_limitations", "uncertainty_note"):
+            value = context.get(key)
+            if isinstance(value, str) and value:
+                limitations.append(value)
+    model.update(
+        state=state,
+        schema=str(payload.get("schema", "unknown")),
+        dossier_id=str(payload.get("dossier_id", "unknown")),
+        updated_at=str(payload.get("updated_at", "unknown")),
+        counts={
+            "documents": len(documents),
+            "observations": len(observations),
+            "rules": len(rules),
+        },
+        documents=projected_documents,
+        rules=projected_rules,
+        freshness=sorted(freshness),
+        limitations=limitations[:MAX_ANALYSIS_LIST_ITEMS],
+        projection_state=projection_state,
+        diagnostics=diagnostic_text,
+    )
     return model
 
 
@@ -772,14 +1446,632 @@ def attach_source_tables(
         )
 
 
-def add_validator_warnings(workspace: Path, warnings: list[dict[str, str]]) -> None:
+def add_validator_warnings(
+    workspace: Path, warnings: list[dict[str, str]]
+) -> dict[str, list[str]]:
     try:
-        validator_errors = validate_workspace(workspace)
+        report = validate_workspace_report(workspace)
     except Exception as exc:  # pragma: no cover - defensive non-blocking integration.
-        warnings.append(warning("validator", f"validator could not complete: {exc}"))
-        return
-    for error in validator_errors:
+        message = sanitize_untrusted_text(
+            f"validator could not complete: {exc}",
+            scope="validator",
+            warnings=warnings,
+        )
+        warnings.append(warning("validator", message))
+        return {"errors": [message], "warnings": []}
+    errors = [
+        sanitize_untrusted_text(str(error), scope="validator", warnings=warnings)
+        for error in report.errors
+    ]
+    validator_warnings = [
+        sanitize_untrusted_text(str(item), scope="validator-warning", warnings=warnings)
+        for item in report.warnings
+    ]
+    for error in errors:
         warnings.append(warning("validator", f"validator: {error}"))
+    for item in validator_warnings:
+        warnings.append(warning("validator-warning", f"validator warning: {item}"))
+    return {"errors": errors, "warnings": validator_warnings}
+
+
+def build_schema_projection(
+    contents: dict[str, str], validation: dict[str, list[str]]
+) -> dict[str, Any]:
+    """Expose schema/migration state without treating legacy readiness as current."""
+
+    text = contents.get(DIMENSION_INDEX, "")
+    match = re.search(r"(?im)^\s*-?\s*Workspace schema version\s*:\s*([^\s]+)", text)
+    version = match.group(1).strip() if match else "missing"
+    codes = {item.split(":", 1)[0] for item in validation["errors"]}
+    if "SCHEMA_LEGACY_02" in codes or version == "0.2":
+        state = "legacy_migration_required"
+        message = (
+            "Legacy detailed-readiness migration required: schema 0.2 cannot be "
+            "displayed as a current ready state."
+        )
+    elif "SCHEMA_MISSING" in codes:
+        state = "missing"
+        message = (
+            "Workspace schema marker is missing; detailed readiness is unavailable."
+        )
+    elif "SCHEMA_INVALID" in codes:
+        state = "invalid"
+        message = (
+            "Workspace schema marker is invalid; detailed readiness is unavailable."
+        )
+    elif "SCHEMA_UNSUPPORTED" in codes:
+        state = "unsupported"
+        message = f"Workspace schema {version} is unsupported."
+    elif version == "0.3":
+        state = "current"
+        message = "Schema 0.3 detailed-design projection is available."
+    else:
+        state = "unknown"
+        message = "Workspace schema could not be established."
+    return {
+        "version": version,
+        "state": state,
+        "message": message,
+        "allows_current_detailed_readiness": state == "current",
+    }
+
+
+def project_public_table(
+    contents: dict[str, str],
+    filename: str,
+    heading: str,
+    warnings: list[dict[str, str]],
+) -> list[dict[str, str]]:
+    """Return a non-authoritative, escaped-at-render table projection."""
+
+    text = contents.get(filename)
+    if text is None:
+        return []
+    fragment = section_content(text, heading)
+    if fragment is None:
+        warnings.append(
+            warning(filename, f"dashboard projection missing heading: {heading}")
+        )
+        return []
+    parsed = parse_dashboard_table(fragment, f"{filename}#{heading}")
+    for item in parsed.warnings:
+        warnings.append(warning(filename, item))
+    return [
+        {str(key): str(value) for key, value in row["values"].items()}
+        for row in parsed.rows
+    ]
+
+
+def _split_ids(value: str) -> list[str]:
+    if not value or value.strip().lower() == "none":
+        return []
+    return sorted(
+        {
+            item.strip()
+            for item in re.split(r"[;,]", value)
+            if item.strip() and item.strip().lower() != "none"
+        }
+    )
+
+
+TYPED_RECORD_ID_RE = re.compile(
+    r"\b(?:REQ|DEC|M|C|TPL|TRULE|SEC|PAR|FRM|LANG|VIS|EDGE|BUD)-[a-z0-9]+(?:-[a-z0-9]+)*\b"
+)
+DECISION_ID_RE = re.compile(r"DEC-[a-z0-9]+(?:-[a-z0-9]+)*\Z")
+SCOPE_ID_RE = re.compile(r"\bSCOPE-[a-z0-9]+(?:-[a-z0-9]+)*\b")
+SCOPE_SUBJECT_RE = re.compile(r"(?<![A-Za-z0-9_-])SCOPE-(?:(?!SCOPE-)[^/|:\s])*")
+SCOPE_COLUMNS = {
+    "Scope ID",
+    "Affected scopes",
+    "Affected scope IDs",
+    "Scope / conditions",
+}
+
+
+def extract_scope_subjects(message: str) -> set[str]:
+    """Capture explicit scope-like subjects without redefining valid scope IDs."""
+
+    trailing_syntax = "\"'`.,;!?)]}"
+    if message.startswith("OWNER_GATE:"):
+        # OWNER_GATE mixes 04 row subjects with authoritative DEC/PAR/rule records.
+        # Its stable 04 grammar is handled before this generic extractor; every
+        # other OWNER_GATE diagnostic must remain eligible for record ownership.
+        return set()
+    return {
+        token
+        for match in SCOPE_SUBJECT_RE.finditer(message)
+        if (token := match.group(0).rstrip(trailing_syntax))
+    }
+
+
+def extract_04_row_subject(code: str, payload: str) -> str | None:
+    """Return a complete subject only for stable 04 row diagnostic grammars."""
+
+    if code == "OWNER_GATE":
+        for suffix in (
+            " owner-gate summary has invalid blockers",
+            " owner-gate blockers differ from authoritative 00 scope row",
+        ):
+            if payload.endswith(suffix):
+                return payload[: -len(suffix)]
+        duplicate_prefix = "duplicate owner-gate summary key "
+        if payload.startswith(duplicate_prefix):
+            key = payload[len(duplicate_prefix) :]
+            subject, slash, decision_id = key.rpartition("/")
+            if (
+                slash
+                and decision_id
+                and not any(
+                    character.isspace() or character == "/" for character in decision_id
+                )
+            ):
+                return subject
+            return None
+        head, separator, _ = payload.rpartition(" summary")
+        subject, slash, decision_id = head.rpartition("/")
+        if (
+            separator
+            and slash
+            and decision_id
+            and not any(
+                character.isspace() or character == "/" for character in decision_id
+            )
+        ):
+            return subject
+        return None
+
+    if code == "MANIFEST_UNRESOLVED":
+        suffixes = (
+            " has invalid unresolved record IDs",
+            " unresolved IDs differ from authoritative 00 blockers",
+        )
+    elif code == "TEMPLATE_FIREWALL":
+        suffixes = (" template handling is not design_only",)
+    elif code == "TEMPLATE_RULE_INCOMPATIBLE":
+        suffixes = (
+            " combined mode must state semantic reading remains primary",
+            " template handling has invalid blocker IDs",
+        )
+    elif code == "SCOPE_CONTRACT":
+        suffixes = (
+            " template handling blockers differ from authoritative 00 scope row",
+        )
+    elif code == "ABSENCE_CONTRACT":
+        suffixes = (
+            " unresolved row lacks consequence/prohibition",
+            " handoff needs substantive prohibition and note",
+        )
+    else:
+        suffixes = ()
+    for suffix in suffixes:
+        if payload.endswith(suffix):
+            return payload[: -len(suffix)]
+
+    if code == "DETAILED_SURFACE_COVERAGE":
+        summary_prefix = "summary references unknown "
+        if payload.startswith(summary_prefix):
+            return payload[len(summary_prefix) :]
+        row_prefix = "unknown scope/surface row "
+        if payload.startswith(row_prefix):
+            encoded_key = payload[len(row_prefix) :]
+            if len(encoded_key) > MAX_FRAGMENT_CHARS:
+                return None
+            try:
+                key = ast.literal_eval(encoded_key)
+            except (MemoryError, RecursionError, SyntaxError, ValueError):
+                return None
+            if (
+                isinstance(key, tuple)
+                and len(key) == 2
+                and all(isinstance(item, str) for item in key)
+            ):
+                return key[0]
+    return None
+
+
+def extract_owner_gate_declared_scope_subject(
+    payload: str, declared_scope_ids: set[str]
+) -> str | None:
+    """Return a strict declared scope only for authoritative OWNER_GATE grammars."""
+
+    missing_suffix = " lacks an Owner Gate Resolution Summary row"
+    if payload.endswith(missing_suffix):
+        candidate = payload[: -len(missing_suffix)]
+    else:
+        absent_suffix = " is absent from the 04 owner-gate summary"
+        if not payload.endswith(absent_suffix):
+            return None
+        key = payload[: -len(absent_suffix)]
+        candidate, slash, decision_id = key.rpartition("/")
+        if not slash or DECISION_ID_RE.fullmatch(decision_id) is None:
+            return None
+    if candidate not in declared_scope_ids or SCOPE_ID_RE.fullmatch(candidate) is None:
+        return None
+    return candidate
+
+
+def build_record_scope_index(
+    contents: dict[str, str], scope_ids: set[str]
+) -> dict[str, set[str]]:
+    """Index typed records through exact scope columns, never prose inference."""
+
+    index: dict[str, set[str]] = {}
+    for filename, text in contents.items():
+        if filename == FINAL_PACK:
+            # 04 is a compact mirror/handoff surface, never a record-to-scope
+            # authority for assigning validator diagnostics.
+            continue
+        headings = [
+            match.group(1).strip()
+            for match in re.finditer(r"^##\s+(.+?)\s*$", text, re.MULTILINE)
+        ]
+        for heading in headings:
+            fragment = section_content(text, heading)
+            if fragment is None:
+                continue
+            table = parse_dashboard_table(fragment, heading)
+            for row in table.rows:
+                values = row["values"]
+                row_scopes: set[str] = set()
+                for column in SCOPE_COLUMNS.intersection(values):
+                    row_scopes.update(SCOPE_ID_RE.findall(str(values[column])))
+                row_scopes.intersection_update(scope_ids)
+                if not row_scopes:
+                    continue
+                for value in values.values():
+                    for record_id in TYPED_RECORD_ID_RE.findall(str(value)):
+                        index.setdefault(record_id, set()).update(row_scopes)
+    return index
+
+
+def build_validation_projection(
+    errors: list[str],
+    contents: dict[str, str],
+    scope_ids: set[str],
+    known_orphan_scope_ids: set[str],
+    cardinality_attribution: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    record_scopes = build_record_scope_index(contents, scope_ids)
+    diagnostics: list[dict[str, Any]] = []
+    by_scope = {scope_id: [] for scope_id in sorted(scope_ids)}
+    global_ids: list[str] = []
+    orphan_ids: list[str] = []
+    for index, message in enumerate(errors, 1):
+        diagnostic_id = f"VDIAG-{index:03d}"
+        code, _, payload = message.partition(":")
+        payload = payload.removeprefix(" ")
+        policy = cardinality_attribution.get(code, {})
+        policy_orphans = set(policy.get("orphan_scope_ids", []))
+        row_subject = extract_04_row_subject(code, payload)
+        typed_orphan = (
+            row_subject
+            if row_subject is not None and row_subject in known_orphan_scope_ids
+            else None
+        )
+        authoritative_scope_subject = (
+            extract_owner_gate_declared_scope_subject(payload, scope_ids)
+            if code == "OWNER_GATE" and row_subject is None
+            else None
+        )
+        typed_declared = (
+            row_subject
+            if row_subject is not None and row_subject in scope_ids
+            else authoritative_scope_subject
+        )
+        explicit_subjects: set[str] = set()
+        affected = {typed_declared} if typed_declared is not None else set()
+        unknown_scopes = {typed_orphan} if typed_orphan is not None else set()
+        is_orphan_only = typed_orphan is not None
+        if typed_orphan is None and typed_declared is None:
+            if code != "OWNER_GATE" and (
+                explicit_subjects := extract_scope_subjects(message)
+            ):
+                affected.update(explicit_subjects.intersection(scope_ids))
+                unknown_scopes.update(explicit_subjects - scope_ids)
+                is_orphan_only = bool(unknown_scopes) and not affected
+            elif policy.get("global"):
+                affected = set()
+            elif policy.get("affected_scope_ids"):
+                affected = set(policy["affected_scope_ids"]).intersection(scope_ids)
+            elif policy.get("orphan_only"):
+                is_orphan_only = True
+                unknown_scopes.update(policy_orphans)
+            else:
+                for record_id in TYPED_RECORD_ID_RE.findall(message):
+                    affected.update(record_scopes.get(record_id, set()))
+        # Only a code-aware stable 04 row subject can activate the orphan inventory.
+        # Record-only OWNER_GATE and ordinary prose never scan that inventory.
+        has_explicit_identity = bool(
+            typed_orphan is not None or typed_declared is not None or explicit_subjects
+        )
+        is_global = (
+            bool(policy.get("global")) if not has_explicit_identity else False
+        ) or (not affected and not unknown_scopes and not is_orphan_only)
+        item = {
+            "diagnostic_id": diagnostic_id,
+            "code": code,
+            "affected_scope_ids": sorted(affected),
+            "global": is_global,
+            "orphan_scope_ids": sorted(unknown_scopes),
+        }
+        diagnostics.append(item)
+        if is_global:
+            global_ids.append(diagnostic_id)
+        elif (unknown_scopes or is_orphan_only) and not affected:
+            orphan_ids.append(diagnostic_id)
+        for scope_id in affected:
+            by_scope[scope_id].append(diagnostic_id)
+    return {
+        "diagnostics": diagnostics,
+        "by_scope": by_scope,
+        "global_diagnostic_ids": global_ids,
+        "orphan_diagnostic_ids": orphan_ids,
+    }
+
+
+def build_design_pack_projection(
+    contents: dict[str, str],
+    schema: dict[str, Any],
+    validation: dict[str, list[str]],
+    warnings: list[dict[str, str]],
+) -> dict[str, Any]:
+    """Project 00/03 authority and label 04 strictly as a non-authority mirror."""
+
+    table_specs = {
+        "scope": (DIMENSION_INDEX, "Writing Scopes"),
+        "decisions": ("00_PROJECT_ROUTE.md", "Decision Records"),
+        "coverage": (FINAL_PACK, "Detailed Surface Coverage"),
+        "summary": (FINAL_PACK, "Detailed Coverage Summary"),
+        "gates": (FINAL_PACK, "Owner Gate Resolution Summary"),
+        "handling": (FINAL_PACK, "Template Analysis Handling"),
+        "unresolved": (FINAL_PACK, "Unresolved and Downstream Prohibitions"),
+        "handoff": (FINAL_PACK, "Scoped Handoff"),
+    }
+    tables = {
+        key: project_public_table(contents, filename, heading, warnings)
+        for key, (filename, heading) in table_specs.items()
+    }
+    scope_ids = sorted(
+        {row.get("Scope ID", "") for row in tables["scope"] if row.get("Scope ID")}
+    )
+    scope_id_set = set(scope_ids)
+    mirror_table_keys = tuple(
+        key for key, (filename, _) in table_specs.items() if filename == FINAL_PACK
+    )
+    known_orphan_scope_ids = {
+        row_scope
+        for key in mirror_table_keys
+        for row in tables[key]
+        if (row_scope := row.get("Scope ID", "")) and row_scope not in scope_id_set
+    }
+    for key in mirror_table_keys:
+        for row in tables[key]:
+            row_scope = row.get("Scope ID", "")
+            if row_scope and row_scope not in scope_id_set:
+                warnings.append(
+                    warning(
+                        FINAL_PACK,
+                        f"orphan 04 mirror row ignored for undeclared scope {row_scope}",
+                    )
+                )
+    cardinality_attribution: dict[str, dict[str, Any]] = {}
+    final_pack_text = contents.get(FINAL_PACK, "")
+    for key, code in (
+        ("handling", "TEMPLATE_HANDLING_CARDINALITY"),
+        ("handoff", "HANDOFF_SCOPE_CARDINALITY"),
+        ("unresolved", "MANIFEST_UNRESOLVED"),
+    ):
+        heading = table_specs[key][1]
+        heading_count = len(
+            re.findall(
+                rf"^##\s+{re.escape(heading)}\s*$", final_pack_text, re.MULTILINE
+            )
+        )
+        declared_counts = {
+            scope_id: sum(row.get("Scope ID") == scope_id for row in tables[key])
+            for scope_id in scope_ids
+        }
+        orphan_scope_ids = {
+            row.get("Scope ID", "")
+            for row in tables[key]
+            if row.get("Scope ID") and row.get("Scope ID") not in scope_id_set
+        }
+        affected_scope_ids = {
+            scope_id for scope_id, count in declared_counts.items() if count != 1
+        }
+        cardinality_attribution[code] = {
+            "global": heading_count != 1,
+            "affected_scope_ids": sorted(affected_scope_ids),
+            "orphan_only": bool(orphan_scope_ids) and not affected_scope_ids,
+            "orphan_scope_ids": sorted(orphan_scope_ids),
+        }
+    validation_projection = build_validation_projection(
+        validation["errors"],
+        contents,
+        scope_id_set,
+        known_orphan_scope_ids,
+        cardinality_attribution,
+    )
+    decision_by_id = {
+        row.get("Decision ID", ""): row
+        for row in tables["decisions"]
+        if row.get("Decision ID")
+    }
+    scopes: list[dict[str, Any]] = []
+    for scope_id in scope_ids:
+        scope_row = next(
+            (row for row in tables["scope"] if row.get("Scope ID") == scope_id), {}
+        )
+        coverage_by_surface = {
+            row.get("Surface", ""): row
+            for row in tables["coverage"]
+            if row.get("Scope ID") == scope_id
+        }
+        coverage = []
+        for surface in sorted(CANONICAL_SURFACES):
+            row = coverage_by_surface.get(surface)
+            if row is None:
+                row = {
+                    "Surface": surface,
+                    "Scope ID": scope_id,
+                    "Handling (`satisfied&#124;not_applicable`)": "missing",
+                    "Record count": "0",
+                    "Authoritative pointer": "none",
+                    "Rationale/blocker": "coverage row missing",
+                }
+            coverage.append(row)
+        summary = next(
+            (row for row in tables["summary"] if row.get("Scope ID") == scope_id), {}
+        )
+        authoritative_gates = [
+            row
+            for row in tables["decisions"]
+            if scope_id in _split_ids(row.get("Affected scopes", ""))
+        ]
+        gate_mirrors: list[dict[str, str]] = []
+        authoritative_blockers = _split_ids(scope_row.get("Remaining blocker", ""))
+        for row in tables["gates"]:
+            if row.get("Scope ID") != scope_id:
+                continue
+            decision = decision_by_id.get(row.get("Decision ID", ""))
+            mirror_valid = bool(
+                decision
+                and decision.get("Gate category") == row.get("Gate category")
+                and decision.get("Resolution") == row.get("Resolution")
+                and scope_id in _split_ids(decision.get("Affected scopes", ""))
+                and _split_ids(row.get("Active blocker IDs", ""))
+                == authoritative_blockers
+            )
+            projected = dict(row)
+            projected["Mirror state"] = (
+                "valid_mirror" if mirror_valid else "invalid_mirror"
+            )
+            gate_mirrors.append(projected)
+            if not mirror_valid:
+                warnings.append(
+                    warning(
+                        FINAL_PACK,
+                        f"invalid_mirror: 04 owner-gate row disagrees with 00 authority for {scope_id}",
+                    )
+                )
+        handling = next(
+            (row for row in tables["handling"] if row.get("Scope ID") == scope_id), {}
+        )
+        unresolved = next(
+            (row for row in tables["unresolved"] if row.get("Scope ID") == scope_id), {}
+        )
+        handoff = next(
+            (row for row in tables["handoff"] if row.get("Scope ID") == scope_id), {}
+        )
+        local_diagnostics = validation_projection["by_scope"].get(scope_id, [])
+        global_diagnostics = validation_projection["global_diagnostic_ids"]
+        declared = scope_row.get("Readiness", "missing")
+        if not schema["allows_current_detailed_readiness"]:
+            effective = "migration_required"
+        elif global_diagnostics or local_diagnostics:
+            effective = "mechanically_blocked"
+        else:
+            effective = declared
+        scopes.append(
+            {
+                "scope_id": scope_id,
+                "writing_surface": scope_row.get("Writing surface", "unknown"),
+                "intended_output": scope_row.get("Intended output", "unknown"),
+                "declared_readiness": declared,
+                "dashboard_readiness": effective,
+                "current_detailed_ready": (
+                    effective == "writer-ready" and schema["state"] == "current"
+                ),
+                "blocker_ids": authoritative_blockers,
+                "mechanical_diagnostic_ids": [
+                    *global_diagnostics,
+                    *local_diagnostics,
+                ],
+                "coverage": coverage,
+                "summary": summary,
+                "gates": authoritative_gates,
+                "gate_mirrors": gate_mirrors,
+                "template_handling": handling,
+                "unresolved": unresolved,
+                "handoff": handoff,
+            }
+        )
+    gate_rows = []
+    for category in sorted(FOUR_GATES):
+        matching = [
+            row for row in tables["decisions"] if row.get("Gate category") == category
+        ]
+        gate_rows.append(
+            {
+                "category": category,
+                "state": (
+                    "active"
+                    if any(
+                        row.get("Resolution") not in {"confirmed", "rejected"}
+                        for row in matching
+                    )
+                    else "resolved"
+                    if matching
+                    else "not_declared"
+                ),
+                "rows": matching,
+            }
+        )
+    return {
+        "authority_note": (
+            "Declared structural coverage only; 00 owns readiness, 03 owns detailed "
+            "design, and 04 is a pointer-only non-authority manifest."
+        ),
+        "surface_names": sorted(CANONICAL_SURFACES),
+        "owner_gate_categories": sorted(FOUR_GATES),
+        "owner_gates": gate_rows,
+        "validation_projection": validation_projection,
+        "template_modes": sorted(TEMPLATE_MODES),
+        "scopes": scopes,
+    }
+
+
+def build_analyzer_projection(
+    template_analysis: dict[str, Any], _warnings: list[dict[str, str]]
+) -> dict[str, Any]:
+    """Expose only the analyzer bundle's approved mechanical status projection."""
+
+    candidates = template_analysis.get("candidates", [])
+    modes = {
+        str(item.get("effective_analysis_mode"))
+        for item in candidates
+        if isinstance(item, dict)
+        and item.get("effective_analysis_mode") not in {None, "N/A"}
+    }
+    provenance = template_analysis.get("provenance", {})
+    if isinstance(provenance, dict) and provenance.get("effective_analysis_mode"):
+        modes.add(str(provenance["effective_analysis_mode"]))
+    comparability = {
+        str(item.get("comparability"))
+        for item in candidates
+        if isinstance(item, dict) and item.get("comparability")
+    }
+    actions = {
+        str(item.get("candidate_action"))
+        for item in candidates
+        if isinstance(item, dict) and item.get("candidate_action")
+    }
+    return {
+        "state": str(template_analysis.get("state", "absent")),
+        "identity": template_analysis.get("identity", {}),
+        "effective_modes": sorted(modes),
+        "comparability": sorted(comparability) or ["N/A"],
+        "candidate_actions": sorted(actions) or ["N/A"],
+        "selected_metric_ids": template_analysis.get("selected_metric_ids", []),
+        "metric_summaries": template_analysis.get("metric_summaries", []),
+        "candidates": candidates,
+        "provenance": provenance,
+        "violations": template_analysis.get("violations", []),
+        "note": (
+            "Optional allowlisted analyzer mechanics only; N/A is neutral, raw trees "
+            "are never retained, and this remains separate from semantic provenance."
+        ),
+    }
 
 
 def design_readiness(
@@ -847,7 +2139,8 @@ def build_file_inventory(
 
 def build_model(workspace: Path) -> dict[str, Any]:
     contents, global_warnings = load_workspace(workspace)
-    add_validator_warnings(workspace, global_warnings)
+    validation = add_validator_warnings(workspace, global_warnings)
+    schema = build_schema_projection(contents, validation)
     sections = parse_sections(contents)
     for file_name, parsed_sections in sections.items():
         for parsed_section in parsed_sections:
@@ -858,6 +2151,11 @@ def build_model(workspace: Path) -> dict[str, Any]:
     handoffs = collect_external_handoffs(contents, global_warnings)
     files = build_file_inventory(contents, sections)
     template_analysis = build_template_analysis(workspace, global_warnings)
+    analyzer_projection = build_analyzer_projection(template_analysis, global_warnings)
+    semantic_dossier = load_semantic_dossier(workspace, global_warnings)
+    design_pack = build_design_pack_projection(
+        contents, schema, validation, global_warnings
+    )
 
     source_sections: dict[str, list[dict[str, Any]]] = {}
     for file_name, parsed_sections in sections.items():
@@ -894,12 +2192,17 @@ def build_model(workspace: Path) -> dict[str, Any]:
         "handoffs": handoffs,
         "source_sections": source_sections,
         "status_counts": status_counts,
+        "validation": validation,
+        "schema": schema,
+        "design_pack": design_pack,
+        "semantic_dossier": semantic_dossier,
+        "analyzer_projection": analyzer_projection,
         "template_analysis": template_analysis,
     }
 
 
 def safe_json(data: Any) -> str:
-    text = json.dumps(data, ensure_ascii=False, sort_keys=True)
+    text = json.dumps(data, ensure_ascii=False, sort_keys=True, allow_nan=False)
     return (
         text.replace("<", "\\u003c")
         .replace(">", "\\u003e")
@@ -909,221 +2212,286 @@ def safe_json(data: Any) -> str:
     )
 
 
-def compact_json_text(value: Any, limit: int = 1800) -> str:
-    text = json.dumps(
-        bounded_json_value(value), ensure_ascii=False, sort_keys=True, indent=2
+def render_analyzer_bundle_details(model: dict[str, Any]) -> str:
+    analysis = model.get("template_analysis", {})
+    artifact_rows = "".join(
+        "<tr>"
+        f"<td>{html.escape(str(item.get('label', 'unknown')))}</td>"
+        f"<td>{html.escape(str(item.get('state', 'absent')))}</td>"
+        f"<td>{html.escape(str(item.get('schema', 'unknown')))}</td>"
+        f"<td>{html.escape(str(item.get('path', 'unknown')))}</td>"
+        "</tr>"
+        for item in analysis.get("artifacts", {}).values()
     )
-    if len(text) <= limit:
-        return text
-    return text[:limit] + "\n[section truncated]"
-
-
-def iter_analysis_groups(group_data: Any) -> list[tuple[str, dict[str, Any]]]:
-    if not isinstance(group_data, dict):
-        return []
-    groups: list[tuple[str, dict[str, Any]]] = []
-    overall = group_data.get("overall")
-    if isinstance(overall, dict):
-        groups.append((str(overall.get("group_id", "overall")), overall))
-    for family in (
-        "by_partition",
-        "by_article_type",
-        "by_partition_article_type",
-    ):
-        collection = group_data.get(family, [])
-        if isinstance(collection, dict):
-            candidates = list(collection.values())
-        elif isinstance(collection, (list, tuple)):
-            candidates = collection
-        else:
-            continue
-        for group in candidates:
-            if isinstance(group, dict):
-                groups.append((str(group.get("group_id", f"{family}:unknown")), group))
-    return groups
-
-
-def priority_group_metrics(metrics: Any) -> tuple[list[tuple[str, Any]], int]:
-    if not isinstance(metrics, dict):
-        return [], 0
-    selected_ids = [
-        metric_id for metric_id in ANALYSIS_PRIORITY_METRICS if metric_id in metrics
-    ]
-    if len(selected_ids) < MAX_ANALYSIS_METRICS_PER_GROUP:
-        selected_set = set(selected_ids)
-        selected_ids.extend(
-            metric_id for metric_id in sorted(metrics) if metric_id not in selected_set
+    metric_rows = (
+        "".join(
+            "<tr>"
+            f"<td>{html.escape(str(item.get('metric_id', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('valid_n', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('eligible_n', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('missingness', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('median', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('p25', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('p75', 'N/A')))}</td>"
+            "</tr>"
+            for item in analysis.get("metric_summaries", [])
         )
-    selected_ids = selected_ids[:MAX_ANALYSIS_METRICS_PER_GROUP]
-    return [(metric_id, metrics[metric_id]) for metric_id in selected_ids], max(
-        0, len(metrics) - len(selected_ids)
+        or '<tr><td colspan="7">No approved registered metric summary.</td></tr>'
+    )
+    candidate_rows = (
+        "".join(
+            "<tr>"
+            f"<td>{html.escape(str(item.get('candidate_id', 'unknown')))}</td>"
+            f"<td>{html.escape(', '.join(item.get('metric_ids', [])) or 'N/A')}</td>"
+            f"<td>{html.escape(str(item.get('partition', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('valid_n', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('missingness', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('metric_effective_analysis_mode', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('comparability', 'N/A')))}</td>"
+            f"<td>{html.escape(str(item.get('candidate_action', 'N/A')))}</td>"
+            "</tr>"
+            for item in analysis.get("candidates", [])
+        )
+        or '<tr><td colspan="8">No approved candidate mechanics.</td></tr>'
+    )
+    return (
+        '<div class="analysis-grid">'
+        '<article class="analysis-artifact"><h3>Required analyzer bundle</h3>'
+        '<div class="analysis-table-wrap"><table><thead><tr>'
+        "<th>Artifact</th><th>State</th><th>Schema</th><th>Path</th>"
+        f"</tr></thead><tbody>{artifact_rows}</tbody></table></div></article>"
+        '<article class="analysis-artifact"><h3>Registered selected metrics</h3>'
+        '<div class="analysis-table-wrap"><table><thead><tr>'
+        "<th>Metric</th><th>valid_n</th><th>eligible_n</th><th>Missing</th>"
+        "<th>Median</th><th>p25</th><th>p75</th>"
+        f"</tr></thead><tbody>{metric_rows}</tbody></table></div></article>"
+        '<article class="analysis-artifact"><h3>Candidate mechanical states</h3>'
+        '<div class="analysis-table-wrap"><table><thead><tr>'
+        "<th>ID</th><th>Metrics</th><th>Partition</th><th>valid_n</th>"
+        "<th>Missing</th><th>Effective mode</th><th>Comparability</th><th>Action</th>"
+        f"</tr></thead><tbody>{candidate_rows}</tbody></table></div></article>"
+        "</div>"
     )
 
 
-def render_analysis_artifact(artifact: dict[str, Any], *, kind: str) -> str:
-    state = str(artifact.get("state", "absent"))
-    label = str(artifact.get("label", kind))
-    path = str(artifact.get("path", ""))
-    schema = str(artifact.get("schema", "unknown"))
-    if state != "available":
-        message = artifact.get("preview") or (
-            "No generated artifact is present; template analysis remains optional."
-            if state == "absent"
-            else "Artifact is unavailable and was not trusted."
+def _row_value(row: dict[str, Any], prefix: str, default: str = "unknown") -> str:
+    for key, value in row.items():
+        if str(key).startswith(prefix):
+            return str(value)
+    return default
+
+
+def render_design_pack_projection(model: dict[str, Any]) -> str:
+    pack = model.get("design_pack", {})
+    scope_blocks: list[str] = []
+    for scope in pack.get("scopes", []):
+        summary = scope.get("summary", {})
+        summary_fields = [
+            ("Sections", "Section count"),
+            ("Paragraphs", "Paragraph count"),
+            ("Important paragraphs", "Important paragraph count"),
+            ("Frames", "Frame count"),
+            ("Language", "Language count"),
+            ("Visuals", "Visual count"),
+            ("Edges", "Edge count"),
+            ("Rules", "Rule count"),
+            ("Budgets", "Budget count"),
+        ]
+        counts = " · ".join(
+            f"{label}: {html.escape(str(summary.get(key, 'missing')))}"
+            for label, key in summary_fields
         )
-        return (
-            '<article class="analysis-artifact">'
-            f"<h3>{html.escape(label)}</h3>"
-            f'<p><span class="pill">{html.escape(state)}</span></p>'
-            f'<p class="small">{html.escape(path)}</p>'
-            f"<p>{html.escape(str(message))}</p>"
+        coverage_rows = "".join(
+            "<tr>"
+            f"<td>{html.escape(str(row.get('Surface', 'unknown')))}</td>"
+            f"<td>{html.escape(_row_value(row, 'Handling', 'missing'))}</td>"
+            f"<td>{html.escape(str(row.get('Record count', '0')))}</td>"
+            f"<td>{html.escape(str(row.get('Authoritative pointer', 'none')))}</td>"
+            f"<td>{html.escape(str(row.get('Rationale/blocker', 'none')))}</td>"
+            "</tr>"
+            for row in scope.get("coverage", [])
+        )
+        gate_rows = (
+            "".join(
+                "<tr>"
+                f"<td>{html.escape(str(row.get('Gate category', 'unknown')))}</td>"
+                f"<td>{html.escape(str(row.get('Resolution', 'unknown')))}</td>"
+                f"<td>{html.escape(str(row.get('Decision ID', 'none')))}</td>"
+                f"<td>{html.escape(str(row.get('Affected scopes', 'none')))}</td>"
+                "</tr>"
+                for row in scope.get("gates", [])
+            )
+            or '<tr><td colspan="4">No scope-specific owner-gate row declared.</td></tr>'
+        )
+        mirror_rows = (
+            "".join(
+                "<tr>"
+                f"<td>{html.escape(str(row.get('Mirror state', 'invalid_mirror')))}</td>"
+                f"<td>{html.escape(str(row.get('Gate category', 'unknown')))}</td>"
+                f"<td>{html.escape(str(row.get('Resolution', 'unknown')))}</td>"
+                f"<td>{html.escape(str(row.get('Decision ID', 'none')))}</td>"
+                f"<td>{html.escape(str(row.get('Active blocker IDs', 'none')))}</td>"
+                "</tr>"
+                for row in scope.get("gate_mirrors", [])
+            )
+            or '<tr><td colspan="5">No 04 owner-gate mirror row.</td></tr>'
+        )
+        handling = scope.get("template_handling", {})
+        current_badge = (
+            '<span class="pill status-filled">current detailed-ready</span>'
+            if scope.get("current_detailed_ready")
+            else ""
+        )
+        scope_blocks.append(
+            '<article class="scope-card">'
+            f"<h3>{html.escape(str(scope.get('scope_id', 'unknown')))} · "
+            f"{html.escape(str(scope.get('writing_surface', 'unknown')))}</h3>"
+            '<div class="badge-line">'
+            f'<span class="pill">declared: {html.escape(str(scope.get("declared_readiness", "missing")))}</span>'
+            f'<span class="pill">dashboard: {html.escape(str(scope.get("dashboard_readiness", "unknown")))}</span>'
+            f"{current_badge}</div>"
+            f"<p><strong>Scope blockers:</strong> {html.escape(', '.join(scope.get('blocker_ids', [])) or 'none')}</p>"
+            f"<p><strong>Mechanical diagnostics:</strong> {html.escape(', '.join(scope.get('mechanical_diagnostic_ids', [])) or 'none')}</p>"
+            f'<p class="small">{counts}</p>'
+            '<div class="analysis-table-wrap"><table><thead><tr>'
+            "<th>Detailed surface</th><th>Handling</th><th>Records</th>"
+            "<th>03 authority pointer</th><th>Rationale/blocker</th>"
+            f"</tr></thead><tbody>{coverage_rows}</tbody></table></div>"
+            "<h4>Owner-gate rows for this scope</h4>"
+            '<div class="analysis-table-wrap"><table><thead><tr>'
+            "<th>Category</th><th>Resolution</th><th>Decision</th><th>Affected scopes</th>"
+            f"</tr></thead><tbody>{gate_rows}</tbody></table></div>"
+            "<h4>04 owner-gate mirror provenance</h4>"
+            '<div class="analysis-table-wrap"><table><thead><tr>'
+            "<th>Mirror state</th><th>Category</th><th>Resolution</th><th>Decision</th><th>Mirrored blockers</th>"
+            f"</tr></thead><tbody>{mirror_rows}</tbody></table></div>"
+            "<h4>Template-analysis handling</h4>"
+            f'<p><span class="pill">{html.escape(str(handling.get("Mode", "missing")))}</span> '
+            f"firewall: {html.escape(str(handling.get('Firewall state', 'unknown')))}</p>"
+            f'<p class="small">{html.escape(str(handling.get("Rationale", "No handling row.")))}</p>'
             "</article>"
         )
-
-    data = artifact.get("data", {})
-    if not isinstance(data, dict):
-        data = {}
-    blocks: list[str] = []
-    if kind == "summary":
-        group_data = data.get("groups", {})
-        for group_name, group in iter_analysis_groups(group_data):
-            document_count = group.get("document_count", "unknown")
-            parsed_count = group.get("parsed_document_count", "unknown")
-            failed_count = (
-                document_count - parsed_count
-                if isinstance(document_count, int) and isinstance(parsed_count, int)
-                else "unknown"
-            )
-            selected_metrics, omitted_count = priority_group_metrics(
-                group.get("metrics", {})
-            )
-            metric_rows: list[str] = []
-            for metric_id, metric in selected_metrics:
-                metric_record = (
-                    metric if isinstance(metric, dict) else {"value": metric}
-                )
-                metric_rows.append(
-                    "<tr>"
-                    f"<td>{html.escape(str(metric_id))}</td>"
-                    f"<td>{html.escape(str(metric_record.get('valid_n', 'unknown')))}</td>"
-                    f"<td>{html.escape(compact_json_text(metric_record.get('missingness', 'unknown'), 300))}</td>"
-                    f"<td>{html.escape(str(metric_record.get('median', metric_record.get('value', 'not summarized'))))}</td>"
-                    f"<td>{html.escape(str(metric_record.get('p25', 'unknown')))}</td>"
-                    f"<td>{html.escape(str(metric_record.get('p75', 'unknown')))}</td>"
-                    "</tr>"
-                )
-            blocks.append(
-                '<section class="analysis-group" '
-                f'data-analysis-group="{html.escape(group_name)}">'
-                f"<h4>{html.escape(group_name)}</h4>"
-                '<p class="small">'
-                f"Documents: {html.escape(str(document_count))}; "
-                f"parsed: {html.escape(str(parsed_count))}; "
-                f"failed: {html.escape(str(failed_count))}. "
-                f"Priority metrics shown: {len(selected_metrics)}; "
-                f"additional metrics omitted: {omitted_count}."
-                "</p>"
-                + (
-                    '<div class="analysis-table-wrap"><table>'
-                    "<thead><tr><th>Metric</th><th>valid_n</th><th>Missingness</th>"
-                    "<th>Median/value</th><th>p25</th><th>p75</th></tr></thead>"
-                    f"<tbody>{''.join(metric_rows)}</tbody></table></div>"
-                    if metric_rows
-                    else '<p class="small">No metrics available for this group.</p>'
-                )
-                + "</section>"
-            )
-        preferred = [
-            "registry_version",
-            "corpus",
-            "analysis_mode",
-            "mode",
-            "groups",
-            "overall",
-            "by_partition",
-            "by_article_type",
-            "by_partition_article_type",
-            "comparisons",
-            "partitions",
-            "partition_summaries",
-            "paper_status",
-            "document_status",
-            "coverage",
-            "extraction_coverage",
-            "metrics",
-            "missingness",
-            "sequences",
-            "transitions",
-            "lead_lag",
-            "annotations",
-            "annotation_coverage",
-            "warnings",
-        ]
-        for key in preferred:
-            if key not in data:
-                continue
-            blocks.append(
-                "<details>"
-                f"<summary>{html.escape(key)}</summary>"
-                f"<pre>{html.escape(compact_json_text(data[key]))}</pre>"
-                "</details>"
-            )
-    else:
-        entries = data.get("entries", data.get("rules", []))
-        if isinstance(entries, list):
-            rows: list[str] = []
-            for entry in entries[:MAX_ANALYSIS_LIST_ITEMS]:
-                if not isinstance(entry, dict):
-                    continue
-                rows.append(
-                    "<tr>"
-                    f"<td>{html.escape(str(entry.get('design_surface', entry.get('surface', 'unknown'))))}</td>"
-                    f"<td>{html.escape(str(entry.get('target_kind', entry.get('strength', 'unknown'))))}</td>"
-                    f"<td>{html.escape(str(entry.get('candidate_action', entry.get('action', 'candidate'))))}</td>"
-                    f"<td>{html.escape(str(entry.get('partition', 'none')))}</td>"
-                    f"<td>{html.escape(str(entry.get('source_type', 'unknown')))}</td>"
-                    f"<td>{html.escape(str(entry.get('origin', 'unknown')))}</td>"
-                    f"<td>{html.escape(compact_json_text(entry.get('observation', entry.get('message', '')), 600))}</td>"
-                    f"<td>{html.escape(str(entry.get('valid_n', 'unknown')))}</td>"
-                    f"<td>{html.escape(compact_json_text(entry.get('missingness', 'unknown'), 400))}</td>"
-                    f"<td>{html.escape(compact_json_text(entry.get('uncertainty', 'unknown'), 400))}</td>"
-                    f"<td>{html.escape(str(entry.get('boundary', 'writing design only')))}</td>"
-                    f"<td>{html.escape(str(entry.get('source_pointer', 'unknown')))}</td>"
-                    "</tr>"
-                )
-            if rows:
-                blocks.append(
-                    '<div class="analysis-table-wrap"><table>'
-                    "<thead><tr><th>Surface</th><th>Rule</th><th>Disposition</th>"
-                    "<th>Partition</th><th>Source type</th><th>Origin</th>"
-                    "<th>Observation</th><th>valid_n</th>"
-                    "<th>Missingness</th><th>Uncertainty</th><th>Boundary</th>"
-                    "<th>Source</th></tr></thead>"
-                    f"<tbody>{''.join(rows)}</tbody></table></div>"
-                )
-        for key in ("official_constraints", "deliberate_divergences", "warnings"):
-            if key in data:
-                blocks.append(
-                    "<details>"
-                    f"<summary>{html.escape(key)}</summary>"
-                    f"<pre>{html.escape(compact_json_text(data[key]))}</pre>"
-                    "</details>"
-                )
-    if not blocks:
-        blocks.append(
-            '<p class="small">No recognized compact fields; use the bounded raw preview below.</p>'
+    if not scope_blocks:
+        scope_blocks.append(
+            '<p class="small">No readable scope projection is available; inspect local warnings and the six public files.</p>'
         )
-    preview = str(artifact.get("preview", ""))
+    gate_legend = "".join(
+        "<tr>"
+        f"<td>{html.escape(str(item.get('category', 'unknown')))}</td>"
+        f"<td>{html.escape(str(item.get('state', 'unknown')))}</td>"
+        f"<td>{len(item.get('rows', []))}</td>"
+        "</tr>"
+        for item in pack.get("owner_gates", [])
+    )
+    modes = " · ".join(str(item) for item in pack.get("template_modes", []))
     return (
-        '<article class="analysis-artifact">'
-        f"<h3>{html.escape(label)}</h3>"
-        f'<p><span class="pill">{html.escape(state)}</span> '
-        f'<span class="pill">{html.escape(schema)}</span></p>'
-        f'<p class="small">{html.escape(path)}</p>'
-        + "".join(blocks)
-        + "<details><summary>Bounded raw JSON preview</summary>"
-        f"<pre>{html.escape(preview)}</pre></details>"
-        "</article>"
+        '<section class="design-pack-panel">'
+        "<h2>Declared structural coverage / 声明式结构覆盖</h2>"
+        f"<p>{html.escape(str(pack.get('authority_note', 'Non-authoritative projection.')))}</p>"
+        '<p class="small">This dashboard reports contract presence and declared counts; '
+        "it does not assign a quality, venue-fit, completeness, or acceptance score.</p>"
+        "<h3>Four owner-gate categories</h3>"
+        '<div class="analysis-table-wrap"><table><thead><tr>'
+        "<th>Category</th><th>Projected state</th><th>Declared rows</th>"
+        f"</tr></thead><tbody>{gate_legend}</tbody></table></div>"
+        f'<p class="small">Exact handling modes: {html.escape(modes)}</p>'
+        + "".join(scope_blocks)
+        + "</section>"
+    )
+
+
+def render_semantic_dossier(model: dict[str, Any]) -> str:
+    dossier = model.get("semantic_dossier", {})
+    counts = dossier.get("counts", {})
+    document_rows = (
+        "".join(
+            "<tr>"
+            f"<td>{html.escape(str(item.get('template_source_id', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('role', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('source_pointer', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('acquisition_provenance', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('access_state', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('freshness', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('copyright_limitation', 'unknown')))}</td>"
+            "</tr>"
+            for item in dossier.get("documents", [])
+        )
+        or '<tr><td colspan="7">No trusted semantic document projection.</td></tr>'
+    )
+    rule_rows = (
+        "".join(
+            "<tr>"
+            f"<td>{html.escape(str(item.get('rule_id', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('source_freshness', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('surface', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('resolution', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('disposition', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('gate_category', 'unknown')))}</td>"
+            f"<td>{html.escape(str(item.get('public_projection_pointer', 'unknown')))}</td>"
+            "</tr>"
+            for item in dossier.get("rules", [])
+        )
+        or '<tr><td colspan="7">No trusted rule projection.</td></tr>'
+    )
+    limitations = (
+        "".join(
+            f"<li>{html.escape(str(item))}</li>"
+            for item in dossier.get("limitations", [])
+        )
+        or "<li>N/A</li>"
+    )
+    diagnostics = (
+        "".join(
+            f"<li>{html.escape(str(item))}</li>"
+            for item in dossier.get("diagnostics", [])
+        )
+        or "<li>none</li>"
+    )
+    return (
+        '<section class="analysis-panel">'
+        "<h2>Semantic dossier provenance / 语义档案来源</h2>"
+        f"<p>{html.escape(str(dossier.get('note', 'Design-only hidden dossier projection.')))}</p>"
+        '<div class="badge-line">'
+        f'<span class="pill">state: {html.escape(str(dossier.get("state", "absent")))}</span>'
+        f'<span class="pill">projection: {html.escape(str(dossier.get("projection_state", "absent")))}</span>'
+        f'<span class="pill">schema: {html.escape(str(dossier.get("schema", "unknown")))}</span>'
+        f'<span class="pill">freshness: {html.escape(", ".join(dossier.get("freshness", [])) or "N/A")}</span>'
+        "</div>"
+        f"<p>Documents: {html.escape(str(counts.get('documents', 0)))} · "
+        f"Observations: {html.escape(str(counts.get('observations', 0)))} · "
+        f"Rules: {html.escape(str(counts.get('rules', 0)))}</p>"
+        '<div class="analysis-table-wrap"><table><thead><tr>'
+        "<th>Source ID</th><th>Role</th><th>Pointer</th><th>Acquisition provenance</th>"
+        "<th>Access</th><th>Freshness</th><th>Copyright/access limitation</th>"
+        f"</tr></thead><tbody>{document_rows}</tbody></table></div>"
+        '<div class="analysis-table-wrap"><table><thead><tr>'
+        "<th>Rule</th><th>Freshness</th><th>Surface</th><th>Resolution</th>"
+        "<th>Disposition</th><th>Gate</th><th>Public projection pointer</th>"
+        f"</tr></thead><tbody>{rule_rows}</tbody></table></div>"
+        f"<details><summary>Limitations</summary><ul>{limitations}</ul></details>"
+        f"<details><summary>Local dossier warnings</summary><ul>{diagnostics}</ul></details>"
+        "</section>"
+    )
+
+
+def render_analyzer_projection(model: dict[str, Any]) -> str:
+    analyzer = model.get("analyzer_projection", {})
+    identity = analyzer.get("identity", {})
+    identity_text = " · ".join(
+        f"{key}={identity.get(key, 'N/A')}" for key in TEMPLATE_ANALYSIS_IDENTITY_KEYS
+    )
+    return (
+        '<section class="analysis-panel">'
+        "<h2>Optional analyzer status / 可选分析器状态</h2>"
+        f"<p>{html.escape(str(analyzer.get('note', 'Optional and separate.')))}</p>"
+        '<div class="badge-line">'
+        f'<span class="pill">state: {html.escape(str(analyzer.get("state", "absent")))}</span>'
+        f'<span class="pill">effective mode: {html.escape(", ".join(analyzer.get("effective_modes", [])) or "N/A")}</span>'
+        f'<span class="pill">comparability: {html.escape(", ".join(analyzer.get("comparability", ["N/A"])))}</span>'
+        f'<span class="pill">action: {html.escape(", ".join(analyzer.get("candidate_actions", ["N/A"])))}</span>'
+        "</div>"
+        f'<p class="small">Identity: {html.escape(identity_text)}</p>'
+        "</section>"
     )
 
 
@@ -1161,13 +2529,21 @@ def render_html(model: dict[str, Any]) -> str:
     if not warning_html:
         warning_html = "<li>当前没有结构警告。</li>"
     template_analysis = model.get("template_analysis", {})
-    summary_html = render_analysis_artifact(
-        template_analysis.get("summary", {}), kind="summary"
+    analysis_html = render_analyzer_bundle_details(model)
+    schema = model.get("schema", {})
+    schema_html = (
+        '<section class="schema-panel">'
+        "<h2>Schema and migration status</h2>"
+        '<div class="badge-line">'
+        f'<span class="pill">schema: {html.escape(str(schema.get("version", "unknown")))}</span>'
+        f'<span class="pill">state: {html.escape(str(schema.get("state", "unknown")))}</span>'
+        "</div>"
+        f"<p><strong>{html.escape(str(schema.get('message', 'Schema status unavailable.')))}</strong></p>"
+        "</section>"
     )
-    profile_html = render_analysis_artifact(
-        template_analysis.get("profile", {}), kind="profile"
-    )
-    analysis_html = summary_html + profile_html
+    design_pack_html = render_design_pack_projection(model)
+    dossier_html = render_semantic_dossier(model)
+    analyzer_status_html = render_analyzer_projection(model)
 
     return f"""<!doctype html>
 <html lang="zh-CN">
@@ -1282,6 +2658,8 @@ pre {{
   padding-top: 8px;
 }}
 .analysis-panel {{ grid-column: 1 / -1; }}
+.schema-panel, .design-pack-panel {{ grid-column: 1 / -1; }}
+.scope-card {{ border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }}
 .analysis-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }}
 .analysis-artifact {{ border: 1px solid var(--line); border-radius: 8px; padding: 12px; min-width: 0; }}
 .analysis-artifact h3 {{ margin-top: 0; }}
@@ -1302,7 +2680,7 @@ summary {{ cursor: pointer; font-weight: 600; }}
 <body>
 <header>
   <h1>{html.escape(title)}</h1>
-  <p class="contract">结构化、只读、离线静态视图。它读取 yxj-paper-os 六个 Markdown 工作区文件，并在存在时安全降级读取隐藏的 corpus-summary/design-profile；只写 dashboard.html，不修改 Markdown 或分析产物，不做语义/期刊适配评分，也不声明论文或投稿就绪。</p>
+  <p class="contract">结构化、只读、离线静态视图。它读取 yxj-paper-os 六个 Markdown 工作区文件，并仅在完整同身份 analyzer bundle 存在时显示严格白名单机械投影；只写 dashboard.html，不修改 Markdown 或分析产物，不做语义/期刊适配评分，也不声明论文或投稿就绪。</p>
   <div class="badge-line">
     <span class="badge">输出：{html.escape(model["artifact"])}</span>
     <span class="badge">结构状态：{html.escape(model["readiness"]["label"])}</span>
@@ -1310,6 +2688,7 @@ summary {{ cursor: pointer; font-weight: 600; }}
   </div>
 </header>
 <main class="layout">
+  {schema_html}
   <section>
     <h2>六文件清单</h2>
     <ul>{file_html}</ul>
@@ -1338,11 +2717,14 @@ summary {{ cursor: pointer; font-weight: 600; }}
     <h2>维度详情</h2>
     <div id="detail"></div>
   </section>
+  {design_pack_html}
+  {dossier_html}
+  {analyzer_status_html}
   <section class="analysis-panel">
     <h2>目标期刊 / 主题模板统计</h2>
     <p>{html.escape(str(template_analysis.get("note", "Optional writing-design analysis only.")))}</p>
     <p class="small">状态：{html.escape(str(template_analysis.get("state", "absent")))}。Malformed、stale、unsupported 或缺失产物仅降级显示，不会自动投影为写作规则。</p>
-    <div class="analysis-grid">{analysis_html}</div>
+    {analysis_html}
   </section>
 </main>
 <script id="dashboard-data" type="application/json">{data}</script>
@@ -1511,16 +2893,14 @@ def write_dashboard(workspace: Path, html_text: str) -> Path:
             raise RuntimeError(f"refusing to replace symlink output file: {target}")
         os.replace(temp_path, target)
         temp_path = None
-    except OSError as exc:
+    except (OSError, UnicodeError) as exc:
         raise RuntimeError(
-            f"cannot replace dashboard output safely: {target}: {exc}"
+            f"cannot write/replace dashboard output safely: {target}: {exc}"
         ) from exc
     finally:
         if temp_path is not None:
-            try:
+            with suppress(FileNotFoundError):
                 temp_path.unlink()
-            except FileNotFoundError:
-                pass
     return target
 
 

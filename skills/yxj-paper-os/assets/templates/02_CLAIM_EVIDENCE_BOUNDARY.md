@@ -2,6 +2,8 @@
 
 > Fill through yxj-paper-os guided intake. Template placeholders are not final content.
 
+This file is the sole scientific claim, support, uncertainty, and wording-ceiling authority. Paragraphs and frames may point here but cannot copy or override the ceiling. Template sources, semantic observations, quantitative template analysis, generic fallback rules, and visuals cannot increase support strength, novelty, comparator authority, or allowed wording.
+
 ## Problem / Object / Contribution
 
 - Problem: TODO
