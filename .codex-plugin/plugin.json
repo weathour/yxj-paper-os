@@ -1,26 +1,25 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.3.0+codex.20260715",
-  "description": "Schema-0.3 prewriting design compiler with semantic template reading, controlled writing surfaces, and scoped handoffs.",
+  "version": "0.4.0",
+  "description": "Active paper-design advisor for evidence, template imitation, author decisions, and compact writing handoffs.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Compile evidence-grounded, controlled prewriting design.",
-    "longDescription": "YXJ Paper OS compiles repository evidence, model-semantic template reading, conditional academic lenses, and four bounded owner gates into a schema-0.3 six-file writing-design handoff without drafting manuscript prose or executing downstream skills.",
+    "shortDescription": "Design a paper from evidence, exemplars, and author intent.",
+    "longDescription": "YXJ Paper OS is an active paper-design advisor. It inspects local scientific evidence, reads selected template papers deeply, organizes scholarly-reference functions, resolves reversible design choices, asks only consequential author questions, and prepares a compact handoff for existing writing, citation, figure, polishing, and review skills.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
-      "Schema-0.3 six-file prewriting compilation",
-      "Model-semantic template reading with design-only provenance",
-      "Paragraph functions and controlled sentence frames",
-      "Language, visual/caption, traceability, rule, and soft-budget design",
-      "Four-category human-in-the-loop safety gates",
-      "Optional reproducible template analyzer",
-      "Scoped pointer-only writing handoffs"
+      "Scientific claim and local-evidence boundaries",
+      "Detailed model-led template reading and deliberate imitation",
+      "Scholarly-reference function mapping",
+      "Proactive author interviewing with bounded recommendations",
+      "Section, language, citation, and visual Story Cards",
+      "Compact handoffs to specialized academic skills"
     ],
-    "defaultPrompt": "Use yxj-paper-os to inspect my repository and eligible template literature, resolve only consequential owner gates, and compile a validated schema-0.3 six-file prewriting design handoff without drafting manuscript prose."
+    "defaultPrompt": "Use yxj-paper-os to inspect my scientific evidence, references, selected template papers, and prior author decisions; diagnose the highest-impact writing-design gap; resolve reversible choices; ask me one consequential question only when needed; and maintain a compact writer-usable brief without drafting manuscript prose."
   }
 }

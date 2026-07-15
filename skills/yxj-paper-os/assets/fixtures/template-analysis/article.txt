@@ -1,2 +1,0 @@
-Plain text is a supported limited-body format.
-It provides paragraph and body-word metrics but no structural figure, table, equation, algorithm, caption, or callout extraction.
