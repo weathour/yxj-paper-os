@@ -132,21 +132,35 @@ Block when a requested claim exceeds evidence, hides retained adverse findings,
 misrepresents a source, or imitates a template in a way that changes scientific
 meaning. Author preference cannot turn unsupported science into an admissible claim.
 
-## Reference and evidence work
+## Downstream routing
 
-Map a reference's exact function; do not manage a bibliography database. Search only
-when an unresolved claim or story move has a real support gap. Use available specialist
-skills rather than reimplementing them:
+Choose exactly one installed skill for the immediate next bounded task. Record its
+exact `$skill-name`, input from the brief, expected artifact, and return condition in
+`PAPER_BRIEF.md` under `Downstream handoff`. Honor a compatible skill explicitly named
+by the author; otherwise use this routing table:
 
-- source discovery and citation management: `yxj-backend`, `citation-management`,
-  `nature-academic-search`;
-- full-text reading: `nature-reader`, `pdf`;
-- drafting: `research-paper-writing`, `nature-writing`, `scientific-writing`;
-- figures: `nature-figure`, `thesis-figure-skill`, `drawio-skill`;
-- polishing and reviewer audit: `nature-polishing`, `deslop`, `nature-reviewer`.
+| Need | Target skill | Boundary |
+|---|---|---|
+| Query the local yxj source, citation, or truth library | `$yxj-backend` | Use only for the installed local library. |
+| Discover, verify, or manage scholarly references | `$nature-academic-search` | Map each returned source to a precise paper function. |
+| Add strict Nature/CNS-family citations to supplied prose | `$nature-citation` | Use only when that constrained source family is requested. |
+| Read a full paper or selected template deeply | `$nature-reader` | Return source-grounded observations with locators. |
+| Inspect or render a layout-sensitive PDF | `$pdf` | Use for file and layout work, not semantic substitution. |
+| Draft or rebuild manuscript prose from the brief | `$nature-writing` | Preserve claim ceilings, non-claims, and Story Cards. |
+| Polish, translate, proofread, or typeset existing prose | `$nature-polishing` | Do not introduce or strengthen scientific claims. |
+| Prepare a Data Availability statement or FAIR data plan | `$nature-data` | Keep repository evidence and access limits explicit. |
+| Produce or revise a manuscript figure, quantitative plot, schematic, or graphical abstract | `$nature-figure` | Use whenever it is the appropriate figure-production skill. Do not gate it on journal name. |
+| Route an academic figure whose production form is still unclear | `$thesis-figure-skill` | Use to select the appropriate figure path, not as a mandatory gate. |
+| Produce an explicitly requested editable draw.io diagram | `$drawio-skill` | The explicit editable-format request takes precedence. |
+| Remove AI-writing patterns after scientific meaning is stable | `$deslop` | Apply after substantive writing and polishing decisions. |
+| Run a pre-submission referee-style audit | `$nature-reviewer` | Keep the audit read-only and return design-changing findings here. |
+| Convert an existing LaTeX manuscript between venue formats | `$latex-paper-conversion` | Preserve scientific content while changing format. |
 
-Record only results that change the paper brief. Do not become a workflow engine for
-those skills.
+Do not pre-build a multi-skill pipeline. Route only the immediate next task. A
+downstream skill may report a design conflict, but it must return here rather than
+silently changing scientific meaning, the claim ceiling, the contribution hierarchy,
+or the main-versus-supplement boundary. Record only downstream results that change the
+paper brief.
 
 ## Optional factual probe
 

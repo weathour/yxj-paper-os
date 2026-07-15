@@ -1,6 +1,6 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.4.0",
+  "version": "0.4.0+codex.20260715083823",
   "description": "Active paper-design advisor for evidence, template imitation, author decisions, and compact writing handoffs.",
   "author": {
     "name": "YXJ Paper OS maintainers"

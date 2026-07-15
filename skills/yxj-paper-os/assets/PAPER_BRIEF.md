@@ -103,6 +103,6 @@
 
 ## Downstream handoff
 
-| Need | Skill/tool | Exact input from this brief | Expected return/writeback |
+| Need | Exact target skill | Exact input from this brief | Expected artifact and return condition |
 |---|---|---|---|
 |  |  |  |  |

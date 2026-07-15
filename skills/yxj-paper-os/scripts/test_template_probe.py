@@ -39,6 +39,24 @@ class MinimalAdvisorContractTests(unittest.TestCase):
         for retired in ("D00-D19", "schema-0.3", "six-file", "dashboard"):
             self.assertNotIn(retired, combined)
 
+        for target in (
+            "$nature-writing",
+            "$nature-polishing",
+            "$nature-academic-search",
+            "$nature-citation",
+            "$nature-reader",
+            "$nature-figure",
+            "$thesis-figure-skill",
+            "$drawio-skill",
+            "$nature-reviewer",
+        ):
+            self.assertIn(target, contract)
+        self.assertIn("Do not gate it on journal name", contract)
+
+        brief = (SKILL_ROOT / "assets/PAPER_BRIEF.md").read_text(encoding="utf-8")
+        self.assertIn("Exact target skill", brief)
+        self.assertIn("Expected artifact and return condition", brief)
+
     def test_probe_reports_only_reader_useful_facts(self) -> None:
         source = """# Example paper
 
