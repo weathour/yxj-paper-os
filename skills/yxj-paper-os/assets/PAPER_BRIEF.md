@@ -100,15 +100,23 @@ Keep only author choices that still constrain the current paper design.
 Keep only the latest relevant audit and unresolved conflicts; replace superseded audit
 content rather than accumulating dated entries.
 
-| Artifact or reader slice and locator | Brief basis used | Decisions realized | Unresolved conflicts | Brief sections to replace |
-|---|---|---|---|---|
-|  |  |  |  |  |
+- **Artifact path:**
+- **Local `aligned`: `yes` / `no`:**
+- **Brief basis used:**
+- **Substantive or rendered evidence inspected:**
+- **Reader-object, display, and formal checks:**
+- **Continuous author-read evidence:**
+- **Conflicts:**
+- **Changed brief sections:**
+- **Global Realization Alignment:** `pass` / `fail` / `not evaluated`
 
 ## Current diagnosis
 
-- **Verdict:** `advance` / `ask` / `block`
+- **Action:** `bootstrap` / `continue` / `audit` / `ask` / `block` / `route` / `stop`
 - **Reason:**
-- **Next action or one question:**
+- **Design Handoff:** `pass` / `fail` and evidence
+- **Realization Alignment:** `pass` / `fail` / `not evaluated` and evidence
+- **Immediate next action or one admissible question:**
 - **Current sections replaced:**
 
 ## Downstream handoff
@@ -116,6 +124,6 @@ content rather than accumulating dated entries.
 Zero or one immediate task. Leave the single row empty when no downstream work is
 needed; replace it when the immediate task changes.
 
-| Need | Exact target skill | Exact input from this brief | Expected artifact and return condition |
-|---|---|---|---|
-|  |  |  |  |
+| Need | Exact target skill | Exact input from this brief | Protected boundaries | Expected artifact and return condition |
+|---|---|---|---|---|
+|  |  |  |  |  |

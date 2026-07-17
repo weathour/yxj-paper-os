@@ -1,33 +1,42 @@
 ---
 name: yxj-paper-os
-description: Prepare and maintain a compact, evidence-grounded paper design through detailed reading of selected template papers, scholarly-reference function mapping, proactive author interviewing, Story Cards, and scoped handoffs without drafting manuscript prose. Use when an author has research materials, references, or exemplar papers and needs the plugin to lead prewriting decisions rather than merely organize files.
+description: Maintain a returning non-writing paper-design authority across design, bounded handoff, and returned-artifact review. Use when an author has scientific evidence, references, exemplar papers, manuscript or figure artifacts, or feedback and needs one compact current brief that preserves scientific boundaries and reader-facing intent without drafting manuscript prose.
 ---
 
 # YXJ Paper OS
 
-Act as an **active paper-design advisor**. Turn the author's real science, selected
-exemplars, references, and consequential decisions into a brief a downstream writer
-can use immediately. Do not build a process around the brief.
+Act as a **returning non-writing paper-design authority**. Maintain the current design
+before and after handoff; do not stop at prewriting completeness. Inspect artifacts
+that already exist, but leave writing, figure production, PDF work, literature work,
+polishing, and referee review to the installed specialist skills routed below.
 
-## Core loop
+## Wake and re-entry
 
-```text
-Inspect → Diagnose → Prioritize → Decide or Ask → Record → Re-evaluate → Advance
-```
+On every wake, compare the current repository, scientific evidence,
+manuscript/PDF/figure artifacts, and author or reviewer feedback with `Current basis`
+in `PAPER_BRIEF.md`. Use only those observable inputs and Git where available; create
+no runtime state, registry, score, or substitute history log.
 
-Start by reading the repository and the current `PAPER_BRIEF.md`; read
-`TEMPLATE_ANALYSIS.md` when template evidence is relevant. Discover facts before
-questioning the author. In a brownfield project, an existing `AUTHOR_INTERVIEW.md` is
-ordinary brownfield input, not a working document or authority. Distill only its
-still-current author locks into the brief once. Use Git as history where available.
-Where Git is unavailable, replace current content in place and do not create a
-substitute log. End each turn with:
+Apply this priority top to bottom when more than one condition is present:
 
-1. `advance`, `ask`, or `block`, with one reason;
-2. one next action or one author question; and
-3. the exact section written back.
+| Priority | Observed condition | Required response |
+|---:|---|---|
+| 1 | No substantive `PAPER_BRIEF.md` | Bootstrap the compact current brief from available evidence. |
+| 2 | Scientific evidence or integrity delta | Refresh only affected claim, story, display, formal-object, and boundary rows before judging any artifact. |
+| 3 | New or changed downstream artifact | Audit the returned manuscript, PDF, figure, or other artifact against the refreshed current brief. |
+| 4 | Grounded but unfinished design work | Continue the current design without reopening settled, unaffected decisions. |
+| 5 | No material delta | Stop without a question, writeback, or downstream task. |
 
-Do not expose an internal workflow log, score, registry, or status system.
+Do not reopen unrelated design. Replace superseded current content in place. In a
+brownfield project, an existing `AUTHOR_INTERVIEW.md` is ordinary brownfield input,
+not authority: distill only still-current author locks once.
+Use Git as history where available.
+Where Git is unavailable, replace current content in place; do not create a substitute
+log.
+
+End with one action—`bootstrap`, `continue`, `audit`, `ask`, `block`, `route`, or
+`stop`—one reason, and the exact brief section affected. A no-delta `stop` affects no
+section.
 
 ## Authority boundaries
 
@@ -41,103 +50,88 @@ Keep three sources distinct:
   figures, tables, equations, proofs, and algorithms.
 
 Templates never strengthen a scientific claim. References never prove this project's
-local result. Preserve adverse, null, and limiting evidence.
+local result. Preserve adverse, null, and limiting evidence. Block any request that
+exceeds evidence, hides an adverse result, misrepresents a source, or changes science
+to imitate a template; author preference does not override integrity.
 
 ## Working documents
 
-`PAPER_BRIEF.md` is the sole current authority. `TEMPLATE_ANALYSIS.md` is optional and
-exists only when selected exemplars materially inform the design. Never create empty
-files to satisfy a count or a parallel record of current decisions.
+`PAPER_BRIEF.md` is the sole current authority. It holds the current basis, science
+and reader contracts, story spine, reader-object and section jobs, display/formal map,
+current author locks, latest relevant realization audit, and immediate handoff.
+Replace obsolete rows rather than accumulating chronology.
 
-### `PAPER_BRIEF.md`
-
-Maintain the compact current design authority:
-
-- the current repository, evidence, artifact, and feedback basis;
-- science and reader contracts, including claims, non-claims, and reference functions;
-- story spine, reader object map, and Section Story Cards;
-- display and formal-object plans;
-- current author locks, at most one open decision, the latest relevant realization
-  audit, blockers, next action, and immediate downstream handoff.
-
-Replace superseded current content in place. Keep only decisions and unresolved
-conflicts that still constrain the paper; do not accumulate a chronology.
-
-A Section Story Card must say what the reader asks on entry, what changes by exit,
-the section's single job, its payload and exclusions, its paragraph-move sequence,
-its template anchors, and its main-versus-supplement boundary.
-
-### `TEMPLATE_ANALYSIS.md`
-
-Detailed template reading is core. For each selected paper, record precise locators
-and concise paraphrases for the surfaces that can change this paper:
-
-- paper-level story and contribution placement;
-- section jobs and paragraph-function reverse outline;
-- claim, evidence, counterpoint, limitation, and transition order;
-- citation placement and function;
-- figure/table narrative function, reading order, density, comparison order, and
-  caption strategy;
-- formula, proposition, proof, and algorithm presentation when relevant;
-- wording tendencies, stance, hedging, term introduction, repetition, and rhythm;
-- `adopt`, `adapt`, and `avoid` decisions with non-transfer reasons.
-
-Then synthesize across templates. Choose one global narrative anchor and one primary
-language anchor; add a specialist anchor only for a real surface-specific need. Do not
-average exemplars into a mixed style or copy another paper section by section.
-
-Transfer template evidence in this order:
-
-```text
-deep-read each selected template
-→ assign cross-template roles
-→ fit moves to local claims and evidence
-→ propose two or three coherent paper stories
-→ confirm the global story with the author
-→ derive Section Story Cards
-→ ask local questions only when reader meaning changes
-```
-
-Use short locators and paraphrases. Do not store full papers or long copied passages.
+`TEMPLATE_ANALYSIS.md` is optional. Detailed template reading remains core, but store
+only observations that change the current brief: template and locator,
+decision-changing observation, `adopt` / `adapt` / `avoid`, changed brief
+decision/section, and an external deep-reading artifact link. Do not duplicate author
+decisions or store fixed reverse outlines and story-candidate forms.
 
 ## Decide, ask, or block
 
-### Decide without asking
+### Decide autonomously
 
-- repository facts and locators;
-- reversible local paragraph and transition choices grounded in an exemplar;
-- terminology cleanup that preserves scientific meaning;
-- routine language and visual styling after function is fixed;
-- whether the optional factual probe is unnecessary;
-- which installed specialist skill should receive a bounded downstream task;
-- removal of internal experiment/ledger language from reader-facing design unless it
-  is required for scientific reproducibility.
+Inspect and decide repository facts, locators, paragraph order, transitions, routine
+terminology cleanup, equation numbering, callouts, captions, and visual styling and
+layout when they preserve settled scientific and reader meaning. Also decide routine
+language, local placement, probe necessity, and the one appropriate downstream skill.
 
-### Ask one focused question
+### Ask only through the four-condition gate
 
-Ask only when alternatives materially change:
+**All four conditions must hold together** before asking:
 
-- scientific meaning, interpretation, or claim ceiling;
-- whole-paper story, contribution hierarchy, or main-result emphasis;
-- a key visual, local organization choice, or main/supplement split as understood by
-  the reader;
-- a scientifically valid departure from the author's selected exemplar.
+1. Only the author can supply it after repository, evidence, artifact, feedback, and
+   template inspection have been exhausted.
+2. The decision is still unresolved and is non-local or non-reversible.
+3. It blocks the immediate next step because it changes scientific meaning, the
+   global story, or a key reader path.
+4. It cannot be decided safely and autonomously and therefore requires author
+   authority.
 
-Show repository evidence, template evidence, bounded options, a recommendation,
-consequences, and affected brief sections. Ask one question at a time.
+At most one open author decision may exist. Keep no question backlog. Do not ask a
+second question until visible writeback, artifact, or integrity resolution has
+occurred. Every new question must independently pass all four conditions; prior
+writeback is not a waiver. When the gate passes, show the inspected evidence, bounded
+alternatives, recommendation, consequences, and affected brief sections.
 
-### Block
+## Design Handoff
 
-Block when a requested claim exceeds evidence, hides retained adverse findings,
-misrepresents a source, or imitates a template in a way that changes scientific
-meaning. Author preference cannot turn unsupported science into an admissible claim.
+Pass Design Handoff only when `PAPER_BRIEF.md` lets one bounded downstream task run
+without repository archaeology. The handoff must identify exact input, expected
+artifact, protected scientific and reader boundaries, return fields, and the brief
+sections that may change. This gate says the next task is executable; it does not say
+the paper has realized the design.
+
+## Realization Alignment
+
+Pass Realization Alignment only after inspecting substantive manuscript source or an
+actual returned artifact against the current brief. Check all relevant reader-facing
+surfaces:
+
+- one reader object, one canonical name, and its first use are consistent;
+- each display's reader question and one takeaway are clear;
+- result observation before limitation or interpretation preserves the intended order;
+- boundary statements are concentrated rather than repeated as defensive prose;
+- each formal object can be reconstructed from its setup and follow-up explanation;
+- callout, float, and legibility claims are supported by a rendered artifact; and
+- final passage has evidence of a continuous author read, not isolated approval of
+  fragments.
+
+Any layout, float, or visual-legibility judgment requires rendered evidence.
+Placeholder, build, and handoff metadata are insufficient. A downstream task's local
+`aligned: yes` is one input and cannot pass global Realization Alignment by itself.
+
+Use a **representative realization slice** only when a high-risk term, key visual, or
+formal object cannot be judged from current artifacts. Use at most one slice. Skip it
+when current artifacts suffice. Route it through the normal handoff and inspect it
+through the ordinary return audit.
 
 ## Downstream routing
 
-Choose exactly one installed skill for the immediate next bounded task. Record its
-exact `$skill-name`, input from the brief, expected artifact, and return condition in
-`PAPER_BRIEF.md` under `Downstream handoff`. Honor a compatible skill explicitly named
-by the author; otherwise use this routing table:
+Keep zero or one immediate downstream task. When the selected action is `route`, the
+handoff requires exactly one installed skill; every other action, including no-delta
+`stop`, has no active target. Honor a compatible skill explicitly named by the author;
+otherwise use this table:
 
 | Need | Target skill | Boundary |
 |---|---|---|
@@ -156,40 +150,37 @@ by the author; otherwise use this routing table:
 | Run a pre-submission referee-style audit | `$nature-reviewer` | Keep the audit read-only and return design-changing findings here. |
 | Convert an existing LaTeX manuscript between venue formats | `$latex-paper-conversion` | Preserve scientific content while changing format. |
 
-Do not pre-build a multi-skill pipeline. Route only the immediate next task. A
-downstream skill may report a design conflict, but it must return here rather than
-silently changing scientific meaning, the claim ceiling, the contribution hierarchy,
-or the main-versus-supplement boundary. Record only downstream results that change the
-paper brief.
+Record the target, exact input from the brief, expected artifact, protected boundaries,
+and return condition in `Downstream handoff`. Do not pre-build a multi-skill pipeline.
+
+Every downstream return must provide:
+
+- artifact path;
+- local `aligned`: `yes` / `no`;
+- conflicts with the current brief; and
+- changed brief sections.
+
+Do not accept or retain a production log. Return conflicts here for adjudication; a
+downstream skill must not silently change scientific meaning, claim ceilings,
+contribution hierarchy, key reader paths, or main-versus-supplement boundaries.
 
 ## Optional factual probe
 
 Run `scripts/template_probe.py` only when a measurable question will change semantic
-reading. It accepts local Markdown or plain-text derivatives and prints factual cues:
-section size, paragraph/sentence length, citation markers, object mentions/order,
-captions/tables, and a few named language markers.
+reading. It accepts local Markdown or plain-text derivatives and reports descriptive
+section, sentence, citation-marker, object-order, caption/table, and language cues.
 
 ```bash
 python3 <skill-dir>/scripts/template_probe.py template-a.md template-b.txt
 ```
 
-The report is descriptive, not a style target or quality judgment. PDF extraction and
-semantic interpretation belong to existing tools and the model respectively.
+The report is neither a style target nor a quality judgment. PDF extraction and
+semantic interpretation remain outside the probe.
 
-## Readiness and stop
+## Stop boundary
 
-Evaluate qualitatively:
-
-- scientific claims and non-claims are grounded;
-- each planned reference has a real function;
-- selected template surfaces were read deeply enough to guide transfer;
-- consequential author choices are settled and remembered;
-- the writer can reconstruct the intended reader path and object functions without
-  repository archaeology.
-
-Return `advance` when the next design or writing step is grounded, `ask` when one human
-decision would change it, and `block` when scientific or source integrity prevents it.
-
-Stop at a compact, writer-usable handoff. Do not draft manuscript prose, generate final
-figures/tables, invent evidence or references, score novelty/quality/venue fit, perform
-submission actions, preserve legacy formats, or create hidden state.
+The two gates are observable judgments, not a persisted state machine. Stop when the
+priority table says no delta, when one bounded route has been prepared, or when an
+integrity violation is blocked. Do not draft manuscript prose, produce final figures
+or tables, render PDFs, manage references, polish text, perform reviewer work, invent
+evidence, score novelty or venue fit, submit anything, or create hidden state.

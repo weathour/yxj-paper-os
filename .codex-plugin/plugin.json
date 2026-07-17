@@ -1,25 +1,25 @@
 {
   "name": "yxj-paper-os",
   "version": "0.4.0",
-  "description": "Active paper-design advisor for evidence, template imitation, author decisions, and compact writing handoffs.",
+  "description": "Returning non-writing paper-design authority for evidence, bounded handoffs, and realized-artifact alignment.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Design a paper from evidence, exemplars, and author intent.",
-    "longDescription": "YXJ Paper OS is an active paper-design advisor. It inspects local scientific evidence, reads selected template papers deeply, organizes scholarly-reference functions, resolves reversible design choices, asks only consequential author questions, and prepares a compact handoff for existing writing, citation, figure, polishing, and review skills.",
+    "shortDescription": "Keep paper design aligned across handoff and return.",
+    "longDescription": "YXJ Paper OS is a returning non-writing paper-design authority. On each wake it compares current evidence, artifacts, and feedback with one compact brief, resolves safe design choices autonomously, asks only through a strict author-authority gate, routes zero or one bounded task to installed academic skills, and audits returned work for reader-facing realization without absorbing writing, figure, PDF, literature, polishing, or review execution.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Scientific claim and local-evidence boundaries",
       "Detailed model-led template reading and deliberate imitation",
       "Scholarly-reference function mapping",
-      "Proactive author interviewing with bounded recommendations",
+      "Strict author-question admissibility and current decision locks",
       "Section, language, citation, and visual Story Cards",
-      "Compact handoffs to specialized academic skills"
+      "Bounded handoffs and returned-artifact realization audits"
     ],
-    "defaultPrompt": "Use yxj-paper-os to inspect my scientific evidence, references, selected template papers, and prior author decisions; diagnose the highest-impact writing-design gap; resolve reversible choices; ask me one consequential question only when needed; and maintain a compact writer-usable brief without drafting manuscript prose."
+    "defaultPrompt": "Use yxj-paper-os as the returning non-writing design authority: compare the current repository, evidence, manuscript/PDF/figure artifacts, and author or reviewer feedback with PAPER_BRIEF.md; update only materially affected design decisions; ask only when all four author-question conditions hold; otherwise decide, stop, block, or route zero or one bounded task; and audit returned artifacts without drafting manuscript prose or performing downstream production work."
   }
 }
