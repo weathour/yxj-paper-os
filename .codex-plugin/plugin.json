@@ -1,25 +1,25 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.4.0",
-  "description": "Returning non-writing paper-design authority for evidence, bounded handoffs, and realized-artifact alignment.",
+  "version": "0.5.0",
+  "description": "Returning non-writing paper-design authority for delta re-entry, bounded routing, and returned-artifact audits.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Keep paper design aligned across handoff and return.",
-    "longDescription": "YXJ Paper OS is a returning non-writing paper-design authority. On each wake it compares current evidence, artifacts, and feedback with one compact brief, resolves safe design choices autonomously, asks only through a strict author-authority gate, routes zero or one bounded task to installed academic skills, and audits returned work for reader-facing realization without absorbing writing, figure, PDF, literature, polishing, or review execution.",
+    "shortDescription": "Delta re-entry and returned-artifact design audit.",
+    "longDescription": "YXJ Paper OS is a returning non-writing paper-design authority for delta re-entry. On each wake it compares current evidence, artifacts, and feedback with one compact brief, resolves safe design choices autonomously, asks only through a strict four-condition author-question gate, allows a zero-or-one bounded route to one installed academic skill, and performs a returned-artifact audit for global reader-facing realization without absorbing downstream production.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
-      "Scientific claim and local-evidence boundaries",
-      "Detailed model-led template reading and deliberate imitation",
+      "Evidence-first delta re-entry and scientific integrity boundaries",
+      "Detailed template reading only when it changes the current brief",
       "Scholarly-reference function mapping",
-      "Strict author-question admissibility and current decision locks",
-      "Section, language, citation, and visual Story Cards",
-      "Bounded handoffs and returned-artifact realization audits"
+      "Strict four-condition author-question gate",
+      "Current author locks, Story Cards, and reader-object design",
+      "Zero-or-one bounded route and returned-artifact audit"
     ],
-    "defaultPrompt": "Use yxj-paper-os as the returning non-writing design authority: compare the current repository, evidence, manuscript/PDF/figure artifacts, and author or reviewer feedback with PAPER_BRIEF.md; update only materially affected design decisions; ask only when all four author-question conditions hold; otherwise decide, stop, block, or route zero or one bounded task; and audit returned artifacts without drafting manuscript prose or performing downstream production work."
+    "defaultPrompt": "Use yxj-paper-os as the returning non-writing paper-design authority: perform delta re-entry against PAPER_BRIEF.md; update only materially affected design decisions; ask only through the strict four-condition author-question gate; otherwise decide, stop, block, or use a zero-or-one bounded route; then audit any returned artifact without drafting manuscript prose or performing downstream production work."
   }
 }

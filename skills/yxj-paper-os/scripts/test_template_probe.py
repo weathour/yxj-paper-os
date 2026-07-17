@@ -111,7 +111,7 @@ class MinimalAdvisorContractTests(unittest.TestCase):
             json.dumps(manifest, ensure_ascii=False).split()
         ).lower()
 
-        self.assertEqual(manifest["version"], "0.4.0")
+        self.assertEqual(manifest["version"], "0.5.0")
         for identity_surface in (normalized, manifest_normalized):
             self.assertIn("returning non-writing paper-design authority", identity_surface)
 
@@ -224,6 +224,100 @@ class MinimalAdvisorContractTests(unittest.TestCase):
             "recommendation and author decision",
         ):
             self.assertNotIn(removed_form, template_normalized)
+
+    def test_real_project_regressions_and_release_contract(self) -> None:
+        contract = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+        brief = (SKILL_ROOT / "assets/PAPER_BRIEF.md").read_text(encoding="utf-8")
+        product = " ".join((contract + "\n" + brief).split()).lower()
+        manifest = json.loads(
+            (REPO_ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
+        )
+        release_surface = " ".join(
+            (
+                manifest["description"]
+                + json.dumps(manifest["interface"], ensure_ascii=False)
+            ).split()
+        ).lower()
+
+        scenarios = {
+            "PC-Q": (
+                "all four conditions must hold together",
+                "every new question must independently pass all four conditions",
+                "prior writeback is not a waiver",
+                "paragraph order",
+                "each display's reader question and one takeaway",
+            ),
+            "KBS-R": (
+                "local `aligned: yes` is one input and cannot pass global realization alignment by itself",
+                "one reader object, one canonical name, and its first use",
+                "boundary statements are concentrated rather than repeated as defensive prose",
+                "callout, float, and legibility",
+                "update only brief sections with design-changing findings",
+                "route at most one repair task",
+            ),
+            "S16-A": (
+                "placeholder, build, and handoff metadata are insufficient",
+                "substantive manuscript source or an actual returned artifact",
+                "do not claim realization or substantive-artifact completion from metadata",
+            ),
+            "NOOP": (
+                "no material delta",
+                "stop without a question, writeback, or downstream task",
+            ),
+            "EVID": (
+                "scientific evidence or integrity delta",
+                "only affected claim, story, display, formal-object, and boundary rows before judging any artifact",
+                "new or changed downstream artifact",
+                "do not reopen unrelated design",
+            ),
+            "HOSTILE": (
+                "block any request that exceeds evidence, hides an adverse result",
+                "changes science to imitate a template",
+                "author preference does not override integrity",
+            ),
+            "OLDLOG": (
+                "an existing `author_interview.md` is ordinary brownfield input, not authority",
+                "distill only still-current author locks once",
+                "do not create a substitute log",
+            ),
+        }
+        self.assertEqual(
+            set(scenarios),
+            {"PC-Q", "KBS-R", "S16-A", "NOOP", "EVID", "HOSTILE", "OLDLOG"},
+        )
+        for scenario, expected_response in scenarios.items():
+            with self.subTest(scenario=scenario):
+                for phrase in expected_response:
+                    self.assertIn(phrase, product)
+
+        positive_legacy_instructions = (
+            "append to `author_interview.md`",
+            "maintain an append-only interview log",
+            "maintain an append-only questionnaire log",
+            "keep a question backlog",
+            "stop when prewriting is complete",
+            "always route exactly one downstream task",
+            "route exactly one downstream task when no material delta exists",
+            "local `aligned: yes` passes global realization alignment",
+        )
+        for legacy_instruction in positive_legacy_instructions:
+            self.assertNotIn(legacy_instruction, product + release_surface)
+
+        self.assertEqual(manifest["version"], "0.5.0")
+        for current_behavior in (
+            "returning non-writing paper-design authority",
+            "delta re-entry",
+            "strict four-condition author-question gate",
+            "zero-or-one bounded route",
+            "returned-artifact audit",
+        ):
+            self.assertIn(current_behavior, release_surface)
+        for retired_metadata in (
+            "proactive author interviewing",
+            "prewriting-only",
+            "stop at handoff",
+        ):
+            self.assertNotIn(retired_metadata, release_surface)
 
     def test_probe_reports_only_reader_useful_facts(self) -> None:
         source = """# Example paper

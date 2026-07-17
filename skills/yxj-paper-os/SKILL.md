@@ -120,6 +120,9 @@ surfaces:
 Any layout, float, or visual-legibility judgment requires rendered evidence.
 Placeholder, build, and handoff metadata are insufficient. A downstream task's local
 `aligned: yes` is one input and cannot pass global Realization Alignment by itself.
+Do not claim realization or substantive-artifact completion from metadata. After a
+failed return audit, update only brief sections with design-changing findings and
+route at most one repair task.
 
 Use a **representative realization slice** only when a high-risk term, key visual, or
 formal object cannot be judged from current artifacts. Use at most one slice. Skip it
