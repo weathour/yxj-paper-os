@@ -17,7 +17,6 @@ class MinimalAdvisorContractTests(unittest.TestCase):
     def test_active_surface_is_minimal_and_clean_break(self) -> None:
         expected = {
             "SKILL.md",
-            "assets/AUTHOR_INTERVIEW.md",
             "assets/PAPER_BRIEF.md",
             "assets/TEMPLATE_ANALYSIS.md",
             "scripts/template_probe.py",
@@ -34,10 +33,64 @@ class MinimalAdvisorContractTests(unittest.TestCase):
         manifest = json.loads(
             (REPO_ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
         )
-        combined = contract + json.dumps(manifest, ensure_ascii=False)
+        brief = (SKILL_ROOT / "assets/PAPER_BRIEF.md").read_text(encoding="utf-8")
+        template = (SKILL_ROOT / "assets/TEMPLATE_ANALYSIS.md").read_text(
+            encoding="utf-8"
+        )
+        combined = contract + brief + template + json.dumps(manifest, ensure_ascii=False)
         self.assertIn("active paper-design advisor", combined)
         for retired in ("D00-D19", "schema-0.3", "six-file", "dashboard"):
             self.assertNotIn(retired, combined)
+
+        self.assertFalse((SKILL_ROOT / "assets/AUTHOR_INTERVIEW.md").exists())
+        self.assertIn("`PAPER_BRIEF.md` is the sole current authority", contract)
+        self.assertIn("ordinary brownfield input", contract)
+        self.assertIn("Use Git as history where available", contract)
+        self.assertIn("replace current content in place", contract)
+        self.assertIn("substitute log", contract)
+        for append_instruction in (
+            "Append only consequential decisions",
+            "Record only consequential decisions",
+        ):
+            self.assertNotIn(append_instruction, combined)
+
+        for target in (
+            "$nature-writing",
+            "$nature-polishing",
+            "$nature-academic-search",
+            "$nature-citation",
+            "$nature-reader",
+            "$nature-figure",
+            "$thesis-figure-skill",
+            "$drawio-skill",
+            "$nature-reviewer",
+        ):
+            self.assertIn(target, contract)
+        self.assertIn("Do not gate it on journal name", contract)
+
+        for heading in (
+            "## Current basis",
+            "## Science contract",
+            "## Reader contract",
+            "## Story spine",
+            "## Reader object map",
+            "## Section jobs",
+            "## Display and formal map",
+            "## Current author locks",
+            "## Latest realization audit",
+            "## Downstream handoff",
+        ):
+            self.assertIn(heading, brief)
+        for basis in ("Repository", "Scientific evidence", "Artifacts", "Feedback"):
+            self.assertIn(basis, brief)
+        self.assertIn("Open author decision (zero or one)", brief)
+        self.assertIn(
+            "Keep only the latest relevant audit and unresolved conflicts", brief
+        )
+        self.assertEqual(brief.count("## Downstream handoff"), 1)
+        self.assertIn("Zero or one immediate task", brief)
+        self.assertIn("Exact target skill", brief)
+        self.assertIn("Expected artifact and return condition", brief)
 
     def test_probe_reports_only_reader_useful_facts(self) -> None:
         source = """# Example paper

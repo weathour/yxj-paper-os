@@ -15,9 +15,13 @@ can use immediately. Do not build a process around the brief.
 Inspect → Diagnose → Prioritize → Decide or Ask → Record → Re-evaluate → Advance
 ```
 
-Start by reading the repository and any existing `PAPER_BRIEF.md`,
-`TEMPLATE_ANALYSIS.md`, and `AUTHOR_INTERVIEW.md`. Discover facts before questioning
-the author. End each turn with:
+Start by reading the repository and the current `PAPER_BRIEF.md`; read
+`TEMPLATE_ANALYSIS.md` when template evidence is relevant. Discover facts before
+questioning the author. In a brownfield project, an existing `AUTHOR_INTERVIEW.md` is
+ordinary brownfield input, not a working document or authority. Distill only its
+still-current author locks into the brief once. Use Git as history where available.
+Where Git is unavailable, replace current content in place and do not create a
+substitute log. End each turn with:
 
 1. `advance`, `ask`, or `block`, with one reason;
 2. one next action or one author question; and
@@ -41,21 +45,23 @@ local result. Preserve adverse, null, and limiting evidence.
 
 ## Working documents
 
-Use the templates in `assets/` only when their distinct lifecycles are useful. Never
-create empty files to satisfy a count.
+`PAPER_BRIEF.md` is the sole current authority. `TEMPLATE_ANALYSIS.md` is optional and
+exists only when selected exemplars materially inform the design. Never create empty
+files to satisfy a count or a parallel record of current decisions.
 
 ### `PAPER_BRIEF.md`
 
-Maintain the current writing authority:
+Maintain the compact current design authority:
 
-- paper intent, reader promise, audience, and claim boundary;
-- claim–evidence map and explicit non-claims;
-- scholarly-reference functions and planned first use;
-- selected whole-paper story, contribution order, and main result;
-- Section Story Cards;
-- figure/table and equation/algorithm/proof plans;
-- reader-facing terminology and language rules;
-- live decisions, blockers, next action, and downstream handoff.
+- the current repository, evidence, artifact, and feedback basis;
+- science and reader contracts, including claims, non-claims, and reference functions;
+- story spine, reader object map, and Section Story Cards;
+- display and formal-object plans;
+- current author locks, at most one open decision, the latest relevant realization
+  audit, blockers, next action, and immediate downstream handoff.
+
+Replace superseded current content in place. Keep only decisions and unresolved
+conflicts that still constrain the paper; do not accumulate a chronology.
 
 A Section Story Card must say what the reader asks on entry, what changes by exit,
 the section's single job, its payload and exclusions, its paragraph-move sequence,
@@ -94,12 +100,6 @@ deep-read each selected template
 
 Use short locators and paraphrases. Do not store full papers or long copied passages.
 
-### `AUTHOR_INTERVIEW.md`
-
-Record only consequential decisions: observed evidence, bounded alternatives, the
-plugin recommendation, author answer, consequence, affected brief sections, and any
-superseded answer. It is not a chat transcript or questionnaire dump.
-
 ## Decide, ask, or block
 
 ### Decide without asking
@@ -132,21 +132,35 @@ Block when a requested claim exceeds evidence, hides retained adverse findings,
 misrepresents a source, or imitates a template in a way that changes scientific
 meaning. Author preference cannot turn unsupported science into an admissible claim.
 
-## Reference and evidence work
+## Downstream routing
 
-Map a reference's exact function; do not manage a bibliography database. Search only
-when an unresolved claim or story move has a real support gap. Use available specialist
-skills rather than reimplementing them:
+Choose exactly one installed skill for the immediate next bounded task. Record its
+exact `$skill-name`, input from the brief, expected artifact, and return condition in
+`PAPER_BRIEF.md` under `Downstream handoff`. Honor a compatible skill explicitly named
+by the author; otherwise use this routing table:
 
-- source discovery and citation management: `yxj-backend`, `citation-management`,
-  `nature-academic-search`;
-- full-text reading: `nature-reader`, `pdf`;
-- drafting: `research-paper-writing`, `nature-writing`, `scientific-writing`;
-- figures: `nature-figure`, `thesis-figure-skill`, `drawio-skill`;
-- polishing and reviewer audit: `nature-polishing`, `deslop`, `nature-reviewer`.
+| Need | Target skill | Boundary |
+|---|---|---|
+| Query the local yxj source, citation, or truth library | `$yxj-backend` | Use only for the installed local library. |
+| Discover, verify, or manage scholarly references | `$nature-academic-search` | Map each returned source to a precise paper function. |
+| Add strict Nature/CNS-family citations to supplied prose | `$nature-citation` | Use only when that constrained source family is requested. |
+| Read a full paper or selected template deeply | `$nature-reader` | Return source-grounded observations with locators. |
+| Inspect or render a layout-sensitive PDF | `$pdf` | Use for file and layout work, not semantic substitution. |
+| Draft or rebuild manuscript prose from the brief | `$nature-writing` | Preserve claim ceilings, non-claims, and Story Cards. |
+| Polish, translate, proofread, or typeset existing prose | `$nature-polishing` | Do not introduce or strengthen scientific claims. |
+| Prepare a Data Availability statement or FAIR data plan | `$nature-data` | Keep repository evidence and access limits explicit. |
+| Produce or revise a manuscript figure, quantitative plot, schematic, or graphical abstract | `$nature-figure` | Use whenever it is the appropriate figure-production skill. Do not gate it on journal name. |
+| Route an academic figure whose production form is still unclear | `$thesis-figure-skill` | Use to select the appropriate figure path, not as a mandatory gate. |
+| Produce an explicitly requested editable draw.io diagram | `$drawio-skill` | The explicit editable-format request takes precedence. |
+| Remove AI-writing patterns after scientific meaning is stable | `$deslop` | Apply after substantive writing and polishing decisions. |
+| Run a pre-submission referee-style audit | `$nature-reviewer` | Keep the audit read-only and return design-changing findings here. |
+| Convert an existing LaTeX manuscript between venue formats | `$latex-paper-conversion` | Preserve scientific content while changing format. |
 
-Record only results that change the paper brief. Do not become a workflow engine for
-those skills.
+Do not pre-build a multi-skill pipeline. Route only the immediate next task. A
+downstream skill may report a design conflict, but it must return here rather than
+silently changing scientific meaning, the claim ceiling, the contribution hierarchy,
+or the main-versus-supplement boundary. Record only downstream results that change the
+paper brief.
 
 ## Optional factual probe
 

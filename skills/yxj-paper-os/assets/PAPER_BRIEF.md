@@ -1,96 +1,106 @@
 # Paper Brief
 
-> Current writer-facing authority. Keep it compact; link to evidence instead of
-> reproducing repository logs.
+> Sole current paper-design authority. Replace superseded content in place and use
+> Git for history; link to evidence instead of reproducing repository logs.
 
-## Paper intent
+## Current basis
 
-- **Scientific problem:**
+Use these current locators to compare the paper design with its actual inputs.
+
+| Basis | Current source or locator | Inspected revision/artifact | Current conclusion |
+|---|---|---|---|
+| Repository |  |  |  |
+| Scientific evidence |  |  |  |
+| Artifacts (manuscript/PDF/figures) |  |  |  |
+| Feedback (author/reviewer) |  |  |  |
+
+## Science contract
+
+- **Method identity:**
+- **Evidence/result identity:**
+- **Evaluation boundary:**
+- **Retained failures, nulls, and adverse findings:**
+- **Hard non-claims:**
+
+### Claim, evidence, and reference functions
+
+| Planned claim | Local evidence and locator | Scholarly source and exact function | Wording ceiling | Destination |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+| Tempting unsupported statement | Why it is unsafe | Safe handling |
+|---|---|---|
+|  |  |  |
+
+## Reader contract
+
 - **Target readers:**
 - **Reader's starting belief:**
 - **Reader's intended ending belief:**
 - **One-sentence paper promise:**
-- **Hard non-claims:**
+- **Canonical scientific terms:**
+- **Repository/internal terms to avoid:**
+- **Stance and qualification:**
+- **Deliberate departures from templates:**
 
-## Scientific boundary
+## Story spine
 
-### What is frozen
-
-- Method identity:
-- Evidence/result identity:
-- Evaluation boundary:
-- Retained failures, nulls, and adverse findings:
-
-### Claim–evidence map
-
-| Planned claim | Local evidence and locator | Scholarly support | Wording ceiling | Destination |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-### Explicit exclusions
-
-| Tempting statement | Why it is unsupported or misleading | Safe handling |
-|---|---|---|
-|  |  |  |
-
-## Scholarly-reference functions
-
-| Source | Exact scientific function | Relation to this work | Planned first use | Gap/status |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Whole-paper story
-
-- **Selected narrative anchor:**
+- **Narrative anchor:**
 - **Central tension:**
 - **Resolution offered by this work:**
 - **Contribution order:**
 - **Main result and why it is main:**
 - **Boundary/limitation turn:**
-- **Rejected story alternatives and reason:**
+- **Rejected alternative and reason:**
 
-## Section Story Cards
+## Reader object map
+
+| Reader-facing object | One canonical name | First use and setup | Later role | Internal aliases to suppress |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+## Section jobs
 
 ### `<section name>`
 
 - **Reader question on entry:**
 - **Reader state on exit:**
 - **Single argumentative job:**
-- **Claims and evidence:**
-- **References and their functions:**
-- **Figures/tables:**
-- **Equations/algorithms/proofs:**
+- **Claims, evidence, and reference functions:**
 - **Paragraph moves:**
   1.
+- **Objects and displays introduced:**
 - **Template anchors:**
-- **Language and terminology:**
 - **Must not include:**
 - **Main text versus supplement:**
 
-## Figure and table plan
+## Display and formal map
 
-| Object | Argumentative function | Evidence payload | One reader takeaway | Placement/order | Template anchor | Main/supplement |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
-
-## Formal-object plan
-
-| Equation/algorithm/proof | Why the reader needs it | What precedes it | What it establishes | What follows it | Internal detail to omit |
+| Figure/table/equation/algorithm/proof | Reader question and argumentative function | Evidence or formal payload | Setup before it | One takeaway after it | Placement and main/supplement boundary |
 |---|---|---|---|---|---|
 |  |  |  |  |  |  |
 
-## Language contract
+## Current author locks
 
-- **Canonical scientific terms:**
-- **Repository/internal terms to avoid in reader-facing prose:**
-- **Stance and qualification:**
-- **Preferred paragraph/sentence tendencies from templates:**
-- **Citation style tendencies:**
-- **Deliberate departures from templates:**
+Keep only author choices that still constrain the current paper design.
 
-## Live decisions
+| Current lock | Why author authority was required | Consequence for current design | Affected sections |
+|---|---|---|---|
+|  |  |  |  |
 
-| Decision | Why it matters | Recommendation | Author status | Affected sections |
+### Open author decision (zero or one)
+
+- **Decision:**
+- **Repository and template evidence:**
+- **Bounded alternatives and recommendation:**
+- **Consequence and affected sections:**
+
+## Latest realization audit
+
+Keep only the latest relevant audit and unresolved conflicts; replace superseded audit
+content rather than accumulating dated entries.
+
+| Artifact or reader slice and locator | Brief basis used | Decisions realized | Unresolved conflicts | Brief sections to replace |
 |---|---|---|---|---|
 |  |  |  |  |  |
 
@@ -99,10 +109,13 @@
 - **Verdict:** `advance` / `ask` / `block`
 - **Reason:**
 - **Next action or one question:**
-- **Latest writeback:**
+- **Current sections replaced:**
 
 ## Downstream handoff
 
-| Need | Skill/tool | Exact input from this brief | Expected return/writeback |
+Zero or one immediate task. Leave the single row empty when no downstream work is
+needed; replace it when the immediate task changes.
+
+| Need | Exact target skill | Exact input from this brief | Expected artifact and return condition |
 |---|---|---|---|
 |  |  |  |  |
