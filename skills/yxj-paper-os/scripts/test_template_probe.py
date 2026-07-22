@@ -45,8 +45,23 @@ class MinimalAdvisorContractTests(unittest.TestCase):
 
         self.assertFalse((SKILL_ROOT / "assets/AUTHOR_INTERVIEW.md").exists())
         self.assertIn(
-            "`PAPER_BRIEF.md` is the sole current authority", contract_normalized
+            "Substantive manuscript or figure artifacts are the primary reader-facing design surface",
+            contract_normalized,
         )
+        self.assertIn(
+            "`PAPER_BRIEF.md` is the sparse current constraint authority",
+            contract_normalized,
+        )
+        self.assertIn("Never delay writing to complete the brief", contract_normalized)
+        self.assertIn("leave every other field empty", brief.lower())
+        for sparse_constraint in (
+            "evidence locators",
+            "claim ceilings",
+            "hard non-claims",
+            "unresolved conflicts",
+            "one immediate task",
+        ):
+            self.assertIn(sparse_constraint, combined.lower())
         self.assertIn("ordinary brownfield input", contract_normalized)
         self.assertIn("Use Git as history where available", contract_normalized)
         self.assertIn("replace current content in place", contract_normalized)

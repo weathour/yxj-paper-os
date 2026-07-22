@@ -21,8 +21,8 @@ Apply this priority top to bottom when more than one condition is present:
 
 | Priority | Observed condition | Required response |
 |---:|---|---|
-| 1 | No substantive `PAPER_BRIEF.md` | Bootstrap the compact current brief from available evidence. |
-| 2 | Scientific evidence or integrity delta | Refresh only affected claim, story, display, formal-object, and boundary rows before judging any artifact. |
+| 1 | No substantive `PAPER_BRIEF.md` | Bootstrap only current constraints that cannot be recovered safely from available evidence or artifacts. |
+| 2 | Scientific evidence or integrity delta | Refresh only affected claim, story, display, formal-object, and boundary rows before judging any artifact; keep only rows that still constrain current work. |
 | 3 | New or changed downstream artifact | Audit the returned manuscript, PDF, figure, or other artifact against the refreshed current brief. |
 | 4 | Grounded but unfinished design work | Continue the current design without reopening settled, unaffected decisions. |
 | 5 | No material delta | Stop without a question, writeback, or downstream task. |
@@ -56,10 +56,15 @@ to imitate a template; author preference does not override integrity.
 
 ## Working documents
 
-`PAPER_BRIEF.md` is the sole current authority. It holds the current basis, science
-and reader contracts, story spine, reader-object and section jobs, display/formal map,
-current author locks, latest relevant realization audit, and immediate handoff.
-Replace obsolete rows rather than accumulating chronology.
+Substantive manuscript or figure artifacts are the primary reader-facing design
+surface. `PAPER_BRIEF.md` is the sparse current constraint authority, not a prewriting
+specification. Keep only evidence locators, claim ceilings, hard non-claims, retained
+adverse findings, current author locks, unresolved conflicts, the latest relevant
+realization audit, and one immediate task. Keep story, reader, section, display, or
+formal fields only while they constrain the current change or expose an artifact
+conflict. Never delay writing to complete the brief or duplicate settled design that
+is clear in current artifacts. Replace obsolete rows rather than accumulating
+chronology.
 
 `TEMPLATE_ANALYSIS.md` is optional. Detailed template reading remains core, but store
 only observations that change the current brief: template and locator,
@@ -96,11 +101,11 @@ alternatives, recommendation, consequences, and affected brief sections.
 
 ## Design Handoff
 
-Pass Design Handoff only when `PAPER_BRIEF.md` lets one bounded downstream task run
-without repository archaeology. The handoff must identify exact input, expected
-artifact, protected scientific and reader boundaries, return fields, and the brief
-sections that may change. This gate says the next task is executable; it does not say
-the paper has realized the design.
+Pass Design Handoff only when current artifacts plus `PAPER_BRIEF.md` let one bounded
+downstream task run without repository archaeology. The handoff must identify exact
+input, expected artifact, protected scientific and reader boundaries, return fields,
+and the brief sections that may change. This gate says the next task is executable;
+it does not say the paper has realized the design.
 
 ## Realization Alignment
 
@@ -143,7 +148,7 @@ otherwise use this table:
 | Add strict Nature/CNS-family citations to supplied prose | `$nature-citation` | Use only when that constrained source family is requested. |
 | Read a full paper or selected template deeply | `$nature-reader` | Return source-grounded observations with locators. |
 | Inspect or render a layout-sensitive PDF | `$pdf` | Use for file and layout work, not semantic substitution. |
-| Draft or rebuild manuscript prose from the brief | `$nature-writing` | Preserve claim ceilings, non-claims, and Story Cards. |
+| Draft or rebuild manuscript prose from current artifacts and the brief | `$nature-writing` | Preserve claim ceilings, non-claims, and Story Cards. |
 | Polish, translate, proofread, or typeset existing prose | `$nature-polishing` | Do not introduce or strengthen scientific claims. |
 | Prepare a Data Availability statement or FAIR data plan | `$nature-data` | Keep repository evidence and access limits explicit. |
 | Produce or revise a manuscript figure, quantitative plot, schematic, or graphical abstract | `$nature-figure` | Use whenever it is the appropriate figure-production skill. Do not gate it on journal name. |
@@ -153,8 +158,9 @@ otherwise use this table:
 | Run a pre-submission referee-style audit | `$nature-reviewer` | Keep the audit read-only and return design-changing findings here. |
 | Convert an existing LaTeX manuscript between venue formats | `$latex-paper-conversion` | Preserve scientific content while changing format. |
 
-Record the target, exact input from the brief, expected artifact, protected boundaries,
-and return condition in `Downstream handoff`. Do not pre-build a multi-skill pipeline.
+Record the target, exact input from current artifacts and the brief, expected artifact,
+protected boundaries, and return condition in `Downstream handoff`. Do not pre-build a
+multi-skill pipeline.
 
 Every downstream return must provide:
 

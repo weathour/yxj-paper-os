@@ -1,7 +1,10 @@
 # Paper Brief
 
-> Sole current paper-design authority. Replace superseded content in place and use
-> Git for history; link to evidence instead of reproducing repository logs.
+> Sparse current constraint record, not a prewriting specification. Substantive
+> manuscript and figure artifacts are the primary reader-facing design surface. Keep
+> only constraints that cannot be recovered safely from current artifacts or that
+> govern the next change; leave every other field empty. Replace superseded content in
+> place, use Git for history, and link to evidence instead of reproducing logs.
 
 ## Current basis
 
@@ -124,6 +127,6 @@ content rather than accumulating dated entries.
 Zero or one immediate task. Leave the single row empty when no downstream work is
 needed; replace it when the immediate task changes.
 
-| Need | Exact target skill | Exact input from this brief | Protected boundaries | Expected artifact and return condition |
+| Need | Exact target skill | Exact input from current artifacts and this brief | Protected boundaries | Expected artifact and return condition |
 |---|---|---|---|---|
 |  |  |  |  |  |
