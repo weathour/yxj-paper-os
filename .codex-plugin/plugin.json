@@ -1,25 +1,23 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.5.0",
-  "description": "Returning non-writing paper-design authority for delta re-entry, bounded routing, and returned-artifact audits.",
+  "version": "0.6.0",
+  "description": "Evidence-bound paper revision authority for assessment, direct writeback, impact closure, and verification.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Delta re-entry and returned-artifact design audit.",
-    "longDescription": "YXJ Paper OS is a returning non-writing paper-design authority for delta re-entry. On each wake it compares current evidence, artifacts, and feedback with one compact brief, resolves safe design choices autonomously, asks only through a strict four-condition author-question gate, allows a zero-or-one bounded route to one installed academic skill, and performs a returned-artifact audit for global reader-facing realization without absorbing downstream production.",
+    "shortDescription": "Paper revision from intent through verification.",
+    "longDescription": "YXJ Paper OS is a returning paper revision authority. It distinguishes assessment from edit authorization, re-enters from current evidence, applies requested manuscript changes directly, propagates scientific and experimental deltas across every affected paper surface, and verifies the resulting artifacts without workflow bureaucracy.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
-      "Evidence-first delta re-entry and scientific integrity boundaries",
-      "Detailed template reading only when it changes the current brief",
-      "Scholarly-reference function mapping",
-      "Strict four-condition author-question gate",
-      "Current author locks, Story Cards, and reader-object design",
-      "Zero-or-one bounded route and returned-artifact audit"
+      "Explicit assess, design, revise, and audit intent",
+      "Scientific-evidence, reference, and exemplar authority boundaries",
+      "Direct writeback with cross-surface impact closure",
+      "Artifact, build, and rendered-output verification"
     ],
-    "defaultPrompt": "Use yxj-paper-os as the returning non-writing paper-design authority: perform delta re-entry against PAPER_BRIEF.md; update only materially affected design decisions; ask only through the strict four-condition author-question gate; otherwise decide, stop, block, or use a zero-or-one bounded route; then audit any returned artifact without drafting manuscript prose or performing downstream production work."
+    "defaultPrompt": "Use YXJ Paper OS as the paper revision authority: infer whether the request is assess, design, revise, or audit; inspect current evidence and artifacts; apply explicit revisions directly; propagate material changes across all affected paper surfaces; preserve scientific boundaries; and verify the resulting artifacts."
   }
 }
