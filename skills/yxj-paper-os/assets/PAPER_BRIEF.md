@@ -3,6 +3,8 @@
 > One small current record for information that cannot be recovered safely from the
 > repository, evidence, manuscript, figures, feedback, or Git. Leave unused rows empty,
 > replace superseded content in place, and never delay paper work to complete this file.
+> The bundled asset is read-only; copy it to the paper root as `PAPER_BRIEF.md` only when
+> such a record is needed, and edit only that project copy.
 
 ## Current basis
 
@@ -29,6 +31,7 @@ reader/display constraint, and template decision.
 - **Mode:** `assess` / `design` / `revise` / `audit`
 - **Affected artifacts:**
 - **Impact closure:** `surface or path -> updated | unaffected -> check or evidence`
+- List only materially affected surfaces and non-obvious unaffected surfaces required for consistency.
 - **Open author-only question:**
 - **Done when:**
 - **Blocker or residual risk:**

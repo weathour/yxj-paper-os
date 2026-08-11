@@ -1,23 +1,24 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.6.0",
-  "description": "Evidence-bound paper revision authority for assessment, direct writeback, impact closure, and verification.",
+  "version": "0.7.0",
+  "description": "Reader-first, evidence-bound paper revision authority for persuasive claims, direct writeback, impact closure, and verification.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Paper revision from intent through verification.",
-    "longDescription": "YXJ Paper OS is a returning paper revision authority. It distinguishes assessment from edit authorization, re-enters from current evidence, applies requested manuscript changes directly, propagates scientific and experimental deltas across every affected paper surface, and verifies the resulting artifacts without workflow bureaucracy.",
+    "shortDescription": "Reader-first paper revision from claim through verification.",
+    "longDescription": "YXJ Paper OS is a returning paper revision authority with a non-negotiable evidence boundary. Within that boundary, it serves the reader first: it makes clear why a problem matters, sharpens the central claim and contribution into the strongest story supported by all claim-relevant evidence, applies explicit revisions directly, keeps defensive prose minimal and local, closes materially affected paper surfaces, and verifies the reader-facing realization and rendered artifacts without workflow bureaucracy.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Explicit assess, design, revise, and audit intent",
-      "Scientific-evidence, reference, and exemplar authority boundaries",
+      "Reader-first problem, claim, contribution, and story design",
+      "Non-negotiable scientific evidence boundary with minimal sufficient defense",
       "Direct writeback with cross-surface impact closure",
       "Artifact, build, and rendered-output verification"
     ],
-    "defaultPrompt": "Use YXJ Paper OS as the paper revision authority: infer whether the request is assess, design, revise, or audit; inspect current evidence and artifacts; apply explicit revisions directly; propagate material changes across all affected paper surfaces; preserve scientific boundaries; and verify the resulting artifacts."
+    "defaultPrompt": "Use YXJ Paper OS as the paper revision authority: first establish the non-negotiable evidence boundary; within that boundary, serve the reader first by showing why the problem matters, making the central claim, contribution, and reader takeaway unmistakable, and building the strongest justified story supported by all claim-relevant evidence; infer whether the request is assess, design, revise, or audit; apply explicit revisions directly; keep defense minimal and local; update all materially affected surfaces; and verify the reader-facing realization and rendered artifacts."
   }
 }
