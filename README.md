@@ -4,18 +4,31 @@ YXJ Paper OS is a reader-first, evidence-bound Codex plugin for revising one aca
 paper from assessment through direct writeback and verification.
 
 Scientific integrity is the non-negotiable evidence boundary. Within that boundary, the
-plugin works to:
+plugin makes the problem worth caring about, the central claim and contribution easy to
+find, the evidence path coherent, and defensive prose accurate, local, and
+proportionate. It verifies the reader-facing realization in the paper; an actual reader
+effect still requires reader or reviewer evidence.
 
-1. help the intended reader care about the problem;
-2. make the central claim, contribution, and evidence path unmistakable;
-3. tell the clearest and most persuasive story supported by all claim-relevant evidence;
-   and
-4. keep defensive prose accurate, local, and no more prominent than necessary.
+Version 0.8 reduces repeated author correction through five small contracts:
 
-It is a skills-only plugin, not a standalone CLI, LaTeX builder, literature database, or
-deterministic paper generator. It can verify the reader-facing realization in the paper;
-an actual reader effect requires reader or reviewer feedback. Results depend on the
-paper artifacts, available tools, and the host model following the skill contract.
+1. **Repository-declared authority:** follow the paper root, variant, control documents,
+   source, and output named by the repository instead of inventing a competing root
+   brief.
+2. **Material-delta re-entry:** compare the recorded basis with the current source,
+   feedback, Git state, and canonical rendered artifact; stop when nothing material
+   changed.
+3. **Stable author directions:** retain durable `always`/`never` rules and repeatedly
+   corrected preferences after a one-off task is complete, without creating a hidden
+   profile or instruction database.
+4. **Recurrence audit:** when the same accepted finding returns, inspect the prior diff,
+   root cause, acceptance criterion, and artifact provenance before editing again.
+5. **Verified closure:** trace every affected paper surface, inspect the post-edit diff,
+   rebuild and identify the canonical rendered artifact, and use a fixed cold-reader
+   check for global story changes when a fresh context is available.
+
+It remains a skills-only plugin, not a standalone CLI, LaTeX builder, literature
+database, deterministic paper generator, or workflow-state system. Results depend on
+the available paper artifacts, tools, and host model following the skill contract.
 
 ## Use
 
@@ -24,8 +37,8 @@ Invoke the installed skill explicitly for predictable routing:
 ```text
 $yxj-paper-os:yxj-paper-os Assess the paper's claim and contribution. Do not edit files.
 $yxj-paper-os:yxj-paper-os Design a stronger reader-facing argument. Do not edit files.
-$yxj-paper-os:yxj-paper-os Revise the paper from reviewer.md, update every materially affected surface, build the PDF, and verify the rendered result.
-$yxj-paper-os:yxj-paper-os Audit claim/result/figure consistency. Report only.
+$yxj-paper-os:yxj-paper-os Revise the paper from reviewer.md, close every affected surface, build the canonical PDF, and verify the rendered result.
+$yxj-paper-os:yxj-paper-os The same narrative issue remains after prior rounds. Audit the recurrence, repair its root cause, and verify the current PDF.
 ```
 
 Provide or identify the manuscript, rendered PDF, local scientific evidence, figures,
@@ -39,9 +52,14 @@ references or exemplars, and author/reviewer feedback. Use an explicit edit verb
 | `revise` | Edit requested artifacts, close all affected surfaces, and verify. |
 | `audit` | Inspect and report; repair only with explicit edit authorization. |
 
-The bundled `skills/yxj-paper-os/assets/PAPER_BRIEF.md` is a read-only template. Copy it
-to the paper root only when a current constraint cannot be recovered safely from the
-paper, evidence, feedback, or Git. Do not use it as a production log.
+The bundled `skills/yxj-paper-os/assets/PAPER_BRIEF.md` is a read-only fallback. Use a
+brief path declared by repository instructions; copy the template to the paper root only
+when no canonical brief is declared and unrecoverable current state must persist. The
+brief stores compact current basis, active constraints and stable directions, and open
+work—not conversation or production history.
+
+Commit and push only when explicitly requested. Paper-local delivery must preserve
+unrelated work and must not reset, recreate, or switch a shared main branch.
 
 ## Verify this plugin
 

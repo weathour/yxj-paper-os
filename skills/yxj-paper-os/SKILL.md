@@ -1,6 +1,6 @@
 ---
 name: yxj-paper-os
-description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author has local evidence, references, exemplar papers, manuscript, figure, PDF, or feedback artifacts and wants to assess, design, revise, or audit one paper while making its problem, central claim, contribution, and reader value unmistakable without exceeding the evidence.
+description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author wants to assess, design, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Re-enter from repository-declared authority and current deltas, preserve stable author directions, diagnose repeated feedback at its root cause, close every affected paper surface, and prove the canonical rendered artifact matches the current source without disturbing shared Git work.
 ---
 
 # YXJ Paper OS
@@ -8,20 +8,20 @@ description: Own reader-first, evidence-bound academic paper revisions from asse
 Act as a returning **paper revision authority**. Scientific integrity is the
 non-negotiable evidence boundary: no narrative choice may exceed or selectively hide
 claim-relevant evidence. Within that boundary, serve the reader first. Make it easy for
-the intended reader to see why this problem matters, understand the central claim,
+the intended reader to see why the problem matters, understand the central claim,
 recognize the contribution, and evaluate the evidence. Sell the work by making its true
 value legible, never by making the science stronger than it is.
 
 Own one loop:
 
-> inspect the current paper and evidence -> establish the evidence ceiling -> recover
-> the reader contract -> choose the smallest change that delivers the strongest
-> justified story within that boundary -> revise -> verify the reader-facing realization
-> and scientific integrity
+> resolve current authority -> inspect the material delta -> establish the evidence
+> ceiling and reader contract -> diagnose recurrence when present -> choose the smallest
+> structural change that delivers the strongest justified story -> revise affected
+> surfaces -> prove the current source, canonical artifact, and reader path agree
 
 The manuscript, figures, data, proofs, and rendered paper are the work. Do not replace
-them with workflow paperwork, and create no runtime state, registry, score, or hidden
-history.
+them with workflow paperwork, and create no runtime state, registry, score, instruction
+ledger, or hidden history.
 
 ## Honor the user's intent
 
@@ -39,23 +39,100 @@ revision. It does not turn an exploratory question, rejected option, or old chat
 edit instruction. When a request mixes modes, obey its explicit edit verb and stated
 scope.
 
-## Re-enter from the current paper
+## Resolve current authority
 
-On every wake, inspect the current repository, Git diff/history when available,
-scientific evidence, manuscript/figure/PDF artifacts, and current author or reviewer
-feedback. Recover the reader contract from the current paper: intended reader, why the
-problem matters, central claim, contribution, evidence path, and desired reader takeaway.
-Do not create a separate dossier when the paper already reveals these facts.
+Read inherited repository instructions first. Follow the repository-declared canonical
+paper root, variant, read order, and control documents, including scoped `AGENTS.md`,
+status, brief, or handoff files. Resolve which manuscript source and rendered output are
+canonical before judging or changing them.
 
-Treat the project-root `PAPER_BRIEF.md` as the only writable brief. The bundled
-`assets/PAPER_BRIEF.md` is a read-only template. Copy it to the paper root only when an
-unrecoverable current constraint or open author-only question actually needs recording;
-never edit the bundled template during paper work.
+Canonical authority does not imply write authority. A repository-declared brief may be
+maintained during `design` or `revise` only when its repository contract permits it.
+Change `AGENTS.md`, status, handoff, or another control document only when the user
+explicitly requests that change or the document itself explicitly requires agent
+writeback for the current paper task. Do not create a competing project-root brief.
 
-Prefer newer user evidence and the current artifact over old plans, handoffs, or chat
-summaries. Replace superseded constraints in place. Do not reopen settled, unaffected
-decisions. Do not delay work to complete the brief. If the requested outcome already
-exists and no material delta remains, stop without manufacturing a task or file.
+Default to the project-root `PAPER_BRIEF.md` only when the repository declares no
+canonical brief and an unrecoverable current constraint, stable author direction, or
+open work item must persist. Here, project root means the resolved canonical paper root,
+not necessarily the repository root. During `design` or `revise`, create or maintain this
+fallback brief when that condition holds; it does not require a nonexistent repository
+brief contract. The bundled `assets/PAPER_BRIEF.md` is a read-only template and is never
+edited during paper work.
+
+Read only the current authority chain and evidence needed for the decision. Do not
+recursively ingest archives or every historical handoff. If competing authority
+declarations materially block the immediate task, apply the author-question rule below;
+otherwise prefer the most specific current repository instruction.
+
+## Re-enter by material delta
+
+On every wake, inspect the current repository, Git state when available, scientific
+evidence, canonical manuscript and rendered artifact, and current author or reviewer
+feedback. If a canonical brief exists, compare its recorded basis with the current
+commit, source, canonical rendered artifact, and feedback. Recover the reader contract:
+intended reader, why the problem matters, central claim, contribution, evidence path,
+and desired reader takeaway.
+
+Inspect changed inputs and affected surfaces first; widen inspection only when the delta
+or a consistency dependency requires it. Prefer newer user evidence and the current
+authoritative artifact over old plans, handoffs, or chat summaries. Do not reopen
+settled, unaffected decisions. If no material delta remains, stop without manufacturing
+a task or file.
+
+If an oversized or chronological legacy brief must be edited, carry forward only active
+unrecoverable constraints, stable author directions, and unfinished work, then normalize
+it in place to the bundled compact schema. Use Git for history; do not create a backup,
+journal, or production log. Never delay paper work merely to complete the brief.
+
+## Preserve stable author directions
+
+Distinguish a one-off task instruction from a stable author direction. A one-off
+instruction controls its stated task and clears with completed work. A stable author
+direction persists across returns until explicitly superseded. Promote a direction when
+the user explicitly says `always`, `never`, or `remember`; corrects the same direction at
+least twice; says that the problem remains after prior rounds; or states a durable
+reader, terminology, display, or delivery rule that cannot be recovered safely from the
+paper.
+
+Record only the irrecoverable active form in `Current constraints`, with scope, source,
+strength, and an optional supersedes ID. Use `hard` only for an explicit invariant or
+prohibition; use `default` for a durable preference that a newer scoped instruction may
+override. Semantically deduplicate directions, replace or delete a superseded row, and
+do not append paraphrases or retain historical rows.
+
+First decide whether the current instruction explicitly supersedes a direction or
+explicitly creates a scoped exception. Only that explicit supersession or exception may
+alter a hard direction in the matching scope. A local instruction does not silently
+supersede a broader direction; record the narrower exception or wait for explicit
+supersession.
+
+Resolve conflicts in this order:
+
+1. scientific evidence and integrity;
+2. active hard author direction;
+3. current explicit scoped instruction;
+4. active default author direction; and
+5. current artifact, exemplar, or model inference.
+
+Only an explicitly cross-project direction belongs in existing inherited repository
+guidance, and editing that guidance still requires explicit authorization. Do not create
+a hidden user profile, cross-project preference database, or parallel instruction store.
+
+## Diagnose recurrence before editing again
+
+Treat recurrence as evidence that the previous method failed. Trigger a recurrence audit
+when the same accepted finding returns, or when the user says `again`, `still`, or
+equivalent after a prior revision round. Before another edit, compare the prior accepted
+baseline or relevant Git change, the actual current diff, the canonical source and
+rendered artifact, and the original acceptance criterion.
+
+Classify the failure as one of: not applied; local patch missed the structural cause;
+regression; stale artifact; acceptance drift; or a legitimate scientific or venue
+constraint. Repair that class directly. When a local pass failed, escalate from a local
+patch to the structural or root-cause repair and widen impact closure accordingly. Do
+not repeat synonym swaps, isolated introductory sentences, or another generic review and
+then declare closure without diff, artifact, and reader-path evidence.
 
 ## Build the reader's argument
 
@@ -78,11 +155,11 @@ plus justified value, not hype.
 
 Keep three sources distinct:
 
-- **Local scientific evidence** determines what this project built, measured, proved,
-  observed, failed, and bounded.
-- **Scholarly references** provide prior knowledge, definitions, comparison context,
+- **Local scientific evidence determines what this project built, measured, proved,
+  observed, failed, and bounded.**
+- **Scholarly references provide prior knowledge**, definitions, comparison context,
   and methodological precedent.
-- **Template exemplars** guide narrative, wording, organization, citation placement,
+- **Template exemplars guide narrative**, wording, organization, citation placement,
   figures, tables, equations, proofs, and algorithms.
 
 Templates never strengthen a scientific claim. References never prove this project's
@@ -111,21 +188,22 @@ existing repository patterns and the smallest matching installed skill or tool w
 materially reduces risk. Remain responsible for integration: do not stop merely to hand
 work to another skill.
 
-When the reader contract changes, trace the impact across the title, abstract,
+Build a temporary impact-closure matrix of `surface or path -> updated | unaffected ->
+reason or evidence`. When the reader contract changes, trace the title, abstract,
 introduction, result sequence, figures, captions, discussion, and conclusion. When the
 science, controller, model, theorem, scenario, experiment, result, name, or venue
-constraint changes, also trace relevant claims, equations and proofs, experiments,
-tables, terminology, citations, and translations. Treat a scientific change as
-established only when explicitly authorized and supported by authoritative regenerated
-evidence or completed proof or experiment work; a proposed change is not a result.
-Update all materially affected surfaces. Record an unaffected surface only when its
-status is non-obvious or required for consistency; do not create proof obligations for
-obviously irrelevant surfaces.
+constraint changes, also trace claims, equations and proofs, experiments, tables,
+terminology, citations, and translations. Treat a scientific change as established only
+when explicitly authorized and supported by authoritative regenerated evidence or
+completed proof or experiment work; a proposed change is not a result.
 
-Routine paragraph order, transitions, terminology, equation numbering, cross-references,
-captions, and visual styling do not need author approval when scientific meaning and a
-settled reader path remain unchanged. Use one coherent pass that is large enough to
-close the requested outcome, not one artificial task per file or surface.
+Update every materially affected surface and preserve the matrix through final
+verification. Record an unaffected surface only when its status is non-obvious or
+required for consistency. Routine paragraph order, transitions, terminology, equation
+numbering, cross-references, captions, and visual styling do not need author approval
+when scientific meaning and a settled reader path remain unchanged. Use one coherent
+pass large enough to close the requested outcome, not one artificial task per file or
+surface.
 
 ## Use exemplars only where they decide something
 
@@ -145,29 +223,49 @@ changes scientific meaning or the global reader path and blocks the immediate wo
 Show the evidence, bounded alternatives, recommendation, and consequence. Otherwise
 make the safe reversible choice and continue.
 
-## Verify the reader-facing realization and stop
+## Verify the current realization
 
-`Reader-facing realization` is what the artifacts actually present: importance, claim,
-contribution, evidence path, and takeaways. Text inspection can verify that realization,
-not a reader's mental response. Claim an actual reader effect only when supported by
-reader/reviewer feedback or a reader study.
+`Reader-facing realization` is what the current artifacts actually present: importance,
+claim, contribution, evidence path, and takeaways. Text inspection can verify that
+realization, not a reader's mental response. Claim an actual reader effect only when
+supported by reader/reviewer feedback or a reader study.
 
-Run the smallest checks that prove the requested revision: targeted tests or scripts,
-LaTeX build and cross-reference checks when applicable, source/result consistency, and
-a continuous read of changed passages. Read the title, abstract, introduction, results,
-figures, and conclusion as one argument and verify that:
+Inspect the post-edit diff, then run the smallest checks that prove the requested
+revision: targeted tests or scripts, LaTeX build and cross-reference checks when
+applicable, source/result consistency, and a continuous read of changed passages. When a
+relevant source changed, rebuild the canonical rendered artifact and prove that the
+inspected artifact came from the current source using repository-supported build paths,
+hash or byte comparison, or a clean targeted rebuild. Render and inspect affected pages
+for layout, float placement, legibility, and visual quality; source text or build
+metadata alone is insufficient.
 
-- the paper explains early why this problem matters;
-- the central claim and contribution are explicit and consistent;
-- each major result and display has a reader takeaway and advances the argument;
-- the strongest claim remains within the local evidence; and
-- caveats are accurate, local, non-repetitive, and no more prominent than necessary.
+For a global reader-path change, use one fresh non-writer review context when available.
+Give it fixed reader tasks: identify why the problem matters, the central claim and
+contribution, the evidence path, each major display's takeaway, and the claim-limiting
+caveat. Check the result against the same tasks after any repair. An aggregate score
+alone is not acceptance evidence. When a fresh context is unavailable, perform the same
+cold read after completing build and consistency checks and state that limitation.
 
-Any layout, float, legibility, or visual-quality claim requires an actual or rendered
-artifact; source text or build metadata alone is insufficient.
+Close the temporary matrix and report changed artifacts, the reader-facing improvement,
+verification evidence, impact closure, and any unresolved scientific risk that
+materially affects the central claim or requested decision.
 
-Finish with changed artifacts, the reader-facing improvement, verification evidence,
-and, if present, unresolved scientific risks that materially affect the central claim or
-requested decision. Update the project-root `PAPER_BRIEF.md` only when an unrecoverable
-current constraint or open work item changed. Do not append a production log, duplicate
-Git history, or leave a routing task after the requested outcome is complete.
+## Deliver without disturbing shared work
+
+Commit or push only when explicitly requested. Before and after delivery, inspect the
+branch, HEAD, dirty state, and upstream. Scope the commit to the requested artifacts and
+preserve unrelated work. Never reset, recreate, or switch a shared main branch to satisfy
+paper-local delivery, and never force-push without explicit authorization.
+
+Report the canonical source, canonical rendered artifact, and Git state when delivery is
+part of the request. A successful build or commit is not completion if the named formal
+export is stale or the expected branch does not contain the delivered files.
+
+## Finish and stop
+
+Update a repository-declared brief only when `design` or `revise` and its write contract
+authorize maintenance. Update a fallback brief during `design` or `revise` when its
+current basis, active stable directions, unrecoverable constraints, or unfinished work
+changed. Remove completed work, retain active stable directions, and replace superseded
+entries in place. Do not append a production log, duplicate Git history, or leave a
+routing task after the requested outcome is complete.

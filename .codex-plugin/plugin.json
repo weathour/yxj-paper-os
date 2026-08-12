@@ -1,24 +1,26 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.7.0",
-  "description": "Reader-first, evidence-bound paper revision authority for persuasive claims, direct writeback, impact closure, and verification.",
+  "version": "0.8.0",
+  "description": "Reader-first, evidence-bound paper revision with durable author directions, recurrence repair, impact closure, and canonical artifact verification.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Reader-first paper revision from claim through verification.",
-    "longDescription": "YXJ Paper OS is a returning paper revision authority with a non-negotiable evidence boundary. Within that boundary, it serves the reader first: it makes clear why a problem matters, sharpens the central claim and contribution into the strongest story supported by all claim-relevant evidence, applies explicit revisions directly, keeps defensive prose minimal and local, closes materially affected paper surfaces, and verifies the reader-facing realization and rendered artifacts without workflow bureaucracy.",
+    "shortDescription": "Reader-first revision that closes repeated feedback.",
+    "longDescription": "YXJ Paper OS is a returning paper revision authority with a non-negotiable evidence boundary. It resolves repository-declared authority, re-enters by material delta, preserves stable author directions, diagnoses repeated findings before another edit, applies explicit revisions across every affected surface, and proves the canonical rendered artifact matches the current source without rewriting shared Git history.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Explicit assess, design, revise, and audit intent",
       "Reader-first problem, claim, contribution, and story design",
       "Non-negotiable scientific evidence boundary with minimal sufficient defense",
+      "Repository authority and delta re-entry",
+      "Stable author directions and recurrence root-cause repair",
       "Direct writeback with cross-surface impact closure",
-      "Artifact, build, and rendered-output verification"
+      "Current-source and canonical artifact verification"
     ],
-    "defaultPrompt": "Use YXJ Paper OS as the paper revision authority: first establish the non-negotiable evidence boundary; within that boundary, serve the reader first by showing why the problem matters, making the central claim, contribution, and reader takeaway unmistakable, and building the strongest justified story supported by all claim-relevant evidence; infer whether the request is assess, design, revise, or audit; apply explicit revisions directly; keep defense minimal and local; update all materially affected surfaces; and verify the reader-facing realization and rendered artifacts."
+    "defaultPrompt": "Use YXJ Paper OS as the paper revision authority. Resolve repository-declared authority and the current material delta first. Preserve active stable author directions. If a finding recurs, compare the prior diff, acceptance criterion, source, and artifact, then repair the root cause rather than repeat a local wording patch. Keep every claim within all claim-relevant evidence, serve the reader first, apply only explicitly authorized edits across every affected surface, rebuild and identify the canonical artifact, use fixed cold-reader tasks for global story changes when available, and report impact closure."
   }
 }

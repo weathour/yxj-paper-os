@@ -1,41 +1,44 @@
 # Paper Brief
 
-> One small current record for information that cannot be recovered safely from the
-> repository, evidence, manuscript, figures, feedback, or Git. Leave unused rows empty,
-> replace superseded content in place, and never delay paper work to complete this file.
-> The bundled asset is read-only; copy it to the paper root as `PAPER_BRIEF.md` only when
-> such a record is needed, and edit only that project copy.
+> A compact current state, not a chronology. Keep only information that cannot be
+> recovered safely from the repository, evidence, manuscript, figures, feedback, or Git.
+> Replace superseded content in place and never delay paper work to complete this file.
+> This bundled asset is read-only; copy it to the repository-declared canonical brief
+> path, or to the paper root as `PAPER_BRIEF.md` only when no path is declared.
 
 ## Current basis
 
-| Source | Current locator or revision | Current conclusion |
+| Kind | Canonical locator or revision | Current conclusion |
 |---|---|---|
-| Repository and scientific evidence |  |  |
-| Manuscript, figures, data, proofs, or rendered paper |  |  |
-| Author or reviewer feedback |  |  |
-| Scholarly references or template exemplars |  |  |
+| Repository authority and scientific evidence |  |  |
+| Manuscript source |  |  |
+| Canonical rendered artifact |  |  |
+| Current feedback, references, or exemplars |  |  |
 
 ## Current constraints
 
-Use only constraints still needed for the current paper. Types include claim ceiling,
-hard non-claim, retained adverse/null/limiting evidence, author lock, canonical term,
-reader/display constraint, and template decision.
+Keep only active unrecoverable claim ceilings, non-claims, adverse/null/limiting
+evidence, canonical terms, display or venue constraints, template decisions, and each
+stable author direction. Use `hard` or `default` for strength. Every retained row is
+active. To supersede a row, delete its old row and name its ID under `Supersedes` on the
+replacement only when needed to avoid ambiguity.
 
-| Type | Current constraint | Evidence, source, or precise template locator | Affected artifacts |
-|---|---|---|---|
-|  |  |  |  |
+| ID | Scope | Strength | Active constraint or stable author direction | Source or locator | Supersedes |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
 
 ## Open work
 
-- **Latest explicit instruction:**
+- **Latest explicit pending revision:**
 - **Mode:** `assess` / `design` / `revise` / `audit`
-- **Affected artifacts:**
-- **Impact closure:** `surface or path -> updated | unaffected -> check or evidence`
-- List only materially affected surfaces and non-obvious unaffected surfaces required for consistency.
 - **Open author-only question:**
-- **Done when:**
+
+| ID | Current task or unresolved defect | Done when | Affected surfaces and Impact closure | State |
+|---|---|---|---|---|
+|  |  |  | `surface or path -> updated | unaffected -> reason or evidence` |  |
+
 - **Blocker or residual risk:**
 
-An exploratory question is not a lock. The latest explicit instruction replaces any
-superseded choice; use Git rather than preserving chronology here. Clear `Open work`
-when the requested outcome is complete.
+An exploratory question is not pending work. The latest explicit instruction replaces a
+superseded task. Completed work is removed; active stable directions remain in `Current
+constraints`. Use Git rather than preserving revision history here.
