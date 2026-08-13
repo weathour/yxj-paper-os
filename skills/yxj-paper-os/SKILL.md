@@ -1,6 +1,6 @@
 ---
 name: yxj-paper-os
-description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author wants to assess, design, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Re-enter from repository-declared authority and current deltas, preserve stable author directions, diagnose repeated feedback at its root cause, close every affected paper surface, and prove the canonical rendered artifact matches the current source without disturbing shared Git work.
+description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author wants to assess, design, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Re-enter from repository-declared authority and current deltas, preserve stable author directions, diagnose repeated feedback at its root cause, produce claim-bearing displays from editable sources, close every affected paper surface, and prove the canonical rendered artifact matches the current source without disturbing shared Git work.
 ---
 
 # YXJ Paper OS
@@ -168,6 +168,43 @@ exceeds or invents evidence, hides an adverse result, misrepresents a source, or
 science to imitate a template. Never edit measured data, computed results, or
 verification records to make them fit the prose; author preference does not override
 integrity.
+
+## Produce claim-bearing displays
+
+Treat each figure and table as a claim-bearing reader surface, not decoration. Before
+drawing or revising a nontrivial display, build a temporary display contract containing:
+its identifier and manuscript locator; one reader question and one-sentence takeaway;
+authoritative evidence locators and the allowed claim; a panel or component map with one
+distinct job per part; exact versus schematic elements and their visual encodings; the
+canonical editable source or generator and its derived outputs; intended final width and
+legibility floor; and affected labels, subreferences, caption, body text, tables,
+translations, and exports. Keep it only through verification unless an active constraint
+or unfinished item qualifies for the canonical brief.
+
+Resolve the active figure bundle from repository authority; a similar filename is not
+enough. When an editable TikZ, Python, R, or other generator exists, edit and regenerate
+that source rather than patching a derived PDF, PNG, or SVG. Use the smallest matching
+repository-native backend. An AI-generated or raster draft may guide composition, but it
+is neither project evidence nor final claim-bearing scientific artwork unless the author
+explicitly authorizes that use and it passes the same evidence checks.
+
+Render standalone panels and any production parent or composite at the intended
+manuscript size. Apply two independent gates:
+
+- **Scientific gate:** trace every quantitative or logical element to current data,
+  equations, proofs, or scripts; check units, statistics, legends, exact-versus-schematic
+  status, and adverse, null, or limiting evidence.
+- **Visual gate:** inspect actual renders for overlap, crop, geometry, text and line
+  legibility, panel and caption mapping, legend coverage, and redundant color-plus-style
+  encoding where color alone would be fragile.
+
+Neither gate substitutes for the other. After both pass, integrate the display by
+updating affected labels, subreferences, caption, body text, float layout, translations,
+and related tables; then rebuild the current-source manuscript and inspect the affected
+page plus neighboring pages. Compile success, a caption-only edit, or a new candidate PDF
+is not display acceptance. Do not fix pagination by blindly shrinking the display; repair
+the content, composition, or layout at readable final size. Prefer deletion, combination,
+or simplification when a display or panel has no distinct reader job.
 
 ## Use minimal sufficient defense
 

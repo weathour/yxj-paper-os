@@ -36,7 +36,7 @@ class ContractTest(unittest.TestCase):
                 self.assertIn(compact(phrase), text)
 
     def test_plugin_layout_and_version(self) -> None:
-        self.assertEqual(self.manifest["version"].split("+", 1)[0], "0.8.0")
+        self.assertEqual(self.manifest["version"].split("+", 1)[0], "0.9.0")
         self.assertEqual(self.manifest["skills"], "./skills/")
         self.assertEqual(
             {
@@ -159,6 +159,44 @@ class ContractTest(unittest.TestCase):
             "Minimal sufficient defense protects trust without hiding the contribution",
         )
 
+    def test_display_contract_precedes_nontrivial_drawing(self) -> None:
+        displays = section(self.skill, "Produce claim-bearing displays")
+        self.assert_phrases(
+            displays,
+            "one reader question and one-sentence takeaway",
+            "authoritative evidence locators and the allowed claim",
+            "a panel or component map with one distinct job per part",
+            "exact versus schematic elements and their visual encodings",
+            "canonical editable source or generator and its derived outputs",
+            "intended final width and legibility floor",
+        )
+
+    def test_display_edits_follow_the_active_editable_source(self) -> None:
+        displays = section(self.skill, "Produce claim-bearing displays")
+        self.assert_phrases(
+            displays,
+            "a similar filename is not enough",
+            "edit and regenerate that source rather than patching a derived PDF, PNG, or SVG",
+            "Use the smallest matching repository-native backend",
+            "neither project evidence nor final claim-bearing scientific artwork",
+        )
+
+    def test_display_acceptance_has_independent_scientific_and_visual_gates(self) -> None:
+        displays = section(self.skill, "Produce claim-bearing displays")
+        self.assert_phrases(
+            displays,
+            "Render standalone panels and any production parent or composite at the intended manuscript size",
+            "Scientific gate",
+            "Visual gate",
+            "Neither gate substitutes for the other",
+            "updating affected labels, subreferences, caption, body text, float layout, translations, and related tables",
+            "rebuild the current-source manuscript",
+            "inspect the affected page plus neighboring pages",
+            "Compile success, a caption-only edit, or a new candidate PDF is not display acceptance",
+            "Do not fix pagination by blindly shrinking the display",
+            "Prefer deletion, combination, or simplification when a display or panel has no distinct reader job",
+        )
+
     def test_author_question_is_a_last_resort(self) -> None:
         questions = section(self.skill, "Ask only when blocked by author authority")
         self.assert_phrases(
@@ -193,6 +231,7 @@ class ContractTest(unittest.TestCase):
             "preserve unrelated work",
             "Never reset, recreate, or switch a shared main branch",
             "canonical source, canonical rendered artifact, and Git state",
+            "named formal export is stale",
         )
 
     def test_brief_is_compact_current_state_not_a_log(self) -> None:
@@ -245,6 +284,7 @@ class ContractTest(unittest.TestCase):
             "stable author directions",
             "recurrence audit",
             "canonical rendered artifact",
+            "Claim-bearing displays",
             "Commit and push only when explicitly requested",
             "$yxj-paper-os:yxj-paper-os",
         )
@@ -253,6 +293,7 @@ class ContractTest(unittest.TestCase):
             "delta re-entry",
             "recurrence root-cause repair",
             "stable author directions",
+            "claim-bearing display production",
             "canonical artifact verification",
         )
         self.assert_phrases(
@@ -263,6 +304,10 @@ class ContractTest(unittest.TestCase):
             "If a finding recurs",
             "repair the root cause",
             "all claim-relevant evidence",
+            "reader question",
+            "editable source",
+            "visual gate",
+            "scientific gate",
             "explicitly authorized edits",
             "canonical artifact",
             "fixed cold-reader tasks",

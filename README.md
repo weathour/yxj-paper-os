@@ -9,7 +9,7 @@ find, the evidence path coherent, and defensive prose accurate, local, and
 proportionate. It verifies the reader-facing realization in the paper; an actual reader
 effect still requires reader or reviewer evidence.
 
-Version 0.8 reduces repeated author correction through five small contracts:
+Version 0.9 reduces repeated author correction through six small contracts:
 
 1. **Repository-declared authority:** follow the paper root, variant, control documents,
    source, and output named by the repository instead of inventing a competing root
@@ -25,6 +25,9 @@ Version 0.8 reduces repeated author correction through five small contracts:
 5. **Verified closure:** trace every affected paper surface, inspect the post-edit diff,
    rebuild and identify the canonical rendered artifact, and use a fixed cold-reader
    check for global story changes when a fresh context is available.
+6. **Claim-bearing displays:** lock the reader question, evidence mapping, editable
+   source, final-size visual and scientific gates, manuscript integration, and formal
+   export instead of treating compilation as figure acceptance.
 
 It remains a skills-only plugin, not a standalone CLI, LaTeX builder, literature
 database, deterministic paper generator, or workflow-state system. Results depend on
