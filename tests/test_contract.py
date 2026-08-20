@@ -142,6 +142,21 @@ class ContractTest(unittest.TestCase):
             "one coherent pass",
         )
 
+    def test_matched_journal_exemplars_calibrate_writing(self) -> None:
+        exemplars = section(self.skill, "Use exemplars only where they decide something")
+        self.assert_phrases(
+            exemplars,
+            "same journal, article type, and same or closely related topic",
+            "Verify the journal, article type, topic fit, and source identity",
+            "State any relaxed match explicitly and never invent a cohort",
+            "wording: standard technical terms, compounds and hyphenation",
+            "sentences: sentence jobs, length and rhythm, voice, parallelism",
+            "organization: titles, abstracts, contribution statements",
+            "Distinguish a cohort pattern from one paper's idiosyncrasy",
+            "apply those decisions to the affected text and check the changed passages against them afterward",
+            "do not copy distinctive wording, transfer claims, or force conformity",
+        )
+
     def test_scientific_authority_and_local_defense_remain_locked(self) -> None:
         authority = section(self.skill, "Preserve scientific authority")
         defense = section(self.skill, "Use minimal sufficient defense")
@@ -285,6 +300,7 @@ class ContractTest(unittest.TestCase):
             "recurrence audit",
             "canonical rendered artifact",
             "Claim-bearing displays",
+            "Matched-journal writing calibration",
             "Commit and push only when explicitly requested",
             "$yxj-paper-os:yxj-paper-os",
         )
@@ -293,6 +309,7 @@ class ContractTest(unittest.TestCase):
             "delta re-entry",
             "recurrence root-cause repair",
             "stable author directions",
+            "Same-journal, same-article-type writing calibration",
             "claim-bearing display production",
             "canonical artifact verification",
         )
@@ -300,6 +317,9 @@ class ContractTest(unittest.TestCase):
             prompt,
             "repository-declared authority",
             "current material delta",
+            "same-journal, same-article-type",
+            "recurring wording, sentence, and organization patterns",
+            "without copying prose or changing science",
             "Preserve active stable author directions",
             "If a finding recurs",
             "repair the root cause",

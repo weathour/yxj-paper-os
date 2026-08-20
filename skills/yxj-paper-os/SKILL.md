@@ -1,6 +1,6 @@
 ---
 name: yxj-paper-os
-description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author wants to assess, design, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Re-enter from repository-declared authority and current deltas, preserve stable author directions, diagnose repeated feedback at its root cause, produce claim-bearing displays from editable sources, close every affected paper surface, and prove the canonical rendered artifact matches the current source without disturbing shared Git work.
+description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author wants to assess, design, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Re-enter from repository-declared authority and current deltas, calibrate wording and organization against verified same-journal exemplars when relevant, preserve stable author directions, diagnose repeated feedback at its root cause, produce claim-bearing displays from editable sources, close every affected paper surface, and prove the canonical rendered artifact matches the current source without disturbing shared Git work.
 ---
 
 # YXJ Paper OS
@@ -244,13 +244,32 @@ surface.
 
 ## Use exemplars only where they decide something
 
-Read the actual exemplar source or rendered artifact at the required granularity.
-Compare only features relevant to the current decision: why-care setup, argumentative
-moves, claim and contribution placement, wording, section scale, citation placement,
-formal presentation, and figure/table function. Record a template observation in
-`Current constraints` only when it changes the paper, with its precise locator and
-`adopt`, `adapt`, or `avoid` decision. Do not create a second template dossier or treat
-descriptive counts as quality scores.
+When target-venue language or structure matters, use the smallest available cohort that
+matches the same journal, article type, and same or closely related topic. Prefer
+repository-declared or author-supplied papers; otherwise use available scholarly search
+only when the requested calibration requires it. Verify the journal, article type,
+topic fit, and source identity from publisher metadata or the article itself. State any
+relaxed match explicitly and never invent a cohort.
+
+Read the actual exemplar source or rendered artifact at the granularity needed for the
+current decision. Analyze recurring conventions in:
+
+- wording: standard technical terms, compounds and hyphenation, assertion and hedging
+  verbs, transitions, and avoided internal or process diction;
+- sentences: sentence jobs, length and rhythm, voice, parallelism, and the placement of
+  claims, evidence, and caveats; and
+- organization: titles, abstracts, contribution statements, section openings and
+  closings, result--discussion flow, captions, tables, citations, and limitations.
+
+Distinguish a cohort pattern from one paper's idiosyncrasy. Use descriptive counts only
+to establish whether a pattern recurs, never as quality scores. Convert only supported
+patterns into `adopt`, `adapt`, or `avoid` decisions with precise locators. During
+`design` or `revise`, apply those decisions to the affected text and check the changed
+passages against them afterward. Preserve scientific meaning, citations, settled
+architecture, author voice, and the current edit scope; do not copy distinctive wording,
+transfer claims, or force conformity. Record a decision in `Current constraints` only
+when it changes the paper and cannot be recovered safely; do not create a second
+template dossier.
 
 ## Ask only when blocked by author authority
 

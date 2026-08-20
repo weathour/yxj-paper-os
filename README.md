@@ -9,7 +9,7 @@ find, the evidence path coherent, and defensive prose accurate, local, and
 proportionate. It verifies the reader-facing realization in the paper; an actual reader
 effect still requires reader or reviewer evidence.
 
-Version 0.9 reduces repeated author correction through six small contracts:
+Version 0.9 reduces repeated author correction through seven small contracts:
 
 1. **Repository-declared authority:** follow the paper root, variant, control documents,
    source, and output named by the repository instead of inventing a competing root
@@ -28,6 +28,9 @@ Version 0.9 reduces repeated author correction through six small contracts:
 6. **Claim-bearing displays:** lock the reader question, evidence mapping, editable
    source, final-size visual and scientific gates, manuscript integration, and formal
    export instead of treating compilation as figure acceptance.
+7. **Matched-journal writing calibration:** verify a same-journal, same-article-type,
+   same- or related-topic cohort; extract recurring wording, sentence, and organization
+   conventions; and apply only locator-backed patterns without copying prose or claims.
 
 It remains a skills-only plugin, not a standalone CLI, LaTeX builder, literature
 database, deterministic paper generator, or workflow-state system. Results depend on
@@ -42,6 +45,7 @@ $yxj-paper-os:yxj-paper-os Assess the paper's claim and contribution. Do not edi
 $yxj-paper-os:yxj-paper-os Design a stronger reader-facing argument. Do not edit files.
 $yxj-paper-os:yxj-paper-os Revise the paper from reviewer.md, close every affected surface, build the canonical PDF, and verify the rendered result.
 $yxj-paper-os:yxj-paper-os The same narrative issue remains after prior rounds. Audit the recurrence, repair its root cause, and verify the current PDF.
+$yxj-paper-os:yxj-paper-os Compare this paper with same-journal Regular Papers on the same topic, then revise its wording, sentence patterns, and organization where the cohort supports a change.
 ```
 
 Provide or identify the manuscript, rendered PDF, local scientific evidence, figures,
