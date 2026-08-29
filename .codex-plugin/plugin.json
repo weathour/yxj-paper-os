@@ -1,28 +1,33 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.9.0+codex.20260820133052",
-  "description": "Reader-first, evidence-bound paper revision with matched-journal writing calibration, durable author directions, claim-bearing display production, recurrence repair, impact closure, and canonical artifact verification.",
+  "version": "0.10.0+codex.20260829080218",
+  "description": "Reader-first, evidence-bound academic paper design and revision with argument-path diagnosis, matched-venue writing calibration, impact closure, and canonical artifact verification.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "YXJ Paper OS",
-    "shortDescription": "Reader-first revision that closes repeated feedback.",
-    "longDescription": "YXJ Paper OS is a returning paper revision authority with a non-negotiable evidence boundary. It resolves repository-declared authority, re-enters by material delta, calibrates wording, sentence patterns, and organization against verified same-journal exemplars, preserves stable author directions, diagnoses repeated findings, applies explicit revisions across every affected surface, and proves the canonical rendered artifact matches the current source without rewriting shared Git history.",
+    "shortDescription": "Reader-first academic paper design and revision.",
+    "longDescription": "YXJ Paper OS designs or revises one academic paper within a non-negotiable evidence boundary. It enters from a creation baseline or current material delta, builds a reader-evaluable argument, repairs the earliest reader-path divergence, calibrates writing against verified matched-venue exemplars when relevant, closes every affected surface, and proves the canonical rendered artifact matches the current source without rewriting shared Git history.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Explicit assess, design, revise, and audit intent",
-      "Reader-first problem, claim, contribution, and story design",
-      "Same-journal, same-article-type writing calibration from verified exemplars",
+      "New-paper creation baseline or existing-paper delta re-entry",
+      "Reader-first paper contract and argument-unit design",
+      "Earliest reader-path divergence and recurrence repair",
+      "Matched-venue functional writing calibration from verified exemplars",
       "Non-negotiable scientific evidence boundary with minimal sufficient defense",
-      "Repository authority and delta re-entry",
-      "Stable author directions and recurrence root-cause repair",
+      "Repository authority and stable author directions",
       "Claim-bearing figure and table production from editable sources",
       "Direct writeback with cross-surface impact closure",
       "Current-source and canonical artifact verification"
     ],
-    "defaultPrompt": "Use YXJ Paper OS as the paper revision authority. Resolve repository-declared authority and the current material delta first. When target-venue language or structure matters, verify a same-journal, same-article-type, same- or related-topic cohort, extract recurring wording, sentence, and organization patterns, and apply only locator-backed patterns without copying prose or changing science. Preserve active stable author directions. If a finding recurs, compare the prior diff, acceptance criterion, source, and artifact, then repair the root cause rather than repeat a local wording patch. Keep every claim within all claim-relevant evidence and serve the reader first. For a nontrivial figure or table, lock its reader question, takeaway, evidence mapping, editable source, final-size visual gate, scientific gate, manuscript integration, and canonical export. Apply only explicitly authorized edits across every affected surface, rebuild and identify the canonical artifact, use fixed cold-reader tasks for global story changes when available, and report impact closure."
+    "defaultPrompt": [
+      "Design a reader-first paper argument from the current scientific evidence.",
+      "Revise this paper, close affected surfaces, and verify the canonical artifact.",
+      "Calibrate this paper against matched-venue exemplars without changing its science."
+    ]
   }
 }

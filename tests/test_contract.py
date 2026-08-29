@@ -25,6 +25,12 @@ class ContractTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         cls.brief = (ROOT / "assets/PAPER_BRIEF.md").read_text(encoding="utf-8")
+        cls.displays = (ROOT / "references/display-workflow.md").read_text(
+            encoding="utf-8"
+        )
+        cls.venue = (ROOT / "references/venue-calibration.md").read_text(
+            encoding="utf-8"
+        )
         cls.readme = (REPO / "README.md").read_text(encoding="utf-8")
         cls.manifest = json.loads(
             (REPO / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
@@ -36,7 +42,7 @@ class ContractTest(unittest.TestCase):
                 self.assertIn(compact(phrase), text)
 
     def test_plugin_layout_and_version(self) -> None:
-        self.assertEqual(self.manifest["version"].split("+", 1)[0], "0.9.0")
+        self.assertEqual(self.manifest["version"].split("+", 1)[0], "0.10.0")
         self.assertEqual(self.manifest["skills"], "./skills/")
         self.assertEqual(
             {
@@ -44,7 +50,12 @@ class ContractTest(unittest.TestCase):
                 for path in ROOT.rglob("*")
                 if path.is_file() and "__pycache__" not in path.parts
             },
-            {"SKILL.md", "assets/PAPER_BRIEF.md"},
+            {
+                "SKILL.md",
+                "assets/PAPER_BRIEF.md",
+                "references/display-workflow.md",
+                "references/venue-calibration.md",
+            },
         )
 
     def test_edit_authorization_is_explicit(self) -> None:
@@ -74,15 +85,45 @@ class ContractTest(unittest.TestCase):
             "Do not recursively ingest archives or every historical handoff",
         )
 
-    def test_reentry_uses_delta_and_compacts_legacy_briefs(self) -> None:
-        reentry = section(self.skill, "Re-enter by material delta")
+    def test_entry_distinguishes_creation_from_material_delta(self) -> None:
+        reentry = section(self.skill, "Enter from a creation baseline or material delta")
         self.assert_phrases(
             reentry,
-            "compare its recorded basis with the current commit, source, canonical rendered artifact, and feedback",
-            "Inspect changed inputs and affected surfaces first",
-            "If no material delta remains, stop",
+            "Resolve whether this is a new paper or a return to an existing one before claiming a delta",
+            "For an existing paper",
+            "If no material delta or explicit pending work remains, stop",
+            "For a new paper",
+            "do not invent a stale manuscript, prior acceptance baseline, or rendered artifact",
+            "`design` may resolve the paper contract without creating manuscript files",
+            "`revise` may create them only at the repository-declared or user-authorized path",
             "normalize it in place",
             "Use Git for history; do not create a backup, journal, or production log",
+        )
+
+    def test_paper_contract_and_argument_units_are_evidence_bound(self) -> None:
+        contract = section(self.skill, "Establish the paper contract and evidence ceiling")
+        argument = section(self.skill, "Build the reader's argument")
+        self.assert_phrases(
+            contract,
+            "intended reader and assumed knowledge",
+            "persistent research question",
+            "scope, quantifiers, assumptions, and failure condition",
+            "strongest adverse result, counterevidence, or alternative explanation",
+            "temporary unless an active part cannot yet be recovered",
+        )
+        self.assert_phrases(
+            argument,
+            "temporary argument-unit contract",
+            "load-bearing evidence, locator, and relation",
+            "counterpressure or failure condition",
+            "Methods, proofs, and appendices need not manufacture a belief change",
+            "If two major units can trade places without loss",
+            "directly establishes, supports, limits, contradicts",
+            "Stop broad analysis when the claim and failure condition are explicit",
+        )
+        self.assertLess(
+            compact(self.skill).index("establish the paper contract and evidence ceiling"),
+            compact(self.skill).index("diagnose the earliest divergence and any recurrence"),
         )
 
     def test_stable_author_directions_survive_completed_tasks(self) -> None:
@@ -116,10 +157,15 @@ class ContractTest(unittest.TestCase):
             sorted(directions.index(phrase) for phrase in precedence),
         )
 
-    def test_repeated_feedback_triggers_root_cause_audit(self) -> None:
-        recurrence = section(self.skill, "Diagnose recurrence before editing again")
+    def test_earliest_divergence_and_recurrence_route_to_root_cause(self) -> None:
+        recurrence = section(
+            self.skill, "Diagnose the earliest divergence and any recurrence"
+        )
         self.assert_phrases(
             recurrence,
+            "recover what the current paper actually presents without relying on the intended plan",
+            "find the first divergence",
+            "Repair the earliest responsible cause with the smallest change",
             "the same accepted finding returns",
             "`again`, `still`, or equivalent",
             "not applied",
@@ -127,7 +173,6 @@ class ContractTest(unittest.TestCase):
             "regression",
             "stale artifact",
             "acceptance drift",
-            "escalate from a local patch to the structural or root-cause repair",
             "Do not repeat synonym swaps",
         )
 
@@ -135,6 +180,10 @@ class ContractTest(unittest.TestCase):
         revision = section(self.skill, "Revise in one coherent pass")
         self.assert_phrases(
             revision,
+            "scientific meaning and responsibility",
+            "stable terminology and relevant venue convention",
+            "A wording change to actor, object, scope, quantifier",
+            "triggers a localized evidence and inference check",
             "temporary impact-closure matrix",
             "title, abstract, introduction, result sequence, figures, captions, discussion, and conclusion",
             "claims, equations and proofs, experiments, tables, terminology, citations, and translations",
@@ -142,20 +191,23 @@ class ContractTest(unittest.TestCase):
             "one coherent pass",
         )
 
-    def test_matched_journal_exemplars_calibrate_writing(self) -> None:
-        exemplars = section(self.skill, "Use exemplars only where they decide something")
+    def test_matched_venue_calibration_is_role_aligned_and_semantic_safe(self) -> None:
+        exemplars = compact(self.venue)
         self.assert_phrases(
             exemplars,
-            "same journal, article type, and same or closely related topic",
-            "Verify the journal, article type, topic fit, and source identity",
-            "State any relaxed match explicitly and never invent a cohort",
-            "wording: standard technical terms, compounds and hyphenation",
-            "sentences: sentence jobs, length and rhythm, voice, parallelism",
-            "organization: titles, abstracts, contribution statements",
-            "Distinguish a cohort pattern from one paper's idiosyncrasy",
-            "apply those decisions to the affected text and check the changed passages against them afterward",
-            "do not copy distinctive wording, transfer claims, or force conformity",
+            "same journal, article type or section, publication era",
+            "same manuscript locus and communicative job",
+            "One paper is an example, not a venue convention",
+            "observed count over the inspected cohort with precise locators",
+            "Compare abstract gap sentences with abstract gap sentences",
+            "**Adopt** stable terminology",
+            "**Adapt** recurring rhetorical choices",
+            "**Avoid** one paper's distinctive wording",
+            "Semantic invariants include the actor, object, scope, quantifiers",
+            "Any change to an invariant reopens the local evidence and inference check",
+            "do not create a template dossier or style database",
         )
+        self.assertIn("references/venue-calibration.md", self.skill)
 
     def test_scientific_authority_and_local_defense_remain_locked(self) -> None:
         authority = section(self.skill, "Preserve scientific authority")
@@ -164,7 +216,7 @@ class ContractTest(unittest.TestCase):
             authority,
             "Local scientific evidence determines what this project built, measured, proved, observed, failed, and bounded",
             "Scholarly references provide prior knowledge",
-            "Template exemplars guide narrative",
+            "Verified venue exemplars guide realization",
             "Preserve adverse, null, and limiting evidence",
             "Never edit measured data, computed results, or verification records to make them fit the prose",
         )
@@ -172,10 +224,12 @@ class ContractTest(unittest.TestCase):
             defense,
             "State a caveat once, at the nearest claim it qualifies",
             "Minimal sufficient defense protects trust without hiding the contribution",
+            "classify the dispute as factual, inferential, scientific-choice, or venue preference",
+            "do not bury substantive disagreement under more defensive prose",
         )
 
     def test_display_contract_precedes_nontrivial_drawing(self) -> None:
-        displays = section(self.skill, "Produce claim-bearing displays")
+        displays = compact(self.displays)
         self.assert_phrases(
             displays,
             "one reader question and one-sentence takeaway",
@@ -187,7 +241,7 @@ class ContractTest(unittest.TestCase):
         )
 
     def test_display_edits_follow_the_active_editable_source(self) -> None:
-        displays = section(self.skill, "Produce claim-bearing displays")
+        displays = compact(self.displays)
         self.assert_phrases(
             displays,
             "a similar filename is not enough",
@@ -197,7 +251,7 @@ class ContractTest(unittest.TestCase):
         )
 
     def test_display_acceptance_has_independent_scientific_and_visual_gates(self) -> None:
-        displays = section(self.skill, "Produce claim-bearing displays")
+        displays = compact(self.displays)
         self.assert_phrases(
             displays,
             "Render standalone panels and any production parent or composite at the intended manuscript size",
@@ -211,6 +265,7 @@ class ContractTest(unittest.TestCase):
             "Do not fix pagination by blindly shrinking the display",
             "Prefer deletion, combination, or simplification when a display or panel has no distinct reader job",
         )
+        self.assertIn("references/display-workflow.md", self.skill)
 
     def test_author_question_is_a_last_resort(self) -> None:
         questions = section(self.skill, "Ask only when blocked by author authority")
@@ -231,7 +286,9 @@ class ContractTest(unittest.TestCase):
             "prove that the inspected artifact came from the current source",
             "Render and inspect affected pages",
             "fresh non-writer review context",
-            "fixed reader tasks",
+            "without the intended contract",
+            "Compare the recovered path with the contract",
+            "repair the earliest remaining divergence",
             "An aggregate score alone is not acceptance evidence",
             "changed artifacts",
             "impact closure",
@@ -262,6 +319,7 @@ class ContractTest(unittest.TestCase):
         self.assert_phrases(
             brief,
             "compact current state, not a chronology",
+            "Active paper contract or argument baseline",
             "Scope",
             "Strength",
             "Supersedes",
@@ -292,46 +350,41 @@ class ContractTest(unittest.TestCase):
             + interface["longDescription"]
             + " ".join(interface["capabilities"])
         )
-        prompt = compact(interface["defaultPrompt"])
+        prompts = interface["defaultPrompt"]
+        self.assertIsInstance(prompts, list)
+        self.assertLessEqual(len(prompts), 3)
+        self.assertTrue(all(len(prompt) <= 128 for prompt in prompts))
+        prompt = compact(" ".join(prompts))
         self.assert_phrases(
             docs,
             "repository-declared authority",
+            "Creation-or-delta entry",
             "stable author directions",
             "recurrence audit",
             "canonical rendered artifact",
             "Claim-bearing displays",
-            "Matched-journal writing calibration",
+            "Matched-venue writing calibration",
             "Commit and push only when explicitly requested",
             "$yxj-paper-os:yxj-paper-os",
         )
         self.assert_phrases(
             advertised,
-            "delta re-entry",
-            "recurrence root-cause repair",
+            "creation baseline or current material delta",
+            "paper contract and argument-unit design",
+            "earliest reader-path divergence and recurrence repair",
             "stable author directions",
-            "Same-journal, same-article-type writing calibration",
-            "claim-bearing display production",
+            "Matched-venue functional writing calibration",
+            "claim-bearing figure and table production",
             "canonical artifact verification",
         )
         self.assert_phrases(
             prompt,
-            "repository-declared authority",
-            "current material delta",
-            "same-journal, same-article-type",
-            "recurring wording, sentence, and organization patterns",
-            "without copying prose or changing science",
-            "Preserve active stable author directions",
-            "If a finding recurs",
-            "repair the root cause",
-            "all claim-relevant evidence",
-            "reader question",
-            "editable source",
-            "visual gate",
-            "scientific gate",
-            "explicitly authorized edits",
+            "reader-first paper argument",
+            "current scientific evidence",
+            "close affected surfaces",
             "canonical artifact",
-            "fixed cold-reader tasks",
-            "impact closure",
+            "matched-venue exemplars",
+            "without changing its science",
         )
 
     def test_retired_contract_language_stays_absent(self) -> None:

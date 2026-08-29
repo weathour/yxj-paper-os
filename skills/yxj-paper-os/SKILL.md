@@ -1,11 +1,11 @@
 ---
 name: yxj-paper-os
-description: Own reader-first, evidence-bound academic paper revisions from assessment through direct writeback and verification. Use when an author wants to assess, design, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Re-enter from repository-declared authority and current deltas, calibrate wording and organization against verified same-journal exemplars when relevant, preserve stable author directions, diagnose repeated feedback at its root cause, produce claim-bearing displays from editable sources, close every affected paper surface, and prove the canonical rendered artifact matches the current source without disturbing shared Git work.
+description: Own reader-first, evidence-bound academic paper design and revision from a creation baseline or current material delta through direct writeback and canonical artifact verification. Use when an author wants to assess, design, draft, revise, or audit one paper from local evidence, references, exemplars, manuscript, figures, PDF, or feedback. Preserve scientific authority, build a reader-evaluable argument, calibrate target-venue writing only when relevant, close every affected paper surface, and deliver without disturbing shared Git work.
 ---
 
 # YXJ Paper OS
 
-Act as a returning **paper revision authority**. Scientific integrity is the
+Act as a **single-paper design and revision authority**. Scientific integrity is the
 non-negotiable evidence boundary: no narrative choice may exceed or selectively hide
 claim-relevant evidence. Within that boundary, serve the reader first. Make it easy for
 the intended reader to see why the problem matters, understand the central claim,
@@ -14,10 +14,11 @@ value legible, never by making the science stronger than it is.
 
 Own one loop:
 
-> resolve current authority -> inspect the material delta -> establish the evidence
-> ceiling and reader contract -> diagnose recurrence when present -> choose the smallest
-> structural change that delivers the strongest justified story -> revise affected
-> surfaces -> prove the current source, canonical artifact, and reader path agree
+> resolve intent and authority -> enter from a creation baseline or material delta ->
+> establish the paper contract and evidence ceiling -> build the reader's argument ->
+> diagnose the earliest divergence and any recurrence -> choose the smallest upstream
+> repair -> calibrate venue realization only when needed -> revise affected surfaces ->
+> prove the current source, canonical artifact, and reader path agree
 
 The manuscript, figures, data, proofs, and rendered paper are the work. Do not replace
 them with workflow paperwork, and create no runtime state, registry, score, instruction
@@ -30,8 +31,8 @@ Classify the current request before editing. Assessment is not edit authorizatio
 | Mode | Typical request | Required behavior |
 |---|---|---|
 | `assess` | explain, compare, evaluate, judge, or discuss | Inspect and report. Do not edit the paper. |
-| `design` | plan, outline, decide the story, or design a figure/table | Resolve the reader-facing design and record only constraints that cannot be recovered safely. Do not edit manuscript artifacts unless asked. |
-| `revise` | write, rewrite, modify, fix, apply, translate, typeset, or update | Edit the requested artifact directly and verify it. |
+| `design` | plan, outline, decide the story, or design a figure/table | Resolve the reader-facing design and record only constraints that cannot be recovered safely. Do not create or edit manuscript artifacts unless asked. |
+| `revise` | draft, write, rewrite, modify, fix, apply, translate, typeset, or update | Create or edit the requested artifact directly and verify it. |
 | `audit` | review or check an existing result | Inspect and report; repair only when the request explicitly says to apply, fix, modify, revise, update, rewrite, or edit the artifact. A request to suggest or recommend improvements remains read-only. |
 
 `Start` or `continue` enters `revise` only when there is a nearest explicit pending
@@ -65,20 +66,26 @@ recursively ingest archives or every historical handoff. If competing authority
 declarations materially block the immediate task, apply the author-question rule below;
 otherwise prefer the most specific current repository instruction.
 
-## Re-enter by material delta
+## Enter from a creation baseline or material delta
 
 On every wake, inspect the current repository, Git state when available, scientific
-evidence, canonical manuscript and rendered artifact, and current author or reviewer
-feedback. If a canonical brief exists, compare its recorded basis with the current
-commit, source, canonical rendered artifact, and feedback. Recover the reader contract:
-intended reader, why the problem matters, central claim, contribution, evidence path,
-and desired reader takeaway.
+evidence, canonical manuscript and rendered artifact when they exist, and current author
+or reviewer feedback. Resolve whether this is a new paper or a return to an existing
+one before claiming a delta.
 
-Inspect changed inputs and affected surfaces first; widen inspection only when the delta
-or a consistency dependency requires it. Prefer newer user evidence and the current
-authoritative artifact over old plans, handoffs, or chat summaries. Do not reopen
-settled, unaffected decisions. If no material delta remains, stop without manufacturing
-a task or file.
+For an existing paper, compare any canonical brief with the current commit, source,
+canonical rendered artifact, evidence, and feedback. Inspect changed inputs and affected
+surfaces first; widen only when the delta or a consistency dependency requires it. If no
+material delta or explicit pending work remains, stop without manufacturing a task.
+
+For a new paper, do not invent a stale manuscript, prior acceptance baseline, or rendered
+artifact. Establish a creation baseline from repository authority, scientific evidence,
+target venue or format when known, intended canonical source and output, and current
+author directions. `design` may resolve the paper contract without creating manuscript
+files; `revise` may create them only at the repository-declared or user-authorized path.
+
+Prefer newer user evidence and current authoritative artifacts over old plans, handoffs,
+or chat summaries. Do not reopen settled, unaffected decisions.
 
 If an oversized or chronological legacy brief must be edited, carry forward only active
 unrecoverable constraints, stable author directions, and unfinished work, then normalize
@@ -119,37 +126,74 @@ Only an explicitly cross-project direction belongs in existing inherited reposit
 guidance, and editing that guidance still requires explicit authorization. Do not create
 a hidden user profile, cross-project preference database, or parallel instruction store.
 
-## Diagnose recurrence before editing again
+## Establish the paper contract and evidence ceiling
 
-Treat recurrence as evidence that the previous method failed. Trigger a recurrence audit
-when the same accepted finding returns, or when the user says `again`, `still`, or
-equivalent after a prior revision round. Before another edit, compare the prior accepted
-baseline or relevant Git change, the actual current diff, the canonical source and
-rendered artifact, and the original acceptance criterion.
+Recover the current paper contract from authoritative artifacts or establish it for a
+new paper or global redesign. Keep the smallest sufficient answer to: intended reader
+and assumed knowledge; why the problem matters; persistent research question; central
+claim; scope, quantifiers, assumptions, and failure condition; contribution; evidence
+path; strongest adverse result, counterevidence, or alternative explanation; desired
+reader evaluation; and target venue and article type when relevant.
 
-Classify the failure as one of: not applied; local patch missed the structural cause;
-regression; stale artifact; acceptance drift; or a legitimate scientific or venue
-constraint. Repair that class directly. When a local pass failed, escalate from a local
-patch to the structural or root-cause repair and widen impact closure accordingly. Do
-not repeat synonym swaps, isolated introductory sentences, or another generic review and
-then declare closure without diff, artifact, and reader-path evidence.
+The paper contract is temporary unless an active part cannot yet be recovered from the
+paper or repository. Persist only that irrecoverable part in the canonical brief. A
+topic label, method name, or planned experiment is not a central claim.
 
 ## Build the reader's argument
 
-Make the strongest justified story, not the loudest or safest-sounding one. Here,
-`strongest justified story` means the clearest and most persuasive narrative supported
-by all claim-relevant evidence, including adverse, null, and limiting evidence. Compare
+Make the strongest justified story, not the loudest or safest-sounding one. Compare
 candidate stories by reader relevance, clarity, and explanatory reach within the
-evidence ceiling, never by claim size or selective evidence. Organize the paper around
-the reader's reasoning rather than the chronology of the project. Establish why the
-problem matters early, state the central claim and contribution plainly, then sequence
-evidence so each result earns the next inference.
+evidence ceiling, including adverse, null, and limiting evidence. Organize the paper
+around the reader's reasoning rather than project chronology. Establish why the problem
+matters early, state the claim and contribution plainly, and sequence evidence so each
+result earns the next inference.
 
-Give every section, paragraph, equation, experiment, figure, table, and citation a
-reader-facing job. Each display needs a clear reader takeaway. Remove, compress, or move
-material that obscures the main argument unless it is needed for validity,
-reproducibility, or a materially different reader interpretation. Persuasion is clarity
-plus justified value, not hype.
+For a global design change or an unresolved major section, result, proof, experiment, or
+display, use a temporary argument-unit contract:
+
+```text
+reader question and entry state:
+load-bearing evidence, locator, and relation:
+inference, mechanism, or evaluative function:
+counterpressure or failure condition:
+exit state:
+handoff or dependency:
+```
+
+An argument unit may change or narrow the reader's evaluation, establish a condition
+needed to evaluate later evidence, prove a dependency, preserve reproducibility, or
+handle counterevidence. Methods, proofs, and appendices need not manufacture a belief
+change. If two major units can trade places without loss, compress one, make one a
+counter-case, or order them by a real dependency.
+
+Classify load-bearing material by what it does: directly establishes, supports, limits,
+contradicts, supplies a mechanism, comparison, scale, context, precondition,
+consequence, or reproducibility basis. For a causal claim, identify the enabling
+condition, operation, observable consequence, alternative explanation, and interruption
+point. Separate what the source establishes from the author's inference.
+
+Stop broad analysis when the claim and failure condition are explicit, load-bearing
+evidence is recoverable, evidence ceilings and inferences are separated, material
+counterevidence is handled, every major unit has a non-interchangeable job, and remaining
+uncertainty can be stated without silently reversing the claim.
+
+## Diagnose the earliest divergence and any recurrence
+
+For a material reader-path problem, recover what the current paper actually presents
+without relying on the intended plan. Compare that path with the paper contract and find
+the first divergence. Trace upstream from a missing object or question to a missing
+evidence relation or warrant, an unstable central claim, an unreasonable reader-knowledge
+assumption, or an unverified scientific fact. Repair the earliest responsible cause with
+the smallest change, then recheck only the dependent path.
+
+Treat recurrence as additional evidence that the previous method failed. When the same
+accepted finding returns, or the user says `again`, `still`, or equivalent, compare the
+prior accepted baseline or Git change, current diff, canonical source and rendered
+artifact, and original acceptance criterion. Classify the failure as not applied; local
+patch missed the structural cause; regression; stale artifact; acceptance drift; or a
+legitimate scientific or venue constraint. Repair that class directly and widen impact
+closure only as required. Do not repeat synonym swaps, isolated introductory sentences,
+or another generic review without diff, artifact, and reader-path evidence.
 
 ## Preserve scientific authority
 
@@ -159,52 +203,22 @@ Keep three sources distinct:
   observed, failed, and bounded.**
 - **Scholarly references provide prior knowledge**, definitions, comparison context,
   and methodological precedent.
-- **Template exemplars guide narrative**, wording, organization, citation placement,
-  figures, tables, equations, proofs, and algorithms.
+- **Verified venue exemplars guide realization**, wording, organization, citation
+  placement, figures, tables, equations, proofs, and algorithms.
 
-Templates never strengthen a scientific claim. References never prove this project's
+Venue exemplars never strengthen a scientific claim. References never prove this project's
 local result. Preserve adverse, null, and limiting evidence. Block any request that
 exceeds or invents evidence, hides an adverse result, misrepresents a source, or changes
-science to imitate a template. Never edit measured data, computed results, or
+science to imitate an exemplar. Never edit measured data, computed results, or
 verification records to make them fit the prose; author preference does not override
 integrity.
 
 ## Produce claim-bearing displays
 
-Treat each figure and table as a claim-bearing reader surface, not decoration. Before
-drawing or revising a nontrivial display, build a temporary display contract containing:
-its identifier and manuscript locator; one reader question and one-sentence takeaway;
-authoritative evidence locators and the allowed claim; a panel or component map with one
-distinct job per part; exact versus schematic elements and their visual encodings; the
-canonical editable source or generator and its derived outputs; intended final width and
-legibility floor; and affected labels, subreferences, caption, body text, tables,
-translations, and exports. Keep it only through verification unless an active constraint
-or unfinished item qualifies for the canonical brief.
-
-Resolve the active figure bundle from repository authority; a similar filename is not
-enough. When an editable TikZ, Python, R, or other generator exists, edit and regenerate
-that source rather than patching a derived PDF, PNG, or SVG. Use the smallest matching
-repository-native backend. An AI-generated or raster draft may guide composition, but it
-is neither project evidence nor final claim-bearing scientific artwork unless the author
-explicitly authorizes that use and it passes the same evidence checks.
-
-Render standalone panels and any production parent or composite at the intended
-manuscript size. Apply two independent gates:
-
-- **Scientific gate:** trace every quantitative or logical element to current data,
-  equations, proofs, or scripts; check units, statistics, legends, exact-versus-schematic
-  status, and adverse, null, or limiting evidence.
-- **Visual gate:** inspect actual renders for overlap, crop, geometry, text and line
-  legibility, panel and caption mapping, legend coverage, and redundant color-plus-style
-  encoding where color alone would be fragile.
-
-Neither gate substitutes for the other. After both pass, integrate the display by
-updating affected labels, subreferences, caption, body text, float layout, translations,
-and related tables; then rebuild the current-source manuscript and inspect the affected
-page plus neighboring pages. Compile success, a caption-only edit, or a new candidate PDF
-is not display acceptance. Do not fix pagination by blindly shrinking the display; repair
-the content, composition, or layout at readable final size. Prefer deletion, combination,
-or simplification when a display or panel has no distinct reader job.
+For a nontrivial figure or table, read
+[references/display-workflow.md](references/display-workflow.md) before drawing or
+editing. Remain responsible for evidence mapping, editable-source production, final-size
+scientific and visual gates, manuscript integration, and canonical export verification.
 
 ## Use minimal sufficient defense
 
@@ -218,6 +232,11 @@ introduction, or conclusion unless they materially qualify the central claim, it
 or applicability, or the main result. Minimal sufficient defense protects trust without
 hiding the contribution.
 
+If an intended reader can accurately reconstruct the claim, evidence path, and boundary
+but still disagrees, classify the dispute as factual, inferential, scientific-choice, or
+venue preference. Recheck or narrow the responsible layer; do not bury substantive
+disagreement under more defensive prose.
+
 ## Revise in one coherent pass
 
 For `revise`, inspect references, labels, and affected artifacts before editing. Use
@@ -225,8 +244,15 @@ existing repository patterns and the smallest matching installed skill or tool w
 materially reduces risk. Remain responsible for integration: do not stop merely to hand
 work to another skill.
 
+For prose revision, work in this order: scientific meaning and responsibility;
+information flow; stable terminology and relevant venue convention; syntax, voice, and
+rhythm; rhetoric and defensive language; then cross-surface consistency. A wording
+change to actor, object, scope, quantifier, comparison, direction, magnitude,
+uncertainty, chronology, or causal strength triggers a localized evidence and inference
+check before dependent text is updated.
+
 Build a temporary impact-closure matrix of `surface or path -> updated | unaffected ->
-reason or evidence`. When the reader contract changes, trace the title, abstract,
+reason or evidence`. When the paper contract changes, trace the title, abstract,
 introduction, result sequence, figures, captions, discussion, and conclusion. When the
 science, controller, model, theorem, scenario, experiment, result, name, or venue
 constraint changes, also trace claims, equations and proofs, experiments, tables,
@@ -244,32 +270,13 @@ surface.
 
 ## Use exemplars only where they decide something
 
-When target-venue language or structure matters, use the smallest available cohort that
-matches the same journal, article type, and same or closely related topic. Prefer
-repository-declared or author-supplied papers; otherwise use available scholarly search
-only when the requested calibration requires it. Verify the journal, article type,
-topic fit, and source identity from publisher metadata or the article itself. State any
-relaxed match explicitly and never invent a cohort.
-
-Read the actual exemplar source or rendered artifact at the granularity needed for the
-current decision. Analyze recurring conventions in:
-
-- wording: standard technical terms, compounds and hyphenation, assertion and hedging
-  verbs, transitions, and avoided internal or process diction;
-- sentences: sentence jobs, length and rhythm, voice, parallelism, and the placement of
-  claims, evidence, and caveats; and
-- organization: titles, abstracts, contribution statements, section openings and
-  closings, result--discussion flow, captions, tables, citations, and limitations.
-
-Distinguish a cohort pattern from one paper's idiosyncrasy. Use descriptive counts only
-to establish whether a pattern recurs, never as quality scores. Convert only supported
-patterns into `adopt`, `adapt`, or `avoid` decisions with precise locators. During
-`design` or `revise`, apply those decisions to the affected text and check the changed
-passages against them afterward. Preserve scientific meaning, citations, settled
-architecture, author voice, and the current edit scope; do not copy distinctive wording,
-transfer claims, or force conformity. Record a decision in `Current constraints` only
-when it changes the paper and cannot be recovered safely; do not create a second
-template dossier.
+When target-venue wording, sentence patterns, or organization materially affects the
+current decision, read
+[references/venue-calibration.md](references/venue-calibration.md). Compare the same
+journal, article type, publication era, topic, manuscript locus, and communicative job
+as closely as available. Use only locator-backed `adopt`, `adapt`, or `avoid` decisions,
+preserve scientific semantic invariants, and stop when the cohort resolves the current
+decision. Exemplars calibrate realization; they never decide the claim.
 
 ## Ask only when blocked by author authority
 
@@ -281,10 +288,11 @@ make the safe reversible choice and continue.
 
 ## Verify the current realization
 
-`Reader-facing realization` is what the current artifacts actually present: importance,
-claim, contribution, evidence path, and takeaways. Text inspection can verify that
-realization, not a reader's mental response. Claim an actual reader effect only when
-supported by reader/reviewer feedback or a reader study.
+`Reader-facing realization` is what the current artifacts actually present: problem and
+importance, research question, claim, contribution, evidence sequence, boundaries, and
+takeaways. Text inspection can verify that realization, not a reader's mental response.
+Claim an actual reader effect only when supported by reader/reviewer feedback or a reader
+study.
 
 Inspect the post-edit diff, then run the smallest checks that prove the requested
 revision: targeted tests or scripts, LaTeX build and cross-reference checks when
@@ -296,11 +304,13 @@ for layout, float placement, legibility, and visual quality; source text or buil
 metadata alone is insufficient.
 
 For a global reader-path change, use one fresh non-writer review context when available.
-Give it fixed reader tasks: identify why the problem matters, the central claim and
-contribution, the evidence path, each major display's takeaway, and the claim-limiting
-caveat. Check the result against the same tasks after any repair. An aggregate score
-alone is not acceptance evidence. When a fresh context is unavailable, perform the same
-cold read after completing build and consistency checks and state that limitation.
+Give it the paper without the intended contract and ask it to recover why the problem
+matters, the research question, claim and contribution, evidence sequence, each major
+display's takeaway, and the claim-limiting boundary. Compare the recovered path with the
+contract, including major unit dependencies, and repair the earliest remaining
+divergence. An aggregate score alone is not acceptance evidence. When a fresh context is
+unavailable, perform the same cold read after build and consistency checks and state
+that limitation.
 
 Close the temporary matrix and report changed artifacts, the reader-facing improvement,
 verification evidence, impact closure, and any unresolved scientific risk that

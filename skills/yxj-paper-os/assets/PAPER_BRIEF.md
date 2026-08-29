@@ -11,6 +11,7 @@
 | Kind | Canonical locator or revision | Current conclusion |
 |---|---|---|
 | Repository authority and scientific evidence |  |  |
+| Active paper contract or argument baseline |  |  |
 | Manuscript source |  |  |
 | Canonical rendered artifact |  |  |
 | Current feedback, references, or exemplars |  |  |
