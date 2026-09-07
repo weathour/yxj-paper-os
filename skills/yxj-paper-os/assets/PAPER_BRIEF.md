@@ -20,8 +20,10 @@
 
 Keep only active unrecoverable claim ceilings, non-claims, adverse/null/limiting
 evidence, canonical terms, display or venue constraints, template decisions, and each
-stable author direction. Use `hard` or `default` for strength. Every retained row is
-active. To supersede a row, delete its old row and name its ID under `Supersedes` on the
+stable author direction. Unrecoverable reader or skeleton decisions may belong here;
+do not add four skeleton inventories or copy recoverable argument maps. Use `hard` or
+`default` for strength. Every retained row is active. To supersede a row, delete its old
+row and name its ID under `Supersedes` on the
 replacement only when needed to avoid ambiguity.
 
 | ID | Scope | Strength | Active constraint or stable author direction | Source or locator | Supersedes |

@@ -9,8 +9,8 @@ Act as a **single-paper design and revision authority**. Scientific integrity is
 non-negotiable evidence boundary: no narrative choice may exceed or selectively hide
 claim-relevant evidence. Within that boundary, serve the reader first. Make it easy for
 the intended reader to see why the problem matters, understand the central claim,
-recognize the contribution, and evaluate the evidence. Sell the work by making its true
-value legible, never by making the science stronger than it is.
+recognize the contribution, and evaluate the evidence. Make the work's true value
+legible without making the science stronger than it is.
 
 Own one loop:
 
@@ -68,10 +68,10 @@ otherwise prefer the most specific current repository instruction.
 
 ## Enter from a creation baseline or material delta
 
-On every wake, inspect the current repository, Git state when available, scientific
-evidence, canonical manuscript and rendered artifact when they exist, and current author
-or reviewer feedback. Resolve whether this is a new paper or a return to an existing
-one before claiming a delta.
+At entry, resolve whether this is a new paper or a return to an existing one before
+claiming a delta. Inspect repository authority, Git state when available, and the
+evidence, manuscript, rendered artifact, and feedback relevant to the requested scope.
+A local paragraph task does not require a whole-paper audit.
 
 For an existing paper, compare any canonical brief with the current commit, source,
 canonical rendered artifact, evidence, and feedback. Inspect changed inputs and affected
@@ -131,9 +131,10 @@ a hidden user profile, cross-project preference database, or parallel instructio
 Recover the current paper contract from authoritative artifacts or establish it for a
 new paper or global redesign. Keep the smallest sufficient answer to: intended reader
 and assumed knowledge; why the problem matters; persistent research question; central
-claim; scope, quantifiers, assumptions, and failure condition; contribution; evidence
-path; strongest adverse result, counterevidence, or alternative explanation; desired
-reader evaluation; and target venue and article type when relevant.
+claim; scope, quantifiers, assumptions, and failure condition where applicable;
+contribution; evidence path and material adverse evidence or alternative explanations;
+what the reader can understand, evaluate, or do with the result; and target venue and
+article type when relevant. Do not invent counterevidence to fill a contract field.
 
 The paper contract is temporary unless an active part cannot yet be recovered from the
 paper or repository. Persist only that irrecoverable part in the canonical brief. A
@@ -145,26 +146,47 @@ Make the strongest justified story, not the loudest or safest-sounding one. Comp
 candidate stories by reader relevance, clarity, and explanatory reach within the
 evidence ceiling, including adverse, null, and limiting evidence. Organize the paper
 around the reader's reasoning rather than project chronology. Establish why the problem
-matters early, state the claim and contribution plainly, and sequence evidence so each
-result earns the next inference.
+matters early, state the claim and contribution plainly, and make each inference's
+evidence and prerequisites available before relying on it.
 
-For a global design change or an unresolved major section, result, proof, experiment, or
-display, use a temporary argument-unit contract:
+### Align four skeletons when structure is at issue
 
-```text
-reader question and entry state:
-load-bearing evidence, locator, and relation:
-inference, mechanism, or evaluative function:
-counterpressure or failure condition:
-exit state:
-handoff or dependency:
-```
+For whole-paper creation, global restructuring, a major relationship mismatch, or
+repeated structural complaints, compare four views of the same paper:
 
-An argument unit may change or narrow the reader's evaluation, establish a condition
-needed to evaluate later evidence, prove a dependency, preserve reproducibility, or
-handle counterevidence. Methods, proofs, and appendices need not manufacture a belief
-change. If two major units can trade places without loss, compress one, make one a
-counter-case, or order them by a real dependency.
+| Skeleton | Recover or design |
+|---|---|
+| Scientific / theoretical | Objects, conditions, mechanisms, evidence, and claims; actual dependency, comparison, classification, alternative, and composition relations. |
+| Reader | Entry knowledge and questions, concepts needed along the way, and the understanding, judgment, or use available on exit. |
+| Section | Each section's distinct purpose; dependencies versus parallel modules; order and main-text versus appendix placement. |
+| Visual | The story actually recoverable from headings, figures, tables, captions, and key equations, including omissions and misleading connections. |
+
+These are diagnostic views, not four required files, tables, or gates. For a local edit,
+check only the affected mapping and its dependencies. Use an experimental paper's
+operationalization and evidence chain or a review's synthesis relations where relevant;
+do not force every paper into a theorem DAG.
+
+The views need not share one order or one-to-one units. Distinguish logical dependence
+from page order, reader navigation from scientific implication, and optional/composable
+modules from mutually exclusive choices or jointly necessary premises. A reader may
+navigate from a desired conclusion to the certificate needed to establish it; that
+does not reverse the proof from certificate plus conditions to conclusion. Simplifying
+the presentation must preserve these relations, conditions, and quantifiers.
+
+### Give each unit a useful job
+
+For an unresolved section, result, proof, experiment, or display, ask only the questions
+needed to decide its role: what does the reader enter knowing or asking; what evidence
+and locators support the inference or function; what becomes understandable, comparable,
+predictable, reproducible, or usable; and what later work actually depends on it?
+Inspect counterevidence or failure conditions when they materially affect that role.
+Keep this reasoning temporary; do not impose a fixed contract on every paragraph.
+
+Methods, definitions, proofs, and appendices can supply prerequisites or reproducibility
+without manufacturing a belief change or practical action. Reorderable modules are not
+therefore redundant: order independent units by familiarity, complexity, or relevance.
+Compress only when jobs and evidence duplicate without an independent consequence;
+never invent a dependency or counter-case merely to justify a sequence.
 
 Classify load-bearing material by what it does: directly establishes, supports, limits,
 contradicts, supplies a mechanism, comparison, scale, context, precondition,
@@ -172,19 +194,21 @@ consequence, or reproducibility basis. For a causal claim, identify the enabling
 condition, operation, observable consequence, alternative explanation, and interruption
 point. Separate what the source establishes from the author's inference.
 
-Stop broad analysis when the claim and failure condition are explicit, load-bearing
+Stop broad analysis when the claim and material conditions are explicit, load-bearing
 evidence is recoverable, evidence ceilings and inferences are separated, material
-counterevidence is handled, every major unit has a non-interchangeable job, and remaining
-uncertainty can be stated without silently reversing the claim.
+counterevidence is handled, major units have distinct purposes and accurate dependency
+or parallel relations, and uncertainty does not silently reverse the claim.
 
 ## Diagnose the earliest divergence and any recurrence
 
 For a material reader-path problem, recover what the current paper actually presents
 without relying on the intended plan. Compare that path with the paper contract and find
-the first divergence. Trace upstream from a missing object or question to a missing
-evidence relation or warrant, an unstable central claim, an unreasonable reader-knowledge
-assumption, or an unverified scientific fact. Repair the earliest responsible cause with
-the smallest change, then recheck only the dependent path.
+the first divergence. Identify the responsible layer: invalid or missing scientific
+support; missing reader prerequisites; unclear section roles; misleading display
+relations or bundle omissions; defensive repetition obscuring the result; or a sound
+design not realized in the artifact. Trace dependencies to the earliest responsible
+cause, not automatically to the introduction. Repair it with the smallest change, then
+recheck only the dependent path.
 
 Treat recurrence as additional evidence that the previous method failed. When the same
 accepted finding returns, or the user says `again`, `still`, or equivalent, compare the
@@ -216,26 +240,53 @@ integrity.
 ## Produce claim-bearing displays
 
 For a nontrivial figure or table, read
-[references/display-workflow.md](references/display-workflow.md) before drawing or
-editing. Remain responsible for evidence mapping, editable-source production, final-size
-scientific and visual gates, manuscript integration, and canonical export verification.
+[references/display-workflow.md](references/display-workflow.md) before designing,
+drawing, or editing. Remain responsible within the requested scope for evidence mapping,
+editable-source production, final-size scientific and visual gates, manuscript
+integration, and canonical export verification.
 
-## Use minimal sufficient defense
+## Write positively with minimal sufficient defense
 
-Preserve every limitation that materially changes the central claim's truth, scope,
-applicability, or a reasonable intended reader's interpretation or decision, but keep
-defensive prose proportional. State a caveat once, at the nearest claim it qualifies,
-with its exact scope and consequence. Repeat it only when omission would cause a
-materially wrong reading. Do not scatter generic hedging, apologies, or repeated
-disclaimers across the paper, and do not let limitations dominate the title, abstract,
-introduction, or conclusion unless they materially qualify the central claim, its scope
-or applicability, or the main result. Minimal sufficient defense protects trust without
-hiding the contribution.
+Organize the argument around what the work establishes, explains, distinguishes, or
+makes possible within its evidence ceiling. Make the useful consequence visible where
+it helps the reader: understanding a mechanism, comparing alternatives, predicting a
+response, reproducing a result, or making a bounded decision. This is positive writing,
+not positive results or promotional language. A null result, impossibility theorem, or
+failed approach may contribute by ruling out a route or locating a boundary. Do not
+invent successful applications, causal certainty, or practical utility.
+
+Preserve every qualification that materially changes a claim's truth, scope,
+applicability, uncertainty, or the intended reader's interpretation. Put it near the
+claim with its exact consequence; repeat it when omission would materially mislead.
+Keep a central limitation or negative result prominent, including in the abstract or
+conclusion when needed, rather than hiding it in an appendix. Remove generic apologies,
+imagined-reviewer rebuttals, and repeated non-claims that add no necessary qualification.
+After removal, recheck quantifiers, conditions, uncertainty, comparison, and causal
+strength: less defensive language must not widen the science.
+
+Apply this at paper, section, and paragraph scale as needed, not as a word blacklist,
+hedging quota, fixed sentence recipe, or compulsory applications paragraph. Minimal
+sufficient defense protects trust while keeping the established contribution visible.
 
 If an intended reader can accurately reconstruct the claim, evidence path, and boundary
 but still disagrees, classify the dispute as factual, inferential, scientific-choice, or
 venue preference. Recheck or narrow the responsible layer; do not bury substantive
 disagreement under more defensive prose.
+
+## Preserve authorial expression
+
+Preserve author-approved choices and fit expression to the language, intended reader,
+discipline, and local communicative job. Do not flatten a paper into a generic "human"
+voice or optimize for AI-detector scores, forbidden-word lists, forced sentence-length
+variation, or synonym substitution. Accurate, natural prose may remain unchanged.
+
+Before drafting, substantive prose revision, Chinese-English adaptation, or assessment
+of author voice and naturalness, read
+[references/authorial-style.md](references/authorial-style.md). Also read it during
+design when author voice or exposition affects the current choice; do not wait for an
+explicit "de-AI" request. Evidence-only checks, mechanical corrections, and layout-only
+work do not require it. Apply it within the current reader argument and revision pass,
+not as a separate whole-paper rewriting mandate.
 
 ## Revise in one coherent pass
 
@@ -245,9 +296,9 @@ materially reduces risk. Remain responsible for integration: do not stop merely 
 work to another skill.
 
 For prose revision, work in this order: scientific meaning and responsibility;
-information flow; stable terminology and relevant venue convention; syntax, voice, and
-rhythm; rhetoric and defensive language; then cross-surface consistency. A wording
-change to actor, object, scope, quantifier, comparison, direction, magnitude,
+reader purpose, information flow, and proportionate qualifications; stable terminology
+and relevant venue convention; syntax, voice, and rhythm; then cross-surface consistency.
+A wording change to actor, object, scope, quantifier, comparison, direction, magnitude,
 uncertainty, chronology, or causal strength triggers a localized evidence and inference
 check before dependent text is updated.
 
@@ -303,14 +354,15 @@ hash or byte comparison, or a clean targeted rebuild. Render and inspect affecte
 for layout, float placement, legibility, and visual quality; source text or build
 metadata alone is insufficient.
 
-For a global reader-path change, use one fresh non-writer review context when available.
-Give it the paper without the intended contract and ask it to recover why the problem
-matters, the research question, claim and contribution, evidence sequence, each major
-display's takeaway, and the claim-limiting boundary. Compare the recovered path with the
-contract, including major unit dependencies, and repair the earliest remaining
-divergence. An aggregate score alone is not acceptance evidence. When a fresh context is
-unavailable, perform the same cold read after build and consistency checks and state
-that limitation.
+For a global reader-path change, use one fresh non-writer review context when available
+and delegation is authorized. Give it the current paper without the intended contract
+or proposed answer. Ask it to recover the scientific relations and conditions, reader
+entry and useful exit, section roles and dependencies or parallelism, and the visible
+story from headings and displays. Compare the recovered four skeletons with the
+contract and evidence, including what the display bundle omits or distorts, and repair
+the earliest remaining divergence. An aggregate score alone is not acceptance evidence.
+When a fresh context is unavailable, perform the same cold read after build and
+consistency checks and state that limitation.
 
 Close the temporary matrix and report changed artifacts, the reader-facing improvement,
 verification evidence, impact closure, and any unresolved scientific risk that

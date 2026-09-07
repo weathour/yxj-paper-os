@@ -4,6 +4,11 @@ Read this only when target-venue wording, sentence patterns, or organization mat
 affects the current decision. Exemplars calibrate how justified science is presented;
 they never decide what the paper may claim.
 
+Author voice and Chinese-English realization belong in
+[authorial-style.md](authorial-style.md), including when no venue is specified. Do not
+turn an ordinary language revision into an exemplar search or treat an observed venue
+preference as permission to override author directions.
+
 ## Build the smallest useful cohort
 
 Prefer repository-declared or author-supplied papers. Otherwise search only when the
@@ -23,6 +28,13 @@ with contribution statements, quantitative result sentences with comparable resu
 mechanism explanations with mechanism explanations, limitations with limitations, and
 captions with the same display type. Whole-paper averages for sentence length, passive
 voice, or transitions do not decide whether a particular sentence works.
+
+For positive writing and qualifications, compare communicative function and placement:
+how a contribution becomes useful or understandable, how evidence earns an implication,
+and where a boundary prevents a wrong reading. Do not copy confidence, remove necessary
+hedging, or impose applications merely because exemplars use affirmative language.
+Negative results and central limitations must retain their scientific role. A lexical
+match is not evidence that a sentence does the same job.
 
 Inspect only features relevant to the decision:
 

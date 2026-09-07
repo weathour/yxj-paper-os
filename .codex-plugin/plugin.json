@@ -1,7 +1,7 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.10.0+codex.20260829080218",
-  "description": "Reader-first, evidence-bound academic paper design and revision with argument-path diagnosis, matched-venue writing calibration, impact closure, and canonical artifact verification.",
+  "version": "0.11.0+codex.20260907041612",
+  "description": "Reader-first, evidence-bound academic paper design and revision with four-skeleton alignment, positive writing, Chinese-English authorial expression, and canonical artifact verification.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
@@ -9,18 +9,19 @@
   "interface": {
     "displayName": "YXJ Paper OS",
     "shortDescription": "Reader-first academic paper design and revision.",
-    "longDescription": "YXJ Paper OS designs or revises one academic paper within a non-negotiable evidence boundary. It enters from a creation baseline or current material delta, builds a reader-evaluable argument, repairs the earliest reader-path divergence, calibrates writing against verified matched-venue exemplars when relevant, closes every affected surface, and proves the canonical rendered artifact matches the current source without rewriting shared Git history.",
+    "longDescription": "YXJ Paper OS designs or revises one academic paper within a non-negotiable evidence boundary. It aligns scientific, reader, section, and visual skeletons when structure is at issue, makes established value visible without hiding necessary qualifications, preserves logical and navigational relations, and verifies affected artifacts. It retains repository authority, scoped writeback, and matched-venue calibration without adding workflow paperwork or rewriting shared Git history.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
       "Explicit assess, design, revise, and audit intent",
       "New-paper creation baseline or existing-paper delta re-entry",
-      "Reader-first paper contract and argument-unit design",
+      "Conditional scientific, reader, section, and visual skeleton alignment",
       "Earliest reader-path divergence and recurrence repair",
       "Matched-venue functional writing calibration from verified exemplars",
-      "Non-negotiable scientific evidence boundary with minimal sufficient defense",
+      "Positive writing with minimal sufficient defense and a scientific evidence ceiling",
+      "Context-sensitive Chinese-English authorial expression with approved voice preservation",
       "Repository authority and stable author directions",
-      "Claim-bearing figure and table production from editable sources",
+      "Relation-aware displays and bundle verification from editable sources",
       "Direct writeback with cross-surface impact closure",
       "Current-source and canonical artifact verification"
     ],
