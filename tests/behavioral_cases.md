@@ -11,8 +11,8 @@ cases do not establish actual reader comprehension or rendered visual quality.
 Request: Assess this tutorial outline and recommend a reader-friendly order. Do not edit.
 
 Evidence: Section 2 defines a common input-output operator and response norm. Section 3
-uses frequency-domain assumptions to derive a frequency certificate. Section 4 instead
-uses dissipativity assumptions to derive an energy certificate. Both use Section 2;
+uses frequency-domain assumptions to derive a gain bound. Section 4 instead
+uses dissipativity assumptions to derive an energy bound. Both use Section 2;
 neither uses the other. They enable different comparisons, and the intended readers are
 more familiar with energy methods. Section 5 compares their applicability; Appendix A
 contains reproducibility details. A colleague says Sections 3 and 4 can be swapped.
@@ -170,3 +170,32 @@ Author B: Writes explanatory tutorials for readers who need the distinction betw
 a theorem and numerical evidence spelled out. Approved sample:
 "We first separate the model assumption from the observation. The assumption defines
 the case being studied; the observation tells us what happened within that case."
+
+## 15. Terminology during figure design
+
+Request: 为这张概览图拟定中英文节点名称，并解释需要调整的用词。只讨论设计，不绘图、不改文件。
+
+Evidence: Section 2 derives a deterministic upper bound on an input-output gain.
+Section 3 derives a data-dependent upper confidence bound for a fixed unknown gain.
+Section 4 explicitly defines a Lyapunov certificate as a matrix satisfying the stated
+inequality; the author has approved that term. These methods are optional alternatives
+under their own assumptions. The current sketch calls all three nodes "certificate /
+证书" because a planning note calls the common reader task "certificate lookup".
+No source establishes that this umbrella term is a disciplinary convention.
+
+## 16. Consequential wording with unchanged equations
+
+Request: Correct the English and Chinese prose in revised.md using the supplied
+mathematics. Keep the equations and scope unchanged. This is a standalone passage;
+no full manuscript, figure, or PDF is needed.
+
+Evidence: Under A1-A3, each fixed size N has a finite response-gain upper bound g_N.
+No bound independent of N or matching lower bound has been established.
+
+Equation: For every N >= 1, ||T_N|| <= g_N < infinity.
+
+English: Under A1-A3, this gives the exact gain g_N uniformly over all sizes. The
+unchanged equation confirms that the wording preserves the mathematics.
+
+Chinese: 在 A1-A3 下，该式给出了对所有规模一致的精确增益 g_N。
+由于公式未变，用词调整不会改变数学含义。

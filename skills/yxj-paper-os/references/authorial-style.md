@@ -32,6 +32,48 @@ section jobs determine emphasis and pace; headings and displays carry the same s
 and boundaries as the prose. Let distinct jobs receive different amounts of space, but
 do not manufacture asymmetry, anecdotes, personality, or a discovery chronology.
 
+## Disciplinary terminology and semantic precision
+
+Treat terminology as part of the scientific specification. When a name organizes a
+section, theorem, or figure, resolve what it denotes before propagating it: a measured
+quantity, estimate, upper bound, sufficient condition, proof, or statistical guarantee
+may require different language even when they serve the same reader objective. Use a
+disciplinary term in its applicable sense; define a justified new term when needed.
+Unfamiliarity alone does not justify renaming an author-approved concept.
+
+Keep the skill's organizational shorthand from becoming the paper's scientific
+vocabulary by default. Words such as "certificate", "statement", "witness", and
+"bridge" can be accurate in context; they are not universal names for results or their
+relations. Replace an unnecessary abstraction with the actual object or operation.
+Keep a familiar disciplinary metaphor or compact expression when its referent is clear
+and it helps the reader. Neither technical appearance nor suspected AI authorship
+decides whether wording is appropriate.
+
+For a consequential uncertainty about usage, inspect local definitions and notation,
+author-approved uses, and available primary references from the relevant discipline
+and communicative context. If these do not resolve it, make a bounded source lookup.
+Distinguish a documented formal standard, an observed disciplinary convention, and a
+term defined by this paper; one published occurrence does not establish a convention.
+This does not require a target journal or a broad exemplar search. An unfamiliar but
+well-defined term is not by itself an unresolved scientific issue.
+
+Words can carry mathematical commitments that unchanged equations do not verify. Check
+the referents and supported relation before treating a change as stylistic. For example:
+
+- A defined Lyapunov certificate may retain that name. A data-dependent upper confidence
+  bound should be named by its statistical role rather than placed under the same label
+  merely because both help assess a system.
+- "Probability bounds for the two events were derived separately" /
+  "两个事件的概率界分别建立" does not assert independent events / 相互独立的事件.
+  An inequality `||T|| <= gamma` supplies an upper bound / 上界, not an exact gain /
+  精确增益 without an additional argument.
+
+Use the existing semantic and impact checks for consequential wording changes, including
+headings, captions, labels, and translations that reuse the term. Compilation, formula
+equality, or bilingual symbol alignment alone does not establish semantic equivalence
+or disciplinary fit. Keep the check local unless the term's actual use requires wider
+revision; do not introduce a terminology blacklist or another mandatory audit stage.
+
 ## Language-specific realization
 
 The following are editorial questions, not quotas or universal Chinese-English contrasts.

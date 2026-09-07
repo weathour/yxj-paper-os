@@ -7,7 +7,8 @@ job, not decoration. Before choosing geometry, settle its question, takeaway, ev
 locators, allowed claim, and the relations among its parts. Distinguish:
 
 - taxonomy or comparison from a sequence of operations;
-- formal implication from reading navigation, including conclusion-to-certificate lookup;
+- formal implication from reading navigation, including lookup of the evidence or
+  conditions needed for a conclusion;
 - jointly necessary premises (AND) from alternative sufficient routes;
 - optional, composable modules from exclusive choices; and
 - genuine feedback from an arrow used only to connect nearby boxes.

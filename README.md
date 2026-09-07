@@ -32,6 +32,9 @@ preserves author-approved choices, distinguishes contextual fit from model-frequ
 patterns, and supports both useful edits and leaving sound prose unchanged. It loads
 when prose or author voice is at issue, not for evidence-only or layout-only work.
 Matched-venue calibration remains separate; no detector score or style profile is added.
+It also checks disciplinary meaning when naming objects, headings, and figure labels,
+before those choices spread through the paper. Consequential terms are checked against
+definitions and relevant sources; valid technical usage is preserved.
 
 The plugin retains repository-declared authority, creation-or-delta entry, stable author
 directions, recurrence diagnosis, matched-venue functional calibration, cross-surface

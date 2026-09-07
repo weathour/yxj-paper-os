@@ -169,9 +169,10 @@ do not force every paper into a theorem DAG.
 The views need not share one order or one-to-one units. Distinguish logical dependence
 from page order, reader navigation from scientific implication, and optional/composable
 modules from mutually exclusive choices or jointly necessary premises. A reader may
-navigate from a desired conclusion to the certificate needed to establish it; that
-does not reverse the proof from certificate plus conditions to conclusion. Simplifying
-the presentation must preserve these relations, conditions, and quantifiers.
+navigate from a desired conclusion to the evidence, conditions, or bound needed to
+establish it; that does not reverse the scientific inference from premises to
+conclusion. Simplifying the presentation must preserve these relations, conditions,
+and quantifiers.
 
 ### Give each unit a useful job
 
@@ -283,10 +284,12 @@ variation, or synonym substitution. Accurate, natural prose may remain unchanged
 Before drafting, substantive prose revision, Chinese-English adaptation, or assessment
 of author voice and naturalness, read
 [references/authorial-style.md](references/authorial-style.md). Also read it during
-design when author voice or exposition affects the current choice; do not wait for an
-explicit "de-AI" request. Evidence-only checks, mechanical corrections, and layout-only
-work do not require it. Apply it within the current reader argument and revision pass,
-not as a separate whole-paper rewriting mandate.
+design when naming scientific objects or relations, choosing headings or display labels,
+or resolving author voice and exposition. Check disciplinary meaning before those
+choices spread through the paper; do not wait for final polishing or an explicit
+"de-AI" request. Evidence-only checks, mechanical corrections, and layout-only work do
+not require it. Apply it within the current reader argument and revision pass, not as
+a separate whole-paper rewriting mandate.
 
 ## Revise in one coherent pass
 
