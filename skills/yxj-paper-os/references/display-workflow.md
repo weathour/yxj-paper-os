@@ -54,6 +54,12 @@ do not claim overall display completion. After both pass, integrate the display 
 updating affected labels, subreferences, caption, body text, float layout, translations,
 and related tables; then rebuild the current-source manuscript and inspect the affected
 page plus neighboring pages. Compile success, a caption-only edit, or a new candidate PDF
-is not display acceptance. Do not fix pagination by blindly shrinking the display;
-repair the content, composition, or layout at readable final size. Prefer deletion,
+is not display acceptance.
+
+For a page-budget task, inspect overflow pages, float placement, and whitespace before
+cutting load-bearing explanation. Within the active layout constraints, compare modest
+display scaling and other layout changes with text compression; do not blindly shrink
+displays. Verify the chosen layout with the same rendered checks, and stop adjusting
+once the requested budget and legibility are met. Distinguish estimated typeset-height
+savings from actual whole-PDF page changes; pagination is not additive. Prefer deletion,
 combination, or simplification when a display or panel has no distinct reader job.

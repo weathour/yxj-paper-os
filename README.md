@@ -11,7 +11,13 @@ qualifications remain accurate, local, and proportionate, with central negative 
 kept prominent. It verifies the reader-facing realization in the paper; an actual reader
 effect still requires reader or reviewer evidence.
 
-Version 0.11 aligns four skeletons when structure is at issue: scientific/theoretical
+Paper design connects a recognizable research question with what existing knowledge
+permits, what the work adds, and the evidence that supports that addition. Contributions
+identify both the scholarly result and the understanding or capability it enables.
+Explanatory space follows the difficult steps needed to understand and evaluate those
+results; contribution count and a method--law--design sequence are not prescribed.
+
+The skill aligns four skeletons when structure is at issue: scientific/theoretical
 relations, the reader's path, section roles, and the story visible in headings and
 displays. These are conditional diagnostic views, not four mandatory documents. Local
 edits stay local unless a real dependency requires wider repair.
@@ -39,12 +45,15 @@ definitions and relevant sources; valid technical usage is preserved.
 The plugin retains repository-declared authority, creation-or-delta entry, stable author
 directions, recurrence diagnosis, matched-venue functional calibration, cross-surface
 closure, and current-source/canonical-artifact verification. It adds no runtime state,
-instruction ledger, or new brief schema.
+instruction ledger, or compulsory record migration.
 
 Revision includes justified content selection, diagnosis of incoming suggestions, and
 checks whose requirements remain grounded in the adopted paper contract. Explicitly
 deferred editions remain visible during staged work; task-affected factual handoffs are
-kept current within repository permissions. Discussion remains read-only.
+kept current within repository permissions. Discussion remains read-only. Repeated
+feedback prompts diagnosis rather than automatically becoming a lasting author rule.
+Local edits require no tracking form; larger dependent revisions may use a temporary
+list. Existing repository brief formats are retained.
 
 It remains a skills-only plugin, not a standalone CLI, LaTeX builder, literature
 database, deterministic paper generator, or workflow-state system. Results depend on
@@ -81,7 +90,8 @@ The bundled `skills/yxj-paper-os/assets/PAPER_BRIEF.md` is a read-only fallback.
 brief path declared by repository instructions; copy the template to the paper root only
 when no canonical brief is declared and unrecoverable current state must persist. The
 brief stores compact current basis, active constraints and stable directions, and open
-work—not conversation or production history.
+work. Its prompts are optional; older tables remain readable without requiring conversion.
+Completed work and temporary tracking are removed rather than retained as history.
 
 Commit and push only when explicitly requested. Paper-local delivery must preserve
 unrelated work and must not reset, recreate, or switch a shared main branch.
@@ -94,7 +104,7 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/y
 python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py .
 ```
 
-The automated checks cover package structure, resource resolution, and brief schema,
+The automated checks cover package structure, resource resolution, and brief sections,
 not model behavior. [Behavioral cases](tests/behavioral_cases.md) provide small realistic
 requests for a separate forward pass. Give a fresh evaluator the skill and raw cases,
 not an intended answer; inspect its actual outputs and file changes. A pass is bounded

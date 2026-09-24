@@ -200,6 +200,102 @@ unchanged equation confirms that the wording preserves the mathematics.
 Chinese: 在 A1-A3 下，该式给出了对所有规模一致的精确增益 g_N。
 由于公式未变，用词调整不会改变数学含义。
 
+Run this second passage separately under the same request:
+
+Evidence: The feature map psi is fixed before sampling. Its input x_k, the regressor
+phi_k = psi(x_k), the dataset, and the estimator are random. No conditioning on a realized
+dataset is imposed in this passage.
+
+Equation: phi_k = psi(x_k).
+
+English: With fixed features, the regression vectors and estimated model are fixed;
+only the response noise is random.
+
+Chinese: 特征固定后，回归向量与估计模型也固定，只有响应噪声是随机的。
+
+## 17. Contribution and reader uses
+
+Request: Propose a contributions paragraph and an intended-readers-and-use paragraph
+for Paper A. Then explain how Paper B's contribution statement should differ. Discuss
+only; do not edit files or search for sources.
+
+Evidence: Paper A organizes established definitions, compares their assumptions and
+bounds, and explains how existing identification and robustness estimates fit together.
+Its source audit attributes all these results to prior work; its derivations expose
+connections in a common notation. The author has adopted this synthesis identity.
+The intended audience includes newcomers, researchers comparing models and methods,
+and engineers interpreting simulations or experiments. The current draft says:
+"Our main advance is a new finite-data method. Readers can use it to accept or reject
+a controller against one prescribed gain limit."
+
+Paper B is independent. It proves a new conversion theorem under H1-H3; the supplied
+source comparison verifies that prior results do not cover that conversion. It also
+contains a synthesis section for newcomers. Its numerical examples illustrate the
+theorem and do not establish a controller-design improvement.
+
+## 18. Compression and explanatory functions
+
+Request: Assess the two proposed deletions below and recommend wording where needed.
+Keep the author's supported purposes and mathematical scope. Do not edit files.
+
+Evidence: The introduction says the paper connects definitions, analysis methods, and
+model uncertainty. The body establishes conditional conversions between response
+bounds, compares method assumptions, and explains finite-data uncertainty. The author
+approved uses in learning the subject, choosing comparisons, and interpreting experiments.
+
+Conclusion: Taken together, these connections let newcomers relate the definitions to
+the responses they describe, let researchers compare methods under matched assumptions,
+and help experimenters judge whether their disturbance and observation choices are
+covered by a theoretical bound. They provide a common basis for interpreting reported
+amplification across those settings.
+
+Proposal A replaces the conclusion with: "We discussed definitions, methods, and model
+uncertainty." Its rationale is that each subject already appeared in the introduction.
+
+Elsewhere, two adjacent body sentences read: "The response bound is independent of N
+under H1-H3. Under H1-H3, the response bound does not depend on N." There is no intervening
+equation or reference, and the second sentence has no later cross-reference.
+Proposal B deletes the second sentence.
+
+## 19. Page budget and float placement
+
+Request: Recommend the next layout variant from these supplied build and inspection
+observations. Explain the tradeoff and any remaining verification; do not claim to have
+built or inspected a PDF yourself. No files should be changed.
+
+Evidence: The complete paper must fit 40 pages. Font size and margins are fixed; modest
+figure display-size changes are allowed. A note deferring pagination belonged to a
+completed figure-drafting round. The current 41-page PDF leaves the last conclusion
+paragraph on a separate page before the appendix. Figure assets and captions are intact.
+
+| Variant | Estimated saving in equivalent pages | Complete PDF | Supplied final-size inspection |
+| --- | --- | --- | --- |
+| Delete the conclusion's explanation of uses | 0.18 | 40 pages | Uses are no longer brought together at the close |
+| Display figures at 96% width | 0.15 | 41 pages | Labels remain legible |
+| Display figures at 92% width | 0.31 | 40 pages | Labels remain legible; conclusion retained |
+| Display figures at 89% width | 0.42 | 40 pages | Small labels are difficult to read |
+
+## 20. Journal requirements and template migration
+
+Request: Assess whether the bibliography needs migration to the publisher template's
+default implementation and estimate the kinds of edits involved. Discuss only.
+
+Evidence: The supplied current official guide for this fictional journal and article
+type requires APA 7 output at the relevant submission stage, without prescribing a
+backend. The generic publisher template uses a different author-year style with BibTeX.
+The current manuscript uses biblatex/Biber and meets the specified output format, except
+that one journal record lacks an article number in both source and output.
+
+The existing library contains journal articles with article numbers in eid, conference
+papers with booktitle and pages, and preprints stored as online records. A supplied
+temporary build with the template default drops the article numbers and fails to render
+the preprints; the current build preserves these fields and types. Some published papers
+use numbered citations, but no supplied instruction grants an exception to the guide.
+
+Contrast case: For a different journal, the applicable guide requires numbered citations
+while the current output is author-year. The current backend already supports the required
+style; a supplied trial with that style preserves all record information.
+
 ## 21. Compression changes its own acceptance check
 
 Request: Audit this compression patch and its revised check. Explain whether the
@@ -278,3 +374,81 @@ with the English revision and complete that batch. No author-acceptance decision
 
 Contrast request in a fresh copy of the same starting project: Assess whether the
 duplicate sentences should be removed. Do not apply changes or update project records.
+
+## 25. Discovery as the principal contribution
+
+Request: Design this paper's opening and contribution order. Give a short candidate
+opening and explain the order; do not edit files or search for sources.
+
+Evidence: The paper studies failures of a simulated tracking system under two disturbance
+generators. The disturbances have the same marginal distribution and variance, but one
+generator clusters large disturbances in time. Under the supplied fixed controller and
+model, repeated independent runs show longer threshold-exceedance episodes for the
+clustered generator. The comparison and uncertainty estimates support that finding only
+for the tested model and settings. The closest-work comparison confirms that those works
+report marginal disturbance variance without this temporal comparison. The simulation
+method and controller are established; no new controller, general causal theorem, or
+design rule has been developed. Readers know tracking error and disturbance variance but
+may not distinguish the frequency of exceedance from the duration of an episode.
+
+Current outline: New simulation framework; new theoretical law; engineering design.
+Current contribution: "We provide a comprehensive framework for reliable tracking."
+
+## 26. Repeated feedback and a proposed permanent rule
+
+Request: Revise the opening in revised.md using these facts. Maintain PAPER_BRIEF.md
+only if this task adds a lasting adopted direction or genuine unfinished work. This
+is a standalone text task with no rendered output.
+
+Evidence: The intended readers are graduate control researchers. The paper establishes
+an upper bound on disturbance amplification under H1-H3. Its opening introduces six
+symbols before identifying the disturbance input and measured response. Twice the
+author has said, "The opening is still hard to follow; help the reader understand what
+the bound describes." A previous assistant proposed banning equations from all future
+introductions. The author has not adopted that proposal or changed the intended readers.
+
+opening.md: "Let H, G, W, V, N and gamma be given. Under H1-H3, ||G|| <= gamma.
+G maps the disturbance input to the measured response."
+
+PAPER_BRIEF.md: "## Current constraints\nWrite for graduate control researchers.\n"
+
+## 27. Existing brief formats and current authorization
+
+Request: Revise the duplicated sentence in manuscript.md and update the current task
+entry in PROJECT_NOTE.md. Complete this local Markdown revision; no PDF is required.
+
+Repository instructions: manuscript.md is canonical. PROJECT_NOTE.md is the canonical
+brief; retain its existing prose headings, Decision and Next. Factual maintenance of
+Next is authorized. The declared H1-H3 scope remains active.
+
+manuscript.md: "Under H1-H3, the bound is independent of N. Under H1-H3, the bound
+does not depend on N."
+
+PROJECT_NOTE.md: "# Project note\n## Decision\nKeep H1-H3 explicit.\n## Next\nRemove
+the duplicated bound sentence; completion means one supported statement remains.\n"
+
+Contrast request in a fresh isolated workspace: Assess what remains to do from this
+older PAPER_BRIEF.md and the same manuscript. Explain only; do not edit files.
+
+PAPER_BRIEF.md: "## Current constraints\n| ID | Scope | Strength | Active constraint or stable author direction | Source or locator | Supersedes |\n|---|---|---|---|---|---|\n| D1 | Whole paper | hard | Keep H1-H3 explicit | Author | |\n## Open work\n- **Mode:** revise\n- **Latest explicit pending revision:** Remove the duplicated bound sentence.\n"
+
+## 28. Explanatory proportion and evidence for the contribution
+
+Request: Design a revised introduction opening and the explanation after the main result.
+Recommend where to change the allocation of space and how to describe validation.
+Discuss only, using the supplied evidence; no literature search or experiment is requested.
+
+Evidence: The intended readers estimate signals from limited samples. They know the
+standard least-squares setup. The paper proves that, under H1-H3, the estimation error
+is at most C/sqrt(n) for each positive integer n, with a known positive C. Its verified
+closest-work comparison supplies an asymptotic convergence result without a computable
+finite-sample constant. The paper does not establish an optimal or necessary sample
+size, better empirical performance than competing estimators, or validity without H3.
+An independent computation at n=100 and n=400 agrees with the bound; that computation
+does not establish the all-n result. A failed check without H3 is retained in the evidence.
+
+Current structure: Three pages repeat the readers' standard setup. The main proof uses
+one unfamiliar concentration step, stated without explanation. After the bound appears,
+the only interpretation is "This establishes the effectiveness of our framework."
+The opening says only "Signal estimation is important in many modern applications."
+The validation paragraph says "Two successful examples prove universal reliability."

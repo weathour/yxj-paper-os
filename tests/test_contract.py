@@ -48,22 +48,14 @@ class PackageTest(unittest.TestCase):
                     reachable.add(resolved)
         self.assertEqual(reachable, files)
 
-    def test_brief_schema_remains_compatible(self):
+    def test_brief_keeps_current_state_sections(self):
         brief = (ROOT / "assets/PAPER_BRIEF.md").read_text()
-        # These are the persisted schema, not a test of instruction wording.
+        # Keep the information groups; row formats are optional, not an API.
         self.assertEqual(
             [line.removeprefix("## ") for line in brief.splitlines()
              if line.startswith("## ")],
             ["Current basis", "Current constraints", "Open work"],
         )
-        columns = [line.strip("| ").split(" | ") for line in brief.splitlines()
-                   if line.startswith("| ID |")]
-        self.assertEqual(columns, [
-            ["ID", "Scope", "Strength", "Active constraint or stable author direction",
-             "Source or locator", "Supersedes"],
-            ["ID", "Current task or unresolved defect", "Done when",
-             "Affected surfaces and Impact closure", "State"],
-        ])
 
 
 if __name__ == "__main__":

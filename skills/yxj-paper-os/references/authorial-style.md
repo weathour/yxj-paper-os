@@ -49,6 +49,12 @@ Keep a familiar disciplinary metaphor or compact expression when its referent is
 and it helps the reader. Neither technical appearance nor suspected AI authorship
 decides whether wording is appropriate.
 
+Use established scholarly language at the level the passage needs: name the recognizable
+research task or relationship before unpacking unfamiliar technical machinery. Explain
+the connection rather than merely replacing a narrow phrase with "framework", "law",
+or "design". A broader term must retain the actual object, result type, and conditions;
+references ground its meaning and intellectual context, not its prestige.
+
 For a consequential uncertainty about usage, inspect local definitions and notation,
 author-approved uses, and available primary references from the relevant discipline
 and communicative context. If these do not resolve it, make a bounded source lookup.
@@ -104,15 +110,27 @@ change preserve or improve? For drafting, use the same question to select concre
 content and its expression. Do not require a per-paragraph form, word-frequency scan,
 style score, or an extra polishing loop.
 
+Read a major result together with its preparation and interpretation. Give enough space
+to the relation the reader needs to understand: what the result connects, why its form
+matters, and how it answers the current question. Trim routine preparation where shared
+knowledge permits, while retaining unfamiliar prerequisites. A sentence saying that a
+result is "effective" or "significant" cannot supply that explanation. Do not prescribe
+a fixed paragraph sequence or a ratio of proof to discussion.
+
 Check for empty evaluation, a concluding sentence that adds nothing, irrelevant lists
 added for completeness, repeated rhetorical staging, and a mismatch between the writer's
 role and the prose. These are possible defects, not evidence of AI authorship. Correct
 them only where they occur; a useful summary or genuine list should survive the check.
 
-Within authorized content selection, an independently useful peripheral branch may be
-removed when the retained argument no longer needs it. Align contribution and coverage
-promises with that choice; do not keep rewriting sentences to avoid a justified content
-decision.
+For compression, compare explanatory functions before treating repeated facts as
+redundant. An opening can introduce a relation that the conclusion brings together with
+its uses. Preserve necessary first definitions, proof prerequisites, narrative links,
+and useful synthesis; their wording and placement may change. Within authorized content
+selection, an independently useful peripheral branch may be removed when the retained
+argument no longer needs it. Align contribution and coverage promises with that choice;
+do not keep rewriting sentences to avoid a justified content decision. Check compressed
+prose that fixes objects, randomness, quantifiers, or applicability even when equations remain
+unchanged, then read the affected path continuously using the existing semantic checks.
 
 Distinguish four functions when reducing defensive prose:
 
