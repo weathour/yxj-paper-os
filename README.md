@@ -41,6 +41,11 @@ directions, recurrence diagnosis, matched-venue functional calibration, cross-su
 closure, and current-source/canonical-artifact verification. It adds no runtime state,
 instruction ledger, or new brief schema.
 
+Revision includes justified content selection, diagnosis of incoming suggestions, and
+checks whose requirements remain grounded in the adopted paper contract. Explicitly
+deferred editions remain visible during staged work; task-affected factual handoffs are
+kept current within repository permissions. Discussion remains read-only.
+
 It remains a skills-only plugin, not a standalone CLI, LaTeX builder, literature
 database, deterministic paper generator, or workflow-state system. Results depend on
 the available paper artifacts, tools, and host model following the skill contract.

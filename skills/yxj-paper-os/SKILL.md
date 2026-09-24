@@ -49,9 +49,15 @@ canonical before judging or changing them.
 
 Canonical authority does not imply write authority. A repository-declared brief may be
 maintained during `design` or `revise` only when its repository contract permits it.
-Change `AGENTS.md`, status, handoff, or another control document only when the user
-explicitly requests that change or the document itself explicitly requires agent
-writeback for the current paper task. Do not create a competing project-root brief.
+During an authorized revision, minimally refresh factual entries in existing declared
+status or handoff files when this task makes their current-artifact pointer or remaining
+work misleading, subject to repository write restrictions. No separate request is needed
+unless repository guidance reserves those edits. Assessment and discussion remain
+read-only. Changes to `AGENTS.md` or other governance rules require their applicable
+explicit authority; factual maintenance does not create author decisions, scientific
+acceptance, or submission/release approval. Do not infer new approvals solely from
+artifact wording or revoke established authorization because a receipt is missing.
+Do not create a competing project-root brief.
 
 Default to the project-root `PAPER_BRIEF.md` only when the repository declares no
 canonical brief and an unrecoverable current constraint, stable author direction, or
@@ -186,8 +192,13 @@ Keep this reasoning temporary; do not impose a fixed contract on every paragraph
 Methods, definitions, proofs, and appendices can supply prerequisites or reproducibility
 without manufacturing a belief change or practical action. Reorderable modules are not
 therefore redundant: order independent units by familiarity, complexity, or relevance.
-Compress only when jobs and evidence duplicate without an independent consequence;
-never invent a dependency or counter-case merely to justify a sequence.
+Compress repetition while preserving distinct explanatory and evidential functions.
+When authorized shortening includes content selection, peripheral material may be
+omitted even when independently useful, provided retained claims, necessary comparisons,
+prerequisites, material adverse evidence, and reproducibility remain supported. Align
+affected scope and contribution promises with the adopted coverage; a page target alone
+does not override required coverage or author directions. Never invent a dependency or
+counter-case merely to justify a sequence.
 
 Classify load-bearing material by what it does: directly establishes, supports, limits,
 contradicts, supplies a mechanism, comparison, scale, context, precondition,
@@ -201,6 +212,14 @@ counterevidence is handled, major units have distinct purposes and accurate depe
 or parallel relations, and uncertainty does not silently reverse the claim.
 
 ## Diagnose the earliest divergence and any recurrence
+
+For incoming feedback, check the proposed diagnosis in the current artifact separately
+from the suggested repair. Merge duplicates and set aside stale or already-resolved
+comments. Evaluate each material change against the evidence, paper contract, and active
+author decisions; a valid diagnosis may need a narrower or different repair. Reopen a
+settled decision only when new evidence or an author direction warrants it. Model names
+and review counts do not establish correctness. Resolve routine local choices within
+the authorized scope without turning every comment into another approval or rewrite task.
 
 For a material reader-path problem, recover what the current paper actually presents
 without relying on the intended plan. Compare that path with the paper contract and find
@@ -305,19 +324,26 @@ A wording change to actor, object, scope, quantifier, comparison, direction, mag
 uncertainty, chronology, or causal strength triggers a localized evidence and inference
 check before dependent text is updated.
 
-Build a temporary impact-closure matrix of `surface or path -> updated | unaffected ->
-reason or evidence`. When the paper contract changes, trace the title, abstract,
-introduction, result sequence, figures, captions, discussion, and conclusion. When the
-science, controller, model, theorem, scenario, experiment, result, name, or venue
+Build a temporary impact-closure matrix of
+`surface or path -> updated | unaffected | deferred -> reason or evidence`.
+Use `deferred` only for affected surfaces that the author explicitly excludes from the
+current batch, such as a Chinese edition during an English-only revision. Note the
+dependency and condition for resuming it. Unfinished work inside the authorized scope
+remains open; it cannot be classified as deferred. When the paper contract changes,
+trace the title, abstract, introduction, result sequence, figures, captions, discussion,
+and conclusion. When the science, controller, model, theorem, scenario, experiment,
+result, name, or venue
 constraint changes, also trace claims, equations and proofs, experiments, tables,
 terminology, citations, and translations. Treat a scientific change as established only
 when explicitly authorized and supported by authoritative regenerated evidence or
 completed proof or experiment work; a proposed change is not a result.
 
-Update every materially affected surface and preserve the matrix through final
-verification. Record an unaffected surface only when its status is non-obvious or
-required for consistency. Routine paragraph order, transitions, terminology, equation
-numbering, cross-references, captions, and visual styling do not need author approval
+Update every materially affected surface within the authorized scope and preserve the
+matrix through final verification. Report batch completion separately from whole-paper
+readiness. A later authorized synchronization must cover accumulated relevant changes
+and clear the corresponding deferrals. Record an unaffected surface only when its status
+is non-obvious or required for consistency. Routine paragraph order, transitions,
+terminology, equation numbering, cross-references, captions, and visual styling do not need author approval
 when scientific meaning and a settled reader path remain unchanged. Use one coherent
 pass large enough to close the requested outcome, not one artificial task per file or
 surface.
@@ -348,6 +374,14 @@ takeaways. Text inspection can verify that realization, not a reader's mental re
 Claim an actual reader effect only when supported by reader/reviewer feedback or a reader
 study.
 
+When a revision requires changing a test expectation or coverage criterion, identify
+the property being checked and whether the adopted paper contract still requires it.
+Locator, count, or structural snapshots may change; retained claims keep their evidence
+obligations. Ground any changed criterion in an adopted scope decision or applicable
+evidence, not merely in the edited output or a failing check. Never weaken a requirement
+just to make the revision pass. Assess reference coverage by its evidential and comparative functions,
+not counts alone, and report checks only for the properties they actually verify.
+
 Inspect the post-edit diff, then run the smallest checks that prove the requested
 revision: targeted tests or scripts, LaTeX build and cross-reference checks when
 applicable, source/result consistency, and a continuous read of changed passages. When a
@@ -367,9 +401,10 @@ the earliest remaining divergence. An aggregate score alone is not acceptance ev
 When a fresh context is unavailable, perform the same cold read after build and
 consistency checks and state that limitation.
 
-Close the temporary matrix and report changed artifacts, the reader-facing improvement,
-verification evidence, impact closure, and any unresolved scientific risk that
-materially affects the central claim or requested decision.
+Close all in-scope paths in the temporary matrix and report changed artifacts, the
+reader-facing improvement, verification evidence, any explicit deferrals, and any
+unresolved scientific risk that materially affects the central claim or requested
+decision. A deferred surface does not count as updated or unaffected.
 
 ## Deliver without disturbing shared work
 
@@ -387,6 +422,7 @@ export is stale or the expected branch does not contain the delivered files.
 Update a repository-declared brief only when `design` or `revise` and its write contract
 authorize maintenance. Update a fallback brief during `design` or `revise` when its
 current basis, active stable directions, unrecoverable constraints, or unfinished work
-changed. Remove completed work, retain active stable directions, and replace superseded
-entries in place. Do not append a production log, duplicate Git history, or leave a
-routing task after the requested outcome is complete.
+changed. Remove completed work, retain explicit deferrals and active stable directions,
+and replace superseded entries in place. Refresh task-affected factual status or handoff
+entries under the authority rules above. Do not append a production log, duplicate Git
+history, or leave a routing task after the requested outcome is complete.

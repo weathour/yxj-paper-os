@@ -38,7 +38,12 @@ replacement only when needed to avoid ambiguity.
 
 | ID | Current task or unresolved defect | Done when | Affected surfaces and Impact closure | State |
 |---|---|---|---|---|
-|  |  |  | `surface or path -> updated | unaffected -> reason or evidence` |  |
+|  |  |  | `surface or path -> updated / unaffected / deferred -> reason or evidence` |  |
+
+Use `deferred` only for an affected surface explicitly excluded from the author's
+current batch; include its dependency and resumption condition. Unfinished in-scope
+work remains open. Clear the deferral after the later authorized batch covers the
+accumulated changes.
 
 - **Blocker or residual risk:**
 

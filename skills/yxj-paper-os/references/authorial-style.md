@@ -109,6 +109,11 @@ added for completeness, repeated rhetorical staging, and a mismatch between the 
 role and the prose. These are possible defects, not evidence of AI authorship. Correct
 them only where they occur; a useful summary or genuine list should survive the check.
 
+Within authorized content selection, an independently useful peripheral branch may be
+removed when the retained argument no longer needs it. Align contribution and coverage
+promises with that choice; do not keep rewriting sentences to avoid a justified content
+decision.
+
 Distinguish four functions when reducing defensive prose:
 
 - Scientific qualification changes truth, scope, applicability, or uncertainty.
