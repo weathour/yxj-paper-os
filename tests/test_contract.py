@@ -31,6 +31,8 @@ class PackageTest(unittest.TestCase):
             ROOT / "references/display-workflow.md",
             ROOT / "references/venue-calibration.md",
             ROOT / "references/authorial-style.md",
+            ROOT / "references/composition-examples.md",
+            ROOT / "references/writing-books.md",
             ROOT / "assets/PAPER_BRIEF.md",
         })
         reachable = {ROOT / "SKILL.md"}
@@ -41,10 +43,18 @@ class PackageTest(unittest.TestCase):
             for target in targets:
                 if target.startswith(("https://", "http://")):
                     continue  # Research citations are not bundled file dependencies.
+                if target.startswith("/"):
+                    continue  # Optional workstation source handles are not bundled resources.
                 with self.subTest(document=doc.name, target=target):
-                    resolved = (doc.parent / target).resolve()
+                    resource, _, fragment = target.partition("#")
+                    resolved = (doc.parent / resource).resolve() if resource else doc
                     self.assertTrue(resolved.is_relative_to(ROOT))
                     self.assertTrue(resolved.is_file())
+                    if fragment:
+                        headings = re.findall(r"^#+ (.+)$", resolved.read_text(), re.M)
+                        slugs = {re.sub(r"[^\w\- ]", "", heading.lower()).replace(" ", "-")
+                                 for heading in headings}
+                        self.assertIn(fragment, slugs)
                     reachable.add(resolved)
         self.assertEqual(reachable, files)
 

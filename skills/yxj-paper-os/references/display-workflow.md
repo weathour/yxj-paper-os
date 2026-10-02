@@ -17,6 +17,32 @@ Preserve real conjunctions, direction, and conditions. Do not infer a universal 
 from section order, or turn every branch into a mandatory step or an exclusive choice.
 Encode the intended relation in arrows, grouping, labels, and captions consistently.
 
+Choose a quantitative display by the reader's actual question. C15 and W8 from the
+[four-book methods](writing-books.md) distinguish exact-value lookup (a table), discrete
+comparison (often aligned bars or dots), an ordered continuous trend (often a line),
+distribution (with explicit binning), composition, and relationships between quantities.
+These are conditional choices, not a ban on other forms. A connected line may imply
+interpolation; an area or bubble encodes size differently from a position. Use the
+encoding that preserves the required comparison and can be read at final size.
+
+For a table, order rows/columns around the comparison, put units and uncertainty meaning
+where they apply, and add a difference or ratio only when quantities are actually
+comparable and the calculation is supported. For a plot, distinguish model curves,
+samples, bounds and schematic lines; show the range, reference value and aggregation
+needed to interpret the claim. Cropped axes, dual axes, stacked bands, pie angles and
+area scaling can distort a difference or association. Nonzero axes can be appropriate
+for a localized scientific comparison when clearly labelled; do not impose a universal
+zero-axis rule or use range selection to hide material contrary evidence.
+
+A caption should identify what is shown and compared, define unfamiliar notation and
+uncertainty, retain interpretation-changing conditions, and connect the visible result
+to the passage's question. Do not simply restate every number or call a display
+“effective.” Use a descriptive or claim-bearing title according to the display's job
+and applicable venue conventions; the books' teaching preferences are not submission
+rules. Explain a complicated graphic in the body when a caption alone cannot carry the
+inference. A source lookup or illustration still needs the production gates below when
+actual figure editing is requested.
+
 For global design or a bundle-level problem, recover the combined story from section
 headings, figures, tables, captions, and key equations. Compare it with the scientific
 and reader skeletons: are an essential mechanism or dependency missing, a relation

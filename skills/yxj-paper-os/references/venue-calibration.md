@@ -9,6 +9,39 @@ Author voice and Chinese-English realization belong in
 turn an ordinary language revision into an exemplar search or treat an observed venue
 preference as permission to override author directions.
 
+## Fit the actual reader before choosing conventions
+
+C2/T7/W19–20/S1–2,12 in the [four-book methods](writing-books.md) distinguish
+reader knowledge, interest and purpose. Resolve whether this passage supplies new
+information, changes an understanding, enables a bounded decision, or explains material
+already familiar to specialists. A theory paper need not promise a practical remedy;
+a broader title need not replace the actual object with a prestigious abstraction.
+Choose the explanation and terminology that let these readers evaluate this result.
+
+For specialists, retain shared technical names and enough detail to check the reasoning.
+For a broader research audience, introduce the recognizable question and explain the
+unfamiliar relation before relying on it; keep essential precision available. Define
+acronyms according to actual shared knowledge. Author nationality or first language
+does not determine the significance of the science or how much editing it needs.
+Necessary complexity is sometimes the reader's work as well as the author's.
+
+When a public summary, discussion or proposal passage is actually requested, a message
+box can locate its audience and issue, problem, significance, supported response and
+possible benefit. Preserve future, conditional and causal status: a model system that
+may inform treatments is not a treatment. A spoken answer may need a brief restatement
+of the question because listeners cannot reread it; an online link may need content
+and relationship explained. These are conditional transfers, not default article
+structures or authority for new grant, policy or communication work.
+
+Historical book advice about English correctness, first person or particular journals
+is a source observation. It does not establish a current requirement. Preserve author
+voice and language identity where suited to the task, then check an actual applicable
+requirement only when the present decision needs it.
+
+Read as needed: [requirements](#resolve-applicable-requirements),
+[cohort](#build-the-smallest-useful-cohort), [comparison](#compare-like-with-like),
+and [bounded decisions](#turn-observations-into-bounded-decisions).
+
 ## Resolve applicable requirements
 
 For compliance or migration, use the current official guidance for the journal and
@@ -48,6 +81,14 @@ mechanism explanations with mechanism explanations, limitations with limitations
 captions with the same display type. Whole-paper averages for sentence length, passive
 voice, or transitions do not decide whether a particular sentence works.
 
+Read the relevant paragraph or section in context before borrowing sentence patterns:
+recover how it introduces its object, establishes a reason to continue, and relates the
+selected material. When close imitation is requested, use a main exemplar for that
+communicative job and identify the distinct role of any additional example. Combining
+phrases from several papers does not reproduce one paper's organization. Transfer a
+sentence pattern only with a supported relationship for it to express; an abstract's
+subject omission or compressed list need not carry over to an introduction.
+
 For positive writing and qualifications, compare communicative function and placement:
 how a contribution becomes useful or understandable, how evidence earns an implication,
 and where a boundary prevents a wrong reading. Do not copy confidence, remove necessary
@@ -63,6 +104,23 @@ Inspect only features relevant to the decision:
   length and rhythm, parallelism, and placement of claim, evidence, and caveat; and
 - **organization:** titles, abstracts, contribution statements, section openings and
   closings, result--discussion flow, captions, tables, citations, and limitations.
+
+For length and allocation, compare the same article type on an explicit counting basis:
+main prose, abstracts, figure/table text, references, and appendices or supplements.
+Keep body length and total length distinguishable. Do not compare Chinese-character
+counts with mixed word counts, raw TeX, or layout-driven page counts. Note extraction
+gaps in formulas and figure text. Citation counts do not measure explanatory coverage.
+Compare what each section and display does before borrowing its share of the total.
+Short review appendices do not justify removing a research paper's essential proof or
+reproduction details; relocation must preserve the main argument and its evidence.
+
+If voice or organization is still uncertain before a broad rewrite, realize one
+representative complete passage against the main exemplar, check meaning and fit, then
+continue within the existing authorization. This is not a new approval gate or a
+required preliminary exercise for already-settled writing. The
+[complete composition examples](composition-examples.md) show different article-level
+orders and their limits; detailed Chinese sentence and paragraph work can use
+`yxj-chinese-expression`.
 
 ## Turn observations into bounded decisions
 

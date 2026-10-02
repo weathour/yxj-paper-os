@@ -122,6 +122,11 @@ added for completeness, repeated rhetorical staging, and a mismatch between the 
 role and the prose. These are possible defects, not evidence of AI authorship. Correct
 them only where they occur; a useful summary or genuine list should survive the check.
 
+Judge conceptual lists by their shared task and level of abstraction. If a passage moves
+from classification axes to evaluation targets or comparison criteria, make their
+relationship clear before adding another list. Retain useful parallelism; do not impose
+a term quota or discard necessary qualifications merely to reduce conceptual density.
+
 For compression, compare explanatory functions before treating repeated facts as
 redundant. An opening can introduce a relation that the conclusion brings together with
 its uses. Preserve necessary first definitions, proof prerequisites, narrative links,
@@ -149,6 +154,107 @@ observation, and a cited author can own a prior claim. A summary about another p
 must not become "our" result; the author's own manuscript need not sound like a
 third-party book report. First person, impersonal phrasing, and passive voice are all
 available when their attribution and focus are correct.
+
+## Realize sentence and paragraph choices
+
+The following operations absorb S3–11, C17, W12–16 and T5/8–10 from the
+[four-book methods](writing-books.md). They are conditional editorial tools, not a
+new checklist for every sentence. Diagnose the passage's actual obstacle first.
+
+**Subjects and actions.** When an important operation hides in an abstract noun plus
+an empty verb, try naming the real object/actor as subject and the operation as verb.
+Compare the complete sentence and its neighbors. “We computed the bound” can clarify
+responsibility; “The bound decreases with sample size” properly makes a mathematical
+object the subject. Do not invent an agent because a book exercise permits generic
+doers. Keep passive voice when the agent is unknown, immaterial, already clear, or would
+break the paragraph's focus; first person and passive voice do not decide objectivity.
+
+For a sentence describing a transformation, check which object exists at each stage.
+Assigning an output's operation to the input, or a model's operation to the physical
+system, can change the claim even when the verb stays the same. Choose the subject
+from the actual operation before adjusting sentence rhythm.
+
+Retain a nominalization when it names the object under discussion, encapsulates earlier
+reasoning, supports a comparison, or denotes a familiar disciplinary concept. “Stability,”
+“identification,” “the comparison,” and “these limitations” can do useful work. Expand
+a noun string when the relations cannot be recovered: model error, estimation error and
+an error bound for a model estimate are different objects. Compare actual meanings
+before replacing any established compound or abstraction.
+
+**Information flow and focus.** Recover what the preceding sentence makes available,
+then choose a clear topic for the next sentence and a useful new point. A topic is a
+contextual starting point, not invariably the grammatical subject. Old-to-new can
+justify a passive, a long subject or a repeated term. Across the paragraph, keep a
+recognizable topic chain and the themes that its opening prepares; individually clear
+sentences can still wander. Connectives mark actual contrast, inference, elaboration
+or sequence. A “therefore” cannot manufacture the missing inference.
+
+Locate the information needing emphasis where the sentence gives it useful weight,
+often near the end, without burying a condition until readers have already interpreted
+an unqualified claim. When two arrangements emphasize different things, choose the
+one serving this paragraph's job. Reordering emphasis can change the argument even
+when all words survive; check the intended comparison, stance and condition.
+
+Use a named referent when “this,” “it,” “which,” “其” or “这” could point to several
+things. “This upper bound” may be enough; a phrase repeating the entire definition is
+not always needed. Technical terms should recur stably. Repetition that carries a
+concept into its implication or a new comparison serves flow; unnecessary restatement
+can be removed. Do not rotate synonyms merely to avoid the same noun.
+
+**Source voice and reader guidance.** Check who owns each observation, interpretation
+and action, especially after a summary or transition. “Study A reports…” and “We infer…”
+can prevent a false attribution. Keep “observed,” “estimated,” “under these assumptions,”
+or an equivalent marker when it carries the evidence status. Removing “we observed no
+failures” cannot silently yield “failures do not occur.” A direct author's sentence can
+replace repeated “we argue” once responsibility and evidence are clear.
+
+Metadiscourse helps when it identifies a real route, relative importance, source change
+or likely misreading. Its removal is useful only when the remaining content still
+performs that job. Reader guidance should not replace the actual explanation or turn
+into routine preambles and summaries. Qualifiers carry truth conditions or uncertainty;
+courtesy and stance can also be purposeful. Evaluate their function instead of running
+a hedge/intensifier word list.
+
+**Long sentences and rhythm.** First make the central proposition recoverable. Reduce
+heavy material between its subject and verb when it obstructs that relation; keep a
+long subject when it preserves the paragraph's known topic. After a clear clause, add
+conditions or elaboration through coordination, an appositive, a resumptive noun,
+a summative phrase or an accurately attached modifier. Each addition must have a
+recoverable referent and relation. A shorter sentence is not automatically clearer.
+
+Parallel ideas often benefit from parallel grammar. Grammar need not be identical when
+the relationship remains natural and clear; a book's coordinating or dangling example
+is not blanket permission or a universal prohibition. Check the intended reader and
+attachment. Where ambiguity changes the scientific claim, repair it. Suspended or
+periodic sentences, balanced clauses and a climactic ending can give rhythm to an
+important passage; use them after accuracy and clarity are secure, not as forced
+variation or ornamental drama.
+
+**Words, technical terms and abbreviations.** Prefer the precise familiar word when
+meaning is preserved. A short word that changes the object is worse than a necessary
+technical term: “plants” is narrower than “terrestrial autotrophs,” and “low growth rate”
+does not necessarily mean “low maximum potential growth rate.” Introduce unfamiliar
+terms and abbreviations when the reader needs them; widely shared terms may need no
+expansion. A plain explanation can accompany the formal term without replacing its
+definition. Preserve modifier attachment, ranges, units and strict/non-strict thresholds
+while shortening.
+
+**Punctuation.** Use punctuation to make the actual grammar and relationship visible:
+commas delimit dependent openings, coordination or nonrestrictive material as appropriate;
+semicolons can join related independent clauses; a colon introduces an explanation,
+specification or list after a suitable complete lead; paired punctuation keeps parenthetic
+material bounded. Do not join independent claims with an accidental comma, split a
+subject from its verb, or punctuate a restrictive condition as optional without checking
+meaning. Fragment, dash, parenthesis and sentence-length choices depend on genre and
+reader; polished public prose is not the default scientific register. Preserve the
+scope of equations, citations and units when editing punctuation. The S Appendix I
+summary has a locally inconsistent conjunction example; use its full explanation and
+the actual sentence, not an isolated summary label.
+
+For Chinese-English adaptation, transfer the communicative relationship and protected
+meaning, then choose the target language's own topic progression, subjects, modifiers
+and punctuation. English old-to-new examples are useful questions, not empirical rules
+governing every Chinese sentence. Read the complete resulting passage in that language.
 
 ### Small contrasting examples
 

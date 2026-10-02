@@ -21,6 +21,14 @@ The manuscript, figures, data, proofs, and rendered paper are the work. Do not r
 them with workflow paperwork, and create no runtime state, registry, score, instruction
 ledger, or hidden history.
 
+For question formation, argument, academic dialogue, scientific story or substantive
+revision, use the relevant [four-book writing method](references/writing-books.md).
+These methods absorb the local Craft, They Say/I Say, Writing Science and Style readings
+with their conditions and examples. Load the method needed for this task, not all four
+books. An exact wording, example, exception or quotation request follows that reference's
+bounded local source lookup; the books' scientific examples never establish this paper's
+results. The eight coverage dimensions are not a required eight-step manuscript process.
+
 ## Honor the user's intent
 
 Classify the current request before editing. Assessment is not edit authorization.
@@ -152,6 +160,12 @@ permit; and what does this work add? Distinguish a broad motivation, a need with
 paper, and a verified gap in prior research. A need for an explanation does not by itself
 establish that the literature lacks it.
 
+When the input is a topic or a work plan, identify the relation still unknown, the
+question that could resolve it, and why the answer matters to these readers. Separate
+what the work seeks to learn from what it will do. Improved conceptual understanding
+can supply the consequence; do not invent a practical application or require a testable
+hypothesis for every paper. A provisional question may develop through the evidence.
+
 Express a contribution through both its scholarly result and what that result makes
 understandable or possible. For a formula, explain the quantities and relationship it
 establishes; for a method, its supported capability; for a discovery or synthesis, the
@@ -185,6 +199,22 @@ disciplinary concepts to connect the research object with the technical results;
 broader-sounding label alone adds no explanatory reach. State the principal result early
 enough to orient the reader rather than manufacturing suspense. A shared question can
 unify parallel contributions without making one a prerequisite for another.
+
+Use orientation, challenge, the work answering it, and the resulting understanding to
+diagnose a missing story function. OCAR describes these functions; IMRaD names sections.
+They need not coincide. Result-first and point-last passages are also legitimate when
+their order helps readers follow the actual inference. Match the closing to the opening's
+supported promise rather than forcing a narrative sequence onto every unit.
+
+For scholarly dialogue, reconstruct the relevant source fairly, identify what is
+accepted, changed or extended, and explain the reason. Sources may complement each other
+without disagreeing. Keep source judgments and the present author's inference identifiable;
+neither a citation list nor an invented consensus establishes this paper's need or novelty.
+
+For a review, choose the field history, classification grounds, and branch relationships
+the intended readers need. Choose technical examples by the
+comparison or explanation they enable, then return to that field-level question.
+Technical depth remains necessary when it carries the synthesis or serves specialist readers.
 
 ### Align four skeletons when structure is at issue
 
@@ -243,6 +273,13 @@ contradicts, supplies a mechanism, comparison, scale, context, precondition,
 consequence, or reproducibility basis. For a causal claim, identify the enabling
 condition, operation, observable consequence, alternative explanation, and interruption
 point. Separate what the source establishes from the author's inference.
+
+When an inference remains unclear, distinguish the claim, reason, evidence and warrant
+connecting reason to claim. Reliable evidence can still be irrelevant. Check whether the
+warrant is reasonable, bounded, appropriate to the domain, consistent with relevant
+competing principles, and covers this instance. Make a necessary bridge explicit; leave
+familiar recoverable reasoning implicit. A substantive objection may require narrowing
+or abandoning the claim rather than polishing its defense.
 
 When designing a contribution or its validation, identify the proposition being tested
 and why the available proof, comparison, observation, or independent check bears on it.
@@ -362,12 +399,21 @@ existing repository patterns and the smallest matching installed skill or tool w
 materially reduces risk. Remain responsible for integration: do not stop merely to hand
 work to another skill.
 
-For prose revision, work in this order: scientific meaning and responsibility;
-reader purpose, information flow, and proportionate qualifications; stable terminology
-and relevant venue convention; syntax, voice, and rhythm; then cross-surface consistency.
+For drafting or prose revision, first settle the scientific meaning and responsibility,
+the research object, why this passage is needed, and the relationships among its contents.
+Use these to arrange information for the intended reader and place qualifications where
+they affect interpretation; then choose stable terminology, relevant venue conventions, syntax, voice, and rhythm,
+and check cross-surface consistency. This is a composition priority, not a compulsory
+background-first order. Retain sound structure during local edits; if wording exposes an
+unclear relation, resolve that relation before continuing sentence-level polishing.
 A wording change to actor, object, scope, quantifier, comparison, direction, magnitude,
 uncertainty, chronology, or causal strength triggers a localized evidence and inference
 check before dependent text is updated.
+
+If polishing stalls, revisit structure and meaning, then clarity, flow and language
+(SCFL), returning to an earlier layer when needed. These are priorities, not four required
+passes. Read the complete changed passage with its neighbors; shortening may require
+restoring an explanation or qualification. Edit counts do not establish improvement.
 
 Trace materially affected claims, passages, displays, and editions. For revisions across
 multiple surfaces where omissions are plausible, keep a temporary list or matrix of
@@ -405,6 +451,13 @@ article type, scientific role, reader, and communicative job; prioritize the tar
 journal when its particular conventions are the issue. Use locator-backed decisions,
 preserve scientific semantic invariants, and stop when the cohort resolves the decision.
 Exemplars calibrate realization; they never decide the claim.
+
+When explaining or designing organization, give a complete concrete example at the
+relevant scale: a sentence in context, a full paragraph, or a section plan with roles
+and connections. Distinguish source observations from authored demonstrations; revised
+prose itself can supply the example. Use [composition examples](references/composition-examples.md)
+for review, method, empirical, and theoretical cases, and read a better-matched source
+when needed. Mechanical edits do not require an example search or an added explanation.
 
 ## Ask only for material missing information
 
