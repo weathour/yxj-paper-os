@@ -1,0 +1,80 @@
+rather than
+whereas
+while
+but
+however
+although
+even though
+yet
+nevertheless
+nonetheless
+in contrast
+by contrast
+instead
+therefore
+thus
+hence
+consequently
+because
+since
+so
+as a result
+so that
+and
+also
+moreover
+furthermore
+in addition
+additionally
+together with
+with
+without
+when
+as
+if
+provided that
+subject to
+for example
+for instance
+in particular
+specifically
+namely
+clearly
+obviously
+importantly
+notably
+indeed
+in fact
+note that
+notice that
+observe that
+recall that
+it is worth noting
+it should be noted
+only
+merely
+simply
+just
+even
+at least
+at most
+this shows
+this means
+this implies
+this suggests
+these results show
+taken together
+in summary
+in conclusion
+show
+shows
+explain
+explains
+illustrate
+illustrates
+demonstrate
+demonstrates
+indicate
+indicates
+reveal
+reveals

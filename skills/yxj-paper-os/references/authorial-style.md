@@ -1,320 +1,310 @@
 # Authorial Style in Chinese and English
 
-Use this for academic drafting, substantive prose revision, Chinese-English adaptation,
-and decisions about author voice or naturalness. It applies without a target journal.
-It is not an authorship detector, a mandate to rewrite sound prose, or a separate paper
-workflow. The scientific and authorization boundaries in SKILL.md still govern.
+Use this for author voice, disciplinary wording, Chinese-English adaptation and
+substantive prose revision. [Conceptual framing](conceptual-framing.md) chooses the
+paper's intellectual form; this reference realizes it in the manuscript. Select the
+sections that resolve the current expression decision.
+
+For substantive English drafting or revision, use a published original suited to the
+current task through the [English prose cases](english-prose-cases.md) or
+[paragraph and closure cases](paragraph-rhythm-closure.md). Read the complete selected
+original unit through its exact locator and the context needed to understand its job.
+Reuse suitable prior reading; follow the author's explicit per-sentence or per-paragraph
+requirements at that granularity. Mechanical corrections need no new lookup. Chinese
+writing and purely quantitative analysis do not trigger this English exemplar work.
 
 ## Understanding authorial expression
 
-There is no single human academic style. Expression reflects an author's choices within
-a language, discipline, genre, section, and relationship to the intended reader. Voice
-includes what the author selects, explains, foregrounds, qualifies, or leaves to shared
-knowledge; it is not a count of first-person pronouns. Separate the positive task of
-realizing those choices from correcting formulaic or contextually misplaced expression.
+Use explicit author directions and effective author-approved passages as the expression
+basis. Voice appears in what the author claims, explains, foregrounds and connects to
+shared knowledge. Preserve effective technical repetition, passive voice, nominal
+compression, parallelism and sentence length when they serve this article's readers.
 
-Use explicit author directions and author-approved passages as the expression baseline,
-following the existing authority order. Existing prose is provisional evidence of a
-preference, not proof that every habit is intended. AI-assisted prose may be an approved
-baseline; wording alone does not establish authorship. Without samples, make restrained
-choices suited to the current paper rather than inventing a personal voice or blocking
-ordinary work to request a portfolio. Do not create a hidden cross-project style profile.
+Write from the author's scientific position. Name the actual relation and develop the
+reasoning that makes it worth understanding. Give the difficult connection enough space;
+choose among secondary material. Author voice is realized in these decisions, as well as
+in wording and rhythm.
 
-Conventional phrases, technical repetition, passive voice, nominal compression, and
-parallel structures can all be competent writing. Diagnose their function and fit, not
-their mere presence. Human-model frequency differences are observations, not quality
-targets. A model-specific pattern from an older study is a diagnostic lead, not a
-permanent defect of current models or a reason to alter an otherwise effective passage.
+## Make the first reading yield understanding
 
-Style realizes the existing four skeletons rather than adding a fifth: scientific
-relations constrain meaning; the reader's knowledge determines necessary explanation;
-section jobs determine emphasis and pace; headings and displays carry the same stance
-and boundaries as the prose. Let distinct jobs receive different amounts of space, but
-do not manufacture asymmetry, anecdotes, personality, or a discovery chronology.
+In the opening, contribution passage and major result introductions, make the object,
+question and scholarly advance recognizable to the intended journal reader. State the
+specific relation or capability gained before unpacking unfamiliar machinery. Realize
+the [judgment designed for each major node](paragraph-rhythm-closure.md#p0-阅读里程碑把章节推进落实为理解所得)
+in a direct statement and its supporting explanation. The
+[entry and contribution example](question-material-structure.md#q0-先让期刊读者看见问题增量与所得)
+shows how a difficult guarantee can remain visible in an intelligible passage.
+
+Read the actual passage with its preparation and continuation. A reader should be able
+to explain the gained distinction or judgment and find its reason. If the text only names
+a theorem or announces a task, develop the missing connection. Even without warnings or
+internal labels, a result passage can read as an audit when it reports runs or table rows
+in execution order and leaves their judgment for the reader to infer. Reorganize evidence
+around the unit's job: compare quantities where they yield the result, relate observations
+to the proposed mechanism, or explain steps that establish a construction or make a
+method interpretable. If the material serves a different question, revise that selection.
+Merely adding a point sentence leaves an execution-centered report intact.
+
+Major result passages should make the author's supported judgment available: what
+relation, range, performance or choice is established, and what comparison and scale
+explain it. When a method is proposed to obtain new knowledge, explain what it reveals,
+establishes or enables alongside why existing approaches fall short; an actual
+counterexample or impossibility can itself be the central result. Keep substantive
+construction and precision arguments where they support that result; place process
+counts and row-by-row reports according to their role in the argument or method.
+
+For example, suppose two configurations are evaluated under the same model and
+conditions: one is designed for two sources of variation, the other for one. Their exact
+model probabilities of satisfying a performance criterion are 0.96 and 0.84; the
+probability must be at least 0.90. Instead of merely reporting “The algorithm was run for
+each configuration, yielding 0.96 and 0.84,” the passage can state: “In this example,
+the configuration accounting for both sources meets the probability requirement
+(0.96); the other does not (0.84).” Develop the basis of the comparison as the paragraph
+needs; the judgment may precede or follow it. It concerns these configurations, not
+every possible design.
 
 ## Disciplinary terminology and semantic precision
 
-Treat terminology as part of the scientific specification. When a name organizes a
-section, theorem, or figure, resolve what it denotes before propagating it: a measured
-quantity, estimate, upper bound, sufficient condition, proof, or statistical guarantee
-may require different language even when they serve the same reader objective. Use a
-disciplinary term in its applicable sense; define a justified new term when needed.
-Unfamiliarity alone does not justify renaming an author-approved concept.
+Treat terminology as part of the scientific specification. Resolve what a consequential
+name denotes: measured quantity, estimate, upper bound, sufficient condition, proof or
+statistical guarantee. Use disciplinary senses and preserve justified author-approved
+terms. A new concept needs a clear object, definition and relationship to relevant
+existing concepts; its name should express an actual scientific distinction. For uncertain
+usage, check local definitions, approved passages and relevant primary references; make a
+bounded lookup if a consequential ambiguity remains. Distinguish a formal standard, an
+observed convention and a term defined by this paper.
 
-Keep the skill's organizational shorthand from becoming the paper's scientific
-vocabulary by default. Words such as "certificate", "statement", "witness", and
-"bridge" can be accurate in context; they are not universal names for results or their
-relations. Replace an unnecessary abstraction with the actual object or operation.
-Keep a familiar disciplinary metaphor or compact expression when its referent is clear
-and it helps the reader. Neither technical appearance nor suspected AI authorship
-decides whether wording is appropriate.
+A name needs revision when it has no identifiable referent, merely relabels existing
+steps without a useful new object or operation, derives only from a workflow label, or
+defines itself circularly and does no work in the argument. Use the established object
+or actual operation instead; define a useful abbreviation on first use and use it
+consistently. Retain a new concept with a clear definition, disciplinary connection
+and explanatory role even if its name has not appeared in the literature; naming alone
+does not establish a contribution.
 
-Use established scholarly language at the level the passage needs: name the recognizable
-research task or relationship before unpacking unfamiliar technical machinery. Explain
-the connection rather than merely replacing a narrow phrase with "framework", "law",
-or "design". A broader term must retain the actual object, result type, and conditions;
-references ground its meaning and intellectual context, not its prestige.
+**Exclude internal work language from the paper.** Translate repository labels and
+experiment bookkeeping into the scientific objects they locate. Do not use workflow
+labels such as `candidate` or `frozen`, run identifiers, or unexplained internal
+abbreviations as manuscript terminology. A run identifier locates evidence; a manuscript
+label identifies a condition, population or comparison. For example, if `candidate R17`
+denotes a configuration with adjusted headway, call it “the configuration with adjusted
+headway” in the paper.
+A stored "frozen" configuration may mean prescribed background parameters, a reference
+configuration or a held-constant response law. The established term "frozen-time system"
+retains its mathematical sense. Apply the chosen terminology to headings, formulas,
+captions and figure labels together.
 
-For a consequential uncertainty about usage, inspect local definitions and notation,
-author-approved uses, and available primary references from the relevant discipline
-and communicative context. If these do not resolve it, make a bounded source lookup.
-Distinguish a documented formal standard, an observed disciplinary convention, and a
-term defined by this paper; one published occurrence does not establish a convention.
-This does not require a target journal or a broad exemplar search. An unfamiliar but
-well-defined term is not by itself an unresolved scientific issue.
+The skill's shorthand, including "certificate", "statement", "witness" and "bridge",
+becomes manuscript vocabulary only when it names a useful disciplinary object or
+relation. Choose the actual object or operation and develop the conceptual perspective
+through the mathematical language it needs.
 
-Words can carry mathematical commitments that unchanged equations do not verify. Check
-the referents and supported relation before treating a change as stylistic. For example:
+Words can change a mathematical commitment while equations remain unchanged:
 
-- A defined Lyapunov certificate may retain that name. A data-dependent upper confidence
-  bound should be named by its statistical role rather than placed under the same label
-  merely because both help assess a system.
-- "Probability bounds for the two events were derived separately" /
-  "两个事件的概率界分别建立" does not assert independent events / 相互独立的事件.
-  An inequality `||T|| <= gamma` supplies an upper bound / 上界, not an exact gain /
-  精确增益 without an additional argument.
+- In [TH05-B](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/atoui2021interpolation-multi-lpv.md#th05-b),
+  “is verified” closes a condition through the quadratic-stability assumptions. It is a
+  deductive step, not a new numerical observation or independent experiment. Several
+  inequalities closed through shared assumptions remain a shared argument.
+- In [TH01-B](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/blanchini2010stable-lpv-realization-parametric.md#th01-b),
+  “pointwise optimality”, “LPV stability” and the still-open “time-varying performance”
+  guarantee are different claims. “Robust effectiveness” would erase their distinction.
 
-Use the existing semantic and impact checks for consequential wording changes, including
-headings, captions, labels, and translations that reuse the term. Compilation, formula
-equality, or bilingual symbol alignment alone does not establish semantic equivalence
-or disciplinary fit. Keep the check local unless the term's actual use requires wider
-revision; do not introduce a terminology blacklist or another mandatory audit stage.
+Preserve implication direction. A sufficient construction establishes a route to a
+solution; necessity of that device requires a stronger result. In particular, “unless”,
+“only” and “requires” must express the relation established in the present paper. The
+sufficient-condition chain in [TH05-B](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/atoui2021interpolation-multi-lpv.md#th05-b)
+provides a contextual comparison.
+
+For consequential wording changes, read the resulting scientific proposition and each
+reuse of the changed term in the affected prose, captions, labels and language editions.
+Equation equality and symbol alignment leave these semantic relationships to be checked.
 
 ## Language-specific realization
 
-The following are editorial questions, not quotas or universal Chinese-English contrasts.
-Match the same communicative job; do not transfer conversational habits to research
-articles or abstract conventions to every section.
+In Chinese, follow actors and referents across omitted subjects, topic changes and
+“这／其／该”; resolve long modifier chains where their scope becomes ambiguous.
+In English, choose subjects, voice and compression that keep the scientific object and
+its new relation recoverable. Maintain disciplinary terms and purposeful repetition in
+both languages. A connective should express the actual relationship between passages.
 
-| Level | Chinese | English |
-|---|---|---|
-| Wording | Check whether forms such as "进行……的研究" obscure an available precise action. Keep them when they carry useful meaning or fit the author's register. Preserve established terms instead of rotating near-synonyms. | Choose verbs that distinguish measuring, estimating, deriving, observing, and inferring. Use disciplinary collocations; do not replace a precise term merely to avoid repetition or sound more sophisticated. |
-| Sentences | Track the actor and referent across omitted subjects, topic changes, and "这／其／该". Unpack a long modifier chain when its relationships are ambiguous, not merely because it contains several "的". | Put the appropriate actor, object, or result in focus. Check participial attachment and noun-phrase relations. Expand compression that hides a necessary relation; retain it when the intended reader can recover that relation reliably. |
-| Connections | Keep "首先／其次／因此／对此" when they mark a real sequence, inference, or reference. Remove empty staging, not necessary orientation. A connective cannot repair a missing inference. | Use transitions for actual relations, not as default paragraph openers. Maintain reference continuity and avoid implying causality, contrast, or progression that the evidence does not establish. |
-| Paragraphs | Develop the current question rather than repeatedly supplying background, broad significance, and a future outlook. Neither colloquial particles nor fewer paragraphs are requirements for natural Chinese. | Match the paragraph's explanatory job rather than repeating one topic-sentence/support/summary mold. Neither shorter sentences nor more active voice automatically improve academic English. |
-
-For bilingual adaptation, preserve propositions and their epistemic roles, not a
-sentence-by-sentence syntactic template. Reorder or split where the target language
-benefits while preserving conditions, negation, quantifiers, comparisons, uncertainty,
-chronology, attribution, and citation support. Do not strengthen "提示" into
-"demonstrates", confuse "无统计显著差异" with equivalence, or make a computational result
-sound experimentally measured. Where journal constraints matter, use the existing
-[venue calibration](venue-calibration.md); ordinary language work does not require an
-exemplar search, and an observed venue preference does not silently override author
-directions. Mandatory submission rules remain distinct from descriptive preferences.
+For bilingual adaptation, preserve propositions and their epistemic roles while choosing
+the target language's own organization. Read both versions for conditions, negation,
+quantifiers, comparisons, uncertainty, chronology, attribution and citation support.
+“无统计显著差异” and equivalence are different claims; a computational result remains
+computational when translated. The [venue calibration](venue-calibration.md) reference
+handles applicable journal differences.
 
 ## Decide what to change and what to keep
 
-Ask locally: what should the reader learn here, what obstructs it, and what would the
-change preserve or improve? For drafting, use the same question to select concrete
-content and its expression. Do not require a per-paragraph form, word-frequency scan,
-style score, or an extra polishing loop.
+Read a major result with its preparation and interpretation: what does it connect, why
+does its form matter, and how does it answer the current question? Expand the difficult
+relation and compress shared preparation according to their scientific roles.
 
-Read a major result together with its preparation and interpretation. Give enough space
-to the relation the reader needs to understand: what the result connects, why its form
-matters, and how it answers the current question. Trim routine preparation where shared
-knowledge permits, while retaining unfamiliar prerequisites. A sentence saying that a
-result is "effective" or "significant" cannot supply that explanation. Do not prescribe
-a fixed paragraph sequence or a ratio of proof to discussion.
+The published [TR01-B](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/montanino2021homogeneous-heterogeneous-traffic-flows.md#tr01-b)
+states that instability fraction and degree give different directions under the stated
+model and averaging conditions. “We compared metrics” would only announce the task.
+The actual comparison supplies both the scientific point and the qualification.
 
-Check for empty evaluation, a concluding sentence that adds nothing, irrelevant lists
-added for completeness, repeated rhetorical staging, and a mismatch between the writer's
-role and the prose. These are possible defects, not evidence of AI authorship. Correct
-them only where they occur; a useful summary or genuine list should survive the check.
+<a id="material-selection-and-revision"></a>
+For compression, test what understanding or support an omission removes. A patch can
+leave a new result at a paragraph's end or in a separate subsection while the claims,
+comparisons, emphasis and transitions it affects remain unchanged; a repeated condition
+may likewise keep appearing after a conclusion. Reorganize the argument around the claim
+or comparison the material changes, including the evidence and affected abstract,
+captions or transitions. Compress or remove a peripheral addition. An explanation that
+develops a result, or a premise introduced for a subsequent result, need not be a patch.
 
-Judge conceptual lists by their shared task and level of abstraction. If a passage moves
-from classification axes to evaluation targets or comparison criteria, make their
-relationship clear before adding another list. Retain useful parallelism; do not impose
-a term quota or discard necessary qualifications merely to reduce conceptual density.
+**Illustration (invented).** Under the same evaluation measure, methods A and B have
+similar error at low load, while B has lower error at high load. A draft calls the methods
+similar and appends the high-load result at the end. Revise the comparison around load:
+state both outcomes under their conditions, arrange the supporting display accordingly,
+and reflect the distinction in the abstract if it is a principal finding.
 
-For compression, compare explanatory functions before treating repeated facts as
-redundant. An opening can introduce a relation that the conclusion brings together with
-its uses. Preserve necessary first definitions, proof prerequisites, narrative links,
-and useful synthesis; their wording and placement may change. Within authorized content
-selection, an independently useful peripheral branch may be removed when the retained
-argument no longer needs it. Align contribution and coverage promises with that choice;
-do not keep rewriting sentences to avoid a justified content decision. Check compressed
-prose that fixes objects, randomness, quantifiers, or applicability even when equations remain
-unchanged, then read the affected path continuously using the existing semantic checks.
+Judge repetition by its job: identifying an object, recalling a necessary condition,
+synthesizing or recovering established results, or making a figure independently
+readable. The same fact can serve a new reading task; a conclusion may recover an
+established result without asserting a new one. Delete or merge row-by-row recitals and
+adjacent retellings that add no such role. Keep first definitions, proof prerequisites,
+useful synthesis and necessary explanations; compress or reposition supporting material
+that has disproportionate space. Reuse precise technical terms rather than replacing them
+with synonyms merely to reduce repetition; adopted quantitative requirements still apply.
+Remove material with no role in understanding, supporting or checking the paper; do not
+automatically move deleted main-text material to an appendix. Carry that choice into
+contribution and coverage promises. Lists earn their form through a shared task and level
+of abstraction.
 
-Distinguish four functions when reducing defensive prose:
+<a id="conditions-in-the-argument"></a>
+### Replace defensive writing with scientific content
 
-- Scientific qualification changes truth, scope, applicability, or uncertainty.
-- Reader guidance prevents a concrete misreading or makes the argument navigable.
-- Collegial positioning accurately locates a judgment relative to other work and leaves
-  appropriate room for interpretation; it is not automatically an apology.
-- Repeated self-protection adds no boundary or reader help and can usually be compressed.
+**Do not write defensively.** Remove imagined reviewer objections and their rebuttals,
+empty self-protection, recurring claims followed by retreat, and generic non-implication
+warnings. Rebuild the passage around the scientific object and what has been established.
+Moving the warning or exchanging “needs” for “depends on” leaves that defect intact.
 
-Protect the first three functions where needed. Neither caution nor courtesy requires
-blanket weakening; remove redundant self-protection without erasing uncertainty or
-manufacturing confidence. Claim strength remains tied to evidence, not a desired tone.
+| Content carried by the warning | Scientific realization and place |
+|---|---|
+| The domain or scope of an object | Define its set, index range, parameter domain or mapping; use that object consistently thereafter. |
+| Premises shared by several results | State them with the common model or standing assumptions, then develop the results under that setting. |
+| A premise local to a result | Put it in the theorem, quantified statement or implication that it governs. |
+| A meaning already expressed mathematically | Let subsequent prose use the defined object or established relation; explain a new consequence instead of appending the same disclaimer. |
+| What an application knows, assumes or adjusts | Declare known quantities, assumptions, admissible domain and decision variables together in the application setting. |
+| An approximation or error | State the error quantity and its bound, interval or relation, with the conditions that determine it. |
+| A negative finding or trade-off | Compare the actual quantities, directions and conditions; explain how the result changes the answer or choice. |
+| Solver choices, stopping rules or implementation scope | Explain those needed to interpret or check the result where they serve the argument, method or appendix; keep remaining settings in reproducibility materials when needed. |
+| An unresolved scientific question | Develop the concrete unknown and its consequence in the relevant discussion, bringing related open questions together. |
+| A reminder with no scientific content | Delete it; let the passage end with the relation or judgment it establishes. |
 
-Keep roles clear: "we" can identify the authors' choices, an experiment can report an
-observation, and a cited author can own a prior claim. A summary about another paper
-must not become "our" result; the author's own manuscript need not sound like a
-third-party book report. First person, impersonal phrasing, and passive voice are all
-available when their attribution and focus are correct.
+**沿用既定设定的改写示例（自拟）。** 同一论述上下文已定义 \(N\) 和共同假设 \(A\)，内部记录 `frozen candidate R17` 对应调整后的方案，正文可直接发展调整前后的概率—代价比较：
+
+> 调整方案后，\(p_Q\) 由 0.94 提高到 0.995，\(J\) 增加 4%。
+
+这里沿用前文的对象与假设，以方案调整替代内部记录身份。在连续论述中，复用设定意味着直接使用已定义对象，把结果段留给新的关系与所得。对象或条件发生变化时，在变化处交代；片段作为独立入口时，由该处的对象或模型类别给出必要设定。
+
+An effective revision changes what the manuscript says and where it carries the science.
+Check the rewritten paragraph and its continuation: the result has an explicit object
+and force, its setting is carried by the established definitions or mathematical
+statements, and the following prose develops its meaning. Keep mathematical deductions
+and decisive derivations visible; placing conditions properly does not substitute for
+showing why the result follows. Apply the [semantic precision check](#disciplinary-terminology-and-semantic-precision)
+to the revised claim: preserve its conditions, implication direction and evidence status.
+An interval that straddles a performance threshold leaves compliance unresolved;
+state that relation directly rather than turning it into a pass or a failure.
+
+Write negative results and necessary qualifications as substantive findings. In
+[TR01-B](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/montanino2021homogeneous-heterogeneous-traffic-flows.md#tr01-b),
+the opposing directions of two quantities supply the result itself. Editorial instructions
+such as “the adverse result must remain visible” belong in working commentary; the
+manuscript states the comparison.
 
 ## Realize sentence and paragraph choices
 
-The following operations absorb S3–11, C17, W12–16 and T5/8–10 from the
-[four-book methods](writing-books.md). They are conditional editorial tools, not a
-new checklist for every sentence. Diagnose the passage's actual obstacle first.
+Choose an operation by the passage's actual obstacle. The [four-book methods](writing-books.md)
+retain the underlying methods and original-book routes. The following index connects
+expression decisions to complete published cases.
 
-**Subjects and actions.** When an important operation hides in an abstract noun plus
-an empty verb, try naming the real object/actor as subject and the operation as verb.
-Compare the complete sentence and its neighbors. “We computed the bound” can clarify
-responsibility; “The bound decreases with sample size” properly makes a mathematical
-object the subject. Do not invent an agent because a book exercise permits generic
-doers. Keep passive voice when the agent is unknown, immaterial, already clear, or would
-break the paragraph's focus; first person and passive voice do not decide objectivity.
+<a id="direct-comparisons"></a>
+**State comparisons directly.** Do not use “not X, but Y”, “不是 X，而是 Y” or variants
+that split the same denial and replacement into separate sentences or change the
+connective. Express a real distinction through the objects' definitions, properties or
+results. The prohibition concerns that construction, not isolated words such as “not”,
+“but”, “only”, “而” or “仅”; scientific negation, counterexamples and substantive
+conditional relations remain part of the argument. If a published example uses the
+prohibited construction, learn its expression task and rewrite it directly; the example
+does not override the author's prohibition.
 
-For a sentence describing a transformation, check which object exists at each stage.
-Assigning an output's operation to the input, or a model's operation to the physical
-system, can change the claim even when the verb stays the same. Choose the subject
-from the actual operation before adjusting sentence rhythm.
+**自拟句式例。** “样本均值刻画的不是离散程度，而是中心水平；标准差刻画离散程度。”改为
+“样本均值刻画中心水平，标准差刻画离散程度。”
 
-Retain a nominalization when it names the object under discussion, encapsulates earlier
-reasoning, supports a comparison, or denotes a familiar disciplinary concept. “Stability,”
-“identification,” “the comparison,” and “these limitations” can do useful work. Expand
-a noun string when the relations cannot be recovered: model error, estimation error and
-an error bound for a model estimate are different objects. Compare actual meanings
-before replacing any established compound or abstraction.
+| Expression decision | Operation and case route |
+|---|---|
+| [Subjects and actions](english-prose-cases.md#subjects-and-actions), [voice](english-prose-cases.md#voice) | Choose the actor, object or guarantee that carries the current relation. [TH01-A](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/blanchini2010stable-lpv-realization-parametric.md#th01-a) moves from the paper's task to a passive existence result; TH05-B follows the condition under examination. |
+| [Information order](english-prose-cases.md#information-order) | Follow the available object into the new relation; place emphasis where it serves the paragraph. Repeated terms, a long subject or a passive can preserve that continuity. Resolve competing referents with a precise name such as “this upper bound”. |
+| [Long sentences and punctuation](english-prose-cases.md#long-sentences-and-punctuation) | Keep together the relations that need joint interpretation. Split or reattach material where grammar obscures their scope; preserve the governing condition, formula, units and citation. |
+| [Verbs](english-prose-cases.md#verb-choice), [collocations](english-prose-cases.md#disciplinary-collocations), [near-synonyms](english-prose-cases.md#near-synonyms) | Compare complete propositions and disciplinary objects. A changed evidence verb, compound or actor can change what has been established. |
+| [Qualifiers](english-prose-cases.md#qualifiers) and source voice | Locate the actual domain, uncertainty or attribution. “Study A reports” and “we infer” own different claims; “we observed no failures” is an observation, whereas “failures do not occur” is universal. |
 
-**Information flow and focus.** Recover what the preceding sentence makes available,
-then choose a clear topic for the next sentence and a useful new point. A topic is a
-contextual starting point, not invariably the grammatical subject. Old-to-new can
-justify a passive, a long subject or a repeated term. Across the paragraph, keep a
-recognizable topic chain and the themes that its opening prepares; individually clear
-sentences can still wander. Connectives mark actual contrast, inference, elaboration
-or sequence. A “therefore” cannot manufacture the missing inference.
+In transformations, assign an operation to the object that exists at that stage: input
+and output, model and physical system can have different actions. Resolve the output
+and comparison scope from the definitions and actual transformation; a modifier in an
+input's name does not automatically describe the output. Nominal forms may name
+the object under study. “Model error”, “estimation error” and “an error bound for a model
+estimate” denote different objects even when shortening would make them look alike.
 
-Locate the information needing emphasis where the sentence gives it useful weight,
-often near the end, without burying a condition until readers have already interpreted
-an unqualified claim. When two arrangements emphasize different things, choose the
-one serving this paragraph's job. Reordering emphasis can change the argument even
-when all words survive; check the intended comparison, stance and condition.
+In [Minion and Saye's published pressure comparison](/home/weathour/文档/yxj-wiki/refs/analyses/source-cards/minion2018higher-order-temporal-navier-stokes.md#contradiction-to-validation),
+“mean pressure over the last time step” and “pressure at the last quadrature node”
+name different outputs and reported accuracies. Retain that distinction when compressing.
+For punctuation guidance from S Appendix I, use the full explanation and actual sentence;
+its summary contains a locally inconsistent conjunction example.
 
-Use a named referent when “this,” “it,” “which,” “其” or “这” could point to several
-things. “This upper bound” may be enough; a phrase repeating the entire definition is
-not always needed. Technical terms should recur stably. Repetition that carries a
-concept into its implication or a new comparison serves flow; unnecessary restatement
-can be removed. Do not rotate synonyms merely to avoid the same noun.
-
-**Source voice and reader guidance.** Check who owns each observation, interpretation
-and action, especially after a summary or transition. “Study A reports…” and “We infer…”
-can prevent a false attribution. Keep “observed,” “estimated,” “under these assumptions,”
-or an equivalent marker when it carries the evidence status. Removing “we observed no
-failures” cannot silently yield “failures do not occur.” A direct author's sentence can
-replace repeated “we argue” once responsibility and evidence are clear.
-
-Metadiscourse helps when it identifies a real route, relative importance, source change
-or likely misreading. Its removal is useful only when the remaining content still
-performs that job. Reader guidance should not replace the actual explanation or turn
-into routine preambles and summaries. Qualifiers carry truth conditions or uncertainty;
-courtesy and stance can also be purposeful. Evaluate their function instead of running
-a hedge/intensifier word list.
-
-**Long sentences and rhythm.** First make the central proposition recoverable. Reduce
-heavy material between its subject and verb when it obstructs that relation; keep a
-long subject when it preserves the paragraph's known topic. After a clear clause, add
-conditions or elaboration through coordination, an appositive, a resumptive noun,
-a summative phrase or an accurately attached modifier. Each addition must have a
-recoverable referent and relation. A shorter sentence is not automatically clearer.
-
-Parallel ideas often benefit from parallel grammar. Grammar need not be identical when
-the relationship remains natural and clear; a book's coordinating or dangling example
-is not blanket permission or a universal prohibition. Check the intended reader and
-attachment. Where ambiguity changes the scientific claim, repair it. Suspended or
-periodic sentences, balanced clauses and a climactic ending can give rhythm to an
-important passage; use them after accuracy and clarity are secure, not as forced
-variation or ornamental drama.
-
-**Words, technical terms and abbreviations.** Prefer the precise familiar word when
-meaning is preserved. A short word that changes the object is worse than a necessary
-technical term: “plants” is narrower than “terrestrial autotrophs,” and “low growth rate”
-does not necessarily mean “low maximum potential growth rate.” Introduce unfamiliar
-terms and abbreviations when the reader needs them; widely shared terms may need no
-expansion. A plain explanation can accompany the formal term without replacing its
-definition. Preserve modifier attachment, ranges, units and strict/non-strict thresholds
-while shortening.
-
-**Punctuation.** Use punctuation to make the actual grammar and relationship visible:
-commas delimit dependent openings, coordination or nonrestrictive material as appropriate;
-semicolons can join related independent clauses; a colon introduces an explanation,
-specification or list after a suitable complete lead; paired punctuation keeps parenthetic
-material bounded. Do not join independent claims with an accidental comma, split a
-subject from its verb, or punctuate a restrictive condition as optional without checking
-meaning. Fragment, dash, parenthesis and sentence-length choices depend on genre and
-reader; polished public prose is not the default scientific register. Preserve the
-scope of equations, citations and units when editing punctuation. The S Appendix I
-summary has a locally inconsistent conjunction example; use its full explanation and
-the actual sentence, not an isolated summary label.
-
-For Chinese-English adaptation, transfer the communicative relationship and protected
-meaning, then choose the target language's own topic progression, subjects, modifiers
-and punctuation. English old-to-new examples are useful questions, not empirical rules
-governing every Chinese sentence. Read the complete resulting passage in that language.
+Read the revised unit with its neighbors for topic continuity, emphasis, source roles and
+scientific meaning. If wording exposes an unresolved relation, repair that relation and
+its affected uses. Use [language analysis](academic-language-comparison.md) when the
+question or an adopted project requirement calls for it, and judge proposed revisions
+in their actual passages.
 
 ### Small contrasting examples
 
-These are fictional illustrations, not fixed sentence recipes or statements about a
-live manuscript.
+Use the complete published paragraphs behind these contrasts, not isolated model sentences.
 
-**Keep when appropriate:** "The sampling interval was fixed at 10 ms." The interval is
-the focus and the agent is immaterial; changing to active voice is not an improvement
-by itself. Likewise, "首先计算可行域，再在其中选择增益。" expresses a genuine order.
+**Keep a useful passive.** [NC03-A](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/macleod2022self-driving-laboratory-pareto.md#nc03-a)
+begins with an author action, then makes the simulations and comparison scenarios the
+subjects of passive clauses. The change keeps the experimental design in focus; making
+every clause an author action would change that progression.
 
-**Make content concrete:** If the supplied evidence is a comparison with estimator B on
-two datasets, with lower mean absolute error on one and higher error on the other,
-replace "This comprehensive framework offers remarkable improvements and broad
-applicability" with an evidence-bound account such as "Compared with estimator B, the
-method had lower mean absolute error on one dataset and higher error on the other."
-In Chinese: "与估计器B相比，该方法在一个数据集上的平均绝对误差较低，在另一个数据集上较高。"
-Do not rescue the claim by inventing a successful application or omitting the adverse result.
+**Retain opposing outcomes.** [TR01-B](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/montanino2021homogeneous-heterogeneous-traffic-flows.md#tr01-b)
+distinguishes how often instability occurs from its degree. A blanket claim of improved
+or degraded stability would lose the result. Its long first sentence also shows which
+model and averaging qualifications must survive compression.
 
-**Adapt without strengthening:** "该相关性提示二者可能有关，但不能据此确定因果方向。"
-can become "The correlation suggests a possible association but does not establish its
-causal direction." It cannot become a demonstration that one variable causes the other.
-
-After a material edit, reread the changed passage continuously with its neighbors and
-check the existing semantic invariants and dependent surfaces. Check also whether
-author-approved emphasis and explanatory choices survived. A shorter text or a more
-uniform voice is not acceptance evidence. Return an unchanged passage when that best
-serves the request; do not introduce errors or artificial quirks to appear human.
+**Check the kind of relation.** [NC02-A](/home/weathour/文档/yxj-wiki/refs/analyses/english-prose/dellarossa2020multilayer-symmetry.md#nc02-a)
+describes a structural correspondence between mathematical objects. Statistical association
+and physical causation would be different claims. Establish the intended relation before
+choosing a familiar English equivalent or strengthening an evidence verb.
 
 ## Research basis and limits
 
-These sources inform the distinctions above; the editorial procedure is a synthesis,
-not a universally validated writing intervention. They are background for this skill,
-not citations to insert into the user's manuscript by default. Use their findings
-within the studied corpus, task, and model conditions; no current-model behavior is
-established by these studies alone.
+These studies inform the treatment of author stance, disciplinary language and
+sentence structure. Their corpus and task descriptions identify the comparison each offers.
 
 - [Hyland (2005), Stance and engagement](https://doi.org/10.1177/1461445605050365),
   pp. 177-190: 240 articles across eight disciplines plus researcher interviews support
-  context-sensitive analysis of author stance and reader engagement. The conclusion
-  retains individual choice and notes limits of whole-corpus analysis; frequencies do
-  not prescribe a voice or reveal where every marker belongs.
+  context-sensitive analysis of author stance and reader engagement, including
+  individual choices within disciplinary practices.
 - [Hyland (2008), Lexical bundles and disciplinary variation](https://doi.org/10.1016/j.esp.2007.06.001),
   sections 3-7: bundles differ in form and function across four disciplines. The corpus
-  mixes published articles with postgraduate writing, including Cantonese-L1 students;
-  it is not a universal native-English phrase list or a pure expert-author baseline.
+  mixes published articles with postgraduate writing, including Cantonese-L1 students.
 - [Biber and Gray (2010), Complexity, elaboration, explicitness](https://doi.org/10.1016/j.jeap.2010.01.001),
   sections 3-6: academic English relies on phrasal compression, which leaves some
-  relations implicit. The paper discusses the tension between economy and clarity for
-  different readers; its descriptive findings do not establish an optimal sentence length.
+  relations implicit. The paper discusses economy and clarity for different readers.
 - [Reinhart et al. (2025), Human and LLM grammatical and rhetorical styles](https://doi.org/10.1073/pnas.2422455122),
   Methods, Results, and Discussion: six GPT-4o/Llama-3 variants continued human texts
   across registers. Feature preferences and generalization vary by model and context.
-  This supports checking contextual fit, not banning particular words or constructions.
 - [朱君辉等 (2023), 人工智能生成语言与人类语言对比研究](https://aclanthology.org/2023.ccl-1.46/),
   sections 2, 4-5: 159 features describe GPT-3.5 and human Chinese open-domain answers.
-  Length, lexical choice, and variation distinguish that corpus; classification success
-  and complexity measures do not establish expert academic writing quality.
+  The corpus comparison examines length, lexical choice and variation.
 - [莫子良、王艺洁、吴继峰 (2026), 学术汉语摘要元话语对比](https://www.clt-international.org/journal/details/info/aMTg11LmQ3/ChatGPT生成与人类写作学术汉语摘要元话语对比研究),
   sections 3-5 and tables 4/6: 100 human abstracts were paired with GPT-4o abstracts under
   one prompt. Effects differ between theoretical and applied linguistics; hedge/booster
   differences were not significant in the theoretical group. Role prompting was not
-  compared, and no general Chinese-paper or current-model style rule follows. Use the
+  compared. Use the
   publisher page: the DOI printed in the PDF resolves to a different article.

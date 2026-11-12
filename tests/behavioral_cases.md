@@ -1,10 +1,13 @@
 # Forward cases
 
-Run these as separate fictional paper requests using the current skill. All evidence
-needed for each bounded task is below; do not search for real papers or operate on a
-live manuscript. Use an isolated workspace for any requested output. Preserve the raw
-inputs. For requests without edit authorization, answer without writing files. These
-cases do not establish actual reader comprehension or rendered visual quality.
+Run these as separate fictional paper requests using the current skill. The scientific
+facts and evidence for each bounded task come from the supplied fictional material;
+do not add facts or evidence from real papers, or operate on a live manuscript. Unless
+a case expressly forbids source reading, existing local published-prose examples may
+be consulted for expression without changing the fictional science. Honor any stricter
+case-specific restriction. Use an isolated workspace for requested output, preserve the
+raw inputs, and do not write files for requests without edit authorization. These cases
+do not establish actual reader comprehension or rendered visual quality.
 
 ## 1. Section order
 

@@ -1,37 +1,31 @@
 # Venue Requirements and Writing Calibration
 
 Read this only when submission requirements, template migration, or learning from
-exemplars materially affects the current writing or organization decision. Exemplars
-calibrate how justified science is presented; they never decide what the paper may claim.
+exemplars materially affects the current writing or organization decision.
+
+Identify applicable venue requirements when they affect the task, carry them into the
+writing, and check the actual deliverable when preparing submission. Quantitative
+analysis is selected for the current question or adopted project requirements; see
+[the statistics methods](academic-language-comparison.md#delivery-acceptance).
 
 Author voice and Chinese-English realization belong in
-[authorial-style.md](authorial-style.md), including when no venue is specified. Do not
-turn an ordinary language revision into an exemplar search or treat an observed venue
-preference as permission to override author directions.
+[authorial-style.md](authorial-style.md).
 
 ## Fit the actual reader before choosing conventions
 
-C2/T7/W19–20/S1–2,12 in the [four-book methods](writing-books.md) distinguish
-reader knowledge, interest and purpose. Resolve whether this passage supplies new
-information, changes an understanding, enables a bounded decision, or explains material
-already familiar to specialists. A theory paper need not promise a practical remedy;
-a broader title need not replace the actual object with a prestigious abstraction.
-Choose the explanation and terminology that let these readers evaluate this result.
+Use [reader knowledge and evaluation tasks](question-material-structure.md#reader-tasks)
+during ordinary paper design, including before a venue is selected. This reference
+adds the differences that the actual venue introduces: intended readership, article
+type, editorial criteria, space and evidence requirements. Calibrate the recognizable
+problem and scholarly increment as well as terminology and format. A journal's scope
+does not show that every invited reviewer knows this method or uses the same reading
+path; use actual feedback when available. Naming a venue does not itself require
+another exemplar search when the existing materials cover the task. Select any
+quantitative cohort for its actual purpose and adopted project requirements.
 
-For specialists, retain shared technical names and enough detail to check the reasoning.
-For a broader research audience, introduce the recognizable question and explain the
-unfamiliar relation before relying on it; keep essential precision available. Define
-acronyms according to actual shared knowledge. Author nationality or first language
-does not determine the significance of the science or how much editing it needs.
-Necessary complexity is sometimes the reader's work as well as the author's.
-
-When a public summary, discussion or proposal passage is actually requested, a message
-box can locate its audience and issue, problem, significance, supported response and
-possible benefit. Preserve future, conditional and causal status: a model system that
-may inform treatments is not a treatment. A spoken answer may need a brief restatement
-of the question because listeners cannot reread it; an online link may need content
-and relationship explained. These are conditional transfers, not default article
-structures or authority for new grant, policy or communication work.
+Keep venue-specific criteria distinct from general scientific support. A theoretical
+contribution, a system result and an empirical finding may require different grounds
+for publication; do not transfer one journal's significance threshold to another.
 
 Historical book advice about English correctness, first person or particular journals
 is a source observation. It does not establish a current requirement. Preserve author
@@ -60,6 +54,19 @@ Use the exemplar workflow below only when a writing or organization decision nee
 
 ## Build the smallest useful cohort
 
+When the user or project explicitly adopts the existing five-paper quantitative scheme,
+use at least five complete articles from the target journal and same article type, with
+comparable language and scientific contribution; reuse an adequate existing cohort and
+record source identities and usable scopes. The [statistics methods](academic-language-comparison.md#reference-ranges)
+retain that scheme’s intervals and missing-reference handling. Other comparisons choose
+a cohort for the question; local prose examples can serve an individual decision without
+a five-paper quantitative analysis.
+
+First check the existing [article cases](question-material-structure.md),
+[evidence and display comparisons](explanation-evidence-display.md), and
+[paragraph examples](paragraph-rhythm-closure.md) for the same communicative task.
+Reuse a suitable case when it resolves the decision.
+
 Prefer repository-declared or author-supplied papers. Otherwise search only when the
 requested calibration requires it. For argument design, prioritize a comparable article
 type, scientific contribution, intended reader, and communicative job; a relevant paper
@@ -69,9 +76,7 @@ era, topic, and manuscript locus. Explain mismatches that affect the decision. V
 source identity from publisher metadata or the article. One paper can inform a local
 choice but does not establish a venue convention.
 
-Stop once the cohort resolves the actual wording or organization decision. Report a
-recurring pattern as an observed count over the inspected cohort with precise locators;
-never turn descriptive counts into quality scores or build a general style model.
+For a recurring convention, identify the inspected articles and the relevant passages.
 
 ## Compare like with like
 
@@ -89,12 +94,16 @@ phrases from several papers does not reproduce one paper's organization. Transfe
 sentence pattern only with a supported relationship for it to express; an abstract's
 subject omission or compressed list need not carry over to an introduction.
 
-For positive writing and qualifications, compare communicative function and placement:
-how a contribution becomes useful or understandable, how evidence earns an implication,
-and where a boundary prevents a wrong reading. Do not copy confidence, remove necessary
-hedging, or impose applications merely because exemplars use affirmative language.
-Negative results and central limitations must retain their scientific role. A lexical
-match is not evidence that a sentence does the same job.
+For whole-paper learning, first recover the article's question, answer and evidence
+sequence; then inspect the complete local units that realize them. Compare different
+effective solutions to the same writing problem. A published paper can contain both
+useful choices and weak passages. Compare their actual material choices and
+main-text/appendix allocation.
+
+For authorial claims, compare function and placement: how the contribution becomes
+intelligible, how evidence develops its implication, and where conditions shape the
+result. Use the [substantive treatment of qualifications](authorial-style.md#conditions-in-the-argument)
+to realize this work in the passage.
 
 Inspect only features relevant to the decision:
 
@@ -115,9 +124,7 @@ Short review appendices do not justify removing a research paper's essential pro
 reproduction details; relocation must preserve the main argument and its evidence.
 
 If voice or organization is still uncertain before a broad rewrite, realize one
-representative complete passage against the main exemplar, check meaning and fit, then
-continue within the existing authorization. This is not a new approval gate or a
-required preliminary exercise for already-settled writing. The
+representative complete passage against the main exemplar to resolve the choice. The
 [complete composition examples](composition-examples.md) show different article-level
 orders and their limits; detailed Chinese sentence and paragraph work can use
 `yxj-chinese-expression`.
@@ -130,18 +137,9 @@ orders and their limits; detailed Chinese sentence and paragraph work can use
 - **Avoid** one paper's distinctive wording, unsupported claim strength, and formulaic
   language that performs no inferential job.
 
-Keep the source locators, relevant observation, and reason for adopting, adapting, or
-avoiding it recoverable during the revision. A temporary note can help with several
-interdependent choices; no fixed record is required. Count occurrences only when making
-a claim about recurring practice, rather than for every local use of an example.
+Apply the chosen convention consistently to the affected prose, terminology,
+citations and displays.
 
-Semantic invariants include the actor, object, scope, quantifiers, comparison baseline,
-direction and magnitude, uncertainty, causal strength, and evidence locator. Apply a
-supported decision only to the affected text, then check the changed passage and every
-dependent abstract, body, caption, table, conclusion, term, and translation surface.
-Any change to an invariant reopens the local evidence and inference check.
-
-Preserve scientific meaning, citations, settled architecture, and author voice. Do not
-copy distinctive prose, transfer claims, or force conformity. Persist a venue decision
-only when it changed the paper and cannot be recovered safely; do not create a template
-dossier or style database.
+For acceptance, inspect the relevant output: the actual passage, bibliography entry,
+article type, file set or rendered layout. A requirement change identifies the affected
+outputs and checks; update those choices in the existing project requirements and design.

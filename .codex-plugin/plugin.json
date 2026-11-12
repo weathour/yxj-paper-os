@@ -1,7 +1,7 @@
 {
   "name": "yxj-paper-os",
-  "version": "0.11.0+codex.20260912121152",
-  "description": "Reader-first, evidence-bound academic paper design and revision with four-skeleton alignment, positive writing, Chinese-English authorial expression, and canonical artifact verification.",
+  "version": "0.12.0",
+  "description": "Academic paper positioning, whole-paper architecture, drafting and revision through a focused, evidence-aware skill.",
   "author": {
     "name": "YXJ Paper OS maintainers"
   },
@@ -9,26 +9,22 @@
   "interface": {
     "displayName": "YXJ Paper OS",
     "shortDescription": "Reader-first academic paper design and revision.",
-    "longDescription": "YXJ Paper OS designs or revises one academic paper within a non-negotiable evidence boundary. It aligns scientific, reader, section, and visual skeletons when structure is at issue, makes established value visible without hiding necessary qualifications, preserves logical and navigational relations, and verifies affected artifacts. It retains repository authority, scoped writeback, and matched-venue calibration without adding workflow paperwork or rewriting shared Git history.",
+    "longDescription": "YXJ Paper OS helps position research, construct whole-paper architecture, develop a manuscript, and reread, revise and prepare the requested deliverable. It retains four explicit manuscript prohibitions, uses host-provided yxj-practice when invoked proactively, and selects quantitative analysis for the task while preserving adopted project requirements.",
     "developerName": "YXJ Paper OS maintainers",
     "category": "Productivity",
     "capabilities": [
-      "Explicit assess, design, revise, and audit intent",
-      "New-paper creation baseline or existing-paper delta re-entry",
-      "Conditional scientific, reader, section, and visual skeleton alignment",
-      "Earliest reader-path divergence and recurrence repair",
-      "Matched-venue functional writing calibration from verified exemplars",
-      "Positive writing with minimal sufficient defense and a scientific evidence ceiling",
-      "Context-sensitive Chinese-English authorial expression with approved voice preservation",
-      "Repository authority and stable author directions",
-      "Relation-aware displays and bundle verification from editable sources",
-      "Direct writeback with cross-surface impact closure",
-      "Current-source and canonical artifact verification"
+      "Scientific positioning and supported contribution choices",
+      "Whole-paper architecture, section hierarchy and cross-section synthesis",
+      "Manuscript drafting, substantive revision and submission preparation",
+      "Four explicit manuscript prohibitions with scientific conditions preserved",
+      "Intent-aware proactive use with host-provided yxj-practice",
+      "Task-selected language statistics and venue comparison",
+      "Figure and evidence roles with reusable writing examples"
     ],
     "defaultPrompt": [
-      "Design a reader-first paper argument from the current scientific evidence.",
-      "Revise this paper, close affected surfaces, and verify the canonical artifact.",
-      "Calibrate this paper against matched-venue exemplars without changing its science."
+      "Help me design the whole-paper structure around this research question and evidence.",
+      "Revise this manuscript to develop its main argument and prepare the requested deliverable.",
+      "Analyze this paper with the language statistics and reference scope specified by the project."
     ]
   }
 }

@@ -1,91 +1,133 @@
-# Claim-Bearing Displays
+# Displays in the Paper's Argument
 
-Read this when designing or revising a nontrivial figure or table.
+Read this when deciding the role, content, prominence or placement of figures and
+other displays, or integrating them into a manuscript. Paper OS owns these editorial
+and scientific decisions. [thesis-figure-skill](../../thesis-figure-skill/SKILL.md)
+owns figure representation, composition, aesthetics, editable production and rendered
+verification. Use the settled content and evidence in the current task; return to the
+argument when production exposes a material problem in them.
 
-Treat each display as a reader surface with a scientific, explanatory, or navigational
-job, not decoration. Before choosing geometry, settle its question, takeaway, evidence
-locators, allowed claim, and the relations among its parts. Distinguish:
+Connect the display to the [whole-paper organization](question-material-structure.md#whole-paper-architecture)
+as the account takes shape; use this reference to design, integrate and read it with
+the actual manuscript. Place its intended judgment, content and location in the existing
+design, then read the figure, table or equation with its caption and neighboring text.
 
-- taxonomy or comparison from a sequence of operations;
-- formal implication from reading navigation, including lookup of the evidence or
-  conditions needed for a conclusion;
-- jointly necessary premises (AND) from alternative sufficient routes;
-- optional, composable modules from exclusive choices; and
-- genuine feedback from an arrow used only to connect nearby boxes.
+The [article cases](explanation-evidence-display.md#e5-让正文教读者怎样从图中作出判断)
+show how a passage establishes a comparison, directs attention within the figure and
+uses what it reveals. Consult them when the display's explanatory role is unclear.
+For whole-paper display order, prominence and reading milestones, consult the
+[published figure-sequence cases](display-article-cases.md). They show conditional
+choices such as object-before-domain, capability-before-method, and a method promise
+answered by distinct evidence; they do not prescribe a fixed figure sequence.
 
-Preserve real conjunctions, direction, and conditions. Do not infer a universal workflow
-from section order, or turn every branch into a mandatory step or an exclusive choice.
-Encode the intended relation in arrows, grouping, labels, and captions consistently.
+## Decide what the display contributes
 
-Choose a quantitative display by the reader's actual question. C15 and W8 from the
-[four-book methods](writing-books.md) distinguish exact-value lookup (a table), discrete
-comparison (often aligned bars or dots), an ordered continuous trend (often a line),
-distribution (with explicit binning), composition, and relationships between quantities.
-These are conditional choices, not a ban on other forms. A connected line may imply
-interpolation; an area or bubble encodes size differently from a position. Use the
-encoding that preserves the required comparison and can be read at final size.
+Give each display a scientific, explanatory or navigational job that merits space in
+this article. Settle what readers should understand or judge, which evidence supports
+it, and how it advances a principal answer. An existing figure, available dataset or
+separate technical task is not sufficient reason to retain it. A schematic can clarify
+an object or relation without supplying new empirical evidence.
 
-For a table, order rows/columns around the comparison, put units and uncertainty meaning
-where they apply, and add a difference or ratio only when quantities are actually
-comparable and the calculation is supported. For a plot, distinguish model curves,
-samples, bounds and schematic lines; show the range, reference value and aggregation
-needed to interpret the claim. Cropped axes, dual axes, stacked bands, pie angles and
-area scaling can distort a difference or association. Nonzero axes can be appropriate
-for a localized scientific comparison when clearly labelled; do not impose a universal
-zero-axis rule or use range selection to hide material contrary evidence.
+Define the substantive relations before handing them to figure production: comparison,
+explanation, inference, computation, shared premises, alternatives or reading navigation.
+When one part supplies another, identify the result, quantity or evidence supplied and
+how it is used. An explanation of a consequence need not be an input to its calculation.
+Preserve actual conjunctions, direction and conditions; section order does not establish
+scientific dependence.
 
-A caption should identify what is shown and compared, define unfamiliar notation and
-uncertainty, retain interpretation-changing conditions, and connect the visible result
-to the passage's question. Do not simply restate every number or call a display
-“effective.” Use a descriptive or claim-bearing title according to the display's job
-and applicable venue conventions; the books' teaching preferences are not submission
-rules. Explain a complicated graphic in the body when a caption alone cannot carry the
-inference. A source lookup or illustration still needs the production gates below when
-actual figure editing is requested.
+Choose the variation, uncertainty and comparison conditions that readers need to see
+to judge the claim.
 
-For global design or a bundle-level problem, recover the combined story from section
-headings, figures, tables, captions, and key equations. Compare it with the scientific
-and reader skeletons: are an essential mechanism or dependency missing, a relation
-distorted, or several panels repeating the same job? Individually correct figures do
-not prove that the bundle works. Assign distinct roles without requiring one figure per
-section, a fixed figure count, or a mandatory overview diagram.
+Use the paper's scientific idea and the reader's needed judgment to choose what must
+become visible. [Conceptual framing](conceptual-framing.md) can change the object,
+comparison and representation that deserve the principal display. Separate the
+quantities when one label hides opposing verdicts; keep the comparison object fixed
+when a condition changes the outcome. Subtract a shared background or transform
+coordinates when this exposes the relation, with the original magnitude and operation
+recoverable. A paired control, parameter slice, member profile or residual can make the
+decisive difference inspectable. The right view follows from the judgment, rather than
+from a preference for a dramatic chart.
 
-Keep a temporary map only as detailed as needed: identifier and manuscript locator;
-reader job and evidence; panel roles and exact versus schematic encodings; editable
-source and derived outputs; final width and legibility floor; and affected labels,
-caption, body text, translations, and exports. Persist only qualifying unresolved
-constraints in the canonical brief. For `design`, stop at the requested design; this
-reference does not authorize drawing, editing manuscript artifacts, or rendering.
+## Give the display its place and weight
 
-Resolve the active figure bundle from repository authority; a similar filename is not
-enough. When an editable TikZ, Python, R, or other generator exists, edit and regenerate
-that source rather than patching a derived PDF, PNG, or SVG. Use the smallest matching
-repository-native backend. An AI-generated or raster draft may guide composition, but
-it is neither project evidence nor final claim-bearing scientific artwork unless the
-author explicitly authorizes that use and it passes the same evidence checks.
+For a whole-paper revision, recover the combined account from headings, principal
+displays, captions and key equations. Check whether an essential relation is missing,
+a supporting case dominates, or several displays repeat one job. Allocate prominence
+by the reader's task and the contribution, rather than the number of available plots.
+Individual correctness does not establish that the collection explains the paper.
 
-Render standalone panels and any production parent or composite at the intended
-manuscript size. Apply two independent gates:
+Different views of the same data can earn their place by supporting different judgments:
+an original coordinate preserves magnitude, a transformation tests a proposed relation,
+and a residual reveals its remaining structure. Establish what each view adds and keep
+the correspondence recoverable. Conversely, another dataset or model does not merit a
+new main figure when it repeats the same judgment without changing the answer.
+For example, [Newbolt's coordinate sequence](display-article-cases.md#p7-最后的改变应使用前面已经解释的机制)
+separates common translation, spatial order and local waves; these are transformations
+of one observation, not independent confirmations. [MacLeod's comparison](display-article-cases.md#p3-设计方法需要贯通方案搜索收益与选择后果)
+separates information available to the search from the underlying values used to evaluate
+it. Explanatory visibility and evidence independence are different properties.
 
-- **Scientific gate:** trace every quantitative or logical element to current data,
-  equations, proofs, or scripts; check units, statistics, legends, exact-versus-schematic
-  status, logical and navigational relations, and adverse, null, or limiting evidence.
-- **Visual gate:** inspect actual renders for overlap, crop, geometry, text and line
-  legibility, panel and caption mapping, legend coverage, and redundant color-plus-style
-  encoding where color alone would be fragile.
+Plan what readers can now understand or decide at each principal display. A representative
+instance may prepare a later distribution; a parameter domain may lead to a constrained
+design path and its consequences; an early capability may motivate later method and
+ablation evidence. Choose the order from the actual argument and audience preparation.
+Parallel mechanisms or independent validations need not become a serial workflow.
 
-Neither gate substitutes for the other. If the user requests semantic work only or
-defers rendering, report that scoped work and the unverified visual gate separately;
-do not claim overall display completion. After both pass, integrate the display by
-updating affected labels, subreferences, caption, body text, float layout, translations,
-and related tables; then rebuild the current-source manuscript and inspect the affected
-page plus neighboring pages. Compile success, a caption-only edit, or a new candidate PDF
-is not display acceptance.
+An application display should make the use of the preceding contribution visible.
+Identify which theorem, bound, representation or computed quantity enters the design
+objective, feasibility condition or evaluation, and show the consequence on a common
+comparison. Give the task, algorithm actions and response states their own appropriate
+forms and connect their actual interfaces. A solver name or a fixed case size does not
+state the application capability. See [theory entering a task](explanation-evidence-display.md#e4-在循环旁说明成本在结果中展示代价)
+and the figure skill's [object-to-representation method](../../thesis-figure-skill/references/object-to-representation.md).
 
-For a page-budget task, inspect overflow pages, float placement, and whitespace before
-cutting load-bearing explanation. Within the active layout constraints, compare modest
-display scaling and other layout changes with text compression; do not blindly shrink
-displays. Verify the chosen layout with the same rendered checks, and stop adjusting
-once the requested budget and legibility are met. Distinguish estimated typeset-height
-savings from actual whole-PDF page changes; pagination is not additive. Prefer deletion,
-combination, or simplification when a display or panel has no distinct reader job.
+An overview earns space when it makes the common object, principal parts and their
+relationships easier to grasp. Place it where readers have enough preparation to use
+it and where orientation helps the development that follows. Its content should explain
+how the paper's answers fit together; it need not reproduce the section list or every
+implementation step. Use the form and location appropriate to the article, without a
+mandatory overview, fixed figure count or one-figure-per-section rule.
+
+Introduce a display through the comparison or relation it resolves. The surrounding
+text should explain what warrants the conclusion drawn from it. A caption identifies
+the object and comparison, explains necessary notation and uncertainty, retains
+interpretation-changing conditions, and connects the visible result to that task.
+Explain a difficult inference in the body when a caption cannot carry it. Descriptive
+and claim-bearing titles have different uses; choose by function and venue practice.
+
+Treat principal displays as possible entry and return points for a reviewer. Keep the
+claim-changing object, comparison and conditions identifiable there, and make the
+supporting explanation easy to find. Caption, body and precise technical statement
+can offer different depth while retaining the same meaning. Do not duplicate the full
+argument or all data in every caption.
+
+Read the rendered page when text extraction loses equations, panel labels or caption
+connections. MacLeod's simulated algorithm comparison and physical manufacturing
+transfer show how the passage identifies the task of each display; see
+[the reading example](/home/weathour/文档/yxj-wiki/refs/analyses/source-cards/macleod2022self-driving-laboratory-pareto.md#reviewer-reading-design).
+
+For tables and equations, apply the same selection and interpretation responsibilities.
+A table should support the required comparison or exact lookup, with units and
+uncertainty clear. An equation should enter where its relationship or operation helps
+the argument. Their native manuscript implementation does not require figure production.
+
+## Coordinate production and manuscript completion
+
+Give figure production the selected scientific content, source data, intended
+relationships, manuscript role and format. Resolve a production issue that changes
+the comparison or claim in the argument as well as the figure.
+
+Integrate the figure with its caption, labels, subreferences, prose and float placement.
+Use the delivery's agreed inspection scope; when page presentation is included, inspect
+the rebuilt manuscript page for size, legibility and relationship to neighboring passages.
+
+A missing comparison or unclear scientific relation returns to content design; a visual
+encoding or composition problem returns to figure production; a disconnected caption,
+reference or explanation is repaired in the manuscript. Acceptance concerns what the
+integrated display lets the reader see and judge. Revisit the affected display and text
+together after a change.
+
+Under a page budget, protect the reasoning needed to understand and judge the answer.
+Consider removing or combining displays without distinct jobs, and coordinate layout
+changes with figure production. Check actual pagination and the final reading result;
+estimated height savings do not establish a reduction in whole-PDF pages.
